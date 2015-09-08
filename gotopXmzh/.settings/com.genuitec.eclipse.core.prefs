@@ -1,0 +1,3 @@
+eclipse.preferences.version=1
+validator.Checked=src/config/ConfigIbatisExample-pro.xml,WebRoot/common/images/icons/skins,WebRoot/common/gotop/test.js,WebRoot/common/gotop/web-common.js,WebRoot/common/skins,WebRoot/common/gotop/bk-web-common.js,WebRoot/WEB-INF/dwr.xml
+validator.Unchecked=
