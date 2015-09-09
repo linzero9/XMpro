@@ -1,5 +1,5 @@
 package com.gotop.deviceManagement.action;
 
-public class DD {
-22222
+public class MYclesssw {
+
 }
