@@ -3,7 +3,7 @@
 <sqlMap namespace="T_RANGE_USER_SqlMap" >
   <resultMap id="abatorgenerated_TRangeUserResult" class="com.gotop.dataUser.model.TRangeUser" >
     <!--Bean方式返回全表-->
-    <result column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="USER_ID" property="userId" jdbcType="DECIMAL"  />
     <result column="RESOURCE_ID" property="resourceId" jdbcType="DECIMAL" />
     <result column="EMP_ID" property="empId" jdbcType="DECIMAL" />
     <result column="RESOURCE_TYPE" property="resourceType" jdbcType="VARCHAR" />
