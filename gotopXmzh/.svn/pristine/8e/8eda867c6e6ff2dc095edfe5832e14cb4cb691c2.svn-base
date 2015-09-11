@@ -1,1 +1,0 @@
-<attach   event="onmouseover"   onevent="element.readOnly=true;"/>
