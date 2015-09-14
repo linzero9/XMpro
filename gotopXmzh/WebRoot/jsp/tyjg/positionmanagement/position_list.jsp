@@ -24,6 +24,8 @@
   	}
   </style>
   <body style="margin: 0px;">
+  
+  
   	<e:datasource name="omPosition" type="bean" path="com.gotop.vo.tyjg.OmPosition"/>
   	<queryform id="8cf82903-39b3-4dd6-9c1e-ffaff96fa1af">
 		<h:form name="form1" action="/positionmanagement/positionAction_queryPositionList.action"
