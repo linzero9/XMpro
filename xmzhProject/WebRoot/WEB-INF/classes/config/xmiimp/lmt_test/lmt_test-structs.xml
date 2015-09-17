@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+  <package extends="default" name="lmt_test" namespace="/lmt_test">
+    <action class="omEmployeeAction" method="{1}" name="omEmployeeAction_*">
+      
+      <!-- 我的员工列表 -->
+       <result name="myEmployeeList">
+        /jsp/lmt_test/myEmployeeList.jsp
+      </result>
+     
+      <!-- 新增员工 -->
+       <result name="employee">
+        /jsp/lmt_test/employee.jsp
+      </result>
+    </action> 
+  </package>
+</struts>
