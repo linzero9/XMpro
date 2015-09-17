@@ -1,9 +1,14 @@
 package com.gotop.deviceManagement.dao.imp;
 
-import com.gotop.dataUser.dao.ITRangeUserDAO;
 import com.gotop.deviceManagement.dao.IDeviceManagementDAO;
 import com.gotop.util.dataSource.SqlMapClientDao;
 
+
+/**
+ * 
+ * @author wujiajun
+ *
+ */
 public class DeviceManagementDAO extends SqlMapClientDao implements IDeviceManagementDAO {
 	
 /**
