@@ -9,6 +9,8 @@ public class DevicePo  implements  Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	//设备ID
+	private Long deviceId;
 	
 	//设备名称
 	private String deviceName;
@@ -25,11 +27,11 @@ public class DevicePo  implements  Serializable{
 	//硬盘容量
 	private String hardDisk;
 	//操作系统版本
-	private String OSversion;
-	//软件版本
+	private String osVersion;
+	//内置软件版本
 	private  String  softwareVersion;
 	//ie版本
-	private  String IEversion;
+	private  String ieVersion;
 	//用途
 	private   String useful;
 	//终端号
@@ -38,22 +40,23 @@ public class DevicePo  implements  Serializable{
 	//使用人
 	private String  user;
 	//安装的插件（多个）
-	private String[]  plugIn;
+	private String plugIn;
 	//对应的 外设
-	private String[]  Peripheral;
+	private String peripheral;
+	
 	//其他属性1
 	private  String otherOne;
-	
-	//其他属性2
-	private  String otherTwo;
-	//其他属性3
-	private  String otherThree;
 	//备注1
-	private  String RemarksOne;
-	//备注2
-	private  String RemarksTwo;
-	//备注3
-	private  String RemarksThree;
+	private  String remarksOne;
+
+	
+	public Long getDeviceId() {
+		return deviceId;
+	}
+	public void setDeviceId(Long deviceId) {
+		this.deviceId = deviceId;
+	}
+	
 	public String getDeviceName() {
 		return deviceName;
 	}
@@ -96,11 +99,11 @@ public class DevicePo  implements  Serializable{
 	public void setHardDisk(String hardDisk) {
 		this.hardDisk = hardDisk;
 	}
-	public String getOSversion() {
-		return OSversion;
+	public String getOsVersion() {
+		return osVersion;
 	}
-	public void setOSversion(String oSversion) {
-		OSversion = oSversion;
+	public void setOsVersion(String osVersion) {
+		this.osVersion = osVersion;
 	}
 	public String getSoftwareVersion() {
 		return softwareVersion;
@@ -108,11 +111,11 @@ public class DevicePo  implements  Serializable{
 	public void setSoftwareVersion(String softwareVersion) {
 		this.softwareVersion = softwareVersion;
 	}
-	public String getIEversion() {
-		return IEversion;
+	public String getIeVersion() {
+		return ieVersion;
 	}
-	public void setIEversion(String iEversion) {
-		IEversion = iEversion;
+	public void setIeVersion(String ieVersion) {
+		this.ieVersion = ieVersion;
 	}
 	public String getUseful() {
 		return useful;
@@ -132,17 +135,17 @@ public class DevicePo  implements  Serializable{
 	public void setUser(String user) {
 		this.user = user;
 	}
-	public String[] getPlugIn() {
+	public String getPlugIn() {
 		return plugIn;
 	}
-	public void setPlugIn(String[] plugIn) {
+	public void setPlugIn(String plugIn) {
 		this.plugIn = plugIn;
 	}
-	public String[] getPeripheral() {
-		return Peripheral;
+	public String getPeripheral() {
+		return peripheral;
 	}
-	public void setPeripheral(String[] peripheral) {
-		Peripheral = peripheral;
+	public void setPeripheral(String peripheral) {
+		this.peripheral = peripheral;
 	}
 	public String getOtherOne() {
 		return otherOne;
@@ -150,39 +153,12 @@ public class DevicePo  implements  Serializable{
 	public void setOtherOne(String otherOne) {
 		this.otherOne = otherOne;
 	}
-	public String getOtherTwo() {
-		return otherTwo;
-	}
-	public void setOtherTwo(String otherTwo) {
-		this.otherTwo = otherTwo;
-	}
-	public String getOtherThree() {
-		return otherThree;
-	}
-	public void setOtherThree(String otherThree) {
-		this.otherThree = otherThree;
-	}
+	
 	public String getRemarksOne() {
-		return RemarksOne;
+		return remarksOne;
 	}
 	public void setRemarksOne(String remarksOne) {
-		RemarksOne = remarksOne;
+		this.remarksOne = remarksOne;
 	}
-	public String getRemarksTwo() {
-		return RemarksTwo;
-	}
-	public void setRemarksTwo(String remarksTwo) {
-		RemarksTwo = remarksTwo;
-	}
-	public String getRemarksThree() {
-		return RemarksThree;
-	}
-	public void setRemarksThree(String remarksThree) {
-		RemarksThree = remarksThree;
-	}
-	
-	
-	
-	
 
 }
