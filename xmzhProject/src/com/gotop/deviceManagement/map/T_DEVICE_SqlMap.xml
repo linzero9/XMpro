@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="T_DEVICE_SqlMap" >
+  <resultMap id="tDeviceResult" class="com.gotop.deviceManagement.model.DevicePo" >
+    <!--Bean方式返回全表-->
+    <result column="DEVICEID" property="deviceId" jdbcType="DECIMAL" />
+    <result column="DEVICENAME" property="deviceName" jdbcType="VARCHAR" />
+    <result column="DEVICEMODEL" property="deviceModel" jdbcType="VARCHAR" />
+    <result column="IPADRESS" property="ipAdress" jdbcType="VARCHAR" />
+    <result column="PRODUCTIONMACHINENAME" property="productionMachineName" jdbcType="VARCHAR" />
+    <result column="CPUCODE" property="cpuCode" jdbcType="VARCHAR" />
+    <result column="MEMORY" property="memory" jdbcType="VARCHAR" />
+    <result column="HARDDISK" property="hardDisk" jdbcType="VARCHAR" />
+    <result column="OSVERSION" property="osVersion" jdbcType="VARCHAR" />
+    <result column="SOFTWAREVERSION" property="softwareVersion" jdbcType="VARCHAR" />
+    <result column="IEVERSION" property="ieVersion" jdbcType="VARCHAR" />
+    <result column="USEFUL" property="useful" jdbcType="VARCHAR" />
+    <result column="TERMINALNUMBER" property="terminalNumber" jdbcType="VARCHAR" />
+    <result column="USERS" property="user" jdbcType="VARCHAR" />
+    <result column="PLUGIN" property="plugIn" jdbcType="VARCHAR" />
+    <result column="PERIPHERAL" property="peripheral" jdbcType="VARCHAR" />
+    <result column="OTHERONE" property="otherOne" jdbcType="VARCHAR" />
+    <result column="REMARKSONE" property="remarksOne" jdbcType="VARCHAR" />        
+  </resultMap>
+  <resultMap id="tDevice_HashMapResult" class="java.util.HashMap" >
+    <!--HashMap方式返回全表-->
+	<result column="DEVICEID" property="deviceId" jdbcType="DECIMAL" />
+    <result column="DEVICENAME" property="deviceName" jdbcType="VARCHAR" />
+    <result column="DEVICEMODEL" property="deviceModel" jdbcType="VARCHAR" />
+    <result column="IPADRESS" property="ipAdress" jdbcType="VARCHAR" />
+    <result column="PRODUCTIONMACHINENAME" property="productionMachineName" jdbcType="VARCHAR" />
+    <result column="CPUCODE" property="cpuCode" jdbcType="VARCHAR" />
+    <result column="MEMORY" property="memory" jdbcType="VARCHAR" />
+    <result column="HARDDISK" property="hardDisk" jdbcType="VARCHAR" />
+    <result column="OSVERSION" property="osVersion" jdbcType="VARCHAR" />
+    <result column="SOFTWAREVERSION" property="softwareVersion" jdbcType="VARCHAR" />
+    <result column="IEVERSION" property="ieVersion" jdbcType="VARCHAR" />
+    <result column="USEFUL" property="useful" jdbcType="VARCHAR" />
+    <result column="TERMINALNUMBER" property="terminalNumber" jdbcType="VARCHAR" />
+    <result column="USERS" property="user" jdbcType="VARCHAR" />
+    <result column="PLUGIN" property="plugIn" jdbcType="VARCHAR" />
+    <result column="PERIPHERAL" property="peripheral" jdbcType="VARCHAR" />
+    <result column="OTHERONE" property="otherOne" jdbcType="VARCHAR" />
+    <result column="REMARKSONE" property="remarksOne" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <!-- 查询设备列表 -->
+  <select id="queryList" resultMap="tDeviceResult" parameterClass="java.util.HashMap" >
+ 	select * from t_new_deviceManagement
+ 	where 1 = 1  
+      <isNotNull prepend="and" property="deviceName" >
+        DEVICENAME like '%'|| #deviceName# ||'%'
+      </isNotNull>
+  </select>
+  
+  <!--通过主键查询一条数据-->
+   <select id="selectByPrimaryKey" resultMap="tDeviceResult" parameterClass="com.gotop.deviceManagement.model.DevicePo" >
+   select * from t_new_deviceManagement
+ 	where DEVICEID = #deviceId:DECIMAL# 
+  </select>
+
+</sqlMap>
