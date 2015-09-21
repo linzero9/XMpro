@@ -11,4 +11,8 @@ public interface IDeviceManagementDAO {
 	List deviceList(Map<String, Object> map, Page page);
 
 	DevicePo selectByPrimaryKey(Long deviceId);
+
+	void insert(DevicePo device);
+
+	int updateByPrimaryKey(DevicePo device);
 }

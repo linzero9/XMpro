@@ -7,7 +7,6 @@ import org.apache.log4j.Logger;
 
 import com.gotop.deviceManagement.dao.IDeviceManagementDAO;
 import com.gotop.deviceManagement.model.DevicePo;
-import com.gotop.group.model.TGroup;
 import com.gotop.util.dataSource.SqlMapClientDao;
 import com.primeton.utils.Page;
 
@@ -44,5 +43,18 @@ public class DeviceManagementDAO extends SqlMapClientDao implements IDeviceManag
         key.setDeviceId(deviceId);
         DevicePo record = (DevicePo) queryForObject("T_DEVICE_SqlMap.selectByPrimaryKey", key);
         return record;
+	}
+
+
+	@Override
+	public void insert(DevicePo device) {
+		getSqlMapClientTemplate().insert("T_DEVICE_SqlMap.insert", device);
+	}
+
+
+	@Override
+	public int updateByPrimaryKey(DevicePo device) {
+		 int rows = getSqlMapClientTemplate().update("T_DEVICE_SqlMap.updateByPrimaryKey", device);
+	        return rows;
 	}
 }

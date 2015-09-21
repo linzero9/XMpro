@@ -6,6 +6,8 @@ import com.gotop.crm.util.BaseAction;
 import com.gotop.dataUser.service.ITRangeUserService;
 import com.gotop.deviceManagement.model.DevicePo;
 import com.gotop.deviceManagement.service.IDeviceManagementService;
+import com.gotop.util.Struts2Utils;
+import com.gotop.vo.system.MUOUserSession;
 
 public class DeviceManagementAction  extends BaseAction {
 
@@ -54,5 +56,18 @@ public class DeviceManagementAction  extends BaseAction {
     	}
     	this.setDevice(device);
     	return "device";
+    }
+	
+	public void save() throws Exception{
+    	String info ="success";
+    	try {
+    		this.deviceManagermentService.save(device);
+    	} catch (Exception e) {
+			info="fails";
+			log.error("[保存设备信息失败！]", e);
+			throw e;
+		}finally{	
+		}
+		Struts2Utils.renderText(info);
     }
 }

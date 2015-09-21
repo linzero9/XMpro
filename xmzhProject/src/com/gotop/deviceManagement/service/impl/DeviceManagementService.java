@@ -40,5 +40,15 @@ public class DeviceManagementService implements IDeviceManagementService{
 		DevicePo devicePo = deviceManagementDAO.selectByPrimaryKey(device.getDeviceId());
 		return devicePo;
 	}
+
+	@Override
+	public void save(DevicePo device) {
+		if(device.getDeviceId() == null){
+			deviceManagementDAO.insert(device);
+		}else{
+			deviceManagementDAO.updateByPrimaryKey(device);
+		}
+		
+	}
 	
 }

@@ -16,5 +16,7 @@ public interface IDeviceManagementService {
 
 	DevicePo getDeviceByDeviceId(DevicePo device);
 
+	void save(DevicePo device);
+
 
 }

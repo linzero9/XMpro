@@ -10,7 +10,7 @@
 		<title>设备列表</title>
 	</head>
 	<body topmargin="0" leftmargin="0">
-	<h:form name="query"	action="/deviceManagement/deviceManagementAction_deviceList.action" method="post">
+	<h:form name="query_form"	action="/deviceManagement/deviceManagementAction_deviceList.action" method="post">
 		<w:panel id="panel1" title="设备列表">
 			<table align="center" border="0" width="100%" class="form_table">
 				<tr>
@@ -89,6 +89,12 @@
 							<th nowrap="nowrap">
 								对应的外设
 							</th>
+							<th nowrap="nowrap">
+								其他属性
+							</th>
+							<th nowrap="nowrap">
+								备注
+							</th>
 						</tr>
 						<w:radioGroup id="group1">
                             <l:iterate property="devices" id="id1">
@@ -142,6 +148,12 @@
 								</td>
 								<td nowrap="nowrap"> 
 								     <b:write iterateId="id1" property="peripheral" />
+								</td>
+								<td nowrap="nowrap"> 
+								     <b:write iterateId="id1" property="otherOne" />
+								</td>
+								<td nowrap="nowrap"> 
+								     <b:write iterateId="id1" property="remarksOne" />
 								</td>
 							</tr>
 						</l:iterate>

@@ -9,109 +9,93 @@
 <title>新增设备</title>
 </head>
 <body topmargin="0" leftmargin="0">
-<h:form name="data_form"  id="data_form" action="/deviceManagement/deviceManagementAction_addtion"  enctype="multipart/form-data" method="post" >
+<h:form name="data_form"  id="data_form" action="/deviceManagement/deviceManagementAction_save.action"  enctype="multipart/form-data" method="post" >
 		<table align="center" border="0" width="100%" class="form_table">
 			<h:hidden id="deviceId" property="device.deviceId"  name="device.deviceId"/>
 			<tr>
 				<td class="form_label" align="right" width="15%">设备名称</td>
 				<td colspan="1" width="30%"><h:text
-						validateAttr="allowNull=false;maxLength=15" id="deviceName"
+						validateAttr="allowNull=false" id="deviceName"
 						property="device.deviceName" /></td>
 			</tr>
 			<tr>
 				<td class="form_label" align="right" width="15%">设备型号</td>
-				<td colspan="1" width="30%"><h:text
-						validateAttr="allowNull=false;maxLength=15" id="deviceModel"
+				<td colspan="1" width="30%"><h:text id="deviceModel"
 						property="device.deviceModel" /></td>
 			</tr>
 			<tr>	
 				<td class="form_label" align="right" width="15%">IP地址</td>
-				<td colspan="1" width="30%"><h:text
-						validateAttr="allowNull=false;maxLength=15" id="ipAdress"
+				<td colspan="1" width="30%"><h:text id="ipAdress"
 						property="device.ipAdress" /></td>
 			</tr>
 			<tr>	
 				<td class="form_label" align="right" width="15%">生产机器名称</td>
-				<td colspan="1" width="30%"><h:text
-						validateAttr="allowNull=false;maxLength=15" id="productionMachineName"
+				<td colspan="1" width="30%"><h:text id="productionMachineName"
 						property="device.productionMachineName" /></td>
 			</tr>
 			<tr>	
 				<td class="form_label" align="right" width="15%">CPU型号</td>
-				<td colspan="1" width="30%"><h:text
-						validateAttr="allowNull=false;maxLength=15" id="cpuCode"
+				<td colspan="1" width="30%"><h:text id="cpuCode"
 						property="device.cpuCode" /></td>						
 			</tr>
 			<tr>	
 				<td class="form_label" align="right" width="15%">内存容量</td>
-				<td colspan="1" width="30%"><h:text
-						validateAttr="allowNull=false;maxLength=15" id="memory"
+				<td colspan="1" width="30%"><h:text  id="memory"
 						property="device.memory" /></td>				
 			</tr>
 			<tr>	
 				<td class="form_label" align="right" width="15%">硬盘容量</td>
-				<td colspan="1" width="30%"><h:text
-						validateAttr="allowNull=false;maxLength=15" id="hardDisk"
+				<td colspan="1" width="30%"><h:text id="hardDisk"
 						property="device.hardDisk" /></td>
 			</tr>
 			<tr>	
 				<td class="form_label" align="right" width="15%">操作系统版本</td>
-				<td colspan="1" width="30%"><h:text
-						validateAttr="allowNull=false;maxLength=15" id="osVersion"
+				<td colspan="1" width="30%"><h:text id="osVersion"
 						property="device.osVersion" /></td>
 			</tr>
 			<tr>	
 				<td class="form_label" align="right" width="15%">内置软件版本</td>
-				<td colspan="1" width="30%"><h:text
-						validateAttr="allowNull=false;maxLength=15" id="softwareVersion"
+				<td colspan="1" width="30%"><h:text id="softwareVersion"
 						property="device.softwareVersion" /></td>
 			</tr>
 			<tr>	
 				<td class="form_label" align="right" width="15%">IE版本</td>
-				<td colspan="1" width="30%"><h:text
-						validateAttr="allowNull=false;maxLength=15" id="ieVersion"
+				<td colspan="1" width="30%"><h:text id="ieVersion"
 						property="device.ieVersion" /></td>
 			</tr>
 			<tr>	
 				<td class="form_label" align="right" width="15%">用途</td>
-				<td colspan="1" width="30%"><h:text
-						validateAttr="allowNull=false;maxLength=15" id="useful"
+				<td colspan="1" width="30%"><h:text id="useful"
 						property="device.useful" /></td>
 			</tr>
 			<tr>	
 				<td class="form_label" align="right" width="15%">终端号</td>
-				<td colspan="1" width="30%"><h:text
-						validateAttr="allowNull=false;maxLength=15" id="terminalNumber"
+				<td colspan="1" width="30%"><h:text id="terminalNumber"
 						property="device.terminalNumber" /></td>
 			</tr>
 			<tr>	
 				<td class="form_label" align="right" width="15%">使用人</td>
-				<td colspan="1" width="30%"><h:text
-						validateAttr="allowNull=false;maxLength=15" id="user"
+				<td colspan="1" width="30%"><h:text id="user"
 						property="device.user" /></td>
 			</tr>
 			<tr>	
 				<td class="form_label" align="right" width="15%">安装的插件</td>
-				<td colspan="1" width="30%"><h:text
-						validateAttr="allowNull=false;maxLength=15" id="plugIn"
+				<td colspan="1" width="30%"><h:text id="plugIn"
 						property="device.plugIn" /></td>
 			</tr>
 			<tr>	
 				<td class="form_label" align="right" width="15%">对应的外设</td>
-				<td colspan="1" width="30%"><h:text
-						validateAttr="allowNull=false;maxLength=15" id="peripheral"
+				<td colspan="1" width="30%"><h:text id="peripheral"
 						property="device.peripheral" /></td>
 			</tr>
 			<tr>	
 				<td class="form_label" align="right" width="15%">其他属性</td>
-				<td colspan="1" width="30%"><h:text
-						validateAttr="allowNull=false;maxLength=15" id="otherOne"
+				<td colspan="1" width="30%"><h:text id="otherOne"
 						property="device.otherOne" /></td>
 			</tr>
 			<tr>	
 				<td class="form_label" align="right" width="15%">备注</td>
-				<td colspan="1" width="30%"><h:text
-						validateAttr="allowNull=false;maxLength=15" id="remarksOne"
+				<td colspan="1" width="30%"><h:text id="remarksOne"
 						property="device.remarksOne" /></td>
 			</tr>
 			<tr>
@@ -142,7 +126,6 @@
 					if (data.indexOf("success") >= 0) {
 						alert("保存成功!");
 						unMaskTop();
-						window.parent.location.reload();
 						window.close();
 					} else if (data.indexOf("fails") >= 0) {
 						alert("保存失败!");

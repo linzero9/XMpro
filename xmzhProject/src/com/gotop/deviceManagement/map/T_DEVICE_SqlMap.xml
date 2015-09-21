@@ -59,4 +59,39 @@
  	where DEVICEID = #deviceId:DECIMAL# 
   </select>
 
+<!--新增一条新记录-->
+<insert id="insert" parameterClass="com.gotop.deviceManagement.model.DevicePo" >
+      <selectKey resultClass="long" keyProperty="deviceId">
+		SELECT seq_t_new_deviceManagement.NEXTVAL AS VALUE FROM DUAL
+		</selectKey>
+    insert into t_new_deviceManagement 
+    (DEVICEID, DEVICENAME, DEVICEMODEL, IPADRESS, PRODUCTIONMACHINENAME, CPUCODE, MEMORY, HARDDISK
+    , OSVERSION, SOFTWAREVERSION, IEVERSION, USEFUL, TERMINALNUMBER, USERS, PLUGIN, PERIPHERAL, OTHERONE, REMARKSONE)
+    values (#deviceId:DECIMAL:-9999#,  #deviceName:VARCHAR#,  #deviceModel:VARCHAR#,  #ipAdress:VARCHAR#,  #productionMachineName:VARCHAR#
+    ,  #cpuCode:VARCHAR# , #memory:VARCHAR# ,  #hardDisk:VARCHAR# ,  #osVersion:VARCHAR# ,  #softwareVersion:VARCHAR# ,  #ieVersion:VARCHAR# ,  #useful:VARCHAR#
+     ,  #terminalNumber:VARCHAR# ,  #user:VARCHAR# ,  #plugIn:VARCHAR# ,  #peripheral:VARCHAR# ,  #otherOne:VARCHAR# ,  #remarksOne:VARCHAR# )
+  </insert>
+  
+  <!--通过主键更新一条全部字段内容-->
+  <update id="updateByPrimaryKey" parameterClass="com.gotop.deviceManagement.model.DevicePo" >
+    update t_new_deviceManagement
+    set DEVICENAME = #deviceName:VARCHAR#,
+      DEVICEMODEL = #deviceModel:VARCHAR#,
+      IPADRESS = #ipAdress:VARCHAR#,
+      PRODUCTIONMACHINENAME = #productionMachineName:VARCHAR#,
+      CPUCODE = #cpuCode:VARCHAR#,
+      MEMORY = #memory:VARCHAR#,
+      HARDDISK = #hardDisk:VARCHAR#,
+      OSVERSION = #osVersion:VARCHAR#,
+      SOFTWAREVERSION = #softwareVersion:VARCHAR#,
+      IEVERSION = #ieVersion:VARCHAR#,
+      USEFUL = #useful:VARCHAR#,
+      TERMINALNUMBER = #terminalNumber:VARCHAR#,
+      USERS = #user:VARCHAR#,
+      PLUGIN = #plugIn:VARCHAR#,
+      PERIPHERAL = #peripheral:VARCHAR#,
+      OTHERONE = #otherOne:VARCHAR#,
+      REMARKSONE = #remarksOne:VARCHAR#   
+    where DEVICEID = #deviceId:DECIMAL#
+  </update>
 </sqlMap>
