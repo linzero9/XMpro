@@ -9,7 +9,7 @@ public class DeviceManagementAction  extends BaseAction {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	public static void main(String[] abc) {
+	public static void main(String[] shv) {
 		
 	}
 	
