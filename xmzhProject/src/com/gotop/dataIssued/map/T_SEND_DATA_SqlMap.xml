@@ -221,6 +221,16 @@
     		<![CDATA[s.TIME_LIMIT <=#endTime#]]>
     	</isNotEmpty>
     </isNotNull>
+    <isNotNull property="beginTime">
+    	<isNotEmpty  prepend="and"  property="beginTime">
+    		<![CDATA[s.CREATE_DATE >=#beginTime#]]>
+    	</isNotEmpty>
+    </isNotNull>
+    <isNotNull property="closeTime">
+    	<isNotEmpty prepend="and" property="closeTime">
+    		<![CDATA[s.CREATE_DATE <=#closeTime#]]>
+    	</isNotEmpty>
+    </isNotNull>
      order by r.isdes asc
   </select>
   

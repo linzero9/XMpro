@@ -28,6 +28,13 @@
 					<td class="form_label" align="right" width="20%">数据是否销毁：</td>
 					<td colspan="1"  width="30%"><d:select id="isDes" dictTypeId="ZHPT_DATA_ISDES" name="sendData.isDes" property="sendData.isDes" nullLabel="请选择"  style="width:150px"></d:select></td>
 				</tr>
+				<tr>
+					<td class="form_label" align="right" width="20%">下发时间：</td>
+					<td colspan="1"  width="30%">
+					<w:date format="yyyy-MM-dd"submitFormat="yyyyMMdd" id="d3" name="sendData.beginTime" property="sendData.beginTime" />
+					到<w:date format="yyyy-MM-dd"submitFormat="yyyyMMdd" id="d4" name="sendData.closeTime" property="sendData.closeTime" />
+					</td>					
+				</tr>
 				<tr class="form_bottom">
 						<td colspan="4" class="form_bottom">
 						    <b:message key="l_display_per_page"></b:message>
@@ -80,6 +87,7 @@
 		  <th nowrap="nowrap">数据使用期限</th>
 		  <th nowrap="nowrap">是否销毁</th>
 		  <th nowrap="nowrap">销毁日期</th>
+		  <th nowrap="nowrap">提交日期</th>
 		</tr>
 		<w:radioGroup id="group1">
 			<l:iterate property="sendDataList" id="issued">
@@ -117,11 +125,14 @@
 			  <td style="text-align: center;width: 10%">
 			   <nobr><b:write iterateId="issued" property="desTime" maxLength="10" formatPattern="yyyy-MM-dd"/></nobr>
 		      </td>
+		      <td style="text-align: center;width: 10%">
+			   <nobr><b:write iterateId="issued" property="createDate" maxLength="10" formatPattern="yyyy-MM-dd"/></nobr>
+		      </td>
 			</tr>
 			</l:iterate>
 		</w:radioGroup>
 		 <tr>
-		        <td colspan="8" class="command_sort_area">
+		        <td colspan="9" class="command_sort_area">
 		        	<div class="h3">
 		          <input id="detailBu" type="button" class="button" value="详情" onclick="operate();">
 	              </div>

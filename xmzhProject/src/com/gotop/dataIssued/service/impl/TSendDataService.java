@@ -228,6 +228,9 @@ public class TSendDataService implements ITSendDataService {
 		map.put("userOrg", sendData.getUserOrg());
 		map.put("startTime", sendData.getStartTime());
 		map.put("endTime", sendData.getEndTime());
+		
+		map.put("beginTime", sendData.getBeginTime());
+		map.put("closeTime", sendData.getCloseTime());
 		if(page!=null){
 			map.put("oracleStart", page.getBegin());
 			map.put("oracleEnd", page.getBegin()+page.getLength());
