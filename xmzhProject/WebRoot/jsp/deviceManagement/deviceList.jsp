@@ -45,6 +45,9 @@
 								<b:message key="l_select"></b:message>
 							</th>
 							<th nowrap="nowrap">
+								机构/部门
+							</th>
+							<th nowrap="nowrap">
 								设备名称
 							</th>
 							<th nowrap="nowrap">
@@ -95,6 +98,9 @@
 							<th nowrap="nowrap">
 								备注
 							</th>
+							<th nowrap="nowrap">
+								设备状态
+							</th>
 						</tr>
 						<w:radioGroup id="group1">
                             <l:iterate property="devices" id="id1">
@@ -103,6 +109,9 @@
 									<w:rowRadio>
 											<h:param name='deviceId' iterateId='id1' property='deviceId' />
 									</w:rowRadio>
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="orgname" />
 								</td>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1" property="deviceName" />
@@ -153,11 +162,14 @@
 								     <b:write iterateId="id1" property="otherOne" />
 								</td>
 								<td nowrap="nowrap"> 
-								     <b:write iterateId="id1" property="remarksOne" />
+								     <b:write iterateId="id1" property="remark" />
+								</td>
+								<td nowrap="nowrap">
+										<d:write  iterateId="id1"  dictTypeId="DEVICE_STATE" property="deviceState" />
 								</td>
 							</tr>
 						</l:iterate>
-						</w:radioGroup>
+					</w:radioGroup>
 							<tr>
               <td colspan="23" class="command_sort_area">
 							<div class="h3">
@@ -223,16 +235,50 @@
 		  			return;
 		  		}else{
 		  			var rows=gop.getSelectRow();
-			  		var deviceId=rows.getParam("deviceId");e
+			  		var deviceId=rows.getParam("deviceId");
 		  			var strUrl = "/deviceManagement/deviceManagementAction_toDevice.action?device.deviceId="+deviceId;
 		  			showModalCenter(strUrl, null, callBackFunc, 700, 300, '修改设备');  
 			  	}
 			}
 			
-			function callBackFunc(value){
+			function callBackFunc(){
 		        var frm = $name("query_form");
 		            frm.submit();
 		    }
+
+			//删除
+			function del(){
+				var gop = $id("group1");
+		  		var len = gop.getSelectLength();
+		  		if(len == 0){
+		  			alert("请选择一条记录");
+		  			return;
+		  		}else{
+			  	  if(confirm("确定要删除该设备吗？")){
+		  			var rows=gop.getSelectRow();
+			  		var deviceId=rows.getParam("deviceId");
+			  		$.ajax({
+					      url: "/deviceManagement/deviceManagementAction_delete.action",
+					      async: false,
+					      type: 'post',
+					      data: "device.deviceId="+deviceId,
+					      timeout: 60000,
+					      dataType:"text",
+					      success: function (data) {
+					    	  if (data.indexOf("success") >= 0) {
+					    		  alert("删除成功");
+					    		  callBackFunc();
+							} else if (data.indexOf("fails") >= 0) {
+								alert("删除失败!");
+							} else {
+								alert("操作失败!");
+							}
+									  	
+					      }
+					}); 
+			 	 }	
+			  	}
+			}
 			
 		</script>
 	</body>

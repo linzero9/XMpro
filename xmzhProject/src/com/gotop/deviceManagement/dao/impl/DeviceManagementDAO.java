@@ -57,4 +57,13 @@ public class DeviceManagementDAO extends SqlMapClientDao implements IDeviceManag
 		 int rows = getSqlMapClientTemplate().update("T_DEVICE_SqlMap.updateByPrimaryKey", device);
 	        return rows;
 	}
+
+
+	@Override
+	public int deleteByPrimaryKey(Long deviceId) {
+		DevicePo key = new DevicePo();
+        key.setDeviceId(deviceId);
+        int rows = getSqlMapClientTemplate().delete("T_DEVICE_SqlMap.deleteByPrimaryKey", key);
+        return rows;
+	}
 }

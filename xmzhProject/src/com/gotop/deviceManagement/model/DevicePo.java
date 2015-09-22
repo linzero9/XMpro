@@ -49,6 +49,13 @@ public class DevicePo  implements  Serializable{
 	//备注1
 	private  String remarksOne;
 
+	//机构部门名称
+	private  String orgname;
+	//机构部门代码
+	private  String orgcode;
+	
+	//设备状态
+	private  String deviceState;
 	
 	public Long getDeviceId() {
 		return deviceId;
@@ -160,5 +167,24 @@ public class DevicePo  implements  Serializable{
 	public void setRemarksOne(String remarksOne) {
 		this.remarksOne = remarksOne;
 	}
+	public String getOrgname() {
+		return orgname;
+	}
+	public void setOrgname(String orgname) {
+		this.orgname = orgname;
+	}
+	public String getOrgcode() {
+		return orgcode;
+	}
+	public void setOrgcode(String orgcode) {
+		this.orgcode = orgcode;
+	}
+	public String getDeviceState() {
+		return deviceState;
+	}
+	public void setDeviceState(String deviceState) {
+		this.deviceState = deviceState;
+	}
 
+	
 }

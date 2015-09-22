@@ -18,5 +18,7 @@ public interface IDeviceManagementService {
 
 	void save(DevicePo device);
 
+	void delete(DevicePo device);
+
 
 }

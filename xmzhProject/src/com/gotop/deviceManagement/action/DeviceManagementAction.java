@@ -70,4 +70,17 @@ public class DeviceManagementAction  extends BaseAction {
 		}
 		Struts2Utils.renderText(info);
     }
+	
+	public void delete() throws Exception{
+    	String info ="success";
+    	try {
+    		this.deviceManagermentService.delete(device);
+    	} catch (Exception e) {
+			info="fails";
+			log.error("[删除设备信息失败！]", e);
+			throw e;
+		}finally{	
+		}
+		Struts2Utils.renderText(info);
+    }
 }

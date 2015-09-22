@@ -20,7 +20,10 @@
     <result column="PLUGIN" property="plugIn" jdbcType="VARCHAR" />
     <result column="PERIPHERAL" property="peripheral" jdbcType="VARCHAR" />
     <result column="OTHERONE" property="otherOne" jdbcType="VARCHAR" />
-    <result column="REMARKSONE" property="remarksOne" jdbcType="VARCHAR" />        
+    <result column="REMARKSONE" property="remarksOne" jdbcType="VARCHAR" />
+    <result column="ORGNAME" property="orgname" jdbcType="VARCHAR" />
+    <result column="ORGCODE" property="orgcode" jdbcType="VARCHAR" />  
+    <result column="DEVICE_STATE" property="deviceState" jdbcType="CHAR" />         
   </resultMap>
   <resultMap id="tDevice_HashMapResult" class="java.util.HashMap" >
     <!--HashMap方式返回全表-->
@@ -42,21 +45,25 @@
     <result column="PERIPHERAL" property="peripheral" jdbcType="VARCHAR" />
     <result column="OTHERONE" property="otherOne" jdbcType="VARCHAR" />
     <result column="REMARKSONE" property="remarksOne" jdbcType="VARCHAR" />
+    <result column="ORGNAME" property="orgname" jdbcType="VARCHAR" />
+    <result column="ORGCODE" property="orgcode" jdbcType="VARCHAR" />  
+    <result column="DEVICE_STATE" property="deviceState" jdbcType="CHAR" />  
   </resultMap>
   
   <!-- 查询设备列表 -->
   <select id="queryList" resultMap="tDeviceResult" parameterClass="java.util.HashMap" >
- 	select * from t_new_deviceManagement
- 	where 1 = 1  
+ 	select a.*, b.orgname from t_new_deviceManagement a,om_organization b
+where a.orgcode = b.orgcode  
       <isNotNull prepend="and" property="deviceName" >
-        DEVICENAME like '%'|| #deviceName# ||'%'
+        a.DEVICENAME like '%'|| #deviceName# ||'%'
       </isNotNull>
   </select>
   
   <!--通过主键查询一条数据-->
    <select id="selectByPrimaryKey" resultMap="tDeviceResult" parameterClass="com.gotop.deviceManagement.model.DevicePo" >
-   select * from t_new_deviceManagement
- 	where DEVICEID = #deviceId:DECIMAL# 
+   select a.*, b.orgname from t_new_deviceManagement a,om_organization b
+where a.orgcode = b.orgcode
+ 	and a.DEVICEID = #deviceId:DECIMAL# 
   </select>
 
 <!--新增一条新记录-->
@@ -66,10 +73,12 @@
 		</selectKey>
     insert into t_new_deviceManagement 
     (DEVICEID, DEVICENAME, DEVICEMODEL, IPADRESS, PRODUCTIONMACHINENAME, CPUCODE, MEMORY, HARDDISK
-    , OSVERSION, SOFTWAREVERSION, IEVERSION, USEFUL, TERMINALNUMBER, USERS, PLUGIN, PERIPHERAL, OTHERONE, REMARKSONE)
+    , OSVERSION, SOFTWAREVERSION, IEVERSION, USEFUL, TERMINALNUMBER, USERS, PLUGIN, PERIPHERAL, OTHERONE, REMARKSONE
+    , ORGCODE, DEVICE_STATE)
     values (#deviceId:DECIMAL:-9999#,  #deviceName:VARCHAR#,  #deviceModel:VARCHAR#,  #ipAdress:VARCHAR#,  #productionMachineName:VARCHAR#
     ,  #cpuCode:VARCHAR# , #memory:VARCHAR# ,  #hardDisk:VARCHAR# ,  #osVersion:VARCHAR# ,  #softwareVersion:VARCHAR# ,  #ieVersion:VARCHAR# ,  #useful:VARCHAR#
-     ,  #terminalNumber:VARCHAR# ,  #user:VARCHAR# ,  #plugIn:VARCHAR# ,  #peripheral:VARCHAR# ,  #otherOne:VARCHAR# ,  #remarksOne:VARCHAR# )
+     ,  #terminalNumber:VARCHAR# ,  #user:VARCHAR# ,  #plugIn:VARCHAR# ,  #peripheral:VARCHAR# ,  #otherOne:VARCHAR# ,  #remarksOne:VARCHAR# 
+     ,  #orgcode:VARCHAR# ,  #deviceState:CHAR# )
   </insert>
   
   <!--通过主键更新一条全部字段内容-->
@@ -91,7 +100,16 @@
       PLUGIN = #plugIn:VARCHAR#,
       PERIPHERAL = #peripheral:VARCHAR#,
       OTHERONE = #otherOne:VARCHAR#,
-      REMARKSONE = #remarksOne:VARCHAR#   
+      REMARKSONE = #remarksOne:VARCHAR#,
+      ORGCODE = #orgcode:VARCHAR#,
+      DEVICE_STATE = #deviceState:CHAR#   
     where DEVICEID = #deviceId:DECIMAL#
   </update>
+  
+  <!--通过主键删除一条记录-->
+  <delete id="deleteByPrimaryKey" parameterClass="com.gotop.deviceManagement.model.DevicePo" >
+    delete from t_new_deviceManagement
+    where DEVICEID = #deviceId:DECIMAL#
+  </delete>
+  
 </sqlMap>

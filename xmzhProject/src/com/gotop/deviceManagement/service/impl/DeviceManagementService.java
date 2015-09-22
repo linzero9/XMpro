@@ -44,11 +44,17 @@ public class DeviceManagementService implements IDeviceManagementService{
 	@Override
 	public void save(DevicePo device) {
 		if(device.getDeviceId() == null){
+			device.setDeviceState("0"); //新增设备时默认设备状态为可用（即为0）
 			deviceManagementDAO.insert(device);
 		}else{
 			deviceManagementDAO.updateByPrimaryKey(device);
 		}
 		
+	}
+
+	@Override
+	public void delete(DevicePo device) {
+		deviceManagementDAO.deleteByPrimaryKey(device.getDeviceId());
 	}
 	
 }

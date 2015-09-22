@@ -15,4 +15,6 @@ public interface IDeviceManagementDAO {
 	void insert(DevicePo device);
 
 	int updateByPrimaryKey(DevicePo device);
+
+	int deleteByPrimaryKey(Long deviceId);
 }
