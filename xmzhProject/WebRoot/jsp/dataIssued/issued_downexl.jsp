@@ -22,6 +22,7 @@
 		  <th height="34" width="100" align="center" class="form_label">数据使用期限</th>
 		  <th height="34" width="77" align="center" class="form_label">是否销毁</th>
 		  <th height="34" width="100" align="center" class="form_label">销毁日期</th>
+		  <th height="34" width="100" align="center" class="form_label">提交日期</th>
 		</tr>
 			<l:iterate property="sendDataList" id="issued">
 			<tr class="<l:output evenOutput='EOS_table_row' />" id="issuedTr">
@@ -48,6 +49,9 @@
 			  </td>
 			  <td style="vnd.ms-excel.numberformat:@">
 			   <b:write iterateId="issued" property="desTime" maxLength="10" formatPattern="yyyy-MM-dd"/>
+		      </td>
+		       <td style="vnd.ms-excel.numberformat:@">
+			   <b:write iterateId="issued" property="createDate" maxLength="10" formatPattern="yyyy-MM-dd"/>
 		      </td>
 			</tr>
 			</l:iterate>
