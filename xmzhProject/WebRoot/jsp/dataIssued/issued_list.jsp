@@ -87,7 +87,7 @@
 		  <th nowrap="nowrap">数据使用期限</th>
 		  <th nowrap="nowrap">是否销毁</th>
 		  <th nowrap="nowrap">销毁日期</th>
-		  <th nowrap="nowrap">提交日期</th>
+		  <th nowrap="nowrap">下发日期</th>
 		</tr>
 		<w:radioGroup id="group1">
 			<l:iterate property="sendDataList" id="issued">
