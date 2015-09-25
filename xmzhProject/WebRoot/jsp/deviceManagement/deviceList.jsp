@@ -319,7 +319,7 @@
 			  	 }
 			  } */
 			  var str = $id("useful").value;
-			 // var useful = str.replace(", ","-");
+			  var useful = str.replace(", ","-");
 			  alert(222);
 			  $id("useful").value = useful;
 			  alert(useful);
