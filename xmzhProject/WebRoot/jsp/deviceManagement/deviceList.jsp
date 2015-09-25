@@ -318,11 +318,11 @@
 			  	 	$id("useful").value = "";
 			  	 }
 			  } */
-			  var str = $id("useful").value;
+			/*  var str = $id("useful").value;
 			  var useful = str.replace(", ","-");
 			  alert(222);
 			  $id("useful").value = useful;
-			  alert(useful);
+			  alert(useful);*/
 			  var frm = $name("query_form");
 	            frm.submit();
 			}
