@@ -23,7 +23,7 @@ public class DevicePo  implements  Serializable{
 	//cpu型号
 	private  String  cpuCode;
 	//内存容量
-	private  String  memory ;
+	private  String memory ;
 	//硬盘容量
 	private String hardDisk;
 	//操作系统版本
@@ -41,7 +41,7 @@ public class DevicePo  implements  Serializable{
 	private String  user;
 	//安装的插件（多个）
 	private String plugIn;
-	//对应的 外设
+	//对应的外设
 	private String peripheral;
 	
 	//其他属性1
@@ -56,6 +56,16 @@ public class DevicePo  implements  Serializable{
 	
 	//设备状态
 	private  String deviceState;
+	
+	//内存容量 最小值
+	private  String  memoryMin ;
+	//内存容量 最大值
+	private  String  memoryMax ;
+	//硬盘容量 最小值
+	private String hardDiskMin;	
+	//硬盘容量 最大值
+	private String hardDiskMax;
+	
 	
 	public Long getDeviceId() {
 		return deviceId;
@@ -184,6 +194,30 @@ public class DevicePo  implements  Serializable{
 	}
 	public void setDeviceState(String deviceState) {
 		this.deviceState = deviceState;
+	}
+	public String getMemoryMin() {
+		return memoryMin;
+	}
+	public void setMemoryMin(String memoryMin) {
+		this.memoryMin = memoryMin;
+	}
+	public String getMemoryMax() {
+		return memoryMax;
+	}
+	public void setMemoryMax(String memoryMax) {
+		this.memoryMax = memoryMax;
+	}
+	public String getHardDiskMin() {
+		return hardDiskMin;
+	}
+	public void setHardDiskMin(String hardDiskMin) {
+		this.hardDiskMin = hardDiskMin;
+	}
+	public String getHardDiskMax() {
+		return hardDiskMax;
+	}
+	public void setHardDiskMax(String hardDiskMax) {
+		this.hardDiskMax = hardDiskMax;
 	}
 
 	

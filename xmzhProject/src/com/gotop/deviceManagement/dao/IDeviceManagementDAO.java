@@ -1,5 +1,6 @@
 package com.gotop.deviceManagement.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,4 +18,6 @@ public interface IDeviceManagementDAO {
 	int updateByPrimaryKey(DevicePo device);
 
 	int deleteByPrimaryKey(Long deviceId);
+
+	List queryDict(String dicttypeid);
 }

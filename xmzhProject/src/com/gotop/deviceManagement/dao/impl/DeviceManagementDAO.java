@@ -1,5 +1,6 @@
 package com.gotop.deviceManagement.dao.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -65,5 +66,15 @@ public class DeviceManagementDAO extends SqlMapClientDao implements IDeviceManag
         key.setDeviceId(deviceId);
         int rows = getSqlMapClientTemplate().delete("T_DEVICE_SqlMap.deleteByPrimaryKey", key);
         return rows;
+	}
+
+
+	@Override
+	public List queryDict(String dicttypeid) {
+		Map<String,String> map = new HashMap<String, String>();
+		map.put("dicttypeid", dicttypeid);
+		List datas= queryForList("T_DEVICE_SqlMap.queryDict", map);
+//		HashMap<String, String> datas=new HashMap<String, String>();
+	      return datas;
 	}
 }

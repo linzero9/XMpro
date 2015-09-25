@@ -15,21 +15,22 @@
 			<tr>
 				<td class="form_label" align="right">机构/部门：</td>
 				 <td colspan="1">
-				        <h:text id="orgname" property="device.orgname"   readonly="true"  validateAttr="allowNull=false" />
+				        <h:text id="orgname" property="device.orgname"   readonly="true"  validateAttr="allowNull=false"  />
 			            <h:hidden id="orgcode" property="device.orgcode" />
 			      <a href="#" onclick="open_newyw_tree_fun1();">选择</a>
 				</td>
 			</tr>
 			<tr>
 				<td class="form_label" align="right" width="15%">设备名称：</td>
-				<td colspan="1" width="30%"><h:text
-						validateAttr="allowNull=false" id="deviceName"
-						property="device.deviceName" /></td>
+				<td colspan="1" width="30%">
+					<d:select  id="deviceName"  dictTypeId="DEVICE_NAME" property="device.deviceName" nullLabel="请选择"  ></d:select>
+				</td>
 			</tr>
 			<tr>
 				<td class="form_label" align="right" width="15%">设备型号：</td>
-				<td colspan="1" width="30%"><h:text id="deviceModel"
-						property="device.deviceModel" /></td>
+				<td colspan="1" width="30%">
+					<d:select  id="deviceModel"  dictTypeId="DEVICE_MODEL" property="device.deviceModel" nullLabel="请选择"></d:select>
+				</td>
 			</tr>
 			<tr>	
 				<td class="form_label" align="right" width="15%">IP地址：</td>
@@ -49,17 +50,18 @@
 			<tr>	
 				<td class="form_label" align="right" width="15%">内存容量：</td>
 				<td colspan="1" width="30%"><h:text  id="memory"
-						property="device.memory" /></td>				
+						property="device.memory"  size="3" />G</td>				
 			</tr>
 			<tr>	
 				<td class="form_label" align="right" width="15%">硬盘容量：</td>
 				<td colspan="1" width="30%"><h:text id="hardDisk"
-						property="device.hardDisk" /></td>
+						property="device.hardDisk"  size="3" />T</td>
 			</tr>
 			<tr>	
 				<td class="form_label" align="right" width="15%">操作系统版本：</td>
-				<td colspan="1" width="30%"><h:text id="osVersion"
-						property="device.osVersion" /></td>
+				<td colspan="1" width="30%">
+					<d:select  id="osVersion"  dictTypeId="DEVICE_OS_VERSION" property="device.osVersion" nullLabel="请选择"></d:select>
+				</td>
 			</tr>
 			<tr>	
 				<td class="form_label" align="right" width="15%">内置软件版本：</td>
@@ -68,13 +70,15 @@
 			</tr>
 			<tr>	
 				<td class="form_label" align="right" width="15%">IE版本：</td>
-				<td colspan="1" width="30%"><h:text id="ieVersion"
-						property="device.ieVersion" /></td>
+				<td colspan="1" width="30%">
+					<d:select id="ieVersion"  dictTypeId="DEVICE_IE_VERSION" property="device.ieVersion" nullLabel="请选择"></d:select>
+				</td>
 			</tr>
 			<tr>	
 				<td class="form_label" align="right" width="15%">用途：</td>
-				<td colspan="1" width="30%"><h:text id="useful"
-						property="device.useful" /></td>
+				<td colspan="1" width="30%">
+					<d:checkbox  id="useful"  dictTypeId="DEVICE_USEFUL" property="device.useful" />
+				</td>
 			</tr>
 			<tr>	
 				<td class="form_label" align="right" width="15%">终端号：</td>
@@ -88,18 +92,21 @@
 			</tr>
 			<tr>	
 				<td class="form_label" align="right" width="15%">安装的插件：</td>
-				<td colspan="1" width="30%"><h:text id="plugIn"
-						property="device.plugIn" /></td>
+				<td colspan="1" width="30%">
+					<d:checkbox  id="plugIn"  dictTypeId="DEVICE_PLUGIN" property="device.plugIn"  />
+				</td>
 			</tr>
 			<tr>	
 				<td class="form_label" align="right" width="15%">对应的外设：</td>
-				<td colspan="1" width="30%"><h:text id="peripheral"
-						property="device.peripheral" /></td>
+				<td colspan="1" width="30%">
+					<d:checkbox  id="peripheral"  dictTypeId="DEVICE_PERIPHERAL" property="device.peripheral"  />
+				</td>
 			</tr>
 			<tr>	
 				<td class="form_label" align="right" width="15%">其他属性：</td>
-				<td colspan="1" width="30%"><h:text id="otherOne"
-						property="device.otherOne" /></td>
+				<td colspan="1" width="30%">
+					<d:select id="otherOne"  dictTypeId="DEVICE_OTHERONE" property="device.otherOne" nullLabel="请选择"></d:select>
+				</td>
 			</tr>
 			<tr>	
 				<td class="form_label" align="right" width="15%">备注：</td>
@@ -110,7 +117,9 @@
 			<l:notEmpty property="device.deviceState" >
 			<tr>	
 				<td class="form_label" align="right" width="15%">设备状态：</td>
-				<td colspan="1" width="30%"><d:select dictTypeId="DEVICE_STATE" property="device.deviceState"  /></td>
+				<td colspan="1" width="30%">
+					<d:select dictTypeId="DEVICE_STATE" property="device.deviceState"  />
+				</td>
 			</tr>
 			</l:notEmpty>
 			

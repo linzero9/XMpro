@@ -1,5 +1,6 @@
 package com.gotop.deviceManagement.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.gotop.deviceManagement.dao.IDeviceManagementDAO;
@@ -19,6 +20,8 @@ public interface IDeviceManagementService {
 	void save(DevicePo device);
 
 	void delete(DevicePo device);
+
+	List queryDict(String dicttypeid);
 
 
 }

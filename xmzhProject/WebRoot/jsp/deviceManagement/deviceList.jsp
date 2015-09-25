@@ -11,11 +11,79 @@
 	</head>
 	<body topmargin="0" leftmargin="0">
 	<h:form name="query_form"	action="/deviceManagement/deviceManagementAction_deviceList.action" method="post">
+	<!-- 	<h:hidden property="device.useful" id="useful" /> -->
 		<w:panel id="panel1" title="设备列表">
 			<table align="center" border="0" width="100%" class="form_table">
 				<tr>
+					<td class="form_label" align="right" width="20%">机构/部门</td>
+					<td colspan="1"  width="30%">
+						<h:text id="orgname" property="device.orgname"   readonly="true"  />
+			            <h:hidden id="orgcode" property="device.orgcode" />
+			      		<a href="#" onclick="open_newyw_tree_fun1();">选择</a>
+					</td>
 					<td class="form_label" align="right" width="20%">设备名称：</td>
-					<td colspan="1"  width="30%"><h:text id="deviceName" property="device.deviceName" /></td>
+					<td colspan="1"  width="30%">
+						<d:select  id="deviceName"  dictTypeId="DEVICE_NAME" property="device.deviceName" nullLabel="请选择"></d:select>
+					</td>
+				</tr>
+				<tr>
+					<td class="form_label" align="right" width="20%">设备型号：</td>
+					<td colspan="1"  width="30%">
+						<d:select  id="deviceModel"  dictTypeId="DEVICE_MODEL" property="device.deviceModel" nullLabel="请选择"></d:select>
+					</td>
+					<td class="form_label" align="right" width="20%">设备状态：</td>
+					<td colspan="1"  width="30%">
+						<d:select  id="deviceState"  dictTypeId="DEVICE_STATE" property="device.deviceState" nullLabel="请选择"></d:select>
+					</td>
+				</tr>
+				<tr>
+					<td class="form_label" align="right" width="20%">内存：</td>
+					<td colspan="1"  width="30%">
+						<h:text id="memoryMin" property="device.memoryMin"  size="2"  />G
+						＜内存容量(G)＜
+						<h:text id="memoryMax" property="device.memoryMax"  size="2" />G
+					</td>
+					<td class="form_label" align="right" width="20%">硬盘：</td>
+					<td colspan="1"  width="30%">
+						<h:text id="hardDiskMin" property="device.hardDiskMin"  size="2" />T
+						＜硬盘容量(T)＜
+						<h:text id="hardDiskMax" property="device.hardDiskMax" size="2"  />T
+					</td>
+				</tr>
+				<tr>
+					<td class="form_label" align="right" width="20%">操作系统版本：</td>
+					<td colspan="1"  width="30%">
+						<d:select  id="osVersion"  dictTypeId="DEVICE_OS_VERSION" property="device.osVersion" nullLabel="请选择"></d:select>
+					</td>
+					<td class="form_label" align="right" width="20%">内置软件版本：</td>
+					<td colspan="1"  width="30%">
+						<h:text id="softwareVersion" property="device.softwareVersion"   />
+					</td>
+				</tr>
+				<tr>
+					<td class="form_label" align="right" width="20%">IE版本：</td>
+					<td colspan="1"  width="30%">
+						<d:select  id="ieVersion"  dictTypeId="DEVICE_IE_VERSION" property="device.ieVersion" nullLabel="请选择"></d:select>
+					</td>
+					<td class="form_label" align="right" width="20%">用途：</td>
+					<td colspan="1"  width="30%">
+					<d:checkbox id="useful"  dictTypeId="DEVICE_USEFUL" property="device.useful" />
+					<!-- 
+					<l:iterate property="usefuls" id="id1" indexId="index">
+							<input type="checkbox" name="useful" value='<b:write iterateId="id1" property="DICTID" />'><b:write iterateId="id1" property="DICTNAME" />&nbsp;&nbsp;
+					</l:iterate>
+					 -->
+					</td>
+				</tr>
+				<tr>
+					<td class="form_label" align="right" width="20%">安装的插件：</td>
+					<td colspan="1"  width="30%">
+						<d:checkbox  id="plugIn"  dictTypeId="DEVICE_PLUGIN" property="device.plugIn"  />
+					</td>
+					<td class="form_label" align="right" width="20%">对应的外设：</td>
+					<td colspan="1"  width="30%">
+						<d:checkbox  id="peripheral"  dictTypeId="DEVICE_PERIPHERAL" property="device.peripheral"  />
+					</td>
 				</tr>
 				<tr class="form_bottom">
 						<td colspan="4" class="form_bottom">
@@ -23,14 +91,14 @@
 					        <h:text size="2" property="page.length" value="10" validateAttr="minValue=1;maxValue=100;type=integer;isNull=true" />
 					        <input type="hidden" name="page.begin" value="0">
 					        <input type="hidden" name="page.isCount" value="true">
-							<input id="querys" type="submit" value="查 询" class="button">
+							<input id="querys" type="button" value="查 询" class="button" onclick="mysubmit()">
 							<input type="button" value="清 空" class="button" onclick="clears();">
 							</td>
 					</tr>			
 			</table>
 		</w:panel>
 	</h:form>
-	<DIV class="divList">
+	<DIV class="divList" >
 			<w:panel id="panel" width="100%" title="查询结果">
 				<viewlist id="e2c61865-3b56-470d-bd42-fff792fb9493">
 				<h:form name="page_form"
@@ -63,10 +131,10 @@
 								CPU型号
 							</th>
 							<th nowrap="nowrap">
-								内存容量
+								内存容量(G)
 							</th>
 							<th nowrap="nowrap">
-								硬盘容量
+								硬盘容量(T)
 							</th>
 							<th nowrap="nowrap">
 								操作系统版本
@@ -114,10 +182,10 @@
 									<b:write iterateId="id1" property="orgname" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="deviceName" />
+									<d:write iterateId="id1" property="deviceName"  dictTypeId="DEVICE_NAME"/>
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="deviceModel" />
+									<d:write iterateId="id1" property="deviceModel"  dictTypeId="DEVICE_MODEL" />
 								</td>
 								<td nowrap="nowrap"> 
 								     <b:write iterateId="id1" property="ipAdress" />
@@ -135,16 +203,16 @@
 									<b:write iterateId="id1" property="hardDisk" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="osVersion" />
+									<d:write iterateId="id1" property="osVersion"  dictTypeId="DEVICE_OS_VERSION"/>
 								</td>
 								<td nowrap="nowrap"> 
 								     <b:write iterateId="id1" property="softwareVersion" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="ieVersion" />
+									<d:write iterateId="id1" property="ieVersion"  dictTypeId="DEVICE_IE_VERSION"/>
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="useful" />
+									<d:write iterateId="id1" property="useful"  dictTypeId="DEVICE_USEFUL"/>
 								</td>
 								<td nowrap="nowrap"> 
 								     <b:write iterateId="id1" property="terminalNumber" />
@@ -153,13 +221,13 @@
 									<b:write iterateId="id1" property="user" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="plugIn" />
+									<d:write iterateId="id1" property="plugIn" dictTypeId="DEVICE_PLUGIN" />
 								</td>
 								<td nowrap="nowrap"> 
-								     <b:write iterateId="id1" property="peripheral" />
+								     <d:write iterateId="id1" property="peripheral"  dictTypeId="DEVICE_PERIPHERAL" />
 								</td>
 								<td nowrap="nowrap"> 
-								     <b:write iterateId="id1" property="otherOne" />
+								     <d:write iterateId="id1" property="otherOne"  dictTypeId="DEVICE_OTHERONE"/>
 								</td>
 								<td nowrap="nowrap"> 
 								     <b:write iterateId="id1" property="remark" />
@@ -216,14 +284,72 @@
 			</w:panel>		
 		</DIV>
 		<script type="text/javascript">
+	/*	var B= $id("useful").value;
+		with(document.form1)
+		{
+		for (i=0;i<A.length ;i++ )
+		{
+		  tmpB=B.split(", ");
+		  for (j=0;j<tmpB.length ;j++ )
+		  {
+		   if(tmpB[j]==A[i].value)
+		   {A[i].checked=true;break;}
+		  }
+		}
+		}*/
+		//提交
+		function mysubmit(){
+		/*	var items = document.getElementsByName("useful");
+			  {
+			     var bq = new Array();
+			  	 for(var i = 0; i < items.length; i++)
+			  	 {
+			  		if(items[i].checked)
+			  		{
+			  			bq.push(items[i].value);
+			  		}
+			  	 }
+			  	 if(bq.length > 0)
+			  	 {
+			  	 	$id("useful").value = bq.join("-");
+			  	 }
+			  	 else
+			  	 {
+			  	 	$id("useful").value = "";
+			  	 }
+			  } */
+			  var str = $id("useful").value;
+			 // var useful = str.replace(", ","-");
+			  alert(222);
+			  $id("useful").value = useful;
+			  alert(useful);
+			  var frm = $name("query_form");
+	            frm.submit();
+			}
+
+		//清空
 			function clears(){
+				$id("orgcode").value="";
+				$id("orgname").value="";
 				$id("deviceName").value="";
+				$id("deviceModel").value="";
+				$id("deviceState").value="";
+				$id("memoryMin").value="";
+				$id("memoryMax").value="";
+				$id("hardDiskMin").value="";
+				$id("hardDiskMax").value="";
+				$id("osVersion").value="";
+				$id("softwareVersion").value="";
+				$id("ieVersion").value="";
+				$id("useful").value="";
+				$id("plugIn").value="";
+				$id("peripheral").value="";
 			}
 
 			//新增
 			function add(){
 				  var url="/deviceManagement/deviceManagementAction_toDevice.action";
-				  showModalCenter(url, null,callBackFunc, 700, 300, '新增设备');
+				  showModalCenter(url, null,callBackFunc, 700, 600, '新增设备');
 			}
 
 			//修改
@@ -237,7 +363,7 @@
 		  			var rows=gop.getSelectRow();
 			  		var deviceId=rows.getParam("deviceId");
 		  			var strUrl = "/deviceManagement/deviceManagementAction_toDevice.action?device.deviceId="+deviceId;
-		  			showModalCenter(strUrl, null, callBackFunc, 700, 300, '修改设备');  
+		  			showModalCenter(strUrl, null, callBackFunc, 700, 600, '修改设备');  
 			  	}
 			}
 			
@@ -279,7 +405,42 @@
 			 	 }	
 			  	}
 			}
+
+			//选择 部门/机构
+			function open_newyw_tree_fun1(){//方法名
+			     strUrl ="/tree/initMainTree_mainTree.action?changeTree.showTabOrg=1&changeTree.checkcount=1&changeTree.orgType=4&changeTree.showSelBox=4";
+				var peArgument = [];
+		   		//机构
+		   		var paramEntity = new ParamEntity('Organization');
+		   		paramEntity.setProperty('orgcode',$id("orgcode").value);
+				paramEntity.setProperty('orgname',$id("orgname").value);
+				/* paramEntity.setProperty('orgid',$id("orgid").value);
+				peArgument[3]=[paramEntity,'orgname','orgcode','orgid'];  */
+				peArgument[3]=[paramEntity,'orgname','orgcode'];
+				
+		       //调用并传参
+		        strUrl += "&time="+new Date().getTime();
+				showModalCenter(strUrl,peArgument,openNewEmpTreeCallBack1,500,430,'选择机构');
+			}
 			
+		function openNewEmpTreeCallBack1(arg){//回调方法
+			if(arg['Organization']){ //原写法无需判断是否为空
+		 		var sorgidArra  = arg['Organization'].slice(0);//人员数组
+		 		argRes=[[],[],[],[]];
+				for(var i=0;i<sorgidArra.length;i++){
+					argRes[0].push(sorgidArra[i].getProperty("orgcode"));
+					argRes[1].push(sorgidArra[i].getProperty("orgname"));
+					//argRes[2].push(sorgidArra[i].getProperty("orgid"));
+				}
+				$id("orgcode").value = argRes[0];
+				$id("orgname").value = argRes[1];
+				//$id("orgid").value = argRes[2];
+			}else{
+				$id("orgcode").value = "";
+				$id("orgname").value = "";
+				//$id("orgid").value = "";
+			}
+		}	
 		</script>
 	</body>
 </html>

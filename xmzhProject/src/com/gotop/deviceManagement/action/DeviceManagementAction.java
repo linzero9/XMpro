@@ -1,5 +1,6 @@
 package com.gotop.deviceManagement.action;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.gotop.crm.util.BaseAction;
@@ -14,6 +15,7 @@ public class DeviceManagementAction  extends BaseAction {
 	private static final long serialVersionUID = 1L;
 	private DevicePo device;
 	private List<DevicePo> devices;
+	private List usefuls;
 	protected IDeviceManagementService deviceManagermentService;
 	public DevicePo getDevice() {
 		return device;
@@ -41,7 +43,9 @@ public class DeviceManagementAction  extends BaseAction {
 	}
 
 	public String deviceList(){
-    	
+//		String dicttypeid = "DEVICE_USEFUL";
+//		usefuls = deviceManagermentService.queryDict(dicttypeid);
+		
     	if(device == null){
     		device = new DevicePo();
     	}
@@ -83,4 +87,15 @@ public class DeviceManagementAction  extends BaseAction {
 		}
 		Struts2Utils.renderText(info);
     }
+
+	public List getUsefuls() {
+		return usefuls;
+	}
+
+	public void setUsefuls(List usefuls) {
+		this.usefuls = usefuls;
+	}
+
+	
+	
 }
