@@ -96,6 +96,7 @@
         <td colspan="4">
           <input type="button" value="提交" onclick="doSave();" class="button" id="save2" />
           <input type="button" value="查看流程" onclick="doflowpic();" class="button" id="flowpic" />
+         
          </td>
       </tr>
        <tr id="row2">
@@ -108,6 +109,8 @@
     </h:form>
   </body>
  <script type="text/javascript">
+
+
  $(function(){
 				$.ajax({//获得当前
 						url : '/file/tFileResourceTableAction_queryFileList.action',
