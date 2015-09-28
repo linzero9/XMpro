@@ -126,6 +126,25 @@ public class TSendData implements Serializable {
 	 * 数据销毁时间
 	 */
 	private String desTime;
+	
+	private String beginTime;
+	private String closeTime;
+	public String getBeginTime() {
+		return beginTime;
+	}
+
+	public void setBeginTime(String beginTime) {
+		this.beginTime = beginTime;
+	}
+
+	public String getCloseTime() {
+		return closeTime;
+	}
+
+	public void setCloseTime(String closeTime) {
+		this.closeTime = closeTime;
+	}
+
 	/**
      * 数据使用人员id
      * @return

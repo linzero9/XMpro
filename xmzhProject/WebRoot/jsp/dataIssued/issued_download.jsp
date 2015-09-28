@@ -2,6 +2,7 @@
 <%@include file="/common/common.jsp"%>
 <%@include file="/common/skins/skin0/component.jsp"%>
 <%@taglib uri="/struts-tags" prefix="s" %>
+<%@page import="java.util.Date"%>
 <%@page import="com.gotop.util.time.TimeUtil"%>
 <h:css href="/css/style1/style-custom.css" />
 <html>
@@ -90,7 +91,7 @@
      	<td class="form_label" align="right">销 毁 时 间：</td>
      	<td colspan="1">
      		<h:text readonly="true" id="desTime"/>
-     		<h:hidden readonly="true" id="hiddenTime" name="desTime"/>
+     		<h:hidden id="hiddenTime" name="desTime"/>
 	     	<font style="color: red">*</font>
      	</td>
      	<td class="form_label" align="right">销 毁 人 员：</td>
@@ -138,7 +139,6 @@
 			var result = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
 			var result2 = date.getFullYear()+(date.getMonth()+1)+date.getDate();
 			$("#atime").val(result);
-			
 			result = '<%=TimeUtil.getCntDtStr(new Date(),"yyyy-MM-dd")%>';
 			$("#desTime").val(result);
 			$("#hiddenTime").val('<%=TimeUtil.getCntDtStr(new Date(),"yyyyMMdd")%>');
