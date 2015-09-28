@@ -4,10 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.gotop.crm.util.BaseAction;
+import com.gotop.dataIssued.model.TSendData;
 import com.gotop.dataUser.service.ITRangeUserService;
 import com.gotop.deviceManagement.model.DevicePo;
 import com.gotop.deviceManagement.service.IDeviceManagementService;
 import com.gotop.util.Struts2Utils;
+import com.gotop.util.string.Obj2StrUtils;
 import com.gotop.vo.system.MUOUserSession;
 
 public class DeviceManagementAction  extends BaseAction {
@@ -54,6 +56,17 @@ public class DeviceManagementAction  extends BaseAction {
     	return "deviceList";
     }
 	
+	public String downexl(){
+		
+    	if(device == null){
+    		device = new DevicePo();
+    	}
+    	
+    	devices = deviceManagermentService.deviceList(device,null);
+    	this.setDevices(devices);
+    	return "downexl";
+    }
+	
 	public String toDevice(){
     	if(device != null){
     		device = deviceManagermentService.getDeviceByDeviceId(device);
@@ -87,6 +100,7 @@ public class DeviceManagementAction  extends BaseAction {
 		}
 		Struts2Utils.renderText(info);
     }
+	
 
 	public List getUsefuls() {
 		return usefuls;

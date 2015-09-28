@@ -33,8 +33,10 @@ public class DeviceManagementDAO extends SqlMapClientDao implements IDeviceManag
 
 	@Override
 	public List deviceList(Map<String, Object> map, Page page) {
-		List list = queryForList("T_DEVICE_SqlMap.queryList", map, page);
-	      return list;
+		if(page!=null)
+			return queryForList("T_DEVICE_SqlMap.queryList", map, page);
+		else
+			return queryForList("T_DEVICE_SqlMap.queryList", map);
 	}
 
 

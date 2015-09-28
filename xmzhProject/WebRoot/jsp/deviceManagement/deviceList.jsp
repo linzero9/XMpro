@@ -91,8 +91,9 @@
 					        <h:text size="2" property="page.length" value="10" validateAttr="minValue=1;maxValue=100;type=integer;isNull=true" />
 					        <input type="hidden" name="page.begin" value="0">
 					        <input type="hidden" name="page.isCount" value="true">
-							<input id="querys" type="button" value="查 询" class="button" onclick="mysubmit()">
+							<input id="querys" type="button" value="查 询" class="button" onclick="mysubmit();">
 							<input type="button" value="清 空" class="button" onclick="clears();">
+							<input id="downexl" type="button" class="button" value="导出列表" onclick="downExl();">
 							</td>
 					</tr>			
 			</table>
@@ -182,10 +183,10 @@
 									<b:write iterateId="id1" property="orgname" />
 								</td>
 								<td nowrap="nowrap"> 
-									<d:write iterateId="id1" property="deviceName"  dictTypeId="DEVICE_NAME"/>
+									<d:write iterateId="id1" property="deviceName"  dictTypeId="DEVICE_NAME" />
 								</td>
 								<td nowrap="nowrap"> 
-									<d:write iterateId="id1" property="deviceModel"  dictTypeId="DEVICE_MODEL" />
+									<d:write iterateId="id1" property="deviceModel"  dictTypeId="DEVICE_MODEL"  />
 								</td>
 								<td nowrap="nowrap"> 
 								     <b:write iterateId="id1" property="ipAdress" />
@@ -230,7 +231,7 @@
 								     <d:write iterateId="id1" property="otherOne"  dictTypeId="DEVICE_OTHERONE"/>
 								</td>
 								<td nowrap="nowrap"> 
-								     <b:write iterateId="id1" property="remark" />
+								     <b:write iterateId="id1" property="remarksOne" />
 								</td>
 								<td nowrap="nowrap">
 										<d:write  iterateId="id1"  dictTypeId="DEVICE_STATE" property="deviceState" />
@@ -440,6 +441,43 @@
 				$id("orgname").value = "";
 				//$id("orgid").value = "";
 			}
+		}
+
+		function downExl(){
+			var url = "/deviceManagement/deviceManagementAction_downexl.action?";
+			var orgcode = $id("orgcode").value;
+			var deviceName = $id("deviceName").value;
+			var deviceModel = $id("deviceModel").value;
+			var deviceState = $id("deviceState").value;
+			var memoryMin = $id("memoryMin").value;
+			var memoryMax = $id("memoryMax").value;
+			var hardDiskMin = $id("hardDiskMin").value;
+			var hardDiskMax = $id("hardDiskMax").value;
+			var osVersion = $id("osVersion").value;
+			var softwareVersion = $id("softwareVersion").value;
+			var ieVersion = $id("ieVersion").value;
+			var useful = $id("useful").value;
+			var plugIn = $id("plugIn").value;
+			var peripheral = $id("peripheral").value;
+			
+			if(useful == null){
+				useful="";
+				}
+			if(plugIn == null){
+				plugIn="";
+				}
+			if(peripheral == null){
+				peripheral="";
+				}
+			url = url+"device.orgcode="+orgcode+"&device.deviceName="+deviceName
+			+"&device.deviceModel="+deviceModel+"&device.deviceState="+deviceState
+			+"&device.memoryMin="+memoryMin+"&device.memoryMax="+memoryMax
+			+"&device.hardDiskMin="+hardDiskMin+"&device.hardDiskMax="+hardDiskMax
+			+"&device.osVersion="+osVersion+"&device.softwareVersion="+softwareVersion
+			+"&device.ieVersion="+ieVersion+"&device.useful="+useful
+			+"&device.plugIn="+plugIn+"&device.peripheral="+peripheral;
+			window.location.href=url;
+		  	
 		}	
 		</script>
 	</body>

@@ -10,6 +10,10 @@
       <result name="device" >
         /jsp/deviceManagement/device.jsp
       </result>
+      
+       <result name="downexl" >
+        /jsp/deviceManagement/deviceList_downexl.jsp
+      </result>
     </action>
   </package>
 </struts>
