@@ -48,9 +48,15 @@ public class DeviceManagementAction  extends BaseAction {
 //		String dicttypeid = "DEVICE_USEFUL";
 //		usefuls = deviceManagermentService.queryDict(dicttypeid);
 		String useful =null;
-		if(device != null){
-    		useful =device.getUseful().replaceAll(", ","-");
-        	System.out.println(useful);
+		if(device!= null){
+			
+			
+	   //增加为空的处理
+    	useful =device.getUseful()==null?"":device.getUseful();
+    	useful=	useful.replaceAll(", ","-");
+    			
+    			
+        	System.out.println("22222222"+useful);
     	}
     	if(device == null){
     		device = new DevicePo();
