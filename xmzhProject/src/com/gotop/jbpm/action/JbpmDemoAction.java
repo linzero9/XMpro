@@ -1600,7 +1600,11 @@ public class JbpmDemoAction extends BaseAction {
 		} else if ("04".equals(taskConfigType)) {
 			// 起草人所属机构领导
 			tProcessTaskExeConfig.setTaskAssId("3");
-		} else if ("05".equals(taskConfigType)) {
+		} 
+		else if ("12".equals(taskConfigType)) {
+			// 起草部门上一级机构负责人
+			tProcessTaskExeConfig.setTaskAssId("3");
+		}else if ("05".equals(taskConfigType)) {
 			// 起草人
 		}
 		else if ("09".equals(taskConfigType)) {

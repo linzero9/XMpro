@@ -93,6 +93,11 @@ function custInit(){
 		//起草人所属机构领导
 			$("#selectFun").hide();
 			$id("objName").disabled="disabled";
+		}
+		else if("12" == value){
+		//起草部门上一级机构负责人
+				$("#selectFun").hide();
+				$id("objName").disabled="disabled";
 		}else if("05" == value){
 		//起草人
 			$("#selectFun").hide();
@@ -135,7 +140,12 @@ function changeTaskConfigType(value){
 	//起草人所属机构领导
 		$("#selectFun").hide();
 		$id("objName").disabled="disabled";
-	}else if("05" == value){
+	}else if("12" == value){
+	//起草部门上一级机构负责人
+		$("#selectFun").hide();
+		$id("objName").disabled="disabled";
+	}
+	else if("05" == value){
 	//起草人
 		$("#selectFun").hide();
 		$id("objName").disabled="disabled";
