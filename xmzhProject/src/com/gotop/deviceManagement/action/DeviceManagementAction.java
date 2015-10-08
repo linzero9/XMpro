@@ -56,7 +56,7 @@ public class DeviceManagementAction  extends BaseAction {
     	useful=	useful.replaceAll(", ","-");
     			
     			
-        	System.out.println("22222222"+useful);
+        
     	}
     	if(device == null){
     		device = new DevicePo();
