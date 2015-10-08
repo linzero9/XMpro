@@ -3,7 +3,7 @@
 <%@ taglib uri="http://eos.primeton.com/tags/bean" prefix="b"%>
 <%@ taglib uri="http://eos.primeton.com/tags/dict" prefix="d"%>
 <%@ taglib uri="http://eos.primeton.com/tags/html" prefix="h"%>
-<%@page import="com.gotop.util.time.TimeUtil"%>
+<%@page import="com.gotop.util.time.TimeUtil" %>
 <%
 	response.setContentType("application/x-msdownload;charset=UTF-8");
 	//设置Excel的名称;	
@@ -31,6 +31,7 @@
 		  <th height="34" width="100" align="center" class="form_label">安装的插件</th>
 		  <th height="34" width="100" align="center" class="form_label">对应的外设</th>
 		  <th height="34" width="100" align="center" class="form_label">其他属性</th>
+		  <th height="34" width="100" align="center" class="form_label">其他信息</th>
 		  <th height="34" width="100" align="center" class="form_label">备注</th>
 		  <th height="34" width="100" align="center" class="form_label">设备状态</th>
 		</tr>
@@ -86,6 +87,9 @@
 		      </td>
 		      <td style="vnd.ms-excel.numberformat:@">
 			   <d:write iterateId="id1" property="otherOne"  dictTypeId="DEVICE_OTHERONE"/>
+		      </td>
+		      <td style="vnd.ms-excel.numberformat:@">
+			   <d:write iterateId="id1" property="otherInfoOne"  dictTypeId="DEVICE_OTHERINFOONE"/>
 		      </td>
 		      <td style="vnd.ms-excel.numberformat:@">
 			   <b:write iterateId="id1" property="remarksOne" />

@@ -20,6 +20,7 @@
     <result column="PLUGIN" property="plugIn" jdbcType="VARCHAR" />
     <result column="PERIPHERAL" property="peripheral" jdbcType="VARCHAR" />
     <result column="OTHERONE" property="otherOne" jdbcType="VARCHAR" />
+    <result column="OTHERINFOONE" property="otherInfoOne" jdbcType="VARCHAR" />
     <result column="REMARKSONE" property="remarksOne" jdbcType="VARCHAR" />
     <result column="ORGNAME" property="orgname" jdbcType="VARCHAR" />
     <result column="ORGCODE" property="orgcode" jdbcType="VARCHAR" />  
@@ -44,6 +45,7 @@
     <result column="PLUGIN" property="plugIn" jdbcType="VARCHAR" />
     <result column="PERIPHERAL" property="peripheral" jdbcType="VARCHAR" />
     <result column="OTHERONE" property="otherOne" jdbcType="VARCHAR" />
+    <result column="OTHERINFOONE" property="otherInfoOne" jdbcType="VARCHAR" />
     <result column="REMARKSONE" property="remarksOne" jdbcType="VARCHAR" />
     <result column="ORGNAME" property="orgname" jdbcType="VARCHAR" />
     <result column="ORGCODE" property="orgcode" jdbcType="VARCHAR" />  
@@ -72,21 +74,21 @@ select T2.*, WM_CONCAT(distinct d.DICTNAME) as PERIPHERAL_2
                   GROUP BY a.DEVICEID, a.DEVICENAME, a.DEVICEMODEL, a.IPADRESS, a.PRODUCTIONMACHINENAME,
                             a.CPUCODE, a.MEMORY, a.HARDDISK, a.OSVERSION, a.SOFTWAREVERSION,
                             a.IEVERSION, a.USEFUL, a.TERMINALNUMBER, a.PLUGIN, a.PERIPHERAL,
-                            a.OTHERONE, a.REMARKSONE, a.USERS, a.ORGCODE,a.DEVICE_STATE
+                            a.OTHERONE,  a.OTHERINFOONE, a.REMARKSONE, a.USERS, a.ORGCODE,a.DEVICE_STATE
                 ) T1, EOS_DICT_ENTRY c
          where c.DICTTYPEID = 'DEVICE_PLUGIN'
            and T1.PLUGIN LIKE '%' || c.DICTID || '%'
          GROUP BY T1.DEVICEID, T1.DEVICENAME, T1.DEVICEMODEL, T1.IPADRESS, T1.PRODUCTIONMACHINENAME,
                    T1.CPUCODE, T1.MEMORY, T1.HARDDISK, T1.OSVERSION, T1.SOFTWAREVERSION,
                    T1.IEVERSION, T1.USEFUL, T1.TERMINALNUMBER, T1.PLUGIN, T1.PERIPHERAL,
-                   T1.OTHERONE, T1.REMARKSONE, T1.USERS, T1.ORGCODE, T1.DEVICE_STATE, T1.USEFUL_2       
+                   T1.OTHERONE, T1.OTHERINFOONE, T1.REMARKSONE, T1.USERS, T1.ORGCODE, T1.DEVICE_STATE, T1.USEFUL_2       
         ) T2, EOS_DICT_ENTRY d
  where d.DICTTYPEID = 'DEVICE_PERIPHERAL'
    and T2.PERIPHERAL LIKE '%' || d.DICTID || '%'
  GROUP BY T2.DEVICEID, T2.DEVICENAME, T2.DEVICEMODEL, T2.IPADRESS, T2.PRODUCTIONMACHINENAME,
           T2.CPUCODE, T2.MEMORY, T2.HARDDISK, T2.OSVERSION, T2.SOFTWAREVERSION,
           T2.IEVERSION, T2.USEFUL, T2.TERMINALNUMBER, T2.PLUGIN, T2.PERIPHERAL,
-          T2.OTHERONE, T2.REMARKSONE, T2.USERS, T2.ORGCODE, T2.DEVICE_STATE,
+          T2.OTHERONE, T2.OTHERINFOONE, T2.REMARKSONE, T2.USERS, T2.ORGCODE, T2.DEVICE_STATE,
           T2.USEFUL_2, T2.PLUGIN_2
 )T3 , om_organization o
 where T3.orgcode = o.orgcode
@@ -149,11 +151,11 @@ where a.orgcode = b.orgcode
 		</selectKey>
     insert into t_new_deviceManagement 
     (DEVICEID, DEVICENAME, DEVICEMODEL, IPADRESS, PRODUCTIONMACHINENAME, CPUCODE, MEMORY, HARDDISK
-    , OSVERSION, SOFTWAREVERSION, IEVERSION, USEFUL, TERMINALNUMBER, USERS, PLUGIN, PERIPHERAL, OTHERONE, REMARKSONE
+    , OSVERSION, SOFTWAREVERSION, IEVERSION, USEFUL, TERMINALNUMBER, USERS, PLUGIN, PERIPHERAL, OTHERONE, OTHERINFOONE, REMARKSONE
     , ORGCODE, DEVICE_STATE)
     values (#deviceId:DECIMAL:-9999#,  #deviceName:VARCHAR#,  #deviceModel:VARCHAR#,  #ipAdress:VARCHAR#,  #productionMachineName:VARCHAR#
     ,  #cpuCode:VARCHAR# , #memory:VARCHAR# ,  #hardDisk:VARCHAR# ,  #osVersion:VARCHAR# ,  #softwareVersion:VARCHAR# ,  #ieVersion:VARCHAR# ,  #useful:VARCHAR#
-     ,  #terminalNumber:VARCHAR# ,  #user:VARCHAR# ,  #plugIn:VARCHAR# ,  #peripheral:VARCHAR# ,  #otherOne:VARCHAR# ,  #remarksOne:VARCHAR# 
+     ,  #terminalNumber:VARCHAR# ,  #user:VARCHAR# ,  #plugIn:VARCHAR# ,  #peripheral:VARCHAR# ,  #otherOne:VARCHAR# , #otherInfoOne:VARCHAR# ,  #remarksOne:VARCHAR# 
      ,  #orgcode:VARCHAR# ,  #deviceState:CHAR# )
   </insert>
   
@@ -176,6 +178,7 @@ where a.orgcode = b.orgcode
       PLUGIN = #plugIn:VARCHAR#,
       PERIPHERAL = #peripheral:VARCHAR#,
       OTHERONE = #otherOne:VARCHAR#,
+      OTHERINFOONE = #otherInfoOne:VARCHAR#,
       REMARKSONE = #remarksOne:VARCHAR#,
       ORGCODE = #orgcode:VARCHAR#,
       DEVICE_STATE = #deviceState:CHAR#   

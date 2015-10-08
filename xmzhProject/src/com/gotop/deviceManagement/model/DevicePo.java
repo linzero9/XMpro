@@ -46,6 +46,8 @@ public class DevicePo  implements  Serializable{
 	
 	//其他属性1
 	private  String otherOne;
+	//其他属性1
+	private  String otherInfoOne;
 	//备注1
 	private  String remarksOne;
 
@@ -169,6 +171,13 @@ public class DevicePo  implements  Serializable{
 	}
 	public void setOtherOne(String otherOne) {
 		this.otherOne = otherOne;
+	}
+	
+	public String getOtherInfoOne() {
+		return otherInfoOne;
+	}
+	public void setOtherInfoOne(String otherInfoOne) {
+		this.otherInfoOne = otherInfoOne;
 	}
 	
 	public String getRemarksOne() {
