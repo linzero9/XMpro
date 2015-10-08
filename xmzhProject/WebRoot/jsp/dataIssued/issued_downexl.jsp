@@ -3,7 +3,7 @@
 <%@ taglib uri="http://eos.primeton.com/tags/bean" prefix="b"%>
 <%@ taglib uri="http://eos.primeton.com/tags/dict" prefix="d"%>
 <%@ taglib uri="http://eos.primeton.com/tags/html" prefix="h"%>
-<%@page import="com.gotop.util.time.TimeUtil"%>
+<%@page import="com.gotop.util.time.TimeUtil" %>
 <%
 	response.setContentType("application/x-msdownload;charset=UTF-8");
 	//设置Excel的名称;	

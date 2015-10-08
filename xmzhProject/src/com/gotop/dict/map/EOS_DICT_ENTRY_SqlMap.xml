@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="EOS_DICT_ENTRY_SqlMap" >
+	<resultMap id="eosDictTypeResult" class="com.gotop.dict.model.EosDictType" >
+    <result column="DICTTYPEID" property="dictTypeId" jdbcType="VARCHAR" />
+    <result column="DICTTYPENAME" property="dictTypeName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="eosDictEntryResult" class="com.gotop.dict.model.EosDictEntry" >
+    <result column="DICTTYPEID" property="dictTypeId" jdbcType="VARCHAR" />
+    <result column="DICTID" property="dictId" jdbcType="VARCHAR" />
+    <result column="DICTNAME" property="dictName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+   <select id="dictTypeList" resultMap="eosDictTypeResult" parameterClass="java.util.HashMap" >
+   	select t.DICTTYPEID, t.DICTTYPENAME from EOS_DICT_TYPE t
+   	where t.DICTTYPEID like '%DEVICE_%'
+   	 <isNotNull prepend="and" property="dictTypeName" >
+        t.DICTTYPENAME like '%'|| #dictTypeName# ||'%' 
+      </isNotNull>
+    </select>
+
+</sqlMap>

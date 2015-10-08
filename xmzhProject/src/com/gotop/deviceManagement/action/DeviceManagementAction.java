@@ -47,11 +47,17 @@ public class DeviceManagementAction  extends BaseAction {
 	public String deviceList(){
 //		String dicttypeid = "DEVICE_USEFUL";
 //		usefuls = deviceManagermentService.queryDict(dicttypeid);
-		
+		String useful =null;
+		if(device != null){
+    		useful =device.getUseful().replaceAll(", ","-");
+        	System.out.println(useful);
+    	}
     	if(device == null){
     		device = new DevicePo();
     	}
+    	
     	devices = deviceManagermentService.deviceList(device,this.getPage());
+    	device.setUseful(useful);
     	this.setDevices(devices);
     	return "deviceList";
     }

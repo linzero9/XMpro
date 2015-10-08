@@ -109,6 +109,12 @@
 				</td>
 			</tr>
 			<tr>	
+				<td class="form_label" align="right" width="15%">其他信息：</td>
+				<td colspan="1" width="30%">
+					<d:checkbox  id="otherInfoOne"  dictTypeId="DEVICE_OTHERINFOONE" property="device.otherInfoOne"  />
+				</td>
+			</tr>
+			<tr>	
 				<td class="form_label" align="right" width="15%">备注：</td>
 				<td colspan="1" width="30%"><h:textarea property="device.remarksOne"
 						id="remarksOne" extAttr="class='h80' "  rows="4" style="width:90%;" /> </td>

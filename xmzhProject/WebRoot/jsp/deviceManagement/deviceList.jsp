@@ -99,7 +99,7 @@
 			</table>
 		</w:panel>
 	</h:form>
-	<DIV class="divList" >
+	<DIV class="divList"  style="overflow:auto;width:100%; height: 320;">
 			<w:panel id="panel" width="100%" title="查询结果">
 				<viewlist id="e2c61865-3b56-470d-bd42-fff792fb9493">
 				<h:form name="page_form"
@@ -163,6 +163,9 @@
 							</th>
 							<th nowrap="nowrap">
 								其他属性
+							</th>
+							<th nowrap="nowrap">
+								其他信息
 							</th>
 							<th nowrap="nowrap">
 								备注
@@ -229,6 +232,9 @@
 								</td>
 								<td nowrap="nowrap"> 
 								     <d:write iterateId="id1" property="otherOne"  dictTypeId="DEVICE_OTHERONE"/>
+								</td>
+								<td nowrap="nowrap"> 
+								     <d:write iterateId="id1" property="otherInfoOne"  dictTypeId="DEVICE_OTHERINFOONE"/>
 								</td>
 								<td nowrap="nowrap"> 
 								     <b:write iterateId="id1" property="remarksOne" />
@@ -319,11 +325,12 @@
 			  	 	$id("useful").value = "";
 			  	 }
 			  } */
-			/*  var str = $id("useful").value;
-			  var useful = str.replace(", ","-");
-			  alert(222);
-			  $id("useful").value = useful;
+			
+			  /*var a =  $("useful").val();
+			  alert(a);
+			  var useful = $("useful").val().replaceAll(", ","-");
 			  alert(useful);*/
+			  
 			  var frm = $name("query_form");
 	            frm.submit();
 			}
