@@ -7,12 +7,18 @@ import com.gotop.monthReport.service.ITWorkMonthReportsService;
 import com.gotop.opinion.model.TApproveOpninion;
 import com.gotop.opinion.model.TDefaultOpinion;
 import com.gotop.opinion.service.ITDefaultOpinionService;
+import com.gotop.supervise.model.TSuperviseTable;
+import com.gotop.supervise.service.ITSuperviseTableService;
 import com.gotop.util.Struts2Utils;
 import com.gotop.vo.system.MUOUserSession;
 import com.informix.util.stringUtil;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 public class TWorkMonthReportsAction extends BaseAction {
     /**
@@ -190,6 +196,64 @@ public class TWorkMonthReportsAction extends BaseAction {
         return "list";
     }*/
     
+    
+    //传阅查询下部门人员	
+    public String queryClassPersons() {
+		return "queryemp";
+	}
+   /*
+    * 
+    */
+    
+    private List<TSuperviseTable> results;
+    
+    
+    
+    public List<TSuperviseTable> getResults() {
+		return results;
+	}
+
+	public void setResults(List<TSuperviseTable> results) {
+		this.results = results;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	public ITSuperviseTableService tSuperviseTableService;
+    private String possionId;
+    
+	public ITSuperviseTableService gettSuperviseTableService() {
+		return tSuperviseTableService;
+	}
+
+	public void settSuperviseTableService(
+			ITSuperviseTableService tSuperviseTableService) {
+		this.tSuperviseTableService = tSuperviseTableService;
+	}
+
+	public String getPossionId() {
+		return possionId;
+	}
+
+	public void setPossionId(String possionId) {
+		this.possionId = possionId;
+	}
+
+	//查询部门人员
+    public String queryTaskAssignPerson(){
+    	try {
+    		results=new ArrayList<TSuperviseTable>();
+    		MUOUserSession muo=getCurrentOnlineUser();
+    		results=tSuperviseTableService.queryTaskAssignPerson(possionId, muo);
+
+    	//	System.out.println("2222222222222222"+""+JSONArray.fromObject(results).toString());
+    		
+		} catch (Exception e) {
+			log.error("获取部室人员出错！", e);
+		}
+		return "persones";
+    }
     /**
      * 保存月报
      * 

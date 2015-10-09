@@ -303,7 +303,7 @@ function initPlanCell20(){
 		 $("#empname").val("");	
 	}
 
-	$id("mettingDate").onValidate=function(hiddenValue,TextValue)
+	/*$id("mettingDate").onValidate=function(hiddenValue,TextValue)
 	{
 		if(this.getValue()=="") 
 		 return true;
@@ -319,7 +319,7 @@ function initPlanCell20(){
 		      return true;
 		}
 
-	}
+	}*/
 	
  </script>
 </html>

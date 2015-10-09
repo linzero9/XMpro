@@ -4,5 +4,6 @@
   <bean class="com.gotop.monthReport.action.TWorkMonthReportsAction" id="tWorkMonthReportsaction" name="tWorkMonthReportsAction" singleton="false">
     <property name="tWorkMonthReportsService" ref="tWorkMonthReportsService" />
     <property name="tDefaultOpinionService" ref="tDefaultOpinionService" />
+    <property name="tSuperviseTableService" ref="tSuperviseTableService" />
   </bean>
 </beans>
