@@ -26,24 +26,40 @@ public class EosDictEntryDAO extends SqlMapClientDao implements IEosDictEntryDAO
         super();
     }
 
-    /**
-     * 插入一条新数据.
-     */
-    public void insert(EosDictEntry record) {
-        getSqlMapClientTemplate().insert("EOS_DICT_ENTRY_SqlMap.abatorgenerated_insert", record);
-    }
-
-    /**
-     * 通过主键更新一条全部字段内容
-     */
-    public int updateByPrimaryKey(EosDictEntry record) {
-        int rows = getSqlMapClientTemplate().update("EOS_DICT_ENTRY_SqlMap.abatorgenerated_updateByPrimaryKey", record);
-        return rows;
-    }
-
 	@Override
 	public List dictTypeList(Map<String, Object> map, Page page) {
 		List list = queryForList("EOS_DICT_ENTRY_SqlMap.dictTypeList", map, page);
 	      return list;
 	}
+
+	@Override
+	public List queryDictEntryBydictTypeId(EosDictEntry dictEntry) {
+		List list = queryForList("EOS_DICT_ENTRY_SqlMap.queryDictEntryBydictTypeId", dictEntry);
+		return list;
+	}
+
+	@Override
+	public EosDictEntry getDictEntryById(EosDictEntry dictEntry) {
+		EosDictEntry record = (EosDictEntry) queryForObject("EOS_DICT_ENTRY_SqlMap.getDictEntryById", dictEntry);
+		return record;
+	}
+
+	@Override
+	public void insert(EosDictEntry dictEntry) {
+		getSqlMapClientTemplate().insert("EOS_DICT_ENTRY_SqlMap.insert", dictEntry);
+		
+	}
+	
+	@Override
+	public int updateById(EosDictEntry dictEntry) {
+		 int rows = getSqlMapClientTemplate().update("EOS_DICT_ENTRY_SqlMap.updateById", dictEntry);
+	        return rows;
+	}
+
+	@Override
+	public int deleteById(EosDictEntry dictEntry) {
+		int rows = getSqlMapClientTemplate().delete("EOS_DICT_ENTRY_SqlMap.deleteById", dictEntry);
+        return rows;
+	}
+
 }

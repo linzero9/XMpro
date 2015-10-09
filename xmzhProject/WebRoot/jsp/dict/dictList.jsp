@@ -16,6 +16,7 @@
 				<div style="border:1px solid #dddddd;width:100%;height:100%">				
 				<h:form name="query_formx" id="query_formx"
 				action="/dict/eosDictEntryAction_dictTypeList.action"  target="_self" method="post" >
+				
 				<table align="center" border="0" width="100%" class="form_table">
 					<tr>
 						<td class="form_label" align="right">属性名称：</td>
@@ -34,7 +35,9 @@
 				</table>
 				</h:form>
 				<h:form name="formx_list" id="formx_list"
-				action="/dict/eosDictEntryAction_dictEntryList.action"  target="_self" method="post" >
+				action="/dict/eosDictEntryAction_queryDictEntryBydictTypeId.action"  target="_self" method="post" >
+				<h:hidden property="dictEntry.dictTypeId" id="dictTypeId" />
+				<h:hiddendata property="page"/>
 				<table align="center" border="0" width="100%" class="EOS_table">
 					<tr>
 						<th>选择</th>
@@ -89,8 +92,7 @@
 			<w:layoutPanel width="50%">
 				<div style="border:1px solid #dddddd;width:100%;height:100%">
 				<h:form name="formy_list" id="formy_list"
-				action="/dict/eosDictEntryAction_dictTypeList.action"  target="_self" method="post" >
-				
+				action="/dict/eosDictEntryAction_queryDictEntryBydictTypeId.action"  target="_self" method="post" >
 				<table align="center" border="0" width="100%" class="EOS_table">
 					<tr>
 						<th nowrap>选择</th>
@@ -113,16 +115,16 @@
 						<td colspan="23" class="command_sort_area">
 							<div class="h3">
 							<input type="button" class="button" value="新增"
-										onclick="add();" />
+										onclick="addItem();" />
 								<l:greaterThan property="page.count" targetValue="0"
 									compareType="number">
 							<input type="button" class="button" value="修改"
-										onclick="upt();" />
+										onclick="uptItem();" />
 								</l:greaterThan>
 								<l:greaterThan property="page.count" targetValue="0"
 									compareType="number">
 							<input type="button" class="button" value="删除"
-										onclick="del();" />
+										onclick="delItem();" />
 								</l:greaterThan>
 							</div>
               </td>
@@ -141,19 +143,79 @@
 	}
 
 	function queryEntry(){
-		var gop = $id("group1");
+		var gop = $id("xgroup1");
   		var len = gop.getSelectLength();
   		if(len == 0){
   			alert("请选择一个属性");
   			return;
   		}else{
-  			var frm = $name("query_formx");
+  			var rows=gop.getSelectRow();
+  			$id("dictTypeId").value = rows.getParam("dictTypeId");
+  			var frm = $name("formx_list");
   		 	frm.submit();
-  			/*var rows=gop.getSelectRow();
+	  	}
+	}
+
+	//新增
+	function addItem(){
+		var dictTypeId=$id("dictTypeId").value;
+		  var url="/dict/eosDictEntryAction_toInsert.action?dictEntry.dictTypeId="+dictTypeId;
+		  showModalCenter(url, null,callBackFunc, 300, 200, '新增属性项');
+	}
+
+	//修改
+	function uptItem(){
+		var gop = $id("ygroup1");
+  		var len = gop.getSelectLength();
+  		if(len == 0){
+  			alert("请选择一条记录");
+  			return;
+  		}else{
+  			var rows=gop.getSelectRow();
 	  		var dictTypeId=rows.getParam("dictTypeId");
-  			var strUrl = "/deviceManagement/deviceManagementAction_toDevice.action?device.deviceId="+deviceId;
-  			showModalCenter(strUrl, null, callBackFunc, 700, 600, '修改设备');  
-  			*/
+	  		var dictId=rows.getParam("dictId");
+  			var strUrl = "/dict/eosDictEntryAction_toUpdate.action?dictEntry.dictTypeId="+dictTypeId+"&dictEntry.dictId="+dictId;
+  			showModalCenter(strUrl, null, callBackFunc, 300, 200, '修改属性项');  
+	  	}
+	}
+
+	function callBackFunc(){
+        var frm = $name("formx_list");
+            frm.submit();
+    }
+
+	//删除
+	function delItem(){
+		var gop = $id("ygroup1");
+  		var len = gop.getSelectLength();
+  		if(len == 0){
+  			alert("请选择一条记录");
+  			return;
+  		}else{
+	  	  if(confirm("确定要删除该项吗？")){
+  			var rows=gop.getSelectRow();
+  			var dictTypeId=rows.getParam("dictTypeId");
+	  		var dictId=rows.getParam("dictId");
+	  		$.ajax({
+			      url: "/dict/eosDictEntryAction_deleteItem.action",
+			      async: false,
+			      type: 'post',
+			      data: "dictEntry.dictTypeId="+dictTypeId+"&dictEntry.dictId="+dictId,
+			      timeout: 60000,
+			      dataType:"text",
+			      success: function (data) {
+			    	  if (data.indexOf("success") >= 0) {
+			    		  alert("删除成功");
+			    		  callBackFunc();
+					} else if (data.indexOf("fails") >= 0) {
+						alert("删除失败!");
+					} else {
+						alert("操作失败!");
+					}
+							  	
+			      }
+			}); 
+	 	 }	
 	  	}
 	}
 	</script>

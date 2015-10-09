@@ -5,6 +5,7 @@ import com.gotop.crm.util.MUO;
 import com.gotop.dict.model.EosDictEntry;
 import com.gotop.dict.model.EosDictType;
 import com.gotop.dict.service.IEosDictEntryService;
+import com.gotop.util.Struts2Utils;
 import com.gotop.util.XmlConvert;
 import com.primeton.utils.AjaxParam;
 import com.primeton.utils.Page;
@@ -86,5 +87,63 @@ public class EosDictEntryAction extends BaseAction {
 	   this.setDictTypes(dictTypes);
 	   return "dictList";
    }
+	
+	public String queryDictEntryBydictTypeId(){
+		dictTypes = eosDictEntryService.dictTypeList(dictType,this.getPage());
+		dictEntrys = eosDictEntryService.queryDictEntryBydictTypeId(dictEntry);
+		this.setDictTypes(dictTypes);
+		this.setDictEntrys(dictEntrys);
+		return "dictList";
+	}
+	
+	public String toInsert(){
+    	this.setDictEntry(dictEntry);
+    	return "toInsert";
+    }
+	
+	public String toUpdate(){
+    	dictEntry = eosDictEntryService.getDictEntryById(dictEntry);
+    	this.setDictEntry(dictEntry);
+    	return "toUpdate";
+    }
+	
+	public void insertItem() throws Exception{
+    	String info ="success";
+    	try {
+    		this.eosDictEntryService.insert(dictEntry);
+    	} catch (Exception e) {
+			info="fails";
+			log.error("[保存设备信息失败！]", e);
+			throw e;
+		}finally{	
+		}
+		Struts2Utils.renderText(info);
+    }
+	
+	public void updateItem() throws Exception{
+    	String info ="success";
+    	try {
+    		this.eosDictEntryService.update(dictEntry);
+    	} catch (Exception e) {
+			info="fails";
+			log.error("[保存设备信息失败！]", e);
+			throw e;
+		}finally{	
+		}
+		Struts2Utils.renderText(info);
+    }
+	
+	public void deleteItem() throws Exception{
+    	String info ="success";
+    	try {
+    		this.eosDictEntryService.delete(dictEntry);
+    	} catch (Exception e) {
+			info="fails";
+			log.error("[删除设备信息失败！]", e);
+			throw e;
+		}finally{	
+		}
+		Struts2Utils.renderText(info);
+    }
     
 }
