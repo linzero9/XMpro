@@ -77,7 +77,7 @@
 			<tr>	
 				<td class="form_label" align="right" width="15%">用途：</td>
 				<td colspan="1" width="30%">
-					<d:checkbox  id="useful"  dictTypeId="DEVICE_USEFUL" property="device.useful" />
+					<d:checkbox  id="useful"  dictTypeId="DEVICE_USEFUL" property="device.useful"  seperator=", "  />
 				</td>
 			</tr>
 			<tr>	
@@ -93,13 +93,13 @@
 			<tr>	
 				<td class="form_label" align="right" width="15%">安装的插件：</td>
 				<td colspan="1" width="30%">
-					<d:checkbox  id="plugIn"  dictTypeId="DEVICE_PLUGIN" property="device.plugIn"  />
+					<d:checkbox  id="plugIn"  dictTypeId="DEVICE_PLUGIN" property="device.plugIn"  seperator=", "/>
 				</td>
 			</tr>
 			<tr>	
 				<td class="form_label" align="right" width="15%">对应的外设：</td>
 				<td colspan="1" width="30%">
-					<d:checkbox  id="peripheral"  dictTypeId="DEVICE_PERIPHERAL" property="device.peripheral"  />
+					<d:checkbox  id="peripheral"  dictTypeId="DEVICE_PERIPHERAL" property="device.peripheral"  seperator=", " />
 				</td>
 			</tr>
 			<tr>	

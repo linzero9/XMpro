@@ -67,7 +67,7 @@
 					</td>
 					<td class="form_label" align="right" width="20%">用途：</td>
 					<td colspan="1"  width="30%">
-					<d:checkbox id="useful"  dictTypeId="DEVICE_USEFUL" property="device.useful" />
+					<d:checkbox id="useful"  dictTypeId="DEVICE_USEFUL" property="device.useful"  seperator=", "/>
 					<!-- 
 					<l:iterate property="usefuls" id="id1" indexId="index">
 							<input type="checkbox" name="useful" value='<b:write iterateId="id1" property="DICTID" />'><b:write iterateId="id1" property="DICTNAME" />&nbsp;&nbsp;
@@ -216,7 +216,7 @@
 									<d:write iterateId="id1" property="ieVersion"  dictTypeId="DEVICE_IE_VERSION"/>
 								</td>
 								<td nowrap="nowrap"> 
-									<d:write iterateId="id1" property="useful"  dictTypeId="DEVICE_USEFUL"/>
+									<d:write iterateId="id1" property="useful"  dictTypeId="DEVICE_USEFUL" seperator=", "  />
 								</td>
 								<td nowrap="nowrap"> 
 								     <b:write iterateId="id1" property="terminalNumber" />
@@ -225,10 +225,10 @@
 									<b:write iterateId="id1" property="user" />
 								</td>
 								<td nowrap="nowrap"> 
-									<d:write iterateId="id1" property="plugIn" dictTypeId="DEVICE_PLUGIN" />
+									<d:write iterateId="id1" property="plugIn" dictTypeId="DEVICE_PLUGIN"  seperator=", " />
 								</td>
 								<td nowrap="nowrap"> 
-								     <d:write iterateId="id1" property="peripheral"  dictTypeId="DEVICE_PERIPHERAL" />
+								     <d:write iterateId="id1" property="peripheral"  dictTypeId="DEVICE_PERIPHERAL"  seperator=", "  />
 								</td>
 								<td nowrap="nowrap"> 
 								     <d:write iterateId="id1" property="otherOne"  dictTypeId="DEVICE_OTHERONE"/>
@@ -291,46 +291,9 @@
 			</w:panel>		
 		</DIV>
 		<script type="text/javascript">
-	/*	var B= $id("useful").value;
-		with(document.form1)
-		{
-		for (i=0;i<A.length ;i++ )
-		{
-		  tmpB=B.split(", ");
-		  for (j=0;j<tmpB.length ;j++ )
-		  {
-		   if(tmpB[j]==A[i].value)
-		   {A[i].checked=true;break;}
-		  }
-		}
-		}*/
+	
 		//提交
 		function mysubmit(){
-		/*	var items = document.getElementsByName("useful");
-			  {
-			     var bq = new Array();
-			  	 for(var i = 0; i < items.length; i++)
-			  	 {
-			  		if(items[i].checked)
-			  		{
-			  			bq.push(items[i].value);
-			  		}
-			  	 }
-			  	 if(bq.length > 0)
-			  	 {
-			  	 	$id("useful").value = bq.join("-");
-			  	 }
-			  	 else
-			  	 {
-			  	 	$id("useful").value = "";
-			  	 }
-			  } */
-			
-			  /*var a =  $("useful").val();
-			  alert(a);
-			  var useful = $("useful").val().replaceAll(", ","-");
-			  alert(useful);*/
-			  
 			  var frm = $name("query_form");
 	            frm.submit();
 			}
