@@ -155,6 +155,8 @@ public interface ITProcessTaskExeConfigDAO {
 	List<Map<String, Object>> getEmp(Map<String, Object> map);
 
 	List<Map<String, Object>> getEmpPositionByOrg(Map<String, Object> map);
+	
+	List<Map<String, Object>> getEmpPositionByOrg2(Map<String, Object> map);
 
 	List<Map<String, Object>> getEmpOrgByPosition(Map<String, Object> map);
 

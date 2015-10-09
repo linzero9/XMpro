@@ -274,6 +274,11 @@ public class TProcessTaskExeConfigDAO extends SqlMapClientDao implements ITProce
 	}
 
 	@Override
+	public List<Map<String, Object>> getEmpPositionByOrg2(Map<String, Object> map) {
+		List list = queryForList("T_PROCESS_TASK_EXE_CONFIG_SqlMap.getEmpPositionByOrg2", map);
+        return list;
+	}
+	@Override
 	public List<Map<String, Object>> getEmpOrgByPosition(Map<String, Object> map) {
 		List list = queryForList("T_PROCESS_TASK_EXE_CONFIG_SqlMap.getEmpOrgByPosition", map);
         return list;

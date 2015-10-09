@@ -164,6 +164,15 @@ public interface JbpmService {
 	 */
 	public List<Map<String, Object>> getEmpPositionByOrg(
 			TaskAssgineeDto taskAssgineeDto);
+	
+	/**
+	 * 查询起草人所属机构的部门领导
+	 * @param taskAssgineeDto
+	 * @return
+	 */
+	public List<Map<String, Object>> getEmpPositionByOrg2(
+			TaskAssgineeDto taskAssgineeDto);
+
 
 	/**
 	 * 查询动态机构(主办和辅办)、指定部门
