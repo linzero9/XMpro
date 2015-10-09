@@ -101,7 +101,8 @@
 					onclick="doSave();" class="button" id="save2" /> <input
 					type="button" value="查看流程" onclick="doflowpic();" class="button"
 					id="flowpic" /> <input type="button" value="传阅" onclick="doSee();"
-					class="button" id="see" /></td>
+					class="button" id="see" /> <input type="button" value="反馈" onclick="doback();"
+					class="button" id="back" /></td>
 			</tr>
 			<tr id="row2">
 				<td class="form_label" align="right">流程列表：</td>
@@ -112,6 +113,9 @@
 	</h:form>
 </body>
 <script type="text/javascript">
+
+
+
 	$(function() {
 		$
 				.ajax({//获得当前
@@ -136,6 +140,7 @@
 		if ('${isView}' != '') {
 			$("#save2").hide();
 			$("#rowOpinion").hide();
+
 		}
 	});
 
@@ -252,6 +257,38 @@
 			// 异步提交请求 
 			ajaxsubmitForFile();
 		}
+	}
+
+
+	/*
+	 *  部门人员办理反馈给部门主要负责人
+	 */
+	function doback(){
+		if($("#opinion").val()==""){
+			alert("意见不能为空!");
+			$("#opinion").focus();
+			return false;
+		}
+	maskTop();
+	$.ajax({
+		        url: '/supervise/tSuperviseTableAction_bushiSaveHandle.action',
+		        async: false,
+		        type: 'post',
+		        data: "taskAssgineeDto.executionId=${taskAssgineeDto.executionId}&taskAssgineeDto.processTaskAssigneeId=${taskAssgineeDto.processTaskAssigneeId}&taskAssgineeDto.taskId=${taskAssgineeDto.nextTaskId}&taskAssgineeDto.parentId=${taskAssgineeDto.parentId}&taskAssgineeDto.businessType=${taskAssgineeDto.businessType}&supervise.superviseId=${supervise.superviseId}&supervise.opninion="+encodeURI($("#opinion").val()),
+		        dataType: 'text',
+		        timeout: 60000,
+		        success: function (data) {
+		    	  if(data.indexOf("success")>=0){
+			    	  alert("操作成功!");
+			    	  unMaskTop();
+
+				  		 winClose();
+		    	  }else{
+		    		  unMaskTop();
+			    	  alert("操作失败");
+		    	  }
+		        }											
+	  });		  									
 	}
 </script>
 </html>
