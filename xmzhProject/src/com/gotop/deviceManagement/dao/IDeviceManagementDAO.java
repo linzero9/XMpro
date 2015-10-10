@@ -19,5 +19,4 @@ public interface IDeviceManagementDAO {
 
 	int deleteByPrimaryKey(Long deviceId);
 
-	List queryDict(String dicttypeid);
 }

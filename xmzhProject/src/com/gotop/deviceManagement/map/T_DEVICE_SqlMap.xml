@@ -134,9 +134,5 @@ where a.orgcode = b.orgcode
     delete from t_new_deviceManagement
     where DEVICEID = #deviceId:DECIMAL#
   </delete>
-  
-  <select id="queryDict" resultMap="dict_HashMapResult" parameterClass="java.util.HashMap" >
-  select dictid,dictname from EOS_DICT_ENTRY 
-  where DICTTYPEID = #dicttypeid#
-  </select>
+
 </sqlMap>

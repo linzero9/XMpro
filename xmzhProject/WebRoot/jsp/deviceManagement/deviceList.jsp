@@ -11,7 +11,6 @@
 	</head>
 	<body topmargin="0" leftmargin="0">
 	<h:form name="query_form"	action="/deviceManagement/deviceManagementAction_deviceList.action" method="post">
-	<!-- 	<h:hidden property="device.useful" id="useful" /> -->
 		<w:panel id="panel1" title="设备列表">
 			<table align="center" border="0" width="100%" class="form_table">
 				<tr>
@@ -67,22 +66,17 @@
 					</td>
 					<td class="form_label" align="right" width="20%">用途：</td>
 					<td colspan="1"  width="30%">
-					<d:checkbox id="useful"  dictTypeId="DEVICE_USEFUL" property="device.useful"  seperator=", "/>
-					<!-- 
-					<l:iterate property="usefuls" id="id1" indexId="index">
-							<input type="checkbox" name="useful" value='<b:write iterateId="id1" property="DICTID" />'><b:write iterateId="id1" property="DICTNAME" />&nbsp;&nbsp;
-					</l:iterate>
-					 -->
+					<d:checkbox id="useful"  dictTypeId="DEVICE_USEFUL" property="device.useful"  seperator=", " />
 					</td>
 				</tr>
 				<tr>
 					<td class="form_label" align="right" width="20%">安装的插件：</td>
 					<td colspan="1"  width="30%">
-						<d:checkbox  id="plugIn"  dictTypeId="DEVICE_PLUGIN" property="device.plugIn"  />
+						<d:checkbox  id="plugIn"  dictTypeId="DEVICE_PLUGIN" property="device.plugIn"   seperator=", " />
 					</td>
 					<td class="form_label" align="right" width="20%">对应的外设：</td>
 					<td colspan="1"  width="30%">
-						<d:checkbox  id="peripheral"  dictTypeId="DEVICE_PERIPHERAL" property="device.peripheral"  />
+						<d:checkbox  id="peripheral"  dictTypeId="DEVICE_PERIPHERAL" property="device.peripheral"   seperator=", "  />
 					</td>
 				</tr>
 				<tr class="form_bottom">
@@ -260,6 +254,11 @@
 							<input type="button" class="button" value="删除"
 										onclick="del();" />
 								</l:greaterThan>
+								<l:greaterThan property="page.count" targetValue="0"
+									compareType="number">
+							<input type="button" class="button" value="维护明细查询"
+										onclick="detail_search();" />
+								</l:greaterThan>
 							</div>
 							<div class="h4">
 	                <l:equal property="page.isCount" targetValue="true" >
@@ -376,6 +375,22 @@
 			 	 }	
 			  	}
 			}
+
+			//维护明细查询
+			function detail_search(){
+				var gop = $id("group1");
+		  		var len = gop.getSelectLength();
+		  		if(len == 0){
+		  			alert("请选择一条记录");
+		  			return;
+		  		}else{
+		  			var rows=gop.getSelectRow();
+			  		var deviceId=rows.getParam("deviceId");
+		  			var strUrl = "/deviceManagement/deviceManagementAction_detailList.action?detail.deviceId="+deviceId;
+		  			showModalCenter(strUrl, null, callBackFunc, 1000, 500, '修改设备');  
+			  	}
+			}
+			
 
 			//选择 部门/机构
 			function open_newyw_tree_fun1(){//方法名

@@ -3,4 +3,6 @@
 <sqlMapConfig >
   <settings cacheModelsEnabled="true" enhancementEnabled="true" lazyLoadingEnabled="true" maxRequests="32" maxSessions="10" maxTransactions="5" useStatementNamespaces="true" />
   <sqlMap resource="com/gotop/deviceManagement/map/T_DEVICE_SqlMap.xml" />
+ 
+ <sqlMap resource="com/gotop/deviceManagement/map/T_DEVICE_Detail_SqlMap.xml" />
 </sqlMapConfig>

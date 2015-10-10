@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="T_DEVICE_Detail_SqlMap" >
+  <resultMap id="tDeviceDetailResult" class="com.gotop.deviceManagement.model.DeviceDetail" >
+    <!--Bean方式返回全表-->
+    <result column="DETAILID" property="detailId" jdbcType="DECIMAL" />
+    <result column="DEVICEID" property="deviceId" jdbcType="DECIMAL" />
+    <result column="OPERATEEMPID" property="operateEmpid" jdbcType="DECIMAL" />
+    <result column="OPERATEEMPNAME" property="operateEmpname" jdbcType="VARCHAR" />
+    <result column="OPERATETIME" property="operateTime" jdbcType="TIMESTAMP" />
+    <result column="DEVICENAME" property="deviceName" jdbcType="VARCHAR" />
+    <result column="DEVICEMODEL" property="deviceModel" jdbcType="VARCHAR" />
+    <result column="IPADRESS" property="ipAdress" jdbcType="VARCHAR" />
+    <result column="PRODUCTIONMACHINENAME" property="productionMachineName" jdbcType="VARCHAR" />
+    <result column="CPUCODE" property="cpuCode" jdbcType="VARCHAR" />
+    <result column="MEMORY" property="memory" jdbcType="VARCHAR" />
+    <result column="HARDDISK" property="hardDisk" jdbcType="VARCHAR" />
+    <result column="OSVERSION" property="osVersion" jdbcType="VARCHAR" />
+    <result column="SOFTWAREVERSION" property="softwareVersion" jdbcType="VARCHAR" />
+    <result column="IEVERSION" property="ieVersion" jdbcType="VARCHAR" />
+    <result column="USEFUL" property="useful" jdbcType="VARCHAR" />
+    <result column="TERMINALNUMBER" property="terminalNumber" jdbcType="VARCHAR" />
+    <result column="USERS" property="user" jdbcType="VARCHAR" />
+    <result column="PLUGIN" property="plugIn" jdbcType="VARCHAR" />
+    <result column="PERIPHERAL" property="peripheral" jdbcType="VARCHAR" />
+    <result column="OTHERONE" property="otherOne" jdbcType="VARCHAR" />
+    <result column="OTHERINFOONE" property="otherInfoOne" jdbcType="VARCHAR" />
+    <result column="REMARKSONE" property="remarksOne" jdbcType="VARCHAR" />
+    <result column="ORGNAME" property="orgname" jdbcType="VARCHAR" />
+    <result column="ORGCODE" property="orgcode" jdbcType="VARCHAR" />  
+    <result column="DEVICE_STATE" property="deviceState" jdbcType="CHAR" />    
+  </resultMap> 
+
+  <!-- 查询明细列表 -->
+  <select id="queryList" resultMap="tDeviceDetailResult" parameterClass="java.util.HashMap" >
+ 	select t.*, o.orgname, e.empname as operateEmpname from  t_new_deviceManDetail t , om_organization o, om_employee e
+where t.orgcode = o.orgcode  
+and t.operateEmpid = e.empid   
+and t.DEVICEID = #deviceId:DECIMAL# 
+  order by t.operateTime desc
+  </select>
+  
+
+<!--新增一条新的明细记录-->
+<insert id="insert" parameterClass="com.gotop.deviceManagement.model.DeviceDetail" >
+      <selectKey resultClass="long" keyProperty="detailId">
+		SELECT SEQ_t_new_deviceManDetail.NEXTVAL AS VALUE FROM DUAL
+		</selectKey>
+    insert into t_new_deviceManDetail 
+    (DETAILID, DEVICEID, OPERATEEMPID, OPERATETIME
+    , DEVICENAME, DEVICEMODEL, IPADRESS, PRODUCTIONMACHINENAME, CPUCODE, MEMORY, HARDDISK
+    , OSVERSION, SOFTWAREVERSION, IEVERSION, USEFUL, TERMINALNUMBER, USERS, PLUGIN, PERIPHERAL, OTHERONE, OTHERINFOONE, REMARKSONE
+    , ORGCODE, DEVICE_STATE)
+    values (#detailId:DECIMAL:-9999#, #deviceId:DECIMAL:-9999#, #operateEmpid:DECIMAL:-9999#, sysdate
+    ,  #deviceName:VARCHAR#,  #deviceModel:VARCHAR#,  #ipAdress:VARCHAR#,  #productionMachineName:VARCHAR#
+    ,  #cpuCode:VARCHAR# , #memory:VARCHAR# ,  #hardDisk:VARCHAR# ,  #osVersion:VARCHAR# ,  #softwareVersion:VARCHAR# ,  #ieVersion:VARCHAR# ,  #useful:VARCHAR#
+     ,  #terminalNumber:VARCHAR# ,  #user:VARCHAR# ,  #plugIn:VARCHAR# ,  #peripheral:VARCHAR# ,  #otherOne:VARCHAR# , #otherInfoOne:VARCHAR# ,  #remarksOne:VARCHAR# 
+     ,  #orgcode:VARCHAR# ,  #deviceState:CHAR# )
+  </insert>
+  
+  
+  <!--通过设备ID删除相关的记录-->
+  <delete id="delete" parameterClass="com.gotop.deviceManagement.model.DeviceDetail" >
+    delete from t_new_deviceManDetail
+    where DEVICEID = #deviceId:DECIMAL#
+  </delete>
+
+</sqlMap>

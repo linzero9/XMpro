@@ -3,5 +3,9 @@
 <beans >
   <bean id="deviceManagermentService" class="com.gotop.deviceManagement.service.impl.DeviceManagementService" >
     <property name="deviceManagementDAO" ref="deviceManagementDAO" />
+  	<property name="deviceManDetailDAO" ref="deviceManDetailDAO" />
+  </bean>
+  <bean id="deviceManDetailService" class="com.gotop.deviceManagement.service.impl.DeviceManDetailService" >
+  	<property name="deviceManDetailDAO" ref="deviceManDetailDAO" />
   </bean>
 </beans>
