@@ -444,6 +444,20 @@
 			var softwareVersion = $id("softwareVersion").value;
 			var ieVersion = $id("ieVersion").value;
 			var useful = $id("useful").value;
+
+
+
+			//获取check box 值
+            var testcheckbox="";
+            $("input[name='device.useful']:checkbox").each(function(){ 
+                if($(this).attr("checked")){
+                	testcheckbox += $(this).val()+",";
+                    
+                }
+            });
+            //testcheckbox check box 值
+             alert(testcheckbox);
+
 			var plugIn = $id("plugIn").value;
 			var peripheral = $id("peripheral").value;
 			
