@@ -33,7 +33,10 @@
 
   <!-- 查询明细列表 -->
   <select id="queryList" resultMap="tDeviceDetailResult" parameterClass="java.util.HashMap" >
- 	select t.*
+ 	select t.DETAILID, t.DEVICEID, t.OPERATEEMPID, TO_CHAR(t.OPERATETIME, 'yyyy-MM-dd HH24:mi:ss') as OPERATETIME
+ 	, t.DEVICENAME, t.DEVICEMODEL, t.IPADRESS, t.PRODUCTIONMACHINENAME, t.CPUCODE, t.MEMORY, t.HARDDISK
+    , t.OSVERSION, t.SOFTWAREVERSION, t.IEVERSION, t.USEFUL, t.TERMINALNUMBER, t.USERS, t.PLUGIN, t.PERIPHERAL, t.OTHERONE, t.OTHERINFOONE, t.REMARKSONE
+    , t.ORGCODE, t.DEVICE_STATE
  	, o.orgname, e.empname as operateEmpname from  t_new_deviceManDetail t , om_organization o, om_employee e
 where t.orgcode = o.orgcode  
 and t.operateEmpid = e.empid   

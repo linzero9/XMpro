@@ -118,11 +118,7 @@
                             <l:iterate property="details" id="id1">
 							 <tr class="<l:output oddOutput="EOS_table_row_o" evenOutput='EOS_table_row' />">
 								<td nowrap="nowrap"> 
-								
-								<fmt:parseDate value=' ${id1.operateTime }'      pattern= 'yyyy-MM-dd'/><fmt:parseDate value=' ${id1.operateTime }'      pattern= 'yyyy-MM-dd'/>
-									
-									
-									
+									<b:write iterateId="id1" property="operateTime" />
 								</td>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1" property="operateEmpname" />
