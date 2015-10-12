@@ -38,25 +38,25 @@
 				<tr>
 					<td class="form_label" align="right" width="20%">内存：</td>
 					<td colspan="1"  width="30%">
-						<h:text id="memoryMin" property="device.memoryMin"  size="2"  />G
+						<h:text id="memoryMin" property="device.memoryMin"  size="2"  validateAttr="type=number;"  />G
 						＜内存容量(G)＜
-						<h:text id="memoryMax" property="device.memoryMax"  size="2" />G
+						<h:text id="memoryMax" property="device.memoryMax"  size="2"  validateAttr="type=number;" />G
 					</td>
 					<td class="form_label" align="right" width="20%">硬盘：</td>
 					<td colspan="1"  width="30%">
-						<h:text id="hardDiskMin" property="device.hardDiskMin"  size="2" />T
+						<h:text id="hardDiskMin" property="device.hardDiskMin"  size="2"  validateAttr="type=number;"  />T
 						＜硬盘容量(T)＜
-						<h:text id="hardDiskMax" property="device.hardDiskMax" size="2"  />T
+						<h:text id="hardDiskMax" property="device.hardDiskMax" size="2"  validateAttr="type=number;"  />T
 					</td>
 				</tr>
 				<tr>
 					<td class="form_label" align="right" width="20%">操作系统版本：</td>
 					<td colspan="1"  width="30%">
-						<d:select  id="osVersion"  dictTypeId="DEVICE_OS_VERSION" property="device.osVersion" nullLabel="请选择"></d:select>
+						<d:select  id="osVersion"  dictTypeId="DEVICE_OS_VERSION" property="device.osVersion" nullLabel="请选择"  ></d:select>
 					</td>
 					<td class="form_label" align="right" width="20%">内置软件版本：</td>
 					<td colspan="1"  width="30%">
-						<h:text id="softwareVersion" property="device.softwareVersion"   />
+						<h:text id="softwareVersion" property="device.softwareVersion"  />
 					</td>
 				</tr>
 				<tr>
@@ -66,17 +66,17 @@
 					</td>
 					<td class="form_label" align="right" width="20%">用途：</td>
 					<td colspan="1"  width="30%">
-					<d:checkbox id="useful"  dictTypeId="DEVICE_USEFUL" property="device.useful"  seperator=", " />
+					<d:checkbox id="useful"  name="device.useful" dictTypeId="DEVICE_USEFUL" property="device.useful"  seperator=", "  />
 					</td>
 				</tr>
 				<tr>
 					<td class="form_label" align="right" width="20%">安装的插件：</td>
 					<td colspan="1"  width="30%">
-						<d:checkbox  id="plugIn"  dictTypeId="DEVICE_PLUGIN" property="device.plugIn"   seperator=", " />
+						<d:checkbox  id="plugIn"  name="device.plugIn" dictTypeId="DEVICE_PLUGIN" property="device.plugIn"   seperator=", " />
 					</td>
 					<td class="form_label" align="right" width="20%">对应的外设：</td>
 					<td colspan="1"  width="30%">
-						<d:checkbox  id="peripheral"  dictTypeId="DEVICE_PERIPHERAL" property="device.peripheral"   seperator=", "  />
+						<d:checkbox  id="peripheral"  name="device.peripheral"  dictTypeId="DEVICE_PERIPHERAL" property="device.peripheral"   seperator=", "  />
 					</td>
 				</tr>
 				<tr class="form_bottom">
@@ -87,8 +87,9 @@
 					        <input type="hidden" name="page.isCount" value="true">
 							<input id="querys" type="button" value="查 询" class="button" onclick="mysubmit();">
 							<input type="button" value="清 空" class="button" onclick="clears();">
-							<input id="downexl" type="button" class="button" value="导出列表" onclick="downExl();">
-							</td>
+							<input id=" exportExcel" type="button" class="button" value="导出列表" onclick="export_Excel();">
+							<input id="importExcel"  type="button" class="button" value="批量导入" onclick="import_Excel();">
+						</td>
 					</tr>			
 			</table>
 		</w:panel>
@@ -228,7 +229,7 @@
 								     <d:write iterateId="id1" property="otherOne"  dictTypeId="DEVICE_OTHERONE"/>
 								</td>
 								<td nowrap="nowrap"> 
-								     <d:write iterateId="id1" property="otherInfoOne"  dictTypeId="DEVICE_OTHERINFOONE"/>
+								     <d:write iterateId="id1" property="otherInfoOne"  dictTypeId="DEVICE_OTHERINFOONE"  seperator=", "  />
 								</td>
 								<td nowrap="nowrap"> 
 								     <b:write iterateId="id1" property="remarksOne" />
@@ -428,8 +429,9 @@
 			}
 		}
 
-		function downExl(){
-			var url = "/deviceManagement/deviceManagementAction_downexl.action?";
+		//导出Excel
+		function export_Excel(){
+			var url = "/deviceManagement/deviceManagementAction_exportExcel.action?";
 			var orgcode = $id("orgcode").value;
 			var deviceName = $id("deviceName").value;
 			var deviceModel = $id("deviceModel").value;
@@ -463,7 +465,13 @@
 			+"&device.plugIn="+plugIn+"&device.peripheral="+peripheral;
 			window.location.href=url;
 		  	
-		}	
+		}
+
+		//导入Excel
+		function import_Excel(){
+			var url="/jsp/deviceManagement/deviceList_importExcel.jsp";
+			showModalCenter(url, null,callBackFunc, 700, 300, '批量导入');
+		}
 		</script>
 	</body>
 </html>

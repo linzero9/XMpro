@@ -1,6 +1,8 @@
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@include file="/common/common.jsp"%>
 <%@include file="/common/skins/skin0/component.jsp"%>
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %> 
 <h:css href="/css/style1/style-custom.css" />
 <script src="<%=request.getContextPath() %>/common/gotop/jquery.min.js"></script>
 <script type="text/javascript" src="/js/commonUtil.js"></script>
@@ -11,6 +13,7 @@
 	</head>
 	<body topmargin="0" leftmargin="0">
 	<h:form name="query_form"	action="/deviceManagement/deviceManagementAction_detailList.action" method="post">
+		<h:hidden id="deviceId" property="detail.deviceId"  name="detail.deviceId"/>
 		<w:panel id="panel1" title="设备明细列表">
 			<table align="center" border="0" width="100%" class="form_table">
 				
@@ -28,7 +31,7 @@
 					        <input type="hidden" name="page.isCount" value="true">
 							<input id="querys" type="button" value="查 询" class="button" onclick="mysubmit();">
 							<input type="button" value="清 空" class="button" onclick="clears();">
-							<input id="downexl" type="button" class="button" value="导出列表" onclick="downExl2();">
+							<input id="exportExcel" type="button" class="button" value="导出列表" onclick="export_Excel2();">
 							</td>
 					</tr>			
 			</table>
@@ -115,7 +118,11 @@
                             <l:iterate property="details" id="id1">
 							 <tr class="<l:output oddOutput="EOS_table_row_o" evenOutput='EOS_table_row' />">
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="operateTime" />
+								
+								<fmt:parseDate value=' ${id1.operateTime }'      pattern= 'yyyy-MM-dd'/><fmt:parseDate value=' ${id1.operateTime }'      pattern= 'yyyy-MM-dd'/>
+									
+									
+									
 								</td>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1" property="operateEmpname" />
@@ -172,7 +179,7 @@
 								     <d:write iterateId="id1" property="otherOne"  dictTypeId="DEVICE_OTHERONE"/>
 								</td>
 								<td nowrap="nowrap"> 
-								     <d:write iterateId="id1" property="otherInfoOne"  dictTypeId="DEVICE_OTHERINFOONE"/>
+								     <d:write iterateId="id1" property="otherInfoOne"  dictTypeId="DEVICE_OTHERINFOONE"  seperator=", "  />
 								</td>
 								<td nowrap="nowrap"> 
 								     <b:write iterateId="id1" property="remarksOne" />
@@ -225,12 +232,14 @@
 			function clears(){
 				$id("operateEmpname").value="";
 			}
-		
-		function downExl2(){
-			var url = "/deviceManagement/deviceManagementAction_downexl2.action?";
+
+		//导出Excel
+		function export_Excel2(){
+			var url = "/deviceManagement/deviceManagementAction_exportExcel2.action?";
+			var deviceId = $id("deviceId").value;
 			var operateEmpname = $id("operateEmpname").value;
 			
-			url = url+"detail.operateEmpname="+operateEmpname;
+			url = url+"detail.deviceId="+deviceId+"&detail.operateEmpname="+operateEmpname;
 			window.location.href=url;
 		  	
 		}	

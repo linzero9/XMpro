@@ -7,7 +7,7 @@
     <result column="DEVICEID" property="deviceId" jdbcType="DECIMAL" />
     <result column="OPERATEEMPID" property="operateEmpid" jdbcType="DECIMAL" />
     <result column="OPERATEEMPNAME" property="operateEmpname" jdbcType="VARCHAR" />
-    <result column="OPERATETIME" property="operateTime" jdbcType="TIMESTAMP" />
+    <result column="OPERATETIME" property="operateTime" jdbcType="VARCHAR" />
     <result column="DEVICENAME" property="deviceName" jdbcType="VARCHAR" />
     <result column="DEVICEMODEL" property="deviceModel" jdbcType="VARCHAR" />
     <result column="IPADRESS" property="ipAdress" jdbcType="VARCHAR" />
@@ -33,10 +33,14 @@
 
   <!-- 查询明细列表 -->
   <select id="queryList" resultMap="tDeviceDetailResult" parameterClass="java.util.HashMap" >
- 	select t.*, o.orgname, e.empname as operateEmpname from  t_new_deviceManDetail t , om_organization o, om_employee e
+ 	select t.*
+ 	, o.orgname, e.empname as operateEmpname from  t_new_deviceManDetail t , om_organization o, om_employee e
 where t.orgcode = o.orgcode  
 and t.operateEmpid = e.empid   
 and t.DEVICEID = #deviceId:DECIMAL# 
+ <isNotNull prepend="and" property="operateEmpname" >
+         e.empname  like '%'|| #operateEmpname# ||'%'
+      </isNotNull>
   order by t.operateTime desc
   </select>
   

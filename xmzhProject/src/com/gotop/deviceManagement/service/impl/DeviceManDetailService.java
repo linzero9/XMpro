@@ -32,6 +32,9 @@ public class DeviceManDetailService implements IDeviceManDetailService{
 	public List<DeviceDetail> detailList(DeviceDetail detail, Page page) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("deviceId", detail.getDeviceId());
+		if( detail.getOperateEmpname() != null && !"".equals(detail.getOperateEmpname())){
+			map.put("operateEmpname", detail.getOperateEmpname());
+		}
 		List list = deviceManDetailDAO.detailList(map, page);
         return list;
 	}

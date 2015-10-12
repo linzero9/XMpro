@@ -1,7 +1,16 @@
 package com.gotop.deviceManagement.action;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.text.DecimalFormat;
+import java.util.HashMap;
 import java.util.List;
 
+import com.fr.third.org.apache.poi.hssf.usermodel.HSSFCell;
+import com.fr.third.org.apache.poi.hssf.usermodel.HSSFRow;
+import com.fr.third.org.apache.poi.hssf.usermodel.HSSFSheet;
+import com.fr.third.org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import com.fr.third.org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import com.gotop.crm.util.BaseAction;
 import com.gotop.deviceManagement.model.DeviceDetail;
 import com.gotop.deviceManagement.model.DevicePo;
@@ -9,6 +18,7 @@ import com.gotop.deviceManagement.service.IDeviceManDetailService;
 import com.gotop.deviceManagement.service.IDeviceManagementService;
 import com.gotop.util.Struts2Utils;
 import com.gotop.vo.system.MUOUserSession;
+import com.primeton.ext.access.http.IUploadFile;
 
 public class DeviceManagementAction  extends BaseAction {
 
@@ -17,6 +27,7 @@ public class DeviceManagementAction  extends BaseAction {
 	private List<DevicePo> devices;
 	private DeviceDetail detail;
 	private List<DeviceDetail> details;
+	private IUploadFile dictItemFile;
 
 	protected IDeviceManagementService deviceManagermentService;
 	protected IDeviceManDetailService deviceManDetailService;
@@ -69,6 +80,14 @@ public class DeviceManagementAction  extends BaseAction {
 			IDeviceManDetailService deviceManDetailService) {
 		this.deviceManDetailService = deviceManDetailService;
 	}
+	
+	public IUploadFile getDictItemFile() {
+		return dictItemFile;
+	}
+
+	public void setDictItemFile(IUploadFile dictItemFile) {
+		this.dictItemFile = dictItemFile;
+	}
 
 	public String deviceList(){
 
@@ -88,26 +107,26 @@ public class DeviceManagementAction  extends BaseAction {
     }
 	
 	//设备列表 导出Excel
-	public String downexl(){
+	public String exportExcel(){
 		
     	if(device == null){
     		device = new DevicePo();
     	}
     	
-    	details = deviceManDetailService.detailList(detail, null);
+    	devices = deviceManagermentService.deviceList(device,null);
     	this.setDevices(devices);
-    	return "downexl";
+    	return "exportExcel";
     }
 	
 	//设备明细列表 导出Excel
-	public String downexl2(){
+	public String exportExcel2(){
 		
-    	if(detail == null){
+   if(detail == null){
     		detail = new DeviceDetail();
     	}
     	details = deviceManDetailService.detailList(detail, null);
     	this.setDetails(details);
-    	return "downexl2";
+    	return "exportExcel2";
     }
 	
 	public String toDevice(){
@@ -144,5 +163,71 @@ public class DeviceManagementAction  extends BaseAction {
 		}
 		Struts2Utils.renderText(info);
     }
+	
+	//导入Excel
+		public String importExcel() throws IOException{
+				
+		    	String filePath = dictItemFile.getFilePath();
+		    	
+		    	//返回JSP页面mapa
+				HashMap<String,Object> map = new HashMap<String,Object>();
+				//传入数据库的map
+				HashMap<String,Object> tmp_map =  new HashMap<String,Object>();
+				String msg="";
+				int sumnum=0;
+				int failnum=0;
+				
+				//打开文件
+				FileInputStream fileInputStream = new FileInputStream(filePath);
+				POIFSFileSystem fs =new POIFSFileSystem(fileInputStream);
+		        HSSFWorkbook wb = new HSSFWorkbook(fs);
+				HSSFSheet sheet = wb.getSheetAt(0);
+				//文件的行数
+				int rows = sheet.getPhysicalNumberOfRows();
+				map.put("all_num", rows-1);
+				//遍历行数，读取数据
+				for(int i=1; i<rows; i++){
+					HSSFRow row = sheet.getRow(i);
+					HSSFCell cell_orgname = row.getCell((short)0);
+					String orgname =getCellValue(cell_orgname);
+					tmp_map.put("orgname", orgname);
+					Object[] orgs = deviceManagermentService.queryOrg(orgname);
+					if(null==orgs || orgs.length==0){
+						msg+="机构/部门："+orgname+"不存在。||";
+						map.put("msg", msg);
+						failnum++;
+						continue;
+					}
+					
+					//插入数据
+					try{
+						deviceManagermentService.import_insert(device);
+						sumnum++;
+					}catch(Exception e){
+						failnum++;
+						msg+="插入第"+i+"行数据时失败。||";
+					}
+				}
+				map.put("msg", msg);
+				map.put("sumnum", sumnum);
+				map.put("failnum", failnum);
+				map.put("imp_flag", "1");
+				fileInputStream.close();
+//				return map;
+		    	return "importExcel";
+		 }
+		
+		//返回列值
+			public String getCellValue(HSSFCell cell1){
+				switch(cell1.getCellType()){
+					case HSSFCell.CELL_TYPE_NUMERIC:
+						DecimalFormat df = new DecimalFormat("#.##");
+						return String.valueOf(df.format(cell1.getNumericCellValue()));
+					case HSSFCell.CELL_TYPE_STRING:
+						return cell1.getStringCellValue();
+					default:
+						return "输入格式出错！";
+				}
+			}
 
 }

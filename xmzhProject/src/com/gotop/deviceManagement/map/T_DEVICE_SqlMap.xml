@@ -134,5 +134,9 @@ where a.orgcode = b.orgcode
     delete from t_new_deviceManagement
     where DEVICEID = #deviceId:DECIMAL#
   </delete>
+  
+  <select id="queryOrg" resultClass="java.util.HashMap" parameterClass="java.util.HashMap" >
+ 	select * from om_organization where orgname = #orgname#
+</select>
 
 </sqlMap>

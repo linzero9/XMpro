@@ -37,7 +37,7 @@
 		  <th height="34" width="100" align="center" class="form_label">备注</th>
 		  <th height="34" width="100" align="center" class="form_label">设备状态</th>
 		</tr>
-			<l:iterate property="devices" id="id1">
+			<l:iterate property="details" id="id1">
 			<tr class="<l:output evenOutput='EOS_table_row' />" id="issuedTr">
 			  <td style="vnd.ms-excel.numberformat:@">
 			    <b:write iterateId="id1" property="operateTime"/>
@@ -79,7 +79,7 @@
 			  <d:write iterateId="id1" property="ieVersion"  dictTypeId="DEVICE_IE_VERSION"/>
 		      </td>
 		      <td style="vnd.ms-excel.numberformat:@">
-			   <d:write iterateId="id1" property="useful"  dictTypeId="DEVICE_USEFUL"/>
+			   <d:write iterateId="id1" property="useful"  dictTypeId="DEVICE_USEFUL" seperator=", " />
 		      </td>
 		      <td style="vnd.ms-excel.numberformat:@">
 			   <b:write iterateId="id1" property="terminalNumber" />
@@ -88,16 +88,16 @@
 			   <b:write iterateId="id1" property="user" />
 		      </td>
 		      <td style="vnd.ms-excel.numberformat:@">
-			   <d:write iterateId="id1" property="plugIn" dictTypeId="DEVICE_PLUGIN" />
+			   <d:write iterateId="id1" property="plugIn" dictTypeId="DEVICE_PLUGIN" seperator=", "  />
 		      </td>
 		      <td style="vnd.ms-excel.numberformat:@">
-			  <d:write iterateId="id1" property="peripheral"  dictTypeId="DEVICE_PERIPHERAL" />
+			  <d:write iterateId="id1" property="peripheral"  dictTypeId="DEVICE_PERIPHERAL"  seperator=", " />
 		      </td>
 		      <td style="vnd.ms-excel.numberformat:@">
 			   <d:write iterateId="id1" property="otherOne"  dictTypeId="DEVICE_OTHERONE"/>
 		      </td>
 		      <td style="vnd.ms-excel.numberformat:@">
-			   <d:write iterateId="id1" property="otherInfoOne"  dictTypeId="DEVICE_OTHERINFOONE"/>
+			   <d:write iterateId="id1" property="otherInfoOne"  dictTypeId="DEVICE_OTHERINFOONE" seperator=", " />
 		      </td>
 		      <td style="vnd.ms-excel.numberformat:@">
 			   <b:write iterateId="id1" property="remarksOne" />

@@ -50,12 +50,12 @@
 			<tr>	
 				<td class="form_label" align="right" width="15%">内存容量：</td>
 				<td colspan="1" width="30%"><h:text  id="memory"
-						property="device.memory"  size="3" />G</td>				
+						property="device.memory"  size="3"  validateAttr="type=number;" />G</td>				
 			</tr>
 			<tr>	
 				<td class="form_label" align="right" width="15%">硬盘容量：</td>
 				<td colspan="1" width="30%"><h:text id="hardDisk"
-						property="device.hardDisk"  size="3" />T</td>
+						property="device.hardDisk"  size="3"  validateAttr="type=number;" />T</td>
 			</tr>
 			<tr>	
 				<td class="form_label" align="right" width="15%">操作系统版本：</td>

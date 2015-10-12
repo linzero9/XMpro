@@ -145,5 +145,21 @@ public class DeviceManagementService implements IDeviceManagementService{
 		detail.setDeviceId(device.getDeviceId());
 		deviceManDetailDAO.delete(detail);
 	}
+
+	@Override
+	public Object[] queryOrg(String orgname) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("orgname", "orgname");
+		Object[] orgs = deviceManagementDAO.queryOrg(map);
+		return orgs;
+	}
+
+	@Override
+	public void import_insert(DevicePo device) {
+		
+		deviceManagementDAO.insert(device);
+	}
+	
+	
 	
 }

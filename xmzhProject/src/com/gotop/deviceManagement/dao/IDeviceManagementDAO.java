@@ -19,4 +19,6 @@ public interface IDeviceManagementDAO {
 
 	int deleteByPrimaryKey(Long deviceId);
 
+	Object[] queryOrg(Map<String, Object> map);
+
 }

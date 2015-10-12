@@ -11,16 +11,20 @@
         /jsp/deviceManagement/device.jsp
       </result>
       
-       <result name="downexl" >
-        /jsp/deviceManagement/deviceList_downexl.jsp
+       <result name="exportExcel" >
+        /jsp/deviceManagement/deviceList_exportExcel.jsp
       </result>
       
-      <result name="downexl2" >
-        /jsp/deviceManagement/detailList_downexl.jsp
+      <result name="exportExcel2" >
+        /jsp/deviceManagement/detailList_exportExcel.jsp
       </result>
       
       <result name="detailList" >
         /jsp/deviceManagement/detailList.jsp
+      </result>
+      
+      <result name="importExcel" >
+        /jsp/deviceManagement/deviceList_importExcel.jsp
       </result>
     </action>
   </package>
