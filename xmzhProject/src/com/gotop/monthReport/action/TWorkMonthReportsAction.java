@@ -346,6 +346,28 @@ public class TWorkMonthReportsAction extends BaseAction {
     	queryDefault();
         return "approve";
     }
+    //部分领导传阅
+    public String monthReportApprove4(){
+        try {
+            if(taskAssgineeDto!=null&&taskAssgineeDto.getBusinessKey()!=null&&!"".equals(taskAssgineeDto.getBusinessKey())){
+                reportId=taskAssgineeDto.getBusinessKey();
+                monthReports=tWorkMonthReportsService.queryMonthReportInfo(reportId);
+            }
+            else if (taskAssgineeDto!=null && taskAssgineeDto.getExecutionId()!=null && !"".equals(taskAssgineeDto.getExecutionId())) 
+            {
+                flowId=taskAssgineeDto.getExecutionId();
+                monthReports = tWorkMonthReportsService.getMonthReportByFlowId(flowId);
+            }
+        } catch (Exception e) {
+            log.error("获取客户详情报错。", e);
+        }finally{
+            
+        }
+    	queryDefault();
+        return "approve1";
+    }
+    
+    
     
     /**
      * 行领导批示

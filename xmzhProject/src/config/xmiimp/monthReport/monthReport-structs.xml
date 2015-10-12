@@ -12,6 +12,9 @@
       <result name="approve">
         /jsp/monthReport/month_report_apporve.jsp
       </result>
+      <result name="approve1">
+        /jsp/monthReport/month_report_tosee.jsp
+      </result>
       <result name="instructions">
         /jsp/monthReport/month_report_instructions.jsp
       </result>
