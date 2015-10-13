@@ -97,11 +97,9 @@
 			</tr>
 			<%@include file="/jsp/util/default_opinionUtil.jsp"%>
 			<tr class="form_bottom">
-				<td colspan="4"><input type="button" value="提交"
-					onclick="doSave();" class="button" id="save2" /> <input
+				<td colspan="4"><input
 					type="button" value="查看流程" onclick="doflowpic();" class="button"
-					id="flowpic" /> <input type="button" value="传阅" onclick="doSee();"
-					class="button" id="see" /> <input type="button" value="反馈" onclick="doback();"
+					id="flowpic" />  <input type="button" value="反馈" onclick="doback();"
 					class="button" id="back" /></td>
 			</tr>
 			<tr id="row2">
@@ -140,17 +138,8 @@
 		if ('${isView}' != '') {
 			$("#save2").hide();
 			$("#rowOpinion").hide();
-			$("#back").hide();
-			$("#see").hide();
-		}else{
-			if('${taskAssgineeDto.isChild}'=='0'){
-				 $("#back").css("display","none");
-			 }else{
-				 $("#save2").css("display","none");
-				 $("#see").css("display","none");
-				 
-			 }
-			}
+
+		}
 	});
 
 	function initPlanCell20() {

@@ -71,7 +71,7 @@
 			  <d:write iterateId="id1" property="ieVersion"  dictTypeId="DEVICE_IE_VERSION"/>
 		      </td>
 		      <td style="vnd.ms-excel.numberformat:@">
-			   <d:write iterateId="id1" property="useful"  dictTypeId="DEVICE_USEFUL"/>
+			   <d:write iterateId="id1" property="useful"  dictTypeId="DEVICE_USEFUL"  seperator=", "   />
 		      </td>
 		      <td style="vnd.ms-excel.numberformat:@">
 			   <b:write iterateId="id1" property="terminalNumber" />
@@ -80,16 +80,16 @@
 			   <b:write iterateId="id1" property="user" />
 		      </td>
 		      <td style="vnd.ms-excel.numberformat:@">
-			   <d:write iterateId="id1" property="plugIn" dictTypeId="DEVICE_PLUGIN" />
+			   <d:write iterateId="id1" property="plugIn" dictTypeId="DEVICE_PLUGIN"  seperator=", "   />
 		      </td>
 		      <td style="vnd.ms-excel.numberformat:@">
-			  <d:write iterateId="id1" property="peripheral"  dictTypeId="DEVICE_PERIPHERAL" />
+			  <d:write iterateId="id1" property="peripheral"  dictTypeId="DEVICE_PERIPHERAL"  seperator=", "  />
 		      </td>
 		      <td style="vnd.ms-excel.numberformat:@">
 			   <d:write iterateId="id1" property="otherOne"  dictTypeId="DEVICE_OTHERONE"/>
 		      </td>
 		      <td style="vnd.ms-excel.numberformat:@">
-			   <d:write iterateId="id1" property="otherInfoOne"  dictTypeId="DEVICE_OTHERINFOONE"/>
+			   <d:write iterateId="id1" property="otherInfoOne"  dictTypeId="DEVICE_OTHERINFOONE"  seperator=", "   />
 		      </td>
 		      <td style="vnd.ms-excel.numberformat:@">
 			   <b:write iterateId="id1" property="remarksOne" />

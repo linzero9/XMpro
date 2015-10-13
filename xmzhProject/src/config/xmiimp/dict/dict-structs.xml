@@ -6,6 +6,12 @@
       <result name="dictList" >
         /jsp/dict/dictList.jsp
       </result>
+      <result name="toInsert">
+       /jsp/dict/toInsert.jsp
+      </result>
+      <result name="toUpdate">
+       /jsp/dict/toUpdate.jsp
+      </result>
     </action>
   </package>
 </struts>

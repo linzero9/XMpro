@@ -46,7 +46,7 @@ public class DevicePo  implements  Serializable{
 	
 	//其他属性1
 	private  String otherOne;
-	//其他属性1
+	//其他信息1
 	private  String otherInfoOne;
 	//备注1
 	private  String remarksOne;

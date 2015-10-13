@@ -52,11 +52,31 @@ public class EosDictEntryService implements IEosDictEntryService {
         return list;
 	} 
 
-    /**
-     * 插入单条记录
-     */
-    public void insert(EosDictEntry obj) throws Exception {
-        this.eosDictEntryDAO.insert(obj);
-    }
+	@Override
+	public List<EosDictEntry> queryDictEntryBydictTypeId(EosDictEntry dictEntry) {
+		 List<EosDictEntry> dictEntrys = eosDictEntryDAO.queryDictEntryBydictTypeId(dictEntry);
+		return dictEntrys;
+	}
+
+	@Override
+	public EosDictEntry getDictEntryById(EosDictEntry dictEntry) {
+		EosDictEntry dictEntry2 = eosDictEntryDAO.getDictEntryById(dictEntry);
+		return dictEntry2;
+	}
+
+	@Override
+	public void insert(EosDictEntry dictEntry) {
+			eosDictEntryDAO.insert(dictEntry);
+	}
+	
+	@Override
+	public void update(EosDictEntry dictEntry) {
+			eosDictEntryDAO.updateById(dictEntry);
+	}
+
+	@Override
+	public void delete(EosDictEntry dictEntry) {
+		eosDictEntryDAO.deleteById(dictEntry);
+	}
 
 }

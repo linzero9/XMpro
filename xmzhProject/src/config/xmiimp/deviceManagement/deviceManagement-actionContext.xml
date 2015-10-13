@@ -3,5 +3,6 @@
 <beans >
   <bean name="deviceManagementAction" id="deviceManagementAction" class="com.gotop.deviceManagement.action.DeviceManagementAction" singleton="false" >
     <property name="deviceManagermentService" ref="deviceManagermentService" />
+    <property name="deviceManDetailService" ref="deviceManDetailService" />
   </bean>
 </beans>

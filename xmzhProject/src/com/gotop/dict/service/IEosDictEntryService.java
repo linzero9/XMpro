@@ -21,5 +21,15 @@ public interface IEosDictEntryService {
     IEosDictEntryDAO getEosDictEntryDAO() throws Exception;
     
     List<EosDictType> dictTypeList(EosDictType dictType, Page page);
+    
+    List<EosDictEntry> queryDictEntryBydictTypeId(EosDictEntry dictEntry);
+
+	EosDictEntry getDictEntryById(EosDictEntry dictEntry);
+
+	void insert(EosDictEntry dictEntry);
+	
+	void update(EosDictEntry dictEntry);
+
+	void delete(EosDictEntry dictEntry);
 
 }

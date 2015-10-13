@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>新增设备</title>
+<title>新增/修改设备</title>
 </head>
 <body topmargin="0" leftmargin="0">
 <h:form name="data_form"  id="data_form" action="/deviceManagement/deviceManagementAction_save.action"  enctype="multipart/form-data" method="post" >
@@ -50,12 +50,12 @@
 			<tr>	
 				<td class="form_label" align="right" width="15%">内存容量：</td>
 				<td colspan="1" width="30%"><h:text  id="memory"
-						property="device.memory"  size="3" />G</td>				
+						property="device.memory"  size="3"  validateAttr="type=number;" />G</td>				
 			</tr>
 			<tr>	
 				<td class="form_label" align="right" width="15%">硬盘容量：</td>
 				<td colspan="1" width="30%"><h:text id="hardDisk"
-						property="device.hardDisk"  size="3" />T</td>
+						property="device.hardDisk"  size="3"  validateAttr="type=number;" />T</td>
 			</tr>
 			<tr>	
 				<td class="form_label" align="right" width="15%">操作系统版本：</td>
@@ -77,7 +77,7 @@
 			<tr>	
 				<td class="form_label" align="right" width="15%">用途：</td>
 				<td colspan="1" width="30%">
-					<d:checkbox  id="useful"  dictTypeId="DEVICE_USEFUL" property="device.useful" />
+					<d:checkbox  id="useful"  dictTypeId="DEVICE_USEFUL" property="device.useful"  seperator=", "  />
 				</td>
 			</tr>
 			<tr>	
@@ -93,13 +93,13 @@
 			<tr>	
 				<td class="form_label" align="right" width="15%">安装的插件：</td>
 				<td colspan="1" width="30%">
-					<d:checkbox  id="plugIn"  dictTypeId="DEVICE_PLUGIN" property="device.plugIn"  />
+					<d:checkbox  id="plugIn"  dictTypeId="DEVICE_PLUGIN" property="device.plugIn"  seperator=", "/>
 				</td>
 			</tr>
 			<tr>	
 				<td class="form_label" align="right" width="15%">对应的外设：</td>
 				<td colspan="1" width="30%">
-					<d:checkbox  id="peripheral"  dictTypeId="DEVICE_PERIPHERAL" property="device.peripheral"  />
+					<d:checkbox  id="peripheral"  dictTypeId="DEVICE_PERIPHERAL" property="device.peripheral"  seperator=", " />
 				</td>
 			</tr>
 			<tr>	

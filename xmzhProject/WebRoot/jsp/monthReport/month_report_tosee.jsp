@@ -98,7 +98,7 @@
 			<%@include file="/jsp/util/default_opinionUtil.jsp"%>
 			<tr class="form_bottom">
 				<td colspan="4"><input type="button" value="提交"
-					onclick="doSave();" class="button" id="save2" /> <input
+					onclick="doSave();" class="button" id="save2" /><input
 					type="button" value="查看流程" onclick="doflowpic();" class="button"
 					id="flowpic" /> <input type="button" value="传阅" onclick="doSee();"
 					class="button" id="see" /> <input type="button" value="反馈" onclick="doback();"
@@ -140,8 +140,7 @@
 		if ('${isView}' != '') {
 			$("#save2").hide();
 			$("#rowOpinion").hide();
-			$("#back").hide();
-			$("#see").hide();
+			
 		}else{
 			if('${taskAssgineeDto.isChild}'=='0'){
 				 $("#back").css("display","none");

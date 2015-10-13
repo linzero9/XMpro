@@ -531,6 +531,15 @@ public class JbpmServiceImpl implements JbpmService{
 			map.put("positionId", taskAssgineeDto.getTaskExeAssginee());
 			return this.tProcessTaskExeConfigDAO.getEmpPositionByOrg(map);
 	}
+	
+	@Override
+	public List<Map<String, Object>> getEmpPositionByOrg2(
+			TaskAssgineeDto taskAssgineeDto) {
+		Map<String, Object> map = new HashMap<String, Object>();
+			map.put("orgId", taskAssgineeDto.getBeginOrg());
+			map.put("positionId", taskAssgineeDto.getTaskExeAssginee());
+			return this.tProcessTaskExeConfigDAO.getEmpPositionByOrg2(map);
+	}
 
 	@Override
 	public List<Map<String, Object>> getEmpOrgByPosition(

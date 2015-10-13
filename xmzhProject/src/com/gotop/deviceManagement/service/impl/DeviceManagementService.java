@@ -6,9 +6,12 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
+import com.gotop.deviceManagement.dao.IDeviceManDetailDAO;
 import com.gotop.deviceManagement.dao.IDeviceManagementDAO;
+import com.gotop.deviceManagement.model.DeviceDetail;
 import com.gotop.deviceManagement.model.DevicePo;
 import com.gotop.deviceManagement.service.IDeviceManagementService;
+import com.gotop.vo.system.MUOUserSession;
 import com.primeton.utils.Page;
 
 public class DeviceManagementService implements IDeviceManagementService{
@@ -17,12 +20,23 @@ public class DeviceManagementService implements IDeviceManagementService{
 	
 	protected IDeviceManagementDAO deviceManagementDAO;
 	
+	protected IDeviceManDetailDAO deviceManDetailDAO;
+	
 	public IDeviceManagementDAO getDeviceManagementDAO() {
 		return deviceManagementDAO;
 	}
 
 	public void setDeviceManagementDAO(IDeviceManagementDAO deviceManagementDAO) {
 		this.deviceManagementDAO = deviceManagementDAO;
+	}
+	
+
+	public IDeviceManDetailDAO getDeviceManDetailDAO() {
+		return deviceManDetailDAO;
+	}
+
+	public void setDeviceManDetailDAO(IDeviceManDetailDAO deviceManDetailDAO) {
+		this.deviceManDetailDAO = deviceManDetailDAO;
 	}
 
 	@Override
@@ -84,25 +98,68 @@ public class DeviceManagementService implements IDeviceManagementService{
 	}
 
 	@Override
-	public void save(DevicePo device) {
+	public void save(DevicePo device,MUOUserSession muoUserSession) {
 		if(device.getDeviceId() == null){
-			device.setDeviceState("0"); //新增设备时默认设备状态为可用（即为0）
+			device.setDeviceState("0"); //新增设备时默认设状态为可用（即为0）
 			deviceManagementDAO.insert(device);
 		}else{
 			deviceManagementDAO.updateByPrimaryKey(device);
 		}
 		
+		//不管添加还是修改，同时都要插入一条记录到明细表里：
+		DeviceDetail detail = new DeviceDetail();
+		Long operateEmpid = muoUserSession.getEmpid();
+		
+		detail.setOperateEmpid(operateEmpid);
+		detail.setDeviceId(device.getDeviceId());
+		detail.setDeviceName(device.getDeviceName());
+		detail.setDeviceModel(device.getDeviceModel());
+		detail.setIpAdress(device.getIpAdress());
+		detail.setProductionMachineName(device.getProductionMachineName());
+		detail.setCpuCode(device.getCpuCode());
+		detail.setMemory(device.getMemory());
+		detail.setHardDisk(device.getHardDisk());
+		detail.setOsVersion(device.getOsVersion());
+		detail.setSoftwareVersion(device.getSoftwareVersion());
+		detail.setIeVersion(device.getIeVersion());
+		detail.setUseful(device.getUseful());
+		detail.setTerminalNumber(device.getTerminalNumber());
+		detail.setUser(device.getUser());
+		detail.setPlugIn(device.getPlugIn());
+		detail.setPeripheral(device.getPeripheral());
+		detail.setOtherOne(device.getOtherOne());
+		detail.setOtherInfoOne(device.getOtherInfoOne());
+		detail.setRemarksOne(device.getRemarksOne());
+		detail.setOrgcode(device.getOrgcode());
+		detail.setDeviceState(device.getDeviceState());
+		
+		deviceManDetailDAO.insert(detail);
 	}
 
 	@Override
 	public void delete(DevicePo device) {
 		deviceManagementDAO.deleteByPrimaryKey(device.getDeviceId());
+		
+		//同时删除明细表记录
+		DeviceDetail detail = new DeviceDetail();
+		detail.setDeviceId(device.getDeviceId());
+		deviceManDetailDAO.delete(detail);
 	}
 
 	@Override
-	public List queryDict(String dicttypeid) {
-		List datas= deviceManagementDAO.queryDict(dicttypeid);
-		return datas;
+	public Object[] queryOrg(String orgname) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("orgname", "orgname");
+		Object[] orgs = deviceManagementDAO.queryOrg(map);
+		return orgs;
 	}
+
+	@Override
+	public void import_insert(DevicePo device) {
+		
+		deviceManagementDAO.insert(device);
+	}
+	
+	
 	
 }

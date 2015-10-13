@@ -183,6 +183,27 @@ and t3.empid=t4.empid
 and t4.orgid='$orgId$'
   </select>
   
+   <!-- 12 起草部门上一级机构负责人 -->
+  <select id="getEmpPositionByOrg2"  resultMap="abatorgenerated_hashMap"  parameterClass="java.util.HashMap" >
+select t2.empid as empId, t3.empname as empName
+  from OM_POSITION     t1,
+       OM_EMPPOSITION  t2,
+       om_employee     t3,
+       om_emporg       t4,
+       om_organization t5
+ where t2.positionid = t1.positionid
+   and t2.empid = t3.empid
+   and t3.empid = t4.empid
+   and t4.orgid = t5.orgid
+   and t1.positionid in ('3','4')
+   and t5.orgid = (select parentorgid
+                     from om_organization
+                    where orgid = (select orgid
+                                           from om_emporg
+                                          where orgid = '$orgId$'
+                                          group by orgid)
+                    group by parentorgid)
+  </select>
       <!-- 05 起草人-->
   <select id="getEmp"  resultMap="abatorgenerated_hashMap"  parameterClass="java.util.HashMap" >
 <!-- select t3.empid as empId,t3.empname as empName 

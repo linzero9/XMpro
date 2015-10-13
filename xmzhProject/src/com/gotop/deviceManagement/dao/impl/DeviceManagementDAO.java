@@ -72,11 +72,9 @@ public class DeviceManagementDAO extends SqlMapClientDao implements IDeviceManag
 
 
 	@Override
-	public List queryDict(String dicttypeid) {
-		Map<String,String> map = new HashMap<String, String>();
-		map.put("dicttypeid", dicttypeid);
-		List datas= queryForList("T_DEVICE_SqlMap.queryDict", map);
-//		HashMap<String, String> datas=new HashMap<String, String>();
-	      return datas;
+	public Object[] queryOrg(Map<String, Object> map) {
+		Object[] orgs = (Object[]) queryForObject("T_DEVICE_SqlMap.queryOrg", map);
+		return orgs;
 	}
+
 }

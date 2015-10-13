@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
-  <package extends="default" name="monthReport" namespace="/monthReport">
+  <package extends="json-default" name="monthReport" namespace="/monthReport">
     <action class="tWorkMonthReportsAction" method="{1}" name="tWorkMonthReportsAction_*">
       <result name="list">
         /jsp/monthReport/tWorkMonthReportsDatacell.jsp
@@ -12,12 +12,21 @@
       <result name="approve">
         /jsp/monthReport/month_report_apporve.jsp
       </result>
+      <result name="approve1">
+        /jsp/monthReport/month_report_tosee.jsp
+      </result>
       <result name="instructions">
         /jsp/monthReport/month_report_instructions.jsp
       </result>
       <result name="gather">
         /jsp/monthReport/month_report_gather.jsp
       </result>
+      <result name="queryemp">
+      /jsp/monthReport/month_report_emp.jsp
+      </result>
+       <result name="persones" type="json">
+		   <param name="root">results</param>
+	  </result>
     </action>
   </package>
 </struts>

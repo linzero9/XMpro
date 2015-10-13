@@ -1372,7 +1372,22 @@ public class JbpmDemoAction extends BaseAction {
 								}
 							}
 							taskType="04";
-						} else if ("05".equals(tProcessTaskExeConfig.getTaskAssType())) {
+						} else if ("12".equals(tProcessTaskExeConfig.getTaskAssType())) {
+							// 起草人所属机构的部门领导
+							String taskAssId = tProcessTaskExeConfig.getTaskAssId();
+							this.taskAssgineeDto.setTaskExeAssginee(taskAssId);
+							// 查找对应岗位和起草人机构的
+							List<Map<String, Object>> empids = jbpmService
+									.getEmpPositionByOrg2(taskAssgineeDto);
+							if (empids.size() != 0) {
+								for (Map<String, Object> map : empids) {
+									empIds.add(String.valueOf(map.get("empId")));
+									empNames.add((String) map.get("empName"));
+								}
+							}
+							taskType="12";
+						}
+						else if ("05".equals(tProcessTaskExeConfig.getTaskAssType())) {
 							// 起草人
 							// String taskAssId = tProcessTaskExeConfig.getTaskAssId();
 							// this.taskAssgineeDto.setTaskExeAssginee(taskAssId);
@@ -1603,7 +1618,7 @@ public class JbpmDemoAction extends BaseAction {
 		} 
 		else if ("12".equals(taskConfigType)) {
 			// 起草部门上一级机构负责人
-			tProcessTaskExeConfig.setTaskAssId("3");
+			tProcessTaskExeConfig.setTaskAssId("4");
 		}else if ("05".equals(taskConfigType)) {
 			// 起草人
 		}
@@ -1973,7 +1988,12 @@ public class JbpmDemoAction extends BaseAction {
 		}  else if ("04".equals(taskConfigType)) {
 			// 起草人所属机构领导
 			tProcessTaskExeConfig.setTaskAssId("3");
-		} else if ("05".equals(taskConfigType)) {
+		} 
+		else if ("12".equals(taskConfigType)) {
+			//  起草部门上一级机构负责人
+			tProcessTaskExeConfig.setTaskAssId("4");
+		}
+		else if ("05".equals(taskConfigType)) {
 			// 起草人
 		}
 			if(taskAssgineeDto.getBusinessKey() != null){

@@ -4,4 +4,7 @@
   <bean id="deviceManagementDAO" class="com.gotop.deviceManagement.dao.impl.DeviceManagementDAO" >
     <property name="sqlMapClient" ref="sqlMapClient" />
   </bean>
+  <bean id="deviceManDetailDAO" class="com.gotop.deviceManagement.dao.impl.DeviceManDetailDAO" >
+    <property name="sqlMapClient" ref="sqlMapClient" />
+  </bean>
 </beans>

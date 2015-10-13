@@ -19,5 +19,32 @@
         t.DICTTYPENAME like '%'|| #dictTypeName# ||'%' 
       </isNotNull>
     </select>
-
+	<select id="queryDictEntryBydictTypeId" resultMap="eosDictEntryResult" parameterClass="com.gotop.dict.model.EosDictEntry" >
+   	select t.DICTTYPEID, t.DICTID, t.DICTNAME from EOS_DICT_ENTRY t
+   	where t.DICTTYPEID = #dictTypeId:VARCHAR# 
+    </select>
+    
+    <select id="getDictEntryById" resultMap="eosDictEntryResult" parameterClass="com.gotop.dict.model.EosDictEntry" >
+   select t.DICTTYPEID, t.DICTID, t.DICTNAME from EOS_DICT_ENTRY t
+   	where t.DICTTYPEID = #dictTypeId:VARCHAR# 
+   	and t.DICTID = #dictId:VARCHAR# 
+  </select>
+  
+  <insert id="insert" parameterClass="com.gotop.dict.model.EosDictEntry" >
+    insert into EOS_DICT_ENTRY(DICTTYPEID, DICTID, DICTNAME, STATUS, RANK, SEQNO)
+    values (#dictTypeId:VARCHAR#,  #dictId:VARCHAR#,  #dictName:VARCHAR#, 1, 1,  '.'|| #dictId:VARCHAR# ||'.')
+  </insert>
+  
+  <update id="updateById" parameterClass="com.gotop.dict.model.EosDictEntry" >
+    update EOS_DICT_ENTRY t
+    set DICTNAME = #dictName:VARCHAR#
+    where t.DICTTYPEID = #dictTypeId:VARCHAR# 
+   	and t.DICTID = #dictId:VARCHAR#
+  </update>
+  
+  <delete id="deleteById" parameterClass="com.gotop.dict.model.EosDictEntry" >
+    delete from EOS_DICT_ENTRY t
+    where t.DICTTYPEID = #dictTypeId:VARCHAR# 
+   	and t.DICTID = #dictId:VARCHAR#
+  </delete>
 </sqlMap>
