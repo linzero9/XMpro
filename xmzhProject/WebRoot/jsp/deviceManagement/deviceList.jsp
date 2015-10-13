@@ -449,14 +449,30 @@
 
 			//获取check box 值
             var testcheckbox="";
-            $("input[name='device.useful']:checkbox").each(function(){ 
+
+            var  usefulLength  =  $("input[name='device.useful']:checkbox:checked").length;
+            alert(usefulLength);
+        
+            
+            $("input[name='device.useful']:checkbox:checked").each(function(i,value){ 
                 if($(this).attr("checked")){
-                	testcheckbox += $(this).val()+",";
+                    if((i+1)==usefulLength){
+                    	testcheckbox += $(this).val();
+                        }else{
+                	testcheckbox += $(this).val()+",";}
                     
                 }
+
+                alert("index:::"+i);
             });
+            
+
+
+            
+
+            
             //testcheckbox check box 值
-             alert(testcheckbox);
+             alert("testcheckboxValue"+testcheckbox);
 
 			var plugIn = $id("plugIn").value;
 			var peripheral = $id("peripheral").value;
