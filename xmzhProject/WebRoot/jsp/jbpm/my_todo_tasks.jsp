@@ -148,6 +148,7 @@
 								&nbsp; &nbsp;
 									<input type="button" class="button" value="办理" onclick="handleTask();"/>
 								</l:greaterThan>
+							
 							<l:greaterThan property="page.count" targetValue="0" compareType="number" >
 								&nbsp; &nbsp;
 							<input type="button" class="button" value="查看流程进度" onclick="viewTaskProcess();"/>
