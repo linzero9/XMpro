@@ -81,7 +81,7 @@
 		<tr>
 		  <th><b:message key="l_select"></b:message></th>
 		  <th nowrap="nowrap">数据标题</th>
-		  <th nowrap="nowrap">数据使用人</th>
+		  <th nowrap="nowrap">数据下发/使用人</th>
 		  <th nowrap="nowrap">所属机构</th>
 		  <th nowrap="nowrap">数据类型</th>
 		  <th nowrap="nowrap">数据使用期限</th>
