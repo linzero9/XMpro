@@ -2,7 +2,7 @@
 <%@include file="/common/common.jsp"%>
 <%@include file="/common/skins/skin0/component.jsp"%>
 <%@page import="java.util.*"%>
-<h:css href="/css/style1/style-custom.css" />
+<h:css href="/css/style1/style-custom.css"/>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -100,9 +100,7 @@
 				<td colspan="4"><input type="button" value="提交"
 					onclick="doSave();" class="button" id="save2" /> <input
 					type="button" value="查看流程" onclick="doflowpic();" class="button"
-					id="flowpic" /> <input type="button" value="传阅" onclick="doSee();"
-					class="button" id="see" /> <input type="button" value="反馈" onclick="doback();"
-					class="button" id="back" /></td>
+					id="flowpic" /> </td>
 			</tr>
 			<tr id="row2">
 				<td class="form_label" align="right">流程列表：</td>
@@ -140,17 +138,8 @@
 		if ('${isView}' != '') {
 			$("#save2").hide();
 			$("#rowOpinion").hide();
-			$("#back").hide();
-			$("#see").hide();
-		}else{
-			if('${taskAssgineeDto.isChild}'=='0'){
-				 $("#back").css("display","none");
-			 }else{
-				 $("#save2").css("display","none");
-				 $("#see").css("display","none");
-				 
-			 }
-			}
+			
+		}
 	});
 
 	function initPlanCell20() {

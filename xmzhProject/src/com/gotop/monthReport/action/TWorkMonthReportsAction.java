@@ -346,7 +346,7 @@ public class TWorkMonthReportsAction extends BaseAction {
     	queryDefault();
         return "approve";
     }
-    //部分领导传阅
+    //部门领导传阅
     public String monthReportApprove4(){
         try {
             if(taskAssgineeDto!=null&&taskAssgineeDto.getBusinessKey()!=null&&!"".equals(taskAssgineeDto.getBusinessKey())){

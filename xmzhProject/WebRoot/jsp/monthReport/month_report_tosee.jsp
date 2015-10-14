@@ -140,7 +140,8 @@
 		if ('${isView}' != '') {
 			$("#save2").hide();
 			$("#rowOpinion").hide();
-			
+			$("#back").hide();
+			$("#see").hide();
 		}else{
 			if('${taskAssgineeDto.isChild}'=='0'){
 				 $("#back").css("display","none");
@@ -247,24 +248,28 @@
 	}
 
 	function doSee() {
-		if ($("#opinion").val() == "") {
+// 		if ($("#opinion").val() == "") {
+// 			alert("意见不能为空！");
+// 			$("#opinion").focus();
+// 			return false;
+// 		}
+// 		var strUrl = "/monthReport/tWorkMonthReportsAction_queryClassPersons.action?taskAssgineeDto.executionId=${taskAssgineeDto.executionId}&taskAssgineeDto.taskId=${taskAssgineeDto.nextTaskId}&taskAssgineeDto.parentId=${taskAssgineeDto.parentId}&taskAssgineeDto.processTaskAssigneeId=${taskAssgineeDto.processTaskAssigneeId}&taskAssgineeDto.businessType=${taskAssgineeDto.businessType}&supervise.superviseId=${supervise.superviseId}&supervise.opninion="
+// 				+ encodeURI($("#opinion").val());
+// 		showModalCenter(strUrl, null, winClose, 600, 300, '部室办理');
+
+
+		if($("#opinion").val()==""){
 			alert("意见不能为空！");
 			$("#opinion").focus();
 			return false;
 		}
-		var strUrl = "/monthReport/tWorkMonthReportsAction_queryClassPersons.action?taskAssgineeDto.executionId=${taskAssgineeDto.executionId}&taskAssgineeDto.taskId=${taskAssgineeDto.nextTaskId}&taskAssgineeDto.parentId=${taskAssgineeDto.parentId}&taskAssgineeDto.processTaskAssigneeId=${taskAssgineeDto.processTaskAssigneeId}&taskAssgineeDto.businessType=${taskAssgineeDto.businessType}&supervise.superviseId=${supervise.superviseId}&supervise.opninion="
-				+ encodeURI($("#opinion").val());
-		showModalCenter(strUrl, null, winClose, 600, 300, '部室办理');
+		var strUrl = "/supervise/tSuperviseTableAction_queryEmpJsp.action?taskAssgineeDto.executionId=${taskAssgineeDto.executionId}&taskAssgineeDto.taskId=${taskAssgineeDto.nextTaskId}&taskAssgineeDto.parentId=${taskAssgineeDto.parentId}&taskAssgineeDto.processTaskAssigneeId=${taskAssgineeDto.processTaskAssigneeId}&taskAssgineeDto.businessType=${taskAssgineeDto.businessType}&supervise.superviseId=${supervise.superviseId}&supervise.opninion="+encodeURI($("#opinion").val());
+		showModalCenter(strUrl, null, winClose, 600,300, '部室办理');
 	}
 
-	function winClose(arg) {
-		if (arg != '') {
-			var _form = $id("form1");
-			url = "/supervise/tSuperviseTableAction_insertSuperviseFile.action";
-			_form.action = url
-			// 异步提交请求 
-			ajaxsubmitForFile();
-		}
+	function winClose() {
+	
+		window.close();
 	}
 
 
@@ -296,7 +301,7 @@
 			    	  alert("操作失败");
 		    	  }
 		        }											
-	  });		  									
+	  });					
 	}
 </script>
 </html>

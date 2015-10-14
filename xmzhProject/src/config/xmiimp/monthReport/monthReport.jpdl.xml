@@ -7,13 +7,13 @@
    <task assignee="#{user}" form="/monthReport/tWorkMonthReportsAction_monthReportInput.action" g="91,128,92,52" name="工作月报申请">
       <transition g="-13,2" name="同意" to="部门领导审核"/>
    </task>
-   <task form="/monthReport/tWorkMonthReportsAction_monthReportApprove1.action" g="313,114,92,52" name="部门领导审核">
+   <task form="/monthReport/tWorkMonthReportsAction_monthReportApprove1.action" g="315,125,92,52" name="部门领导审核">
       <transition g="-49,-6" name="提交分管" to="分管领导审核"/>
       <transition g="246,124:-14,-20" name="退回" to="工作月报申请"/>
       <transition g="-57,-20" name="提交办公室人员汇总" to="办公室汇总"/>
    </task>
    <task form="/monthReport/tWorkMonthReportsAction_monthReportApprove2.action" g="314,11,92,52" name="分管领导审核">
-      <transition g="394,97:5,-9" name="批示" to="部门领导审核"/>
+      <transition g="394,97:5,-9" name="批示" to="部门领导审R核"/>
    </task>
    <task form="/monthReport/tWorkMonthReportsAction_monthReportInstructions.action" g="519,16,92,52" name="行领导批示">
       <transition g="620,99:0,-8" name="批示" to="办公室汇总"/>
