@@ -112,6 +112,9 @@ public class DeviceManagementAction  extends BaseAction {
     }
 	
 	public String detailList(){
+		if(detail == null){
+			detail = new DeviceDetail();
+    	}
     	details = deviceManDetailService.detailList(detail, this.getPage());
     	this.setDetails(details);
     	return "detailList";

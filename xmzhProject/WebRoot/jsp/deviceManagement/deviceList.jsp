@@ -5,9 +5,7 @@
 <script src="<%=request.getContextPath() %>/common/gotop/jquery.min.js"></script>
 <script type="text/javascript" src="/js/commonUtil.js"></script>
 <style>
-
 .eos_dict_class{
-
 margin-left:inherit;
 }
 </style>
@@ -112,6 +110,7 @@ margin-left:inherit;
 		    <h:hidden property="page.length"/>
 		    <h:hidden property="page.count"/>
 		    <h:hidden property="page.isCount"/>
+		    <h:hiddendata property="device" />
 					<table align="center" border="0" width="100%" class="EOS_table">
 						<tr>
 							<th align="center" nowrap="nowrap">

@@ -3,6 +3,12 @@
 <%@include file="/common/skins/skin0/component.jsp"%>
 <h:css href="/css/style1/style-custom.css" />
 <script type="text/javascript" src="/js/jquery.form.js"></script>
+<style>
+.eos_dict_class{
+margin-left:inherit;
+}
+</style>
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -35,7 +41,7 @@
 			<tr>	
 				<td class="form_label" align="right" width="15%">IP地址：</td>
 				<td colspan="1" width="30%"><h:text id="ipAdress"
-						property="device.ipAdress" /></td>
+						property="device.ipAdress" validateAttr="type=IP" /></td>
 			</tr>
 			<tr>	
 				<td class="form_label" align="right" width="15%">生产机器名称：</td>
