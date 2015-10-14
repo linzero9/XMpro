@@ -136,7 +136,7 @@ where a.orgcode = b.orgcode
   </delete>
   
   <select id="queryOrg" resultClass="java.util.HashMap" parameterClass="java.util.HashMap" >
- 	select * from om_organization where orgname = #orgname#
+ 	select * from om_organization where orgcode = #orgcode#
 </select>
 
 </sqlMap>

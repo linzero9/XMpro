@@ -4,6 +4,15 @@
 <h:css href="/css/style1/style-custom.css" />
 <script src="<%=request.getContextPath() %>/common/gotop/jquery.min.js"></script>
 <script type="text/javascript" src="/js/commonUtil.js"></script>
+<style>
+
+.eos_dict_class{
+
+margin-left:inherit;
+}
+</style>
+
+
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -312,9 +321,15 @@
 				$id("osVersion").value="";
 				$id("softwareVersion").value="";
 				$id("ieVersion").value="";
-				$id("useful").value="";
-				$id("plugIn").value="";
-				$id("peripheral").value="";
+			// $id("useful").value="";
+			//	$id("plugIn").value="";
+			//	$id("peripheral").value="";
+				var useful = $("input[name='device.useful']:checkbox:checked").val();
+				useful="";
+				var plugIn = $("input[name='device.plugIn']:checkbox:checked").val();
+				plugIn="";
+				var peripheral = $("input[name='device.peripheral']:checkbox:checked").val();
+				peripheral="";
 			}
 
 			//新增
@@ -443,39 +458,43 @@
 			var osVersion = $id("osVersion").value;
 			var softwareVersion = $id("softwareVersion").value;
 			var ieVersion = $id("ieVersion").value;
-			var useful = $id("useful").value;
 
-
-
-			//获取check box 值
-            var testcheckbox="";
-
+			//获取复选框的值
+            var useful="";
             var  usefulLength  =  $("input[name='device.useful']:checkbox:checked").length;
-            alert(usefulLength);
-        
-            
             $("input[name='device.useful']:checkbox:checked").each(function(i,value){ 
                 if($(this).attr("checked")){
                     if((i+1)==usefulLength){
-                    	testcheckbox += $(this).val();
-                        }else{
-                	testcheckbox += $(this).val()+",";}
-                    
+                    	useful += $(this).val();
+                    }else{
+                    	useful += $(this).val()+", ";
+                	}
                 }
-
-                alert("index:::"+i);
             });
-            
 
+            var plugIn="";
+            var  plugInLength  =  $("input[name='device.plugIn']:checkbox:checked").length;
+            $("input[name='device.plugIn']:checkbox:checked").each(function(i,value){ 
+                if($(this).attr("checked")){
+                    if((i+1)==plugInLength){
+                    	plugIn += $(this).val();
+                    }else{
+                    	plugIn += $(this).val()+", ";
+                	}
+                }
+            });
 
-            
-
-            
-            //testcheckbox check box 值
-             alert("testcheckboxValue"+testcheckbox);
-
-			var plugIn = $id("plugIn").value;
-			var peripheral = $id("peripheral").value;
+            var peripheral="";
+            var  peripheralLength  =  $("input[name='device.peripheral']:checkbox:checked").length;
+            $("input[name='device.peripheral']:checkbox:checked").each(function(i,value){ 
+                if($(this).attr("checked")){
+                    if((i+1)==peripheralLength){
+                    	peripheral += $(this).val();
+                    }else{
+                    	peripheral += $(this).val()+", ";
+                	}
+                }
+            });
 			
 			if(useful == null){
 				useful="";

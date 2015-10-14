@@ -11,14 +11,14 @@
   </head>
   
   <body topmargin="0" leftmargin="0">
-  <h:form name="imp_form"	action="/deviceManagement/deviceManagementAction_importExcel.action" method="post">
+  <h:form name="imp_form"	action="/deviceManagement/deviceManagementAction_importExcel.action"  method="post"  enctype="multipart/form-data">
 		<w:panel id="panel1" title="选择文件">
 			<table align="center" border="0" width="100%" class="form_table">
 
    					<tr>
 						<td class="form_label" align="right">设备信息Excel文件：
 						<td colspan="1">
-							<h:file name="dictItemFile"  id="dictItemFile"   />  <font style="color: red">文件扩展名为.xls</font>
+							 <h:file name="dictItemFile"  id="dictItemFile"   />  <font style="color: red">文件扩展名为.xls</font> 
 						</td>
 					</tr>
 					<tr class="form_bottom">
@@ -30,20 +30,36 @@
 			</table>
 		</w:panel>
 	</h:form>
-		<w:panel id="panel1" title="导入结果信息">
-			<table align="center" border="0" width="100%" class="form_table">
-				<tr>
-					<td>
-							<b:write property="msg" />
-					</td>
-				</tr>
-			</table>
-		</w:panel>
+		<DIV style="width:100%;height:280px;OVERFLOW: auto" >
+	<w:panel id="list_panel2" width="100%" title="导入结果信息">
+		<div id="showinfo" style="width: 100%">
+		</div>
+	</w:panel>
+	</DIV>
+	<h:hidden property="map/msg"/>
+	 <h:hidden property="map/failnum"/>
+	 <h:hidden property="map/sumnum"/>
+	 <h:hidden property="map/all_num"/>
+	 
   </body>
   <script type="text/javascript">
+  function init(){
+	  var su_num=$name("map/sumnum").value;
+	 	var fa_num=$name("map/failnum").value;
+	 	var all_num=$name("map/all_num").value;
+	 	$id("showinfo").innerHTML="<font style='color:red'>总共导入数据"+all_num+"条，其中成功导入数据"+su_num+"条，失败"+fa_num+"条。</font>"+"<br>";
+	 	var msg = $name("map/msg").value;
+		var xxs = msg.split("||");
+	 	for (var i=0; i<=xxs.length; i++){
+			if(xxs[i]){
+				$id("showinfo").innerHTML=$id("showinfo").innerHTML+xxs[i]+"<br>";
+			}
+		}
+		alert("总共导入数据"+all_num+"条，其中成功导入数据"+su_num+"条，失败"+fa_num+"条。");
+  }
   //导入
   function import_file(){
-	var excelFile = $name("dictItemFile").value;
+	/*var excelFile = $name("dictItemFile").value;
 	if (excelFile=="") {
 		alert('请选择您要导入的Excel文件！');//请选择您要导入的Excel文件！
 		return;
@@ -59,7 +75,7 @@
 	if(!confirm("是否确认导入数据？")){
 				return false;
 			}
-	
+	*/
 	var frm = $name("imp_form");
 	frm.submit();
   }

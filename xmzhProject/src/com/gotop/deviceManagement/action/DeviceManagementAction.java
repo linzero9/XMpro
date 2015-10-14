@@ -1,5 +1,6 @@
 package com.gotop.deviceManagement.action;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.DecimalFormat;
@@ -28,6 +29,7 @@ public class DeviceManagementAction  extends BaseAction {
 	private DeviceDetail detail;
 	private List<DeviceDetail> details;
 	private IUploadFile dictItemFile;
+	private HashMap<String,Object> map; 
 
 	protected IDeviceManagementService deviceManagermentService;
 	protected IDeviceManDetailService deviceManDetailService;
@@ -61,6 +63,15 @@ public class DeviceManagementAction  extends BaseAction {
 
 	public void setDetails(List<DeviceDetail> details) {
 		this.details = details;
+	}
+	
+
+	public HashMap<String, Object> getMap() {
+		return map;
+	}
+
+	public void setMap(HashMap<String, Object> map) {
+		this.map = map;
 	}
 
 	public IDeviceManagementService getDeviceManagermentService() {
@@ -169,10 +180,10 @@ public class DeviceManagementAction  extends BaseAction {
 				
 		    	String filePath = dictItemFile.getFilePath();
 		    	
-		    	//返回JSP页面mapa
-				HashMap<String,Object> map = new HashMap<String,Object>();
+		    	//返回JSP页面map
+				map = new HashMap<String,Object>();
 				//传入数据库的map
-				HashMap<String,Object> tmp_map =  new HashMap<String,Object>();
+//				HashMap<String,Object> tmp_map =  new HashMap<String,Object>();
 				String msg="";
 				int sumnum=0;
 				int failnum=0;
@@ -188,16 +199,37 @@ public class DeviceManagementAction  extends BaseAction {
 				//遍历行数，读取数据
 				for(int i=1; i<rows; i++){
 					HSSFRow row = sheet.getRow(i);
-					HSSFCell cell_orgname = row.getCell((short)0);
-					String orgname =getCellValue(cell_orgname);
-					tmp_map.put("orgname", orgname);
-					Object[] orgs = deviceManagermentService.queryOrg(orgname);
+					HSSFCell cell_orgcode = row.getCell((short)0);
+					String orgcode =getCellValue(cell_orgcode);
+//					tmp_map.put("orgname", orgname);
+					Object[] orgs = deviceManagermentService.queryOrg(orgcode);
 					if(null==orgs || orgs.length==0){
-						msg+="机构/部门："+orgname+"不存在。||";
+						msg+="机构/部门："+orgcode+"不存在。||";
 						map.put("msg", msg);
 						failnum++;
 						continue;
 					}
+					
+					device.setOrgcode(orgcode);
+					device.setDeviceName(getCellValue(row.getCell((short)1)));
+					device.setDeviceModel(getCellValue(row.getCell((short)2)));
+					device.setIpAdress(getCellValue(row.getCell((short)3)));
+					device.setProductionMachineName(getCellValue(row.getCell((short)4)));
+					device.setCpuCode(getCellValue(row.getCell((short)5)));
+					device.setMemory(getCellValue(row.getCell((short)6)));
+					device.setHardDisk(getCellValue(row.getCell((short)7)));
+					device.setOsVersion(getCellValue(row.getCell((short)8)));
+					device.setSoftwareVersion(getCellValue(row.getCell((short)9)));
+					device.setIeVersion(getCellValue(row.getCell((short)10)));
+					device.setUseful(getCellValue(row.getCell((short)11)));
+					device.setTerminalNumber(getCellValue(row.getCell((short)12)));
+					device.setUser(getCellValue(row.getCell((short)13)));
+					device.setPlugIn(getCellValue(row.getCell((short)14)));
+					device.setPeripheral(getCellValue(row.getCell((short)15)));
+					device.setOtherOne(getCellValue(row.getCell((short)16)));
+					device.setOtherInfoOne(getCellValue(row.getCell((short)17)));
+					device.setRemarksOne(getCellValue(row.getCell((short)18)));
+					device.setDeviceState(getCellValue(row.getCell((short)19)));
 					
 					//插入数据
 					try{
@@ -211,9 +243,13 @@ public class DeviceManagementAction  extends BaseAction {
 				map.put("msg", msg);
 				map.put("sumnum", sumnum);
 				map.put("failnum", failnum);
-				map.put("imp_flag", "1");
 				fileInputStream.close();
 //				return map;
+				this.setMap(map);
+				
+				//删除指定路径的内容,指定路径可以是文件或目录
+				MyUtil.delete(filePath);
+			    
 		    	return "importExcel";
 		 }
 		
