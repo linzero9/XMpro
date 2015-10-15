@@ -143,6 +143,7 @@
       <result name="viewlist">
        /jsp/jbpm/tProcessTaskExeConfigDatacell.jsp
       </result>
+    
     </action>
   
     
@@ -156,6 +157,11 @@
       <result name="viewlist">
         /jsp/jbpm/tProcessBusinessConfigDatacell.jsp
       </result>
+        <result name="success">
+        </result>
     </action>
+    
+      <action class="withdrawJbpmAction" method="{1}" name="withdrawJbpmAction_*">
+      </action>
     </package>
 </struts>

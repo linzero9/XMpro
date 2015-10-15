@@ -1,19 +1,9 @@
 package com.gotop.jbpm.action;
 
-import com.gotop.crm.util.BaseAction;
-import com.gotop.crm.util.MUO;
-import com.gotop.jbpm.service.ITProcessBusinessConfigService;
-import com.gotop.util.Struts2Utils;
-import com.gotop.util.XmlConvert;
-import com.primeton.utils.AjaxParam;
-import com.primeton.utils.Page;
-import com.primeton.utils.pageCondExpand;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
-import javax.servlet.http.HttpServletRequest;
-import org.apache.struts2.ServletActionContext;
 import org.hibernate.Session;
 import org.jbpm.api.Execution;
 import org.jbpm.api.ExecutionService;
@@ -21,84 +11,16 @@ import org.jbpm.api.HistoryService;
 import org.jbpm.api.TaskService;
 import org.jbpm.api.cmd.Command;
 import org.jbpm.api.cmd.Environment;
+import org.jbpm.api.task.Task;
 import org.jbpm.api.history.HistoryActivityInstance;
 import org.jbpm.api.history.HistoryActivityInstanceQuery;
-import org.jbpm.api.task.Task;
 
-public class TProcessBusinessConfigAction extends BaseAction implements Command {
-    /**
-     * 通过spring注入的Service对象.
-     * @abatorgenerated
-     */
-    protected ITProcessBusinessConfigService tProcessBusinessConfigService;
+import com.gotop.crm.util.BaseAction;
+import com.gotop.util.Struts2Utils;
 
-    /**
-     * 通过spring注入Service的set类.
-     * @abatorgenerated
-     */
-    public void settProcessBusinessConfigService(ITProcessBusinessConfigService tProcessBusinessConfigService) {
-        this.tProcessBusinessConfigService = tProcessBusinessConfigService;
-    }
+public class WithdrawJbpmAction extends BaseAction implements Command {
 
-    /**
-     * 通过spring注入Service的get类.
-     * @abatorgenerated
-     */
-    public ITProcessBusinessConfigService gettProcessBusinessConfigService() {
-        return this.tProcessBusinessConfigService;
-    }
-
-    /**
-     * 查询datacell列表.
-     * @abatorgenerated
-     */
-    public void queryDataGrid() throws Exception {
-        AjaxParam apm = XmlConvert.queryDatacell();
-        Page page = apm.getPage();
-        HashMap hm = apm.getParams();
-        List data = tProcessBusinessConfigService.queryDataGrid(hm , page);
-        String xmlStr = XmlConvert.getXmlListBean(page,data);
-        MUO.write(xmlStr);
-    }
-
-    /**
-     * 批量更新列表.
-     * @abatorgenerated
-     */
-    public void updateDataGrid() throws Exception {
-        HashMap hmp = XmlConvert.updateDatacell();
-        tProcessBusinessConfigService.updateDataGrid(hmp);
-    }
-
-    /**
-     * comboselect演示.
-     * @abatorgenerated
-     */
-    public void comboSelect() throws Exception {
-        HashMap combopara = this.getCombopara();
-        if(combopara!=null){
-            	List combo = tProcessBusinessConfigService.queryAllDataList(combopara);
-            	String dataresult = XmlConvert.getXmlListBean(combo);
-            	MUO.write(dataresult);
-        }
-    }
-
-    /**
-     * viewDataList说明.
-     * @abatorgenerated
-     */
-    public String queryViewList() throws Exception {
-        HttpServletRequest request=ServletActionContext.getRequest();
-        Page page = this.getPage();
-        HashMap hm = new HashMap();
-        List orgs = tProcessBusinessConfigService.queryPageDataList(hm,page);
-        request.setAttribute("orgs", orgs);
-        request.setAttribute("page", page);
-        return "viewlist";
-    }
-
-    
-    String executionId;// 流程节点id
+	String executionId;// 流程节点id
 	String activityName;//退回的节点
 	HashMap var;
 
@@ -127,10 +49,14 @@ public class TProcessBusinessConfigAction extends BaseAction implements Command 
 	public void setVar(HashMap var) {
 		this.var = var;
 	}
+	public void test(){
+		
+		String aa ="sss";
+	}
 	@Override
 	public Object execute(Environment environment) throws Exception {
-		System.out.println("++++++++++ooooooooooooooooooooooooo++++++++++++");
 		// TODO Auto-generated method stub
+		
 		String info = "";
 		// 1取得当前的活动节点
 	
@@ -197,4 +123,5 @@ public class TProcessBusinessConfigAction extends BaseAction implements Command 
 		Struts2Utils.renderText(info);
 		return null;
 	}
+
 }

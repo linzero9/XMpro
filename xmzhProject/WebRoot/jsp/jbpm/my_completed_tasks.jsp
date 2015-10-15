@@ -76,6 +76,7 @@
       		<h:hiddendata property="taskAssignee.startTimeAfter" />
       		<h:hiddendata property="taskAssignee.endTimeAfter" />
       		<h:hiddendata property="taskAssignee.businessType" />
+      	
             <h:hidden property="page.begin"/>
 		    <h:hidden property="page.length"/>
 		    <h:hidden property="page.count"/>
@@ -127,6 +128,9 @@
 										<h:param name='currentActivityName' iterateId='id1' property='currentActivityName' />
 										<h:param name='preTaskId' iterateId='id1' property='preTaskId' />
 										<h:param name='businessType' iterateId='id1' property='businessType' />
+										
+										<h:param name='activityName' iterateId='id1' property='activityName' />
+										
 									</w:rowRadio>
 								</td>
 								<td nowrap="nowrap"> 
@@ -153,12 +157,10 @@
 								<td nowrap="nowrap">
 									<b:write iterateId="id1" property="startTime" formatPattern="yyyy-MM-dd HH:mm:ss"/>
 								</td>
-								<td nowrap="nowrap">
+							 	<td nowrap="nowrap">
 									<b:write iterateId="id1" property="endTime"  formatPattern="yyyy-MM-dd HH:mm:ss"/>
 								</td>
-								<%-- <td nowrap="nowrap">
-									<b:write iterateId="id1" property="preTaskTime" formatPattern="yyyy-MM-dd HH:mm:ss"/>
-								</td> --%>
+
 							</tr>
 						</l:iterate>
 						</w:radioGroup>
@@ -211,6 +213,10 @@
 			</w:panel>		
 		</DIV>
 		<script type="text/javascript">
+
+		function winclose(){
+				window.close();
+			}
 	  	function viewTaskProcess(){
 	  		var gop = $id("group1");
 	  		var len = gop.getSelectLength();
@@ -224,7 +230,45 @@
 		  		showModalCenter(strUrl, null, null, 900, 400, '当前流程进度'); 
 			  	}
 		  	}
+		function todoback(){
+			var gop = $id("group1");
+	  		var len = gop.getSelectLength();
+	  		if(len == 0){
+	  			alert("请选择一条流程信息");
+	  			return;
+	  		}else{alert(1);
+	  			var rows=gop.getSelectRow();
+	  			var executionId = rows.getParam("executionId");
+	  			var activityName = rows.getParam("activityName");
+	  			alert(2);
+		maskTop();
+		alert(3);
 
+		
+		$.ajax({
+			        url: '/jbpm/tProcessBusinessConfigAction_execute.action',
+			        async: false,
+			        type: 'get',
+			        data: "executionId="+executionId+"&activityName="+activityName,
+			        dataType: 'text',
+			        timeout: 60000,
+			        success: function (data) {
+			    	  if(data.indexOf("success")>=0){
+				    	  alert("操作成功!");
+				    	  unMaskTop();
+
+					  		 winClose();
+			    	  }else{
+			    		  unMaskTop();
+				    	  alert("操作失败");
+			    	  }
+			        }											
+		  });
+		  }	
+
+			  
+			  alert(4);
+			}
 	  	function viewBussinessDetail(){
 	  		var gop = $id("group1");
 	  		var len = gop.getSelectLength();

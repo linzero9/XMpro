@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 <beans>
+
+	<bean class="com.gotop.jbpm.action.WithdrawJbpmAction" id="withdrawJbpmAction" name="withdrawJbpmAction">
+	</bean>
 	<bean class="com.gotop.jbpm.action.JbpmDemoAction" id="jbpmDemoAction" name="jbpmDemoAction" singleton="false">
 		<property name="jbpmDemoService" ref="jbpmDemoService" />
 		<property name="jbpmService" ref="jbpmService" />
