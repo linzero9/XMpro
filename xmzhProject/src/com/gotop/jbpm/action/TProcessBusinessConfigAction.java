@@ -47,8 +47,18 @@ public class TProcessBusinessConfigAction extends BaseAction implements Command 
     public ITProcessBusinessConfigService gettProcessBusinessConfigService() {
         return this.tProcessBusinessConfigService;
     }
+    
+    private  String info;
+    
+    public String getInfo() {
+		return info;
+	}
 
-    /**
+	public void setInfo(String info) {
+		this.info = info;
+	}
+
+	/**
      * 查询datacell列表.
      * @abatorgenerated
      */
@@ -127,9 +137,26 @@ public class TProcessBusinessConfigAction extends BaseAction implements Command 
 	public void setVar(HashMap var) {
 		this.var = var;
 	}
-	@Override
-	public Object execute(Environment environment) throws Exception {
+	
+	
+	
+	public  String dotest(){
 		System.out.println("++++++++++ooooooooooooooooooooooooo++++++++++++");
+		info = "succe222222ss";
+		try {
+			this.execute(null);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return "dotest";
+	}
+
+	public String execute(Environment environment) throws Exception {
+		
+		
+		System.out.println("11111111++++++++++ooooooooooooooooooooooooo++++++++++++");
 		// TODO Auto-generated method stub
 		String info = "";
 		// 1取得当前的活动节点
@@ -195,6 +222,6 @@ public class TProcessBusinessConfigAction extends BaseAction implements Command 
 		
 		info = "success";
 		Struts2Utils.renderText(info);
-		return null;
+		return "dotest";
 	}
 }

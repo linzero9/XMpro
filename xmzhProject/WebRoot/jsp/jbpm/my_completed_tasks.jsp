@@ -236,34 +236,38 @@
 	  		if(len == 0){
 	  			alert("请选择一条流程信息");
 	  			return;
-	  		}else{alert(1);
+	  		}else{
 	  			var rows=gop.getSelectRow();
 	  			var executionId = rows.getParam("executionId");
 	  			var activityName = rows.getParam("activityName");
-	  			alert(2);
+	  			
 		maskTop();
-		alert(3);
+
+
+		
+		alert(33333333);
 
 		
 		$.ajax({
-			        url: '/jbpm/tProcessBusinessConfigAction_execute.action',
-			        async: false,
-			        type: 'get',
-			        data: "executionId="+executionId+"&activityName="+activityName,
-			        dataType: 'text',
-			        timeout: 60000,
+			type:"post",
+			        url: '/jbpm/tProcessBusinessConfigAction_dotest.action',
+			
+			   
+			        data:{//设置数据源
+                        name:"aaaa"
+                    },
+			        dataType: "json",
+			        
 			        success: function (data) {
-			    	  if(data.indexOf("success")>=0){
-				    	  alert("操作成功!");
-				    	  unMaskTop();
-
-					  		 winClose();
-			    	  }else{
-			    		  unMaskTop();
-				    	  alert("操作失败");
-			    	  }
-			        }											
+				        alert("success");
+				        alert(data);
+			        },
+			        error:function(){
+                        alert("系统异常，请稍后重试！");
+                    }//这里不要加","											
 		  });
+
+		  
 		  }	
 
 			  
