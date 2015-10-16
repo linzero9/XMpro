@@ -127,8 +127,25 @@ public class TSendData implements Serializable {
 	 */
 	private String desTime;
 	
+	/**
+	 * 下发人员
+	 */
+	private String sendName;
+	
 	private String beginTime;
 	private String closeTime;
+	
+	
+
+
+	public String getSendName() {
+		return sendName;
+	}
+
+	public void setSendName(String sendName) {
+		this.sendName = sendName;
+	}
+
 	public String getBeginTime() {
 		return beginTime;
 	}

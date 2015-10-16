@@ -393,7 +393,13 @@ public class TSendDataAction extends BaseAction {
     		packTaskAssgineeDto(approveOpninion.getResourceId());
 	    	BusinessDto businessDto = new BusinessDto();
 	    	businessDto.setTaskId(taskId);
-	    	businessDto.setDataUser(dataUser+","+taskAssingee);
+	    	System.out.println(dataUser);
+	    	System.out.println(taskAssingee);
+	    	if(dataUser.equals(String.valueOf(taskAssingee))){
+		    	businessDto.setDataUser(dataUser);
+	    	}else{
+	    	    businessDto.setDataUser(dataUser+","+taskAssingee);
+	    	}
 	    	businessDto.setResourceId(resourceId);
 	    	if(approveOpninion.getNextOprName().equals("null")){
 	    		approveOpninion.setNextOprName("");
