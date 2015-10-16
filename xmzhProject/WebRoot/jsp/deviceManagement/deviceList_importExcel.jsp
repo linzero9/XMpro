@@ -18,7 +18,7 @@
    					<tr>
 						<td class="form_label" align="right">设备信息Excel文件：
 						<td colspan="1">
-							 <h:file name="dictItemFile"  id="dictItemFile"   />  <font style="color: red">文件扩展名为.xls</font> 
+							 <input type="file" name="readFile" size="40">  <font style="color: red">文件扩展名为.xls</font> 
 						</td>
 					</tr>
 					<tr class="form_bottom">
@@ -32,34 +32,43 @@
 	</h:form>
 		<DIV style="width:100%;height:280px;OVERFLOW: auto" >
 	<w:panel id="list_panel2" width="100%" title="导入结果信息">
-		<div id="showinfo" style="width: 100%">
-		</div>
-	</w:panel>
-	</DIV>
-	<h:hidden property="map/msg"/>
-	 <h:hidden property="map/failnum"/>
-	 <h:hidden property="map/sumnum"/>
+	 <h:hidden property="map/imp_flag"/>
 	 <h:hidden property="map/all_num"/>
-	 
+	 <h:hidden property="map/sumnum"/>
+	 <h:hidden property="map/failnum"/>
+	 <h:hidden property="map/msg" />
+		<div id="showInfo" style="width: 100%">
+		</div>
+	 </w:panel>
+	 	</DIV>
   </body>
   <script type="text/javascript">
   function init(){
-	  var su_num=$name("map/sumnum").value;
-	 	var fa_num=$name("map/failnum").value;
-	 	var all_num=$name("map/all_num").value;
-	 	$id("showinfo").innerHTML="<font style='color:red'>总共导入数据"+all_num+"条，其中成功导入数据"+su_num+"条，失败"+fa_num+"条。</font>"+"<br>";
-	 	var msg = $name("map/msg").value;
-		var xxs = msg.split("||");
-	 	for (var i=0; i<=xxs.length; i++){
-			if(xxs[i]){
-				$id("showinfo").innerHTML=$id("showinfo").innerHTML+xxs[i]+"<br>";
-			}
+	  var f = $name("map/imp_flag").value;
+		 if(f=="1"){
+			    var all_num=$name("map/all_num").value;
+			    var su_num=$name("map/sumnum").value;
+			 	var fa_num=$name("map/failnum").value;
+			 	alert("总共导入数据"+all_num+"条，其中成功导入数据"+su_num+"条，失败"+fa_num+"条。");
+			 	
+			 	$id("showInfo").innerHTML="<font style='color:red'>总共导入数据"+all_num+"条，其中成功导入数据"+su_num+"条，失败"+fa_num+"条。</font>"+"<br>";
+			 	var msg = $name("map/msg").value;
+				var xxs = msg.split("||");
+			 	for (var i=0; i<=xxs.length; i++){
+					if(xxs[i]){
+						$id("showInfo").innerHTML=$id("showInfo").innerHTML+xxs[i]+"<br>";
+					}
+				}
+				
+		 }else{
+			 $id("showInfo").style.display="none";
 		}
-		alert("总共导入数据"+all_num+"条，其中成功导入数据"+su_num+"条，失败"+fa_num+"条。");
   }
+  eventManager.add(window,"load",init);
+  
   //导入
   function import_file(){
-	/*var excelFile = $name("dictItemFile").value;
+	var excelFile = $name("readFile").value;
 	if (excelFile=="") {
 		alert('请选择您要导入的Excel文件！');//请选择您要导入的Excel文件！
 		return;
@@ -75,7 +84,7 @@
 	if(!confirm("是否确认导入数据？")){
 				return false;
 			}
-	*/
+	
 	var frm = $name("imp_form");
 	frm.submit();
   }

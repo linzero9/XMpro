@@ -11,6 +11,7 @@ import com.gotop.deviceManagement.dao.IDeviceManagementDAO;
 import com.gotop.deviceManagement.model.DeviceDetail;
 import com.gotop.deviceManagement.model.DevicePo;
 import com.gotop.deviceManagement.service.IDeviceManagementService;
+import com.gotop.util.export.ExcelTemplate;
 import com.gotop.vo.system.MUOUserSession;
 import com.primeton.utils.Page;
 
@@ -100,7 +101,6 @@ public class DeviceManagementService implements IDeviceManagementService{
 	@Override
 	public void save(DevicePo device,MUOUserSession muoUserSession) {
 		if(device.getDeviceId() == null){
-			device.setDeviceState("0"); //新增设备时默认设状态为可用（即为0）
 			deviceManagementDAO.insert(device);
 		}else{
 			deviceManagementDAO.updateByPrimaryKey(device);
@@ -147,17 +147,30 @@ public class DeviceManagementService implements IDeviceManagementService{
 	}
 
 	@Override
-	public Object[] queryOrg(String orgname) {
+	public int queryOrg(String orgcode) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("orgname", "orgname");
-		Object[] orgs = deviceManagementDAO.queryOrg(map);
-		return orgs;
+		map.put("orgcode", orgcode);
+		int count = deviceManagementDAO.queryOrg(map);
+		return count;
 	}
 
+	//该方法没有调用到，留着仅供参考
 	@Override
-	public void import_insert(DevicePo device) {
-		
-		deviceManagementDAO.insert(device);
+	public String importExcel(String filePath, String entityType) throws  Exception{
+		ExcelTemplate template=new ExcelTemplate();
+		List[] devicess =  template.importData(filePath, entityType, 5000);
+		List devices;
+		if(devicess.length == 1){
+			devices = devicess[0];
+		}else {
+			return "false";
+		}
+		DevicePo device;
+		for(int i=0; i<devices.size(); i++){
+			device = (DevicePo) devices.get(i);
+			deviceManagementDAO.insert(device);
+		}
+		return "true";
 	}
 	
 	

@@ -78,7 +78,7 @@ where t.orgcode = o.orgcode
       <isNotNull prepend="and" property="peripheral" >
         t.PERIPHERAL  like '%'|| #peripheral# ||'%'
       </isNotNull>
-  order by t.orgcode 
+  order by t.orgcode ,t.deviceName,t.deviceModel
   </select>
   
   <!--通过主键查询一条数据-->
@@ -135,7 +135,7 @@ where a.orgcode = b.orgcode
     where DEVICEID = #deviceId:DECIMAL#
   </delete>
   
-  <select id="queryOrg" resultClass="java.util.HashMap" parameterClass="java.util.HashMap" >
+  <select id="queryOrg" resultClass="java.lang.Integer" parameterClass="java.util.HashMap" >
  	select * from om_organization where orgcode = #orgcode#
 </select>
 

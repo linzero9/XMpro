@@ -25,7 +25,7 @@ public interface IDeviceManagementService {
 
 	void delete(DevicePo device);
 
-	Object[] queryOrg(String orgname);
-	
-	void import_insert(DevicePo device);
+	int queryOrg(String orgname);
+
+	String importExcel(String filePath, String entityType) throws Exception;
 }

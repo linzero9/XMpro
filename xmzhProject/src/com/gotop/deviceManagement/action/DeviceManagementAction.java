@@ -2,11 +2,13 @@ package com.gotop.deviceManagement.action;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 
+import com.fr.third.org.apache.poi.hssf.record.formula.functions.Trim;
 import com.fr.third.org.apache.poi.hssf.usermodel.HSSFCell;
 import com.fr.third.org.apache.poi.hssf.usermodel.HSSFRow;
 import com.fr.third.org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -19,7 +21,6 @@ import com.gotop.deviceManagement.service.IDeviceManDetailService;
 import com.gotop.deviceManagement.service.IDeviceManagementService;
 import com.gotop.util.Struts2Utils;
 import com.gotop.vo.system.MUOUserSession;
-import com.primeton.ext.access.http.IUploadFile;
 
 public class DeviceManagementAction  extends BaseAction {
 
@@ -28,7 +29,7 @@ public class DeviceManagementAction  extends BaseAction {
 	private List<DevicePo> devices;
 	private DeviceDetail detail;
 	private List<DeviceDetail> details;
-	private IUploadFile dictItemFile;
+	private File readFile;
 	private HashMap<String,Object> map; 
 
 	protected IDeviceManagementService deviceManagermentService;
@@ -92,12 +93,13 @@ public class DeviceManagementAction  extends BaseAction {
 		this.deviceManDetailService = deviceManDetailService;
 	}
 	
-	public IUploadFile getDictItemFile() {
-		return dictItemFile;
+
+	public File getReadFile() {
+		return readFile;
 	}
 
-	public void setDictItemFile(IUploadFile dictItemFile) {
-		this.dictItemFile = dictItemFile;
+	public void setReadFile(File readFile) {
+		this.readFile = readFile;
 	}
 
 	public String deviceList(){
@@ -155,6 +157,7 @@ public class DeviceManagementAction  extends BaseAction {
     	String info ="success";
     	try {
     		MUOUserSession muoUserSession = getCurrentOnlineUser();
+    		device.setDeviceState("0"); //新增设备时默认设状态为可用（即为0）
     		this.deviceManagermentService.save(device, muoUserSession);
     	} catch (Exception e) {
 			info="fails";
@@ -179,14 +182,13 @@ public class DeviceManagementAction  extends BaseAction {
     }
 	
 	//导入Excel
-		public String importExcel() throws IOException{
+		public String importExcel() throws Exception {
 				
-		    	String filePath = dictItemFile.getFilePath();
+		    	String filePath = readFile.getPath();
+		    	System.out.println(filePath);
 		    	
 		    	//返回JSP页面map
 				map = new HashMap<String,Object>();
-				//传入数据库的map
-//				HashMap<String,Object> tmp_map =  new HashMap<String,Object>();
 				String msg="";
 				int sumnum=0;
 				int failnum=0;
@@ -198,63 +200,92 @@ public class DeviceManagementAction  extends BaseAction {
 				HSSFSheet sheet = wb.getSheetAt(0);
 				//文件的行数
 				int rows = sheet.getPhysicalNumberOfRows();
-				map.put("all_num", rows-1);
+				int all_num = rows-1;//总共导入数据的行数
 				//遍历行数，读取数据
 				for(int i=1; i<rows; i++){
 					HSSFRow row = sheet.getRow(i);
-					HSSFCell cell_orgcode = row.getCell((short)0);
-					String orgcode =getCellValue(cell_orgcode);
-//					tmp_map.put("orgname", orgname);
-					Object[] orgs = deviceManagermentService.queryOrg(orgcode);
-					if(null==orgs || orgs.length==0){
-						msg+="机构/部门："+orgcode+"不存在。||";
-						map.put("msg", msg);
-						failnum++;
-						continue;
-					}
-					
-					device.setOrgcode(orgcode);
-					device.setDeviceName(getCellValue(row.getCell((short)1)));
-					device.setDeviceModel(getCellValue(row.getCell((short)2)));
-					device.setIpAdress(getCellValue(row.getCell((short)3)));
-					device.setProductionMachineName(getCellValue(row.getCell((short)4)));
-					device.setCpuCode(getCellValue(row.getCell((short)5)));
-					device.setMemory(getCellValue(row.getCell((short)6)));
-					device.setHardDisk(getCellValue(row.getCell((short)7)));
-					device.setOsVersion(getCellValue(row.getCell((short)8)));
-					device.setSoftwareVersion(getCellValue(row.getCell((short)9)));
-					device.setIeVersion(getCellValue(row.getCell((short)10)));
-					device.setUseful(getCellValue(row.getCell((short)11)));
-					device.setTerminalNumber(getCellValue(row.getCell((short)12)));
-					device.setUser(getCellValue(row.getCell((short)13)));
-					device.setPlugIn(getCellValue(row.getCell((short)14)));
-					device.setPeripheral(getCellValue(row.getCell((short)15)));
-					device.setOtherOne(getCellValue(row.getCell((short)16)));
-					device.setOtherInfoOne(getCellValue(row.getCell((short)17)));
-					device.setRemarksOne(getCellValue(row.getCell((short)18)));
-					device.setDeviceState(getCellValue(row.getCell((short)19)));
-					
-					//插入数据
-					try{
-						deviceManagermentService.import_insert(device);
-						sumnum++;
-					}catch(Exception e){
-						failnum++;
-						msg+="插入第"+i+"行数据时失败。||";
+					if (row != null) {
+						//判断如果整行单元格都为空，则不插入
+						boolean allowInsert = false;
+						int cells = row.getPhysicalNumberOfCells();
+						for (int c = 0; c < cells; c++) {
+							HSSFCell cell = row.getCell(c);
+							if (cell.getCellType() != HSSFCell.CELL_TYPE_BLANK) {
+								allowInsert = true;		
+								break;//结束for循环语句,跳出
+							} 
+						}
+						
+						if(allowInsert == false){
+							all_num--;
+							continue;//跳到excel表格的下一行进行判断
+						}
+						HSSFCell cell_orgcode = row.getCell((short)0);
+						String orgcode =getCellValue(cell_orgcode).trim();
+						if ("".equals(orgcode) || orgcode == null){
+							msg+="第"+i+"行数据，机构/部门不能为空。||";
+							map.put("msg", msg);
+							failnum++;
+							continue;
+						}
+						int  count= deviceManagermentService.queryOrg(orgcode);
+						if(count==0){
+							msg+="第"+i+"行数据，机构/部门("+orgcode+")不存在。||";
+							map.put("msg", msg);
+							failnum++;
+							continue;
+						}
+						
+						device = new DevicePo();
+						device.setOrgcode(orgcode);
+						device.setDeviceName(getCellValue(row.getCell((short)1)).trim());
+						device.setDeviceModel(getCellValue(row.getCell((short)2)).trim());
+						device.setIpAdress(getCellValue(row.getCell((short)3)).trim());
+						device.setProductionMachineName(getCellValue(row.getCell((short)4)).trim());
+						device.setCpuCode(getCellValue(row.getCell((short)5)).trim());
+						device.setMemory(getCellValue(row.getCell((short)6)).trim());
+						device.setHardDisk(getCellValue(row.getCell((short)7)).trim());
+						device.setOsVersion(getCellValue(row.getCell((short)8)).trim());
+						device.setSoftwareVersion(getCellValue(row.getCell((short)9)).trim());
+						device.setIeVersion(getCellValue(row.getCell((short)10)).trim());
+						device.setUseful(getCellValue(row.getCell((short)11)).trim());
+						device.setTerminalNumber(getCellValue(row.getCell((short)12)).trim());
+						device.setUser(getCellValue(row.getCell((short)13)).trim());
+						device.setPlugIn(getCellValue(row.getCell((short)14)).trim());
+						device.setPeripheral(getCellValue(row.getCell((short)15)).trim());
+						device.setOtherOne(getCellValue(row.getCell((short)16)).trim());
+						device.setOtherInfoOne(getCellValue(row.getCell((short)17)).trim());
+						device.setRemarksOne(getCellValue(row.getCell((short)18)).trim());
+						device.setDeviceState(getCellValue(row.getCell((short)19)).trim());
+						
+						MUOUserSession muoUserSession = getCurrentOnlineUser();
+						
+						//插入数据
+						try{
+							this.deviceManagermentService.save(device, muoUserSession);
+							sumnum++;
+						}catch(Exception e){
+							failnum++;
+							msg+="插入第"+i+"行数据时失败。||";
+						}
 					}
 				}
+				map.put("imp_flag", "1");
 				map.put("msg", msg);
+				map.put("all_num", all_num);
 				map.put("sumnum", sumnum);
 				map.put("failnum", failnum);
 				fileInputStream.close();
-//				return map;
 				this.setMap(map);
 				
 				//删除指定路径的内容,指定路径可以是文件或目录
 				MyUtil.delete(filePath);
 			    
 		    	return "importExcel";
+		    	 
 		 }
+		 
+		
 		
 		//返回列值
 			public String getCellValue(HSSFCell cell1){
@@ -264,8 +295,10 @@ public class DeviceManagementAction  extends BaseAction {
 						return String.valueOf(df.format(cell1.getNumericCellValue()));
 					case HSSFCell.CELL_TYPE_STRING:
 						return cell1.getStringCellValue();
+	case HSSFCell.CELL_TYPE_BLANK:
+						return "";
 					default:
-						return "输入格式出错！";
+						return "输入格式错误";
 				}
 			}
 
