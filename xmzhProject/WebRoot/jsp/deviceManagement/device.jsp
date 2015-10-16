@@ -56,12 +56,12 @@ margin-left:inherit;
 			<tr>	
 				<td class="form_label" align="right" width="15%">内存容量：</td>
 				<td colspan="1" width="30%"><h:text  id="memory"
-						property="device.memory"  size="3"  validateAttr="type=number;" />G</td>				
+						property="device.memory"  size="5"  validateAttr="fracDigit=2;type=double;" />G</td>				
 			</tr>
 			<tr>	
 				<td class="form_label" align="right" width="15%">硬盘容量：</td>
 				<td colspan="1" width="30%"><h:text id="hardDisk"
-						property="device.hardDisk"  size="3"  validateAttr="type=number;" />T</td>
+						property="device.hardDisk"  size="5"  validateAttr="fracDigit=2;type=double;" />G</td>
 			</tr>
 			<tr>	
 				<td class="form_label" align="right" width="15%">操作系统版本：</td>
@@ -109,21 +109,89 @@ margin-left:inherit;
 				</td>
 			</tr>
 			<tr>	
-				<td class="form_label" align="right" width="15%">其他属性：</td>
+				<td class="form_label" align="right" width="15%">其他属性1：</td>
 				<td colspan="1" width="30%">
-					<d:select id="otherOne"  dictTypeId="DEVICE_OTHERONE" property="device.otherOne" nullLabel="请选择"></d:select>
+					<d:select id="otherAttribute_1"  dictTypeId="DEVICE_OTHERATTRIBUTE_1" property="device.otherAttribute_1" nullLabel="请选择"></d:select>
 				</td>
 			</tr>
 			<tr>	
-				<td class="form_label" align="right" width="15%">其他信息：</td>
+				<td class="form_label" align="right" width="15%">其他属性2：</td>
 				<td colspan="1" width="30%">
-					<d:checkbox  id="otherInfoOne"  dictTypeId="DEVICE_OTHERINFOONE" property="device.otherInfoOne"  />
+					<d:select id="otherAttribute_2"  dictTypeId="DEVICE_OTHERATTRIBUTE_2" property="device.otherAttribute_2" nullLabel="请选择"></d:select>
 				</td>
 			</tr>
 			<tr>	
-				<td class="form_label" align="right" width="15%">备注：</td>
-				<td colspan="1" width="30%"><h:textarea property="device.remarksOne"
-						id="remarksOne" extAttr="class='h80' "  rows="4" style="width:90%;" /> </td>
+				<td class="form_label" align="right" width="15%">其他属性3：</td>
+				<td colspan="1" width="30%">
+					<d:select id="otherAttribute_3"  dictTypeId="DEVICE_OTHERATTRIBUTE_3" property="device.otherAttribute_3" nullLabel="请选择"></d:select>
+				</td>
+			</tr>
+			<tr>	
+				<td class="form_label" align="right" width="15%">其他属性4：</td>
+				<td colspan="1" width="30%">
+					<d:select id="otherAttribute_4"  dictTypeId="DEVICE_OTHERATTRIBUTE_4" property="device.otherAttribute_4" nullLabel="请选择"></d:select>
+				</td>
+			</tr>
+			<tr>	
+				<td class="form_label" align="right" width="15%">其他属性5：</td>
+				<td colspan="1" width="30%">
+					<d:select id="otherAttribute_5"  dictTypeId="DEVICE_OTHERATTRIBUTE_5" property="device.otherAttribute_5" nullLabel="请选择"></d:select>
+				</td>
+			</tr>
+			<tr>	
+				<td class="form_label" align="right" width="15%">其他信息1：</td>
+				<td colspan="1" width="30%">
+					<d:checkbox  id="otherInfo_1"  dictTypeId="DEVICE_OTHERINFO_1" property="device.otherInfo_1"  />
+				</td>
+			</tr>
+			<tr>	
+				<td class="form_label" align="right" width="15%">其他信息2：</td>
+				<td colspan="1" width="30%">
+					<d:checkbox  id="otherInfo_2"  dictTypeId="DEVICE_OTHERINFO_2" property="device.otherInfo_2"  />
+				</td>
+			</tr>
+			<tr>	
+				<td class="form_label" align="right" width="15%">其他信息3：</td>
+				<td colspan="1" width="30%">
+					<d:checkbox  id="otherInfo_3"  dictTypeId="DEVICE_OTHERINFO_3" property="device.otherInfo_3"  />
+				</td>
+			</tr>
+			<tr>	
+				<td class="form_label" align="right" width="15%">其他信息4：</td>
+				<td colspan="1" width="30%">
+					<d:checkbox  id="otherInfo_4"  dictTypeId="DEVICE_OTHERINFO_4" property="device.otherInfo_4"  />
+				</td>
+			</tr>
+			<tr>	
+				<td class="form_label" align="right" width="15%">其他信息5：</td>
+				<td colspan="1" width="30%">
+					<d:checkbox  id="otherInfo_5"  dictTypeId="DEVICE_OTHERINFO_5" property="device.otherInfo_5"  />
+				</td>
+			</tr>
+			<tr>	
+				<td class="form_label" align="right" width="15%">备注1：</td>
+				<td colspan="1" width="30%"><h:textarea property="device.remarks_1"
+						id="remarks_1" extAttr="class='h80' "  rows="4" style="width:90%;" /> </td>
+			</tr>
+			<tr>	
+				<td class="form_label" align="right" width="15%">备注2：</td>
+				<td colspan="1" width="30%"><h:textarea property="device.remarks_2"
+						id="remarks_2" extAttr="class='h80' "  rows="4" style="width:90%;" /> </td>
+			</tr>
+			<tr>	
+				<td class="form_label" align="right" width="15%">备注3：</td>
+				<td colspan="1" width="30%"><h:textarea property="device.remarks_3"
+						id="remarks_3" extAttr="class='h80' "  rows="4" style="width:90%;" /> </td>
+			</tr>
+			<tr>	
+				<td class="form_label" align="right" width="15%">备注4：</td>
+				<td colspan="1" width="30%"><h:textarea property="device.remarks_4"
+						id="remarks_4" extAttr="class='h80' "  rows="4" style="width:90%;" /> </td>
+			</tr>
+			<tr>	
+				<td class="form_label" align="right" width="15%">备注5：</td>
+				<td colspan="1" width="30%"><h:textarea property="device.remarks_5"
+						id="remarks_5" extAttr="class='h80' "  rows="4" style="width:90%;" /> </td>
 			</tr>
 			
 			<l:notEmpty property="device.deviceState" >

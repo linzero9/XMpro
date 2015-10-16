@@ -253,10 +253,22 @@ public class DeviceManagementAction  extends BaseAction {
 						device.setUser(getCellValue(row.getCell((short)13)).trim());
 						device.setPlugIn(getCellValue(row.getCell((short)14)).trim());
 						device.setPeripheral(getCellValue(row.getCell((short)15)).trim());
-						device.setOtherOne(getCellValue(row.getCell((short)16)).trim());
-						device.setOtherInfoOne(getCellValue(row.getCell((short)17)).trim());
-						device.setRemarksOne(getCellValue(row.getCell((short)18)).trim());
-						device.setDeviceState(getCellValue(row.getCell((short)19)).trim());
+						device.setOtherAttribute_1(getCellValue(row.getCell((short)16)).trim());
+						device.setOtherAttribute_2(getCellValue(row.getCell((short)17)).trim());
+						device.setOtherAttribute_3(getCellValue(row.getCell((short)18)).trim());
+						device.setOtherAttribute_4(getCellValue(row.getCell((short)19)).trim());
+						device.setOtherAttribute_5(getCellValue(row.getCell((short)20)).trim());
+						device.setOtherInfo_1(getCellValue(row.getCell((short)21)).trim());
+						device.setOtherInfo_2(getCellValue(row.getCell((short)22)).trim());
+						device.setOtherInfo_3(getCellValue(row.getCell((short)23)).trim());
+						device.setOtherInfo_4(getCellValue(row.getCell((short)24)).trim());
+						device.setOtherInfo_5(getCellValue(row.getCell((short)25)).trim());
+						device.setRemarks_1(getCellValue(row.getCell((short)26)).trim());
+						device.setRemarks_2(getCellValue(row.getCell((short)27)).trim());
+						device.setRemarks_3(getCellValue(row.getCell((short)28)).trim());
+						device.setRemarks_4(getCellValue(row.getCell((short)29)).trim());
+						device.setRemarks_5(getCellValue(row.getCell((short)30)).trim());
+						device.setDeviceState(getCellValue(row.getCell((short)31)).trim());
 						
 						MUOUserSession muoUserSession = getCurrentOnlineUser();
 						

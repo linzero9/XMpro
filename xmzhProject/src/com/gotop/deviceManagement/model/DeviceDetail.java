@@ -55,11 +55,37 @@ public class DeviceDetail  implements  Serializable{
 		private String peripheral;
 		
 		//本次  其他属性1
-		private  String otherOne;
+		private  String otherAttribute_1;
+		//本次  其他属性2
+		private  String otherAttribute_2;
+		//本次  其他属性3
+		private  String otherAttribute_3;
+		//本次  其他属性4
+		private  String otherAttribute_4;
+		//本次  其他属性5
+		private  String otherAttribute_5;
+				
 		//本次 其他信息1
-		private  String otherInfoOne;
+		private  String otherInfo_1;
+		//本次 其他信息2
+		private  String otherInfo_2;
+		//本次 其他信息3
+		private  String otherInfo_3;
+		//本次 其他信息4
+		private  String otherInfo_4;
+		//本次 其他信息5
+		private  String otherInfo_5;
+		
 		//本次  备注1
-		private  String remarksOne;
+		private  String remarks_1;
+		//本次  备注2
+		private  String remarks_2;
+		//本次  备注3
+		private  String remarks_3;
+		//本次  备注4
+		private  String remarks_4;
+		//本次  备注5
+		private  String remarks_5;
 
 		//本次 机构部门名称
 		private  String orgname;
@@ -233,28 +259,124 @@ public class DeviceDetail  implements  Serializable{
 		this.peripheral = peripheral;
 	}
 
-	public String getOtherOne() {
-		return otherOne;
+	public String getOtherAttribute_1() {
+		return otherAttribute_1;
 	}
 
-	public void setOtherOne(String otherOne) {
-		this.otherOne = otherOne;
+	public void setOtherAttribute_1(String otherAttribute_1) {
+		this.otherAttribute_1 = otherAttribute_1;
 	}
 
-	public String getOtherInfoOne() {
-		return otherInfoOne;
+	public String getOtherAttribute_2() {
+		return otherAttribute_2;
 	}
 
-	public void setOtherInfoOne(String otherInfoOne) {
-		this.otherInfoOne = otherInfoOne;
+	public void setOtherAttribute_2(String otherAttribute_2) {
+		this.otherAttribute_2 = otherAttribute_2;
 	}
 
-	public String getRemarksOne() {
-		return remarksOne;
+	public String getOtherAttribute_3() {
+		return otherAttribute_3;
 	}
 
-	public void setRemarksOne(String remarksOne) {
-		this.remarksOne = remarksOne;
+	public void setOtherAttribute_3(String otherAttribute_3) {
+		this.otherAttribute_3 = otherAttribute_3;
+	}
+
+	public String getOtherAttribute_4() {
+		return otherAttribute_4;
+	}
+
+	public void setOtherAttribute_4(String otherAttribute_4) {
+		this.otherAttribute_4 = otherAttribute_4;
+	}
+
+	public String getOtherAttribute_5() {
+		return otherAttribute_5;
+	}
+
+	public void setOtherAttribute_5(String otherAttribute_5) {
+		this.otherAttribute_5 = otherAttribute_5;
+	}
+
+	public String getOtherInfo_1() {
+		return otherInfo_1;
+	}
+
+	public void setOtherInfo_1(String otherInfo_1) {
+		this.otherInfo_1 = otherInfo_1;
+	}
+
+	public String getOtherInfo_2() {
+		return otherInfo_2;
+	}
+
+	public void setOtherInfo_2(String otherInfo_2) {
+		this.otherInfo_2 = otherInfo_2;
+	}
+
+	public String getOtherInfo_3() {
+		return otherInfo_3;
+	}
+
+	public void setOtherInfo_3(String otherInfo_3) {
+		this.otherInfo_3 = otherInfo_3;
+	}
+
+	public String getOtherInfo_4() {
+		return otherInfo_4;
+	}
+
+	public void setOtherInfo_4(String otherInfo_4) {
+		this.otherInfo_4 = otherInfo_4;
+	}
+
+	public String getOtherInfo_5() {
+		return otherInfo_5;
+	}
+
+	public void setOtherInfo_5(String otherInfo_5) {
+		this.otherInfo_5 = otherInfo_5;
+	}
+
+	public String getRemarks_1() {
+		return remarks_1;
+	}
+
+	public void setRemarks_1(String remarks_1) {
+		this.remarks_1 = remarks_1;
+	}
+
+	public String getRemarks_2() {
+		return remarks_2;
+	}
+
+	public void setRemarks_2(String remarks_2) {
+		this.remarks_2 = remarks_2;
+	}
+
+	public String getRemarks_3() {
+		return remarks_3;
+	}
+
+	public void setRemarks_3(String remarks_3) {
+		this.remarks_3 = remarks_3;
+	}
+
+	public String getRemarks_4() {
+		return remarks_4;
+	}
+
+	public void setRemarks_4(String remarks_4) {
+		this.remarks_4 = remarks_4;
+	}
+
+	public String getRemarks_5() {
+		return remarks_5;
+	}
+
+	public void setRemarks_5(String remarks_5) {
+		this.remarks_5 = remarks_5;
 	}
 
 	public String getOrgname() {

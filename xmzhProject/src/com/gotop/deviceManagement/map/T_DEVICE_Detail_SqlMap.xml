@@ -23,9 +23,21 @@
     <result column="USERS" property="user" jdbcType="VARCHAR" />
     <result column="PLUGIN" property="plugIn" jdbcType="VARCHAR" />
     <result column="PERIPHERAL" property="peripheral" jdbcType="VARCHAR" />
-    <result column="OTHERONE" property="otherOne" jdbcType="VARCHAR" />
-    <result column="OTHERINFOONE" property="otherInfoOne" jdbcType="VARCHAR" />
-    <result column="REMARKSONE" property="remarksOne" jdbcType="VARCHAR" />
+    <result column="OTHERATTRIBUTE_1" property="otherAttribute_1" jdbcType="VARCHAR" />
+    <result column="OTHERATTRIBUTE_2" property="otherAttribute_2" jdbcType="VARCHAR" />
+    <result column="OTHERATTRIBUTE_3" property="otherAttribute_3" jdbcType="VARCHAR" />
+    <result column="OTHERATTRIBUTE_4" property="otherAttribute_4" jdbcType="VARCHAR" />
+    <result column="OTHERATTRIBUTE_5" property="otherAttribute_5" jdbcType="VARCHAR" />
+    <result column="OTHERINFO_1" property="otherInfo_1" jdbcType="VARCHAR" />
+    <result column="OTHERINFO_2" property="otherInfo_2" jdbcType="VARCHAR" />
+    <result column="OTHERINFO_3" property="otherInfo_3" jdbcType="VARCHAR" />
+    <result column="OTHERINFO_4" property="otherInfo_4" jdbcType="VARCHAR" />
+    <result column="OTHERINFO_5" property="otherInfo_5" jdbcType="VARCHAR" />
+    <result column="REMARKS_1" property="remarks_1" jdbcType="VARCHAR" />
+    <result column="REMARKS_2" property="remarks_2" jdbcType="VARCHAR" />
+    <result column="REMARKS_3" property="remarks_3" jdbcType="VARCHAR" />
+    <result column="REMARKS_4" property="remarks_4" jdbcType="VARCHAR" />
+    <result column="REMARKS_5" property="remarks_5" jdbcType="VARCHAR" />
     <result column="ORGNAME" property="orgname" jdbcType="VARCHAR" />
     <result column="ORGCODE" property="orgcode" jdbcType="VARCHAR" />  
     <result column="DEVICE_STATE" property="deviceState" jdbcType="CHAR" />    
@@ -35,7 +47,10 @@
   <select id="queryList" resultMap="tDeviceDetailResult" parameterClass="java.util.HashMap" >
  	select t.DETAILID, t.DEVICEID, t.OPERATEEMPID, TO_CHAR(t.OPERATETIME, 'yyyy-MM-dd HH24:mi:ss') as OPERATETIME
  	, t.DEVICENAME, t.DEVICEMODEL, t.IPADRESS, t.PRODUCTIONMACHINENAME, t.CPUCODE, t.MEMORY, t.HARDDISK
-    , t.OSVERSION, t.SOFTWAREVERSION, t.IEVERSION, t.USEFUL, t.TERMINALNUMBER, t.USERS, t.PLUGIN, t.PERIPHERAL, t.OTHERONE, t.OTHERINFOONE, t.REMARKSONE
+    , t.OSVERSION, t.SOFTWAREVERSION, t.IEVERSION, t.USEFUL, t.TERMINALNUMBER, t.USERS, t.PLUGIN, t.PERIPHERAL
+    , t.OTHERATTRIBUTE_1, t.OTHERATTRIBUTE_2, t.OTHERATTRIBUTE_3, t.OTHERATTRIBUTE_4, t.OTHERATTRIBUTE_5
+    , t.OTHERINFO_1, t.OTHERINFO_2, t.OTHERINFO_3, t.OTHERINFO_4, t.OTHERINFO_5
+    , t.REMARKS_1, t.REMARKS_2, t.REMARKS_3, t.REMARKS_4, t.REMARKS_5
     , t.ORGCODE, t.DEVICE_STATE
  	, o.orgname, e.empname as operateEmpname from  t_new_deviceManDetail t , om_organization o, om_employee e
 where t.orgcode = o.orgcode  
@@ -56,12 +71,18 @@ and t.DEVICEID = #deviceId:DECIMAL#
     insert into t_new_deviceManDetail 
     (DETAILID, DEVICEID, OPERATEEMPID, OPERATETIME
     , DEVICENAME, DEVICEMODEL, IPADRESS, PRODUCTIONMACHINENAME, CPUCODE, MEMORY, HARDDISK
-    , OSVERSION, SOFTWAREVERSION, IEVERSION, USEFUL, TERMINALNUMBER, USERS, PLUGIN, PERIPHERAL, OTHERONE, OTHERINFOONE, REMARKSONE
+    , OSVERSION, SOFTWAREVERSION, IEVERSION, USEFUL, TERMINALNUMBER, USERS, PLUGIN, PERIPHERAL
+    , OTHERATTRIBUTE_1, OTHERATTRIBUTE_2, OTHERATTRIBUTE_3, OTHERATTRIBUTE_4, OTHERATTRIBUTE_5
+    , OTHERINFO_1, OTHERINFO_2, OTHERINFO_3, OTHERINFO_4, OTHERINFO_5
+    , REMARKS_1 , REMARKS_2 , REMARKS_3 , REMARKS_4 , REMARKS_5
     , ORGCODE, DEVICE_STATE)
     values (#detailId:DECIMAL:-9999#, #deviceId:DECIMAL:-9999#, #operateEmpid:DECIMAL:-9999#, sysdate
     ,  #deviceName:VARCHAR#,  #deviceModel:VARCHAR#,  #ipAdress:VARCHAR#,  #productionMachineName:VARCHAR#
     ,  #cpuCode:VARCHAR# , #memory:VARCHAR# ,  #hardDisk:VARCHAR# ,  #osVersion:VARCHAR# ,  #softwareVersion:VARCHAR# ,  #ieVersion:VARCHAR# ,  #useful:VARCHAR#
-     ,  #terminalNumber:VARCHAR# ,  #user:VARCHAR# ,  #plugIn:VARCHAR# ,  #peripheral:VARCHAR# ,  #otherOne:VARCHAR# , #otherInfoOne:VARCHAR# ,  #remarksOne:VARCHAR# 
+     ,  #terminalNumber:VARCHAR# ,  #user:VARCHAR# ,  #plugIn:VARCHAR# ,  #peripheral:VARCHAR# 
+     ,  #otherAttribute_1:VARCHAR# ,  #otherAttribute_2:VARCHAR#  ,  #otherAttribute_3:VARCHAR#  ,  #otherAttribute_4:VARCHAR#  ,  #otherAttribute_5:VARCHAR# 
+     ,  #otherInfo_1:VARCHAR#  ,  #otherInfo_2:VARCHAR#  ,  #otherInfo_3:VARCHAR#  ,  #otherInfo_4:VARCHAR#  ,  #otherInfo_5:VARCHAR#
+     ,  #remarks_1:VARCHAR#  ,  #remarks_2:VARCHAR#  ,  #remarks_3:VARCHAR#  ,  #remarks_4:VARCHAR#  ,  #remarks_5:VARCHAR# 
      ,  #orgcode:VARCHAR# ,  #deviceState:CHAR# )
   </insert>
   

@@ -45,15 +45,15 @@ margin-left:inherit;
 				<tr>
 					<td class="form_label" align="right" width="20%">内存：</td>
 					<td colspan="1"  width="30%">
-						<h:text id="memoryMin" property="device.memoryMin"  size="2"  validateAttr="type=number;"  />G
+						<h:text id="memoryMin" property="device.memoryMin"  size="5"  validateAttr="fracDigit=2;type=double;"  />G
 						＜内存容量(G)＜
-						<h:text id="memoryMax" property="device.memoryMax"  size="2"  validateAttr="type=number;" />G
+						<h:text id="memoryMax" property="device.memoryMax"  size="5"  validateAttr="fracDigit=2;type=double;" />G
 					</td>
 					<td class="form_label" align="right" width="20%">硬盘：</td>
 					<td colspan="1"  width="30%">
-						<h:text id="hardDiskMin" property="device.hardDiskMin"  size="2"  validateAttr="type=number;"  />T
-						＜硬盘容量(T)＜
-						<h:text id="hardDiskMax" property="device.hardDiskMax" size="2"  validateAttr="type=number;"  />T
+						<h:text id="hardDiskMin" property="device.hardDiskMin"  size="5"  validateAttr="fracDigit=2;type=double;"  />G
+						＜硬盘容量(G)＜
+						<h:text id="hardDiskMax" property="device.hardDiskMax" size="5"  validateAttr="fracDigit=2;type=double;"  />G
 					</td>
 				</tr>
 				<tr>
@@ -138,7 +138,7 @@ margin-left:inherit;
 								内存容量(G)
 							</th>
 							<th nowrap="nowrap">
-								硬盘容量(T)
+								硬盘容量(G)
 							</th>
 							<th nowrap="nowrap">
 								操作系统版本
@@ -165,13 +165,49 @@ margin-left:inherit;
 								对应的外设
 							</th>
 							<th nowrap="nowrap">
-								其他属性
+								其他属性1
 							</th>
 							<th nowrap="nowrap">
-								其他信息
+								其他属性2
 							</th>
 							<th nowrap="nowrap">
-								备注
+								其他属性3
+							</th>
+							<th nowrap="nowrap">
+								其他属性4
+							</th>
+							<th nowrap="nowrap">
+								其他属性5
+							</th>
+							<th nowrap="nowrap">
+								其他信息1
+							</th>
+							<th nowrap="nowrap">
+								其他信息2
+							</th>
+							<th nowrap="nowrap">
+								其他信息3
+							</th>
+							<th nowrap="nowrap">
+								其他信息4
+							</th>
+							<th nowrap="nowrap">
+								其他信息5
+							</th>
+							<th nowrap="nowrap">
+								备注1
+							</th>
+							<th nowrap="nowrap">
+								备注2
+							</th>
+							<th nowrap="nowrap">
+								备注3
+							</th>
+							<th nowrap="nowrap">
+								备注4
+							</th>
+							<th nowrap="nowrap">
+								备注5
 							</th>
 							<th nowrap="nowrap">
 								设备状态
@@ -234,13 +270,49 @@ margin-left:inherit;
 								     <d:write iterateId="id1" property="peripheral"  dictTypeId="DEVICE_PERIPHERAL"  seperator=", "  />
 								</td>
 								<td nowrap="nowrap"> 
-								     <d:write iterateId="id1" property="otherOne"  dictTypeId="DEVICE_OTHERONE"/>
+								     <d:write iterateId="id1" property="otherAttribute_1"  dictTypeId="DEVICE_OTHERATTRIBUTE_1"/>
 								</td>
 								<td nowrap="nowrap"> 
-								     <d:write iterateId="id1" property="otherInfoOne"  dictTypeId="DEVICE_OTHERINFOONE"  seperator=", "  />
+								     <d:write iterateId="id1" property="otherAttribute_2"  dictTypeId="DEVICE_OTHERATTRIBUTE_2"/>
 								</td>
 								<td nowrap="nowrap"> 
-								     <b:write iterateId="id1" property="remarksOne" />
+								     <d:write iterateId="id1" property="otherAttribute_3"  dictTypeId="DEVICE_OTHERATTRIBUTE_3"/>
+								</td>
+								<td nowrap="nowrap"> 
+								     <d:write iterateId="id1" property="otherAttribute_4"  dictTypeId="DEVICE_OTHERATTRIBUTE_4"/>
+								</td>
+								<td nowrap="nowrap"> 
+								     <d:write iterateId="id1" property="otherAttribute_5"  dictTypeId="DEVICE_OTHERATTRIBUTE_5"/>
+								</td>
+								<td nowrap="nowrap"> 
+								     <d:write iterateId="id1" property="otherInfo_1"  dictTypeId="DEVICE_OTHERINFO_1"  seperator=", "  />
+								</td>
+								<td nowrap="nowrap"> 
+								     <d:write iterateId="id1" property="otherInfo_2"  dictTypeId="DEVICE_OTHERINFO_2"  seperator=", "  />
+								</td>
+								<td nowrap="nowrap"> 
+								     <d:write iterateId="id1" property="otherInfo_3"  dictTypeId="DEVICE_OTHERINFO_3"  seperator=", "  />
+								</td>
+								<td nowrap="nowrap"> 
+								     <d:write iterateId="id1" property="otherInfo_4"  dictTypeId="DEVICE_OTHERINFO_4"  seperator=", "  />
+								</td>
+								<td nowrap="nowrap"> 
+								     <d:write iterateId="id1" property="otherInfo_5"  dictTypeId="DEVICE_OTHERINFO_5"  seperator=", "  />
+								</td>
+								<td nowrap="nowrap"> 
+								     <b:write iterateId="id1" property="remarks_1" />
+								</td>
+								<td nowrap="nowrap"> 
+								     <b:write iterateId="id1" property="remarks_2" />
+								</td>
+								<td nowrap="nowrap"> 
+								     <b:write iterateId="id1" property="remarks_3" />
+								</td>
+								<td nowrap="nowrap"> 
+								     <b:write iterateId="id1" property="remarks_4" />
+								</td>
+								<td nowrap="nowrap"> 
+								     <b:write iterateId="id1" property="remarks_5" />
 								</td>
 								<td nowrap="nowrap">
 										<d:write  iterateId="id1"  dictTypeId="DEVICE_STATE" property="deviceState" />

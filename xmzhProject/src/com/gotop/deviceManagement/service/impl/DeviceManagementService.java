@@ -127,9 +127,21 @@ public class DeviceManagementService implements IDeviceManagementService{
 		detail.setUser(device.getUser());
 		detail.setPlugIn(device.getPlugIn());
 		detail.setPeripheral(device.getPeripheral());
-		detail.setOtherOne(device.getOtherOne());
-		detail.setOtherInfoOne(device.getOtherInfoOne());
-		detail.setRemarksOne(device.getRemarksOne());
+		detail.setOtherAttribute_1(device.getOtherAttribute_1());
+		detail.setOtherAttribute_2(device.getOtherAttribute_2());
+		detail.setOtherAttribute_3(device.getOtherAttribute_3());
+		detail.setOtherAttribute_4(device.getOtherAttribute_4());
+		detail.setOtherAttribute_5(device.getOtherAttribute_5());
+		detail.setOtherInfo_1(device.getOtherInfo_1());
+		detail.setOtherInfo_2(device.getOtherInfo_2());
+		detail.setOtherInfo_3(device.getOtherInfo_3());
+		detail.setOtherInfo_4(device.getOtherInfo_4());
+		detail.setOtherInfo_5(device.getOtherInfo_5());
+		detail.setRemarks_1(device.getRemarks_1());
+		detail.setRemarks_2(device.getRemarks_2());
+		detail.setRemarks_3(device.getRemarks_3());
+		detail.setRemarks_4(device.getRemarks_4());
+		detail.setRemarks_5(device.getRemarks_5());
 		detail.setOrgcode(device.getOrgcode());
 		detail.setDeviceState(device.getDeviceState());
 		
