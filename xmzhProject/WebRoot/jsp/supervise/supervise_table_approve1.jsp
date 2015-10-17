@@ -172,12 +172,12 @@
 				$(this).attr("disabled",'disabled');
 			 }); 
 		   }
- 	 if('${supFlag}'){
+ /* if('${supFlag}'){
 		 $("#smit1").hide();
 		 $("#smit2").hide();
 		 $("#smit").hide();
 		 WEB.hideFile();
-	}
+	}*/
 		 $.ajax({
 		        url: '/file/tFileResourceTableAction_queryFileList.action',
 		        async: false,

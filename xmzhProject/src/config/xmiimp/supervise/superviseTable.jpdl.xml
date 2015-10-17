@@ -14,14 +14,15 @@
    <task form="/supervise/tSuperviseTableAction_input4.action" g="376,312,100,52" name="办公室督办人员">
       <transition g="-9,-20" name="汇总" to="行领导"/>
       <transition g="-41,3" name="提交审核" to="分管行领导"/>
-      <transition g="496,280:4,-6" name="退回重办" to="办理部室"/>
-      <transition name="结束" to="结束" g="-39,-8"/>
+      <transition g="496,280:4,-6" name="退回" to="办理部室"/>
+      <transition g="-39,-8" name="结束" to="结束"/>
    </task>
    <task form="/supervise/tSuperviseTableAction_input2.action" g="160,308,92,52" name="行领导">
       <transition g="317,284:-10,-21" name="批示" to="办公室督办人员"/>
    </task>
    <task form="/supervise/tSuperviseTableAction_input3.action" g="382,202,92,52" name="办理部室">
       <transition g="-28,-12" name="反馈" to="办公室督办人员"/>
+      <transition name="退回" to="督办申请" g="-69,-22"/>
    </task>
    <task form="/supervise/tSuperviseTableAction_input2.action" g="577,426,92,52" name="分管行领导">
       <transition g="625,336:0,-15" name="批示" to="办公室督办人员"/>

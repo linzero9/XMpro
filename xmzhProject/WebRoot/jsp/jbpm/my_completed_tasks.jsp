@@ -250,17 +250,20 @@
 		function handleTask() {
 			var gop = $id("group1");
 			var len = gop.getSelectLength();
+			var rows = gop.getSelectRow();
+			var businessKey = rows.getParam("businessKey");
+			var nextTaskId = rows.getParam("nextTaskId");
+			var executionId = rows.getParam("executionId");
+			var businessType = rows.getParam("businessType");
+			var preTaskAssingee = rows.getParam("preTaskAssingee");
+			var processTaskAssigneeId = rows.getParam("taskExeConfigId");
 			if (len == 0) {
 				alert("请选择一条待办信息");
+				
 				return;
-			} else {
-				var rows = gop.getSelectRow();
-				var businessKey = rows.getParam("businessKey");
-				var nextTaskId = rows.getParam("nextTaskId");
-				var executionId = rows.getParam("executionId");
-				var businessType = rows.getParam("businessType");
-				var preTaskAssingee = rows.getParam("preTaskAssingee");
-				var processTaskAssigneeId = rows.getParam("taskExeConfigId");
+			} else if(nextTaskId != '')
+			{	
+		    	
 				//var parentId = rows.getParam("parentId");
 				//var isChild = rows.getParam("isChild");
 				//var assignee = rows.getParam("assignee");
@@ -276,13 +279,22 @@
 						+ preTaskAssingee
 						+ "&taskAssgineeDto.processTaskAssigneeId="
 						+ processTaskAssigneeId
-						;
+						+ "&taskAssgineeDto.isChild="
+						+ '0'
+						+"&taskAssgineeDto.isC="
+						+'1';
 				/* parent.window.frames["mainFrame"].location.href = encodeURI(strUrl); */
 				/**
 				 * 2014.9.1 改为弹出框
 				 **/
 				showModalCenter(encodeURI(strUrl), null, callBack,
 						clientX * 0.8, clientY * 0.65, '待办详情');
+				
+				}
+			else {
+			
+				alert("流程无法回退");
+				return;
 			}
 		}
 		function callBack() {

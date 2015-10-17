@@ -39,7 +39,7 @@
       </result>
     
       <result name="task_person_assigner">
-     /jsp/jbpm/task_person_assigner.jsp
+     /jsp/jbpm/x.jsp
       </result>
       <result name="task_activity">
      /jsp/jbpm/task_activity.jsp
