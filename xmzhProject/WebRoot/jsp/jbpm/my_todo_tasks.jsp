@@ -109,7 +109,7 @@
 										<h:param name='executionId' iterateId='id1' property='executionId' />
 										<h:param name='nextTaskId' iterateId='id1' property='nextTaskId' />
 										<h:param name='preTaskId' iterateId='id1' property='preTaskId' />
-										<h:text name='preTaskAssingee' iterateId='id1' property='preTaskAssingee' />
+										<h:param name='preTaskAssingee' iterateId='id1' property='preTaskAssingee' />
 										<h:param name='preTaskOrg' iterateId='id1' property='preTaskOrg' />
 										<h:param name='preTaskTime' iterateId='id1' property='preTaskTime' />
 										<h:param name='businessKey' iterateId='id1' property='businessKey' />
@@ -117,7 +117,7 @@
 										<h:param name='processTaskAssigneeId' iterateId='id1' property='processTaskAssigneeId' />
 										<h:param name='parentId' iterateId='id1' property='parentId' />
 										<h:param name='isChild' iterateId='id1' property='isChild' />
-										<h:text name='assignee' iterateId='id1' property='assignee' />
+										<h:param name='assignee' iterateId='id1' property='assignee' />
 									</w:rowRadio>
 								</td>
 								<td nowrap="nowrap"> 
