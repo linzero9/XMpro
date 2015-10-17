@@ -195,7 +195,7 @@
     from T_SEND_DATA s,T_RANGE_USER r, om_employee e
    		, (select * from om_employee) l
     where 
-     l.empid(+)=r.send_id and
+     l.empid(+)=s.s_emp_id and
     s.DS_ID = r.RESOURCE_ID and r.RESOURCE_TYPE = '02' and 
    e.empid = r.emp_id
    <isNotNull prepend="and" property="empid">
