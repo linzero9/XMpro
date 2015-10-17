@@ -110,7 +110,7 @@
       <tr class="form_bottom">
         <td colspan="4">
           <input id="sButton" type="button" value="提交" class="button" onclick="pass();" />
-          <input id="sButton2" type="button" value="提交2" class="button" onclick="pass2();" />
+          <input id="sButton2" type="button" value="回退" class="button" onclick="pass2();" />
          <input type="button" value="查看流程" onclick="doflowpic();" class="button" id="flowpic" />
         </td>
       </tr>
@@ -127,24 +127,23 @@
   <script type="text/javascript">
   		
 		 $(document).ready(function(){
+			 
 			 var date = new Date();
 				var result = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
 				$("#otime").val(result);
 				$("#otime2").val(date.getFullYear()+''+(date.getMonth()+1)+''+date.getDate());
-
+				
 				var isView = '${isView}';
 				if(isView!=''){
 					$("#sButton").hide();
 					$("#sButton2").hide();
 					$("#opinionTr").hide();
 				}
-				alert(isC);
-				alert('1'==isC);
-				alert('1'.equals(isC));
-				 if('1'.equals(isC)){
-					 
+				if('${taskAssgineeDto.isC}'){
 					$("#sButton").hide();
-				}
+				}else{
+					$("#sButton2").hide();
+					}
 				
 				$.ajax({
 			        url: '/file/tFileResourceTableAction_queryFileList.action',
