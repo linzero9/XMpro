@@ -24,6 +24,7 @@
         	<h:hidden id="taskId" name="taskId" property="taskAssgineeDto/nextTaskId"/>
         	<h:hidden id="taskAssingee" name="taskAssgineeDto.taskAssingee" property="taskAssgineeDto/taskAssingee"/>
         	<h:hidden id="taskName" name="taskName" property="taskAssgineeDto/taskName"/>
+        	<h:hidden id="isC" name="isC" property="taskAssgineeDto/isC"/>
         </td>
       </tr>
       <tr>
@@ -109,6 +110,7 @@
       <tr class="form_bottom">
         <td colspan="4">
           <input id="sButton" type="button" value="提交" class="button" onclick="pass();" />
+          <input id="sButton2" type="button" value="提交2" class="button" onclick="pass2();" />
          <input type="button" value="查看流程" onclick="doflowpic();" class="button" id="flowpic" />
         </td>
       </tr>
@@ -133,7 +135,15 @@
 				var isView = '${isView}';
 				if(isView!=''){
 					$("#sButton").hide();
+					$("#sButton2").hide();
 					$("#opinionTr").hide();
+				}
+				alert(isC);
+				alert('1'==isC);
+				alert('1'.equals(isC));
+				 if('1'.equals(isC)){
+					 
+					$("#sButton").hide();
 				}
 				
 				$.ajax({
@@ -163,6 +173,13 @@
 		function pass(){
 			if(checkForm($id("leaveForm"))){
 				var strUrl = "/jbpm/jbpmDemoAction_toNextTaskConfig.action?taskAssgineeDto.executionId="+$id("executionId").value+"&taskAssgineeDto.beginOrg=<b:write property="taskAssgineeDto.beginOrg" />"+"&taskAssgineeDto.beginAssingee=<b:write property="taskAssgineeDto.beginAssingee" />";
+	    		showModalCenter(strUrl, null, taskAssigneeCallBack, 700, 400, '节点选择');
+			}
+		}
+
+		function pass2(){
+			if(checkForm($id("leaveForm"))){
+				var strUrl = "/jbpm/jbpmDemoAction_toNextTaskConfig2.action?taskAssgineeDto.executionId="+$id("executionId").value+"&taskAssgineeDto.beginOrg=<b:write property="taskAssgineeDto.beginOrg" />"+"&taskAssgineeDto.beginAssingee=<b:write property="taskAssgineeDto.beginAssingee" />";
 	    		showModalCenter(strUrl, null, taskAssigneeCallBack, 700, 400, '节点选择');
 			}
 		}

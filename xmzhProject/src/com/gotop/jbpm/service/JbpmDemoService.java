@@ -96,6 +96,8 @@ public interface JbpmDemoService {
 	public List<HistoryTask> findHistoryTasksList(String userId);
 
 	public List<ActivityDto> getNextTaskList(TaskAssgineeDto taskAssgineeDto);
+	
+	public List<ActivityDto> getNextTaskList2(TaskAssgineeDto taskAssgineeDto);
 
 	public String getFormName(TaskAssgineeDto taskAssgineeDto);
 }

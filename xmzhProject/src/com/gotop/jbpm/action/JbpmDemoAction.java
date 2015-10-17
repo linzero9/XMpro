@@ -1095,6 +1095,11 @@ public class JbpmDemoAction extends BaseAction {
 				buffer.append(taskAssgineeDto.getIsChild());
 				buffer.append("&");
 			}
+			if (taskAssgineeDto.getIsC()!= null) {
+				buffer.append("taskAssgineeDto.isC=");
+				buffer.append(taskAssgineeDto.getIsC());
+				buffer.append("&");
+			}
 			if (taskAssgineeDto.getTemplateFileIds()!= null) {
 				buffer.append("taskAssgineeDto.templateFileIds=");
 				buffer.append(taskAssgineeDto.getTemplateFileIds());
@@ -1118,6 +1123,13 @@ public class JbpmDemoAction extends BaseAction {
 
 	public String toNextTaskConfig() {
 		activityList = this.jbpmDemoService.getNextTaskList(taskAssgineeDto);
+		this.setActivityList(activityList);
+		this.setTaskAssgineeDto(taskAssgineeDto);
+		return "task_person_assigner";
+	}
+	
+	public String toNextTaskConfig2() {
+		activityList = this.jbpmDemoService.getNextTaskList2(taskAssgineeDto);
 		this.setActivityList(activityList);
 		this.setTaskAssgineeDto(taskAssgineeDto);
 		return "task_person_assigner";
