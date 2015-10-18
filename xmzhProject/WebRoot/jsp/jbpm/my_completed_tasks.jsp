@@ -137,8 +137,12 @@
 											property='nextTaskId' />
 										<h:param name='taskExeConfigId' iterateId='id1'
 											property='taskExeConfigId' />
-							
-
+										<h:param name='preTaskAssingeeName' iterateId='id1'
+											property='preTaskAssingeeName' />
+										<h:param name='currentAssingee' iterateId='id1'
+											property='currentAssingee' />
+										<h:param name='nextTaskId' iterateId='id1'
+											property='nextTaskId' />
 									</w:rowRadio></td>
 								<td nowrap="nowrap"><b:write iterateId="id1"
 										property="businessTitle" /></td>
@@ -257,11 +261,25 @@
 			var businessType = rows.getParam("businessType");
 			var preTaskAssingee = rows.getParam("preTaskAssingee");
 			var processTaskAssigneeId = rows.getParam("taskExeConfigId");
+			var currentAssingee = rows.getParam("currentAssingee");
+			var preTaskAssingeeName = rows.getParam("preTaskAssingeeName");
+			var currentActivityName = rows.getParam("currentActivityName");
+			var activityName = rows.getParam("activityName");
+			
 			if (len == 0) {
 				alert("请选择一条待办信息");
 				
 				return;
-			} else if(nextTaskId != '')
+			} 
+			else if(currentAssingee == preTaskAssingeeName){
+				alert("请到代办事项中操作该流程");
+				return;
+				}
+			else if(currentActivityName == activityName){
+				alert("该流程已结束！");
+				return;
+				}
+			else if(nextTaskId != '')
 			{	
 		    	
 				//var parentId = rows.getParam("parentId");
@@ -293,7 +311,7 @@
 				}
 			else {
 			
-				alert("流程无法回退");
+				alert("该流程目前无法回退");
 				return;
 			}
 		}

@@ -26,6 +26,7 @@
         <h:hidden id="beginOrg" property="taskAssgineeDto.beginOrg"/>
         <h:hidden id="definitionId" property="taskAssgineeDto.definitionId"/>
         <h:hidden id="businessType" property="taskAssgineeDto.businessType"/>
+        <h:hidden id="isC" name="isC" property="taskAssgineeDto/isC"/>
 		 <input type="hidden" id="btnType" name="btnType" />
 		<table align="center" border="0" width="100%" class="form_table" >
        <tr>
@@ -140,6 +141,7 @@
         <td colspan="4">
           <input type="button" value="保存" class="button" id="save1" onclick="doSave(1);"  />
           <input type="button" value="提交" onclick="doSave(2);" class="button" id="save3" />
+          <input type="button" value="回退" onclick="doSave2(2);" class="button" id="save4" />
           <input type="button" value="查看流程" onclick="doflowpic();" class="button" id="flowpic" />
          </td>
       </tr>
@@ -184,6 +186,14 @@
 		 if('${isView}'!=""){
 			 $(".smit").attr("display","none");
 		 }
+
+		 if('${taskAssgineeDto.isC}'){
+			 	$("#save3").hide();
+				$("#save1").hide();
+			}else{
+				$("#save4").hide();
+				
+				}
 		 
 	 }else{
 		 $("#row1").css("display","none");  
@@ -226,6 +236,22 @@ function initPlanCell20(){
     			    ajaxsubmitO();
     	  	 	}
      }
+
+     function doSave2(value){   		
+ 		$("#btnType").val(value);
+ 		if(value!="1"){
+ 			if(checkForm($id("form1"))){
+ 			var strUrl = "/jbpm/jbpmDemoAction_toNextTaskConfig2.action?taskAssgineeDto.executionId="+$id("executionId").value+"&taskAssgineeDto.beginOrg="+$("#beginOrg").val()+"&taskAssgineeDto.beginAssingee="+$("#createor").val();
+     		showModalCenter(strUrl, null, taskAssigneeCallBack, 700, 400, '节点选择');
+ 			}
+ 		}else{
+ 			var _form = $id("form1");
+ 	  	  	 	url="/euipApply/tApplyEuipAction_insertEuipInfo.action";	
+ 	  	  	    _form.action =url;
+ 	  	  	if(checkForm($id("form1")))
+ 			    ajaxsubmitO();
+ 	  	 	}
+  }
  	function taskAssigneeCallBack(arg){
   	 	var _form = $id("form1");
   	 	if(arg!=""){
