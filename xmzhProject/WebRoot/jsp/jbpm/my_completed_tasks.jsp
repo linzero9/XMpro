@@ -13,6 +13,7 @@
 	<h:form name="appQuery"
 		action="/jbpm/tProcessTaskAssigneeAction_queryMyCompletedTasksList.action"
 		method="post">
+		<h:hidden property="nameString" id="nameString" />
 		<w:panel id="panel1" title="我的已办">
 			<table align="center" border="0" width="100%" class="form_table">
 				<tr>
@@ -265,6 +266,7 @@
 			var preTaskAssingeeName = rows.getParam("preTaskAssingeeName");
 			var currentActivityName = rows.getParam("currentActivityName");
 			var activityName = rows.getParam("activityName");
+			var nameString = $id('nameString').value;
 			
 			if (len == 0) {
 				alert("请选择一条待办信息");
@@ -276,7 +278,12 @@
 				return;
 				}
 			else if(currentActivityName == activityName){
-				alert("该流程已结束！");
+				alert("该流程已结束");
+				return;
+				}
+			else if(preTaskAssingeeName != nameString){
+				
+				alert("无法操作回退他人流程");
 				return;
 				}
 			else if(nextTaskId != '')
@@ -319,43 +326,7 @@
 			location.reload();
 		}
 
-		function todoback() {
-			var gop = $id("group1");
-			var len = gop.getSelectLength();
-			if (len == 0) {
-				alert("请选择一条流程信息");
-				return;
-			} else {
-				var rows = gop.getSelectRow();
-				var executionId = rows.getParam("executionId");
-				var activityName = rows.getParam("activityName");
-
-				maskTop();
-
-				alert(33333333);
-
-				$.ajax({
-					type : "post",
-					url : '/jbpm/tProcessBusinessConfigAction_dotest.action',
-
-					data : {//设置数据源
-						name : "aaaa"
-					},
-					dataType : "json",
-
-					success : function(data) {
-						alert("success");
-						alert(data);
-					},
-					error : function() {
-						alert("系统异常，请稍后重试！");
-					}//这里不要加","											
-				});
-
-			}
-
-			alert(4);
-		}
+		
 		function viewBussinessDetail() {
 			var gop = $id("group1");
 			var len = gop.getSelectLength();

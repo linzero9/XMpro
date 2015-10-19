@@ -235,14 +235,35 @@ public class TProcessTaskAssigneeAction extends BaseAction{
         request.setAttribute("page", page);
         return "viewlist";
     }
-    
-    /**
+   private String empId; 
+    public String getEmpId() {
+	return empId;
+}
+
+public void setEmpId(String empId) {
+	this.empId = empId;
+}
+//当前登入人员姓名
+private String nameString;
+
+	public String getNameString() {
+	return nameString;
+}
+
+public void setNameString(String nameString) {
+	this.nameString = nameString;
+}
+
+	/**
      * 我的已办任务列表
      * @throws Exception 
      */
     public String queryMyCompletedTasksList() throws Exception{
+    	nameString = String.valueOf(this.getCurrentOnlineUser().getEmpname());
+    	this.setNameString(nameString);
     	//获取用户empId
-    	String empId = String.valueOf(this.getCurrentOnlineUser().getEmpid());
+    	 empId = String.valueOf(this.getCurrentOnlineUser().getEmpid());
+    	 this.setEmpId(empId);
     	//获取角色id数组
     	String[] roleIdArray = this.getCurrentOnlineUser().getRoleid();
     	//获取机构代码
