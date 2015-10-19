@@ -55,7 +55,7 @@ public class TSuperviseTableService implements ITSuperviseTableService {
      * 通过spring注入的DAO对象.
      * @abatorgenerated
      */
-    public ITSuperviseTableDAO tSuperviseTableDAO;
+    protected ITSuperviseTableDAO tSuperviseTableDAO;
     private TMessagePublishDAO tMessagePublishDAO;
     /**
      * 通过spring注入的DAO对象.
