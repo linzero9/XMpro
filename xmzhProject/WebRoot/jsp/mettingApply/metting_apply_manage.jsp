@@ -28,6 +28,7 @@
         <h:hidden id="beginOrg" property="taskAssgineeDto.beginOrg"/>
         <h:hidden id="definitionId" property="taskAssgineeDto.definitionId"/>
         <h:hidden id="businessType" property="taskAssgineeDto.businessType"/>
+        <h:hidden id="isC" name="isC" property="taskAssgineeDto/isC"/>
 		 <input type="hidden" id="btnType" name="btnType" />
 		 <input type="hidden" id="isFirst" name="isFirst" />
 		<table align="center" border="0" width="100%" class="form_table" >
@@ -124,6 +125,7 @@
         <td colspan="4">
           <input type="button" value="保存" class="button" id="save1" onclick="doSave(1);"  />
           <input type="button" value="提交" onclick="doSave(2);" class="button" id="smit" />
+           <input type="button" value="回退" onclick="doSave2(2);" class="button" id="smit2" />
           <input type="button" value="查看流程" onclick="doflowpic();" class="button" id="flowpic" />
          </td>
       </tr>
@@ -178,6 +180,14 @@
 
 	 if('${isView}'!=''){
 		$("#save1").hide();}
+
+	 if('${taskAssgineeDto.isC}'){
+			$("#save1").hide();
+			$("#smit").hide();
+		}else{
+			$("#smit2").hide();
+			}
+		
 	  $("#mettingTime").removeAttr("readonly");
 });
 
@@ -202,6 +212,21 @@ function initPlanCell20(){
     	  	 	}
     		}
      }
+
+     function doSave2(value){
+ 		$("#btnType").val(value);
+ 		if(checkForm($id("form1"))){
+ 		if(value!="1"){
+ 			var strUrl = "/jbpm/jbpmDemoAction_toNextTaskConfig2.action?taskAssgineeDto.executionId="+$id("executionId").value+"&taskAssgineeDto.beginOrg="+$("#beginOrg").val()+"&taskAssgineeDto.beginAssingee="+$("#createor").val()+"&taskAssgineeDto.definitionId=${taskAssgineeDto.definitionId}";
+     		showModalCenter(strUrl, null, taskAssigneeCallBack, 700, 400, '节点选择');
+ 		}else{
+ 			var _form = $id("form1");
+ 	  	  	 	url="/mettingApply/tMettingApplyAction_insertMettingInfo.action";	
+ 	  	  	    _form.action =url
+ 			    ajaxsubmitO();
+ 	  	 	}
+ 		}
+  }
  	function taskAssigneeCallBack(arg){
   	 	var _form = $id("form1");
   	 	if(arg!=""){

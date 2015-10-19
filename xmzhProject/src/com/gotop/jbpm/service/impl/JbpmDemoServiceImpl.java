@@ -408,7 +408,7 @@ public class JbpmDemoServiceImpl implements JbpmDemoService{
                 		}
                 	}
           
-                	if(activityDto.getTransitionName().equals("退回"))
+                	if(activityDto.getTransitionName().equals("退回") || activityDto.getTransitionName().equals("批示") )
                 	{
                 		addList.add(activityDto);  
                 	}else{

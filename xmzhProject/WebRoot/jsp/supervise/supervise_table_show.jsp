@@ -26,6 +26,7 @@
         <h:hidden id="beginOrg" property="taskAssgineeDto.beginOrg"/>
         <h:hidden id="definitionId" property="taskAssgineeDto.definitionId"/>
         <h:hidden id="businessType" property="taskAssgineeDto.businessType"/>
+        <h:hidden id="isC" name="isC" property="taskAssgineeDto/isC"/>
 		 <input type="hidden" id="btnType" name="btnType" />
 		<table align="center" border="0" width="100%" class="form_table" >
        <tr>
@@ -107,6 +108,7 @@
       <tr class="form_bottom">
         <td colspan="4">
           <input type="button" value="提交" onclick="doSave(2);" class="button" id="smit" />
+          <input type="button" value="回退" onclick="doSave2(2);" class="button" id="smit2" />
           <input type="button" value="查看流程" onclick="doflowpic();" class="button" id="flowpic" />
         </td>
       </tr>
@@ -121,7 +123,12 @@
   </body>
  <script type="text/javascript">
  $(document).ready(function(){
-	  
+	 if('${taskAssgineeDto.isC}'){
+			$("#smit").hide();
+		}else{
+			$("#smit2").hide();
+			}
+		
 	 if('${supFlag}'=='1'){
 		 $("#smit").hide();
 		 WEB.hideFile();}
@@ -212,6 +219,34 @@ function initPlanCell20(){
     			    ajaxsubmitO();
     	  	 	}
      }
+
+     function doSave2(value){
+    	    
+ 		if($("#orgcode").val()==""){
+      	alert("主办单位不能为空！");
+     		$("#superviseType").focus();
+ 			return false;
+ 		}
+ 		if($("#opinion").val()==""){
+ 			alert("意见不能为空!");
+ 			$("#opinion").focus();
+ 			return false;
+ 		}    		
+ 		$("#btnType").val(value);
+ 		if(value!="1"){
+ 			if(checkForm($id("form1"))){
+     		var dynamicOrgIds=$("#orgid").val()+","+$("#orgid1").val();
+ 			var strUrl = "/jbpm/jbpmDemoAction_toNextTaskConfig2.action?taskAssgineeDto.executionId="+$id("executionId").value+"&taskAssgineeDto.beginOrg="+$("#beginOrg").val()+"&taskAssgineeDto.dynamicOrgIds="+dynamicOrgIds+"&taskAssgineeDto.beginAssingee="+$("#createor").val()+"&taskAssgineeDto.definitionId=${taskAssgineeDto.definitionId}";
+     		showModalCenter(strUrl, null, taskAssigneeCallBack, 700, 400, '节点选择');
+ 			}
+ 		}else{
+ 			var _form = $id("form1");
+ 	  	  	 	url="/supervise/tSuperviseTableAction_insertSuperviseInfo.action"+ "?supervise.remindId=" + '${supervise.remindId}';	
+ 	  	  	    _form.action =url
+ 	  	  	if(checkForm($id("form1")))
+ 			    ajaxsubmitO();
+ 	  	 	}
+  }
  	function taskAssigneeCallBack(arg){
   	 	var _form = $id("form1");
   	 	if(arg!=""){
