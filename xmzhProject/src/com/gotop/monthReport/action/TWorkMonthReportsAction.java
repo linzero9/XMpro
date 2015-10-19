@@ -327,7 +327,7 @@ public class TWorkMonthReportsAction extends BaseAction {
      * @return
      */
     
-    public String monthReportApprove3(){
+    public String monthReportApprove2(){
         try {
             if(taskAssgineeDto!=null&&taskAssgineeDto.getBusinessKey()!=null&&!"".equals(taskAssgineeDto.getBusinessKey())){
                 reportId=taskAssgineeDto.getBusinessKey();

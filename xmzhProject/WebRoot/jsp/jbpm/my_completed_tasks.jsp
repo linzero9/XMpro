@@ -274,7 +274,7 @@
 				return;
 			} 
 			else if(currentAssingee == preTaskAssingeeName){
-				alert("请到代办事项中操作该流程");
+				alert("请到待办事项中操作该流程");
 				return;
 				}
 			else if(currentActivityName == activityName){
@@ -318,7 +318,7 @@
 				}
 			else {
 			
-				alert("该流程目前无法回退");
+				alert("该流程已结束");
 				return;
 			}
 		}
