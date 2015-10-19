@@ -26,6 +26,7 @@
 		<h:hidden property="monthReports.createDate" />
 		<h:hidden property="monthReports.createTime" />
 		<h:hidden property="taskAssgineeDto.businessType" name="businessType" />
+		<h:hidden id="isC" name="isC" property="taskAssgineeDto/isC"/>
 		<!-- 起草人机构 -->
 		<h:hidden id="beginOrg" property="taskAssgineeDto.beginOrg" />
 		<!-- 流程实例ID -->
@@ -98,7 +99,10 @@
 			<%@include file="/jsp/util/default_opinionUtil.jsp"%>
 			<tr class="form_bottom">
 				<td colspan="4"><input type="button" value="提交"
-					onclick="doSave();" class="button" id="save2" /><input
+					onclick="doSave();" class="button" id="save2" />
+					<input type="button" value="回退"
+					onclick="doSave2();" class="button" id="save3" />
+					<input
 					type="button" value="查看流程" onclick="doflowpic();" class="button"
 					id="flowpic" /> <input type="button" value="传阅" onclick="doSee();"
 					class="button" id="see" /> <input type="button" value="反馈" onclick="doback();"
@@ -151,6 +155,13 @@
 				 
 			 }
 			}
+		if('${taskAssgineeDto.isC}'){
+			$("#save2").hide();
+			$("#see").hide();
+			$("#back").hide();
+		}else{
+			$("#save3").hide();
+			}
 	});
 
 	function initPlanCell20() {
@@ -174,6 +185,19 @@
 		}
 	}
 
+	/* 提交回退 */
+	function doSave() {
+		if (checkForm($id("form1"))) {
+			var strUrl = "/jbpm/jbpmDemoAction_toNextTaskConfig2.action?taskAssgineeDto.executionId="
+					+ $id("executionId").value
+					+ "&taskAssgineeDto.beginOrg="
+					+ $("#beginOrg").val()
+					+ "&taskAssgineeDto.beginAssingee="
+					+ $("#creator").val();
+			showModalCenter(strUrl, null, taskAssigneeCallBack, 700, 400,
+					'节点选择');
+		}
+	}
 	var rowId = 0;
 	function addFile(tabid, varName) {
 		var tab, row, td, fName, fId, tdStr;
