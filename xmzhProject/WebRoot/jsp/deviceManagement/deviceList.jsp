@@ -392,15 +392,18 @@ margin-left:inherit;
 				$id("osVersion").value="";
 				$id("softwareVersion").value="";
 				$id("ieVersion").value="";
-			// $id("useful").value="";
-			//	$id("plugIn").value="";
-			//	$id("peripheral").value="";
-				var useful = $("input[name='device.useful']:checkbox:checked").val();
-				useful="";
-				var plugIn = $("input[name='device.plugIn']:checkbox:checked").val();
-				plugIn="";
-				var peripheral = $("input[name='device.peripheral']:checkbox:checked").val();
-				peripheral="";
+				
+				$("input[name='device.useful']:checkbox:checked").each(function(){ 
+	                $(this).attr("checked",false);
+	            });	
+
+				$("input[name='device.plugIn']:checkbox:checked").each(function(){ 
+	                $(this).attr("checked",false);
+	            });	
+
+				$("input[name='device.peripheral']:checkbox:checked").each(function(){ 
+	                $(this).attr("checked",false);
+	            });	
 			}
 
 			//新增

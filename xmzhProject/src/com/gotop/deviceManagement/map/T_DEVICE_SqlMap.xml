@@ -77,13 +77,13 @@ where t.orgcode = o.orgcode
          t.IEVERSION = #ieVersion#
       </isNotNull>
       <isNotNull prepend="and" property="useful" >
-        t.USEFUL like '%'|| #useful# ||'%'
+        t.USEFUL like replace('%'|| #useful# ||'%', ',', '%')
       </isNotNull>
       <isNotNull prepend="and" property="plugIn" >
-         t.PLUGIN  like '%'|| #plugIn# ||'%'
+         t.PLUGIN  like replace('%'|| #plugIn# ||'%', ',', '%')
       </isNotNull>
       <isNotNull prepend="and" property="peripheral" >
-        t.PERIPHERAL  like '%'|| #peripheral# ||'%'
+        t.PERIPHERAL  like replace('%'|| #peripheral# ||'%', ',', '%')
       </isNotNull>
   order by t.orgcode ,t.deviceName,t.deviceModel
   </select>
