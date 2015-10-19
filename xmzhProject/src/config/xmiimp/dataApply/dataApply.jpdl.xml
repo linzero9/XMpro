@@ -17,7 +17,7 @@
    </task>
    <task form="/dataApply/tApplyDataAction_getApplyDataforRisk.action" g="632,113,110,52" name="风险可行性分析">
       <transition g="4,-8" name="提交" to="风险管理部部门领导审核"/>
-      <transition g="449,229:-12,-26" name="退回" to="发起申请"/>
+      <transition g="451,216:-12,-26" name="驳回" to="发起申请"/>
       <transition g="-81,-22" name="退回" to="提交申请人"/>
    </task>
    <task form="/dataApply/tApplyDataAction_getApplyDataforApprove2.action" g="611,206,152,52" name="风险管理部部门领导审核">
