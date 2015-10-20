@@ -464,6 +464,47 @@ public class TSuperviseTableService implements ITSuperviseTableService {
         }
     }
     
+    public void insertApproveOpninion2(TSuperviseTable sup,MUOUserSession muo,String taskId,String type,TaskAssgineeDto dto){
+        try {
+                if(sup.getOpninion()!=null/*&&!"".equals(sup.getOpninion())*/){
+                    TApproveOpninion opninion=new TApproveOpninion();
+                    opninion.setResourceId(dto.getBusinessKey());
+                    opninion.setOperator(muo.getEmpid());
+                    opninion.setOrgid(String.valueOf(muo.getOrgid()));
+                    opninion.setResourceType("03");
+                    opninion.setOperaterDate(TimeUtil.today());
+                    opninion.setOperaterTime(TimeUtil.now());
+                    opninion.setOpninionContent(sup.getOpninion());
+                    opninion.setOperatorType(type);
+                    /**
+                     * 20140903
+                     */
+                    opninion.setNextorgname("");
+                    if(dto.getEmpNames()!=null&&!"".equals(dto.getEmpNames())){
+                        opninion.setNextOprName(dto.getEmpNames());
+                        List<HashMap<String,Object>> list = tMessagePublishDAO.queryOrgName(dto.getEmpIds());
+                        for(int i=0;i<list.size();i++){
+                            opninion.setNextorgname(opninion.getNextorgname()+(String) list.get(i).get("ORGNAME"));
+                            if(i!=list.size()-1){
+			    				opninion.setNextorgname(opninion.getNextorgname()+",");
+			    			}
+                        }
+                        
+                    }
+                    else
+                        opninion.setNextOprName("");
+                    //需要taskId
+                    opninion.setNodeId(taskId);
+                    opninion.setNodeName(sup.getNodeName1());
+                    tApproveOpninionDAO.insert(opninion);
+                }
+            
+            
+        } catch (Exception e) {
+        //保存审核意见失败。
+            log.error("保存审核意见失败。", e);
+        }
+    }
     /**
      * 回退时的dto生成
      * @param dto
@@ -913,6 +954,75 @@ public class TSuperviseTableService implements ITSuperviseTableService {
              return "success";
         }
 
+        
+        
+        
+        public String updateBuShiAssignStatus2(TaskAssgineeDto dto,
+                MUOUserSession muo, TSuperviseTable sup) throws Exception {
+            if(dto.getExecutionId()==null||"".equals(dto.getExecutionId()))
+                return "无法获取该实例ID!";
+            String type="10";
+            sup.setNodeName1(jbpmService.getTaskById(dto.getTaskId()).getName());
+            if(sup.getOpninion()==null||"".equals(sup.getOpninion()))
+            sup.setOpninion("");
+
+        
+    
+            
+            //删除当前人员办理信息
+             //删除当前已办人员
+            TProcessTaskAssigneePerson tpap=new TProcessTaskAssigneePerson();
+            tpap.setTaskAssigneeId(muo.getEmpid());
+            tpap.setExecutionId(dto.getExecutionId());
+            this.tProcessTaskAssigneePersonDAO.deleteByTemplate(tpap);
+
+            String preTaskId=dto.getTaskId();
+            //插入下一个节点信息
+            insertTask(dto,muo);
+            //更新当前执行人信息
+            
+            TProcessTaskAssignee tptagee=new TProcessTaskAssignee();
+            tptagee.setId(dto.getProcessTaskAssigneeId());
+            tptagee.setExecutionId(dto.getExecutionId());
+            tptagee.setPreTaskId(preTaskId);
+            tptagee.setPreTaskAssingee(muo.getEmpid().toString());
+            tptagee.setPreTaskOrg(muo.getOrgid());
+            tptagee.setPreTaskTime(TimeUtil.getCntDtStr(new Date(), "yyyyMMddHHmmss"));
+            tptagee.setNextTaskId(dto.getTaskId());
+            tptagee.setBusinessKey(sup.getSuperviseId());
+             
+            //插入下一步执行人员      
+            this.gettProcessTaskAssigneeDAO().updateByPrimaryKeySelective(tptagee);
+            TProcessTaskAssigneePerson record=new TProcessTaskAssigneePerson();
+            TProcessTaskAssigneePerson example=new TProcessTaskAssigneePerson();
+            record.setExecutionId(dto.getExecutionId());
+            record.setTaskId(dto.getTaskId());
+            example.setExecutionId(dto.getExecutionId());
+            example.setProcessTaskAssigneeId(dto.getProcessTaskAssigneeId());
+            this.gettProcessTaskAssigneePersonDAO().updateEntityByTemplate(record, example);
+            dto.setTaskAssigneeState("0");
+              //判断内部办理是否是所有人都已经办理
+            List<TProcessTaskAssigneePerson> task=jbpmService.getBsUnCompleted(dto);
+            if(task.size()<1){
+                //获取下个节点人id,姓名
+                HashMap<String, Object> hmp= new HashMap<String, Object>();
+                hmp.put("empid", muo.getEmpid());
+                //获取部门主要负责人信息
+                TSuperviseTable sp=tSuperviseTableDAO.queryTaskAssignZyPerson(hmp);
+                if(sp!=null&&sp.getEmpid()!=null&&!"".equals(sp.getEmpid()))
+                    dto.setEmpIds(sp.getEmpid());
+                if(sp!=null&&sp.getEmpname()!=null&&!"".equals(sp.getEmpname()))
+                    dto.setEmpNames(sp.getEmpname());
+                dto.setIsChild("0");//用来判断是否负责人，显示对应按钮信息
+                dto.setTaskAssigneeState("0");//部室提交下一步使用，如果是多个为0，则流程不走下一个节点。
+                if(!(dto.getEmpIds()==null||dto.getEmpIds().equals(""))){
+                 jbpmService.insertTaskAssignPerson(dto);
+                 }
+            }
+             //插入办理意见
+            insertApproveOpninion2(sup, muo, dto.getTaskId(), type, dto);
+             return "success";
+        }
         @Override
         public void insertSuperviseFile(TSuperviseTable supervise,File[] files, String[] filesFileName, MUOUserSession muo,TaskAssgineeDto taskAssgineeDto) throws Exception {
             // TODO 自动生成的方法存根
