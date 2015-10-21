@@ -9,7 +9,7 @@
    </task>
    <task form="/monthReport/tWorkMonthReportsAction_monthReportApprove1.action" g="315,125,92,52" name="部门领导审核">
       <transition g="-49,-6" name="提交分管" to="分管领导审核"/>
-      <transition g="246,124:-14,-20" name="退回" to="工作月报申请"/>
+      <transition g="246,117:-14,-20" name="退回" to="工作月报申请"/>
       <transition g="-57,-20" name="提交办公室人员汇总" to="办公室汇总"/>
    </task>
    <task form="/monthReport/tWorkMonthReportsAction_monthReportApprove2.action" g="314,11,92,52" name="分管领导审核">
@@ -25,15 +25,15 @@
    </task>
    <task form="/monthReport/tWorkMonthReportsAction_monthReportApprove4.action" g="517,320,92,52" name="部门领导">
       <transition g="-34,-26" name="反馈申请人任务" to="申请人任务"/>
-      <transition g="-105,-22" name="退回" to="月重点工作汇总"/>
+      <transition g="-105,-22" name="回退" to="月重点工作汇总"/>
    </task>
    <task form="/monthReport/tWorkMonthReportsAction_monthReportApprove1.action" g="512,223,104,59" name="月重点工作汇总">
       <transition g="-33,-10" name="反馈部门领导" to="部门领导"/>
-      <transition g="-81,-22" name="退回" to="办公室汇总"/>
+      <transition g="-81,-22" name="回退" to="办公室汇总"/>
    </task>
    <task form="/monthReport/tWorkMonthReportsAction_monthReportApprove1.action" g="320,319,92,52" name="申请人任务">
       <transition g="-10,-22" name="结束" to="结束"/>
-      <transition g="-69,-22" name="退回" to="部门领导"/>
+      <transition g="-69,-22" name="回退" to="部门领导"/>
    </task>
    <end g="212,322,48,48" name="结束"/>
 </process>

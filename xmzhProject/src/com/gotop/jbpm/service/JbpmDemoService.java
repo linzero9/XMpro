@@ -97,7 +97,7 @@ public interface JbpmDemoService {
 
 	public List<ActivityDto> getNextTaskList(TaskAssgineeDto taskAssgineeDto);
 	
-	public List<ActivityDto> getNextTaskList2(TaskAssgineeDto taskAssgineeDto);
+	public List<ActivityDto> getNextTaskList2(TaskAssgineeDto taskAssgineeDto,String s);
 
 	public String getFormName(TaskAssgineeDto taskAssgineeDto);
 }

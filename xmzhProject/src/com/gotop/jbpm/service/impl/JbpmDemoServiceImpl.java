@@ -185,6 +185,7 @@ public class JbpmDemoServiceImpl implements JbpmDemoService{
 	public List<ActivityDto> getNextTaskList(TaskAssgineeDto taskAssgineeDto) {
 		List<ActivityDto>addList = null;
 		String definitionId = null;
+		
     	EnvironmentImpl envImpl = ((EnvironmentFactory) processEngine) 
                  .openEnvironment();
     	 try {
@@ -272,7 +273,12 @@ public class JbpmDemoServiceImpl implements JbpmDemoService{
                     		}
                 		}
                 	}
-                	addList.add(activityDto);  
+                	if(activityDto.getTransitionName().equals("回退"))
+                	{               		  
+                	}else{
+                		addList.add(activityDto);
+                	}
+                	//addList.add(activityDto);  
                 }else{
                 	List<Transition> list2 = (List<Transition>) activity.getOutgoingTransitions();
                 	if(list2.size() == 0){
@@ -333,7 +339,8 @@ public class JbpmDemoServiceImpl implements JbpmDemoService{
 
 	
 	@Override
-	public List<ActivityDto> getNextTaskList2(TaskAssgineeDto taskAssgineeDto) {
+	public List<ActivityDto> getNextTaskList2(TaskAssgineeDto taskAssgineeDto,String rolenameString) {
+
 		List<ActivityDto>addList = null;
 		String definitionId = null;
     	EnvironmentImpl envImpl = ((EnvironmentFactory) processEngine) 
@@ -348,6 +355,7 @@ public class JbpmDemoServiceImpl implements JbpmDemoService{
     			 if(taskAssgineeDto.getDefinitionId()!=null && !"".equals(taskAssgineeDto.getDefinitionId())){
     				 ProcessDefinitionImpl processDefinitionImpl = (ProcessDefinitionImpl) this.repositoryService.createProcessDefinitionQuery()
     							.processDefinitionId(taskAssgineeDto.getDefinitionId()).uniqueResult();
+    			
     					definitionId = processDefinitionImpl.getId();
     					List<ActivityImpl> list = (List<ActivityImpl>) processDefinitionImpl.getActivities();
     					for (ActivityImpl activityImpl1 : list) {
@@ -360,10 +368,12 @@ public class JbpmDemoServiceImpl implements JbpmDemoService{
     					}
     			 }
     		 }
-    	    
+    	   
     	 	addList = new ArrayList<ActivityDto>();
             List list = activityImpl.getOutgoingTransitions();  
+            int i=0;
             for (Iterator iterator = list.iterator(); iterator.hasNext();) {  
+            	
                 Transition ts = (Transition) iterator.next(); 
                 Activity activity = ts.getDestination();
                 if("task".equals(activity.getType())){
@@ -406,15 +416,38 @@ public class JbpmDemoServiceImpl implements JbpmDemoService{
                             	activityDto.setTransitionName(ts.getName());
                     		}
                 		}
+                	}   
+                	
+                	
+                	if((rolenameString .equals("行领导") )&&(activityDto.getTransitionName().equals("提交分管") && (activityDto.getActShowName().equals("分管领导审核")))){
+                		addList.add(activityDto);
                 	}
-          
-                	if(activityDto.getTransitionName().equals("退回") || activityDto.getTransitionName().equals("批示") )
+                	else{ 
+                		if((activityDto.getTransitionName().equals("退回")) | activityDto.getTransitionName().equals("批示")| activityDto.getTransitionName().equals("回退") 
+                		
+                			|(activityDto.getTransitionName().equals("提交领导批示") && (activityDto.getActShowName().equals("行领导批示")))
+   		              			
+                	  )
                 	{
                 		addList.add(activityDto);  
-                	}else{
-                		
                 	}
-                	                	
+                	} 
+//                	System.out.println(i==0);
+//                	System.out.println(activityDto.getTransitionName());
+//                	System.out.println(activityDto.getTransitionName().equals("提交分管"));
+//                	System.out.println(activityDto.getTransitionName().equals("退回"));
+//                	System.out.println(((activityDto.getTransitionName().equals("退回")) | activityDto.getTransitionName().equals("批示")| activityDto.getTransitionName().equals("回退") 
+//                			|(activityDto.getTransitionName().equals("提交分管") )       		              			
+//                			|(activityDto.getTransitionName().equals("提交领导批示") )       		              			
+//                    	  )&&(i==0));
+//                	if(((activityDto.getTransitionName().equals("退回")) | activityDto.getTransitionName().equals("批示")| activityDto.getTransitionName().equals("回退") 
+//                			|(activityDto.getTransitionName().equals("提交分管") )       		              			
+//                			|(activityDto.getTransitionName().equals("提交领导批示") )       		              			
+//                    	  )&&(i==0))
+//                    {
+//                    	addList.add(activityDto); 
+//                    	i++;
+//                    }
                 }else{
                 	List<Transition> list2 = (List<Transition>) activity.getOutgoingTransitions();
                 	if(list2.size() == 0){
@@ -464,6 +497,7 @@ public class JbpmDemoServiceImpl implements JbpmDemoService{
     					}
                 	}
                 }
+               
             }  
 		} catch (Exception e) {
 			  e.printStackTrace();  

@@ -65,6 +65,7 @@ import com.gotop.util.Struts2Utils;
 import com.gotop.util.XmlConvert;
 import com.gotop.util.string.Obj2StrUtils;
 import com.gotop.util.time.TimeUtil;
+import com.gotop.vo.system.MUOUserSession;
 import com.primeton.utils.Page;
 
 public class JbpmDemoAction extends BaseAction {
@@ -1127,9 +1128,21 @@ public class JbpmDemoAction extends BaseAction {
 		this.setTaskAssgineeDto(taskAssgineeDto);
 		return "task_person_assigner";
 	}
-	
+	String rolenameString;
+	public String getRolenameString() {
+		return rolenameString;
+	}
+
+	public void setRolenameString(String rolenameString) {
+		this.rolenameString = rolenameString;
+	}
+
 	public String toNextTaskConfig2() {
-		activityList = this.jbpmDemoService.getNextTaskList2(taskAssgineeDto);
+		
+		rolenameString =  String.valueOf(this.getCurrentOnlineUser().getPosiName());
+		
+		MUOUserSession muo=getCurrentOnlineUser();
+		activityList = this.jbpmDemoService.getNextTaskList2(taskAssgineeDto,rolenameString);
 		this.setActivityList(activityList);
 		this.setTaskAssgineeDto(taskAssgineeDto);
 		return "task_person_assigner";
