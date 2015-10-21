@@ -433,7 +433,7 @@ public class JbpmDemoServiceImpl implements JbpmDemoService{
 //                	}
 //                	} 
                 	if((rolenameString.equals("行领导"))){
-                		i++;
+                		i=1;
                 	}
                 	if((((activityDto.getTransitionName().equals("退回")) &&(i==0)))
                 			| activityDto.getTransitionName().equals("批示")| activityDto.getTransitionName().equals("回退") 
