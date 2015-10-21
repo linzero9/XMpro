@@ -710,6 +710,7 @@ public class JbpmDemoAction extends BaseAction {
 					.findProcessInstanceById(execution.getProcessInstance()
 							.getId());
 			activityNames = processInstance.findActiveActivityNames();
+			
 			activityCoordinates = repositoryService.getActivityCoordinates(
 					processInstance.getProcessDefinitionId(), activityNames
 							.iterator().next());
@@ -1138,12 +1139,13 @@ public class JbpmDemoAction extends BaseAction {
 	}
 
 	public String toNextTaskConfig2() {
-		MUOUserSession muo=getCurrentOnlineUser();
-		
+		MUOUserSession muo=getCurrentOnlineUser();	
 		for(int i=0;i<=this.getCurrentOnlineUser().getPosiName().length;i++){
 			if(this.getCurrentOnlineUser().getPosiName()[i].equals("行领导")){
 				rolenameString=this.getCurrentOnlineUser().getPosiName()[i];
-			}			
+				break;
+			}
+			rolenameString="no";
 		}
 		//rolenameString =  this.getCurrentOnlineUser().getPosiName()[0];		
 		activityList = this.jbpmDemoService.getNextTaskList2(taskAssgineeDto,rolenameString);
