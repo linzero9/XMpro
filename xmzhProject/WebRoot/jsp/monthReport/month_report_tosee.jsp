@@ -185,7 +185,7 @@
 	}
 
 	/* 提交回退 */
-	function doSave() {
+	function doSave2() {
 		if (checkForm($id("form1"))) {
 			var strUrl = "/jbpm/jbpmDemoAction_toNextTaskConfig2.action?taskAssgineeDto.executionId="
 					+ $id("executionId").value

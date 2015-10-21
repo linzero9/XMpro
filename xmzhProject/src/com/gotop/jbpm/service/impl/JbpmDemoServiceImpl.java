@@ -419,35 +419,30 @@ public class JbpmDemoServiceImpl implements JbpmDemoService{
                 	}   
                 	
                 	
-                	if((rolenameString .equals("行领导") )&&(activityDto.getTransitionName().equals("提交分管") && (activityDto.getActShowName().equals("分管领导审核")))){
-                		addList.add(activityDto);
+//                	if((rolenameString .equals("[Ljava.lang.String;@6644a6") )&&(activityDto.getTransitionName().equals("提交分管") && (activityDto.getActShowName().equals("分管领导审核")))){
+//                		addList.add(activityDto);
+//                	}
+//                	else{ 
+//                		if((activityDto.getTransitionName().equals("退回")) | activityDto.getTransitionName().equals("批示")| activityDto.getTransitionName().equals("回退") 
+//                		
+//                			|(activityDto.getTransitionName().equals("提交领导批示") && (activityDto.getActShowName().equals("行领导批示")))
+//   		              			
+//                	  )
+//                	{
+//                		addList.add(activityDto);  
+//                	}
+//                	} 
+                	if((rolenameString.equals("行领导"))){
+                		i++;
                 	}
-                	else{ 
-                		if((activityDto.getTransitionName().equals("退回")) | activityDto.getTransitionName().equals("批示")| activityDto.getTransitionName().equals("回退") 
-                		
-                			|(activityDto.getTransitionName().equals("提交领导批示") && (activityDto.getActShowName().equals("行领导批示")))
-   		              			
-                	  )
-                	{
-                		addList.add(activityDto);  
-                	}
-                	} 
-//                	System.out.println(i==0);
-//                	System.out.println(activityDto.getTransitionName());
-//                	System.out.println(activityDto.getTransitionName().equals("提交分管"));
-//                	System.out.println(activityDto.getTransitionName().equals("退回"));
-//                	System.out.println(((activityDto.getTransitionName().equals("退回")) | activityDto.getTransitionName().equals("批示")| activityDto.getTransitionName().equals("回退") 
-//                			|(activityDto.getTransitionName().equals("提交分管") )       		              			
-//                			|(activityDto.getTransitionName().equals("提交领导批示") )       		              			
-//                    	  )&&(i==0));
-//                	if(((activityDto.getTransitionName().equals("退回")) | activityDto.getTransitionName().equals("批示")| activityDto.getTransitionName().equals("回退") 
-//                			|(activityDto.getTransitionName().equals("提交分管") )       		              			
-//                			|(activityDto.getTransitionName().equals("提交领导批示") )       		              			
-//                    	  )&&(i==0))
-//                    {
-//                    	addList.add(activityDto); 
-//                    	i++;
-//                    }
+                	if((((activityDto.getTransitionName().equals("退回")) &&(i==0)))
+                			| activityDto.getTransitionName().equals("批示")| activityDto.getTransitionName().equals("回退") 
+                			|(activityDto.getTransitionName().equals("提交分管")&&(i==1) )       		              			
+                			|(activityDto.getTransitionName().equals("提交领导批示") &&(i==1))       		              			
+                    	  )
+                    {
+                    	addList.add(activityDto); 
+                    }
                 }else{
                 	List<Transition> list2 = (List<Transition>) activity.getOutgoingTransitions();
                 	if(list2.size() == 0){

@@ -180,7 +180,7 @@
      }
 
      /* 回退工作月报 */
-     function doSave(value){
+     function doSave2(value){
     		$("#btnType").val(value);
     		/* 将月报提交到部门领导处进行审核 */
 			if(checkForm($id("form1"))){

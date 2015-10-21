@@ -1138,10 +1138,14 @@ public class JbpmDemoAction extends BaseAction {
 	}
 
 	public String toNextTaskConfig2() {
-		
-		rolenameString =  String.valueOf(this.getCurrentOnlineUser().getPosiName());
-		
 		MUOUserSession muo=getCurrentOnlineUser();
+		
+		for(int i=0;i<=this.getCurrentOnlineUser().getPosiName().length;i++){
+			if(this.getCurrentOnlineUser().getPosiName()[i].equals("行领导")){
+				rolenameString=this.getCurrentOnlineUser().getPosiName()[i];
+			}			
+		}
+		//rolenameString =  this.getCurrentOnlineUser().getPosiName()[0];		
 		activityList = this.jbpmDemoService.getNextTaskList2(taskAssgineeDto,rolenameString);
 		this.setActivityList(activityList);
 		this.setTaskAssgineeDto(taskAssgineeDto);
