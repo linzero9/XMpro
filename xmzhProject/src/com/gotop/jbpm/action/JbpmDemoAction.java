@@ -1140,7 +1140,7 @@ public class JbpmDemoAction extends BaseAction {
 
 	public String toNextTaskConfig2() {
 		MUOUserSession muo=getCurrentOnlineUser();	
-		for(int i=0;i<=this.getCurrentOnlineUser().getPosiName().length;i++){
+		for(int i=0;i<this.getCurrentOnlineUser().getPosiName().length;i++){
 			if(this.getCurrentOnlineUser().getPosiName()[i].equals("行领导")){
 				rolenameString=this.getCurrentOnlineUser().getPosiName()[i];
 				break;
