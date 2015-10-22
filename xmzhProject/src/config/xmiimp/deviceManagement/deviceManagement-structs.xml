@@ -22,7 +22,9 @@
       <result name="detailList" >
         /jsp/deviceManagement/detailList.jsp
       </result>
-      
+       <result name="sumUpDeviceList" >
+     	/jsp/deviceManagement/sumUpDevice.jsp
+      </result>
       <result name="importExcel" >
         /jsp/deviceManagement/deviceList_importExcel.jsp
       </result>

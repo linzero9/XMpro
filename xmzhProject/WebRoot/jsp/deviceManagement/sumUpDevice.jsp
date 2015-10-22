@@ -1,0 +1,420 @@
+<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
+<%@include file="/common/common.jsp"%>
+<%@include file="/common/skins/skin0/component.jsp"%>
+<h:css href="/css/style1/style-custom.css" />
+<script src="<%=request.getContextPath() %>/common/gotop/jquery.min.js"></script>
+<script type="text/javascript" src="/js/commonUtil.js"></script>
+<style>
+.eos_dict_class{
+margin-left:inherit;
+}
+</style>
+
+
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>设备列表</title>
+	</head>
+	<body topmargin="0" leftmargin="0">
+	<h:form name="query_form"	action="/deviceManagement/deviceManagementAction_deviceList.action" method="post">
+		<w:panel id="panel1" title="设备列表">
+			<table align="center" border="0" width="100%" class="form_table">
+				<tr>
+					<td class="form_label" align="right" width="20%">机构/部门</td>
+					<td colspan="1"  width="30%">
+						<h:text id="orgname" property="device.orgname"   readonly="true"  />
+			            <h:hidden id="orgcode" property="device.orgcode" />
+			      		<a href="#" onclick="open_newyw_tree_fun1();">选择</a>
+					</td>
+					<td class="form_label" align="right" width="20%">设备名称：</td>
+					<td colspan="1"  width="30%">
+						<d:select  id="deviceName"  dictTypeId="DEVICE_NAME" property="device.deviceName" nullLabel="请选择"></d:select>
+					</td>
+				</tr>
+				<tr>
+					<td class="form_label" align="right" width="20%">设备型号：</td>
+					<td colspan="1"  width="30%">
+						<d:select  id="deviceModel"  dictTypeId="DEVICE_MODEL" property="device.deviceModel" nullLabel="请选择"></d:select>
+					</td>
+					<td class="form_label" align="right" width="20%">设备状态：</td>
+					<td colspan="1"  width="30%">
+						<d:select  id="deviceState"  dictTypeId="DEVICE_STATE" property="device.deviceState" nullLabel="请选择"></d:select>
+					</td>
+				</tr>
+				<tr>
+					<td class="form_label" align="right" width="20%">内存：</td>
+					<td colspan="1"  width="30%">
+						<h:text id="memoryMin" property="device.memoryMin"  size="5"  validateAttr="fracDigit=2;type=double;"  />G
+						＜内存容量(G)＜
+						<h:text id="memoryMax" property="device.memoryMax"  size="5"  validateAttr="fracDigit=2;type=double;" />G
+					</td>
+					<td class="form_label" align="right" width="20%">硬盘：</td>
+					<td colspan="1"  width="30%">
+						<h:text id="hardDiskMin" property="device.hardDiskMin"  size="5"  validateAttr="fracDigit=2;type=double;"  />G
+						＜硬盘容量(G)＜
+						<h:text id="hardDiskMax" property="device.hardDiskMax" size="5"  validateAttr="fracDigit=2;type=double;"  />G
+					</td>
+				</tr>
+				<tr>
+					<td class="form_label" align="right" width="20%">操作系统版本：</td>
+					<td colspan="1"  width="30%">
+						<d:select  id="osVersion"  dictTypeId="DEVICE_OS_VERSION" property="device.osVersion" nullLabel="请选择"  ></d:select>
+					</td>
+					<td class="form_label" align="right" width="20%">内置软件版本：</td>
+					<td colspan="1"  width="30%">
+						<h:text id="softwareVersion" property="device.softwareVersion"  />
+					</td>
+				</tr>
+				<tr>
+					<td class="form_label" align="right" width="20%">IE版本：</td>
+					<td colspan="1"  width="30%">
+						<d:select  id="ieVersion"  dictTypeId="DEVICE_IE_VERSION" property="device.ieVersion" nullLabel="请选择"></d:select>
+					</td>
+					<td class="form_label" align="right" width="20%">用途：</td>
+					<td colspan="1"  width="30%">
+					<d:checkbox id="useful"  name="device.useful" dictTypeId="DEVICE_USEFUL" property="device.useful"  seperator=", "  />
+					</td>
+				</tr>
+				<tr>
+					<td class="form_label" align="right" width="20%">安装的插件：</td>
+					<td colspan="1"  width="30%">
+						<d:checkbox  id="plugIn"  name="device.plugIn" dictTypeId="DEVICE_PLUGIN" property="device.plugIn"   seperator=", " />
+					</td>
+					<td class="form_label" align="right" width="20%">对应的外设：</td>
+					<td colspan="1"  width="30%">
+						<d:checkbox  id="peripheral"  name="device.peripheral"  dictTypeId="DEVICE_PERIPHERAL" property="device.peripheral"   seperator=", "  />
+					</td>
+				</tr>
+				<tr class="form_bottom">
+						<td colspan="4" class="form_bottom">
+						    <b:message key="l_display_per_page"></b:message>
+					        <h:text size="2" property="page.length" value="10" validateAttr="minValue=1;maxValue=100;type=integer;isNull=true" />
+					        <input type="hidden" name="page.begin" value="0">
+					        <input type="hidden" name="page.isCount" value="true">
+							<input id="querys" type="button" value="查 询" class="button" onclick="mysubmit();">
+							<input type="button" value="清 空" class="button" onclick="clears();">
+							<input id=" exportExcel" type="button" class="button" value="导出列表" onclick="export_Excel();">
+							<input id="importExcel"  type="button" class="button" value="批量导入" onclick="import_Excel();">
+						</td>
+					</tr>			
+			</table>
+		</w:panel>
+	</h:form>
+	<DIV class="divList"  style="overflow:auto;width:100%; height: 320;">
+			<w:panel id="panel" width="100%" title="查询结果">
+				<viewlist id="e2c61865-3b56-470d-bd42-fff792fb9493">
+				<h:form name="page_form"
+					action="/deviceManagement/deviceManagementAction_deviceList.action" method="post">
+            <h:hidden property="page.begin"/>
+		    <h:hidden property="page.length"/>
+		    <h:hidden property="page.count"/>
+		    <h:hidden property="page.isCount"/>
+		    <h:hiddendata property="device" />
+					<table align="center" border="0" width="100%" class="EOS_table">
+						<tr>
+							<th align="center" nowrap="nowrap">
+								<b:message key="l_select"></b:message>
+							</th>
+							<th align="center" nowrap="nowrap">
+								机构/部门
+							</th>
+							<th align="center" nowrap="nowrap">
+								设备总数
+							</th>
+						</tr>
+						<w:radioGroup id="group1">
+                            <l:iterate property="devices" id="id1">
+							 <tr class="<l:output oddOutput="EOS_table_row_o" evenOutput='EOS_table_row' />">
+								<td align="center" nowrap="nowrap">
+									<w:rowRadio>
+											<h:param name='deviceId' iterateId='id1' property='deviceId' />
+									</w:rowRadio>
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="orgname" />
+								</td>
+								<td nowrap="nowrap"> 
+									<d:write iterateId="id1" property=""/>
+								</td>
+							</tr>
+						</l:iterate>
+					</w:radioGroup>
+							<tr>
+              <td colspan="23" class="command_sort_area">
+							<div class="h3">
+							<input type="button" class="button" value="新增"
+										onclick="add();" />
+								<l:greaterThan property="page.count" targetValue="0"
+									compareType="number">
+							<input type="button" class="button" value="修改"
+										onclick="upt();" />
+								</l:greaterThan>
+								<l:greaterThan property="page.count" targetValue="0"
+									compareType="number">
+							<input type="button" class="button" value="删除"
+										onclick="del();" />
+								</l:greaterThan>
+								<l:greaterThan property="page.count" targetValue="0"
+									compareType="number">
+							<input type="button" class="button" value="维护明细查询"
+										onclick="detail_search();" />
+								</l:greaterThan>
+							</div>
+							<div class="h4">
+	                <l:equal property="page.isCount" targetValue="true" >
+	                  <b:message key="l_total"></b:message>
+	                  <b:write property="page.count" />
+	                  <b:message key="l_recordNO."></b:message>
+	                  <b:write property="page.currentPage" />
+	                  <b:message key="l_page"></b:message>
+	                  <b:write property="page.totalPage" />
+	                  <b:message key="l_page"></b:message>
+	                </l:equal>
+	                <l:equal property="page.isCount" targetValue="false" >
+	                  <b:message key="l_NO."></b:message>
+	                  <b:write property="page.currentPage" />
+	                  <b:message key="l_page"></b:message>
+	                </l:equal>
+	                <input type="button" class="button" onclick="firstPage('page', '', null, null, 'page_form');" value='<b:message key="l_firstPage"></b:message>'  <l:equal property="page.isFirst"  targetValue="true">disabled</l:equal> >
+	                <input type="button" class="button" onclick="prevPage('page', '', null, null, 'page_form');" value='<b:message key="l_upPage"></b:message>' <l:equal property="page.isFirst"  targetValue="true">disabled</l:equal> >
+	                <input type="button" class="button" onclick="nextPage('page', '', null, null, 'page_form');" value='<b:message key="l_nextPage"></b:message>' <l:equal property="page.isLast"  targetValue="true">disabled</l:equal> >
+	                <l:equal property="page.isCount" targetValue="true">
+	                  <input type="button" class="button" onclick="lastPage('page', '', null, null, 'page_form');" value='<b:message key="l_lastPage"></b:message>' <l:equal property="page.isLast"  targetValue="true">disabled</l:equal> >
+	                </l:equal>
+              </div>
+              </td>
+            </tr>
+					</table>
+				</h:form>
+				</viewlist>
+			</w:panel>		
+		</DIV>
+		<script type="text/javascript">
+	
+		//提交
+		function mysubmit(){
+			  var frm = $name("query_form");
+	            frm.submit();
+			}
+
+		//清空
+			function clears(){
+				$id("orgcode").value="";
+				$id("orgname").value="";
+				$id("deviceName").value="";
+				$id("deviceModel").value="";
+				$id("deviceState").value="";
+				$id("memoryMin").value="";
+				$id("memoryMax").value="";
+				$id("hardDiskMin").value="";
+				$id("hardDiskMax").value="";
+				$id("osVersion").value="";
+				$id("softwareVersion").value="";
+				$id("ieVersion").value="";
+				
+				$("input[name='device.useful']:checkbox:checked").each(function(){ 
+	                $(this).attr("checked",false);
+	            });	
+
+				$("input[name='device.plugIn']:checkbox:checked").each(function(){ 
+	                $(this).attr("checked",false);
+	            });	
+
+				$("input[name='device.peripheral']:checkbox:checked").each(function(){ 
+	                $(this).attr("checked",false);
+	            });	
+			}
+
+			//新增
+			function add(){
+				  var url="/deviceManagement/deviceManagementAction_toDevice.action";
+				  showModalCenter(url, null,callBackFunc, 700, 600, '新增设备');
+			}
+
+			//修改
+			function upt(){
+				var gop = $id("group1");
+		  		var len = gop.getSelectLength();
+		  		if(len == 0){
+		  			alert("请选择一条记录");
+		  			return;
+		  		}else{
+		  			var rows=gop.getSelectRow();
+			  		var deviceId=rows.getParam("deviceId");
+		  			var strUrl = "/deviceManagement/deviceManagementAction_toDevice.action?device.deviceId="+deviceId;
+		  			showModalCenter(strUrl, null, callBackFunc, 700, 600, '修改设备');  
+			  	}
+			}
+			
+			function callBackFunc(){
+		        var frm = $name("query_form");
+		            frm.submit();
+		    }
+
+			//删除
+			function del(){
+				var gop = $id("group1");
+		  		var len = gop.getSelectLength();
+		  		if(len == 0){
+		  			alert("请选择一条记录");
+		  			return;
+		  		}else{
+			  	  if(confirm("确定要删除该设备吗？")){
+		  			var rows=gop.getSelectRow();
+			  		var deviceId=rows.getParam("deviceId");
+			  		$.ajax({
+					      url: "/deviceManagement/deviceManagementAction_delete.action",
+					      async: false,
+					      type: 'post',
+					      data: "device.deviceId="+deviceId,
+					      timeout: 60000,
+					      dataType:"text",
+					      success: function (data) {
+					    	  if (data.indexOf("success") >= 0) {
+					    		  alert("删除成功");
+					    		  callBackFunc();
+							} else if (data.indexOf("fails") >= 0) {
+								alert("删除失败!");
+							} else {
+								alert("操作失败!");
+							}
+									  	
+					      }
+					}); 
+			 	 }	
+			  	}
+			}
+
+			//维护明细查询
+			function detail_search(){
+				var gop = $id("group1");
+		  		var len = gop.getSelectLength();
+		  		if(len == 0){
+		  			alert("请选择一条记录");
+		  			return;
+		  		}else{
+		  			var rows=gop.getSelectRow();
+			  		var deviceId=rows.getParam("deviceId");
+		  			var strUrl = "/deviceManagement/deviceManagementAction_detailList.action?detail.deviceId="+deviceId;
+		  			showModalCenter(strUrl, null, callBackFunc, 1000, 500, '修改设备');  
+			  	}
+			}
+			
+
+			//选择 部门/机构
+			function open_newyw_tree_fun1(){//方法名
+			     strUrl ="/tree/initMainTree_mainTree.action?changeTree.showTabOrg=1&changeTree.checkcount=1&changeTree.orgType=4&changeTree.showSelBox=4";
+				var peArgument = [];
+		   		//机构
+		   		var paramEntity = new ParamEntity('Organization');
+		   		paramEntity.setProperty('orgcode',$id("orgcode").value);
+				paramEntity.setProperty('orgname',$id("orgname").value);
+				/* paramEntity.setProperty('orgid',$id("orgid").value);
+				peArgument[3]=[paramEntity,'orgname','orgcode','orgid'];  */
+				peArgument[3]=[paramEntity,'orgname','orgcode'];
+				
+		       //调用并传参
+		        strUrl += "&time="+new Date().getTime();
+				showModalCenter(strUrl,peArgument,openNewEmpTreeCallBack1,500,430,'选择机构');
+			}
+			
+		function openNewEmpTreeCallBack1(arg){//回调方法
+			if(arg['Organization']){ //原写法无需判断是否为空
+		 		var sorgidArra  = arg['Organization'].slice(0);//人员数组
+		 		argRes=[[],[],[],[]];
+				for(var i=0;i<sorgidArra.length;i++){
+					argRes[0].push(sorgidArra[i].getProperty("orgcode"));
+					argRes[1].push(sorgidArra[i].getProperty("orgname"));
+					//argRes[2].push(sorgidArra[i].getProperty("orgid"));
+				}
+				$id("orgcode").value = argRes[0];
+				$id("orgname").value = argRes[1];
+				//$id("orgid").value = argRes[2];
+			}else{
+				$id("orgcode").value = "";
+				$id("orgname").value = "";
+				//$id("orgid").value = "";
+			}
+		}
+
+		//导出Excel
+		function export_Excel(){
+			var url = "/deviceManagement/deviceManagementAction_exportExcel.action?";
+			var orgcode = $id("orgcode").value;
+			var deviceName = $id("deviceName").value;
+			var deviceModel = $id("deviceModel").value;
+			var deviceState = $id("deviceState").value;
+			var memoryMin = $id("memoryMin").value;
+			var memoryMax = $id("memoryMax").value;
+			var hardDiskMin = $id("hardDiskMin").value;
+			var hardDiskMax = $id("hardDiskMax").value;
+			var osVersion = $id("osVersion").value;
+			var softwareVersion = $id("softwareVersion").value;
+			var ieVersion = $id("ieVersion").value;
+
+			//获取复选框的值
+            var useful="";
+            var  usefulLength  =  $("input[name='device.useful']:checkbox:checked").length;
+            $("input[name='device.useful']:checkbox:checked").each(function(i,value){ 
+                if($(this).attr("checked")){
+                    if((i+1)==usefulLength){
+                    	useful += $(this).val();
+                    }else{
+                    	useful += $(this).val()+", ";
+                	}
+                }
+            });
+
+            var plugIn="";
+            var  plugInLength  =  $("input[name='device.plugIn']:checkbox:checked").length;
+            $("input[name='device.plugIn']:checkbox:checked").each(function(i,value){ 
+                if($(this).attr("checked")){
+                    if((i+1)==plugInLength){
+                    	plugIn += $(this).val();
+                    }else{
+                    	plugIn += $(this).val()+", ";
+                	}
+                }
+            });
+
+            var peripheral="";
+            var  peripheralLength  =  $("input[name='device.peripheral']:checkbox:checked").length;
+            $("input[name='device.peripheral']:checkbox:checked").each(function(i,value){ 
+                if($(this).attr("checked")){
+                    if((i+1)==peripheralLength){
+                    	peripheral += $(this).val();
+                    }else{
+                    	peripheral += $(this).val()+", ";
+                	}
+                }
+            });
+			
+			if(useful == null){
+				useful="";
+				}
+			if(plugIn == null){
+				plugIn="";
+				}
+			if(peripheral == null){
+				peripheral="";
+				}
+			url = url+"device.orgcode="+orgcode+"&device.deviceName="+deviceName
+			+"&device.deviceModel="+deviceModel+"&device.deviceState="+deviceState
+			+"&device.memoryMin="+memoryMin+"&device.memoryMax="+memoryMax
+			+"&device.hardDiskMin="+hardDiskMin+"&device.hardDiskMax="+hardDiskMax
+			+"&device.osVersion="+osVersion+"&device.softwareVersion="+softwareVersion
+			+"&device.ieVersion="+ieVersion+"&device.useful="+useful
+			+"&device.plugIn="+plugIn+"&device.peripheral="+peripheral;
+			window.location.href=url;
+		  	
+		}
+
+		//导入Excel
+		function import_Excel(){
+			var url="/jsp/deviceManagement/deviceList_importExcel.jsp";
+			showModalCenter(url, null,callBackFunc, 700, 300, '批量导入');
+		}
+		</script>
+	</body>
+</html>

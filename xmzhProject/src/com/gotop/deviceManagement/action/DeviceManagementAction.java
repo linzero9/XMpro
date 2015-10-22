@@ -101,7 +101,18 @@ public class DeviceManagementAction  extends BaseAction {
 	public void setReadFile(File readFile) {
 		this.readFile = readFile;
 	}
+	//输出统计
+	public String sumUpDevice(){
 
+    	if(device == null){
+    		device = new DevicePo();
+    	}
+    	
+    	devices = deviceManagermentService.deviceList(device,this.getPage());
+    	this.setDevices(devices);
+    	return "sumUpDeviceList";
+		
+	}
 	public String deviceList(){
 
     	if(device == null){
