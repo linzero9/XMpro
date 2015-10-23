@@ -82,4 +82,13 @@ public class DeviceManagementDAO extends SqlMapClientDao implements IDeviceManag
 	}
 
 
+	@Override
+	public List sumUpList(Map<String, Object> map, Page page) {
+		if(page!=null)
+			return queryForList("T_DEVICE_SqlMap.querySumList", map, page);
+		else
+			return queryForList("T_DEVICE_SqlMap.querySumList", map);
+	}
+
+
 }

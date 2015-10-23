@@ -17,7 +17,7 @@ margin-left:inherit;
 		<title>设备列表</title>
 	</head>
 	<body topmargin="0" leftmargin="0">
-	<h:form name="query_form"	action="/deviceManagement/deviceManagementAction_deviceList.action" method="post">
+	<h:form name="query_form"	action="/deviceManagement/deviceManagementAction_sumUpDevice.action" method="post">
 		<w:panel id="panel1" title="设备列表">
 			<table align="center" border="0" width="100%" class="form_table">
 				<tr>
@@ -95,7 +95,6 @@ margin-left:inherit;
 							<input id="querys" type="button" value="查 询" class="button" onclick="mysubmit();">
 							<input type="button" value="清 空" class="button" onclick="clears();">
 							<input id=" exportExcel" type="button" class="button" value="导出列表" onclick="export_Excel();">
-							<input id="importExcel"  type="button" class="button" value="批量导入" onclick="import_Excel();">
 						</td>
 					</tr>			
 			</table>
@@ -105,7 +104,7 @@ margin-left:inherit;
 			<w:panel id="panel" width="100%" title="查询结果">
 				<viewlist id="e2c61865-3b56-470d-bd42-fff792fb9493">
 				<h:form name="page_form"
-					action="/deviceManagement/deviceManagementAction_deviceList.action" method="post">
+					action="/deviceManagement/deviceManagementAction_sumUpDevice.action" method="post">
             <h:hidden property="page.begin"/>
 		    <h:hidden property="page.length"/>
 		    <h:hidden property="page.count"/>
@@ -128,39 +127,21 @@ margin-left:inherit;
 							 <tr class="<l:output oddOutput="EOS_table_row_o" evenOutput='EOS_table_row' />">
 								<td align="center" nowrap="nowrap">
 									<w:rowRadio>
-											<h:param name='deviceId' iterateId='id1' property='deviceId' />
+											<h:param name='' iterateId='id1' property='' />
 									</w:rowRadio>
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="orgname" />
+									<b:write iterateId="id1" property="orgnameTemp" />
 								</td>
 								<td nowrap="nowrap"> 
-									<d:write iterateId="id1" property=""/>
+									<b:write iterateId="id1" property="tot"/>
 								</td>
 							</tr>
 						</l:iterate>
 					</w:radioGroup>
 							<tr>
               <td colspan="23" class="command_sort_area">
-							<div class="h3">
-							<input type="button" class="button" value="新增"
-										onclick="add();" />
-								<l:greaterThan property="page.count" targetValue="0"
-									compareType="number">
-							<input type="button" class="button" value="修改"
-										onclick="upt();" />
-								</l:greaterThan>
-								<l:greaterThan property="page.count" targetValue="0"
-									compareType="number">
-							<input type="button" class="button" value="删除"
-										onclick="del();" />
-								</l:greaterThan>
-								<l:greaterThan property="page.count" targetValue="0"
-									compareType="number">
-							<input type="button" class="button" value="维护明细查询"
-										onclick="detail_search();" />
-								</l:greaterThan>
-							</div>
+							
 							<div class="h4">
 	                <l:equal property="page.isCount" targetValue="true" >
 	                  <b:message key="l_total"></b:message>

@@ -31,6 +31,19 @@ public class DeviceManagementAction  extends BaseAction {
 	private List<DeviceDetail> details;
 	private File readFile;
 	private HashMap<String,Object> map; 
+	private String orgcodeTemp;
+	
+
+
+	public String getOrgcodeTemp() {
+		return orgcodeTemp;
+	}
+
+	public void setOrgcodeTemp(String orgcodeTemp) {
+		this.orgcodeTemp = orgcodeTemp;
+	}
+
+
 
 	protected IDeviceManagementService deviceManagermentService;
 	protected IDeviceManDetailService deviceManDetailService;
@@ -108,7 +121,10 @@ public class DeviceManagementAction  extends BaseAction {
     		device = new DevicePo();
     	}
     	
-    	devices = deviceManagermentService.deviceList(device,this.getPage());
+    	  MUOUserSession muo=getCurrentOnlineUser();
+    	  orgcodeTemp = muo.getOrgcode();
+    	  
+    	devices = deviceManagermentService.sumUpDevicePos(device,orgcodeTemp,this.getPage());
     	this.setDevices(devices);
     	return "sumUpDeviceList";
 		

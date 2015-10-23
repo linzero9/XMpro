@@ -40,6 +40,60 @@ public class DeviceManagementService implements IDeviceManagementService{
 		this.deviceManDetailDAO = deviceManDetailDAO;
 	}
 
+	// 输出统计
+	@Override
+	public List<DevicePo> sumUpDevicePos(DevicePo device,String orgcodeTemp, Page page) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		if(device != null){
+			if( device.getOrgcode() != null && !"".equals(device.getOrgcode())){
+				map.put("orgcode", device.getOrgcode());
+			}
+			if( device.getDeviceName() != null && !"".equals(device.getDeviceName())){
+				map.put("deviceName", device.getDeviceName());
+			}
+			if( device.getDeviceModel() != null && !"".equals(device.getDeviceModel())){
+				map.put("deviceModel", device.getDeviceModel());
+			}
+			if( device.getDeviceState() != null && !"".equals(device.getDeviceState())){
+				map.put("deviceState", device.getDeviceState());
+			}
+			if( device.getMemoryMin() != null && !"".equals(device.getMemoryMin())){
+				map.put("memoryMin", device.getMemoryMin());
+			}
+			if( device.getMemoryMax() != null && !"".equals(device.getMemoryMax())){
+				map.put("memoryMax", device.getMemoryMax());
+			}
+			if( device.getHardDiskMin() != null && !"".equals(device.getHardDiskMin())){
+				map.put("hardDiskMin", device.getHardDiskMin());
+			}
+			if( device.getHardDiskMax() != null && !"".equals(device.getHardDiskMax())){
+				map.put("hardDiskMax", device.getHardDiskMax());
+			}
+			if( device.getOsVersion() != null && !"".equals(device.getOsVersion())){
+				map.put("osVersion", device.getOsVersion());
+			}
+			if( device.getSoftwareVersion() != null && !"".equals(device.getSoftwareVersion())){
+				map.put("softwareVersion", device.getSoftwareVersion());
+			}
+			if( device.getIeVersion() != null && !"".equals(device.getIeVersion())){
+				map.put("ieVersion", device.getIeVersion());
+			}
+			if( device.getUseful() != null && !"".equals(device.getUseful())){
+				map.put("useful", device.getUseful());
+			}
+			if( device.getPlugIn() != null && !"".equals(device.getPlugIn())){
+				map.put("plugIn", device.getPlugIn());
+			}
+			if( device.getPeripheral() != null && !"".equals(device.getPeripheral())){
+				map.put("peripheral", device.getPeripheral());
+			}
+		}
+		map.put("orgcodeTemp", orgcodeTemp);
+		
+		List list = deviceManagementDAO.sumUpList(map, page);
+        return list;
+	}
+	
 	@Override
 	public List<DevicePo> deviceList(DevicePo device, Page page) {
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -91,6 +145,8 @@ public class DeviceManagementService implements IDeviceManagementService{
 		List list = deviceManagementDAO.deviceList(map, page);
         return list;
 	}
+
+
 
 	@Override
 	public DevicePo getDeviceByDeviceId(DevicePo device) {

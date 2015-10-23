@@ -18,6 +18,9 @@ public interface IDeviceManagementService {
 	void setDeviceManDetailDAO(IDeviceManDetailDAO deviceManDetailDAO);
 	
 	List<DevicePo> deviceList(DevicePo device, Page page);
+	
+	//统计机构下所有物品
+	List<DevicePo> sumUpDevicePos(DevicePo device,String orgcode, Page page);
 
 	DevicePo getDeviceByDeviceId(DevicePo device);
 
