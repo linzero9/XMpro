@@ -4,6 +4,14 @@
 <h:css href="/css/style1/style-custom.css" />
 <script type="text/javascript" src="/js/jquery.form.js"></script>
 <style>
+table{
+table-layout: fixed;}
+
+.form_label{
+width: 20%;
+} 
+
+
 .eos_dict_class{
 margin-left:inherit;
 }
