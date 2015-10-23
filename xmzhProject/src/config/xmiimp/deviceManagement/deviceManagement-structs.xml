@@ -18,6 +18,9 @@
       <result name="exportExcel2" >
         /jsp/deviceManagement/detailList_exportExcel.jsp
       </result>
+       <result name="exportExcelsumUp" >
+        /jsp/deviceManagement/deviceList_exportExcelsunUp.jsp
+      </result>
       
       <result name="detailList" >
         /jsp/deviceManagement/detailList.jsp

@@ -8,6 +8,8 @@ import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 
+import sun.awt.geom.AreaOp.SubOp;
+
 import com.fr.third.org.apache.poi.hssf.record.formula.functions.Trim;
 import com.fr.third.org.apache.poi.hssf.usermodel.HSSFCell;
 import com.fr.third.org.apache.poi.hssf.usermodel.HSSFRow;
@@ -17,6 +19,7 @@ import com.fr.third.org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import com.gotop.crm.util.BaseAction;
 import com.gotop.deviceManagement.model.DeviceDetail;
 import com.gotop.deviceManagement.model.DevicePo;
+import com.gotop.deviceManagement.model.Sum;
 import com.gotop.deviceManagement.service.IDeviceManDetailService;
 import com.gotop.deviceManagement.service.IDeviceManagementService;
 import com.gotop.util.Struts2Utils;
@@ -32,8 +35,23 @@ public class DeviceManagementAction  extends BaseAction {
 	private File readFile;
 	private HashMap<String,Object> map; 
 	private String orgcodeTemp;
-	
+	private Sum sum;
+	private List<Sum> sums;
+	public Sum getSum() {
+		return sum;
+	}
 
+	public void setSum(Sum sum) {
+		this.sum = sum;
+	}
+
+	public List<Sum> getSums() {
+		return sums;
+	}
+
+	public void setSums(List<Sum> sums) {
+		this.sums = sums;
+	}
 
 	public String getOrgcodeTemp() {
 		return orgcodeTemp;
@@ -160,6 +178,20 @@ public class DeviceManagementAction  extends BaseAction {
     	this.setDevices(devices);
     	return "exportExcel";
     }
+	
+	//设备列表 导出Excel 数量统计
+		public String exportExcelsumUp(){
+			
+	    	if(device == null){
+	    		device = new DevicePo();
+	    	}
+	    	  MUOUserSession muo=getCurrentOnlineUser();
+	    	  orgcodeTemp = muo.getOrgcode();
+	    	  devices = deviceManagermentService.sumUpDevicePos(device,orgcodeTemp,this.getPage());
+	    	//this.setSums(devices);
+	    	this.setDevices(devices);
+	    	return "exportExcelsumUp";
+	    }
 	
 	//设备明细列表 导出Excel
 	public String exportExcel2(){

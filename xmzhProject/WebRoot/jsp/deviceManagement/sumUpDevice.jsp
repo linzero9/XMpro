@@ -321,8 +321,9 @@ margin-left:inherit;
 
 		//导出Excel
 		function export_Excel(){
-			var url = "/deviceManagement/deviceManagementAction_exportExcel.action?";
+			var url = "/deviceManagement/deviceManagementAction_exportExcelsumUp.action?";
 			var orgcode = $id("orgcode").value;
+			var orgname = $id("orgname").value;
 			var deviceName = $id("deviceName").value;
 			var deviceModel = $id("deviceModel").value;
 			var deviceState = $id("deviceState").value;
@@ -386,7 +387,7 @@ margin-left:inherit;
 			+"&device.hardDiskMin="+hardDiskMin+"&device.hardDiskMax="+hardDiskMax
 			+"&device.osVersion="+osVersion+"&device.softwareVersion="+softwareVersion
 			+"&device.ieVersion="+ieVersion+"&device.useful="+useful
-			+"&device.plugIn="+plugIn+"&device.peripheral="+peripheral;
+			+"&device.plugIn="+plugIn+"&device.peripheral="+peripheral+"&device.orgname="+orgname;
 			window.location.href=url;
 		  	
 		}
