@@ -207,6 +207,7 @@
 			      success: function (data) {
 			    	  if (data.indexOf("success") >= 0) {
 			    		  alert("删除成功");
+			    		  refreshCache();//数据字典刷新缓存
 			    		  callBackFunc();
 					} else if (data.indexOf("fails") >= 0) {
 						alert("删除失败!");
@@ -218,6 +219,27 @@
 			}); 
 	 	 }	
 	  	}
+	}
+
+	//数据字典刷新缓存
+	function refreshCache(){
+		//调用逻辑流
+    	var myAjax = new Ajax("/reloadEosDict.flow");
+    	//开始调用
+    	myAjax.submit();
+    	//取得调用后的结果(xml对象)
+    	var returnNode =myAjax.getResponseXMLDom();
+    	if(returnNode)
+    	{
+    		//获取指定的节点值
+    		reCode = myAjax.getValue("/root/data/reCode");
+    	}
+    	if(reCode == 1)
+    	{
+    		alert("刷新缓存成功");//刷新业务字典信息成功。
+    	}else{
+    		alert("刷新缓存失败");//刷新业务字典信息失败。
+    	}
 	}
 
 	</script>
