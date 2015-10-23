@@ -130,10 +130,10 @@ margin-left:inherit;
 											<h:param name='' iterateId='id1' property='' />
 									</w:rowRadio>
 								</td>
-								<td nowrap="nowrap"> 
+								<td align="center" nowrap="nowrap"> 
 									<b:write iterateId="id1" property="orgnameTemp" />
 								</td>
-								<td nowrap="nowrap"> 
+								<td align ="center" nowrap="nowrap"> 
 									<b:write iterateId="id1" property="tot"/>
 								</td>
 							</tr>
