@@ -5,6 +5,17 @@
 <script src="<%=request.getContextPath() %>/common/gotop/jquery.min.js"></script>
 <script type="text/javascript" src="/js/commonUtil.js"></script>
 <style>
+
+
+#_panel1_panel_table{
+table-layout: fixed;
+}
+
+.form_label{
+width:10%;
+}
+
+
 .eos_dict_class{
 margin-left:inherit;
 }
@@ -19,9 +30,10 @@ margin-left:inherit;
 	<body topmargin="0" leftmargin="0">
 	<h:form name="query_form"	action="/deviceManagement/deviceManagementAction_deviceList.action" method="post">
 		<w:panel id="panel1" title="设备列表">
-			<table align="center" border="0" width="100%" class="form_table">
+		<div style=" height:100%; overflow:scroll;">
+			<table align="center" border="0" width="100%" class="form_table" style="table-layout: fixed;" >
 				<tr>
-					<td class="form_label" align="right" width="20%">机构/部门</td>
+					<td class="form_label" align="right" width="20%">机构2/部门</td>
 					<td colspan="1"  width="30%">
 						<h:text id="orgname" property="device.orgname"   readonly="true"  />
 			            <h:hidden id="orgcode" property="device.orgcode" />
@@ -99,6 +111,7 @@ margin-left:inherit;
 						</td>
 					</tr>			
 			</table>
+			</div>
 		</w:panel>
 	</h:form>
 	<DIV class="divList"  style="overflow:auto;width:100%; height: 320;">
