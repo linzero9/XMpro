@@ -33,7 +33,7 @@ margin-left:inherit;
 		<div style=" height:100%; overflow:scroll;">
 			<table align="center" border="0" width="100%" class="form_table" style="table-layout: fixed;" >
 				<tr>
-					<td class="form_label" align="right" width="20%">机构2/部门</td>
+					<td class="form_label" align="right" width="20%">机构/部门</td>
 					<td colspan="1"  width="30%">
 						<h:text id="orgname" property="device.orgname"   readonly="true"  />
 			            <h:hidden id="orgcode" property="device.orgcode" />
