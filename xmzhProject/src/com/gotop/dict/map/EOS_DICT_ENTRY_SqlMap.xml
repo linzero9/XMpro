@@ -14,7 +14,7 @@
   
    <select id="dictTypeList" resultMap="eosDictTypeResult" parameterClass="java.util.HashMap" >
    	select t.DICTTYPEID, t.DICTTYPENAME from EOS_DICT_TYPE t
-   	where t.DICTTYPEID like '%DEVICE_%'
+   	where t.DICTTYPEID like 'DEVICE_%'
    	 <isNotNull prepend="and" property="dictTypeName" >
         t.DICTTYPENAME like '%'|| #dictTypeName# ||'%' 
       </isNotNull>

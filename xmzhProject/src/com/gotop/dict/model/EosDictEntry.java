@@ -2,7 +2,7 @@ package com.gotop.dict.model;
 
 import java.io.Serializable;
 
-public class EosDictEntry  implements Serializable {
+public class EosDictEntry  extends Object implements Serializable {
   
 	//类型编号
     private String dictTypeId;

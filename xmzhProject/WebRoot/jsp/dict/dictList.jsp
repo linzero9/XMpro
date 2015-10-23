@@ -37,6 +37,7 @@
 				<h:form name="formx_list" id="formx_list"
 				action="/dict/eosDictEntryAction_queryDictEntryBydictTypeId.action"  target="_self" method="post" >
 				<h:hidden property="dictEntry.dictTypeId" id="dictTypeId" />
+				<h:hiddendata property="dictType"  />
 				<h:hiddendata property="page"/>
 				<table align="center" border="0" width="100%" class="EOS_table">
 					<tr>
@@ -76,11 +77,11 @@
 	                  <b:write property="page.currentPage" />
 	                  <b:message key="l_page"></b:message>
 	                </l:equal>
-	                <input type="button" class="button" onclick="firstPage('page', '', null, null, 'page_form');" value='<b:message key="l_firstPage"></b:message>'  <l:equal property="page.isFirst"  targetValue="true">disabled</l:equal> >
-	                <input type="button" class="button" onclick="prevPage('page', '', null, null, 'page_form');" value='<b:message key="l_upPage"></b:message>' <l:equal property="page.isFirst"  targetValue="true">disabled</l:equal> >
-	                <input type="button" class="button" onclick="nextPage('page', '', null, null, 'page_form');" value='<b:message key="l_nextPage"></b:message>' <l:equal property="page.isLast"  targetValue="true">disabled</l:equal> >
+	                <input type="button" class="button" onclick="firstPage('page', '', null, null, 'formx_list');" value='<b:message key="l_firstPage"></b:message>'  <l:equal property="page.isFirst"  targetValue="true">disabled</l:equal> >
+	                <input type="button" class="button" onclick="prevPage('page', '', null, null, 'formx_list');" value='<b:message key="l_upPage"></b:message>' <l:equal property="page.isFirst"  targetValue="true">disabled</l:equal> >
+	                <input type="button" class="button" onclick="nextPage('page', '', null, null, 'formx_list');" value='<b:message key="l_nextPage"></b:message>' <l:equal property="page.isLast"  targetValue="true">disabled</l:equal> >
 	                <l:equal property="page.isCount" targetValue="true">
-	                  <input type="button" class="button" onclick="lastPage('page', '', null, null, 'page_form');" value='<b:message key="l_lastPage"></b:message>' <l:equal property="page.isLast"  targetValue="true">disabled</l:equal> >
+	                  <input type="button" class="button" onclick="lastPage('page', '', null, null, 'formx_list');" value='<b:message key="l_lastPage"></b:message>' <l:equal property="page.isLast"  targetValue="true">disabled</l:equal> >
 	                </l:equal>
               </div>
 					</td>
@@ -160,7 +161,7 @@
 	function addItem(){
 		var dictTypeId=$id("dictTypeId").value;
 		  var url="/dict/eosDictEntryAction_toInsert.action?dictEntry.dictTypeId="+dictTypeId;
-		  showModalCenter(url, null,callBackFunc, 300, 200, '新增属性项');
+		  showModalCenter(url, null,callBackFunc, 400, 200, '新增属性项');
 	}
 
 	//修改
@@ -175,7 +176,7 @@
 	  		var dictTypeId=rows.getParam("dictTypeId");
 	  		var dictId=rows.getParam("dictId");
   			var strUrl = "/dict/eosDictEntryAction_toUpdate.action?dictEntry.dictTypeId="+dictTypeId+"&dictEntry.dictId="+dictId;
-  			showModalCenter(strUrl, null, callBackFunc, 300, 200, '修改属性项');  
+  			showModalCenter(strUrl, null, callBackFunc, 400, 200, '修改属性项');  
 	  	}
 	}
 
@@ -206,6 +207,7 @@
 			      success: function (data) {
 			    	  if (data.indexOf("success") >= 0) {
 			    		  alert("删除成功");
+			    		  refreshCache();//数据字典刷新缓存
 			    		  callBackFunc();
 					} else if (data.indexOf("fails") >= 0) {
 						alert("删除失败!");
@@ -218,5 +220,27 @@
 	 	 }	
 	  	}
 	}
+
+	//数据字典刷新缓存
+	function refreshCache(){
+		//调用逻辑流
+    	var myAjax = new Ajax("/reloadEosDict.flow");
+    	//开始调用
+    	myAjax.submit();
+    	//取得调用后的结果(xml对象)
+    	var returnNode =myAjax.getResponseXMLDom();
+    	if(returnNode)
+    	{
+    		//获取指定的节点值
+    		reCode = myAjax.getValue("/root/data/reCode");
+    	}
+    	if(reCode == 1)
+    	{
+    		alert("刷新缓存成功");//刷新业务字典信息成功。
+    	}else{
+    		alert("刷新缓存失败");//刷新业务字典信息失败。
+    	}
+	}
+
 	</script>
 </html>

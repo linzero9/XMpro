@@ -81,6 +81,7 @@
 		<tr>
 		  <th><b:message key="l_select"></b:message></th>
 		  <th nowrap="nowrap">数据标题</th>
+		  <th nowrap="nowrap">数据下发人</th>
 		  <th nowrap="nowrap">数据使用人</th>
 		  <th nowrap="nowrap">所属机构</th>
 		  <th nowrap="nowrap">数据类型</th>
@@ -101,6 +102,11 @@
 			  <td style="text-align: center;width: 20%">
 			    <div style="padding:0px;overflow:hidden" nowrap>
 			    	<nobr><b:write iterateId="issued" property="dsTitle"/></nobr>
+			    </div>
+			  </td>
+			  <td style="text-align: center;width: 10%">
+			    <div style="padding:0px;overflow:hidden" nowrap>
+			    	<nobr><b:write iterateId="issued" property="sendName"/></nobr>
 			    </div>
 			  </td>
 			  <td style="text-align: center;width: 10%">

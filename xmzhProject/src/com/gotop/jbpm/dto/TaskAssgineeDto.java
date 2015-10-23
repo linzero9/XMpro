@@ -1,6 +1,15 @@
 package com.gotop.jbpm.dto;
 
 public class TaskAssgineeDto {
+	
+	private String isC;
+	public String getIsC() {
+		return isC;
+	}
+
+	public void setIsC(String isC) {
+		this.isC = isC;
+	}
 
 	/**
      * 节点id .

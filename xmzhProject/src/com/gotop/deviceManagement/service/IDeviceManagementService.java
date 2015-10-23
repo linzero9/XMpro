@@ -18,6 +18,9 @@ public interface IDeviceManagementService {
 	void setDeviceManDetailDAO(IDeviceManDetailDAO deviceManDetailDAO);
 	
 	List<DevicePo> deviceList(DevicePo device, Page page);
+	
+	//统计机构下所有物品
+	List<DevicePo> sumUpDevicePos(DevicePo device,String orgcode, Page page);
 
 	DevicePo getDeviceByDeviceId(DevicePo device);
 
@@ -25,7 +28,10 @@ public interface IDeviceManagementService {
 
 	void delete(DevicePo device);
 
-	Object[] queryOrg(String orgname);
+	int queryOrg(String orgname);
 	
-	void import_insert(DevicePo device);
+	List queryOrgList();
+
+	String importExcel(String filePath, String entityType) throws Exception;
+
 }

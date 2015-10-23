@@ -4,6 +4,24 @@
 <h:css href="/css/style1/style-custom.css" />
 <script src="<%=request.getContextPath() %>/common/gotop/jquery.min.js"></script>
 <script type="text/javascript" src="/js/commonUtil.js"></script>
+<style>
+
+
+#_panel1_panel_table{
+table-layout: fixed;
+}
+
+.form_label{
+width:10%;
+}
+
+
+.eos_dict_class{
+margin-left:inherit;
+}
+</style>
+
+
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -12,9 +30,10 @@
 	<body topmargin="0" leftmargin="0">
 	<h:form name="query_form"	action="/deviceManagement/deviceManagementAction_deviceList.action" method="post">
 		<w:panel id="panel1" title="设备列表">
-			<table align="center" border="0" width="100%" class="form_table">
+		<div style=" height:100%; overflow:scroll;">
+			<table align="center" border="0" width="100%" class="form_table" style="table-layout: fixed;" >
 				<tr>
-					<td class="form_label" align="right" width="20%">机构/部门</td>
+					<td class="form_label" align="right" width="20%">机构2/部门</td>
 					<td colspan="1"  width="30%">
 						<h:text id="orgname" property="device.orgname"   readonly="true"  />
 			            <h:hidden id="orgcode" property="device.orgcode" />
@@ -38,15 +57,15 @@
 				<tr>
 					<td class="form_label" align="right" width="20%">内存：</td>
 					<td colspan="1"  width="30%">
-						<h:text id="memoryMin" property="device.memoryMin"  size="2"  validateAttr="type=number;"  />G
+						<h:text id="memoryMin" property="device.memoryMin"  size="5"  validateAttr="fracDigit=2;type=double;"  />G
 						＜内存容量(G)＜
-						<h:text id="memoryMax" property="device.memoryMax"  size="2"  validateAttr="type=number;" />G
+						<h:text id="memoryMax" property="device.memoryMax"  size="5"  validateAttr="fracDigit=2;type=double;" />G
 					</td>
 					<td class="form_label" align="right" width="20%">硬盘：</td>
 					<td colspan="1"  width="30%">
-						<h:text id="hardDiskMin" property="device.hardDiskMin"  size="2"  validateAttr="type=number;"  />T
-						＜硬盘容量(T)＜
-						<h:text id="hardDiskMax" property="device.hardDiskMax" size="2"  validateAttr="type=number;"  />T
+						<h:text id="hardDiskMin" property="device.hardDiskMin"  size="5"  validateAttr="fracDigit=2;type=double;"  />G
+						＜硬盘容量(G)＜
+						<h:text id="hardDiskMax" property="device.hardDiskMax" size="5"  validateAttr="fracDigit=2;type=double;"  />G
 					</td>
 				</tr>
 				<tr>
@@ -92,6 +111,7 @@
 						</td>
 					</tr>			
 			</table>
+			</div>
 		</w:panel>
 	</h:form>
 	<DIV class="divList"  style="overflow:auto;width:100%; height: 320;">
@@ -103,6 +123,7 @@
 		    <h:hidden property="page.length"/>
 		    <h:hidden property="page.count"/>
 		    <h:hidden property="page.isCount"/>
+		    <h:hiddendata property="device" />
 					<table align="center" border="0" width="100%" class="EOS_table">
 						<tr>
 							<th align="center" nowrap="nowrap">
@@ -130,7 +151,7 @@
 								内存容量(G)
 							</th>
 							<th nowrap="nowrap">
-								硬盘容量(T)
+								硬盘容量(G)
 							</th>
 							<th nowrap="nowrap">
 								操作系统版本
@@ -157,13 +178,49 @@
 								对应的外设
 							</th>
 							<th nowrap="nowrap">
-								其他属性
+								其他属性1
 							</th>
 							<th nowrap="nowrap">
-								其他信息
+								其他属性2
 							</th>
 							<th nowrap="nowrap">
-								备注
+								其他属性3
+							</th>
+							<th nowrap="nowrap">
+								其他属性4
+							</th>
+							<th nowrap="nowrap">
+								其他属性5
+							</th>
+							<th nowrap="nowrap">
+								其他信息1
+							</th>
+							<th nowrap="nowrap">
+								其他信息2
+							</th>
+							<th nowrap="nowrap">
+								其他信息3
+							</th>
+							<th nowrap="nowrap">
+								其他信息4
+							</th>
+							<th nowrap="nowrap">
+								其他信息5
+							</th>
+							<th nowrap="nowrap">
+								备注1
+							</th>
+							<th nowrap="nowrap">
+								备注2
+							</th>
+							<th nowrap="nowrap">
+								备注3
+							</th>
+							<th nowrap="nowrap">
+								备注4
+							</th>
+							<th nowrap="nowrap">
+								备注5
 							</th>
 							<th nowrap="nowrap">
 								设备状态
@@ -226,13 +283,49 @@
 								     <d:write iterateId="id1" property="peripheral"  dictTypeId="DEVICE_PERIPHERAL"  seperator=", "  />
 								</td>
 								<td nowrap="nowrap"> 
-								     <d:write iterateId="id1" property="otherOne"  dictTypeId="DEVICE_OTHERONE"/>
+								     <d:write iterateId="id1" property="otherAttribute_1"  dictTypeId="DEVICE_OTHERATTRIBUTE_1"/>
 								</td>
 								<td nowrap="nowrap"> 
-								     <d:write iterateId="id1" property="otherInfoOne"  dictTypeId="DEVICE_OTHERINFOONE"  seperator=", "  />
+								     <d:write iterateId="id1" property="otherAttribute_2"  dictTypeId="DEVICE_OTHERATTRIBUTE_2"/>
 								</td>
 								<td nowrap="nowrap"> 
-								     <b:write iterateId="id1" property="remarksOne" />
+								     <d:write iterateId="id1" property="otherAttribute_3"  dictTypeId="DEVICE_OTHERATTRIBUTE_3"/>
+								</td>
+								<td nowrap="nowrap"> 
+								     <d:write iterateId="id1" property="otherAttribute_4"  dictTypeId="DEVICE_OTHERATTRIBUTE_4"/>
+								</td>
+								<td nowrap="nowrap"> 
+								     <d:write iterateId="id1" property="otherAttribute_5"  dictTypeId="DEVICE_OTHERATTRIBUTE_5"/>
+								</td>
+								<td nowrap="nowrap"> 
+								     <d:write iterateId="id1" property="otherInfo_1"  dictTypeId="DEVICE_OTHERINFO_1"  seperator=", "  />
+								</td>
+								<td nowrap="nowrap"> 
+								     <d:write iterateId="id1" property="otherInfo_2"  dictTypeId="DEVICE_OTHERINFO_2"  seperator=", "  />
+								</td>
+								<td nowrap="nowrap"> 
+								     <d:write iterateId="id1" property="otherInfo_3"  dictTypeId="DEVICE_OTHERINFO_3"  seperator=", "  />
+								</td>
+								<td nowrap="nowrap"> 
+								     <d:write iterateId="id1" property="otherInfo_4"  dictTypeId="DEVICE_OTHERINFO_4"  seperator=", "  />
+								</td>
+								<td nowrap="nowrap"> 
+								     <d:write iterateId="id1" property="otherInfo_5"  dictTypeId="DEVICE_OTHERINFO_5"  seperator=", "  />
+								</td>
+								<td nowrap="nowrap"> 
+								     <b:write iterateId="id1" property="remarks_1" />
+								</td>
+								<td nowrap="nowrap"> 
+								     <b:write iterateId="id1" property="remarks_2" />
+								</td>
+								<td nowrap="nowrap"> 
+								     <b:write iterateId="id1" property="remarks_3" />
+								</td>
+								<td nowrap="nowrap"> 
+								     <b:write iterateId="id1" property="remarks_4" />
+								</td>
+								<td nowrap="nowrap"> 
+								     <b:write iterateId="id1" property="remarks_5" />
 								</td>
 								<td nowrap="nowrap">
 										<d:write  iterateId="id1"  dictTypeId="DEVICE_STATE" property="deviceState" />
@@ -312,9 +405,18 @@
 				$id("osVersion").value="";
 				$id("softwareVersion").value="";
 				$id("ieVersion").value="";
-				$id("useful").value="";
-				$id("plugIn").value="";
-				$id("peripheral").value="";
+				
+				$("input[name='device.useful']:checkbox:checked").each(function(){ 
+	                $(this).attr("checked",false);
+	            });	
+
+				$("input[name='device.plugIn']:checkbox:checked").each(function(){ 
+	                $(this).attr("checked",false);
+	            });	
+
+				$("input[name='device.peripheral']:checkbox:checked").each(function(){ 
+	                $(this).attr("checked",false);
+	            });	
 			}
 
 			//新增
@@ -443,39 +545,43 @@
 			var osVersion = $id("osVersion").value;
 			var softwareVersion = $id("softwareVersion").value;
 			var ieVersion = $id("ieVersion").value;
-			var useful = $id("useful").value;
 
-
-
-			//获取check box 值
-            var testcheckbox="";
-
+			//获取复选框的值
+            var useful="";
             var  usefulLength  =  $("input[name='device.useful']:checkbox:checked").length;
-            alert(usefulLength);
-        
-            
             $("input[name='device.useful']:checkbox:checked").each(function(i,value){ 
                 if($(this).attr("checked")){
                     if((i+1)==usefulLength){
-                    	testcheckbox += $(this).val();
-                        }else{
-                	testcheckbox += $(this).val()+",";}
-                    
+                    	useful += $(this).val();
+                    }else{
+                    	useful += $(this).val()+", ";
+                	}
                 }
-
-                alert("index:::"+i);
             });
-            
 
+            var plugIn="";
+            var  plugInLength  =  $("input[name='device.plugIn']:checkbox:checked").length;
+            $("input[name='device.plugIn']:checkbox:checked").each(function(i,value){ 
+                if($(this).attr("checked")){
+                    if((i+1)==plugInLength){
+                    	plugIn += $(this).val();
+                    }else{
+                    	plugIn += $(this).val()+", ";
+                	}
+                }
+            });
 
-            
-
-            
-            //testcheckbox check box 值
-             alert("testcheckboxValue"+testcheckbox);
-
-			var plugIn = $id("plugIn").value;
-			var peripheral = $id("peripheral").value;
+            var peripheral="";
+            var  peripheralLength  =  $("input[name='device.peripheral']:checkbox:checked").length;
+            $("input[name='device.peripheral']:checkbox:checked").each(function(i,value){ 
+                if($(this).attr("checked")){
+                    if((i+1)==peripheralLength){
+                    	peripheral += $(this).val();
+                    }else{
+                    	peripheral += $(this).val()+", ";
+                	}
+                }
+            });
 			
 			if(useful == null){
 				useful="";

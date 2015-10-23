@@ -3,16 +3,20 @@ package com.gotop.jbpm.action;
 import com.gotop.crm.util.BaseAction;
 import com.gotop.crm.util.MUO;
 import com.gotop.jbpm.service.ITProcessTaskExeConfigService;
+
 import com.gotop.util.XmlConvert;
 import com.primeton.utils.AjaxParam;
 import com.primeton.utils.Page;
-import com.primeton.utils.pageCondExpand;
+
 import java.util.HashMap;
 import java.util.List;
+
+
 import javax.servlet.http.HttpServletRequest;
 import org.apache.struts2.ServletActionContext;
 
-public class TProcessTaskExeConfigAction extends BaseAction {
+
+public class TProcessTaskExeConfigAction extends BaseAction{
     /**
      * 通过spring注入的Service对象.
      * @abatorgenerated
@@ -83,4 +87,5 @@ public class TProcessTaskExeConfigAction extends BaseAction {
         request.setAttribute("page", page);
         return "viewlist";
     }
+
 }

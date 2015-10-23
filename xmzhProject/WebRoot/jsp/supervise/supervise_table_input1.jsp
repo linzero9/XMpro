@@ -27,6 +27,7 @@
         <h:hidden id="definitionId" property="taskAssgineeDto.definitionId"/>
         <h:hidden id="businessType" property="taskAssgineeDto.businessType"/>
         <h:hidden id="processTaskAssigneeId" property="taskAssgineeDto.processTaskAssigneeId"/>
+        <h:hidden id="isC" name="isC" property="taskAssgineeDto/isC"/>
 		 <input type="hidden" id="btnType" name="btnType" />
 		 <h:hidden name="isFirst" value="1" />
 		<table align="center" border="0" width="100%" class="form_table" >
@@ -119,6 +120,7 @@
         <td colspan="4">
           <input type="button" value="保存" class="button" id="save1" onclick="doSave(1);"  />
           <input type="button" value="提交" onclick="doSave(2);" class="button" id="smit" />
+          <input type="button" value="回退" onclick="doSave2(2);" class="button" id="smit2" />
           <input type="button" value="查看流程" onclick="doflowpic();" class="button" id="flowpic" />
          </td>
       </tr>
@@ -228,6 +230,12 @@
 			   }
 		}  
 	}
+	 if('${taskAssgineeDto.isC}'){
+			$("#save1").hide();
+			$("#smit").hide();
+		}else{
+			$("#smit2").hide();
+			}
 	if('${supervise.createor}'!='null' && '${supervise.createor}'!='' && '${supervise.createor}'!='${sessionScope.login_user.empid}'){
 		$("#smain").hide();
 		$("#sother").hide();
@@ -288,6 +296,45 @@ function initPlanCell20(){
     			if(checkForm($id("form1"))){
         		var dynamicOrgIds=$("#orgid").val()+","+$("#orgid1").val();
     			var strUrl = "/jbpm/jbpmDemoAction_toNextTaskConfig.action?taskAssgineeDto.executionId="+$id("executionId").value+"&taskAssgineeDto.beginOrg="+$("#beginOrg").val()+"&taskAssgineeDto.dynamicOrgIds="+dynamicOrgIds+"&taskAssgineeDto.beginAssingee="+$("#createor").val()+"&taskAssgineeDto.definitionId=${taskAssgineeDto.definitionId}";
+        		showModalCenter(strUrl, null, taskAssigneeCallBack, 700, 400, '节点选择');
+    			}
+    		}else{
+    			var _form = $id("form1");
+    	  	  	 	url="/supervise/tSuperviseTableAction_insertSuperviseInfo.action" + "?supervise.remindId=" + chk_value;		
+    	  	  	    _form.action =url
+    	  	  	if(checkForm($id("form1")))
+    			    ajaxsubmitO();
+    	  	 	}
+     }
+
+     function doSave2(value){
+    	 chk_value = [];
+         $('input[name="empLeaderIds"]:checked').each(function(){//遍历每一个名字为empLeaderIds的复选框，其中选中的执行函数    
+         chk_value.push($(this).val());//将选中的值添加到数组chk_value中    
+         });
+         if(chk_value.length == 0){
+        		alert("请选择需要提醒的行领导！");
+        		return false;
+          }
+    		if($("#orgcode").val()==""){
+         	alert("主办单位不能为空！");
+        		$("#superviseType").focus();
+    			return false;
+    		}
+/*     		if($("#opninion").val()==""){
+        		alert("意见不能为空");
+        		$("#opninion").focus();
+				return false;
+        	} */
+/*     		if($("#orgcode1").val()==""){
+            	alert("协办单位不能为空！");
+        		return false;
+        		} */
+    		$("#btnType").val(value);
+    		if(value!="1"){
+    			if(checkForm($id("form1"))){
+        		var dynamicOrgIds=$("#orgid").val()+","+$("#orgid1").val();
+    			var strUrl = "/jbpm/jbpmDemoAction_toNextTaskConfig2.action?taskAssgineeDto.executionId="+$id("executionId").value+"&taskAssgineeDto.beginOrg="+$("#beginOrg").val()+"&taskAssgineeDto.dynamicOrgIds="+dynamicOrgIds+"&taskAssgineeDto.beginAssingee="+$("#createor").val()+"&taskAssgineeDto.definitionId=${taskAssgineeDto.definitionId}";
         		showModalCenter(strUrl, null, taskAssigneeCallBack, 700, 400, '节点选择');
     			}
     		}else{

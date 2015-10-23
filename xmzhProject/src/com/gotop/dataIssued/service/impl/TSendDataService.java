@@ -166,13 +166,31 @@ public class TSendDataService implements ITSendDataService {
 		if("同意".equals(taskAssgineeDto.getTransitionName())){
 			if(businessDto.getDataUser()!=null && !"".equals(businessDto.getDataUser())){
 				String []userId = businessDto.getDataUser().split(",");
+				int num=0;
 				for(int i=0;i<userId.length;i++){
+					System.out.println(userId[i].equals(String.valueOf(taskAssgineeDto.getTaskAssingee())));
+					System.out.println(userId[i].equals(String.valueOf(taskAssgineeDto.getTaskAssingee())) && num!=1);
+					if(userId[i].equals(String.valueOf(taskAssgineeDto.getTaskAssingee())) && num!=1){
+						num++;
+						TRangeUser user  = new TRangeUser();
+						user.setSendId(taskAssgineeDto.getTaskAssingee());					
+						user.setEmpId(Long.valueOf(userId[i]));
+						user.setResourceId(businessDto.getResourceId());
+						user.setResourceType("02");
+						user.setOrgName(rangeUserDAO.queryOrgName(Long.valueOf(userId[i])).get("ORGNAME"));							
+						this.rangeUserDAO.insert(user);
+					}else if(userId[i].equals(String.valueOf(taskAssgineeDto.getTaskAssingee())) && num==1){
+						
+					}else{
 					TRangeUser user  = new TRangeUser();
+					user.setSendId(taskAssgineeDto.getTaskAssingee());					
 					user.setEmpId(Long.valueOf(userId[i]));
 					user.setResourceId(businessDto.getResourceId());
 					user.setResourceType("02");
 					user.setOrgName(rangeUserDAO.queryOrgName(Long.valueOf(userId[i])).get("ORGNAME"));
+						
 					this.rangeUserDAO.insert(user);
+					}
 				}
 				jbpmService.saceTaskAssignee(taskAssgineeDto);
 			}

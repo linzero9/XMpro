@@ -26,6 +26,7 @@
 		<h:hidden property="monthReports.createDate" />
 		<h:hidden property="monthReports.createTime" />
 		<h:hidden property="taskAssgineeDto.businessType" name="businessType" />
+		<h:hidden id="isC" name="isC" property="taskAssgineeDto/isC" />
 		<!-- 起草人机构 -->
 		<h:hidden id="beginOrg" property="taskAssgineeDto.beginOrg" />
 		<!-- 流程实例ID -->
@@ -37,6 +38,9 @@
 		<!-- 办理人ID -->
 		<h:hidden id="taskAssingee" name="taskAssgineeDto.taskAssingee"
 			property="taskAssgineeDto.taskAssingee" />
+
+		<h:hidden id="businessKey" name="taskAssgineeDto.businessKey"
+			property="taskAssgineeDto.businessKey" />
 		<!-- 操作类型 1为保存、2为提交审核 -->
 		<!-- <input type="hidden" id="btnType" name="btnType" /> -->
 		<table align="center" border="0" width="100%" class="form_table">
@@ -98,24 +102,23 @@
 			<%@include file="/jsp/util/default_opinionUtil.jsp"%>
 			<tr class="form_bottom">
 				<td colspan="4"><input type="button" value="提交"
-					onclick="doSave();" class="button" id="save2" /><input
-					type="button" value="查看流程" onclick="doflowpic();" class="button"
-					id="flowpic" /> <input type="button" value="传阅" onclick="doSee();"
-					class="button" id="see" /> <input type="button" value="反馈" onclick="doback();"
-					class="button" id="back" /></td>
+					onclick="doSave();" class="button" id="save2" /> <input
+					type="button" value="回退" onclick="doSave2();" class="button"
+					id="save3" /> <input type="button" value="查看流程"
+					onclick="doflowpic();" class="button" id="flowpic" /> <input
+					type="button" value="传阅" onclick="doSee();" class="button" id="see" />
+					<input type="button" value="反馈" onclick="doback();" class="button"
+					id="back" /></td>
 			</tr>
 			<tr id="row2">
 				<td class="form_label" align="right">流程列表：</td>
-				<td colspan="3"><%@include file="/jsp/util/opinionUtil.jsp"%>
+				<td colspan="3"><%@include file="/jsp/util/opinionUtil4MonthReport.jsp"%>
 				</td>
 			</tr>
 		</table>
 	</h:form>
 </body>
 <script type="text/javascript">
-
-
-
 	$(function() {
 		$
 				.ajax({//获得当前
@@ -140,16 +143,24 @@
 		if ('${isView}' != '') {
 			$("#save2").hide();
 			$("#rowOpinion").hide();
-			
-		}else{
-			if('${taskAssgineeDto.isChild}'=='0'){
-				 $("#back").css("display","none");
-			 }else{
-				 $("#save2").css("display","none");
-				 $("#see").css("display","none");
-				 
-			 }
+			$("#back").hide();
+			$("#see").hide();
+		} else {
+			if ('${taskAssgineeDto.isChild}' == '0') {
+				$("#back").css("display", "none");
+			} else {
+				$("#save2").css("display", "none");
+				$("#see").css("display", "none");
+
 			}
+		}
+		if ('${taskAssgineeDto.isC}') {
+			$("#save2").hide();
+			$("#see").hide();
+			$("#back").hide();
+		} else {
+			$("#save3").hide();
+		}
 	});
 
 	function initPlanCell20() {
@@ -173,6 +184,19 @@
 		}
 	}
 
+	/* 提交回退 */
+	function doSave2() {
+		if (checkForm($id("form1"))) {
+			var strUrl = "/jbpm/jbpmDemoAction_toNextTaskConfig2.action?taskAssgineeDto.executionId="
+					+ $id("executionId").value
+					+ "&taskAssgineeDto.beginOrg="
+					+ $("#beginOrg").val()
+					+ "&taskAssgineeDto.beginAssingee="
+					+ $("#creator").val();
+			showModalCenter(strUrl, null, taskAssigneeCallBack, 700, 400,
+					'节点选择');
+		}
+	}
 	var rowId = 0;
 	function addFile(tabid, varName) {
 		var tab, row, td, fName, fId, tdStr;
@@ -247,56 +271,61 @@
 	}
 
 	function doSee() {
+		// 		if ($("#opinion").val() == "") {
+		// 			alert("意见不能为空！");
+		// 			$("#opinion").focus();
+		// 			return false;
+		// 		}
+		// 		var strUrl = "/monthReport/tWorkMonthReportsAction_queryClassPersons.action?taskAssgineeDto.executionId=${taskAssgineeDto.executionId}&taskAssgineeDto.taskId=${taskAssgineeDto.nextTaskId}&taskAssgineeDto.parentId=${taskAssgineeDto.parentId}&taskAssgineeDto.processTaskAssigneeId=${taskAssgineeDto.processTaskAssigneeId}&taskAssgineeDto.businessType=${taskAssgineeDto.businessType}&supervise.superviseId=${supervise.superviseId}&supervise.opninion="
+		// 				+ encodeURI($("#opinion").val());
+		// 		showModalCenter(strUrl, null, winClose, 600, 300, '部室办理');
+
 		if ($("#opinion").val() == "") {
 			alert("意见不能为空！");
 			$("#opinion").focus();
 			return false;
 		}
-		var strUrl = "/monthReport/tWorkMonthReportsAction_queryClassPersons.action?taskAssgineeDto.executionId=${taskAssgineeDto.executionId}&taskAssgineeDto.taskId=${taskAssgineeDto.nextTaskId}&taskAssgineeDto.parentId=${taskAssgineeDto.parentId}&taskAssgineeDto.processTaskAssigneeId=${taskAssgineeDto.processTaskAssigneeId}&taskAssgineeDto.businessType=${taskAssgineeDto.businessType}&supervise.superviseId=${supervise.superviseId}&supervise.opninion="
+		var strUrl = "/supervise/tSuperviseTableAction_queryEmpJsp.action?taskAssgineeDto.executionId=${taskAssgineeDto.executionId}&taskAssgineeDto.taskId=${taskAssgineeDto.nextTaskId}&taskAssgineeDto.parentId=${taskAssgineeDto.parentId}&taskAssgineeDto.processTaskAssigneeId=${taskAssgineeDto.processTaskAssigneeId}&taskAssgineeDto.businessType=${taskAssgineeDto.businessType}&supervise.superviseId=${supervise.superviseId}&supervise.opninion="
 				+ encodeURI($("#opinion").val());
 		showModalCenter(strUrl, null, winClose, 600, 300, '部室办理');
 	}
 
-	function winClose(arg) {
-		if (arg != '') {
-			var _form = $id("form1");
-			url = "/supervise/tSuperviseTableAction_insertSuperviseFile.action";
-			_form.action = url
-			// 异步提交请求 
-			ajaxsubmitForFile();
-		}
-	}
+	function winClose() {
 
+		window.close();
+	}
 
 	/*
 	 *  部门人员办理反馈给部门主要负责人
 	 */
-	function doback(){
-		if($("#opinion").val()==""){
+	function doback() {
+		if ($("#opinion").val() == "") {
 			alert("意见不能为空!");
 			$("#opinion").focus();
 			return false;
 		}
-	maskTop();
-	$.ajax({
-		        url: '/supervise/tSuperviseTableAction_bushiSaveHandle.action',
-		        async: false,
-		        type: 'post',
-		        data: "taskAssgineeDto.executionId=${taskAssgineeDto.executionId}&taskAssgineeDto.processTaskAssigneeId=${taskAssgineeDto.processTaskAssigneeId}&taskAssgineeDto.taskId=${taskAssgineeDto.nextTaskId}&taskAssgineeDto.parentId=${taskAssgineeDto.parentId}&taskAssgineeDto.businessType=${taskAssgineeDto.businessType}&supervise.superviseId=${supervise.superviseId}&supervise.opninion="+encodeURI($("#opinion").val()),
-		        dataType: 'text',
-		        timeout: 60000,
-		        success: function (data) {
-		    	  if(data.indexOf("success")>=0){
-			    	  alert("操作成功!");
-			    	  unMaskTop();
+		maskTop();
+		$
+				.ajax({
+					url : '/supervise/tSuperviseTableAction_bushiSave.action',
+					async : false,
+					type : 'post',
+					data : "taskAssgineeDto.businessKey=${taskAssgineeDto.businessKey}&taskAssgineeDto.executionId=${taskAssgineeDto.executionId}&taskAssgineeDto.processTaskAssigneeId=${taskAssgineeDto.processTaskAssigneeId}&taskAssgineeDto.taskId=${taskAssgineeDto.nextTaskId}&taskAssgineeDto.parentId=${taskAssgineeDto.parentId}&taskAssgineeDto.businessType=${taskAssgineeDto.businessType}&supervise.superviseId=${supervise.superviseId}&supervise.opninion="
+							+ encodeURI($("#opinion").val()),
+					dataType : 'text',
+					timeout : 60000,
+					success : function(data) {
+						if (data.indexOf("success") >= 0) {
+							alert("操作成功!");
+							unMaskTop();
 
-				  		 winClose();
-		    	  }else{
-		    		  unMaskTop();
-			    	  alert("操作失败");
-		    	  }
-		        }											
-	  });		  									
+							winClose();
+						} else {
+							unMaskTop();
+							alert("操作失败");
+						}
+					}
+				});
 	}
 </script>
 </html>

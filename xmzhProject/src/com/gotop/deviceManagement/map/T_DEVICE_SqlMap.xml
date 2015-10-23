@@ -19,19 +19,101 @@
     <result column="USERS" property="user" jdbcType="VARCHAR" />
     <result column="PLUGIN" property="plugIn" jdbcType="VARCHAR" />
     <result column="PERIPHERAL" property="peripheral" jdbcType="VARCHAR" />
-    <result column="OTHERONE" property="otherOne" jdbcType="VARCHAR" />
-    <result column="OTHERINFOONE" property="otherInfoOne" jdbcType="VARCHAR" />
-    <result column="REMARKSONE" property="remarksOne" jdbcType="VARCHAR" />
+    <result column="OTHERATTRIBUTE_1" property="otherAttribute_1" jdbcType="VARCHAR" />
+    <result column="OTHERATTRIBUTE_2" property="otherAttribute_2" jdbcType="VARCHAR" />
+    <result column="OTHERATTRIBUTE_3" property="otherAttribute_3" jdbcType="VARCHAR" />
+    <result column="OTHERATTRIBUTE_4" property="otherAttribute_4" jdbcType="VARCHAR" />
+    <result column="OTHERATTRIBUTE_5" property="otherAttribute_5" jdbcType="VARCHAR" />
+    <result column="OTHERINFO_1" property="otherInfo_1" jdbcType="VARCHAR" />
+    <result column="OTHERINFO_2" property="otherInfo_2" jdbcType="VARCHAR" />
+    <result column="OTHERINFO_3" property="otherInfo_3" jdbcType="VARCHAR" />
+    <result column="OTHERINFO_4" property="otherInfo_4" jdbcType="VARCHAR" />
+    <result column="OTHERINFO_5" property="otherInfo_5" jdbcType="VARCHAR" />
+    <result column="REMARKS_1" property="remarks_1" jdbcType="VARCHAR" />
+    <result column="REMARKS_2" property="remarks_2" jdbcType="VARCHAR" />
+    <result column="REMARKS_3" property="remarks_3" jdbcType="VARCHAR" />
+    <result column="REMARKS_4" property="remarks_4" jdbcType="VARCHAR" />
+    <result column="REMARKS_5" property="remarks_5" jdbcType="VARCHAR" />
     <result column="ORGNAME" property="orgname" jdbcType="VARCHAR" />
     <result column="ORGCODE" property="orgcode" jdbcType="VARCHAR" />  
     <result column="DEVICE_STATE" property="deviceState" jdbcType="CHAR" />    
-  </resultMap>
+  </resultMap> 
   
-  <resultMap id="dict_HashMapResult" class="java.util.HashMap" >
-    <result column="DICTID" property="DICTID" jdbcType="VARCHAR" />
-    <result column="DICTNAME" property="DICTNAME" jdbcType="VARCHAR" />
+   <resultMap id="tOrgResult" class="com.gotop.deviceManagement.model.Org" >
+    <!--Bean方式返回全表-->
+    <result column="ORGID" property="orgid" jdbcType="DECIMAL" />
+    <result column="ORGCODE" property="orgcode" jdbcType="VARCHAR" />
+    <result column="ORGNAME" property="orgname" jdbcType="VARCHAR" />
+  </resultMap>   
+  
+    <resultMap id="tSum" class="com.gotop.deviceManagement.model.Sum" >
+    <!--Bean方式返回全表-->
+    <result column="orgname" property="orgnameTemp" jdbcType="VARCHAR" />
+    <result column="tot" property="tot" jdbcType="DECIMAL" />
   </resultMap>
-
+  <!-- 查询机构下设备总数 -->
+  <select id="querySumList" resultMap="tSum" parameterClass="java.util.HashMap">
+select  o.orgname , count(t.deviceid) tot 
+  from  t_new_deviceManagement t , om_organization o
+  where t.orgcode = o.orgcode
+  
+  <isNotNull prepend="and" property="orgcode" >      
+        t.orgcode in(
+    select orgcode from om_organization 
+     start with orgcode = #orgcode#
+    connect by prior orgid = parentorgid )
+      </isNotNull>
+   <isNotNull prepend="and" property="deviceName" >
+        t.DEVICENAME = #deviceName#
+      </isNotNull>
+      <isNotNull prepend="and" property="deviceModel" >
+        t.DEVICEMODEL = #deviceModel#
+      </isNotNull>
+      <isNotNull prepend="and" property="deviceState" >
+         t.DEVICE_STATE = #deviceState#
+      </isNotNull>
+      <isNotNull prepend="and" property="memoryMin" >
+         t.MEMORY > #memoryMin#
+      </isNotNull>
+      <isNotNull prepend="and" property="memoryMax" >
+      		<![CDATA[  t.MEMORY < #memoryMax# ]]>
+      </isNotNull>
+      <isNotNull prepend="and" property="hardDiskMin" >
+         t.HARDDISK > #hardDiskMin#
+      </isNotNull>
+      <isNotNull prepend="and" property="hardDiskMax" >
+         <![CDATA[  t.HARDDISK < #hardDiskMax# ]]>
+      </isNotNull>
+       <isNotNull prepend="and" property="osVersion" >
+         t.OSVERSION = #osVersion#
+      </isNotNull>
+      <isNotNull prepend="and" property="softwareVersion" >
+        t.SOFTWAREVERSION like '%'|| #softwareVersion# ||'%'
+      </isNotNull>
+      <isNotNull prepend="and" property="ieVersion" >
+         t.IEVERSION = #ieVersion#
+      </isNotNull>
+      <isNotNull prepend="and" property="useful" >
+        t.USEFUL like replace('%'|| #useful# ||'%', ',', '%')
+      </isNotNull>
+      <isNotNull prepend="and" property="plugIn" >
+         t.PLUGIN  like replace('%'|| #plugIn# ||'%', ',', '%')
+      </isNotNull>
+      <isNotNull prepend="and" property="peripheral" >
+        t.PERIPHERAL  like replace('%'|| #peripheral# ||'%', ',', '%')
+      </isNotNull>
+      
+      
+   <isEmpty property="orgcode" >
+  and t.orgcode in(
+    select orgcode from om_organization 
+     start with orgcode = '$orgcodeTemp$'
+    connect by prior orgid = parentorgid 
+ )
+</isEmpty>  
+group by o.orgname
+  </select>
+  
   <!-- 查询设备列表 -->
   <select id="queryList" resultMap="tDeviceResult" parameterClass="java.util.HashMap" >
  	select t.*, o.orgname from  t_new_deviceManagement t , om_organization o
@@ -70,15 +152,15 @@ where t.orgcode = o.orgcode
          t.IEVERSION = #ieVersion#
       </isNotNull>
       <isNotNull prepend="and" property="useful" >
-        t.USEFUL like '%'|| #useful# ||'%'
+        t.USEFUL like replace('%'|| #useful# ||'%', ',', '%')
       </isNotNull>
       <isNotNull prepend="and" property="plugIn" >
-         t.PLUGIN  like '%'|| #plugIn# ||'%'
+         t.PLUGIN  like replace('%'|| #plugIn# ||'%', ',', '%')
       </isNotNull>
       <isNotNull prepend="and" property="peripheral" >
-        t.PERIPHERAL  like '%'|| #peripheral# ||'%'
+        t.PERIPHERAL  like replace('%'|| #peripheral# ||'%', ',', '%')
       </isNotNull>
-  order by t.orgcode 
+  order by t.orgcode ,t.deviceName,t.deviceModel
   </select>
   
   <!--通过主键查询一条数据-->
@@ -95,11 +177,17 @@ where a.orgcode = b.orgcode
 		</selectKey>
     insert into t_new_deviceManagement 
     (DEVICEID, DEVICENAME, DEVICEMODEL, IPADRESS, PRODUCTIONMACHINENAME, CPUCODE, MEMORY, HARDDISK
-    , OSVERSION, SOFTWAREVERSION, IEVERSION, USEFUL, TERMINALNUMBER, USERS, PLUGIN, PERIPHERAL, OTHERONE, OTHERINFOONE, REMARKSONE
+    , OSVERSION, SOFTWAREVERSION, IEVERSION, USEFUL, TERMINALNUMBER, USERS, PLUGIN, PERIPHERAL
+    , OTHERATTRIBUTE_1, OTHERATTRIBUTE_2, OTHERATTRIBUTE_3, OTHERATTRIBUTE_4, OTHERATTRIBUTE_5
+    , OTHERINFO_1, OTHERINFO_2, OTHERINFO_3, OTHERINFO_4, OTHERINFO_5
+    , REMARKS_1 , REMARKS_2 , REMARKS_3 , REMARKS_4 , REMARKS_5
     , ORGCODE, DEVICE_STATE)
     values (#deviceId:DECIMAL:-9999#,  #deviceName:VARCHAR#,  #deviceModel:VARCHAR#,  #ipAdress:VARCHAR#,  #productionMachineName:VARCHAR#
-    ,  #cpuCode:VARCHAR# , #memory:VARCHAR# ,  #hardDisk:VARCHAR# ,  #osVersion:VARCHAR# ,  #softwareVersion:VARCHAR# ,  #ieVersion:VARCHAR# ,  #useful:VARCHAR#
-     ,  #terminalNumber:VARCHAR# ,  #user:VARCHAR# ,  #plugIn:VARCHAR# ,  #peripheral:VARCHAR# ,  #otherOne:VARCHAR# , #otherInfoOne:VARCHAR# ,  #remarksOne:VARCHAR# 
+     ,  #cpuCode:VARCHAR# , #memory:VARCHAR# ,  #hardDisk:VARCHAR# ,  #osVersion:VARCHAR# ,  #softwareVersion:VARCHAR# ,  #ieVersion:VARCHAR# ,  #useful:VARCHAR#
+     ,  #terminalNumber:VARCHAR# ,  #user:VARCHAR# ,  #plugIn:VARCHAR# ,  #peripheral:VARCHAR#
+     ,  #otherAttribute_1:VARCHAR# ,  #otherAttribute_2:VARCHAR#  ,  #otherAttribute_3:VARCHAR#  ,  #otherAttribute_4:VARCHAR#  ,  #otherAttribute_5:VARCHAR# 
+     ,  #otherInfo_1:VARCHAR#  ,  #otherInfo_2:VARCHAR#  ,  #otherInfo_3:VARCHAR#  ,  #otherInfo_4:VARCHAR#  ,  #otherInfo_5:VARCHAR#
+     ,  #remarks_1:VARCHAR#  ,  #remarks_2:VARCHAR#  ,  #remarks_3:VARCHAR#  ,  #remarks_4:VARCHAR#  ,  #remarks_5:VARCHAR# 
      ,  #orgcode:VARCHAR# ,  #deviceState:CHAR# )
   </insert>
   
@@ -121,9 +209,21 @@ where a.orgcode = b.orgcode
       USERS = #user:VARCHAR#,
       PLUGIN = #plugIn:VARCHAR#,
       PERIPHERAL = #peripheral:VARCHAR#,
-      OTHERONE = #otherOne:VARCHAR#,
-      OTHERINFOONE = #otherInfoOne:VARCHAR#,
-      REMARKSONE = #remarksOne:VARCHAR#,
+      OTHERATTRIBUTE_1 = #otherAttribute_1:VARCHAR#,
+      OTHERATTRIBUTE_2 = #otherAttribute_2:VARCHAR#,
+      OTHERATTRIBUTE_3 = #otherAttribute_3:VARCHAR#,
+      OTHERATTRIBUTE_4 = #otherAttribute_4:VARCHAR#,
+      OTHERATTRIBUTE_5 = #otherAttribute_5:VARCHAR#,
+      OTHERINFO_1 = #otherInfo_1:VARCHAR#,
+      OTHERINFO_2 = #otherInfo_2:VARCHAR#,
+      OTHERINFO_3 = #otherInfo_3:VARCHAR#,
+      OTHERINFO_4 = #otherInfo_4:VARCHAR#,
+      OTHERINFO_5 = #otherInfo_5:VARCHAR#,
+      REMARKS_1 = #remarks_1:VARCHAR#,
+      REMARKS_2 = #remarks_2:VARCHAR#,
+      REMARKS_3 = #remarks_3:VARCHAR#,
+      REMARKS_4 = #remarks_4:VARCHAR#,
+      REMARKS_5 = #remarks_5:VARCHAR#,
       ORGCODE = #orgcode:VARCHAR#,
       DEVICE_STATE = #deviceState:CHAR#   
     where DEVICEID = #deviceId:DECIMAL#
@@ -135,8 +235,14 @@ where a.orgcode = b.orgcode
     where DEVICEID = #deviceId:DECIMAL#
   </delete>
   
-  <select id="queryOrg" resultClass="java.util.HashMap" parameterClass="java.util.HashMap" >
- 	select * from om_organization where orgname = #orgname#
+  <select id="queryOrg" resultClass="java.lang.Integer" parameterClass="java.util.HashMap" >
+ 	select * from om_organization where orgcode = #orgcode#
+</select>
+
+  <select id="queryOrglist" resultMap="tOrgResult" parameterClass="java.util.HashMap" >
+ 	select orgid,orgcode,orgname from om_organization
+ 	 where status = 'running'
+ 	 order by orgid 
 </select>
 
 </sqlMap>

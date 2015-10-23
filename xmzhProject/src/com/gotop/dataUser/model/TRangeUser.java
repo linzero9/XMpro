@@ -51,8 +51,22 @@ public class TRangeUser implements Serializable {
      * 所属机构名称
      */
     private String orgName;
-
+    
     /**
+     * 下发人员编号 .
+     * @abatorgenerated
+     */
+    private Long sendId;
+
+    public Long getSendId() {
+		return sendId;
+	}
+
+	public void setSendId(Long sendId) {
+		this.sendId = sendId;
+	}
+
+	/**
      * 主键 .
      * @abatorgenerated
      */

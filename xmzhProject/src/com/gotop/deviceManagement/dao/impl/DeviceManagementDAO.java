@@ -72,9 +72,30 @@ public class DeviceManagementDAO extends SqlMapClientDao implements IDeviceManag
 
 
 	@Override
-	public Object[] queryOrg(Map<String, Object> map) {
-		Object[] orgs = (Object[]) queryForObject("T_DEVICE_SqlMap.queryOrg", map);
-		return orgs;
+	public int queryOrg(Map<String, Object> map) {
+		Integer count = (Integer) queryForObject("T_DEVICE_SqlMap.queryOrg", map);
+		if(count==null){
+			return 0;
+		}else{
+			return count.intValue();
+		}
+	}
+
+
+	@Override
+	public List sumUpList(Map<String, Object> map, Page page) {
+		if(page!=null)
+			return queryForList("T_DEVICE_SqlMap.querySumList", map, page);
+		else
+			return queryForList("T_DEVICE_SqlMap.querySumList", map);
+	}
+
+
+
+	public List queryOrgList() {
+		HashMap map = new HashMap();
+		List list = queryForList("T_DEVICE_SqlMap.queryOrglist", map);
+		return list;
 	}
 
 }

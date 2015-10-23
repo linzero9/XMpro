@@ -10,7 +10,8 @@ import com.primeton.utils.Page;
 public interface IDeviceManagementDAO {
 
 	List deviceList(Map<String, Object> map, Page page);
-
+	//统计输出
+	List sumUpList(Map<String, Object> map, Page page);
 	DevicePo selectByPrimaryKey(Long deviceId);
 
 	void insert(DevicePo device);
@@ -19,6 +20,8 @@ public interface IDeviceManagementDAO {
 
 	int deleteByPrimaryKey(Long deviceId);
 
-	Object[] queryOrg(Map<String, Object> map);
+	int queryOrg(Map<String, Object> map);
+
+	List queryOrgList();
 
 }

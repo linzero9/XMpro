@@ -9,20 +9,32 @@ import com.gotop.jbpm.service.ITProcessTaskAssigneePersonService;
 import com.gotop.jbpm.service.ITProcessTaskAssigneeService;
 import com.gotop.jbpm.service.JbpmDemoService;
 import com.gotop.jbpm.service.impl.TProcessTaskAssigneePersonService;
+import com.gotop.util.Struts2Utils;
 import com.gotop.util.XmlConvert;
 import com.gotop.util.string.Obj2StrUtils;
+import com.opensymphony.xwork2.inject.ContainerBuilder;
 import com.primeton.utils.AjaxParam;
 import com.primeton.utils.Page;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
+
 import javax.servlet.http.HttpServletRequest;
 import org.apache.struts2.ServletActionContext;
+import org.hibernate.Session;
+import org.jbpm.api.Execution;
 import org.jbpm.api.ExecutionService;
+import org.jbpm.api.HistoryService;
 import org.jbpm.api.ProcessInstance;
 import org.jbpm.api.TaskService;
+import org.jbpm.api.cmd.Command;
+import org.jbpm.api.cmd.Environment;
+import org.jbpm.api.history.HistoryActivityInstance;
+import org.jbpm.api.history.HistoryActivityInstanceQuery;
 import org.jbpm.api.history.HistoryTask;
+import org.jbpm.api.task.Task;
 
-public class TProcessTaskAssigneeAction extends BaseAction {
+public class TProcessTaskAssigneeAction extends BaseAction{
 	
 	protected JbpmDemoService jbpmDemoService;
 	
@@ -223,14 +235,35 @@ public class TProcessTaskAssigneeAction extends BaseAction {
         request.setAttribute("page", page);
         return "viewlist";
     }
-    
-    /**
+   private String empId; 
+    public String getEmpId() {
+	return empId;
+}
+
+public void setEmpId(String empId) {
+	this.empId = empId;
+}
+//当前登入人员姓名
+private String nameString;
+
+	public String getNameString() {
+	return nameString;
+}
+
+public void setNameString(String nameString) {
+	this.nameString = nameString;
+}
+
+	/**
      * 我的已办任务列表
      * @throws Exception 
      */
     public String queryMyCompletedTasksList() throws Exception{
+    	nameString = String.valueOf(this.getCurrentOnlineUser().getEmpname());
+    	this.setNameString(nameString);
     	//获取用户empId
-    	String empId = String.valueOf(this.getCurrentOnlineUser().getEmpid());
+    	 empId = String.valueOf(this.getCurrentOnlineUser().getEmpid());
+    	 this.setEmpId(empId);
     	//获取角色id数组
     	String[] roleIdArray = this.getCurrentOnlineUser().getRoleid();
     	//获取机构代码
@@ -399,4 +432,8 @@ public class TProcessTaskAssigneeAction extends BaseAction {
     	processTaskAssignees = tProcessTaskAssigneeService.myStartProcessList(empId,taskAssignee,this.getPage());
 		return "myStartProcessList";
 	}
+
+	
+
+
 }

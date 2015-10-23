@@ -6,6 +6,7 @@
     <result column="USER_ID" property="userId" jdbcType="DECIMAL"  />
     <result column="RESOURCE_ID" property="resourceId" jdbcType="DECIMAL" />
     <result column="EMP_ID" property="empId" jdbcType="DECIMAL" />
+    <result column="SEND_ID" property="sendId" jdbcType="DECIMAL" />
     <result column="RESOURCE_TYPE" property="resourceType" jdbcType="VARCHAR" />
     <result column="DES_ID" property="desId" jdbcType="DECIMAL" />
     <result column="DES_TIME" property="desTime" jdbcType="VARCHAR" />
@@ -16,6 +17,7 @@
     <result column="USER_ID" property="userId" jdbcType="DECIMAL" />
     <result column="RESOURCE_ID" property="resourceId" jdbcType="DECIMAL" />
     <result column="EMP_ID" property="empId" jdbcType="DECIMAL" />
+    <result column="SEND_ID" property="sendId" jdbcType="DECIMAL" />
     <result column="RESOURCE_TYPE" property="resourceType" jdbcType="VARCHAR" />
     <result column="DES_ID" property="desId" jdbcType="DECIMAL" />
     <result column="DES_TIME" property="desTime" jdbcType="VARCHAR" />
@@ -141,9 +143,9 @@
     	SELECT SQ_T_RANGE_USER_1.NEXTVAL AS VALUE FROM DUAL
     </selectKey>
     insert into T_RANGE_USER (USER_ID, RESOURCE_ID, EMP_ID, RESOURCE_TYPE, DES_ID, DES_TIME,
-      DES_DATE,ORGNAME)
+      DES_DATE,ORGNAME,SEND_ID)
     values (#userId:DECIMAL:-9999#, #resourceId:DECIMAL:-9999#, #empId:DECIMAL:-9999#,
-      #resourceType:VARCHAR#, #desId:DECIMAL:-9999#, #desTime:VARCHAR#, #desDate:VARCHAR#, #orgName:VARCHAR#)
+      #resourceType:VARCHAR#, #desId:DECIMAL:-9999#, #desTime:VARCHAR#, #desDate:VARCHAR#, #orgName:VARCHAR#,#sendId:DECIMAL:-9999#)
   </insert>
   <update id="abatorgenerated_updateByPrimaryKey" parameterClass="com.gotop.dataUser.model.TRangeUser" >
     <!--通过主键更新一条全部字段内容-->

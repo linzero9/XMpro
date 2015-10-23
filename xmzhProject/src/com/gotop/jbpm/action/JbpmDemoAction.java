@@ -34,6 +34,7 @@ import org.jbpm.api.model.ActivityCoordinates;
 import org.jbpm.api.task.Task;
 import org.jbpm.jpdl.internal.activity.TaskActivity;
 import org.jbpm.pvm.internal.model.ActivityImpl;
+import org.jbpm.pvm.internal.model.ExecutionImpl;
 import org.jbpm.pvm.internal.model.ProcessDefinitionImpl;
 import org.jbpm.pvm.internal.model.TransitionImpl;
 import org.json.JSONException;
@@ -65,6 +66,7 @@ import com.gotop.util.Struts2Utils;
 import com.gotop.util.XmlConvert;
 import com.gotop.util.string.Obj2StrUtils;
 import com.gotop.util.time.TimeUtil;
+import com.gotop.vo.system.MUOUserSession;
 import com.primeton.utils.Page;
 
 public class JbpmDemoAction extends BaseAction {
@@ -709,6 +711,7 @@ public class JbpmDemoAction extends BaseAction {
 					.findProcessInstanceById(execution.getProcessInstance()
 							.getId());
 			activityNames = processInstance.findActiveActivityNames();
+			
 			activityCoordinates = repositoryService.getActivityCoordinates(
 					processInstance.getProcessDefinitionId(), activityNames
 							.iterator().next());
@@ -1095,6 +1098,11 @@ public class JbpmDemoAction extends BaseAction {
 				buffer.append(taskAssgineeDto.getIsChild());
 				buffer.append("&");
 			}
+			if (taskAssgineeDto.getIsC()!= null) {
+				buffer.append("taskAssgineeDto.isC=");
+				buffer.append(taskAssgineeDto.getIsC());
+				buffer.append("&");
+			}
 			if (taskAssgineeDto.getTemplateFileIds()!= null) {
 				buffer.append("taskAssgineeDto.templateFileIds=");
 				buffer.append(taskAssgineeDto.getTemplateFileIds());
@@ -1118,6 +1126,30 @@ public class JbpmDemoAction extends BaseAction {
 
 	public String toNextTaskConfig() {
 		activityList = this.jbpmDemoService.getNextTaskList(taskAssgineeDto);
+		this.setActivityList(activityList);
+		this.setTaskAssgineeDto(taskAssgineeDto);
+		return "task_person_assigner";
+	}
+	String rolenameString;
+	public String getRolenameString() {
+		return rolenameString;
+	}
+
+	public void setRolenameString(String rolenameString) {
+		this.rolenameString = rolenameString;
+	}
+
+	public String toNextTaskConfig2() {
+		MUOUserSession muo=getCurrentOnlineUser();	
+		for(int i=0;i<this.getCurrentOnlineUser().getPosiName().length;i++){
+			if(this.getCurrentOnlineUser().getPosiName()[i].equals("行领导")){
+				rolenameString=this.getCurrentOnlineUser().getPosiName()[i];
+				break;
+			}
+			rolenameString="no";
+		}
+		//rolenameString =  this.getCurrentOnlineUser().getPosiName()[0];		
+		activityList = this.jbpmDemoService.getNextTaskList2(taskAssgineeDto,rolenameString);
 		this.setActivityList(activityList);
 		this.setTaskAssgineeDto(taskAssgineeDto);
 		return "task_person_assigner";
@@ -1660,6 +1692,36 @@ public class JbpmDemoAction extends BaseAction {
 		return "success";
 	}
 	
+	/**
+	 * 我的已办-删除
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 */
+	public void delete(){		
+		String info ="success";
+    	try {
+    		this.setTaskAssgineeDto(taskAssgineeDto);
+    		
+//    		ExecutionImpl executionImpl = (ExecutionImpl)executionService.findExecutionById(taskAssgineeDto.getExecutionId());
+// 			activityImpl = executionImpl.getActivity();
+// 			definitionId = executionImpl.getProcessDefinitionId();
+ 			
+    		System.out.println(taskAssgineeDto.getTaskId());
+    		Task task = jbpmDemoService.getTaskById(taskAssgineeDto.getPreTaskId());
+    		TaskService taskService = jbpmDemoService.getTaskService();
+    		taskService.deleteTaskCascade(taskAssgineeDto.getPreTaskId());
+
+ //   		task.setState(ask.STATE_OPEN);
+ //           taskService.saveTask(task);
+    	} catch (Exception e) {
+			info="fails";
+			log.error("[删除设备信息失败！]", e);
+//			throw e;
+		}finally{	
+		}
+		Struts2Utils.renderText(info);
+	}
+
 	/**
 	 * 我的流程-发起
 	 * 不启动流程实例，获取流程节点action，跳转到业务表单页面

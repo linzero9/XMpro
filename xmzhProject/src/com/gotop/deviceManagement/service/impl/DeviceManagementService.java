@@ -11,6 +11,7 @@ import com.gotop.deviceManagement.dao.IDeviceManagementDAO;
 import com.gotop.deviceManagement.model.DeviceDetail;
 import com.gotop.deviceManagement.model.DevicePo;
 import com.gotop.deviceManagement.service.IDeviceManagementService;
+import com.gotop.util.export.ExcelTemplate;
 import com.gotop.vo.system.MUOUserSession;
 import com.primeton.utils.Page;
 
@@ -39,6 +40,60 @@ public class DeviceManagementService implements IDeviceManagementService{
 		this.deviceManDetailDAO = deviceManDetailDAO;
 	}
 
+	// 输出统计
+	@Override
+	public List<DevicePo> sumUpDevicePos(DevicePo device,String orgcodeTemp, Page page) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		if(device != null){
+			if( device.getOrgcode() != null && !"".equals(device.getOrgcode())){
+				map.put("orgcode", device.getOrgcode());
+			}
+			if( device.getDeviceName() != null && !"".equals(device.getDeviceName())){
+				map.put("deviceName", device.getDeviceName());
+			}
+			if( device.getDeviceModel() != null && !"".equals(device.getDeviceModel())){
+				map.put("deviceModel", device.getDeviceModel());
+			}
+			if( device.getDeviceState() != null && !"".equals(device.getDeviceState())){
+				map.put("deviceState", device.getDeviceState());
+			}
+			if( device.getMemoryMin() != null && !"".equals(device.getMemoryMin())){
+				map.put("memoryMin", device.getMemoryMin());
+			}
+			if( device.getMemoryMax() != null && !"".equals(device.getMemoryMax())){
+				map.put("memoryMax", device.getMemoryMax());
+			}
+			if( device.getHardDiskMin() != null && !"".equals(device.getHardDiskMin())){
+				map.put("hardDiskMin", device.getHardDiskMin());
+			}
+			if( device.getHardDiskMax() != null && !"".equals(device.getHardDiskMax())){
+				map.put("hardDiskMax", device.getHardDiskMax());
+			}
+			if( device.getOsVersion() != null && !"".equals(device.getOsVersion())){
+				map.put("osVersion", device.getOsVersion());
+			}
+			if( device.getSoftwareVersion() != null && !"".equals(device.getSoftwareVersion())){
+				map.put("softwareVersion", device.getSoftwareVersion());
+			}
+			if( device.getIeVersion() != null && !"".equals(device.getIeVersion())){
+				map.put("ieVersion", device.getIeVersion());
+			}
+			if( device.getUseful() != null && !"".equals(device.getUseful())){
+				map.put("useful", device.getUseful());
+			}
+			if( device.getPlugIn() != null && !"".equals(device.getPlugIn())){
+				map.put("plugIn", device.getPlugIn());
+			}
+			if( device.getPeripheral() != null && !"".equals(device.getPeripheral())){
+				map.put("peripheral", device.getPeripheral());
+			}
+		}
+		map.put("orgcodeTemp", orgcodeTemp);
+		
+		List list = deviceManagementDAO.sumUpList(map, page);
+        return list;
+	}
+	
 	@Override
 	public List<DevicePo> deviceList(DevicePo device, Page page) {
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -91,6 +146,8 @@ public class DeviceManagementService implements IDeviceManagementService{
         return list;
 	}
 
+
+
 	@Override
 	public DevicePo getDeviceByDeviceId(DevicePo device) {
 		DevicePo devicePo = deviceManagementDAO.selectByPrimaryKey(device.getDeviceId());
@@ -100,7 +157,6 @@ public class DeviceManagementService implements IDeviceManagementService{
 	@Override
 	public void save(DevicePo device,MUOUserSession muoUserSession) {
 		if(device.getDeviceId() == null){
-			device.setDeviceState("0"); //新增设备时默认设状态为可用（即为0）
 			deviceManagementDAO.insert(device);
 		}else{
 			deviceManagementDAO.updateByPrimaryKey(device);
@@ -127,9 +183,21 @@ public class DeviceManagementService implements IDeviceManagementService{
 		detail.setUser(device.getUser());
 		detail.setPlugIn(device.getPlugIn());
 		detail.setPeripheral(device.getPeripheral());
-		detail.setOtherOne(device.getOtherOne());
-		detail.setOtherInfoOne(device.getOtherInfoOne());
-		detail.setRemarksOne(device.getRemarksOne());
+		detail.setOtherAttribute_1(device.getOtherAttribute_1());
+		detail.setOtherAttribute_2(device.getOtherAttribute_2());
+		detail.setOtherAttribute_3(device.getOtherAttribute_3());
+		detail.setOtherAttribute_4(device.getOtherAttribute_4());
+		detail.setOtherAttribute_5(device.getOtherAttribute_5());
+		detail.setOtherInfo_1(device.getOtherInfo_1());
+		detail.setOtherInfo_2(device.getOtherInfo_2());
+		detail.setOtherInfo_3(device.getOtherInfo_3());
+		detail.setOtherInfo_4(device.getOtherInfo_4());
+		detail.setOtherInfo_5(device.getOtherInfo_5());
+		detail.setRemarks_1(device.getRemarks_1());
+		detail.setRemarks_2(device.getRemarks_2());
+		detail.setRemarks_3(device.getRemarks_3());
+		detail.setRemarks_4(device.getRemarks_4());
+		detail.setRemarks_5(device.getRemarks_5());
 		detail.setOrgcode(device.getOrgcode());
 		detail.setDeviceState(device.getDeviceState());
 		
@@ -147,19 +215,37 @@ public class DeviceManagementService implements IDeviceManagementService{
 	}
 
 	@Override
-	public Object[] queryOrg(String orgname) {
+	public int queryOrg(String orgcode) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("orgname", "orgname");
-		Object[] orgs = deviceManagementDAO.queryOrg(map);
-		return orgs;
+		map.put("orgcode", orgcode);
+		int count = deviceManagementDAO.queryOrg(map);
+		return count;
+	}
+
+	//该方法没有调用到，留着仅供参考
+	@Override
+	public String importExcel(String filePath, String entityType) throws  Exception{
+		ExcelTemplate template=new ExcelTemplate();
+		List[] devicess =  template.importData(filePath, entityType, 5000);
+		List devices;
+		if(devicess.length == 1){
+			devices = devicess[0];
+		}else {
+			return "false";
+		}
+		DevicePo device;
+		for(int i=0; i<devices.size(); i++){
+			device = (DevicePo) devices.get(i);
+			deviceManagementDAO.insert(device);
+		}
+		return "true";
 	}
 
 	@Override
-	public void import_insert(DevicePo device) {
-		
-		deviceManagementDAO.insert(device);
+	public List queryOrgList() {
+		List list = deviceManagementDAO.queryOrgList();
+		return list;
 	}
-	
-	
+
 	
 }

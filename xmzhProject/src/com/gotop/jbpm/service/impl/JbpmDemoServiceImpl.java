@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.zip.ZipInputStream;
 
+import java_cup.internal_error;
+
+import org.apache.derby.tools.sysinfo;
 import org.jbpm.api.Configuration;
 import org.jbpm.api.Execution;
 import org.jbpm.api.ExecutionService;
@@ -182,6 +185,7 @@ public class JbpmDemoServiceImpl implements JbpmDemoService{
 	public List<ActivityDto> getNextTaskList(TaskAssgineeDto taskAssgineeDto) {
 		List<ActivityDto>addList = null;
 		String definitionId = null;
+		
     	EnvironmentImpl envImpl = ((EnvironmentFactory) processEngine) 
                  .openEnvironment();
     	 try {
@@ -269,7 +273,12 @@ public class JbpmDemoServiceImpl implements JbpmDemoService{
                     		}
                 		}
                 	}
-                	addList.add(activityDto);  
+                	if(activityDto.getTransitionName().equals("回退"))
+                	{               		  
+                	}else{
+                		addList.add(activityDto);
+                	}
+                	//addList.add(activityDto);  
                 }else{
                 	List<Transition> list2 = (List<Transition>) activity.getOutgoingTransitions();
                 	if(list2.size() == 0){
@@ -328,6 +337,172 @@ public class JbpmDemoServiceImpl implements JbpmDemoService{
 		return addList;
 	}
 
+	
+	@Override
+	public List<ActivityDto> getNextTaskList2(TaskAssgineeDto taskAssgineeDto,String rolenameString) {
+
+		List<ActivityDto>addList = null;
+		String definitionId = null;
+    	EnvironmentImpl envImpl = ((EnvironmentFactory) processEngine) 
+                 .openEnvironment();
+    	 try {
+    		 ActivityImpl activityImpl = null;
+    		 if(taskAssgineeDto.getExecutionId() != null && !"".equals(taskAssgineeDto.getExecutionId())){
+    			 ExecutionImpl executionImpl = (ExecutionImpl)executionService.findExecutionById(taskAssgineeDto.getExecutionId());
+    			activityImpl = executionImpl.getActivity();
+    			definitionId = executionImpl.getProcessDefinitionId();
+    		 }else{
+    			 if(taskAssgineeDto.getDefinitionId()!=null && !"".equals(taskAssgineeDto.getDefinitionId())){
+    				 ProcessDefinitionImpl processDefinitionImpl = (ProcessDefinitionImpl) this.repositoryService.createProcessDefinitionQuery()
+    							.processDefinitionId(taskAssgineeDto.getDefinitionId()).uniqueResult();
+    			
+    					definitionId = processDefinitionImpl.getId();
+    					List<ActivityImpl> list = (List<ActivityImpl>) processDefinitionImpl.getActivities();
+    					for (ActivityImpl activityImpl1 : list) {
+    						String type = activityImpl1.getType();
+    						if (type.equals("start")) {
+    							TransitionImpl transitionImpl = activityImpl1.getDefaultOutgoingTransition();
+    							activityImpl = transitionImpl.getDestination();
+    							break;
+    						}
+    					}
+    			 }
+    		 }
+    	   
+    	 	addList = new ArrayList<ActivityDto>();
+            List list = activityImpl.getOutgoingTransitions();  
+            int i=0;
+            for (Iterator iterator = list.iterator(); iterator.hasNext();) {  
+            	
+                Transition ts = (Transition) iterator.next(); 
+                Activity activity = ts.getDestination();
+                if("task".equals(activity.getType())){
+                	ActivityDto activityDto = new ActivityDto();
+                	TaskAssgineeDto assgineeDto = new TaskAssgineeDto();
+                	assgineeDto.setDefinitionId(definitionId);
+                	assgineeDto.setTargetName(activity.getName());
+                	assgineeDto.setBeforeName(activityImpl.getName());
+                	activityDto.setBeforeName(activityImpl.getName());
+                	List<TProcessTaskExeConfig> tProcessTaskExeConfigs2 = jbpmService
+            				.getNextTaskAssigneeConfigs2(assgineeDto);
+                	
+                	if(tProcessTaskExeConfigs2.size() !=0){
+                		if(tProcessTaskExeConfigs2.get(0).getActShowName() != null){
+                			activityDto.setActShowName(tProcessTaskExeConfigs2.get(0).getActShowName());
+                		}else{
+                			activityDto.setActShowName(activity.getName());
+                		}
+                		
+            			activityDto.setDestinationName(activity.getName());
+                    	activityDto.setTransitionName(ts.getName());
+                	}else{
+                		List<TProcessTaskExeConfig> tProcessTaskExeConfigs = jbpmService
+                				.getNextTaskAssigneeConfigs(assgineeDto);
+                		if(tProcessTaskExeConfigs.size() !=0){
+                			if(tProcessTaskExeConfigs.get(0).getActShowName() != null && ("退回".equals(ts.getName()) || "回退".equals(ts.getName()))){
+                    			//回退或者退回时显示别名
+                    			activityDto.setActShowName(tProcessTaskExeConfigs.get(0).getActShowName());
+                    			activityDto.setDestinationName(activity.getName());
+                            	activityDto.setTransitionName(ts.getName());
+                    		}else{
+
+                    			//20140904 添加别名显示标志，用于提供审核通过的别名展示
+                    			if("1".equals(tProcessTaskExeConfigs.get(0).getActShowFlag())){
+                    				activityDto.setActShowName(tProcessTaskExeConfigs.get(0).getActShowName());
+                    			}else{
+                    				activityDto.setActShowName(activity.getName());
+                    			}
+                    			activityDto.setDestinationName(activity.getName());
+                            	activityDto.setTransitionName(ts.getName());
+                    		}
+                		}
+                	}   
+                	
+                	
+//                	if((rolenameString .equals("[Ljava.lang.String;@6644a6") )&&(activityDto.getTransitionName().equals("提交分管") && (activityDto.getActShowName().equals("分管领导审核")))){
+//                		addList.add(activityDto);
+//                	}
+//                	else{ 
+//                		if((activityDto.getTransitionName().equals("退回")) | activityDto.getTransitionName().equals("批示")| activityDto.getTransitionName().equals("回退") 
+//                		
+//                			|(activityDto.getTransitionName().equals("提交领导批示") && (activityDto.getActShowName().equals("行领导批示")))
+//   		              			
+//                	  )
+//                	{
+//                		addList.add(activityDto);  
+//                	}
+//                	} 
+                	if((rolenameString.equals("行领导"))){
+                		i=1;
+                	}
+                	if((((activityDto.getTransitionName().equals("退回")) &&(i==0)))
+                			| activityDto.getTransitionName().equals("批示")| activityDto.getTransitionName().equals("回退") 
+                			|(activityDto.getTransitionName().equals("提交分管")&&(i==1) )       		              			
+                			|(activityDto.getTransitionName().equals("提交行领导批示") &&(i==1))       		              			
+                    	  )
+                    {
+                    	addList.add(activityDto); 
+                    }
+                }else{
+                	List<Transition> list2 = (List<Transition>) activity.getOutgoingTransitions();
+                	if(list2.size() == 0){
+                		ActivityDto activityDto = new ActivityDto();
+                		TaskAssgineeDto assgineeDto = new TaskAssgineeDto();
+                    	assgineeDto.setDefinitionId(definitionId);
+                    	assgineeDto.setTargetName(activity.getName());
+                    	List<TProcessTaskExeConfig> tProcessTaskExeConfigs = jbpmService
+                				.getNextTaskAssigneeConfigs(assgineeDto);
+                    	if(tProcessTaskExeConfigs.size() !=0){
+                    		if(tProcessTaskExeConfigs.get(0).getActShowName() != null){
+                    			activityDto.setActShowName(tProcessTaskExeConfigs.get(0).getActShowName());
+                    			activityDto.setDestinationName(activity.getName());
+                            	activityDto.setTransitionName(ts.getName());
+                    		}else{
+                    			activityDto.setActShowName(activity.getName());
+                    			activityDto.setDestinationName(activity.getName());
+                            	activityDto.setTransitionName(ts.getName());
+                    		}
+                    	}else{
+                    		activityDto.setActShowName(activity.getName());
+                			activityDto.setDestinationName(activity.getName());
+                        	activityDto.setTransitionName(ts.getName());
+                    	}
+	                	//addList.add(activityDto);  
+                	}else{
+                		for (Transition transition : list2) {
+    						Activity activity2 = transition.getDestination();
+    						ActivityDto activityDto = new ActivityDto();
+    						TaskAssgineeDto assgineeDto = new TaskAssgineeDto();
+                        	assgineeDto.setDefinitionId(definitionId);
+                        	assgineeDto.setTargetName(activity2.getName());
+                        	List<TProcessTaskExeConfig> tProcessTaskExeConfigs = jbpmService
+                    				.getNextTaskAssigneeConfigs(assgineeDto);
+                        	if(tProcessTaskExeConfigs.size() !=0){
+                        		if(tProcessTaskExeConfigs.get(0).getActShowName() != null && ("退回".equals(transition.getName()) || "回退".equals(transition.getName()))){
+                        			activityDto.setActShowName(tProcessTaskExeConfigs.get(0).getActShowName());
+                        			activityDto.setDestinationName(activity2.getName());
+            	                	activityDto.setTransitionName(transition.getName());
+                        		}else{
+                        			activityDto.setActShowName(activity2.getName());
+                        			activityDto.setDestinationName(activity2.getName());
+            	                	activityDto.setTransitionName(transition.getName());
+                        		}
+                        	}
+//    	                	addList.add(activityDto);  
+    					}
+                	}
+                }
+               
+            }  
+		} catch (Exception e) {
+			  e.printStackTrace();  
+        } finally {  
+            envImpl.close();  
+        }  
+		return addList;
+	}
+
+	
 	@Override
 	public String getFormName(TaskAssgineeDto taskAssgineeDto) {
 		String formName = null;

@@ -21,6 +21,7 @@
          <h:hidden property="monthReports.flowId"/>
 	     <h:hidden property="monthReports.createDate"/>
          <h:hidden property="monthReports.createTime"/>
+         <h:hidden id="isC" name="isC" property="taskAssgineeDto/isC"/>
          <!-- 起草人机构 -->
 	     <h:hidden id="beginOrg" property="taskAssgineeDto.beginOrg"/>
 	     <!-- 流程实例ID -->
@@ -97,13 +98,14 @@
       <tr class="form_bottom">
         <td colspan="4">
           <input type="button" value="提交" onclick="doSave(2);" class="button" id="save2" />
+          <input type="button" value="回退" onclick="doSave2(2);" class="button" id="save3" />
           <input type="button" value="查看流程" onclick="doflowpic();" class="button" id="flowpic" />
          </td>
       </tr>
        <tr id="row2">
     <td class="form_label" align="right">流程列表：</td>
      <td colspan="3">
-     <%@include file="/jsp/util/opinionUtil.jsp"%>
+     <%@include file="/jsp/util/opinionUtil4MonthReport.jsp"%>
 		</td>
      </tr>
     </table>
@@ -142,7 +144,13 @@
 	        } */
 	    if('${isView}'!=''){
 		    $("#save2").hide();	
-		    $("#rowOpinion").hide();}		
+		    $("#rowOpinion").hide();}	
+		    
+	    if('${taskAssgineeDto.isC}'){
+			$("#save2").hide();
+		}else{
+			$("#save3").hide();
+			}	
  });
 
  function initPlanCell20(){
@@ -171,6 +179,24 @@
     	
      }
 
+     /* 回退工作月报 */
+     function doSave2(value){
+    		$("#btnType").val(value);
+    		/* 将月报提交到部门领导处进行审核 */
+			if(checkForm($id("form1"))){
+	    		if(value!="1"){
+	    			var strUrl = "/jbpm/jbpmDemoAction_toNextTaskConfig2.action?taskAssgineeDto.executionId="+$id("executionId").value+"&taskAssgineeDto.beginOrg="+$("#beginOrg").val()+"&taskAssgineeDto.beginAssingee="+$("#createor").val();
+	        		showModalCenter(strUrl, null, taskAssigneeCallBack, 700, 400, '节点选择');
+	    		}else{
+	    			/* 保存月报 */
+	    			var _form = $id("form1");
+	    	  	  	 	url="/monthReport/TWorkMonthReportsAction_insertMonthReportsInfo.action";	
+	    	  	  	    _form.action =url;
+	    			    ajaxsubmitO();
+	    	  	 	}
+			}
+    	
+     }
   	  	function taskAssigneeCallBack(arg){
   	 	var _form = $id("form1");
   	 	if(arg!=""){

@@ -263,6 +263,18 @@ public class TSuperviseTableAction extends BaseAction {
 		return null;
     }
     
+    public String bushiSave(){
+    	String info="";
+    	try {
+    		MUOUserSession muo=getCurrentOnlineUser();
+			info=tSuperviseTableService.updateBuShiAssignStatus2(taskAssgineeDto, muo, supervise);
+		} catch (Exception e) {
+		info="fails";
+		log.error("部室内部保存操作失败", e);
+		}
+		Struts2Utils.renderText(info);
+		return null;
+    }
     public String insertSuperviseFile(){
     	String info="";
     	try {

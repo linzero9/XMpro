@@ -16,6 +16,7 @@ public class Jbpm4TaskService implements IJbpm4TaskService {
      * 
      * @abatorgenerated
      */
+	
     protected Logger log = Logger.getLogger(Jbpm4TaskService.class);
 
     /**

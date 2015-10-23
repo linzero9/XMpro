@@ -18,4 +18,5 @@ public interface IEosDictEntryDAO {
 	int updateById(EosDictEntry dictEntry);
 	
 	int deleteById(EosDictEntry dictEntry);
+
 }

@@ -39,7 +39,7 @@
       </result>
     
       <result name="task_person_assigner">
-     /jsp/jbpm/task_person_assigner.jsp
+     /jsp/jbpm/x.jsp
       </result>
       <result name="task_activity">
      /jsp/jbpm/task_activity.jsp
@@ -143,6 +143,7 @@
       <result name="viewlist">
        /jsp/jbpm/tProcessTaskExeConfigDatacell.jsp
       </result>
+    
     </action>
   
     
@@ -153,9 +154,31 @@
     </action>
     
     <action class="tProcessBusinessConfigAction" method="{1}" name="tProcessBusinessConfigAction_*">
-      <result name="viewlist">
-        /jsp/jbpm/tProcessBusinessConfigDatacell.jsp
-      </result>
+ 
+       
+     <result name="dotest"   type="json">
+      /jsp/jbpm/my_completed_tasks.jsp
+            <!-- 返回json类型数据 -->
+        
+                <param name="root">info</param>
+  </result>
     </action>
+    
+    
+    <action class="tProcessBusinessConfigAction"  name="tProcessBusinessConfigAction">
+ 
+       
+     <result name="dotest"   type="json">
+            /jsp/jbpm/my_completed_tasks.jsp
+            <!-- 返回json类型数据 -->
+        
+                <param name="root">info</param>
+  </result>
+    </action>
+    
+    
+    
+      <action class="withdrawJbpmAction" method="{1}" name="withdrawJbpmAction_*">
+      </action>
     </package>
 </struts>

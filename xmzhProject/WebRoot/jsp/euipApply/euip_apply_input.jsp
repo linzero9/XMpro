@@ -28,6 +28,7 @@
         <h:hidden id="definitionId" property="taskAssgineeDto.definitionId"/>
         <h:hidden id="businessType" property="taskAssgineeDto.businessType"/>
           <h:hidden id="templateFileIds" property="taskAssgineeDto.templateFileIds"/>
+          <h:hidden id="isC" name="isC" property="taskAssgineeDto/isC"/>
 		 <input type="hidden" id="btnType" name="btnType" />
 		   <h:hidden name="isFirst" value="1" />
 		<table align="center" border="0" width="100%" class="form_table" >
@@ -158,6 +159,7 @@
           <input type="button" value="结束流程" class="button" onclick="doDeleteProcess('<b:write property="taskAssgineeDto/businessKey" />','07');" id="deleteProcessBtn">
           <input type="button" value="保存" class="button" id="save1" onclick="doSave(1);"  />
           <input type="button" value="提交" onclick="doSave(2);" class="button" id="smit" />
+          <input type="button" value="回退" onclick="doSave2(2);" class="button" id="smit2" />
           <input type="button" value="查看流程" onclick="doflowpic();" class="button" id="flowpic" />
          </td>
       </tr>
@@ -242,6 +244,12 @@
 		$("#hiddenTime").show();
 		$("#rowTemplate").hide();
 	}
+	 if('${taskAssgineeDto.isC}'){
+			$("#smit").hide();
+			$("#deleteProcessBtn").hide();
+		}else{			
+			$("#smit2").hide();
+			}
 });
 
 function initPlanCell20(){
@@ -256,6 +264,23 @@ function initPlanCell20(){
     		if(value!="1"){
     			if(checkForm($id("form1"))){
     			var strUrl = "/jbpm/jbpmDemoAction_toNextTaskConfig.action?taskAssgineeDto.executionId="+$id("executionId").value+"&taskAssgineeDto.beginOrg="+$("#beginOrg").val()+"&taskAssgineeDto.beginAssingee="+$("#createor").val()+"&taskAssgineeDto.definitionId=${taskAssgineeDto.definitionId}";
+        		showModalCenter(strUrl, null, taskAssigneeCallBack, 700, 400, '节点选择');
+    			}
+    		}else{
+    			var _form = $id("form1");
+    	  	  	 	url="/euipApply/tApplyEuipAction_insertEuipInfo.action";	
+    	  	  	    _form.action =url
+    	  	  	if(checkForm($id("form1")))
+    			    ajaxsubmitO(0);
+    	  	 	}
+     }
+
+
+     function doSave2(value){
+    		$("#btnType").val(value);
+    		if(value!="1"){
+    			if(checkForm($id("form1"))){
+    			var strUrl = "/jbpm/jbpmDemoAction_toNextTaskConfig2.action?taskAssgineeDto.executionId="+$id("executionId").value+"&taskAssgineeDto.beginOrg="+$("#beginOrg").val()+"&taskAssgineeDto.beginAssingee="+$("#createor").val()+"&taskAssgineeDto.definitionId=${taskAssgineeDto.definitionId}";
         		showModalCenter(strUrl, null, taskAssigneeCallBack, 700, 400, '节点选择');
     			}
     		}else{

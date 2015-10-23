@@ -25,6 +25,7 @@
         	<h:hidden id="taskId" name="taskId" property="taskAssgineeDto/nextTaskId"/>
         	<h:hidden id="taskAssingee" name="taskAssingee" property="taskAssgineeDto/taskAssingee"/>
         	<h:hidden id="resourceId" name="resourceId" property="sendData.dsId" />
+        	<h:hidden id="isC" name="isC" property="taskAssgineeDto/isC"/>
         </td>
       </tr>
       <tr>
@@ -121,6 +122,7 @@
      <tr class="form_bottom">
        <td colspan="4">
          <input type="button" value="提交" id="pass" class="button" onclick="doSubmit();">
+          <input type="button" value="回退" id="pass2" class="button" onclick="doSubmit2();">
          <input type="button" value="查看流程" onclick="doflowpic();" class="button" id="flowpic" />
         </td>
      </tr>
@@ -165,6 +167,11 @@
 				$("#pass").hide();
 				$("#opinionTr").hide();
 			}
+			if('${taskAssgineeDto.isC}'){
+				$("#pass").hide();
+			}else{
+				$("#pass2").hide();
+				}
 			$.ajax({
 		        url: '/file/tFileResourceTableAction_queryFileList.action',
 		        async: false,
@@ -195,7 +202,12 @@
 	    		showModalCenter(strUrl, null, taskAssigneeCallBack, 700, 400, '节点选择');
 			}
 		}
-		
+		function doSubmit2(){
+			if(checkForm($id("issuedForm"))){
+				var strUrl = "/jbpm/jbpmDemoAction_toNextTaskConfig2.action?taskAssgineeDto.executionId="+$id("executionId").value+"&taskAssgineeDto.beginOrg=<b:write property="taskAssgineeDto.beginOrg" />"+"&taskAssgineeDto.beginAssingee=<b:write property="taskAssgineeDto.beginAssingee" />";
+	    		showModalCenter(strUrl, null, taskAssigneeCallBack, 700, 400, '节点选择');
+			}
+		}
 		function taskAssigneeCallBack(arg){
 			if(arg!=''){
 			maskTop();

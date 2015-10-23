@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd" >
 <struts >
-  <package name="deviceManagement" namespace="/deviceManagement" extends="default" >
+  <package name="deviceManagement" namespace="/" extends="struts-default" >
     <action name="deviceManagementAction_*" class="deviceManagementAction" method="{1}" >
       <result name="deviceList" >
         /jsp/deviceManagement/deviceList.jsp
@@ -18,11 +18,16 @@
       <result name="exportExcel2" >
         /jsp/deviceManagement/detailList_exportExcel.jsp
       </result>
+       <result name="exportExcelsumUp" >
+        /jsp/deviceManagement/deviceList_exportExcelsunUp.jsp
+      </result>
       
       <result name="detailList" >
         /jsp/deviceManagement/detailList.jsp
       </result>
-      
+       <result name="sumUpDeviceList" >
+     	/jsp/deviceManagement/sumUpDevice.jsp
+      </result>
       <result name="importExcel" >
         /jsp/deviceManagement/deviceList_importExcel.jsp
       </result>

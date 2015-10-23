@@ -22,7 +22,7 @@
       <transition g="329,347:-29,-12" name="退回" to="部门领导审核"/>
    </task>
    <task form="/mettingApply/tMettingApplyAction_input2.action" g="465,50,92,52" name="行领导">
-      <transition g="560,143:4,-6" name="提交" to="办公室会议管理员"/>
+      <transition g="560,143:24,-6" name="批示" to="办公室会议管理员"/>
    </task>
    <end g="645,177,48,48" name="直接发布"/>
 </process>

@@ -145,5 +145,16 @@ public class EosDictEntryAction extends BaseAction {
 		}
 		Struts2Utils.renderText(info);
     }
+	
+	public void checkDictid(){
+		String info ="";
+		dictEntry = eosDictEntryService.getDictEntryById(dictEntry);
+		if(dictEntry==null){
+			info ="success";
+		}else{
+			info="fails";
+		}
+		Struts2Utils.renderText(info);
+	}
     
 }

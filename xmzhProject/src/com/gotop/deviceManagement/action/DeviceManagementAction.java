@@ -1,11 +1,41 @@
 package com.gotop.deviceManagement.action;
 
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 
+
+import sun.awt.geom.AreaOp.SubOp;
+
+import javax.swing.filechooser.FileSystemView;
+
+import org.apache.poi.hssf.usermodel.DVConstraint;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFDataFormat;
+import org.apache.poi.hssf.usermodel.HSSFDataValidation;
+import org.apache.poi.hssf.usermodel.HSSFFont;
+import org.apache.poi.hssf.usermodel.HSSFRichTextString;
+import org.apache.poi.hssf.util.CellRangeAddress;
+import org.apache.poi.hssf.util.CellRangeAddressList;
+import org.apache.poi.hssf.util.HSSFColor;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+//import org.apache.poi.hssf.usermodel.HSSFCell;
+//import org.apache.poi.hssf.usermodel.HSSFDataValidation;
+//import org.apache.poi.hssf.usermodel.HSSFRow;
+//import org.apache.poi.hssf.usermodel.HSSFSheet;
+//import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+//import org.apache.poi.hssf.util.CellRangeAddressList;
+
+
+import com.fr.third.org.apache.poi.hssf.record.cf.CellRange;
+
+import com.fr.third.org.apache.poi.hssf.record.formula.functions.Trim;
 import com.fr.third.org.apache.poi.hssf.usermodel.HSSFCell;
 import com.fr.third.org.apache.poi.hssf.usermodel.HSSFRow;
 import com.fr.third.org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -14,11 +44,17 @@ import com.fr.third.org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import com.gotop.crm.util.BaseAction;
 import com.gotop.deviceManagement.model.DeviceDetail;
 import com.gotop.deviceManagement.model.DevicePo;
+
+import com.gotop.deviceManagement.model.Sum;
+
+import com.gotop.deviceManagement.model.Org;
+
 import com.gotop.deviceManagement.service.IDeviceManDetailService;
 import com.gotop.deviceManagement.service.IDeviceManagementService;
+import com.gotop.dict.model.EosDictEntry;
+import com.gotop.dict.service.IEosDictEntryService;
 import com.gotop.util.Struts2Utils;
 import com.gotop.vo.system.MUOUserSession;
-import com.primeton.ext.access.http.IUploadFile;
 
 public class DeviceManagementAction  extends BaseAction {
 
@@ -27,10 +63,40 @@ public class DeviceManagementAction  extends BaseAction {
 	private List<DevicePo> devices;
 	private DeviceDetail detail;
 	private List<DeviceDetail> details;
-	private IUploadFile dictItemFile;
+	private File readFile;
+	private HashMap<String,Object> map; 
+	private String orgcodeTemp;
+	private Sum sum;
+	private List<Sum> sums;
+	public Sum getSum() {
+		return sum;
+	}
+
+	public void setSum(Sum sum) {
+		this.sum = sum;
+	}
+
+	public List<Sum> getSums() {
+		return sums;
+	}
+
+	public void setSums(List<Sum> sums) {
+		this.sums = sums;
+	}
+
+	public String getOrgcodeTemp() {
+		return orgcodeTemp;
+	}
+
+	public void setOrgcodeTemp(String orgcodeTemp) {
+		this.orgcodeTemp = orgcodeTemp;
+	}
+
+
 
 	protected IDeviceManagementService deviceManagermentService;
 	protected IDeviceManDetailService deviceManDetailService;
+	protected IEosDictEntryService eosDictEntryService;
 	public DevicePo getDevice() {
 		return device;
 	}
@@ -62,6 +128,15 @@ public class DeviceManagementAction  extends BaseAction {
 	public void setDetails(List<DeviceDetail> details) {
 		this.details = details;
 	}
+	
+
+	public HashMap<String, Object> getMap() {
+		return map;
+	}
+
+	public void setMap(HashMap<String, Object> map) {
+		this.map = map;
+	}
 
 	public IDeviceManagementService getDeviceManagermentService() {
 		return deviceManagermentService;
@@ -81,14 +156,37 @@ public class DeviceManagementAction  extends BaseAction {
 		this.deviceManDetailService = deviceManDetailService;
 	}
 	
-	public IUploadFile getDictItemFile() {
-		return dictItemFile;
+
+	public IEosDictEntryService getEosDictEntryService() {
+		return eosDictEntryService;
 	}
 
-	public void setDictItemFile(IUploadFile dictItemFile) {
-		this.dictItemFile = dictItemFile;
+	public void setEosDictEntryService(IEosDictEntryService eosDictEntryService) {
+		this.eosDictEntryService = eosDictEntryService;
 	}
 
+	public File getReadFile() {
+		return readFile;
+	}
+
+	public void setReadFile(File readFile) {
+		this.readFile = readFile;
+	}
+	//输出统计
+	public String sumUpDevice(){
+
+    	if(device == null){
+    		device = new DevicePo();
+    	}
+    	
+    	  MUOUserSession muo=getCurrentOnlineUser();
+    	  orgcodeTemp = muo.getOrgcode();
+    	  
+    	devices = deviceManagermentService.sumUpDevicePos(device,orgcodeTemp,this.getPage());
+    	this.setDevices(devices);
+    	return "sumUpDeviceList";
+		
+	}
 	public String deviceList(){
 
     	if(device == null){
@@ -101,6 +199,9 @@ public class DeviceManagementAction  extends BaseAction {
     }
 	
 	public String detailList(){
+		if(detail == null){
+			detail = new DeviceDetail();
+    	}
     	details = deviceManDetailService.detailList(detail, this.getPage());
     	this.setDetails(details);
     	return "detailList";
@@ -117,6 +218,20 @@ public class DeviceManagementAction  extends BaseAction {
     	this.setDevices(devices);
     	return "exportExcel";
     }
+	
+	//设备列表 导出Excel 数量统计
+		public String exportExcelsumUp(){
+			
+	    	if(device == null){
+	    		device = new DevicePo();
+	    	}
+	    	  MUOUserSession muo=getCurrentOnlineUser();
+	    	  orgcodeTemp = muo.getOrgcode();
+	    	  devices = deviceManagermentService.sumUpDevicePos(device,orgcodeTemp,this.getPage());
+	    	//this.setSums(devices);
+	    	this.setDevices(devices);
+	    	return "exportExcelsumUp";
+	    }
 	
 	//设备明细列表 导出Excel
 	public String exportExcel2(){
@@ -141,14 +256,15 @@ public class DeviceManagementAction  extends BaseAction {
     	String info ="success";
     	try {
     		MUOUserSession muoUserSession = getCurrentOnlineUser();
+    		device.setDeviceState("0"); //新增设备时默认设状态为可用（即为0）
     		this.deviceManagermentService.save(device, muoUserSession);
     	} catch (Exception e) {
 			info="fails";
 			log.error("[保存设备信息失败！]", e);
 			throw e;
 		}finally{	
+			Struts2Utils.renderText(info);
 		}
-		Struts2Utils.renderText(info);
     }
 	
 	public void delete() throws Exception{
@@ -160,19 +276,18 @@ public class DeviceManagementAction  extends BaseAction {
 			log.error("[删除设备信息失败！]", e);
 			throw e;
 		}finally{	
+			Struts2Utils.renderText(info);
 		}
-		Struts2Utils.renderText(info);
     }
 	
 	//导入Excel
-		public String importExcel() throws IOException{
+		public String importExcel() throws Exception {
 				
-		    	String filePath = dictItemFile.getFilePath();
+		    	String filePath = readFile.getPath();
+		    	System.out.println(filePath);
 		    	
-		    	//返回JSP页面mapa
-				HashMap<String,Object> map = new HashMap<String,Object>();
-				//传入数据库的map
-				HashMap<String,Object> tmp_map =  new HashMap<String,Object>();
+		    	//返回JSP页面map
+				map = new HashMap<String,Object>();
 				String msg="";
 				int sumnum=0;
 				int failnum=0;
@@ -181,41 +296,337 @@ public class DeviceManagementAction  extends BaseAction {
 				FileInputStream fileInputStream = new FileInputStream(filePath);
 				POIFSFileSystem fs =new POIFSFileSystem(fileInputStream);
 		        HSSFWorkbook wb = new HSSFWorkbook(fs);
-				HSSFSheet sheet = wb.getSheetAt(0);
+				HSSFSheet sheet = wb.getSheetAt(0);  //得到第一个Sheet
+				
+				
 				//文件的行数
 				int rows = sheet.getPhysicalNumberOfRows();
-				map.put("all_num", rows-1);
+				int all_num = rows-2;//总共导入的数据的行数(2：表示第一行的提醒行和第二行的标题行）
 				//遍历行数，读取数据
-				for(int i=1; i<rows; i++){
+				for(int i=2; i<rows; i++){//i=2表示第三行 开始
 					HSSFRow row = sheet.getRow(i);
-					HSSFCell cell_orgname = row.getCell((short)0);
-					String orgname =getCellValue(cell_orgname);
-					tmp_map.put("orgname", orgname);
-					Object[] orgs = deviceManagermentService.queryOrg(orgname);
-					if(null==orgs || orgs.length==0){
-						msg+="机构/部门："+orgname+"不存在。||";
-						map.put("msg", msg);
-						failnum++;
-						continue;
-					}
-					
-					//插入数据
-					try{
-						deviceManagermentService.import_insert(device);
-						sumnum++;
-					}catch(Exception e){
-						failnum++;
-						msg+="插入第"+i+"行数据时失败。||";
+					if (row != null) {
+						//判断如果整行单元格都为空，则不插入
+						boolean allowInsert = false;
+						int cells = row.getPhysicalNumberOfCells();
+						for (int c = 0; c < cells; c++) {
+							HSSFCell cell = row.getCell(c);
+							System.out.println(cell.getCellType());
+							if (cell.getCellType() != HSSFCell.CELL_TYPE_BLANK) {
+								allowInsert = true;		
+								break;//结束for循环语句,跳出
+							} 
+						}
+						
+						if(allowInsert == false){
+							all_num--;
+							continue;//跳到excel表格的下一行进行判断
+						}
+						
+				//校验数据输入的正确性，不通过则不做插入操作
+						String orgcode =getCellValue(row.getCell((short)0)).trim();
+						if ("".equals(orgcode) || orgcode == null){
+							msg+="第"+(i+1)+"行，机构/部门不能为空。||";
+							map.put("msg", msg);
+							failnum++;
+							continue;
+						}
+						int  count= deviceManagermentService.queryOrg(orgcode);
+						if(count==0){
+							msg+="第"+(i+1)+"行无法插入，机构/部门("+orgcode+")不存在。请检查值是否输错或书写格式错误！||";
+							map.put("msg", msg);
+							failnum++;
+							continue;
+						}
+						
+						String deviceName = getCellValue(row.getCell((short)1)).trim();
+						HashMap infoMap = checkData_singleSelect("DEVICE_NAME", deviceName, "设备名称", i, msg);
+						boolean flag = (Boolean) infoMap.get("flag");
+						msg =  (String) infoMap.get("msg");
+						if(!flag){
+							map.put("msg",msg);
+							failnum++;
+							continue;
+						}
+						
+						String deviceModel = getCellValue(row.getCell((short)2)).trim();
+						infoMap = checkData_singleSelect("DEVICE_MODEL", deviceModel, "型号", i, msg);
+						flag = (Boolean) infoMap.get("flag");
+						msg =  (String) infoMap.get("msg");
+						if(!flag){
+							map.put("msg",msg);
+							failnum++;
+							continue;
+						}
+						
+						String osVersion = getCellValue(row.getCell((short)8)).trim();
+						infoMap = checkData_singleSelect("DEVICE_OS_VERSION", osVersion, "操作系统版本", i, msg);
+						flag = (Boolean) infoMap.get("flag");
+						msg =  (String) infoMap.get("msg");
+						if(!flag){
+							map.put("msg", msg);
+							failnum++;
+							continue;
+						}
+						
+						String ieVersion = getCellValue(row.getCell((short)10)).trim();
+						infoMap = checkData_singleSelect("DEVICE_IE_VERSION", ieVersion, "IE版本", i, msg);
+						flag = (Boolean) infoMap.get("flag");
+						msg =  (String) infoMap.get("msg");
+						if(!flag){
+							map.put("msg", msg);
+							failnum++;
+							continue;
+						}
+						
+						String otherAttribute_1 = getCellValue(row.getCell((short)16)).trim();
+						infoMap = checkData_singleSelect("DEVICE_OTHERATTRIBUTE_1", otherAttribute_1, "其他属性1", i, msg);
+						flag = (Boolean) infoMap.get("flag");
+						msg =  (String) infoMap.get("msg");
+						if(!flag){
+							map.put("msg", msg);
+							failnum++;
+							continue;
+						}
+						
+						String otherAttribute_2 = getCellValue(row.getCell((short)17)).trim();
+						infoMap = checkData_singleSelect("DEVICE_OTHERATTRIBUTE_2", otherAttribute_2, "其他属性2", i, msg);
+						flag = (Boolean) infoMap.get("flag");
+						msg =  (String) infoMap.get("msg");
+						if(!flag){
+							map.put("msg", msg);
+							failnum++;
+							continue;
+						}
+						
+						String otherAttribute_3 = getCellValue(row.getCell((short)18)).trim();
+						infoMap = checkData_singleSelect("DEVICE_OTHERATTRIBUTE_3", otherAttribute_3, "其他属性3", i, msg);
+						flag = (Boolean) infoMap.get("flag");
+						msg =  (String) infoMap.get("msg");
+						if(!flag){
+							map.put("msg", msg);
+							failnum++;
+							continue;
+						}
+						
+						String otherAttribute_4 = getCellValue(row.getCell((short)19)).trim();
+						infoMap = checkData_singleSelect("DEVICE_OTHERATTRIBUTE_4", otherAttribute_4, "其他属性4", i, msg);
+						flag = (Boolean) infoMap.get("flag");
+						msg =  (String) infoMap.get("msg");
+						if(!flag){
+							map.put("msg", msg);
+							failnum++;
+							continue;
+						}
+						
+						String otherAttribute_5 = getCellValue(row.getCell((short)20)).trim();
+						infoMap = checkData_singleSelect("DEVICE_OTHERATTRIBUTE_5", otherAttribute_5, "其他属性5", i, msg);
+						flag = (Boolean) infoMap.get("flag");
+						msg =  (String) infoMap.get("msg");
+						if(!flag){
+							map.put("msg", msg);
+							failnum++;
+							continue;
+						}
+						
+						String deviceState = getCellValue(row.getCell((short)31)).trim();
+						infoMap = checkData_singleSelect("DEVICE_STATE",deviceState , "设备状态", i, msg);
+						flag = (Boolean) infoMap.get("flag");
+						msg =  (String) infoMap.get("msg");
+						if(!flag){
+							map.put("msg", msg);
+							failnum++;
+							continue;
+						}
+						
+						String useful = getCellValue(row.getCell((short)11)).trim();
+						infoMap = checkData_multiSelect("DEVICE_USEFUL",useful , "用途", i, msg);
+						flag = (Boolean) infoMap.get("flag");
+						msg =  (String) infoMap.get("msg");
+						if(!flag){
+							map.put("msg", msg);
+							failnum++;
+							continue;
+						}
+						
+						String plugIn = getCellValue(row.getCell((short)14)).trim();
+						infoMap = checkData_multiSelect("DEVICE_PLUGIN",plugIn , "安装的插件", i, msg);
+						flag = (Boolean) infoMap.get("flag");
+						msg =  (String) infoMap.get("msg");
+						if(!flag){
+							map.put("msg", msg);
+							failnum++;
+							continue;
+						}
+						
+						String peripheral = getCellValue(row.getCell((short)15)).trim();
+						infoMap = checkData_multiSelect("DEVICE_PERIPHERAL",peripheral , "对应的外设", i, msg);
+						flag = (Boolean) infoMap.get("flag");
+						msg =  (String) infoMap.get("msg");
+						if(!flag){
+							map.put("msg", msg);
+							failnum++;
+							continue;
+						}
+						
+						String otherInfo_1 = getCellValue(row.getCell((short)21)).trim();
+						infoMap = checkData_multiSelect("DEVICE_OTHERINFO_1",otherInfo_1 , "其他信息1", i, msg);
+						flag = (Boolean) infoMap.get("flag");
+						msg =  (String) infoMap.get("msg");
+						if(!flag){
+							map.put("msg", msg);
+							failnum++;
+							continue;
+						}
+						
+						String otherInfo_2 = getCellValue(row.getCell((short)22)).trim();
+						infoMap = checkData_multiSelect("DEVICE_OTHERINFO_2",otherInfo_2 , "其他信息2", i, msg);
+						flag = (Boolean) infoMap.get("flag");
+						msg =  (String) infoMap.get("msg");
+						if(!flag){
+							map.put("msg", msg);
+							failnum++;
+							continue;
+						}
+						
+						String otherInfo_3 = getCellValue(row.getCell((short)23)).trim();
+						infoMap = checkData_multiSelect("DEVICE_OTHERINFO_3",otherInfo_3 , "其他信息3", i, msg);
+						flag = (Boolean) infoMap.get("flag");
+						msg =  (String) infoMap.get("msg");
+						if(!flag){
+							map.put("msg", msg);
+							failnum++;
+							continue;
+						}
+						
+						String otherInfo_4 = getCellValue(row.getCell((short)24)).trim();
+						infoMap = checkData_multiSelect("DEVICE_OTHERINFO_4",otherInfo_4 , "其他信息4", i, msg);
+						flag = (Boolean) infoMap.get("flag");
+						msg =  (String) infoMap.get("msg");
+						if(!flag){
+							map.put("msg", msg);
+							failnum++;
+							continue;
+						}
+						
+						String otherInfo_5 = getCellValue(row.getCell((short)25)).trim();
+						infoMap = checkData_multiSelect("DEVICE_OTHERINFO_5",otherInfo_5 , "其他信息5", i, msg);
+						flag = (Boolean) infoMap.get("flag");
+						msg =  (String) infoMap.get("msg");
+						if(!flag){
+							map.put("msg", msg);
+							failnum++;
+							continue;
+						}
+						
+						device = new DevicePo();
+						device.setOrgcode(orgcode);
+						device.setDeviceName(deviceName);
+						device.setDeviceModel(deviceModel);
+						device.setIpAdress(getCellValue(row.getCell((short)3)).trim());
+						device.setProductionMachineName(getCellValue(row.getCell((short)4)).trim());
+						device.setCpuCode(getCellValue(row.getCell((short)5)).trim());
+						device.setMemory(getCellValue(row.getCell((short)6)).trim());
+						device.setHardDisk(getCellValue(row.getCell((short)7)).trim());
+						device.setOsVersion(osVersion);
+						device.setSoftwareVersion(getCellValue(row.getCell((short)9)).trim());
+						device.setIeVersion(ieVersion);
+						device.setUseful(useful);
+						device.setTerminalNumber(getCellValue(row.getCell((short)12)).trim());
+						device.setUser(getCellValue(row.getCell((short)13)).trim());
+						device.setPlugIn(plugIn);
+						device.setPeripheral(peripheral);
+						device.setOtherAttribute_1(otherAttribute_1);
+						device.setOtherAttribute_2(otherAttribute_2);
+						device.setOtherAttribute_3(otherAttribute_3);
+						device.setOtherAttribute_4(otherAttribute_4);
+						device.setOtherAttribute_5(otherAttribute_5);
+						device.setOtherInfo_1(otherInfo_1);
+						device.setOtherInfo_2(otherInfo_2);
+						device.setOtherInfo_3(otherInfo_3);
+						device.setOtherInfo_4(otherInfo_4);
+						device.setOtherInfo_5(otherInfo_5);
+						device.setRemarks_1(getCellValue(row.getCell((short)26)).trim());
+						device.setRemarks_2(getCellValue(row.getCell((short)27)).trim());
+						device.setRemarks_3(getCellValue(row.getCell((short)28)).trim());
+						device.setRemarks_4(getCellValue(row.getCell((short)29)).trim());
+						device.setRemarks_5(getCellValue(row.getCell((short)30)).trim());
+						device.setDeviceState(deviceState);
+						
+						MUOUserSession muoUserSession = getCurrentOnlineUser();
+						
+						//插入数据
+						try{
+							this.deviceManagermentService.save(device, muoUserSession);
+							sumnum++;
+						}catch(Exception e){
+							failnum++;
+							msg+="插入第"+i+"行时失败。||";
+						}
 					}
 				}
+				map.put("imp_flag", "1");
 				map.put("msg", msg);
+				map.put("all_num", all_num);
 				map.put("sumnum", sumnum);
 				map.put("failnum", failnum);
-				map.put("imp_flag", "1");
 				fileInputStream.close();
-//				return map;
+				this.setMap(map);
+				
+				//删除指定路径的内容,指定路径可以是文件或目录
+				MyUtil.delete(filePath);
+			    
 		    	return "importExcel";
+		    	 
 		 }
+		 
+		private HashMap checkData_singleSelect(String dictTypeId, String dictId, String colName, int i, String msg){
+			
+			boolean flag = true;
+			HashMap infoMap = new HashMap();
+			
+			if(!"".equals(dictId)){
+				EosDictEntry dictEntry = new EosDictEntry();
+				dictEntry.setDictTypeId(dictTypeId);
+				dictEntry.setDictId(dictId);
+				EosDictEntry eosDictEntry= this.eosDictEntryService.getDictEntryById(dictEntry);
+				if(eosDictEntry == null){
+					msg+="第"+(i+1)+"行无法插入，"+colName+"("+dictId+")不存在。请检查值是否输错或书写格式错误！||";
+					flag = false;
+				}
+			}
+			infoMap.put("flag", flag);
+			infoMap.put("msg", msg);
+			return infoMap;
+			
+		}
+		
+		private HashMap checkData_multiSelect(String dictTypeId, String dictId, String colName, int i, String msg){
+			
+			boolean flag = true;
+			HashMap infoMap = new HashMap();
+			
+			if(!"".equals(dictId) ){
+				String[] dictIds = dictId.split(", ");   //用 逗号空格 
+				EosDictEntry dictEntry = new EosDictEntry();
+				
+				for(int j=0; j<dictIds.length; j++){
+					
+					dictEntry.setDictTypeId(dictTypeId);
+					dictEntry.setDictId(dictIds[j]);
+					EosDictEntry eosDictEntry= this.eosDictEntryService.getDictEntryById(dictEntry);
+					if(eosDictEntry == null){
+						msg+="第"+(i+1)+"行无法插入，"+colName+"("+dictIds[j]+")不存在。请检查值是否输错或书写格式错误！||";
+						flag = false;
+						break;
+					}
+				}
+			}
+			infoMap.put("flag", flag);
+			infoMap.put("msg", msg);
+			return infoMap;
+			
+		}
 		
 		//返回列值
 			public String getCellValue(HSSFCell cell1){
@@ -225,9 +636,281 @@ public class DeviceManagementAction  extends BaseAction {
 						return String.valueOf(df.format(cell1.getNumericCellValue()));
 					case HSSFCell.CELL_TYPE_STRING:
 						return cell1.getStringCellValue();
+					case HSSFCell.CELL_TYPE_BLANK:
+						return "";
 					default:
-						return "输入格式出错！";
+						return "输入格式错误";
 				}
 			}
 
+			public void excelTemplate() throws Exception{
+				String info ="success";
+		    	try {
+		    		List[] lists = new List[19];
+		    		
+		    		//List存放为Org类型
+		    		lists[0] = this.deviceManagermentService.queryOrgList();
+		    		
+		    		//List存放为EosDictEntry类型
+		    		EosDictEntry entry = new EosDictEntry();
+		    		entry.setDictTypeId("DEVICE_NAME");
+		    		lists[1] = this.eosDictEntryService.queryDictEntryBydictTypeId(entry);
+		    		entry.setDictTypeId("DEVICE_MODEL");
+		    		lists[2] = this.eosDictEntryService.queryDictEntryBydictTypeId(entry);
+		    		entry.setDictTypeId("DEVICE_OS_VERSION");
+		    		lists[3] = this.eosDictEntryService.queryDictEntryBydictTypeId(entry);
+		    		entry.setDictTypeId("DEVICE_IE_VERSION");
+		    		lists[4] = this.eosDictEntryService.queryDictEntryBydictTypeId(entry);
+		    		entry.setDictTypeId("DEVICE_USEFUL");
+		    		lists[5] = this.eosDictEntryService.queryDictEntryBydictTypeId(entry);
+		    		entry.setDictTypeId("DEVICE_PLUGIN");
+		    		lists[6] = this.eosDictEntryService.queryDictEntryBydictTypeId(entry);
+		    		entry.setDictTypeId("DEVICE_PERIPHERAL");
+		    		lists[7] = this.eosDictEntryService.queryDictEntryBydictTypeId(entry);
+		    		entry.setDictTypeId("DEVICE_OTHERATTRIBUTE_1");
+		    		lists[8] = this.eosDictEntryService.queryDictEntryBydictTypeId(entry);
+		    		entry.setDictTypeId("DEVICE_OTHERATTRIBUTE_2");
+		    		lists[9] = this.eosDictEntryService.queryDictEntryBydictTypeId(entry);
+		    		entry.setDictTypeId("DEVICE_OTHERATTRIBUTE_3");
+		    		lists[10] = this.eosDictEntryService.queryDictEntryBydictTypeId(entry);
+		    		entry.setDictTypeId("DEVICE_OTHERATTRIBUTE_4");
+		    		lists[11] = this.eosDictEntryService.queryDictEntryBydictTypeId(entry);
+		    		entry.setDictTypeId("DEVICE_OTHERATTRIBUTE_5");
+		    		lists[12] = this.eosDictEntryService.queryDictEntryBydictTypeId(entry);
+		    		entry.setDictTypeId("DEVICE_OTHERINFO_1");
+		    		lists[13] = this.eosDictEntryService.queryDictEntryBydictTypeId(entry);
+		    		entry.setDictTypeId("DEVICE_OTHERINFO_2");
+		    		lists[14] = this.eosDictEntryService.queryDictEntryBydictTypeId(entry);
+		    		entry.setDictTypeId("DEVICE_OTHERINFO_3");
+		    		lists[15] = this.eosDictEntryService.queryDictEntryBydictTypeId(entry);
+		    		entry.setDictTypeId("DEVICE_OTHERINFO_4");
+		    		lists[16] = this.eosDictEntryService.queryDictEntryBydictTypeId(entry);
+		    		entry.setDictTypeId("DEVICE_OTHERINFO_5");
+		    		lists[17] = this.eosDictEntryService.queryDictEntryBydictTypeId(entry);
+		    		entry.setDictTypeId("DEVICE_STATE");
+		    		lists[18] = this.eosDictEntryService.queryDictEntryBydictTypeId(entry);
+		    		createTemplate(lists);
+		    		
+		    	} catch (IOException e) {
+					info="fails2";
+					log.error("[Excel模板正在使用中，创建Excel模版失败！]", e);
+					throw e;
+				}catch (Exception e) {
+					info="fails";
+					log.error("[创建Excel模版失败！]", e);
+					throw e;
+				}finally{	
+					Struts2Utils.renderText(info);
+				}
+			}
+
+			private void createListBox(String[] list,org.apache.poi.hssf.usermodel.HSSFSheet sheet, org.apache.poi.hssf.usermodel.HSSFWorkbook wb, int rownum, int colnum) {
+				
+				//生成下拉列表
+
+				//只对（0，0）单元格有效
+				CellRangeAddressList regions = new CellRangeAddressList(rownum,rownum,colnum,colnum);   //CellRangeAddressList(int firstRow, int lastRow, int firstCol, int lastCol)
+				
+				//生成下拉框内容
+				DVConstraint constraint = DVConstraint.createExplicitListConstraint(list);
+
+				//绑定下拉框和作用区域
+				HSSFDataValidation data_validation = new HSSFDataValidation(regions,constraint);
+
+				//对sheet页生效
+				sheet.addValidationData(data_validation);
+
+				//结束
+				System.out.println("createListBox Over");
+				
+			}
+			
+			public  void createTemplate(List[] lists) throws IOException{
+				//文件初始化
+				org.apache.poi.hssf.usermodel.HSSFWorkbook wb = new org.apache.poi.hssf.usermodel.HSSFWorkbook();// 创建Excel文档 
+				org.apache.poi.hssf.usermodel.HSSFSheet sheet = wb.createSheet("设备信息"); // sheet 对应一个工作页
+				
+				// 获取总列数
+				int CountColumnNum = 32;
+				
+				//设定单元格区域范围
+				CellRangeAddress cra = new CellRangeAddress(0, 0, 0, CountColumnNum-1) ; //参数为顺序为firstRow, lastRow, firstCol, lastCol
+				
+				//在Sheet里增加合并单元格
+				sheet.addMergedRegion(cra);
+				
+				// 在第一行单元格合并，显示提醒信息
+				org.apache.poi.hssf.usermodel.HSSFRow firstrow = sheet.createRow(0);   // 下标为0的行为第一行
+				org.apache.poi.hssf.usermodel.HSSFCell cell = firstrow.createCell(0);  //创建单元格
+				
+				//设置第一行的行高
+				sheet.getRow(0).setHeight((short) (40*20)); 
+				
+				String str1 = "注意：";
+				String str2 = "1. 带“*”的列标题点击可显示 下拉菜单，填写该列单元格时需严格参照 下拉菜单 填写对应的代码；";
+				String str3 = "2. 其中“用途”、“安装的插件”、“对应的外设”、“其他信息”对应下拉菜单可填写多个值，请用 英文的 逗号和空格（“, ”） 来间隔，除此以外的其他下拉菜单只能对应填写一个值。";
+				HSSFRichTextString ts= new HSSFRichTextString(str1+"\n"+str2+"\n"+str3);
+				
+				HSSFCellStyle style1 = wb.createCellStyle();
+				style1.setWrapText(true);//只有设置了它，"\n"才可以换行
+				
+				//设置注意的提示字体颜色
+				HSSFFont font1_1 = wb.createFont();
+				font1_1.setColor(HSSFColor.LIGHT_BLUE.index); 
+				HSSFFont font1_2 = wb.createFont();
+				font1_2.setColor(HSSFColor.RED.index); 
+				 ts.applyFont(0,35,font1_1);
+				 ts.applyFont(35,52,font1_2);
+				 ts.applyFont(52,102,font1_1);
+				 ts.applyFont(102,117,font1_2);
+				 ts.applyFont(117,ts.length(),font1_1);
+				 cell.setCellType(HSSFCell.CELL_TYPE_STRING);
+				 cell.setCellStyle(style1);
+				 cell.setCellValue(ts);  //   "\n"可强制换行
+				
+				// 在第二行生成列名
+				org.apache.poi.hssf.usermodel.HSSFRow secondrow = sheet.createRow(1);   // 下标为1的行为第二行
+				org.apache.poi.hssf.usermodel.HSSFCell[] cells= new org.apache.poi.hssf.usermodel.HSSFCell[CountColumnNum];  
+		        String[] names = new String[CountColumnNum];  
+		        names[0] = "*机构/部门(单选)";  
+		        names[1] = "*设备名称(单选)";  
+		        names[2] = "*型号(单选)";  
+		        names[3] = "IP地址";  
+		        names[4] = "生产机器名称";  
+		        names[5] = "CPU型号"; 
+		        names[6] = "内存容量(G)"; 
+		        names[7] = "硬盘容量(G)"; 
+		        names[8] = "*操作系统版本(单选)"; 
+		        names[9] = "内置软件版本"; 
+		        names[10] = "*IE版本(单选)"; 
+		        names[11] = "*用途(多选)"; 
+		        names[12] = "终端号"; 
+		        names[13] = "使用人"; 
+		        names[14] = "*安装的插件(多选)"; 
+		        names[15] = "*对应的外设(多选)"; 
+		        names[16] = "*其他属性1(单选)"; 
+		        names[17] = "*其他属性2(单选)"; 
+		        names[18] = "*其他属性3(单选)"; 
+		        names[19] = "*其他属性4(单选)"; 
+		        names[20] = "*其他属性5(单选)"; 
+		        names[21] = "*其他信息1(多选)"; 
+		        names[22] = "*其他信息2(多选)"; 
+		        names[23] = "*其他信息3(多选)"; 
+		        names[24] = "*其他信息4(多选)"; 
+		        names[25] = "*其他信息5(多选)";
+		        names[26] = "备注1";
+		        names[27] = "备注2";
+		        names[28] = "备注3";
+		        names[29] = "备注4";
+		        names[30] = "备注5";
+		        names[31] = "*设备状态(单选)";
+		        
+		      //加粗列名
+		        HSSFFont font2 = wb.createFont();
+				HSSFCellStyle style2 = wb.createCellStyle();
+				
+		        font2.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);  //加粗字体
+		        style2.setFont(font2);
+		       style2.setAlignment(HSSFCellStyle.ALIGN_CENTER);  //字体 左右居中
+		       style2.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);  //字体 上下居中
+		       style2.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND); ////设置前景填充样式
+		       style2.setFillForegroundColor(HSSFColor.GREY_25_PERCENT.index);  //前景填充色25%灰色
+		       
+		        //列名标题行设置格式
+		        for (int j = 0; j < CountColumnNum; j++) {  
+		            cells[j] = secondrow.createCell(j);  
+		            cells[j].setCellValue(new HSSFRichTextString(names[j]));  
+		            cells[j].setCellStyle(style2);
+		            sheet.setColumnWidth(j, 27 * 256);//两个参数：一个是列的索引（从0开始），一个是宽度，第二个参数要乘以256，因为单位是1/256个字符宽度
+		        }  
+		        
+		        sheet.getRow(1).setHeight((short) (20*20));//Height的单位是1/20个点，也可以用sheet.getRow(1).setHeightInPoints(20);
+		        
+		        //数据字典生成下拉框内容
+		        for(List<Object> list : lists){
+		        	String[] infos = new String[list.size()];
+		        	int rownum = 1;
+		        	int colnum = 0 ;
+		        	for(Object object : list){
+		        		System.out.println(object.getClass().getName());
+		        		System.out.println(list.indexOf(object));
+		        		
+		        		 if( object.getClass().getName().equals("com.gotop.deviceManagement.model.Org")){
+		        			 Org org = (Org)object;
+		        			 infos[list.indexOf(org)] = org.getOrgcode()+"--"+org.getOrgname();
+		        			 colnum = 0;
+		        		 }else if(object.getClass().getName().equals("com.gotop.dict.model.EosDictEntry")){
+		        			 EosDictEntry entry =  (EosDictEntry)object;
+		        			 infos[list.indexOf(entry)] = entry.getDictId()+"--"+entry.getDictName();
+		        			 if( (entry.getDictTypeId()).equals("DEVICE_NAME") ){
+		        				 colnum = 1;
+		        			 }else if( (entry.getDictTypeId() ).equals("DEVICE_MODEL") ){
+		        				 colnum = 2;
+		        			 }else if( (entry.getDictTypeId() ).equals("DEVICE_OS_VERSION") ){
+		        				 colnum = 8;
+		        			 }else if( (entry.getDictTypeId() ).equals("DEVICE_IE_VERSION") ){
+		        				 colnum = 10;
+		        			 }else if( (entry.getDictTypeId() ).equals("DEVICE_USEFUL") ){
+		        				 colnum = 11;
+		        			 }else if( (entry.getDictTypeId() ).equals("DEVICE_PLUGIN") ){
+		        				 colnum = 14;
+		        			 }else if( (entry.getDictTypeId() ).equals("DEVICE_PERIPHERAL") ){
+		        				 colnum = 15;
+		        			 }else if( (entry.getDictTypeId() ).equals("DEVICE_OTHERATTRIBUTE_1") ){
+		        				 colnum = 16;
+		        			 }else if( (entry.getDictTypeId() ).equals("DEVICE_OTHERATTRIBUTE_2") ){
+		        				 colnum = 17;
+		        			 }else if( (entry.getDictTypeId() ).equals("DEVICE_OTHERATTRIBUTE_3") ){
+		        				 colnum = 18;
+		        			 }else if( (entry.getDictTypeId() ).equals("DEVICE_OTHERATTRIBUTE_4") ){
+		        				 colnum = 19;
+		        			 }else if( (entry.getDictTypeId() ).equals("DEVICE_OTHERATTRIBUTE_5") ){
+		        				 colnum = 20;
+		        			 }else if( (entry.getDictTypeId() ).equals("DEVICE_OTHERINFO_1") ){
+		        				 colnum = 21;
+		        			 }else if( (entry.getDictTypeId() ).equals("DEVICE_OTHERINFO_2") ){
+		        				 colnum = 22;
+		        			 }else if( (entry.getDictTypeId() ).equals("DEVICE_OTHERINFO_3") ){
+		        				 colnum = 23;
+		        			 }else if( (entry.getDictTypeId() ).equals("DEVICE_OTHERINFO_4") ){
+		        				 colnum = 24;
+		        			 }else if( (entry.getDictTypeId() ).equals("DEVICE_OTHERINFO_5") ){
+		        				 colnum = 25;
+		        			 }else if( (entry.getDictTypeId() ).equals( "DEVICE_STATE") ){
+		        				 colnum = 31;
+		        			 }
+		        		 }
+		        	}
+		        	createListBox(infos, sheet, wb, rownum, colnum);
+		        	
+		        }
+		        
+		        int count = 1000;  //设置1000行的单元格都为文本格式
+		        
+		        HSSFCellStyle textStyle = wb.createCellStyle();
+       		    HSSFDataFormat format = wb.createDataFormat();
+       		    textStyle.setDataFormat(format.getFormat("@"));//设置单元格格式为"文本"
+       		 
+		        for(int i=2; i<count; i++){
+		        	org.apache.poi.hssf.usermodel.HSSFRow hssfRow = sheet.createRow(i);
+		        	for(int j=0; j<CountColumnNum; j++){
+		        		 org.apache.poi.hssf.usermodel.HSSFCell hssfCell = hssfRow.createCell(j);
+		        		 hssfCell.setCellStyle(textStyle);
+		        	}
+		        }
+		        
+		      //写入文件
+				FileOutputStream fileOut;
+				FileSystemView fsv = FileSystemView.getFileSystemView();//获取本的桌面路径  
+				System.out.println(fsv.getHomeDirectory().toString()+"\\设备信息导入模版.xls");
+				fileOut = new FileOutputStream(fsv.getHomeDirectory().toString()+"\\设备信息导入模版.xls");
+			    wb.write(fileOut);
+			    fileOut.close();
+			
+				//结束
+				System.out.println("createTemplate Over");
+	
+			}
+			
+			
 }

@@ -46,6 +46,8 @@
 		    <h:hidden property="page.length"/>
 		    <h:hidden property="page.count"/>
 		    <h:hidden property="page.isCount"/>
+		    
+		    <h:hiddendata property="detail" />
 					<table align="center" border="0" width="100%" class="EOS_table">
 						<tr>
 							<th nowrap="nowrap">
@@ -103,13 +105,49 @@
 								对应的外设
 							</th>
 							<th nowrap="nowrap">
-								其他属性
+								其他属性1
 							</th>
 							<th nowrap="nowrap">
-								其他信息
+								其他属性2
 							</th>
 							<th nowrap="nowrap">
-								备注
+								其他属性3
+							</th>
+							<th nowrap="nowrap">
+								其他属性4
+							</th>
+							<th nowrap="nowrap">
+								其他属性5
+							</th>
+							<th nowrap="nowrap">
+								其他信息1
+							</th>
+							<th nowrap="nowrap">
+								其他信息2
+							</th>
+							<th nowrap="nowrap">
+								其他信息3
+							</th>
+							<th nowrap="nowrap">
+								其他信息4
+							</th>
+							<th nowrap="nowrap">
+								其他信息5
+							</th>
+							<th nowrap="nowrap">
+								备注1
+							</th>
+							<th nowrap="nowrap">
+								备注2
+							</th>
+							<th nowrap="nowrap">
+								备注3
+							</th>
+							<th nowrap="nowrap">
+								备注4
+							</th>
+							<th nowrap="nowrap">
+								备注5
 							</th>
 							<th nowrap="nowrap">
 								设备状态
@@ -172,13 +210,49 @@
 								     <d:write iterateId="id1" property="peripheral"  dictTypeId="DEVICE_PERIPHERAL"  seperator=", "  />
 								</td>
 								<td nowrap="nowrap"> 
-								     <d:write iterateId="id1" property="otherOne"  dictTypeId="DEVICE_OTHERONE"/>
+								     <d:write iterateId="id1" property="otherAttribute_1"  dictTypeId="DEVICE_OTHERATTRIBUTE_1"/>
 								</td>
 								<td nowrap="nowrap"> 
-								     <d:write iterateId="id1" property="otherInfoOne"  dictTypeId="DEVICE_OTHERINFOONE"  seperator=", "  />
+								     <d:write iterateId="id1" property="otherAttribute_2"  dictTypeId="DEVICE_OTHERATTRIBUTE_2"/>
 								</td>
 								<td nowrap="nowrap"> 
-								     <b:write iterateId="id1" property="remarksOne" />
+								     <d:write iterateId="id1" property="otherAttribute_3"  dictTypeId="DEVICE_OTHERATTRIBUTE_3"/>
+								</td>
+								<td nowrap="nowrap"> 
+								     <d:write iterateId="id1" property="otherAttribute_4"  dictTypeId="DEVICE_OTHERATTRIBUTE_4"/>
+								</td>
+								<td nowrap="nowrap"> 
+								     <d:write iterateId="id1" property="otherAttribute_5"  dictTypeId="DEVICE_OTHERATTRIBUTE_5"/>
+								</td>
+								<td nowrap="nowrap"> 
+								     <d:write iterateId="id1" property="otherInfo_1"  dictTypeId="DEVICE_OTHERINFO_1"  seperator=", "  />
+								</td>
+								<td nowrap="nowrap"> 
+								     <d:write iterateId="id1" property="otherInfo_2"  dictTypeId="DEVICE_OTHERINFO_2"  seperator=", "  />
+								</td>
+								<td nowrap="nowrap"> 
+								     <d:write iterateId="id1" property="otherInfo_3"  dictTypeId="DEVICE_OTHERINFO_3"  seperator=", "  />
+								</td>
+								<td nowrap="nowrap"> 
+								     <d:write iterateId="id1" property="otherInfo_4"  dictTypeId="DEVICE_OTHERINFO_4"  seperator=", "  />
+								</td>
+								<td nowrap="nowrap"> 
+								     <d:write iterateId="id1" property="otherInfo_5"  dictTypeId="DEVICE_OTHERINFO_5"  seperator=", "  />
+								</td>
+								<td nowrap="nowrap"> 
+								     <b:write iterateId="id1" property="remarks_1" />
+								</td>
+								<td nowrap="nowrap"> 
+								     <b:write iterateId="id1" property="remarks_2" />
+								</td>
+								<td nowrap="nowrap"> 
+								     <b:write iterateId="id1" property="remarks_3" />
+								</td>
+								<td nowrap="nowrap"> 
+								     <b:write iterateId="id1" property="remarks_4" />
+								</td>
+								<td nowrap="nowrap"> 
+								     <b:write iterateId="id1" property="remarks_5" />
 								</td>
 								<td nowrap="nowrap">
 										<d:write  iterateId="id1"  dictTypeId="DEVICE_STATE" property="deviceState" />

@@ -93,6 +93,7 @@ public interface ITSuperviseTableService {
      * 
      */
     public String updateBuShiAssignStatus(TaskAssgineeDto dto,MUOUserSession muo,TSuperviseTable sup)throws Exception;
+    public String updateBuShiAssignStatus2(TaskAssgineeDto dto,MUOUserSession muo,TSuperviseTable sup)throws Exception;
 
     /**
      * 部室办理、反馈、插入上传的附件

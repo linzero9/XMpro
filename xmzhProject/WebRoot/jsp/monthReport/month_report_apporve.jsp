@@ -2,7 +2,7 @@
 <%@include file="/common/common.jsp"%>
 <%@include file="/common/skins/skin0/component.jsp"%>
 <%@page import="java.util.*"%>
-<h:css href="/css/style1/style-custom.css" />
+<h:css href="/css/style1/style-custom.css"/>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -26,6 +26,7 @@
 		<h:hidden property="monthReports.createDate" />
 		<h:hidden property="monthReports.createTime" />
 		<h:hidden property="taskAssgineeDto.businessType" name="businessType" />
+		<h:hidden id="isC" name="isC" property="taskAssgineeDto/isC"/>
 		<!-- 起草人机构 -->
 		<h:hidden id="beginOrg" property="taskAssgineeDto.beginOrg" />
 		<!-- 流程实例ID -->
@@ -97,16 +98,18 @@
 			</tr>
 			<%@include file="/jsp/util/default_opinionUtil.jsp"%>
 			<tr class="form_bottom">
-				<td colspan="4"><input type="button" value="提交"
-					onclick="doSave();" class="button" id="save2" /> <input
+				<td colspan="4">
+					<input type="button" value="提交"
+					onclick="doSave();" class="button" id="save2" />
+					<input type="button" value="回退"
+					onclick="doSave2();" class="button" id="save3" /> 
+					<input
 					type="button" value="查看流程" onclick="doflowpic();" class="button"
-					id="flowpic" /> <input type="button" value="传阅" onclick="doSee();"
-					class="button" id="see" /> <input type="button" value="反馈" onclick="doback();"
-					class="button" id="back" /></td>
+					id="flowpic" /> </td>
 			</tr>
 			<tr id="row2">
 				<td class="form_label" align="right">流程列表：</td>
-				<td colspan="3"><%@include file="/jsp/util/opinionUtil.jsp"%>
+				<td colspan="3"><%@include file="/jsp/util/opinionUtil4MonthReport.jsp"%>
 				</td>
 			</tr>
 		</table>
@@ -140,16 +143,12 @@
 		if ('${isView}' != '') {
 			$("#save2").hide();
 			$("#rowOpinion").hide();
-			$("#back").hide();
-			$("#see").hide();
+			
+		}
+		if('${taskAssgineeDto.isC}'){
+			$("#save2").hide();
 		}else{
-			if('${taskAssgineeDto.isChild}'=='0'){
-				 $("#back").css("display","none");
-			 }else{
-				 $("#save2").css("display","none");
-				 $("#see").css("display","none");
-				 
-			 }
+			$("#save3").hide();
 			}
 	});
 
@@ -174,6 +173,19 @@
 		}
 	}
 
+	/* 回退 */
+	function doSave2() {
+		if (checkForm($id("form1"))) {
+			var strUrl = "/jbpm/jbpmDemoAction_toNextTaskConfig2.action?taskAssgineeDto.executionId="
+					+ $id("executionId").value
+					+ "&taskAssgineeDto.beginOrg="
+					+ $("#beginOrg").val()
+					+ "&taskAssgineeDto.beginAssingee="
+					+ $("#creator").val();
+			showModalCenter(strUrl, null, taskAssigneeCallBack, 700, 400,
+					'节点选择');
+		}
+	}
 	var rowId = 0;
 	function addFile(tabid, varName) {
 		var tab, row, td, fName, fId, tdStr;
