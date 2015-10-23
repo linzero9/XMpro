@@ -141,31 +141,31 @@ margin-left:inherit;
 			<tr>	
 				<td class="form_label" align="right" width="15%">其他信息1：</td>
 				<td colspan="1" width="30%">
-					<d:checkbox  id="otherInfo_1"  dictTypeId="DEVICE_OTHERINFO_1" property="device.otherInfo_1"  />
+					<d:checkbox  id="otherInfo_1"  dictTypeId="DEVICE_OTHERINFO_1" property="device.otherInfo_1"  seperator=", " />
 				</td>
 			</tr>
 			<tr>	
 				<td class="form_label" align="right" width="15%">其他信息2：</td>
 				<td colspan="1" width="30%">
-					<d:checkbox  id="otherInfo_2"  dictTypeId="DEVICE_OTHERINFO_2" property="device.otherInfo_2"  />
+					<d:checkbox  id="otherInfo_2"  dictTypeId="DEVICE_OTHERINFO_2" property="device.otherInfo_2"  seperator=", " />
 				</td>
 			</tr>
 			<tr>	
 				<td class="form_label" align="right" width="15%">其他信息3：</td>
 				<td colspan="1" width="30%">
-					<d:checkbox  id="otherInfo_3"  dictTypeId="DEVICE_OTHERINFO_3" property="device.otherInfo_3"  />
+					<d:checkbox  id="otherInfo_3"  dictTypeId="DEVICE_OTHERINFO_3" property="device.otherInfo_3"  seperator=", " />
 				</td>
 			</tr>
 			<tr>	
 				<td class="form_label" align="right" width="15%">其他信息4：</td>
 				<td colspan="1" width="30%">
-					<d:checkbox  id="otherInfo_4"  dictTypeId="DEVICE_OTHERINFO_4" property="device.otherInfo_4"  />
+					<d:checkbox  id="otherInfo_4"  dictTypeId="DEVICE_OTHERINFO_4" property="device.otherInfo_4"  seperator=", " />
 				</td>
 			</tr>
 			<tr>	
 				<td class="form_label" align="right" width="15%">其他信息5：</td>
 				<td colspan="1" width="30%">
-					<d:checkbox  id="otherInfo_5"  dictTypeId="DEVICE_OTHERINFO_5" property="device.otherInfo_5"  />
+					<d:checkbox  id="otherInfo_5"  dictTypeId="DEVICE_OTHERINFO_5" property="device.otherInfo_5"  seperator=", " />
 				</td>
 			</tr>
 			<tr>	

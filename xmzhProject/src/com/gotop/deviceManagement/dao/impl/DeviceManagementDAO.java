@@ -91,4 +91,11 @@ public class DeviceManagementDAO extends SqlMapClientDao implements IDeviceManag
 	}
 
 
+
+	public List queryOrgList() {
+		HashMap map = new HashMap();
+		List list = queryForList("T_DEVICE_SqlMap.queryOrglist", map);
+		return list;
+	}
+
 }

@@ -240,7 +240,12 @@ public class DeviceManagementService implements IDeviceManagementService{
 		}
 		return "true";
 	}
-	
-	
+
+	@Override
+	public List queryOrgList() {
+		List list = deviceManagementDAO.queryOrgList();
+		return list;
+	}
+
 	
 }

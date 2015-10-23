@@ -14,7 +14,11 @@
   <h:form name="imp_form"	action="/deviceManagement/deviceManagementAction_importExcel.action"  method="post"  enctype="multipart/form-data">
 		<w:panel id="panel1" title="选择文件">
 			<table align="center" border="0" width="100%" class="form_table">
-
+					<tr>
+						<td  colspan="2">
+							 <input class="button"  type="button"  value="创建Excel导入模版" onclick="excel_template();">  
+						</td>
+					</tr>
    					<tr>
 						<td class="form_label" align="right">设备信息Excel文件：
 						<td colspan="1">
@@ -88,5 +92,28 @@
 	var frm = $name("imp_form");
 	frm.submit();
   }
+
+  function excel_template(){
+	  $.ajax({
+	      url: "/deviceManagement/deviceManagementAction_excelTemplate.action",
+	      async: false,
+	      type: 'post',
+	      data: "",
+	      timeout: 60000,
+	      dataType:"text",
+	      success: function (data) {
+	    	  if (data.indexOf("success") >= 0) {
+	    		  alert("创建成功，保存在桌面!");
+			} else if (data.indexOf("fails2") >= 0) {
+				alert("Excel模板正在使用中，无法创建，请关闭后重试！");
+			} else if (data.indexOf("fails") >= 0) {
+				alert("创建失败!");
+			}else {
+				alert("操作失败!");
+			}
+					  	
+	      }
+	});
+  } 
   </script>
 </html>

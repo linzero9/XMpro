@@ -37,7 +37,14 @@
     <result column="ORGNAME" property="orgname" jdbcType="VARCHAR" />
     <result column="ORGCODE" property="orgcode" jdbcType="VARCHAR" />  
     <result column="DEVICE_STATE" property="deviceState" jdbcType="CHAR" />    
-  </resultMap>
+  </resultMap> 
+  
+   <resultMap id="tOrgResult" class="com.gotop.deviceManagement.model.Org" >
+    <!--Bean方式返回全表-->
+    <result column="ORGID" property="orgid" jdbcType="DECIMAL" />
+    <result column="ORGCODE" property="orgcode" jdbcType="VARCHAR" />
+    <result column="ORGNAME" property="orgname" jdbcType="VARCHAR" />
+  </resultMap>   
   
     <resultMap id="tSum" class="com.gotop.deviceManagement.model.Sum" >
     <!--Bean方式返回全表-->
@@ -230,6 +237,12 @@ where a.orgcode = b.orgcode
   
   <select id="queryOrg" resultClass="java.lang.Integer" parameterClass="java.util.HashMap" >
  	select * from om_organization where orgcode = #orgcode#
+</select>
+
+  <select id="queryOrglist" resultMap="tOrgResult" parameterClass="java.util.HashMap" >
+ 	select orgid,orgcode,orgname from om_organization
+ 	 where status = 'running'
+ 	 order by orgid 
 </select>
 
 </sqlMap>

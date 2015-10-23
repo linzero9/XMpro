@@ -29,6 +29,9 @@ public interface IDeviceManagementService {
 	void delete(DevicePo device);
 
 	int queryOrg(String orgname);
+	
+	List queryOrgList();
 
 	String importExcel(String filePath, String entityType) throws Exception;
+
 }
