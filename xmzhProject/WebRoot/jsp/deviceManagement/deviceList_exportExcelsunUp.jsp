@@ -61,15 +61,15 @@
 		<d:write property="device.ieVersion" dictTypeId="DEVICE_IE_VERSION"/>
 		</td>
 		<td>&nbsp;用途：
-		<d:write property="device.useful" dictTypeId="DEVICE_USEFUL"/>
+		<d:write property="device.useful" dictTypeId="DEVICE_USEFUL" seperator=", "/>
 		</td>
 	</tr>
 	<tr style="font-size:10.0pt">
 		<td>&nbsp;安装的插件：
-		<d:write property="device.plugIn" dictTypeId="DEVICE_PLUGIN"/>
+		<d:write property="device.plugIn" dictTypeId="DEVICE_PLUGIN" seperator=", "/>
 		</td>
 		<td>&nbsp;对应的外设：
-		<d:write property="device.peripheral" dictTypeId="DEVICE_PERIPHERAL"/>
+		<d:write property="device.peripheral" dictTypeId="DEVICE_PERIPHERAL" seperator=", "/>
 		</td>
 	</tr>
 </table>
