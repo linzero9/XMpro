@@ -127,6 +127,9 @@ margin-left:inherit;
 					<table align="center" border="0" width="100%" class="EOS_table">
 						<tr>
 							<th align="center" nowrap="nowrap">
+								<l:greaterThan property="page.count" targetValue="0" compareType="number">
+	                 					<h:checkbox id="selectBox" onclick="allItem();"/>
+	             				 </l:greaterThan>
 								<b:message key="l_select"></b:message>
 							</th>
 							<th nowrap="nowrap">
@@ -226,13 +229,13 @@ margin-left:inherit;
 								设备状态
 							</th>
 						</tr>
-						<w:radioGroup id="group1">
+						<w:checkGroup id="group1">
                             <l:iterate property="devices" id="id1">
 							 <tr class="<l:output oddOutput="EOS_table_row_o" evenOutput='EOS_table_row' />">
 								<td align="center" nowrap="nowrap">
-									<w:rowRadio>
+									<w:rowCheckbox>
 											<h:param name='deviceId' iterateId='id1' property='deviceId' />
-									</w:rowRadio>
+									</w:rowCheckbox>
 								</td>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1" property="orgname" />
@@ -332,7 +335,7 @@ margin-left:inherit;
 								</td>
 							</tr>
 						</l:iterate>
-					</w:radioGroup>
+					</w:checkGroup>
 							<tr>
               <td colspan="23" class="command_sort_area">
 							<div class="h3">
@@ -352,6 +355,11 @@ margin-left:inherit;
 									compareType="number">
 							<input type="button" class="button" value="维护明细查询"
 										onclick="detail_search();" />
+								</l:greaterThan>
+								<l:greaterThan property="page.count" targetValue="0"
+									compareType="number">
+							<input type="button" class="button" value="批量修改导出"
+										onclick="batchUpdate_export();" />
 								</l:greaterThan>
 							</div>
 							<div class="h4">
@@ -429,12 +437,12 @@ margin-left:inherit;
 			function upt(){
 				var gop = $id("group1");
 		  		var len = gop.getSelectLength();
-		  		if(len == 0){
+		  		if(len != 1){
 		  			alert("请选择一条记录");
 		  			return;
 		  		}else{
-		  			var rows=gop.getSelectRow();
-			  		var deviceId=rows.getParam("deviceId");
+		  			var rows=gop.getSelectRows();
+			  		var deviceId=rows[0].getParam("deviceId");
 		  			var strUrl = "/deviceManagement/deviceManagementAction_toDevice.action?device.deviceId="+deviceId;
 		  			showModalCenter(strUrl, null, callBackFunc, 700, 600, '修改设备');  
 			  	}
@@ -450,17 +458,22 @@ margin-left:inherit;
 				var gop = $id("group1");
 		  		var len = gop.getSelectLength();
 		  		if(len == 0){
-		  			alert("请选择一条记录");
+		  			alert("请选择一条或多条记录");
 		  			return;
 		  		}else{
 			  	  if(confirm("确定要删除该设备吗？")){
-		  			var rows=gop.getSelectRow();
-			  		var deviceId=rows.getParam("deviceId");
+		  			var rows=gop.getSelectRows();
+		  			var deviceIds="";
+		  			for(var i=0;i<rows.length;i++){
+		  				deviceIds += rows[i].getParam("deviceId")+",";
+		  			}
+		  			if(deviceIds!=""){
+		  				deviceIds=deviceIds.substring(0,deviceIds.length-1);
 			  		$.ajax({
 					      url: "/deviceManagement/deviceManagementAction_delete.action",
 					      async: false,
 					      type: 'post',
-					      data: "device.deviceId="+deviceId,
+					      data: "deviceIds="+deviceIds,
 					      timeout: 60000,
 					      dataType:"text",
 					      success: function (data) {
@@ -475,6 +488,7 @@ margin-left:inherit;
 									  	
 					      }
 					}); 
+		  			}
 			 	 }	
 			  	}
 			}
@@ -483,17 +497,54 @@ margin-left:inherit;
 			function detail_search(){
 				var gop = $id("group1");
 		  		var len = gop.getSelectLength();
-		  		if(len == 0){
+		  		if(len != 1){
 		  			alert("请选择一条记录");
 		  			return;
 		  		}else{
-		  			var rows=gop.getSelectRow();
-			  		var deviceId=rows.getParam("deviceId");
+		  			var rows=gop.getSelectRows();
+			  		var deviceId=rows[0].getParam("deviceId");
 		  			var strUrl = "/deviceManagement/deviceManagementAction_detailList.action?detail.deviceId="+deviceId;
 		  			showModalCenter(strUrl, null, callBackFunc, 1000, 500, '修改设备');  
 			  	}
 			}
-			
+
+			//批量修改导出
+			function batchUpdate_export(){
+				var gop = $id("group1");
+		  		var len = gop.getSelectLength();
+		  		if(len == 0){
+		  			alert("请选择一条或多条记录");
+		  			return;
+		  		}else{
+		  			var rows=gop.getSelectRows();
+		  			var deviceIds="";
+		  			for(var i=0;i<rows.length;i++){
+		  				deviceIds += rows[i].getParam("deviceId")+",";
+		  			}
+		  			if(deviceIds!=""){
+		  				deviceIds=deviceIds.substring(0,deviceIds.length-1);  //将最后一个逗号去掉
+			  		$.ajax({
+					      url: "/deviceManagement/deviceManagementAction_batchUpdateExport.action",
+					      async: false,
+					      type: 'post',
+					      data: "deviceIds="+deviceIds,
+					      timeout: 60000,
+					      dataType:"text",
+					      success: function (data) {
+					    	  if (data.indexOf("success") >= 0) {
+					    		  alert("导出成功");
+					    		  callBackFunc();
+							} else if (data.indexOf("fails") >= 0) {
+								alert("导出失败!");
+							} else {
+								alert("操作失败!");
+							}
+									  	
+					      }
+					}); 
+		  			}
+			  	}
+			}
 
 			//选择 部门/机构
 			function open_newyw_tree_fun1(){//方法名
@@ -607,6 +658,15 @@ margin-left:inherit;
 		function import_Excel(){
 			var url="/jsp/deviceManagement/deviceList_importExcel.jsp";
 			showModalCenter(url, null,callBackFunc, 700, 300, '批量导入');
+		}
+
+		function allItem(){
+			var group =$id("group1");
+			if(document.getElementById("selectBox").checked){
+				group.selectAll();
+			}else{
+				group.disSelectAll();
+			}
 		}
 		</script>
 	</body>
