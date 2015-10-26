@@ -125,9 +125,7 @@ margin-left:inherit;
 		    <h:hiddendata property="device" />
 					<table align="center" border="0" width="100%" class="EOS_table">
 						<tr>
-							<th align="center" nowrap="nowrap">
-								<b:message key="l_select"></b:message>
-							</th>
+				
 							<th align="center" nowrap="nowrap">
 								机构/部门
 							</th>
@@ -138,11 +136,7 @@ margin-left:inherit;
 						<w:radioGroup id="group1">
                             <l:iterate property="devices" id="id1">
 							 <tr class="<l:output oddOutput="EOS_table_row_o" evenOutput='EOS_table_row' />">
-								<td align="center" nowrap="nowrap">
-									<w:rowRadio>
-											<h:param name='' iterateId='id1' property='' />
-									</w:rowRadio>
-								</td>
+					
 								<td align="center" nowrap="nowrap"> 
 									<b:write iterateId="id1" property="orgnameTemp" />
 								</td>
