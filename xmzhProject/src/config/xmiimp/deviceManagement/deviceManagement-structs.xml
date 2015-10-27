@@ -35,12 +35,17 @@
       
       <result name="excelTemplate" type="stream">  
                <param name="contentType">text/plain</param>  
-               <param name="contentDisposition">attachment;fileName="myname.xls"</param>  
-               <param name="inputName">downloadFile</param>  
+               <param name="contentDisposition">attachment;fileName="myname1.xls"</param>  
+               <param name="inputName">downloadFile1</param>  
                <param name="bufferSize">1024</param>  
            </result>  
       
-      
+    <result name="batchUpdateExport" type="stream">  
+               <param name="contentType">text/plain</param>  
+               <param name="contentDisposition">attachment;fileName="myname2.xls"</param>  
+               <param name="inputName">downloadFile2</param>  
+               <param name="bufferSize">1024</param>  
+           </result>    
       
     </action>
   </package>

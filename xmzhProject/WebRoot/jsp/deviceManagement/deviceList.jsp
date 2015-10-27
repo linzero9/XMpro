@@ -108,6 +108,7 @@ margin-left:inherit;
 							<input type="button" value="清 空" class="button" onclick="clears();">
 							<input id=" exportExcel" type="button" class="button" value="导出列表" onclick="export_Excel();">
 							<input id="importExcel"  type="button" class="button" value="批量导入" onclick="import_Excel();">
+							<input id="importExcel"  type="button" class="button" value="批量修改导入" onclick="batchUpdate_import_view();">
 						</td>
 					</tr>			
 			</table>
@@ -654,9 +655,10 @@ margin-left:inherit;
 		  	
 		}
 
-		//导入Excel
+		//批量导入Excel
 		function import_Excel(){
-			var url="/jsp/deviceManagement/deviceList_importExcel.jsp";
+			var url="/deviceManagement/deviceManagementAction_toImportExcel.action?";
+			url = url+"importExcelFlag="+"batchInsert";
 			showModalCenter(url, null,callBackFunc, 700, 300, '批量导入');
 		}
 
@@ -667,6 +669,13 @@ margin-left:inherit;
 			}else{
 				group.disSelectAll();
 			}
+		}
+
+		//批量修改导入Excel importExcel
+		function batchUpdate_import_view(){
+			var url="/deviceManagement/deviceManagementAction_toImportExcel.action?";
+			url = url+"importExcelFlag="+"batchUpdate";
+			showModalCenter(url, null,callBackFunc, 700, 300, '批量修改导入');
 		}
 		</script>
 	</body>

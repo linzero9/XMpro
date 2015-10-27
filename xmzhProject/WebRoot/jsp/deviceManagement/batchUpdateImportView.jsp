@@ -14,16 +14,6 @@
   <h:form name="imp_form"	action="/deviceManagement/deviceManagementAction_importExcel.action"  method="post"  enctype="multipart/form-data">
 		<w:panel id="panel1" title="选择文件">
 			<table align="center" border="0" width="100%" class="form_table">
-			<h:hidden id="importExcelFlag"  property="importExcelFlag"  />
-			<l:equal property="importExcelFlag"   targetValue="batchInsert" >
-					<tr>
-						<td  colspan="2">
-							<a href="/deviceManagement/deviceManagementAction_excelTemplate.action" style="color: blue"> 
-							下载Excel导入模版
-							</a>
-						</td>
-					</tr>
-			</l:equal>
    					<tr>
 						<td class="form_label" align="right">设备信息Excel文件：
 						<td colspan="1">
@@ -32,7 +22,7 @@
 					</tr>
 					<tr class="form_bottom">
 						<td colspan="4" class="form_bottom">
-							<input  type="button" value="导入" class="button" onclick="import_file();">
+							<input  type="button" value="导入" class="button" onclick="batchUpdate_import();">
 							<input type="button" value="关闭"  onclick="window.close();" class="button">
 						</td>
 					</tr>
@@ -76,7 +66,7 @@
   eventManager.add(window,"load",init);
   
   //导入
-  function import_file(){
+  function batchUpdate_import(){
 	var excelFile = $name("readFile").value;
 	if (excelFile=="") {
 		alert('请选择您要导入的Excel文件！');//请选择您要导入的Excel文件！
@@ -98,28 +88,6 @@
 	frm.submit();
   }
 
-  function excel_template(){
-	  $.ajax({
-	      url: "/deviceManagement/deviceManagementAction_excelTemplate.action",
-	      async: false,
-	      type: 'post',
-	      data: "",
-	      timeout: 60000,
-	      dataType:"text",
-	      success: function (data) {
-	    	  if (data.indexOf("success") >= 0) {
-	    		  alert("创建成功，保存在桌面!");
-			} else if (data.indexOf("fails2") >= 0) {
-				alert("Excel模板正在使用中，无法创建，请关闭后重试！");
-			} else if (data.indexOf("fails") >= 0) {
-				alert("创建失败!");
-			}else {
-				alert("操作失败!");
-			}
-					  	
-	      }
-	});
-  } 
-
+ 
   </script>
 </html>
