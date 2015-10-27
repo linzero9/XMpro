@@ -351,7 +351,6 @@ public class DeviceManagementAction  extends BaseAction    {
 						int cells = row.getPhysicalNumberOfCells();
 						for (int c = 0; c < cells; c++) {
 							HSSFCell cell = row.getCell(c);
-							System.out.println(cell.getCellType());
 							if (cell.getCellType() != HSSFCell.CELL_TYPE_BLANK) {
 								allowInsert = true;		
 								break;//结束for循环语句,跳出
@@ -376,7 +375,7 @@ public class DeviceManagementAction  extends BaseAction    {
 							DevicePo device1 = new DevicePo();
 							device1.setDeviceId(Long.valueOf(deviceId));
 							DevicePo device2 = deviceManagermentService.getDeviceByDeviceId(device1);
-							if(device == null){
+							if(device2 == null){
 								msg+="第"+(i+1)+"行无法插入，无法找到设备ID("+deviceId+")对应的记录。提醒：设备ID不可修改！||";
 								map.put("msg", msg);
 								failnum++;
