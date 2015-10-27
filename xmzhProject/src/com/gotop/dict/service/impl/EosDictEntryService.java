@@ -76,7 +76,12 @@ public class EosDictEntryService implements IEosDictEntryService {
 
 	@Override
 	public void delete(EosDictEntry dictEntry) {
-		eosDictEntryDAO.deleteById(dictEntry);
+		String dictIds = dictEntry.getDictId();
+		String[] dictIdsArr=dictIds.split(",");
+		for(int i=0; i<dictIdsArr.length; i++){
+			dictEntry.setDictId(dictIdsArr[i]);
+			eosDictEntryDAO.deleteById(dictEntry);
+		}
 	}
 
 }

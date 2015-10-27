@@ -41,16 +41,16 @@
 				<h:hiddendata property="page"/>
 				<table align="center" border="0" width="100%" class="EOS_table">
 					<tr>
-						<th>选择</th>
-						<th>属性名称</th>
+						<th nowrap="nowrap">选择</th>
+						<th nowrap="nowrap">属性名称</th>
 					</tr>
 					<w:radioGroup id="xgroup1">
 						<l:iterate property="dictTypes" id="idx" indexId="index">
 							<tr class="<l:output evenOutput='EOS_table_row' />">
-								<td align="center"><w:rowRadio>
+								<td align="center" nowrap="nowrap"><w:rowRadio>
 									<h:param name='dictTypeId' iterateId='idx' property='dictTypeId' />
 								</w:rowRadio></td>
-								<td><b:write iterateId="idx" property="dictTypeName" /></td>
+								<td nowrap="nowrap"><b:write iterateId="idx" property="dictTypeName" /></td>
 							</tr>
 						</l:iterate>
 					</w:radioGroup>
@@ -96,22 +96,27 @@
 				action="/dict/eosDictEntryAction_queryDictEntryBydictTypeId.action"  target="_self" method="post" >
 				<table align="center" border="0" width="100%" class="EOS_table">
 					<tr>
-						<th nowrap>选择</th>
-						<th nowrap>项编号</th>
-						<th nowrap>项名称</th>
+						<th nowrap="nowrap">
+							<l:greaterThan property="page.count" targetValue="0" compareType="number">
+	                 					<h:checkbox id="selectBox" onclick="allItem();"/>
+	             				 </l:greaterThan>
+								<b:message key="l_select"></b:message>
+						</th>
+						<th nowrap="nowrap">项编号</th>
+						<th nowrap="nowrap">项名称</th>
 					</tr>
-					<w:radioGroup id="ygroup1">
+					<w:checkGroup id="ygroup1">
 						<l:iterate property="dictEntrys" id="idy" indexId="index">
 							<tr class="<l:output evenOutput='EOS_table_row' />">
-								<td align="center"><w:rowRadio>
+								<td align="center" nowrap="nowrap"><w:rowCheckbox>
 									<h:param name='dictTypeId' iterateId='idy' property='dictTypeId' />
 									<h:param name='dictId' iterateId='idy' property='dictId' />
-								</w:rowRadio></td>
-								<td><b:write iterateId="idy" property="dictId" /></td>
-								<td><b:write iterateId="idy" property="dictName" /></td>
+								</w:rowCheckbox></td>
+								<td nowrap="nowrap"><b:write iterateId="idy" property="dictId" /></td>
+								<td nowrap="nowrap"><b:write iterateId="idy" property="dictName" /></td>
 							</tr>
 						</l:iterate>
-					</w:radioGroup>
+					</w:checkGroup>
 					<tr>
 						<td colspan="23" class="command_sort_area">
 							<div class="h3">
@@ -168,13 +173,13 @@
 	function uptItem(){
 		var gop = $id("ygroup1");
   		var len = gop.getSelectLength();
-  		if(len == 0){
+  		if(len != 1){
   			alert("请选择一条记录");
   			return;
   		}else{
-  			var rows=gop.getSelectRow();
-	  		var dictTypeId=rows.getParam("dictTypeId");
-	  		var dictId=rows.getParam("dictId");
+  			var rows=gop.getSelectRows();
+	  		var dictTypeId=rows[0].getParam("dictTypeId");
+	  		var dictId=rows[0].getParam("dictId");
   			var strUrl = "/dict/eosDictEntryAction_toUpdate.action?dictEntry.dictTypeId="+dictTypeId+"&dictEntry.dictId="+dictId;
   			showModalCenter(strUrl, null, callBackFunc, 400, 200, '修改属性项');  
 	  	}
@@ -190,18 +195,23 @@
 		var gop = $id("ygroup1");
   		var len = gop.getSelectLength();
   		if(len == 0){
-  			alert("请选择一条记录");
+  			alert("请选择一条或多条记录");
   			return;
   		}else{
 	  	  if(confirm("确定要删除该项吗？")){
-  			var rows=gop.getSelectRow();
-  			var dictTypeId=rows.getParam("dictTypeId");
-	  		var dictId=rows.getParam("dictId");
+  			var rows=gop.getSelectRows();
+  			var dictTypeId=rows[0].getParam("dictTypeId");
+  			var dictIds="";
+  			for(var i=0;i<rows.length;i++){
+  				dictIds += rows[i].getParam("dictId")+",";
+  			}
+  			if(dictIds!=""){
+  				dictIds=dictIds.substring(0,dictIds.length-1);
 	  		$.ajax({
 			      url: "/dict/eosDictEntryAction_deleteItem.action",
 			      async: false,
 			      type: 'post',
-			      data: "dictEntry.dictTypeId="+dictTypeId+"&dictEntry.dictId="+dictId,
+			      data: "dictEntry.dictTypeId="+dictTypeId+"&dictEntry.dictId="+dictIds,
 			      timeout: 60000,
 			      dataType:"text",
 			      success: function (data) {
@@ -217,6 +227,7 @@
 							  	
 			      }
 			}); 
+  			}
 	 	 }	
 	  	}
 	}
@@ -240,6 +251,15 @@
     	}else{
     		alert("刷新缓存失败");//刷新业务字典信息失败。
     	}
+	}
+
+	function allItem(){
+		var group =$id("ygroup1");
+		if(document.getElementById("selectBox").checked){
+			group.selectAll();
+		}else{
+			group.disSelectAll();
+		}
 	}
 
 	</script>

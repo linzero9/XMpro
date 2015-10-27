@@ -29,8 +29,9 @@ public class EosDictEntryAction extends BaseAction {
     private EosDictEntry dictEntry;
     
     private List<EosDictEntry> dictEntrys;
+    
 
-    /**
+	/**
      * 通过spring注入Service的set类.
      * @abatorgenerated
      */
