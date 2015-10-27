@@ -1045,19 +1045,50 @@ public class DeviceManagementAction  extends BaseAction    {
             } 
         }
         
-      //写入文件
+//写入文件
         
         
-        File file = new File(ServletActionContext.getServletContext().getRealPath("/")+"exportEXC.xls");
+        
+        System.out.println("create  file................");
+        File file1 = new File(ServletActionContext.getServletContext().getRealPath("/")+"devicefile\\");
+       
+        
+        System.out.println(ServletActionContext.getServletContext().getRealPath("/")+"devicefile\\exportEXCBAL.xls");
+        if  (!file1 .exists()  && !file1 .isDirectory())      
+        {       
+            System.out.println("//不存在");  
+            file1 .mkdir();    
+        } else   
+        {  
+            System.out.println("//目录存在");  
+        }  
+        
+        File file = new File(ServletActionContext.getServletContext().getRealPath("/")+"devicefile\\exportEXCBAL.xls");
+        
+        if(!file.exists())    
+        {    
+            try {    
+                file.createNewFile();    
+            } catch (IOException e) {    
+                // TODO Auto-generated catch block    
+                e.printStackTrace();    
+            }    
+        }    
+        
+        
 		FileOutputStream fileOut=new FileOutputStream(file);
 				
+ 
+
 	    //wujiajun   out 
-	    	    	    
+	    
+	    
+	    
 	    wb.write(fileOut);
 	    fileOut.flush();
 	    fileOut.close();
 
-	       System.out.println(fileOut);
+	     System.out.println(fileOut);
 	    
 	    
 //        HttpServletResponse response = getResponse();
@@ -1086,9 +1117,15 @@ public class DeviceManagementAction  extends BaseAction    {
 				"备注1", "备注2", "备注3", "备注4", "备注5", "*设备状态(单选)"};
 		exportExcelFuntion("设备信息导入模版", headers, null);
 		
-		System.out.println("getDownloadFile1() end.... ");
+       System.out.println("new22222");
 		
-		return ServletActionContext.getServletContext().getResourceAsStream("/exportEXC.xls");
+		File file = new File(ServletActionContext.getServletContext().getRealPath("/")+"devicefile\\exportEXCBAL.xls");
+		
+		
+		InputStream in=new FileInputStream(file);
+		
+		return in;
+			
     } 
 	
 	//批量修改导出 下载
@@ -1114,7 +1151,17 @@ public class DeviceManagementAction  extends BaseAction    {
 		
 		System.out.println("getDownloadFile2() end.... ");
 		
-		return ServletActionContext.getServletContext().getResourceAsStream("/exportEXC.xls");		
+		
+		File file = new File(ServletActionContext.getServletContext().getRealPath("/")+"devicefile\\exportEXCBAL.xls");
+		
+		
+		InputStream in=new FileInputStream(file);
+		
+		return in;
+		
+
+				
+				
 	}
 			
 }

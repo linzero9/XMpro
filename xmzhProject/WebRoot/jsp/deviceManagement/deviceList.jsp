@@ -524,25 +524,12 @@ margin-left:inherit;
 		  			}
 		  			if(deviceIds!=""){
 		  				deviceIds=deviceIds.substring(0,deviceIds.length-1);  //将最后一个逗号去掉
-			  		$.ajax({
-					      url: "/deviceManagement/deviceManagementAction_batchUpdateExport.action",
-					      async: false,
-					      type: 'post',
-					      data: "deviceIds="+deviceIds,
-					      timeout: 60000,
-					      dataType:"text",
-					      success: function (data) {
-					    	  if (data.indexOf("success") >= 0) {
-					    		  alert("导出成功");
-					    		  callBackFunc();
-							} else if (data.indexOf("fails") >= 0) {
-								alert("导出失败!");
-							} else {
-								alert("操作失败!");
-							}
-									  	
-					      }
-					}); 
+
+
+
+		  				window.location.href="/deviceManagement/deviceManagementAction_batchUpdateExport.action?deviceIds="+deviceIds;
+		  				
+			  		
 		  			}
 			  	}
 			}
