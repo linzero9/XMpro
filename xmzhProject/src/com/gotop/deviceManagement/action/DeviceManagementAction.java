@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -33,6 +34,7 @@ import org.apache.poi.hssf.util.CellRangeAddressList;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.struts2.ServletActionContext;
 //import org.apache.poi.hssf.usermodel.HSSFCell;
 //import org.apache.poi.hssf.usermodel.HSSFDataValidation;
 //import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -67,7 +69,7 @@ import com.gotop.util.Struts2Utils;
 import com.gotop.util.time.TimeUtil;
 import com.gotop.vo.system.MUOUserSession;
 
-public class DeviceManagementAction  extends BaseAction {
+public class DeviceManagementAction  extends BaseAction    {
 
 	private static final long serialVersionUID = 1L;
 	private DevicePo device;
@@ -665,27 +667,15 @@ public class DeviceManagementAction  extends BaseAction {
 				}
 			}
 
-			public void excelTemplate() throws Exception{
+			public String excelTemplate() throws Exception{
 				String info ="success";
-		    	try {
-		    		String[] headers = {"*机构/部门(单选)", "*设备名称(单选)", "*型号(单选)", "IP地址", "生产机器名称", "CPU型号", "内存容量(G)", "硬盘容量(G)", "*操作系统版本(单选)", 
-		    				"内置软件版本", "*IE版本(单选)", "*用途(多选)", "终端号", "使用人", "*安装的插件(多选)", "*对应的外设(多选)", 
-		    				"*其他属性1(单选)", "*其他属性2(单选)", "*其他属性3(单选)", "*其他属性4(单选)", "*其他属性5(单选)", 
-		    				"*其他信息1(多选)", "*其他信息2(多选)", "*其他信息3(多选)", "*其他信息4(多选)", "*其他信息5(多选)", 
-		    				"备注1", "备注2", "备注3", "备注4", "备注5", "*设备状态(单选)"};
-		    		exportExcelFuntion("设备信息导入模版", headers, null);
+		    
 		    		
-		    	} catch (IOException e) {
-					info="fails2";
-					log.error("[Excel模板正在使用中，创建Excel模版失败！]", e);
-					throw e;
-				}catch (Exception e) {
-					info="fails";
-					log.error("[创建Excel模版失败！]", e);
-					throw e;
-				}finally{	
-					Struts2Utils.renderText(info);
-				}
+		    		
+		    		
+		    		return "excelTemplate";
+		    		
+		    	
 			}
 
 			private void createListBox(String[] list,org.apache.poi.hssf.usermodel.HSSFSheet sheet, org.apache.poi.hssf.usermodel.HSSFWorkbook wb, int rownum, int colnum) {
@@ -1035,12 +1025,24 @@ public class DeviceManagementAction  extends BaseAction {
         }
         
       //写入文件
-		FileOutputStream fileOut;
-		FileSystemView fsv = FileSystemView.getFileSystemView();//获取本的桌面路径  
-		System.out.println(fsv.getHomeDirectory().toString()+"\\"+title+".xls");//"\\设备信息批量修改.xls"
-		fileOut = new FileOutputStream(fsv.getHomeDirectory().toString()+"\\"+title+".xls");
+        
+        
+        File file = new File(ServletActionContext.getServletContext().getRealPath("/")+"exportEXC.xls");
+		FileOutputStream fileOut=new FileOutputStream(file);
+				
+ 
+
+	    //wujiajun   out 
+	    
+	    
+	    
 	    wb.write(fileOut);
+	    fileOut.flush();
 	    fileOut.close();
+
+	       System.out.println(fileOut);
+	    
+	    
 //        HttpServletResponse response = getResponse();
 //        OutputStream out = new BufferedOutputStream(  
 //                response.getOutputStream());  
@@ -1054,6 +1056,27 @@ public class DeviceManagementAction  extends BaseAction {
 //		//结束
 		System.out.println("exportExcelFunction Over");
 	}
+	
+	public InputStream getDownloadFile() throws Exception   {  
+		
+		System.out.println("333333333333333");
+
+   
+		String[] headers = {"*机构/部门(单选)", "*设备名称(单选)", "*型号(单选)", "IP地址", "生产机器名称", "CPU型号", "内存容量(G)", "硬盘容量(G)", "*操作系统版本(单选)", 
+				"内置软件版本", "*IE版本(单选)", "*用途(多选)", "终端号", "使用人", "*安装的插件(多选)", "*对应的外设(多选)", 
+				"*其他属性1(单选)", "*其他属性2(单选)", "*其他属性3(单选)", "*其他属性4(单选)", "*其他属性5(单选)", 
+				"*其他信息1(多选)", "*其他信息2(多选)", "*其他信息3(多选)", "*其他信息4(多选)", "*其他信息5(多选)", 
+				"备注1", "备注2", "备注3", "备注4", "备注5", "*设备状态(单选)"};
+		exportExcelFuntion("设备信息导入模版", headers, null);
+		
+		
+		
+		
+		return ServletActionContext.getServletContext().getResourceAsStream("/exportEXC.xls");
+			
+		
+
+    }  
 			
 			
 }

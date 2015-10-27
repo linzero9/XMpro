@@ -31,6 +31,17 @@
       <result name="importExcel" >
         /jsp/deviceManagement/deviceList_importExcel.jsp
       </result>
+      
+      
+      <result name="excelTemplate" type="stream">  
+               <param name="contentType">text/plain</param>  
+               <param name="contentDisposition">attachment;fileName="myname.xls"</param>  
+               <param name="inputName">downloadFile</param>  
+               <param name="bufferSize">1024</param>  
+           </result>  
+      
+      
+      
     </action>
   </package>
 </struts>

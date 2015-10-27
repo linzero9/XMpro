@@ -16,7 +16,9 @@
 			<table align="center" border="0" width="100%" class="form_table">
 					<tr>
 						<td  colspan="2">
-							 <input class="button"  type="button"  value="创建Excel导入模版" onclick="excel_template();">  
+							<a href="/deviceManagement/deviceManagementAction_excelTemplate.action"> <input class="button"  type="button"  value="创建Excel导入模版" ></a>
+							 
+							  
 						</td>
 					</tr>
    					<tr>
