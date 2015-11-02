@@ -47,12 +47,12 @@ margin-left:inherit;
 			<tr>	
 				<td class="form_label" align="right" width="15%" nowrap="nowrap">生产机器名称：</td>
 				<td colspan="1" width="30%" nowrap="nowrap"><h:text id="productionMachineName"
-						property="device.productionMachineName" /></td>
+						property="device.productionMachineName"  validateAttr="maxLength=127;" /></td>
 			</tr>
 			<tr>	
 				<td class="form_label" align="right" width="15%" nowrap="nowrap">CPU型号：</td>
 				<td colspan="1" width="30%" nowrap="nowrap"><h:text id="cpuCode"
-						property="device.cpuCode" /></td>						
+						property="device.cpuCode"  validateAttr="maxLength=127;" /></td>						
 			</tr>
 			<tr>	
 				<td class="form_label" align="right" width="15%" nowrap="nowrap">内存容量：</td>
@@ -73,7 +73,7 @@ margin-left:inherit;
 			<tr>	
 				<td class="form_label" align="right" width="15%" nowrap="nowrap">内置软件版本：</td>
 				<td colspan="1" width="30%" nowrap="nowrap"><h:text id="softwareVersion"
-						property="device.softwareVersion" /></td>
+						property="device.softwareVersion"  validateAttr="maxLength=127;" /></td>
 			</tr>
 			<tr>	
 				<td class="form_label" align="right" width="15%" nowrap="nowrap">IE版本：</td>
@@ -90,12 +90,12 @@ margin-left:inherit;
 			<tr>	
 				<td class="form_label" align="right" width="15%" nowrap="nowrap">终端号：</td>
 				<td colspan="1" width="30%"><h:text id="terminalNumber"
-						property="device.terminalNumber" /></td>
+						property="device.terminalNumber"  validateAttr="maxLength=127;" /></td>
 			</tr>
 			<tr>	
 				<td class="form_label" align="right" width="15%" nowrap="nowrap">使用人：</td>
 				<td colspan="1" width="30%" nowrap="nowrap"><h:text id="user"
-						property="device.user" /></td>
+						property="device.user"  validateAttr="maxLength=127;" /></td>
 			</tr>
 			<tr>	
 				<td class="form_label" align="right" width="15%" nowrap="nowrap">安装的插件：</td>
@@ -172,27 +172,27 @@ margin-left:inherit;
 			<tr>	
 				<td class="form_label" align="right" width="15%" nowrap="nowrap">备注1：</td>
 				<td colspan="1" width="30%" nowrap="nowrap"><h:textarea property="device.remarks_1"
-						id="remarks_1" extAttr="class='h80' "  rows="4" style="width:90%;" /> </td>
+						id="remarks_1" extAttr="class='h80' "  rows="4" style="width:90%;"  validateAttr="maxLength=127;" /> </td>
 			</tr>
 			<tr>	
 				<td class="form_label" align="right" width="15%" nowrap="nowrap">备注2：</td>
 				<td colspan="1" width="30%" nowrap="nowrap"><h:textarea property="device.remarks_2"
-						id="remarks_2" extAttr="class='h80' "  rows="4" style="width:90%;" /> </td>
+						id="remarks_2" extAttr="class='h80' "  rows="4" style="width:90%;"  validateAttr="maxLength=127;" /> </td>
 			</tr>
 			<tr>	
 				<td class="form_label" align="right" width="15%" nowrap="nowrap">备注3：</td>
 				<td colspan="1" width="30%" nowrap="nowrap"><h:textarea property="device.remarks_3"
-						id="remarks_3" extAttr="class='h80' "  rows="4" style="width:90%;" /> </td>
+						id="remarks_3" extAttr="class='h80' "  rows="4" style="width:90%;"  validateAttr="maxLength=127;" /> </td>
 			</tr>
 			<tr>	
 				<td class="form_label" align="right" width="15%" nowrap="nowrap">备注4：</td>
 				<td colspan="1" width="30%" nowrap="nowrap"><h:textarea property="device.remarks_4"
-						id="remarks_4" extAttr="class='h80' "  rows="4" style="width:90%;" /> </td>
+						id="remarks_4" extAttr="class='h80' "  rows="4" style="width:90%;"  validateAttr="maxLength=127;" /> </td>
 			</tr>
 			<tr>	
 				<td class="form_label" align="right" width="15%" nowrap="nowrap">备注5：</td>
 				<td colspan="1" width="30%" nowrap="nowrap"><h:textarea property="device.remarks_5"
-						id="remarks_5" extAttr="class='h80' "  rows="4" style="width:90%;" /> </td>
+						id="remarks_5" extAttr="class='h80' "  rows="4" style="width:90%;"  validateAttr="maxLength=127;" /> </td>
 			</tr>
 			
 			<l:notEmpty property="device.deviceState" >

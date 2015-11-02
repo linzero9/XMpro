@@ -16,6 +16,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 import sun.awt.geom.AreaOp.SubOp;
@@ -297,6 +299,19 @@ public class DeviceManagementAction  extends BaseAction    {
     	try {
     		MUOUserSession muoUserSession = getCurrentOnlineUser();
     		device.setDeviceState("0"); //新增设备时默认设状态为可用（即为0）
+    		device.setIpAdress(device.getIpAdress().trim());
+    		device.setProductionMachineName(device.getProductionMachineName().trim());
+    		device.setCpuCode(device.getCpuCode().trim());
+    		device.setMemory(device.getMemory().trim());
+    		device.setHardDisk(device.getHardDisk().trim());
+    		device.setSoftwareVersion(device.getSoftwareVersion().trim());
+    		device.setTerminalNumber(device.getTerminalNumber().trim());
+    		device.setUser(device.getUser().trim());
+    		device.setRemarks_1(device.getRemarks_1().trim());
+    		device.setRemarks_2(device.getRemarks_2().trim());
+    		device.setRemarks_3(device.getRemarks_3().trim());
+    		device.setRemarks_4(device.getRemarks_4().trim());
+    		device.setRemarks_5(device.getRemarks_5().trim());
     		this.deviceManagermentService.save(device, muoUserSession);
     	} catch (Exception e) {
 			info="fails";
@@ -418,11 +433,61 @@ public class DeviceManagementAction  extends BaseAction    {
 							failnum++;
 							continue;
 						}
+						
 						String ipAdress = getCellValue(row.getCell(column+3)).trim();
+						Pattern pattern = Pattern.compile("\\b((?!\\d\\d\\d)\\d+|1\\d\\d|2[0-4]\\d|25[0-5])\\.((?!\\d\\d\\d)\\d+|1\\d\\d|2[0-4]\\d|25[0-5])\\.((?!\\d\\d\\d)\\d+|1\\d\\d|2[0-4]\\d|25[0-5])\\.((?!\\d\\d\\d)\\d+|1\\d\\d|2[0-4]\\d|25[0-5])\\b");
+						Matcher matcher = pattern.matcher(ipAdress); 
+						flag= matcher.matches(); 
+						if(!flag){
+							msg+="第"+(i+1)+"行无法插入，IP地址("+ipAdress+")不符合格式。请输入规范的IP地址！||";
+							map.put("msg", msg);
+							failnum++;
+							continue;
+						}
+						
 						String productionMachineName = getCellValue(row.getCell(column+4)).trim();
+						infoMap = checkData_maxLength(productionMachineName, "生产机器名称", i, msg);
+						flag = (Boolean) infoMap.get("flag");
+						msg =  (String) infoMap.get("msg");
+						if(!flag){
+							map.put("msg", msg);
+							failnum++;
+							continue;
+						}
+						
 						String cpuCode = getCellValue(row.getCell(column+5)).trim();
+						infoMap = checkData_maxLength(cpuCode, "CPU型号", i, msg);
+						flag = (Boolean) infoMap.get("flag");
+						msg =  (String) infoMap.get("msg");
+						if(!flag){
+							map.put("msg", msg);
+							failnum++;
+							continue;
+						}
+						
 						String memory = getCellValue(row.getCell(column+6)).trim();
+						//正则表达式校验最大只能输入两位小数的正实数
+						pattern = Pattern.compile("^[0-9]+(.[0-9]{1,2})?$"); 
+						matcher = pattern.matcher(memory); 
+						flag= matcher.matches(); 
+						if(!flag){
+							msg+="第"+(i+1)+"行无法插入，内存容量（G）("+memory+")不符合数据格式。请输入数字，小数位不超过两位！||";
+							map.put("msg", msg);
+							failnum++;
+							continue;
+						}
+						
 						String hardDisk = getCellValue(row.getCell(column+7)).trim();
+						//正则表达式校验最大只能输入两位小数的正实数
+						pattern = Pattern.compile("^[0-9]+(.[0-9]{1,2})?$"); 
+						matcher = pattern.matcher(hardDisk); 
+						flag= matcher.matches(); 
+						if(!flag){
+							msg+="第"+(i+1)+"行无法插入，硬盘容量（G）("+hardDisk+")不符合数据格式。请输入数字，小数位不超过两位！||";
+							map.put("msg", msg);
+							failnum++;
+							continue;
+						}
 						
 						String osVersion = getCellValue(row.getCell(column+8)).trim();
 						infoMap = checkData_singleSelect("DEVICE_OS_VERSION", osVersion, "操作系统版本", i, msg);
@@ -435,6 +500,15 @@ public class DeviceManagementAction  extends BaseAction    {
 						}
 						
 						String softwareVersion = getCellValue(row.getCell(column+9)).trim();
+						infoMap = checkData_maxLength(softwareVersion, "内置软件版本", i, msg);
+						flag = (Boolean) infoMap.get("flag");
+						msg =  (String) infoMap.get("msg");
+						if(!flag){
+							map.put("msg", msg);
+							failnum++;
+							continue;
+						}
+						
 						
 						String ieVersion = getCellValue(row.getCell(column+10)).trim();
 						infoMap = checkData_singleSelect("DEVICE_IE_VERSION", ieVersion, "IE版本", i, msg);
@@ -457,7 +531,24 @@ public class DeviceManagementAction  extends BaseAction    {
 						}
 						
 						String terminalNumber = getCellValue(row.getCell(column+12)).trim();
+						infoMap = checkData_maxLength(terminalNumber, "终端号", i, msg);
+						flag = (Boolean) infoMap.get("flag");
+						msg =  (String) infoMap.get("msg");
+						if(!flag){
+							map.put("msg", msg);
+							failnum++;
+							continue;
+						}
+						
 						String user = getCellValue(row.getCell(column+13)).trim();
+						infoMap = checkData_maxLength(user, "使用人", i, msg);
+						flag = (Boolean) infoMap.get("flag");
+						msg =  (String) infoMap.get("msg");
+						if(!flag){
+							map.put("msg", msg);
+							failnum++;
+							continue;
+						}
 						
 						String plugIn = getCellValue(row.getCell(column+14)).trim();
 						infoMap = checkData_multiSelect("DEVICE_PLUGIN",plugIn , "安装的插件", i, msg);
@@ -580,10 +671,54 @@ public class DeviceManagementAction  extends BaseAction    {
 						}
 						
 						String remarks_1 = getCellValue(row.getCell(column+26)).trim();
+						infoMap = checkData_maxLength(remarks_1, "备注1", i, msg);
+						flag = (Boolean) infoMap.get("flag");
+						msg =  (String) infoMap.get("msg");
+						if(!flag){
+							map.put("msg", msg);
+							failnum++;
+							continue;
+						}
+						
 						String remarks_2 = getCellValue(row.getCell(column+27)).trim();
+						infoMap = checkData_maxLength(remarks_2, "备注2", i, msg);
+						flag = (Boolean) infoMap.get("flag");
+						msg =  (String) infoMap.get("msg");
+						if(!flag){
+							map.put("msg", msg);
+							failnum++;
+							continue;
+						}
+						
 						String remarks_3 = getCellValue(row.getCell(column+28)).trim();
+						infoMap = checkData_maxLength(remarks_3, "备注3", i, msg);
+						flag = (Boolean) infoMap.get("flag");
+						msg =  (String) infoMap.get("msg");
+						if(!flag){
+							map.put("msg", msg);
+							failnum++;
+							continue;
+						}
+						
 						String remarks_4 = getCellValue(row.getCell(column+29)).trim();
+						infoMap = checkData_maxLength(remarks_4, "备注4", i, msg);
+						flag = (Boolean) infoMap.get("flag");
+						msg =  (String) infoMap.get("msg");
+						if(!flag){
+							map.put("msg", msg);
+							failnum++;
+							continue;
+						}
+						
 						String remarks_5 = getCellValue(row.getCell(column+30)).trim();
+						infoMap = checkData_maxLength(remarks_5, "备注5", i, msg);
+						flag = (Boolean) infoMap.get("flag");
+						msg =  (String) infoMap.get("msg");
+						if(!flag){
+							map.put("msg", msg);
+							failnum++;
+							continue;
+						}
 						
 						String deviceState = getCellValue(row.getCell(column+31)).trim();
 						infoMap = checkData_singleSelect("DEVICE_STATE",deviceState , "设备状态", i, msg);
@@ -636,7 +771,7 @@ public class DeviceManagementAction  extends BaseAction    {
 							sumnum++;
 						}catch(Exception e){
 							failnum++;
-							msg+="插入第"+i+"行时失败。||";
+							msg+="插入第"+(i+1)+"行时失败。||";
 						}
 					}
 				}
@@ -669,6 +804,21 @@ public class DeviceManagementAction  extends BaseAction    {
 					msg+="第"+(i+1)+"行无法插入，"+colName+"("+dictId+")不存在。请检查值是否输错或书写格式错误！||";
 					flag = false;
 				}
+			}
+			infoMap.put("flag", flag);
+			infoMap.put("msg", msg);
+			return infoMap;
+			
+		}
+		
+private HashMap checkData_maxLength(String str, String colName, int i, String msg){
+			
+			boolean flag = true;
+			HashMap infoMap = new HashMap();
+			System.out.println(str.length() );
+			if(str.length() >127){
+				msg+="第"+(i+1)+"行无法插入，"+colName+" 输入最大长度不超过127！||";
+				flag = false;
 			}
 			infoMap.put("flag", flag);
 			infoMap.put("msg", msg);
