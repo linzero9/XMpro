@@ -1,9 +1,12 @@
-<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
+ 	<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@include file="/common/common.jsp"%>
 <%@include file="/common/skins/skin0/component.jsp"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <h:css href="/css/style1/style-custom.css" />
 <script src="<%=request.getContextPath() %>/common/gotop/jquery.min.js"></script>
 <script type="text/javascript" src="/js/commonUtil.js"></script>
+
+
 <style>
 
 
@@ -91,7 +94,21 @@ margin-left:inherit;
 				<tr>
 					<td class="form_label" align="right" width="20%" nowrap="nowrap">安装的插件：</td>
 					<td colspan="1"  width="30%" nowrap="nowrap">
-						<d:checkbox  id="plugIn"  name="device.plugIn" dictTypeId="DEVICE_PLUGIN" property="device.plugIn"   seperator=", " />
+					
+					<c:choose>
+               <c:when test="${device.plugIn==null}">
+              无
+            </c:when>
+       
+       <c:otherwise>
+              <d:checkbox  id="plugIn"  name="device.plugIn" dictTypeId="DEVICE_PLUGIN" property="device.plugIn"    seperator=", " />
+       </c:otherwise>
+</c:choose>
+					
+						
+						
+						
+						
 					</td>
 					<td class="form_label" align="right" width="20%" nowrap="nowrap">对应的外设：</td>
 					<td colspan="1"  width="30%" nowrap="nowrap">
@@ -186,7 +203,7 @@ margin-left:inherit;
 								对应的外设
 							</th>
 							<th nowrap="nowrap">
-								其他属性1
+								<!--  2015-11-05 由 其他属性1   改成     应用系统--> 应用系统
 							</th>
 							<th nowrap="nowrap">
 								其他属性2
