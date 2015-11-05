@@ -84,7 +84,7 @@ margin-left:inherit;
 			<tr>	
 				<td class="form_label" align="right" width="15%" nowrap="nowrap">用途：</td>
 				<td colspan="1" width="30%" nowrap="nowrap">
-					<d:checkbox  id="useful"  dictTypeId="DEVICE_USEFUL" property="device.useful"  seperator=", "  />
+					<d:checkbox   perrow="12" id="useful"  dictTypeId="DEVICE_USEFUL" property="device.useful"  seperator=", "  />
 				</td>
 			</tr>
 			<tr>	
@@ -100,17 +100,17 @@ margin-left:inherit;
 			<tr>	
 				<td class="form_label" align="right" width="15%" nowrap="nowrap">安装的插件：</td>
 				<td colspan="1" width="30%" nowrap="nowrap">
-					<d:checkbox  id="plugIn"  dictTypeId="DEVICE_PLUGIN" property="device.plugIn"  seperator=", "/>
+					<d:checkbox   perrow="12"   id="plugIn"  dictTypeId="DEVICE_PLUGIN" property="device.plugIn"  seperator=", "/>
 				</td>
 			</tr>
 			<tr>	
 				<td class="form_label" align="right" width="15%" nowrap="nowrap">对应的外设：</td>
 				<td colspan="1" width="30%" nowrap="nowrap">
-					<d:checkbox  id="peripheral"  dictTypeId="DEVICE_PERIPHERAL" property="device.peripheral"  seperator=", " />
+					<d:checkbox    perrow="12"  id="peripheral"  dictTypeId="DEVICE_PERIPHERAL" property="device.peripheral"  seperator=", " />
 				</td>
 			</tr>
 			<tr>	
-				<td class="form_label" align="right" width="15%" nowrap="nowrap">其他属性1：</td>
+				<td class="form_label" align="right" width="15%" nowrap="nowrap">	应用系统：</td>
 				<td colspan="1" width="30%" nowrap="nowrap">
 					<d:select id="otherAttribute_1"  dictTypeId="DEVICE_OTHERATTRIBUTE_1" property="device.otherAttribute_1" nullLabel="请选择"></d:select>
 				</td>
@@ -142,31 +142,31 @@ margin-left:inherit;
 			<tr>	
 				<td class="form_label" align="right" width="15%" nowrap="nowrap">其他信息1：</td>
 				<td colspan="1" width="30%" nowrap="nowrap">
-					<d:checkbox  id="otherInfo_1"  dictTypeId="DEVICE_OTHERINFO_1" property="device.otherInfo_1"  seperator=", " />
+					<d:checkbox   perrow="12" id="otherInfo_1"  dictTypeId="DEVICE_OTHERINFO_1" property="device.otherInfo_1"  seperator=", " />
 				</td>
 			</tr>
 			<tr>	
 				<td class="form_label" align="right" width="15%" nowrap="nowrap">其他信息2：</td>
 				<td colspan="1" width="30%" nowrap="nowrap">
-					<d:checkbox  id="otherInfo_2"  dictTypeId="DEVICE_OTHERINFO_2" property="device.otherInfo_2"  seperator=", " />
+					<d:checkbox perrow="12"  id="otherInfo_2"  dictTypeId="DEVICE_OTHERINFO_2" property="device.otherInfo_2"  seperator=", " />
 				</td>
 			</tr>
 			<tr>	
 				<td class="form_label" align="right" width="15%" nowrap="nowrap">其他信息3：</td>
 				<td colspan="1" width="30%" nowrap="nowrap">
-					<d:checkbox  id="otherInfo_3"  dictTypeId="DEVICE_OTHERINFO_3" property="device.otherInfo_3"  seperator=", " />
+					<d:checkbox     perrow="12"    id="otherInfo_3"  dictTypeId="DEVICE_OTHERINFO_3" property="device.otherInfo_3"  seperator=", " />
 				</td>
 			</tr>
 			<tr>	
 				<td class="form_label" align="right" width="15%" nowrap="nowrap">其他信息4：</td>
 				<td colspan="1" width="30%" nowrap="nowrap">
-					<d:checkbox  id="otherInfo_4"  dictTypeId="DEVICE_OTHERINFO_4" property="device.otherInfo_4"  seperator=", " />
+					<d:checkbox  perrow="12"     id="otherInfo_4"  dictTypeId="DEVICE_OTHERINFO_4" property="device.otherInfo_4"  seperator=", " />
 				</td>
 			</tr>
 			<tr>	
 				<td class="form_label" align="right" width="15%" nowrap="nowrap">其他信息5：</td>
 				<td colspan="1" width="30%" nowrap="nowrap">
-					<d:checkbox  id="otherInfo_5"  dictTypeId="DEVICE_OTHERINFO_5" property="device.otherInfo_5"  seperator=", " />
+					<d:checkbox   perrow="12"    id="otherInfo_5"  dictTypeId="DEVICE_OTHERINFO_5" property="device.otherInfo_5"  seperator=", " />
 				</td>
 			</tr>
 			<tr>	
