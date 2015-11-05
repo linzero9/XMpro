@@ -1,12 +1,9 @@
- 	<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
+<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@include file="/common/common.jsp"%>
 <%@include file="/common/skins/skin0/component.jsp"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <h:css href="/css/style1/style-custom.css" />
 <script src="<%=request.getContextPath() %>/common/gotop/jquery.min.js"></script>
 <script type="text/javascript" src="/js/commonUtil.js"></script>
-
-
 <style>
 
 
@@ -34,85 +31,75 @@ margin-left:inherit;
 	<DIV class="divList"  style="overflow:auto;width:100%; height:260;">  
 	<h:form name="query_form"	action="/deviceManagement/deviceManagementAction_deviceList.action" method="post">
 		<w:panel id="panel1" title="设备列表">
-			<table align="center" border="0" width="100%" class="form_table" > 
+		<table align="center" border="0" width="100%" class="form_table"  >
 				<tr>
-					<td class="form_label" align="right" width="20%"  nowrap="nowrap">机构/部门</td>
-					<td colspan="1"  width="30%"  nowrap="nowrap">
+					<td class="form_label" align="right" width="10%" nowrap="nowrap">机构/部门</td>
+					<td colspan="1"  width="25%" nowrap="nowrap">
 						<h:text id="orgname" property="device.orgname"   readonly="true"  />
 			            <h:hidden id="orgcode" property="device.orgcode" />
 			      		<a href="#" onclick="open_newyw_tree_fun1();">选择</a>
 					</td>
-					<td class="form_label" align="right" width="20%"  nowrap="nowrap">设备名称：</td>
-					<td colspan="1"  width="30%"  nowrap="nowrap">
+					<td class="form_label" align="right" width="10%" nowrap="nowrap">设备名称：</td>
+					<td colspan="1"  width="20%" nowrap="nowrap">
 						<d:select  id="deviceName"  dictTypeId="DEVICE_NAME" property="device.deviceName" nullLabel="请选择"></d:select>
 					</td>
-				</tr>
-				<tr>
-					<td class="form_label" align="right" width="20%"  nowrap="nowrap">设备型号：</td>
-					<td colspan="1"  width="30%"  nowrap="nowrap">
+						<td class="form_label" align="right" width="10%" nowrap="nowrap">设备型号：</td>
+					<td colspan="1"  width="25%" nowrap="nowrap">
 						<d:select  id="deviceModel"  dictTypeId="DEVICE_MODEL" property="device.deviceModel" nullLabel="请选择"></d:select>
 					</td>
-					<td class="form_label" align="right" width="20%"  nowrap="nowrap">设备状态：</td>
-					<td colspan="1"  width="30%"  nowrap="nowrap">
-						<d:select  id="deviceState"  dictTypeId="DEVICE_STATE" property="device.deviceState" nullLabel="请选择"></d:select>
-					</td>
+					
 				</tr>
 				<tr>
-					<td class="form_label" align="right" width="20%"  nowrap="nowrap">内存：</td>
-					<td colspan="1"  width="30%"  nowrap="nowrap">
+					<td class="form_label" align="right" width="10%" nowrap="nowrap">内存：</td>
+					<td colspan="1"  width="25%" nowrap="nowrap">
 						<h:text id="memoryMin" property="device.memoryMin"  size="5"  validateAttr="fracDigit=2;type=double;"  />G
 						＜内存容量(G)＜
 						<h:text id="memoryMax" property="device.memoryMax"  size="5"  validateAttr="fracDigit=2;type=double;" />G
 					</td>
-					<td class="form_label" align="right" width="20%"  nowrap="nowrap">硬盘：</td>
-					<td colspan="1"  width="30%" nowrap="nowrap">
+					<td class="form_label" align="right" width="10%" nowrap="nowrap">硬盘：</td>
+					<td colspan="1"  width="20%" nowrap="nowrap">
 						<h:text id="hardDiskMin" property="device.hardDiskMin"  size="5"  validateAttr="fracDigit=2;type=double;"  />G
 						＜硬盘容量(G)＜
 						<h:text id="hardDiskMax" property="device.hardDiskMax" size="5"  validateAttr="fracDigit=2;type=double;"  />G
 					</td>
+					<td class="form_label" align="right" width="10%" nowrap="nowrap">设备状态：</td>
+					<td colspan="1"  width="25%" nowrap="nowrap" >
+						<d:select  id="deviceState"  dictTypeId="DEVICE_STATE" property="device.deviceState" nullLabel="请选择"></d:select>
+					</td>
 				</tr>
 				<tr>
-					<td class="form_label" align="right" width="20%"  nowrap="nowrap">操作系统版本：</td>
-					<td colspan="1"  width="30%" nowrap="nowrap">
+				
+					<td class="form_label" align="right" width="10%" nowrap="nowrap">操作系统版本：</td>
+					<td colspan="1"  width="23%" nowrap="nowrap">
 						<d:select  id="osVersion"  dictTypeId="DEVICE_OS_VERSION" property="device.osVersion" nullLabel="请选择"  ></d:select>
 					</td>
-					<td class="form_label" align="right" width="20%" nowrap="nowrap">内置软件版本：</td>
-					<td colspan="1"  width="30%" nowrap="nowrap">
+					<td class="form_label" align="right" width="10%" nowrap="nowrap">内置软件版本：</td>
+					<td colspan="1"  width="23%" nowrap="nowrap">
 						<h:text id="softwareVersion" property="device.softwareVersion"  />
 					</td>
-				</tr>
-				<tr>
-					<td class="form_label" align="right" width="20%" nowrap="nowrap">IE版本：</td>
-					<td colspan="1"  width="30%" nowrap="nowrap">
+					<td class="form_label" align="right" width="10%" nowrap="nowrap">IE版本：</td>
+					<td colspan="1"  width="24%" nowrap="nowrap">
 						<d:select  id="ieVersion"  dictTypeId="DEVICE_IE_VERSION" property="device.ieVersion" nullLabel="请选择"></d:select>
 					</td>
-					<td class="form_label" align="right" width="20%" nowrap="nowrap">用途：</td>
-					<td colspan="1"  width="30%" nowrap="nowrap">
-					<d:checkbox id="useful"  name="device.useful" dictTypeId="DEVICE_USEFUL" property="device.useful"  seperator=", "  />
+				</tr></table>
+			<table align="center" border="0" width="100%" class="form_table"  >
+				<tr>
+					<td class="form_label" align="right" width="10%" nowrap="nowrap">用途：</td>
+					<td colspan="1"  width="90%" nowrap="nowrap">
+					<d:checkbox perrow="12" id="useful"  name="device.useful" dictTypeId="DEVICE_USEFUL" property="device.useful"  seperator=", "  />
 					</td>
 				</tr>
 				<tr>
-					<td class="form_label" align="right" width="20%" nowrap="nowrap">安装的插件：</td>
-					<td colspan="1"  width="30%" nowrap="nowrap">
-					
-					<c:choose>
-               <c:when test="${device.plugIn==null}">
-              无
-            </c:when>
-       
-       <c:otherwise>
-              <d:checkbox  id="plugIn"  name="device.plugIn" dictTypeId="DEVICE_PLUGIN" property="device.plugIn"    seperator=", " />
-       </c:otherwise>
-</c:choose>
-					
-						
-						
-						
-						
+					<td class="form_label" align="right" width="10%" nowrap="nowrap">安装的插件：</td>
+					<td colspan="1"  width="90%" nowrap="nowrap">
+						<d:checkbox perrow="12" id="plugIn"  name="device.plugIn" dictTypeId="DEVICE_PLUGIN" property="device.plugIn"   seperator=", " />
 					</td>
-					<td class="form_label" align="right" width="20%" nowrap="nowrap">对应的外设：</td>
-					<td colspan="1"  width="30%" nowrap="nowrap">
-						<d:checkbox  id="peripheral"  name="device.peripheral"  dictTypeId="DEVICE_PERIPHERAL" property="device.peripheral"   seperator=", "  />
+				
+				</tr>
+				<tr>
+					<td class="form_label" align="right" width="10%" nowrap="nowrap">对应的外设：</td>
+					<td colspan="1"  width="90%" nowrap="nowrap">
+						<d:checkbox perrow="12" id="peripheral"  name="device.peripheral"  dictTypeId="DEVICE_PERIPHERAL" property="device.peripheral"   seperator=", "  />
 					</td>
 				</tr>
 				<tr class="form_bottom" >
@@ -203,7 +190,7 @@ margin-left:inherit;
 								对应的外设
 							</th>
 							<th nowrap="nowrap">
-								<!--  2015-11-05 由 其他属性1   改成     应用系统--> 应用系统
+								其他属性1
 							</th>
 							<th nowrap="nowrap">
 								其他属性2
