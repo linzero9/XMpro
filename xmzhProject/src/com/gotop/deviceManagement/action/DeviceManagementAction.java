@@ -25,6 +25,7 @@ import sun.awt.geom.AreaOp.SubOp;
 import javax.servlet.http.HttpServletResponse;
 import javax.swing.filechooser.FileSystemView;
 
+import org.apache.derby.tools.sysinfo;
 import org.apache.poi.hssf.usermodel.DVConstraint;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFDataFormat;
@@ -875,9 +876,14 @@ private HashMap checkData_maxLength(String str, String colName, int i, String ms
 
 			private void createListBox(String[] list,org.apache.poi.hssf.usermodel.HSSFSheet sheet, org.apache.poi.hssf.usermodel.HSSFWorkbook wb, int rownum, int colnum) {
 				
+				
+				try {
+					
+			
 				//生成下拉列表
 
 				//只对（0，0）单元格有效
+			
 				CellRangeAddressList regions = new CellRangeAddressList(rownum,rownum,colnum,colnum);   //CellRangeAddressList(int firstRow, int lastRow, int firstCol, int lastCol)
 				
 				//生成下拉框内容
@@ -891,7 +897,10 @@ private HashMap checkData_maxLength(String str, String colName, int i, String ms
 
 				//结束
 				System.out.println("createListBox Over");
-				
+				} catch (Exception e) {
+					// TODO: handle exception
+					e.printStackTrace();
+				}
 			}
 			
 			
@@ -1073,8 +1082,11 @@ private HashMap checkData_maxLength(String str, String colName, int i, String ms
         			 }
         		 }
         	}
-        	createListBox(infos, sheet, wb, rownum, colnum);
         	
+        	
+        
+        	createListBox(infos, sheet, wb, rownum, colnum);
+        
         }
         
         int count = 1000;  //设置1000行的单元格都为文本格式
@@ -1199,10 +1211,10 @@ private HashMap checkData_maxLength(String str, String colName, int i, String ms
         
         
         System.out.println("create  file................");
-        File file1 = new File(ServletActionContext.getServletContext().getRealPath("/")+"devicefile\\");
+        File file1 = new File(ServletActionContext.getServletContext().getRealPath("/")+"devicefile/");
        
         
-        System.out.println(ServletActionContext.getServletContext().getRealPath("/")+"devicefile\\exportEXCBAL.xls");
+        System.out.println(ServletActionContext.getServletContext().getRealPath("/")+"devicefile/exportEXCBAL.xls");
         if  (!file1 .exists()  && !file1 .isDirectory())      
         {       
             System.out.println("//不存在");  
@@ -1212,7 +1224,7 @@ private HashMap checkData_maxLength(String str, String colName, int i, String ms
             System.out.println("//目录存在");  
         }  
         
-        File file = new File(ServletActionContext.getServletContext().getRealPath("/")+"devicefile\\exportEXCBAL.xls");
+        File file = new File(ServletActionContext.getServletContext().getRealPath("/")+"devicefile/exportEXCBAL.xls");
         
         if(!file.exists())    
         {    
@@ -1268,8 +1280,8 @@ private HashMap checkData_maxLength(String str, String colName, int i, String ms
 		
        System.out.println("new22222");
 		
-		File file = new File(ServletActionContext.getServletContext().getRealPath("/")+"devicefile\\exportEXCBAL.xls");
-		
+		File file = new File(ServletActionContext.getServletContext().getRealPath("/")+"devicefile/exportEXCBAL.xls");
+		System.out.println("文件路径是file1："+ServletActionContext.getServletContext().getRealPath("/")+"devicefile/exportEXCBAL.xls");
 		
 		InputStream in=new FileInputStream(file);
 		
@@ -1301,7 +1313,10 @@ private HashMap checkData_maxLength(String str, String colName, int i, String ms
 		System.out.println("getDownloadFile2() end.... ");
 		
 		
-		File file = new File(ServletActionContext.getServletContext().getRealPath("/")+"devicefile\\exportEXCBAL.xls");
+		File file = new File(ServletActionContext.getServletContext().getRealPath("/")+"devicefile/exportEXCBAL.xls");
+		
+		
+		System.out.println("文件路径是file2："+ServletActionContext.getServletContext().getRealPath("/")+"devicefile/exportEXCBAL.xls");
 		
 		
 		InputStream in=new FileInputStream(file);
