@@ -84,4 +84,10 @@ public class EosDictEntryService implements IEosDictEntryService {
 		}
 	}
 
+	@Override
+	public int queryIsExist(EosDictEntry dictEntry) {
+		int count = eosDictEntryDAO.queryIsExist(dictEntry);
+		return count;
+	}
+
 }

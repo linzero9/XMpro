@@ -28,7 +28,7 @@ margin-left:inherit;
 		<title>设备列表</title>
 	</head>
 	<body topmargin="0" leftmargin="0">
-	<DIV class="divList"  style="overflow:auto;width:100%; height:260;">  
+	<DIV class="divList"  style="overflow:auto;width:100%; height:250;">  
 	<h:form name="query_form"	action="/deviceManagement/deviceManagementAction_deviceList.action" method="post">
 		<w:panel id="panel1" title="查询条件">
 		<table align="center" border="0" width="100%" class="form_table"  >
@@ -119,7 +119,7 @@ margin-left:inherit;
 		</w:panel>
 	</h:form>
 	</DIV>
-	<DIV class="divList"  style="overflow:auto;width:100%; height: 300;">
+	<DIV class="divList"  style="overflow:auto;width:100%; height: 310;">
 			<w:panel id="panel" width="100%" title="查询结果">
 				<viewlist id="e2c61865-3b56-470d-bd42-fff792fb9493">
 				<h:form name="page_form"
@@ -342,7 +342,7 @@ margin-left:inherit;
 						</l:iterate>
 					</w:checkGroup>
 							<tr>
-              <td colspan="23" class="command_sort_area">
+              <td colspan="33" class="command_sort_area">
 							<div class="h3">
 							<input type="button" class="button" value="新增"
 										onclick="add();" />

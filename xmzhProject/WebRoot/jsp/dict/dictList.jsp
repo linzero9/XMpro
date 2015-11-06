@@ -202,9 +202,31 @@
   			var rows=gop.getSelectRows();
   			var dictTypeId=rows[0].getParam("dictTypeId");
   			var dictIds="";
+  			var id ="";
+  			var flag = 0;
   			for(var i=0;i<rows.length;i++){
+  				id = rows[i].getParam("dictId");
+  				$.ajax({
+				      url: "/dict/eosDictEntryAction_isExist.action",
+				      async: false,
+				      type: 'post',
+				      data: "dictEntry.dictTypeId="+dictTypeId+"&dictEntry.dictId="+id,
+				      timeout: 60000,
+				      dataType:"text",
+				      success: function (data) {
+				    	  if (data.indexOf("exist") >= 0) {
+				    		  alert(id+"无法删除，该属性项已在设备信息中使用！");
+				    		  flag = 1;
+						}
+								  	
+				      }
+				}); 
+			 
   				dictIds += rows[i].getParam("dictId")+",";
   			}
+  			if(flag == 1){
+				return;
+			}
   			if(dictIds!=""){
   				dictIds=dictIds.substring(0,dictIds.length-1);
 	  		$.ajax({

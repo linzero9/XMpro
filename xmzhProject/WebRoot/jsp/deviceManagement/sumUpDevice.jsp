@@ -18,7 +18,7 @@ margin-left:inherit;
 		<title>设备列表</title>
 	</head>
 	<body topmargin="0" leftmargin="0">
-	<DIV class="divList"  style="overflow:auto;width:100%; height:260;">  
+	<DIV class="divList"  style="overflow:auto;width:100%; height:250;">  
 	<h:form name="query_form"	action="/deviceManagement/deviceManagementAction_sumUpDevice.action" method="post">
 		<w:panel id="panel1" title="设备列表">
 			<table align="center" border="0" width="100%" class="form_table"  >
@@ -93,10 +93,7 @@ margin-left:inherit;
 					</td>
 				</tr>
 				<tr class="form_bottom">
-						<td colspan="4" class="form_bottom"  style="text-align: left">
-						&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-							&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-							&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+						<td colspan="6" class="form_bottom"  style="text-align: center">
 						    <b:message key="l_display_per_page"></b:message>
 					        <h:text size="2" property="page.length" value="10" validateAttr="minValue=1;maxValue=100;type=integer;isNull=true" />
 					        <input type="hidden" name="page.begin" value="0">
@@ -104,14 +101,13 @@ margin-left:inherit;
 							<input id="querys" type="button" value="查 询" class="button" onclick="mysubmit();">
 							<input type="button" value="清 空" class="button" onclick="clears();">
 							<input id=" exportExcel" type="button" class="button" value="导出列表" onclick="export_Excel();">
-							<br><br>
 						</td>
 					</tr>			
 			</table>
 		</w:panel>
 	</h:form>
 	</DIV>
-	<DIV class="divList"  style="overflow:auto;width:100%; height: 320;">
+	<DIV class="divList"  style="overflow:auto;width:100%; height: 310;">
 			<w:panel id="panel" width="100%" title="查询结果">
 				<viewlist id="e2c61865-3b56-470d-bd42-fff792fb9493">
 				<h:form name="page_form"
