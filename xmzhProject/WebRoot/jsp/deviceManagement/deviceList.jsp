@@ -186,7 +186,7 @@ margin-left:inherit;
 								对应的外设
 							</th>
 							<th nowrap="nowrap">
-								应用系统
+								其他属性1
 							</th>
 							<th nowrap="nowrap">
 								其他属性2
@@ -201,7 +201,7 @@ margin-left:inherit;
 								其他属性5
 							</th>
 							<th nowrap="nowrap">
-								其他信息1
+								应用系统
 							</th>
 							<th nowrap="nowrap">
 								其他信息2

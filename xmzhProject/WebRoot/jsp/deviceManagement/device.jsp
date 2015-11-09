@@ -110,7 +110,7 @@ margin-left:inherit;
 				</td>
 			</tr>
 			<tr>	
-				<td class="form_label" align="right" width="15%" nowrap="nowrap">	应用系统：</td>
+				<td class="form_label" align="right" width="15%" nowrap="nowrap">	其他属性1：</td>
 				<td colspan="1" width="30%" nowrap="nowrap">
 					<d:select id="otherAttribute_1"  dictTypeId="DEVICE_OTHERATTRIBUTE_1" property="device.otherAttribute_1" nullLabel="请选择"></d:select>
 				</td>
@@ -140,7 +140,7 @@ margin-left:inherit;
 				</td>
 			</tr>
 			<tr>	
-				<td class="form_label" align="right" width="15%" nowrap="nowrap">其他信息1：</td>
+				<td class="form_label" align="right" width="15%" nowrap="nowrap">应用系统：</td>
 				<td colspan="1" width="30%" nowrap="nowrap">
 					<d:checkbox   perrow="12" id="otherInfo_1"  dictTypeId="DEVICE_OTHERINFO_1" property="device.otherInfo_1"  seperator=", " />
 				</td>
