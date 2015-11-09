@@ -252,5 +252,12 @@ public class DeviceManagementService implements IDeviceManagementService{
 		return list;
 	}
 
+	@Override
+	public List<DevicePo> deviceList(DevicePo device) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		List list = deviceManagementDAO.deviceList(map);
+		return list;
+	}
+
 	
 }

@@ -366,6 +366,11 @@ margin-left:inherit;
 							<input type="button" class="button" value="批量修改导出"
 										onclick="batchUpdate_export();" />
 								</l:greaterThan>
+								<l:greaterThan property="page.count" targetValue="0"
+									compareType="number">
+							<input type="button" class="button" value="批量修改导出全部"
+										onclick="batchUpdate_exportAll();" />
+								</l:greaterThan>
 							</div>
 							<div class="h4">
 	                <l:equal property="page.isCount" targetValue="true" >
@@ -536,6 +541,12 @@ margin-left:inherit;
 			  		
 		  			}
 			  	}
+			}
+
+			//批量修改导出全部
+			function batchUpdate_exportAll(){
+
+		  		window.location.href="/deviceManagement/deviceManagementAction_batchUpdateExportAll.action";
 			}
 
 			//选择 部门/机构

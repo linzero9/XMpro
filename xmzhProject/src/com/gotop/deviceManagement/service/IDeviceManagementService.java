@@ -35,4 +35,6 @@ public interface IDeviceManagementService {
 
 	String importExcel(String filePath, String entityType) throws Exception;
 
+	List<DevicePo> deviceList(DevicePo device);
+
 }

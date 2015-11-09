@@ -45,7 +45,14 @@
                <param name="contentDisposition">attachment;fileName="myname2.xls"</param>  
                <param name="inputName">downloadFile2</param>  
                <param name="bufferSize">1024</param>  
-           </result>    
+           </result>
+           
+        <result name="batchUpdateExportAll" type="stream">  
+               <param name="contentType">text/plain</param>  
+               <param name="contentDisposition">attachment;fileName="myname3.xls"</param>  
+               <param name="inputName">downloadFile3</param>  
+               <param name="bufferSize">1024</param>  
+           </result>      
       
     </action>
   </package>

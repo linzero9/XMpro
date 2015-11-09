@@ -939,6 +939,11 @@ private HashMap checkData_maxLength(String str, String colName, int i, String ms
 		return "batchUpdateExport";
 	}
 	
+	public String batchUpdateExportAll() throws Exception{
+		
+		return "batchUpdateExportAll";
+	}
+	
 	public void exportExcelFuntion(String title, String[] headers,   List<DevicePo> dataset) throws Exception{
 		List[] lists = new List[19];
 		
@@ -1375,11 +1380,64 @@ private HashMap checkData_maxLength(String str, String colName, int i, String ms
 		
 		InputStream in=new FileInputStream(file);
 		
-		return in;
-		
-
-				
-				
+		return in;			
 	}
+	
+	//批量修改导出全部 下载
+		public InputStream getDownloadFile3() throws Exception{
+			System.out.println("getDownloadFile3() start.... ");
+
+			String[] headers = {"设备ID", "*机构/部门(单选)", "*设备名称(单选)", "*型号(单选)", "IP地址", "生产机器名称", "CPU型号", "内存容量(G)", "硬盘容量(G)", "*操作系统版本(单选)", 
+					"内置软件版本", "*IE版本(单选)", "*用途(多选)", "终端号", "使用人", "*安装的插件(多选)", "*对应的外设(多选)", 
+					"*其他属性1(单选)", "*其他属性2(单选)", "*其他属性3(单选)", "*其他属性4(单选)", "*其他属性5(单选)", 
+					"*其他信息1(多选)", "*其他信息2(多选)", "*其他信息3(多选)", "*其他信息4(多选)", "*其他信息5(多选)", 
+					"备注1", "备注2", "备注3", "备注4", "备注5", "*设备状态(单选)"};
+			
+			DevicePo devicePo = new DevicePo();
+			List<DevicePo> dataset = deviceManagermentService.deviceList(devicePo);
+			
+			for(DevicePo device : dataset){
+				if(device.getUseful() != null){
+					device.setUseful((device.getUseful()).replaceAll(", ", "," ));
+				}
+				if(device.getPlugIn() != null){
+					device.setPlugIn((device.getPlugIn()).replaceAll(", ", "," ));
+				}
+				if(device.getPeripheral() != null){
+					device.setPeripheral((device.getPeripheral()).replaceAll(", ", "," ));
+				}
+				if(device.getOtherInfo_1() != null){
+					device.setOtherInfo_1((device.getOtherInfo_1()).replaceAll(", ", "," ));
+				}
+				if(device.getOtherInfo_2() != null){
+					device.setOtherInfo_2((device.getOtherInfo_2()).replaceAll(", ", "," ));
+				}
+				if(device.getOtherInfo_3() != null){
+					device.setOtherInfo_3((device.getOtherInfo_3()).replaceAll(", ", "," ));
+				}
+				if(device.getOtherInfo_4() != null){
+					device.setOtherInfo_4((device.getOtherInfo_4()).replaceAll(", ", "," ));
+				}
+				if(device.getOtherInfo_5() != null){
+					device.setOtherInfo_5((device.getOtherInfo_5()).replaceAll(", ", "," ));
+				}
+				
+			}
+			exportExcelFuntion("设备信息批量修改全部", headers, dataset);
+			
+			System.out.println("getDownloadFile2() end.... ");
+			
+			
+			File file = new File(ServletActionContext.getServletContext().getRealPath("/")+"devicefile/exportEXCBAL.xls");
+			
+			
+			System.out.println("文件路径是file3："+ServletActionContext.getServletContext().getRealPath("/")+"devicefile/exportEXCBAL.xls");
+			
+			
+			InputStream in=new FileInputStream(file);
+			
+			return in;
+			
+		}
 			
 }
