@@ -52,7 +52,14 @@
                <param name="contentDisposition">attachment;fileName="myname3.xls"</param>  
                <param name="inputName">downloadFile3</param>  
                <param name="bufferSize">1024</param>  
-           </result>      
+           </result> 
+           
+           <result name="exportOrgcodeTable" type="stream">  
+               <param name="contentType">text/plain</param>  
+               <param name="contentDisposition">attachment;fileName="myname4.xls"</param>  
+               <param name="inputName">downloadFile4</param>  
+               <param name="bufferSize">1024</param>  
+           </result>       
       
     </action>
   </package>

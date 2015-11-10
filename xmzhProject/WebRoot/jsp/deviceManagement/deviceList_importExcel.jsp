@@ -21,6 +21,9 @@
 							<a href="/deviceManagement/deviceManagementAction_excelTemplate.action" style="color: blue"> 
 							下载Excel导入模版
 							</a>
+							<a href="/deviceManagement/deviceManagementAction_exportOrgcodeTable.action" style="color: blue"> 
+							下载机构号对照表
+							</a>
 						</td>
 					</tr>
 			</l:equal>

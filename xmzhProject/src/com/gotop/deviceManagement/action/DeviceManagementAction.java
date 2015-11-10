@@ -402,14 +402,14 @@ public class DeviceManagementAction  extends BaseAction    {
 				//校验数据输入的正确性，不通过则不做插入操作
 						String orgcode =getCellValue(row.getCell(column)).trim();
 						if ("".equals(orgcode) || orgcode == null){
-							msg+="第"+(i+1)+"行，机构/部门不能为空。||";
+							msg+="第"+(i+1)+"行，机构号不能为空。||";
 							map.put("msg", msg);
 							failnum++;
 							continue;
 						}
 						int  count= deviceManagermentService.queryOrg(orgcode);
 						if(count==0){
-							msg+="第"+(i+1)+"行无法插入，机构/部门("+orgcode+")不存在。请检查值是否输错或书写格式错误！||";
+							msg+="第"+(i+1)+"行无法插入，机构号("+orgcode+")不存在。请检查值是否输错或书写格式错误！||";
 							map.put("msg", msg);
 							failnum++;
 							continue;
@@ -902,6 +902,11 @@ private HashMap checkData_maxLength(String str, String colName, int i, String ms
  		
 		    		return "excelTemplate";
 			}
+			
+			public String exportOrgcodeTable() throws Exception{
+		 		
+	    		return "exportOrgcodeTable";
+		    }
 
 			private void createListBox(String[] list,org.apache.poi.hssf.usermodel.HSSFSheet sheet, org.apache.poi.hssf.usermodel.HSSFWorkbook wb, int rownum, int colnum) {
 				
@@ -1061,6 +1066,7 @@ private HashMap checkData_maxLength(String str, String colName, int i, String ms
         	String[] infos = new String[list.size()];
         	int rownum = 1;
         	int colnum = 0;
+        	boolean myflag = true;
         	
         	for(Object object : list){
        		System.out.println(object.getClass().getName());
@@ -1071,9 +1077,11 @@ private HashMap checkData_maxLength(String str, String colName, int i, String ms
             		colnum = 1;//colnum第0列 被设备ID占用
             	}
         		 if( object.getClass().getName().equals("com.gotop.deviceManagement.model.Org")){
-        			 Org org = (Org)object;
-        			 infos[list.indexOf(org)] = org.getOrgcode()+"--"+org.getOrgname();
-        			 colnum = colnum+0;
+//        			 Org org = (Org)object;
+//        			 infos[list.indexOf(org)] = org.getOrgcode()+"--"+org.getOrgname();
+//        			 colnum = colnum+0;
+        			 myflag = false;
+        			 break;
         		 }else if(object.getClass().getName().equals("com.gotop.dict.model.EosDictEntry")){
         			 EosDictEntry entry =  (EosDictEntry)object;
         			 infos[list.indexOf(entry)] = entry.getDictId()+"--"+entry.getDictName();
@@ -1117,9 +1125,9 @@ private HashMap checkData_maxLength(String str, String colName, int i, String ms
         		 }
         	}
         	
-        	
-        
-        	createListBox(infos, sheet, wb, rownum, colnum);
+        	if(myflag == true){
+        		createListBox(infos, sheet, wb, rownum, colnum);
+        	}
         
         }
         
@@ -1305,7 +1313,7 @@ private HashMap checkData_maxLength(String str, String colName, int i, String ms
 		
 		System.out.println("getDownloadFile1() start.... ");
 
-		String[] headers = {"*机构/部门(单选)", "*设备名称(单选)", "*型号(单选)", "IP地址", "生产机器名称", "CPU型号", "内存容量(G)", "硬盘容量(G)", "*操作系统版本(单选)", 
+		String[] headers = {"机构号(请参照机构号对照表)", "*设备名称(单选)", "*型号(单选)", "IP地址", "生产机器名称", "CPU型号", "内存容量(G)", "硬盘容量(G)", "*操作系统版本(单选)", 
 				"内置软件版本", "*IE版本(单选)", "*用途(多选)", "终端号", "使用人", "*安装的插件(多选)", "*对应的外设(多选)", 
 				"*其他属性1(单选)", "*其他属性2(单选)", "*其他属性3(单选)", "*其他属性4(单选)", "*其他属性5(单选)", 
 				"*其他信息1(多选)", "*其他信息2(多选)", "*其他信息3(多选)", "*其他信息4(多选)", "*其他信息5(多选)", 
@@ -1327,7 +1335,7 @@ private HashMap checkData_maxLength(String str, String colName, int i, String ms
 	public InputStream getDownloadFile2() throws Exception{
 		System.out.println("getDownloadFile2() start.... ");
 
-		String[] headers = {"设备ID", "*机构/部门(单选)", "*设备名称(单选)", "*型号(单选)", "IP地址", "生产机器名称", "CPU型号", "内存容量(G)", "硬盘容量(G)", "*操作系统版本(单选)", 
+		String[] headers = {"设备ID", "机构号(请参照机构号对照表)", "*设备名称(单选)", "*型号(单选)", "IP地址", "生产机器名称", "CPU型号", "内存容量(G)", "硬盘容量(G)", "*操作系统版本(单选)", 
 				"内置软件版本", "*IE版本(单选)", "*用途(多选)", "终端号", "使用人", "*安装的插件(多选)", "*对应的外设(多选)", 
 				"*其他属性1(单选)", "*其他属性2(单选)", "*其他属性3(单选)", "*其他属性4(单选)", "*其他属性5(单选)", 
 				"*其他信息1(多选)", "*其他信息2(多选)", "*其他信息3(多选)", "*其他信息4(多选)", "*其他信息5(多选)", 
@@ -1387,7 +1395,7 @@ private HashMap checkData_maxLength(String str, String colName, int i, String ms
 		public InputStream getDownloadFile3() throws Exception{
 			System.out.println("getDownloadFile3() start.... ");
 
-			String[] headers = {"设备ID", "*机构/部门(单选)", "*设备名称(单选)", "*型号(单选)", "IP地址", "生产机器名称", "CPU型号", "内存容量(G)", "硬盘容量(G)", "*操作系统版本(单选)", 
+			String[] headers = {"设备ID", "机构号(请参照机构号对照表)", "*设备名称(单选)", "*型号(单选)", "IP地址", "生产机器名称", "CPU型号", "内存容量(G)", "硬盘容量(G)", "*操作系统版本(单选)", 
 					"内置软件版本", "*IE版本(单选)", "*用途(多选)", "终端号", "使用人", "*安装的插件(多选)", "*对应的外设(多选)", 
 					"*其他属性1(单选)", "*其他属性2(单选)", "*其他属性3(单选)", "*其他属性4(单选)", "*其他属性5(单选)", 
 					"*其他信息1(多选)", "*其他信息2(多选)", "*其他信息3(多选)", "*其他信息4(多选)", "*其他信息5(多选)", 
@@ -1425,7 +1433,7 @@ private HashMap checkData_maxLength(String str, String colName, int i, String ms
 			}
 			exportExcelFuntion("设备信息批量修改全部", headers, dataset);
 			
-			System.out.println("getDownloadFile2() end.... ");
+			System.out.println("getDownloadFile3() end.... ");
 			
 			
 			File file = new File(ServletActionContext.getServletContext().getRealPath("/")+"devicefile/exportEXCBAL.xls");
@@ -1438,6 +1446,108 @@ private HashMap checkData_maxLength(String str, String colName, int i, String ms
 			
 			return in;
 			
+		}
+		
+		//下载机构号对照表
+	    public InputStream getDownloadFile4() throws Exception{
+	    	System.out.println("getDownloadFile4() start.... ");
+
+			String[] headers = {"机构号","机构/部门名称"};
+			
+			List orgList = this.deviceManagermentService.queryOrgList();
+			
+			//文件初始化
+			org.apache.poi.hssf.usermodel.HSSFWorkbook wb = new org.apache.poi.hssf.usermodel.HSSFWorkbook();// 创建Excel文档 
+			org.apache.poi.hssf.usermodel.HSSFSheet sheet = wb.createSheet("机构号对照表"); // sheet 对应一个工作页
+			
+			// 获取总列数
+			int CountColumnNum = 2;
+			
+			org.apache.poi.hssf.usermodel.HSSFRow firstrow = sheet.createRow(0);   // 下标为0的行为第一行
+			org.apache.poi.hssf.usermodel.HSSFCell[] cells= new org.apache.poi.hssf.usermodel.HSSFCell[CountColumnNum];   //创建单元格
+	        
+	      //加粗列名
+	        HSSFFont font2 = wb.createFont();
+			HSSFCellStyle style2 = wb.createCellStyle();
+			
+	        font2.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);  //加粗字体
+	        style2.setFont(font2);
+	       style2.setAlignment(HSSFCellStyle.ALIGN_CENTER);  //字体 左右居中
+	       style2.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);  //字体 上下居中
+	       style2.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND); ////设置前景填充样式
+	       style2.setFillForegroundColor(HSSFColor.GREY_25_PERCENT.index);  //前景填充色25%灰色
+	       
+	        //列名标题行设置格式
+	        for (int j = 0; j < CountColumnNum; j++) {  
+	            cells[j] = firstrow.createCell(j);  
+	            cells[j].setCellValue(new HSSFRichTextString(headers[j]));  
+	            cells[j].setCellStyle(style2);
+	            sheet.setColumnWidth(j, 27 * 256);//两个参数：一个是列的索引（从0开始），一个是宽度，第二个参数要乘以256，因为单位是1/256个字符宽度
+	        }  
+	        
+	        sheet.getRow(0).setHeight((short) (20*20));//Height的单位是1/20个点，也可以用sheet.getRow(1).setHeightInPoints(20);
+	        
+	        if(orgList != null){
+	        	org.apache.poi.hssf.usermodel.HSSFRow dataRow = null;
+	        	org.apache.poi.hssf.usermodel.HSSFCell hssfCell = null;
+	        	// 遍历集合数据，产生数据行  
+	            Iterator<Org> it = orgList.iterator();  
+	            int index = 0;  
+	            while (it.hasNext())  
+	            {  
+	            	index++;  
+	                dataRow = sheet.createRow(index);  
+	                Org org = (Org) it.next();  
+	                org.apache.poi.hssf.usermodel.HSSFCell dataCell0 = dataRow.createCell(0);
+	                dataCell0.setCellValue(org.getOrgcode());
+	                org.apache.poi.hssf.usermodel.HSSFCell dataCell1 = dataRow.createCell(1);
+	                dataCell1.setCellValue(org.getOrgname());
+	            } 
+	        }
+	        
+	//写入文件
+
+	        System.out.println("create  file................");
+	        File file1 = new File(ServletActionContext.getServletContext().getRealPath("/")+"devicefile/");
+	       
+	        
+	        System.out.println(ServletActionContext.getServletContext().getRealPath("/")+"devicefile/exportEXCBAL.xls");
+	        if  (!file1 .exists()  && !file1 .isDirectory())      
+	        {       
+	            System.out.println("//不存在");  
+	            file1 .mkdir();    
+	        } else   
+	        {  
+	            System.out.println("//目录存在");  
+	        }  
+	        
+	        File file = new File(ServletActionContext.getServletContext().getRealPath("/")+"devicefile/exportEXCBAL.xls");
+	        
+	        if(!file.exists())    
+	        {    
+	            try {    
+	                file.createNewFile();    
+	            } catch (IOException e) {    
+	                // TODO Auto-generated catch block    
+	                e.printStackTrace();    
+	            }    
+	        }    
+	        
+			FileOutputStream fileOut=new FileOutputStream(file);
+
+		    wb.write(fileOut);
+		    fileOut.flush();
+		    fileOut.close();
+
+		     System.out.println(fileOut);
+		    
+			System.out.println("getDownloadFile4() end.... ");
+			
+			System.out.println("文件路径是file4："+ServletActionContext.getServletContext().getRealPath("/")+"devicefile/exportEXCBAL.xls");
+			
+			InputStream in=new FileInputStream(file);
+			
+			return in;		
 		}
 			
 }
