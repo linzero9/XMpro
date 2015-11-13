@@ -6,7 +6,6 @@ $.extend(true, myflow.editors, {
 		var _props,_k,_div,_src,_r;
 		this.init = function(props, k, div, src, r){
 			_props=props; _k=k; _div=div; _src=src; _r=r;
-			
 			$('<input style="width:100%;"/>').val(props[_k].value).change(function(){
 				props[_k].value = $(this).val();
 			}).appendTo('#'+_div);

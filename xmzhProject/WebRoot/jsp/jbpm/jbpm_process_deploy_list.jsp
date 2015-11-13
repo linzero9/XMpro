@@ -104,9 +104,15 @@
 									onclick="deployProcess();" />
 							<l:greaterThan property="page.count" targetValue="0" compareType="number" >
 								&nbsp; &nbsp;
+								<input type="button" class="button" value="新增流程配置"
+									onclick="addProcessConfig();" />
+							</l:greaterThan>
+							<l:greaterThan property="page.count" targetValue="0" compareType="number" >
+								&nbsp; &nbsp;
 								<input type="button" class="button" value="修改流程"
 									onclick="updateProcess();" />
-									</l:greaterThan>
+							</l:greaterThan>
+							
 							<l:greaterThan property="page.count" targetValue="0" compareType="number" >
 								&nbsp; &nbsp;
 								<input type="button" class="button" value="复制流程"
@@ -117,11 +123,16 @@
 								<input type="button" class="button" value="流程节点配置"
 									onclick="toProcessTaskConfig();" />
 									</l:greaterThan>
-								<l:greaterThan property="page.count" targetValue="0" compareType="number" >
+							<l:greaterThan property="page.count" targetValue="0" compareType="number" >
 								&nbsp; &nbsp;
 								<input type="button" class="button" value="流程图配置"
 									onclick="toProcessImgConfig();" />
-									</l:greaterThan>
+							</l:greaterThan>
+							<l:greaterThan property="page.count" targetValue="0" compareType="number" >
+								&nbsp; &nbsp;
+								<input type="button" class="button" value="查看流程图"
+									onclick="viewProcess();" />
+							</l:greaterThan>
 							</div>
 							<div class="h4">
 	                <l:equal property="page.isCount" targetValue="true" >
@@ -221,6 +232,27 @@
 		  		parent.window.frames["mainFrame"].location.href = encodeURI(strUrl);	
 		  	}
 		} 
+		
+ 		//查看流程图
+ 		function viewProcess(){
+	  		var gop = $id("group1");
+	  		var len = gop.getSelectLength();
+	  		if(len == 0){
+	  			alert("请选择一条流程信息");
+	  			return;
+	  		}else{
+		  		var rows=gop.getSelectRow();
+		  		var definitionId=rows.getParam("definitionId");
+		  		var strUrl = "/jbpm/jbpmDemoAction_viewProcess.action?definitionId="+definitionId ;
+		  		showModalCenter(strUrl, null, null, clientX*0.8, clientY*0.65, '流程图'); 
+			  	}
+		  	}
+ 		
+ 		//新增流程配置
+ 		function addProcessConfig(){
+	  		var strUrl = "/jbpm/jbpmCommonConfigAction_toAddProcessConfig.action";
+		  	showModalCenter(strUrl, null, null, 700, 300, '新增流程配置');	
+ 		}
 		 
 		</script>
 	</body>

@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 <beans>
+
+  <bean class="com.gotop.jbpm.service.impl.JbpmCommonServiceImpl" id="jbpmCommonService"></bean>
+  
   <bean class="com.gotop.jbpm.service.impl.JbpmDemoServiceImpl" id="jbpmDemoService">
       	<property name="jbpmService" >
       	    <ref bean="jbpmService" />

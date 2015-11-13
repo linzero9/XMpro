@@ -4,6 +4,13 @@
 
 	<bean class="com.gotop.jbpm.action.WithdrawJbpmAction" id="withdrawJbpmAction" name="withdrawJbpmAction">
 	</bean>
+	
+	<bean class="com.gotop.jbpm.action.JbpmCommonConfigAction" id="jbpmCommonConfigAction" name="jbpmCommonConfigAction">
+		<property name="jbpmService" ref="jbpmService" />
+		<property name="jbpmCommonService" ref="jbpmCommonService" />
+		<property name="processConfigService" ref="tProcessConfigService" />
+	</bean>
+	
 	<bean class="com.gotop.jbpm.action.JbpmDemoAction" id="jbpmDemoAction" name="jbpmDemoAction" singleton="false">
 		<property name="jbpmDemoService" ref="jbpmDemoService" />
 		<property name="jbpmService" ref="jbpmService" />
