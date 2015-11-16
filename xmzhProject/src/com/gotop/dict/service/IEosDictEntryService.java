@@ -32,4 +32,6 @@ public interface IEosDictEntryService {
 
 	void delete(EosDictEntry dictEntry);
 
+	int queryIsExist(EosDictEntry dictEntry);
+
 }

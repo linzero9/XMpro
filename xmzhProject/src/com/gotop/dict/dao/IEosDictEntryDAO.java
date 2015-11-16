@@ -19,4 +19,6 @@ public interface IEosDictEntryDAO {
 	
 	int deleteById(EosDictEntry dictEntry);
 
+	int queryIsExist(EosDictEntry dictEntry);
+
 }

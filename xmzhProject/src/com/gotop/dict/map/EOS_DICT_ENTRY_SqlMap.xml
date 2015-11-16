@@ -47,4 +47,63 @@
     where t.DICTTYPEID = #dictTypeId:VARCHAR# 
    	and t.DICTID = #dictId:VARCHAR#
   </delete>
+  
+  
+<select id="queryIsExist" resultClass="java.lang.Integer" parameterClass="com.gotop.dict.model.EosDictEntry" >
+ 	select * from t_new_deviceManagement where 1=1
+ 	 <isEqual  prepend="and" property="dictTypeId"  compareValue="DEVICE_NAME">
+      		DEVICENAME like '%'|| #dictId:VARCHAR# ||'%'
+      </isEqual>
+      <isEqual  prepend="and" property="dictTypeId"  compareValue="DEVICE_MODEL">
+      		DEVICEMODEL like '%'|| #dictId:VARCHAR# ||'%'
+      </isEqual>
+      <isEqual  prepend="and" property="dictTypeId"  compareValue="DEVICE_OS_VERSION">
+      		OSVERSION like '%'|| #dictId:VARCHAR# ||'%'
+      </isEqual>
+      <isEqual  prepend="and" property="dictTypeId"  compareValue="DEVICE_IE_VERSION">
+      		IEVERSION like '%'|| #dictId:VARCHAR# ||'%'
+      </isEqual>
+      <isEqual  prepend="and" property="dictTypeId"  compareValue="DEVICE_USEFUL">
+      		USEFUL like '%'|| #dictId:VARCHAR# ||'%'
+      </isEqual>
+      <isEqual  prepend="and" property="dictTypeId"  compareValue="DEVICE_PLUGIN">
+      		PLUGIN like '%'|| #dictId:VARCHAR# ||'%'
+      </isEqual>
+      <isEqual  prepend="and" property="dictTypeId"  compareValue="DEVICE_PERIPHERAL">
+      		PERIPHERAL like '%'|| #dictId:VARCHAR# ||'%'
+      </isEqual>
+      <isEqual  prepend="and" property="dictTypeId"  compareValue="DEVICE_OTHERATTRIBUTE_1">
+      		OTHERATTRIBUTE_1 like '%'|| #dictId:VARCHAR# ||'%'
+      </isEqual>
+      <isEqual  prepend="and" property="dictTypeId"  compareValue="DEVICE_OTHERATTRIBUTE_2">
+      		OTHERATTRIBUTE_2 like '%'|| #dictId:VARCHAR# ||'%'
+      </isEqual>
+      <isEqual  prepend="and" property="dictTypeId"  compareValue="DEVICE_OTHERATTRIBUTE_3">
+      		OTHERATTRIBUTE_3 like '%'|| #dictId:VARCHAR# ||'%'
+      </isEqual>
+      <isEqual  prepend="and" property="dictTypeId"  compareValue="DEVICE_OTHERATTRIBUTE_4">
+      		OTHERATTRIBUTE_4 like '%'|| #dictId:VARCHAR# ||'%'
+      </isEqual>
+      <isEqual  prepend="and" property="dictTypeId"  compareValue="DEVICE_OTHERATTRIBUTE_5">
+      		OTHERATTRIBUTE_5 like '%'|| #dictId:VARCHAR# ||'%'
+      </isEqual>
+      <isEqual  prepend="and"  property="dictTypeId"  compareValue="DEVICE_OTHERINFO_1">
+      		OTHERINFO_1 like '%'|| #dictId:VARCHAR# ||'%'
+      </isEqual>
+      <isEqual  prepend="and" property="dictTypeId"  compareValue="DEVICE_OTHERINFO_2">
+      		OTHERINFO_2 like '%'|| #dictId:VARCHAR# ||'%'
+      </isEqual>
+      <isEqual  prepend="and" property="dictTypeId"  compareValue="DEVICE_OTHERINFO_3">
+      		OTHERINFO_3 like '%'|| #dictId:VARCHAR# ||'%'
+      </isEqual>
+      <isEqual  prepend="and" property="dictTypeId"  compareValue="DEVICE_OTHERINFO_4">
+      		OTHERINFO_4 like '%'|| #dictId:VARCHAR# ||'%'
+      </isEqual>
+      <isEqual  prepend="and" property="dictTypeId"  compareValue="DEVICE_OTHERINFO_5">
+      		OTHERINFO_5 like '%'|| #dictId:VARCHAR# ||'%'
+      </isEqual>
+      <isEqual  prepend="and" property="dictTypeId"  compareValue="DEVICE_STATE">
+      		DEVICE_STATE like '%'|| #dictId:VARCHAR# ||'%'
+      </isEqual>
+</select>
 </sqlMap>

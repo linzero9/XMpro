@@ -62,4 +62,14 @@ public class EosDictEntryDAO extends SqlMapClientDao implements IEosDictEntryDAO
         return rows;
 	}
 
+	@Override
+	public int queryIsExist(EosDictEntry dictEntry) {
+		Integer count = queryForCount("EOS_DICT_ENTRY_SqlMap.queryIsExist", dictEntry);
+		if(count==null){
+			return 0;
+		}else{
+			return count.intValue();
+		}
+	}
+
 }

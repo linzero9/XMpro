@@ -205,13 +205,18 @@ public class DeviceManagementService implements IDeviceManagementService{
 	}
 
 	@Override
-	public void delete(DevicePo device) {
-		deviceManagementDAO.deleteByPrimaryKey(device.getDeviceId());
-		
-		//同时删除明细表记录
-		DeviceDetail detail = new DeviceDetail();
-		detail.setDeviceId(device.getDeviceId());
-		deviceManDetailDAO.delete(detail);
+	public void delete(String deviceIds) {
+		String[] deviceIdsArr=deviceIds.split(",");
+		Long deviceId ;
+		for(int i=0; i<deviceIdsArr.length; i++){
+			deviceId = Long.valueOf(deviceIdsArr[i]);
+			deviceManagementDAO.deleteByPrimaryKey(deviceId);
+			
+			//同时删除明细表记录
+			DeviceDetail detail = new DeviceDetail();
+			detail.setDeviceId(deviceId);
+			deviceManDetailDAO.delete(detail);
+		}
 	}
 
 	@Override
@@ -244,6 +249,13 @@ public class DeviceManagementService implements IDeviceManagementService{
 	@Override
 	public List queryOrgList() {
 		List list = deviceManagementDAO.queryOrgList();
+		return list;
+	}
+
+	@Override
+	public List<DevicePo> deviceList(DevicePo device) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		List list = deviceManagementDAO.deviceList(map);
 		return list;
 	}
 

@@ -28,78 +28,82 @@ margin-left:inherit;
 		<title>设备列表</title>
 	</head>
 	<body topmargin="0" leftmargin="0">
+	<DIV class="divList"  style="overflow:auto;width:100%; height:250;">  
 	<h:form name="query_form"	action="/deviceManagement/deviceManagementAction_deviceList.action" method="post">
-		<w:panel id="panel1" title="设备列表">
-		<div style=" height:100%; overflow:scroll;">
-			<table align="center" border="0" width="100%" class="form_table" style="table-layout: fixed;" >
+		<w:panel id="panel1" title="查询条件">
+		<table align="center" border="0" width="100%" class="form_table"  >
 				<tr>
-					<td class="form_label" align="right" width="20%">机构2/部门</td>
-					<td colspan="1"  width="30%">
+					<td class="form_label" align="right" width="10%" nowrap="nowrap">机构/部门</td>
+					<td colspan="1"  width="25%" nowrap="nowrap">
 						<h:text id="orgname" property="device.orgname"   readonly="true"  />
 			            <h:hidden id="orgcode" property="device.orgcode" />
 			      		<a href="#" onclick="open_newyw_tree_fun1();">选择</a>
 					</td>
-					<td class="form_label" align="right" width="20%">设备名称：</td>
-					<td colspan="1"  width="30%">
+					<td class="form_label" align="right" width="10%" nowrap="nowrap">设备名称：</td>
+					<td colspan="1"  width="20%" nowrap="nowrap">
 						<d:select  id="deviceName"  dictTypeId="DEVICE_NAME" property="device.deviceName" nullLabel="请选择"></d:select>
 					</td>
-				</tr>
-				<tr>
-					<td class="form_label" align="right" width="20%">设备型号：</td>
-					<td colspan="1"  width="30%">
+						<td class="form_label" align="right" width="10%" nowrap="nowrap">设备型号：</td>
+					<td colspan="1"  width="25%" nowrap="nowrap">
 						<d:select  id="deviceModel"  dictTypeId="DEVICE_MODEL" property="device.deviceModel" nullLabel="请选择"></d:select>
 					</td>
-					<td class="form_label" align="right" width="20%">设备状态：</td>
-					<td colspan="1"  width="30%">
-						<d:select  id="deviceState"  dictTypeId="DEVICE_STATE" property="device.deviceState" nullLabel="请选择"></d:select>
-					</td>
+					
 				</tr>
 				<tr>
-					<td class="form_label" align="right" width="20%">内存：</td>
-					<td colspan="1"  width="30%">
+					<td class="form_label" align="right" width="10%" nowrap="nowrap">内存：</td>
+					<td colspan="1"  width="25%" nowrap="nowrap">
 						<h:text id="memoryMin" property="device.memoryMin"  size="5"  validateAttr="fracDigit=2;type=double;"  />G
 						＜内存容量(G)＜
 						<h:text id="memoryMax" property="device.memoryMax"  size="5"  validateAttr="fracDigit=2;type=double;" />G
 					</td>
-					<td class="form_label" align="right" width="20%">硬盘：</td>
-					<td colspan="1"  width="30%">
+					<td class="form_label" align="right" width="10%" nowrap="nowrap">硬盘：</td>
+					<td colspan="1"  width="20%" nowrap="nowrap">
 						<h:text id="hardDiskMin" property="device.hardDiskMin"  size="5"  validateAttr="fracDigit=2;type=double;"  />G
 						＜硬盘容量(G)＜
 						<h:text id="hardDiskMax" property="device.hardDiskMax" size="5"  validateAttr="fracDigit=2;type=double;"  />G
 					</td>
+					<td class="form_label" align="right" width="10%" nowrap="nowrap">设备状态：</td>
+					<td colspan="1"  width="25%" nowrap="nowrap" >
+						<d:select  id="deviceState"  dictTypeId="DEVICE_STATE" property="device.deviceState" nullLabel="请选择"></d:select>
+					</td>
 				</tr>
 				<tr>
-					<td class="form_label" align="right" width="20%">操作系统版本：</td>
-					<td colspan="1"  width="30%">
+				
+					<td class="form_label" align="right" width="10%" nowrap="nowrap">操作系统版本：</td>
+					<td colspan="1"  width="23%" nowrap="nowrap">
 						<d:select  id="osVersion"  dictTypeId="DEVICE_OS_VERSION" property="device.osVersion" nullLabel="请选择"  ></d:select>
 					</td>
-					<td class="form_label" align="right" width="20%">内置软件版本：</td>
-					<td colspan="1"  width="30%">
+					<td class="form_label" align="right" width="10%" nowrap="nowrap">内置软件版本：</td>
+					<td colspan="1"  width="23%" nowrap="nowrap">
 						<h:text id="softwareVersion" property="device.softwareVersion"  />
 					</td>
-				</tr>
-				<tr>
-					<td class="form_label" align="right" width="20%">IE版本：</td>
-					<td colspan="1"  width="30%">
+					<td class="form_label" align="right" width="10%" nowrap="nowrap">IE版本：</td>
+					<td colspan="1"  width="24%" nowrap="nowrap">
 						<d:select  id="ieVersion"  dictTypeId="DEVICE_IE_VERSION" property="device.ieVersion" nullLabel="请选择"></d:select>
 					</td>
-					<td class="form_label" align="right" width="20%">用途：</td>
-					<td colspan="1"  width="30%">
-					<d:checkbox id="useful"  name="device.useful" dictTypeId="DEVICE_USEFUL" property="device.useful"  seperator=", "  />
+				</tr></table>
+			<table align="center" border="0" width="100%" class="form_table"  >
+				<tr>
+					<td class="form_label" align="right" width="10%" nowrap="nowrap">用途：</td>
+					<td colspan="1"  width="90%" nowrap="nowrap">
+					<d:checkbox perrow="12" id="useful"  name="device.useful" dictTypeId="DEVICE_USEFUL" property="device.useful"  seperator=", "  />
 					</td>
 				</tr>
 				<tr>
-					<td class="form_label" align="right" width="20%">安装的插件：</td>
-					<td colspan="1"  width="30%">
-						<d:checkbox  id="plugIn"  name="device.plugIn" dictTypeId="DEVICE_PLUGIN" property="device.plugIn"   seperator=", " />
+					<td class="form_label" align="right" width="10%" nowrap="nowrap">安装的插件：</td>
+					<td colspan="1"  width="90%" nowrap="nowrap">
+						<d:checkbox perrow="12" id="plugIn"  name="device.plugIn" dictTypeId="DEVICE_PLUGIN" property="device.plugIn"   seperator=", " />
 					</td>
-					<td class="form_label" align="right" width="20%">对应的外设：</td>
-					<td colspan="1"  width="30%">
-						<d:checkbox  id="peripheral"  name="device.peripheral"  dictTypeId="DEVICE_PERIPHERAL" property="device.peripheral"   seperator=", "  />
+				
+				</tr>
+				<tr>
+					<td class="form_label" align="right" width="10%" nowrap="nowrap">对应的外设：</td>
+					<td colspan="1"  width="90%" nowrap="nowrap">
+						<d:checkbox perrow="12" id="peripheral"  name="device.peripheral"  dictTypeId="DEVICE_PERIPHERAL" property="device.peripheral"   seperator=", "  />
 					</td>
 				</tr>
-				<tr class="form_bottom">
-						<td colspan="4" class="form_bottom">
+				<tr class="form_bottom" >
+						<td colspan="6" class="form_bottom" style="text-align: center">
 						    <b:message key="l_display_per_page"></b:message>
 					        <h:text size="2" property="page.length" value="10" validateAttr="minValue=1;maxValue=100;type=integer;isNull=true" />
 					        <input type="hidden" name="page.begin" value="0">
@@ -108,13 +112,14 @@ margin-left:inherit;
 							<input type="button" value="清 空" class="button" onclick="clears();">
 							<input id=" exportExcel" type="button" class="button" value="导出列表" onclick="export_Excel();">
 							<input id="importExcel"  type="button" class="button" value="批量导入" onclick="import_Excel();">
+							<input id="importExcel"  type="button" class="button" value="批量修改导入" onclick="batchUpdate_import_view();">
 						</td>
-					</tr>			
+					</tr>
 			</table>
-			</div>
 		</w:panel>
 	</h:form>
-	<DIV class="divList"  style="overflow:auto;width:100%; height: 320;">
+	</DIV>
+	<DIV class="divList"  style="overflow:auto;width:100%; height: 310;">
 			<w:panel id="panel" width="100%" title="查询结果">
 				<viewlist id="e2c61865-3b56-470d-bd42-fff792fb9493">
 				<h:form name="page_form"
@@ -127,6 +132,9 @@ margin-left:inherit;
 					<table align="center" border="0" width="100%" class="EOS_table">
 						<tr>
 							<th align="center" nowrap="nowrap">
+								<l:greaterThan property="page.count" targetValue="0" compareType="number">
+	                 					<h:checkbox id="selectBox" onclick="allItem();"/>
+	             				 </l:greaterThan>
 								<b:message key="l_select"></b:message>
 							</th>
 							<th nowrap="nowrap">
@@ -193,7 +201,7 @@ margin-left:inherit;
 								其他属性5
 							</th>
 							<th nowrap="nowrap">
-								其他信息1
+								应用系统
 							</th>
 							<th nowrap="nowrap">
 								其他信息2
@@ -226,13 +234,13 @@ margin-left:inherit;
 								设备状态
 							</th>
 						</tr>
-						<w:radioGroup id="group1">
+						<w:checkGroup id="group1">
                             <l:iterate property="devices" id="id1">
 							 <tr class="<l:output oddOutput="EOS_table_row_o" evenOutput='EOS_table_row' />">
 								<td align="center" nowrap="nowrap">
-									<w:rowRadio>
+									<w:rowCheckbox>
 											<h:param name='deviceId' iterateId='id1' property='deviceId' />
-									</w:rowRadio>
+									</w:rowCheckbox>
 								</td>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1" property="orgname" />
@@ -332,9 +340,9 @@ margin-left:inherit;
 								</td>
 							</tr>
 						</l:iterate>
-					</w:radioGroup>
+					</w:checkGroup>
 							<tr>
-              <td colspan="23" class="command_sort_area">
+              <td colspan="33" class="command_sort_area">
 							<div class="h3">
 							<input type="button" class="button" value="新增"
 										onclick="add();" />
@@ -352,6 +360,16 @@ margin-left:inherit;
 									compareType="number">
 							<input type="button" class="button" value="维护明细查询"
 										onclick="detail_search();" />
+								</l:greaterThan>
+								<l:greaterThan property="page.count" targetValue="0"
+									compareType="number">
+							<input type="button" class="button" value="批量修改导出"
+										onclick="batchUpdate_export();" />
+								</l:greaterThan>
+								<l:greaterThan property="page.count" targetValue="0"
+									compareType="number">
+							<input type="button" class="button" value="批量修改导出全部"
+										onclick="batchUpdate_exportAll();" />
 								</l:greaterThan>
 							</div>
 							<div class="h4">
@@ -422,21 +440,21 @@ margin-left:inherit;
 			//新增
 			function add(){
 				  var url="/deviceManagement/deviceManagementAction_toDevice.action";
-				  showModalCenter(url, null,callBackFunc, 700, 600, '新增设备');
+				  showModalCenter(url, null,callBackFunc, 700, 550, '新增设备');
 			}
 
 			//修改
 			function upt(){
 				var gop = $id("group1");
 		  		var len = gop.getSelectLength();
-		  		if(len == 0){
+		  		if(len != 1){
 		  			alert("请选择一条记录");
 		  			return;
 		  		}else{
-		  			var rows=gop.getSelectRow();
-			  		var deviceId=rows.getParam("deviceId");
+		  			var rows=gop.getSelectRows();
+			  		var deviceId=rows[0].getParam("deviceId");
 		  			var strUrl = "/deviceManagement/deviceManagementAction_toDevice.action?device.deviceId="+deviceId;
-		  			showModalCenter(strUrl, null, callBackFunc, 700, 600, '修改设备');  
+		  			showModalCenter(strUrl, null, callBackFunc, 700, 550, '修改设备');  
 			  	}
 			}
 			
@@ -450,17 +468,22 @@ margin-left:inherit;
 				var gop = $id("group1");
 		  		var len = gop.getSelectLength();
 		  		if(len == 0){
-		  			alert("请选择一条记录");
+		  			alert("请选择一条或多条记录");
 		  			return;
 		  		}else{
 			  	  if(confirm("确定要删除该设备吗？")){
-		  			var rows=gop.getSelectRow();
-			  		var deviceId=rows.getParam("deviceId");
+		  			var rows=gop.getSelectRows();
+		  			var deviceIds="";
+		  			for(var i=0;i<rows.length;i++){
+		  				deviceIds += rows[i].getParam("deviceId")+",";
+		  			}
+		  			if(deviceIds!=""){
+		  				deviceIds=deviceIds.substring(0,deviceIds.length-1);
 			  		$.ajax({
 					      url: "/deviceManagement/deviceManagementAction_delete.action",
 					      async: false,
 					      type: 'post',
-					      data: "device.deviceId="+deviceId,
+					      data: "deviceIds="+deviceIds,
 					      timeout: 60000,
 					      dataType:"text",
 					      success: function (data) {
@@ -475,6 +498,7 @@ margin-left:inherit;
 									  	
 					      }
 					}); 
+		  			}
 			 	 }	
 			  	}
 			}
@@ -483,17 +507,47 @@ margin-left:inherit;
 			function detail_search(){
 				var gop = $id("group1");
 		  		var len = gop.getSelectLength();
-		  		if(len == 0){
+		  		if(len != 1){
 		  			alert("请选择一条记录");
 		  			return;
 		  		}else{
-		  			var rows=gop.getSelectRow();
-			  		var deviceId=rows.getParam("deviceId");
+		  			var rows=gop.getSelectRows();
+			  		var deviceId=rows[0].getParam("deviceId");
 		  			var strUrl = "/deviceManagement/deviceManagementAction_detailList.action?detail.deviceId="+deviceId;
 		  			showModalCenter(strUrl, null, callBackFunc, 1000, 500, '修改设备');  
 			  	}
 			}
-			
+
+			//批量修改导出
+			function batchUpdate_export(){
+				var gop = $id("group1");
+		  		var len = gop.getSelectLength();
+		  		if(len == 0){
+		  			alert("请选择一条或多条记录");
+		  			return;
+		  		}else{
+		  			var rows=gop.getSelectRows();
+		  			var deviceIds="";
+		  			for(var i=0;i<rows.length;i++){
+		  				deviceIds += rows[i].getParam("deviceId")+",";
+		  			}
+		  			if(deviceIds!=""){
+		  				deviceIds=deviceIds.substring(0,deviceIds.length-1);  //将最后一个逗号去掉
+
+
+
+		  				window.location.href="/deviceManagement/deviceManagementAction_batchUpdateExport.action?deviceIds="+deviceIds;
+		  				
+			  		
+		  			}
+			  	}
+			}
+
+			//批量修改导出全部
+			function batchUpdate_exportAll(){
+
+		  		window.location.href="/deviceManagement/deviceManagementAction_batchUpdateExportAll.action";
+			}
 
 			//选择 部门/机构
 			function open_newyw_tree_fun1(){//方法名
@@ -603,10 +657,27 @@ margin-left:inherit;
 		  	
 		}
 
-		//导入Excel
+		//批量导入Excel
 		function import_Excel(){
-			var url="/jsp/deviceManagement/deviceList_importExcel.jsp";
+			var url="/deviceManagement/deviceManagementAction_toImportExcel.action?";
+			url = url+"importExcelFlag="+"batchInsert";
 			showModalCenter(url, null,callBackFunc, 700, 300, '批量导入');
+		}
+
+		function allItem(){
+			var group =$id("group1");
+			if(document.getElementById("selectBox").checked){
+				group.selectAll();
+			}else{
+				group.disSelectAll();
+			}
+		}
+
+		//批量修改导入Excel importExcel
+		function batchUpdate_import_view(){
+			var url="/deviceManagement/deviceManagementAction_toImportExcel.action?";
+			url = url+"importExcelFlag="+"batchUpdate";
+			showModalCenter(url, null,callBackFunc, 700, 300, '批量修改导入');
 		}
 		</script>
 	</body>

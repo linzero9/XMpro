@@ -1531,4 +1531,9 @@ public class JbpmServiceImpl implements JbpmService{
 		obj.put("props", propsJson);
 		return obj;
 	}
+
+	@Override
+	public void depolyProcessXmlPng(File xmlFile, File pngFile) {
+		
+	}
 }

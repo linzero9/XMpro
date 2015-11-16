@@ -29,8 +29,9 @@ public class EosDictEntryAction extends BaseAction {
     private EosDictEntry dictEntry;
     
     private List<EosDictEntry> dictEntrys;
+    
 
-    /**
+	/**
      * 通过spring注入Service的set类.
      * @abatorgenerated
      */
@@ -145,6 +146,23 @@ public class EosDictEntryAction extends BaseAction {
 		}
 		Struts2Utils.renderText(info);
     }
+	
+	public void isExist() throws Exception{
+    	String info ="noExist";
+    	try {
+    		int count = this.eosDictEntryService.queryIsExist(dictEntry);
+    		if(count != 0){
+    			 info ="exist";
+    		}
+    	} catch (Exception e) {
+			info="fails";
+			log.error("[删除设备信息失败！]", e);
+			throw e;
+		}finally{	
+			Struts2Utils.renderText(info);
+		}
+    }
+	
 	
 	public void checkDictid(){
 		String info ="";

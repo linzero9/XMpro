@@ -180,5 +180,15 @@
     
       <action class="withdrawJbpmAction" method="{1}" name="withdrawJbpmAction_*">
       </action>
+      
+      <action class="jbpmCommonConfigAction" method="{1}" name="jbpmCommonConfigAction_*">
+      	<result name="toJbpmCommonConfig">
+     		/jsp/jbpm/jbpm_common_config.jsp
+      	</result>
+      	<result name="toAddProcessConfig">
+     		/jsp/jbpm/jbpm_add_process_config.jsp
+      	</result>
+      </action>
+      
     </package>
 </struts>

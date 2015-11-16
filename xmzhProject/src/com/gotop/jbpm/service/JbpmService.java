@@ -296,4 +296,6 @@ public interface JbpmService {
 	 */
 	public JSONObject getJbpmJson(File xmlFile,String pname) throws JSONException;
 
+	public void depolyProcessXmlPng(File xmlFile, File pngFile);
+
 }
