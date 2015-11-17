@@ -9,6 +9,7 @@
 		<property name="jbpmService" ref="jbpmService" />
 		<property name="jbpmCommonService" ref="jbpmCommonService" />
 		<property name="processConfigService" ref="tProcessConfigService" />
+		<property name="processConfigPersonService" ref="tProcessConfigPersonService" />
 	</bean>
 	
 	<bean class="com.gotop.jbpm.action.JbpmDemoAction" id="jbpmDemoAction" name="jbpmDemoAction" singleton="false">

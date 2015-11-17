@@ -11,14 +11,15 @@ import com.gotop.jbpm.service.JbpmCommonService;
 public class JbpmCommonServiceImpl implements JbpmCommonService{
 
 	@Override
-	public String makeJbpmJsonByData(String data) throws JSONException {
+	public String makeJbpmJsonByData(String data,String processName) throws JSONException {
 		JSONObject jsonObject = new JSONObject(data);
 		JSONObject propsPJson = jsonObject.getJSONObject("props");
 		JSONObject statesJson = jsonObject.getJSONObject("states");
 		JSONObject pathsJson = jsonObject.getJSONObject("paths");
 		
 		String str = "";
-		String pName = propsPJson.getJSONObject("props").getJSONObject("name").getString("value");
+		//String pName = propsPJson.getJSONObject("props").getJSONObject("name").getString("value");
+		String pName = processName;
 		str+="<process name=\""+pName+"\" xmlns=\"http://jbpm.org/4.4/jpdl\">";
 		 Iterator it = statesJson.keys();  
          while (it.hasNext()) {  

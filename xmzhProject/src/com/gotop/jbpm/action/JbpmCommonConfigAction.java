@@ -13,13 +13,17 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.gotop.crm.util.BaseAction;
+import com.gotop.jbpm.dto.ProcessDeployDto;
 import com.gotop.jbpm.jpdl.JpdlModelDrawer;
 import com.gotop.jbpm.jpdl.model.JpdlModel;
 import com.gotop.jbpm.model.TProcessConfig;
+import com.gotop.jbpm.model.TProcessConfigPerson;
+import com.gotop.jbpm.service.ITProcessConfigPersonService;
 import com.gotop.jbpm.service.ITProcessConfigService;
 import com.gotop.jbpm.service.JbpmCommonService;
 import com.gotop.jbpm.service.JbpmService;
 import com.gotop.util.Struts2Utils;
+import com.gotop.util.time.TimeUtil;
 
 public class JbpmCommonConfigAction extends BaseAction{
 
@@ -32,6 +36,11 @@ public class JbpmCommonConfigAction extends BaseAction{
 	 * 通用流程页面配置数据
 	 */
 	private String data;
+	
+	/**
+	 * 流程部署通用对象
+	 */
+	private ProcessDeployDto processDeployDto;
 	
 	/**
 	 * JBPM 通用流程服务
@@ -48,6 +57,28 @@ public class JbpmCommonConfigAction extends BaseAction{
 	 */
 	protected ITProcessConfigService processConfigService;
 	
+	/**
+	 * 流程配置与人物关系服务
+	 */
+	protected ITProcessConfigPersonService processConfigPersonService;
+	
+	public ITProcessConfigPersonService getProcessConfigPersonService() {
+		return processConfigPersonService;
+	}
+
+	public void setProcessConfigPersonService(
+			ITProcessConfigPersonService processConfigPersonService) {
+		this.processConfigPersonService = processConfigPersonService;
+	}
+
+	public ProcessDeployDto getProcessDeployDto() {
+		return processDeployDto;
+	}
+
+	public void setProcessDeployDto(ProcessDeployDto processDeployDto) {
+		this.processDeployDto = processDeployDto;
+	}
+
 	public JbpmService getJbpmService() {
 		return jbpmService;
 	}
@@ -126,8 +157,11 @@ public class JbpmCommonConfigAction extends BaseAction{
 			if (data != null) {
 				JSONObject jsonObject = new JSONObject(data);
 				JSONObject propsPJson = jsonObject.getJSONObject("props");
-				pName = propsPJson.getJSONObject("props").getJSONObject("name").getString("value");
-				str = jbpmCommonService.makeJbpmJsonByData(data);
+				//pName = propsPJson.getJSONObject("props").getJSONObject("name").getString("value");
+				if(processDeployDto != null && !"".equals(processDeployDto.getProcessName())){
+					pName = processDeployDto.getProcessName();
+				}
+				str = jbpmCommonService.makeJbpmJsonByData(data,pName);
 			}
 			// jbpm xml文件的开头
 			buffWri.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
@@ -185,16 +219,43 @@ public class JbpmCommonConfigAction extends BaseAction{
 		}
 		
 		String definitionId = definition.getId();
+		
+		//新增流程配置表信息
 		TProcessConfig processConfig = new TProcessConfig();
+		//流程定义id
 		processConfig.setDefinitionId(definitionId);
 		processConfig.setProcessName(pName);
 		//状态-可用
-		processConfig.setState("01");
+		processConfig.setState(this.processDeployDto.getProcessState());
 		//通用流程
-		processConfig.setBusinessType("99");
+		processConfig.setBusinessType(this.processDeployDto.getBusinessType());
+		//发布人员类型
+		processConfig.setRoleOrgPerson(this.processDeployDto
+				.getDeployType());
+		//序号
+		processConfig.setOrderNo(this.processDeployDto.getOrderNo());
 		processConfig.setUploadOrg(this.getCurrentOnlineUser().getOrgid());
 		processConfig.setUserId(this.getCurrentOnlineUser().getEmpid());
-		processConfigService.insert(processConfig);
+		//部署时间
+		processConfig.setUploadTime(TimeUtil.today()+TimeUtil.now());
+		
+		Long tProcessConfigId = this.processConfigService
+				.insert(processConfig);
+	
+		
+		// 保存流程配置与流程发布人员配置
+		if (this.processDeployDto.getDeployRange() != null) {
+			String[] empIdArray = this.processDeployDto.getDeployRange()
+					.split(",");
+			for (String empId : empIdArray) {
+				TProcessConfigPerson tProcessConfigPerson = new TProcessConfigPerson();
+				tProcessConfigPerson.setProcessConfigId(tProcessConfigId);
+				tProcessConfigPerson.setRelationId(String.valueOf(empId));
+				this.processConfigPersonService
+						.insert(tProcessConfigPerson);
+			}
+		}
+		info=info+","+definitionId;
 		Struts2Utils.renderText(info);
 		return null;
 	}
