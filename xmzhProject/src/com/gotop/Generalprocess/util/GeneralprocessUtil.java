@@ -22,8 +22,8 @@ public class GeneralprocessUtil {
 	 * @desc 用于使用类名 ，获取到对象的 基本信息（anno）
 	 */
 
-	public  static List<GeneralprocessFieldBean> getBaseInfoByClassName(String classname)
-			throws ClassNotFoundException {
+	public static List<GeneralprocessFieldBean> getBaseInfoByClassName(
+			String classname) throws ClassNotFoundException {
 
 		List<GeneralprocessFieldBean> returnBase = new ArrayList<GeneralprocessFieldBean>();
 
@@ -32,22 +32,19 @@ public class GeneralprocessUtil {
 		Field[] fs = classc.getDeclaredFields();
 
 		for (Field field : fs) {
-		
-				if(field.isAnnotationPresent(GeneralprocessField.class)){
-					
-			
-				
-				String   fieldName= field.getName();//字段的名称，用于和字段的值匹配？
+
+			if (field.isAnnotationPresent(GeneralprocessField.class)) {
+
+				String fieldName = field.getName();// 字段的名称，用于和字段的值匹配？
 
 				GeneralprocessField annotone = field
 						.getAnnotation(GeneralprocessField.class);
 
 				GeneralprocessFieldBean bean = new GeneralprocessFieldBean();
-				
-				
-				if(annotone==null){
+
+				if (annotone == null) {
 					bean.setFieldName(fieldName);
-				}else{
+				} else {
 					bean.setDescription(annotone.description());
 					bean.setHandle(annotone.handle());
 					bean.setHidden(annotone.hidden());
@@ -56,81 +53,90 @@ public class GeneralprocessUtil {
 					bean.setUrl(annotone.url());
 					bean.setFieldName(fieldName);
 					bean.setDicname(annotone.dicname());
-			
-				}
-				
-			
-				returnBase.add(bean);
+
 				}
 
+				returnBase.add(bean);
+			}
+
 		}
-		
+
 		return returnBase;
 
 	}
-	
-	
-	public   static <T>  List<GeneralprocessFieldBean>     fixBean(List<T>  processLists , Class<?> classes ,  List<GeneralprocessFieldBean> beforeBean  ) throws IllegalArgumentException, IllegalAccessException, SecurityException, NoSuchFieldException{
 
-		
-		//把 beforeBean  加入 value字段
-		
-		//1.首先遍历  processLists （传入的 基本class ） 取到   所有字段的值
-		
-		 for (T bean : processLists) {
-			 
-			 
-			 String className= bean.getClass().getName();
-			 
-			 System.out.println(className);
-			 
-			Field[]  fields= bean.getClass().getDeclaredFields();
-			
-			System.out.println(fields.length);
-			 
-			
-					 
-					 
-		
-			 
+	public static <T> List<GeneralprocessFieldBean> fixBean(
+			List<T> processLists, Class<?> classes,
+			List<GeneralprocessFieldBean> beforeBean)
+			throws IllegalArgumentException, IllegalAccessException,
+			SecurityException, NoSuchFieldException {
 
-			 
-			 
+		// 把 beforeBean 加入 value字段
+
+		// 1.首先遍历 processLists （传入的 基本class ） 取到 所有字段的值
+
+		for (T bean : processLists) {
+
+			Field[] fields = bean.getClass().getDeclaredFields();
+
+			for (Field field : fields) {
+
+				field.setAccessible(true);
+
+				if (field.isAnnotationPresent(GeneralprocessField.class)) {
+					
+					//获取到了字段的值  ，需要set进入
+					System.out.println(field.getName());
+					System.out.println(field.get(bean));
+					
+					  Object  fieldvalue= field.getName();
+					  
+					  for (GeneralprocessFieldBean beforeBeanone : beforeBean) {
+						  
+						  
+						  if(beforeBeanone.getFieldName().equals(fieldvalue)){
+							  
+							  beforeBeanone.setValue(field.get(bean));
+							  
+						  }
+						
+					}
+					
+					//
+
+				}
+			}
+			
+			
+
+			
+			
+			
+			
+			
+
 		}
-		
-		
-		
-		
-		
-		
-		return null;
-		
-		
+
+		return beforeBean;
+
 	}
-	
-	
-	
-	
+
 	public static void main(String[] args) throws ClassNotFoundException {
-		
-		GeneralprocessUtil  iii = new GeneralprocessUtil();
-		List<GeneralprocessFieldBean>   lists= iii.getBaseInfoByClassName("com.gotop.Generalprocess.model.ProcessModelOne");
-		
+
+		GeneralprocessUtil iii = new GeneralprocessUtil();
+		List<GeneralprocessFieldBean> lists = iii
+				.getBaseInfoByClassName("com.gotop.Generalprocess.model.ProcessModelOne");
+
 		for (GeneralprocessFieldBean generalprocessFieldBean : lists) {
-		
-			
-			System.out.println(	generalprocessFieldBean.getName());
+
+			System.out.println(generalprocessFieldBean.getName());
 			System.out.println(generalprocessFieldBean.getType());
 			System.out.println(generalprocessFieldBean.getHandle());
 			System.out.println(generalprocessFieldBean.getFieldName());
 			System.out.println(generalprocessFieldBean.isHidden());
-			
+
 		}
-		
-		
-				
-		
-		
+
 	}
 
 }
