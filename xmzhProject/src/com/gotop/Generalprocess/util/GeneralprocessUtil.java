@@ -8,20 +8,21 @@ import org.apache.derby.tools.sysinfo;
 
 import com.gotop.Generalprocess.annonation.GeneralprocessField;
 import com.gotop.Generalprocess.annonation.GeneralprocessFieldBean;
+import com.gotop.Generalprocess.model.ProcessModelOne;
 
 /**
  * 
  * @author wujiajun
  * @desc 流程通用模板的工具类
  */
-public class GeneralprocessUtil<T> {
+public class GeneralprocessUtil {
 
 	/**
 	 * @throws ClassNotFoundException
 	 * @desc 用于使用类名 ，获取到对象的 基本信息（anno）
 	 */
 
-	public List<GeneralprocessFieldBean> getBaseInfoByClassName(String classname)
+	public  static List<GeneralprocessFieldBean> getBaseInfoByClassName(String classname)
 			throws ClassNotFoundException {
 
 		List<GeneralprocessFieldBean> returnBase = new ArrayList<GeneralprocessFieldBean>();
@@ -67,6 +68,48 @@ public class GeneralprocessUtil<T> {
 		return returnBase;
 
 	}
+	
+	
+	public   static <T>  List<GeneralprocessFieldBean>     fixBean(List<T>  processLists , Class<?> classes ,  List<GeneralprocessFieldBean> beforeBean  ) throws IllegalArgumentException, IllegalAccessException, SecurityException, NoSuchFieldException{
+
+		
+		//把 beforeBean  加入 value字段
+		
+		//1.首先遍历  processLists （传入的 基本class ） 取到   所有字段的值
+		
+		 for (T bean : processLists) {
+			 
+			 
+			 String className= bean.getClass().getName();
+			 
+			 System.out.println(className);
+			 
+			Field[]  fields= bean.getClass().getDeclaredFields();
+			
+			System.out.println(fields.length);
+			 
+			
+					 
+					 
+		
+			 
+
+			 
+			 
+		}
+		
+		
+		
+		
+		
+		
+		return null;
+		
+		
+	}
+	
+	
+	
 	
 	public static void main(String[] args) throws ClassNotFoundException {
 		

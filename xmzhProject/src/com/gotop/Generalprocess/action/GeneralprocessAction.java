@@ -16,10 +16,7 @@ public class GeneralprocessAction   extends BaseAction {
 	
 	public  String modelOne(){
 		
-		GeneralprocessUtil  util = new GeneralprocessUtil<ProcessModelOne>();
-		
-		
-		
+
 		
 		return "";
 	}
