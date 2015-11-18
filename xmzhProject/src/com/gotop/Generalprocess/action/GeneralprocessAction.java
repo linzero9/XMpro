@@ -1,5 +1,7 @@
 package com.gotop.Generalprocess.action;
 
+import com.gotop.Generalprocess.model.ProcessModelOne;
+import com.gotop.Generalprocess.util.GeneralprocessUtil;
 import com.gotop.crm.util.BaseAction;
 
 public class GeneralprocessAction   extends BaseAction {
@@ -12,6 +14,14 @@ public class GeneralprocessAction   extends BaseAction {
 	
 	
 	
-	
+	public  String modelOne(){
+		
+		GeneralprocessUtil  util = new GeneralprocessUtil<ProcessModelOne>();
+		
+		
+		
+		
+		return "";
+	}
 	
 }
