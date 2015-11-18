@@ -66,7 +66,19 @@ public class GeneralprocessUtil {
 		return returnBase;
 
 	}
-
+	/**
+	 * 
+	 * @param processLists
+	 * @param classes
+	 * @param className
+	 * @return
+	 * @throws IllegalArgumentException
+	 * @throws IllegalAccessException
+	 * @throws SecurityException
+	 * @throws NoSuchFieldException
+	 * @throws ClassNotFoundException
+	 * @desc  传入   数据库查询的值+class+类名称
+	 */
 	public static <T> Map<String, List<GeneralprocessFieldBean>> fixBean(
 			List<T> processLists, Class<?> classes, String className)
 			throws IllegalArgumentException, IllegalAccessException,
