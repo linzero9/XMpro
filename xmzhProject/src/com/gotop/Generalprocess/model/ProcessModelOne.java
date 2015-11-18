@@ -35,27 +35,63 @@ public class ProcessModelOne  implements  Serializable{
 	
 	@GeneralprocessField(name="主调信贷员",type="text")
 	private String  creator;
+	
+	@GeneralprocessField(name="辅调信贷员",type="text")
 	private String  fdxdy;
+	
+	@GeneralprocessField(name="营业主管",type="text")
 	private String  yxzg;
+	
+	@GeneralprocessField(name="营销人员",type="text")
 	private String  yxry;
+	
+	@GeneralprocessField(name="申请币别",type="text")
 	private String  currency;
+	
+	@GeneralprocessField(name="申请金额",type="text")
 	private String  apply_bal;
+	
+	@GeneralprocessField(name="一级分类",type="text")
 	private String  oneCategory;
+	
+	@GeneralprocessField(name="贷种分类",type="text")
 	private String   loanCategory;
+	
+	@GeneralprocessField(name="抵押物权属人姓名",type="text")
 	private String   dywx_Name;
+	
+	@GeneralprocessField(name="合作机构",type="text")
 	private String   coOrganization;
+	
+	@GeneralprocessField(name="调查时间",type="text")
 	private String   survey_Time;
+	
+	@GeneralprocessField(name="超限说明",type="text")
 	private String  content;
+	
+	@GeneralprocessField(name="客户名称",type="text")
 	private String   cust_Name;
 	
+	
+	@GeneralprocessField(name="创建日期",type="text")
 	private String    create_Date;
+	
+	@GeneralprocessField(name="创建时间",type="text")
 	private String    create_time;
+	
+	@GeneralprocessField(name="创建人姓名",type="text")
 	private String     create_name;
 	
-	
+	@GeneralprocessField(name="最后修改日期",type="text")
 	private String last_up_date;
+	
+	@GeneralprocessField(name="最后修改时间",type="text")
 	private String last_up_time;
+	
+	@GeneralprocessField(name="最后操作员",type="text")
 	private String    last_up_name;
+	
+	
 	public Integer getProcessModelOneID() {
 		return processModelOneID;
 	}
