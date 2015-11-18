@@ -2,6 +2,7 @@ package com.gotop.Generalprocess.util;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -25,28 +26,43 @@ public class TestDemo {
 		ProcessModelOne  bean  = new  ProcessModelOne();
 		bean.setProcessModelOneID(11);
 		
+		
+		ProcessModelOne  bean1 = new  ProcessModelOne();
+		bean1.setProcessModelOneID(3333);
+		
 		lists.add(bean);
+		lists.add(bean1);
 		
 		
 	
 		
-		List<GeneralprocessFieldBean>  beforbean= GeneralprocessUtil.getBaseInfoByClassName("com.gotop.Generalprocess.model.ProcessModelOne");
-		
-		
-		
-		List<GeneralprocessFieldBean>  befores=GeneralprocessUtil.fixBean(lists, ProcessModelOne.class, beforbean);
-		
-		
-		for (GeneralprocessFieldBean generalprocessFieldBean : befores) {
-			
-			
-			System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-			System.out.println(	generalprocessFieldBean.getFieldName());
-			
-			System.out.println(		generalprocessFieldBean.getValue());
-		
 	
+		
+		
+		Map<String, List<GeneralprocessFieldBean>>    befores=GeneralprocessUtil.fixBean(lists, ProcessModelOne.class, "com.gotop.Generalprocess.model.ProcessModelOne");
+		
+		
+
+		
+	for (String key : befores.keySet()) {
+		
+		List<GeneralprocessFieldBean>   lists1=befores.get(key);
+		
+		for (GeneralprocessFieldBean generalprocessFieldBean : lists1) {
+			System.out.println(generalprocessFieldBean.getFieldName());
+			System.out.println(generalprocessFieldBean.getValue());
 		}
+		
+		
+	}
+	
+	
+
+	
+	  
+	JSONObject json = JSONObject.fromObject(befores);
+	System.out.println(json);
+	
 		
 		
 	}

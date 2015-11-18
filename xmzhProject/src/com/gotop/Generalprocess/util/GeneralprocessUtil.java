@@ -2,7 +2,9 @@ package com.gotop.Generalprocess.util;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.derby.tools.sysinfo;
 
@@ -65,17 +67,24 @@ public class GeneralprocessUtil {
 
 	}
 
-	public static <T> List<GeneralprocessFieldBean> fixBean(
-			List<T> processLists, Class<?> classes,
-			List<GeneralprocessFieldBean> beforeBean)
+	public static <T> Map<String, List<GeneralprocessFieldBean>> fixBean(
+			List<T> processLists, Class<?> classes, String className)
 			throws IllegalArgumentException, IllegalAccessException,
-			SecurityException, NoSuchFieldException {
+			SecurityException, NoSuchFieldException, ClassNotFoundException {
 
 		// 把 beforeBean 加入 value字段
 
 		// 1.首先遍历 processLists （传入的 基本class ） 取到 所有字段的值
 
+		Map<String, List<GeneralprocessFieldBean>> returnbeans = new HashMap<String, List<GeneralprocessFieldBean>>();
+
+	
+		String j = "seq";
+		int i=1;
+
 		for (T bean : processLists) {
+			List<GeneralprocessFieldBean> beforeBean = GeneralprocessUtil
+					.getBaseInfoByClassName(className);
 
 			Field[] fields = bean.getClass().getDeclaredFields();
 
@@ -84,40 +93,36 @@ public class GeneralprocessUtil {
 				field.setAccessible(true);
 
 				if (field.isAnnotationPresent(GeneralprocessField.class)) {
-					
-					//获取到了字段的值  ，需要set进入
-					System.out.println(field.getName());
-					System.out.println(field.get(bean));
-					
-					  Object  fieldvalue= field.getName();
-					  
-					  for (GeneralprocessFieldBean beforeBeanone : beforeBean) {
-						  
-						  
-						  if(beforeBeanone.getFieldName().equals(fieldvalue)){
-							  
-							  beforeBeanone.setValue(field.get(bean));
-							  
-						  }
-						
-					}
-					
+
+					// //获取到了字段的值 ，需要set进入
+					// System.out.println(field.getName());
+					// System.out.println(field.get(bean));
 					//
+					Object fieldvalue = field.getName();
+
+					for (GeneralprocessFieldBean beforeBeanone : beforeBean) {
+
+						if (beforeBeanone.getFieldName().equals(fieldvalue)) {
+
+							beforeBeanone.setValue(field.get(bean));
+
+						}
+
+					}
 
 				}
-			}
-			
-			
 
-			
-			
-			
-			
-			
+			}
+
+			returnbeans.put(j, beforeBean);
+
+			j=j+i;
+
+			//
 
 		}
 
-		return beforeBean;
+		return returnbeans;
 
 	}
 
