@@ -25,8 +25,9 @@
         <h:hidden id="taskId"  property="taskAssgineeDto.nextTaskId"/>
         <h:hidden id="taskAssingee" property="taskAssgineeDto.taskAssingee"/>
         <h:hidden id="beginOrg" property="taskAssgineeDto.beginOrg"/>
-        <h:hidden id="definitionId" property="taskAssgineeDto.definitionId"/>
+       <h:hidden id="definitionId" property="taskAssgineeDto.definitionId"/>
         <h:hidden id="businessType" property="taskAssgineeDto.businessType"/>
+         <h:hidden id="processName" property="taskAssgineeDto.processName"/>
           <h:hidden id="templateFileIds" property="taskAssgineeDto.templateFileIds"/>
           <h:hidden id="isC" name="isC" property="taskAssgineeDto/isC"/>
 		 <input type="hidden" id="btnType" name="btnType" />

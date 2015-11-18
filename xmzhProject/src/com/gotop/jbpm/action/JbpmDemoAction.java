@@ -2363,4 +2363,17 @@ public class JbpmDemoAction extends BaseAction {
 		return "jbpm_online_design_upt";
 	}
 	 
+	/**
+	 * @author	wsd
+	 * @desc	跳转到模式一的表单页面
+	 * @return
+	 */
+	public String toModelOne(){
+		try {
+    		
+		} catch (Exception e) {
+			log.error("查询模式一信息失败",e);
+		}
+		return "toModelOne";
+	}
 }

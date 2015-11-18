@@ -14,23 +14,19 @@
 <title>受理调查</title>
 </head>
   <body>
-  <e:datasource name="euip" type="bean" path="com.gotop.euipApply.model.TApplyEuip" />
     <h:form name="form1" id="form1" action="/euipApply/tApplyEuipAction_insertEuipInfo.action" method="post" enctype="multipart/form-data" onsubmit="return checkForm(this);">
     <div id="content">
-         <h:hidden property="euip.epId"/>
-         <h:hidden property="euip.flowId"/>
-	     <h:hidden property="euip.createDate"/>
-	     <h:hidden property="euip.empId" id="createor"/>
         <h:hidden id="executionId" property="taskAssgineeDto.executionId"/>
         <h:hidden id="taskId"  property="taskAssgineeDto.nextTaskId"/>
         <h:hidden id="taskAssingee" property="taskAssgineeDto.taskAssingee"/>
         <h:hidden id="beginOrg" property="taskAssgineeDto.beginOrg"/>
         <h:hidden id="definitionId" property="taskAssgineeDto.definitionId"/>
         <h:hidden id="businessType" property="taskAssgineeDto.businessType"/>
-          <h:hidden id="templateFileIds" property="taskAssgineeDto.templateFileIds"/>
-          <h:hidden id="isC" name="isC" property="taskAssgineeDto/isC"/>
-		 <input type="hidden" id="btnType" name="btnType" />
-		   <h:hidden name="isFirst" value="1" />
+        <h:hidden id="processName" property="taskAssgineeDto.processName"/>
+        <h:hidden id="templateFileIds" property="taskAssgineeDto.templateFileIds"/>
+        <h:hidden id="isC" name="isC" property="taskAssgineeDto/isC"/>
+		<input type="hidden" id="btnType" name="btnType" />
+		<h:hidden name="isFirst" value="1" />
 		<table align="center" border="0" width="100%" class="form_table" >
        <tr>
          <td  colspan="4" style="text-align: center;font-weight:bold;font-size:12pt;height:50px" >
@@ -61,7 +57,7 @@
                                                   辅调信贷员：
         </td>
         <td colspan="1">
-         <h:text property="euip.orgName" id="orgName" validateAttr="allowNull=false" readonly="true" style="width:130px;" /><font style="color: red">*</font>	
+         <h:text property="euip.orgName" id="orgName" validateAttr="allowNull=false" style="width:130px;" /><font style="color: red">*</font>	
         </td>
       </tr>
        <tr>
@@ -94,13 +90,13 @@
                                                  申请金额：
         </td>
         <td colspan="1">
-         <h:text property="euip.empName" id="empName" validateAttr="allowNull=false" readonly="true" style="width:130px;" /><font style="color: red">*</font>	
+         <h:text property="euip.empName" id="empName" validateAttr="allowNull=false" style="width:130px;" /><font style="color: red">*</font>	
         </td>
         <td class="form_label" align="right" style="width:120px;">
                                                    申请币别：
         </td>
         <td colspan="1">
-         <h:text property="euip.orgName" id="orgName" validateAttr="allowNull=false" readonly="true" style="width:130px;" /><font style="color: red">*</font>	
+         <h:text property="euip.orgName" id="orgName" validateAttr="allowNull=false" style="width:130px;" /><font style="color: red">*</font>	
         </td>
       </tr>
        <tr>
@@ -108,13 +104,13 @@
                                                  一级分类：
         </td>
         <td colspan="1">
-         <h:text property="euip.empName" id="empName" validateAttr="allowNull=false" readonly="true" style="width:130px;" /><font style="color: red">*</font>	
+         <h:text property="euip.empName" id="empName" validateAttr="allowNull=false" style="width:130px;" /><font style="color: red">*</font>	
         </td>
         <td class="form_label" align="right" style="width:120px;">
                                                    贷种分类：
         </td>
         <td colspan="1">
-         <h:text property="euip.orgName" id="orgName" validateAttr="allowNull=false" readonly="true" style="width:130px;" /><font style="color: red">*</font>	
+         <h:text property="euip.orgName" id="orgName" validateAttr="allowNull=false" style="width:130px;" /><font style="color: red">*</font>	
         </td>
       </tr>
       <tr>
@@ -130,11 +126,8 @@
         </td>
         <td colspan="1">
         <div id="inputTime">
-	         <w:date  id="applyTime" submitFormat="yyyy-MM-dd" format="yyyy-MM-dd" readonly="true" allowNull="false" property="euip.applyTime"/>
+	         <w:date  id="applyTime" submitFormat="yyyy-MM-dd" format="yyyy-MM-dd" allowNull="false" property="euip.applyTime"/>
          </div>
-        <%--   <div id="hiddenTime" style="display: none">
-         	<h:text property="euip.applyTime" readonly="true"/>
-         </div><font style="color: red">*</font> --%>
         </td>
       </tr>
      
@@ -165,6 +158,7 @@
     </h:form>
   </body>
  <script type="text/javascript">
+
  $(document).ready(function(){
 	 var templateFileIds = $("#templateFileIds").val();
 		if(templateFileIds == "" || templateFileIds == null){
@@ -250,6 +244,8 @@ function initPlanCell20(){
 			return queryCond;
 		}
 
+	 //value 为1		保存
+	 //value 为2 	提交
      function doSave(value){
     		$("#btnType").val(value);
     		if(value!="1"){
@@ -259,14 +255,14 @@ function initPlanCell20(){
     			}
     		}else{
     			var _form = $id("form1");
-    	  	  	 	url="/euipApply/tApplyEuipAction_insertEuipInfo.action";	
-    	  	  	    _form.action =url
+    	  	  	url="/euipApply/tApplyEuipAction_insertEuipInfo.action";	
+    	  	  	_form.action =url
     	  	  	if(checkForm($id("form1")))
     			    ajaxsubmitO(0);
     	  	 	}
      }
 
-
+	 //回退
      function doSave2(value){
     		$("#btnType").val(value);
     		if(value!="1"){
