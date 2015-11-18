@@ -23,8 +23,23 @@ public class GeneralprocessFieldBean implements   Serializable{
 	private  String type;
 	private String handle;
 	private String url;
+	private  String dicname;
+	private  Object  value;
 	
 	
+	
+	public String getDicname() {
+		return dicname;
+	}
+	public void setDicname(String dicname) {
+		this.dicname = dicname;
+	}
+	public Object getValue() {
+		return value;
+	}
+	public void setValue(Object value) {
+		this.value = value;
+	}
 	public String getFieldName() {
 		return fieldName;
 	}

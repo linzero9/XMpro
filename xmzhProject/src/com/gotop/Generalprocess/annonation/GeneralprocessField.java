@@ -18,7 +18,11 @@ import java.lang.annotation.Target;
 
 public @interface GeneralprocessField {
 	public String name() default "";  //字段名称
-	public String  description() default "2"; //描述
+	public String  description() default ""; //描述
+	public String  dicname() default ""; //字典名称
+	
+	
+	
 	
 	public boolean  hidden() default true; //是否显示在页面（有些id不需要显示），true 表示显示（默认），false不显示
 	

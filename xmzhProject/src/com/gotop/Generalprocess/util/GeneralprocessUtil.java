@@ -54,6 +54,7 @@ public class GeneralprocessUtil<T> {
 					bean.setType(annotone.type());
 					bean.setUrl(annotone.url());
 					bean.setFieldName(fieldName);
+					bean.setDicname(annotone.dicname());
 			
 				}
 				
