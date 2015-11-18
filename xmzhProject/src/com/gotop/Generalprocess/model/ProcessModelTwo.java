@@ -9,8 +9,8 @@ public class ProcessModelTwo implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Integer rec_id;
-	private Integer flow_Id;
+	private Integer rec_id;//主键
+	private Integer flow_Id;//流程的id
 
 	private String Resource_type;
 	private String opninion_content;
