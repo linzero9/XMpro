@@ -2,6 +2,8 @@ package com.gotop.Generalprocess.model;
 
 import java.io.Serializable;
 
+import com.gotop.Generalprocess.annonation.GeneralprocessField;
+
 
 /**
  * 
@@ -19,11 +21,19 @@ public class ProcessModelOne  implements  Serializable{
 	
 	
 	
-	
+	@GeneralprocessField(name="模式一编号,信贷业务编号",type="text",hidden=false)
 	private  Integer   processModelOneID;
+	
+	@GeneralprocessField(name="流程ID",type="text",hidden=false)
 	private  Integer  flow_Id;
+	
+	@GeneralprocessField(name="受理支行（一级选项）",type="text")
 	private  String   orgCodeOne;
+	
+	@GeneralprocessField(name="受理支行（二级选项）",type="text")
 	private  String   orgCodeTwo;
+	
+	@GeneralprocessField(name="主调信贷员",type="text")
 	private String  creator;
 	private String  fdxdy;
 	private String  yxzg;
