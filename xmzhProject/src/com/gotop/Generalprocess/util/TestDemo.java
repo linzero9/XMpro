@@ -24,11 +24,11 @@ public class TestDemo {
 		
 		
 		ProcessModelOne  bean  = new  ProcessModelOne();
-		bean.setProcessModelOneID(11);
+		//bean.setProcessModelOneID(11);
 		
 		
 		ProcessModelOne  bean1 = new  ProcessModelOne();
-		bean1.setProcessModelOneID(3333);
+		//bean1.setProcessModelOneID(3333);
 		
 		lists.add(bean);
 		lists.add(bean1);

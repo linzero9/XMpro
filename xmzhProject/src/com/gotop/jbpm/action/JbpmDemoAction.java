@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -1755,7 +1756,7 @@ public class JbpmDemoAction extends BaseAction {
 			this.taskAssgineeDto.setTemplateFileIds(config.getFileIds());
 		}
 		String ss = getTaskUrlBuffer(taskAssgineeDto);
-		this.setTaskUrl(taskUrl1 + ss);
+		this.setTaskUrl(taskUrl1+ss);
 		this.setNameSpace(nameSpace);
 		
 		return "success";
@@ -2363,17 +2364,4 @@ public class JbpmDemoAction extends BaseAction {
 		return "jbpm_online_design_upt";
 	}
 	 
-	/**
-	 * @author	wsd
-	 * @desc	跳转到模式一的表单页面
-	 * @return
-	 */
-	public String toModelOne(){
-		try {
-    		
-		} catch (Exception e) {
-			log.error("查询模式一信息失败",e);
-		}
-		return "toModelOne";
-	}
 }

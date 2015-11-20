@@ -14,8 +14,9 @@
 <title>受理调查</title>
 </head>
   <body>
-    <h:form name="form1" id="form1" action="/euipApply/tApplyEuipAction_insertEuipInfo.action" method="post" enctype="multipart/form-data" onsubmit="return checkForm(this);">
+    <h:form name="form1" id="form1" action="" method="post" enctype="multipart/form-data" onsubmit="return checkForm(this);">
     <div id="content">
+    	<h:hidden id="createor"/>
         <h:hidden id="executionId" property="taskAssgineeDto.executionId"/>
         <h:hidden id="taskId"  property="taskAssgineeDto.nextTaskId"/>
         <h:hidden id="taskAssingee" property="taskAssgineeDto.taskAssingee"/>
@@ -25,39 +26,40 @@
         <h:hidden id="processName" property="taskAssgineeDto.processName"/>
         <h:hidden id="templateFileIds" property="taskAssgineeDto.templateFileIds"/>
         <h:hidden id="isC" name="isC" property="taskAssgineeDto/isC"/>
-		<input type="hidden" id="btnType" name="btnType" />
-		<h:hidden name="isFirst" value="1" />
+		<input type="hidden" id="btnType" name="taskAssgineeDto.btnType" />
+		<h:hidden name="taskAssgineeDto.isFirst" value="1" />
 		<table align="center" border="0" width="100%" class="form_table" >
-       <tr>
+      <tr>
          <td  colspan="4" style="text-align: center;font-weight:bold;font-size:12pt;height:50px" >
         		受理调查表
         </td>
       </tr>
       <tr>
-      <td class="form_label" align="right" style="width:120px;" >受理支行<br>（一级选项）</td>
-      <td colspan="1">
-         <h:text property="euip.orgName" id="orgName" validateAttr="allowNull=false" readonly="true" style="width:130px;" /><font style="color: red">*</font>	
+      	<td class="form_label" align="right" style="width:120px;" >受理支行<br>（一级选项）</td>
+      	<td colspan="1">
+         <h:text property="modelOne.orgNameOne" id="orgNameOne" validateAttr="allowNull=false" readonly="true" style="width:130px;" /><font style="color: red">*</font>
+         <h:hidden property="modelOne.orgCodeOne" id="orgCodeOne"/>	
+      	</td>
+     	<td class="form_label" align="right" style="width:120px;" >受理支行<br>（二级选项）</td>
+     	<td colspan="3">
+        <h:text id="orgNameTwo" property="modelOne.orgNameTwo" readonly="true" validateAttr="allowNull=false;" />
+		<h:hidden id="orgCodeTwo" property="modelOne.orgCodeTwo" />
+	    <a href="#" onclick="open_slzhej_fun()">选择</a>
         </td>
-     <td class="form_label" align="right" style="width:120px;" >受理支行<br>（二级选项）</td>
-     <td colspan="3">
-              <h:text id="objName" property="processDeployDto.objName" readonly="true" validateAttr="allowNull=false;" />
-			   <h:hidden id="deployRange" property="processDeployDto.deployRange" />
-			  <h:hidden id="orgcode" property="processDeployDto.orgcode" />
-			  <a href="#" onclick="open_newyw_tree_fun()">选择</a>
-            </td>
       </tr>
        <tr>
         <td class="form_label" align="right" style="width:120px;">
                                                    主调信贷员：
         </td>
         <td colspan="1">
-         <h:text property="euip.empName" id="empName" validateAttr="allowNull=false" readonly="true" style="width:130px;" /><font style="color: red">*</font>	
+         <h:text property="modelOne.creatorName" id="creatorName" validateAttr="allowNull=false" readonly="true" style="width:130px;" /><font style="color: red">*</font>	
+         <h:hidden id="creator" property="modelOne.creator" />
         </td>
         <td class="form_label" align="right" style="width:120px;">
                                                   辅调信贷员：
         </td>
         <td colspan="1">
-         <h:text property="euip.orgName" id="orgName" validateAttr="allowNull=false" style="width:130px;" /><font style="color: red">*</font>	
+         <h:text property="modelOne.fdxdy" id="fdxdy" validateAttr="allowNull=false" style="width:130px;" /><font style="color: red">*</font>	
         </td>
       </tr>
        <tr>
@@ -65,24 +67,24 @@
                                                    营业主管：
         </td>
         <td colspan="1">
-         <h:text property="euip.empName" id="empName" validateAttr="allowNull=false"  style="width:130px;" /><font style="color: red">*</font>	
+         <h:text property="modelOne.yxzg" id="yxzg" validateAttr="allowNull=false"  style="width:130px;" /><font style="color: red">*</font>	
         </td>
         <td class="form_label" align="right" style="width:120px;">
                                                    营销人员：
         </td>
         <td colspan="1">
-         <h:text property="euip.orgName" id="orgName" validateAttr="allowNull=ture" style="width:130px;" />	
+         <h:text property="modelOne.yxry" id="yxry" validateAttr="allowNull=ture" style="width:130px;" />	
         </td>
-      </tr>
+      	</tr>
        <tr>
      	<td class="form_label" align="right">客户姓名：</td>
      	<td>
-	     	 <h:text property="euip.phoneNo" id="phoneNo" validateAttr="allowNull=false" style="width:130px;" />
+	     	 <h:text property="modelOne.cust_Name" id="cust_Name" validateAttr="allowNull=false" style="width:130px;" />
 	     	 <font style="color: red;">*</font>
      	</td>
      	<td class="form_label" align="right">合作机构：</td>
      	<td>
-	     	 <h:text property="euip.phoneNo" id="phoneNo" validateAttr="allowNull=ture" style="width:130px;" />
+	     	 <h:text property="modelOne.coOrganization" id="coOrganization" validateAttr="allowNull=ture" style="width:130px;" />
      	</td>
       </tr>
        <tr>
@@ -90,13 +92,13 @@
                                                  申请金额：
         </td>
         <td colspan="1">
-         <h:text property="euip.empName" id="empName" validateAttr="allowNull=false" style="width:130px;" /><font style="color: red">*</font>	
+         <h:text property="modelOne.apply_bal" id="apply_bal" validateAttr="allowNull=false" style="width:130px;" /><font style="color: red">*</font>	
         </td>
         <td class="form_label" align="right" style="width:120px;">
                                                    申请币别：
         </td>
         <td colspan="1">
-         <h:text property="euip.orgName" id="orgName" validateAttr="allowNull=false" style="width:130px;" /><font style="color: red">*</font>	
+         <h:text property="modelOne.currency" id="currency" validateAttr="allowNull=false" style="width:130px;" /><font style="color: red">*</font>	
         </td>
       </tr>
        <tr>
@@ -104,13 +106,13 @@
                                                  一级分类：
         </td>
         <td colspan="1">
-         <h:text property="euip.empName" id="empName" validateAttr="allowNull=false" style="width:130px;" /><font style="color: red">*</font>	
+         <h:text property="modelOne.oneCategory" id="oneCategory" validateAttr="allowNull=false" style="width:130px;" /><font style="color: red">*</font>	
         </td>
         <td class="form_label" align="right" style="width:120px;">
                                                    贷种分类：
         </td>
         <td colspan="1">
-         <h:text property="euip.orgName" id="orgName" validateAttr="allowNull=false" style="width:130px;" /><font style="color: red">*</font>	
+         <h:text property="modelOne.loanCategory" id="loanCategory" validateAttr="allowNull=false" style="width:130px;" /><font style="color: red">*</font>	
         </td>
       </tr>
       <tr>
@@ -118,15 +120,15 @@
                                                    抵押物权属人名称：
         </td>
         <td colspan="1">
-          <h:text property="euip.phoneNo" id="phoneNo" value="${sessionScope.login_user.mobi }" validateAttr="allowNull=ture" style="width:130px;" /><font style="color: red">*</font>	
+          <h:text property="modelOne.dywx_Name" id="dywx_Name" validateAttr="allowNull=ture" style="width:130px;" /><font style="color: red">*</font>	
         </td>
         
         <td class="form_label" align="right" style="width:120px;">
-                                                    申请时间：
+                                                    调查时间：
         </td>
         <td colspan="1">
         <div id="inputTime">
-	         <w:date  id="applyTime" submitFormat="yyyy-MM-dd" format="yyyy-MM-dd" allowNull="false" property="euip.applyTime"/>
+	         <w:date  id="survey_Time" submitFormat="yyyy-MM-dd" format="yyyy-MM-dd" allowNull="false" property="modelOne.survey_Time"/>
          </div>
         </td>
       </tr>
@@ -134,10 +136,19 @@
       <tr>
      	<td class="form_label" align="right">超限说明：</td>
      	<td colspan="3">
-	     	<h:textarea property="euip.epReason" id="epReason"  extAttr="class='h80' "  validateAttr="maxLength=512;allowNull=ture" rows="4"  style="width:90%;" />
+	     	<h:textarea property="modelOne.content" id="content"  extAttr="class='h80' "  validateAttr="maxLength=512;allowNull=ture" rows="4"  style="width:90%;" />
      	</td>
       </tr>
-       
+       <tr id="row3">
+     	<td class="form_label" align="right">意见：</td>
+     	<td colspan="3">
+	     	<h:textarea property="modelOne.opinion"   extAttr="class='h80' " name="modelOne.opinion" id="opinion" validateAttr="maxLength=512" rows="4"  style="width:90%;"/>
+		    <font style="color: red">*</font>
+     	</td>
+      </tr>
+      <tbody id="dopiRow">
+     	<%@include file="/jsp/util/default_opinionUtil.jsp" %>
+     </tbody>
       <tr class="form_bottom">
         <td colspan="4">
           <input type="button" value="结束流程" class="button" onclick="doDeleteProcess('<b:write property="taskAssgineeDto/businessKey" />','07');" id="deleteProcessBtn">
@@ -212,13 +223,25 @@
 		 $("#row2").css("display","none");  
 		 $("#row3").css("display","none");  
 		 $("#dopiRow").css("display","none");  
-		 $("#beginOrg").val('${sessionScope.login_user.orgid}'); 
+		 $("#beginOrg").val('${sessionScope.login_user.orgid}');
+		 $("#createor").val('${sessionScope.login_user.empid}');
 	 }
-	 if('${euip.empName}'==""){
-		 $("#empName").val('${sessionScope.login_user.empname}');
+	 
+	 //主调信贷员	姓名		显示
+	 if('${modelOne.creatorName}'==""){
+		 $("#creatorName").val('${sessionScope.login_user.empname}');
 	 }
-	 if('${euip.orgName}'==""){
-		 $("#orgName").val('${sessionScope.login_user.orgname}');
+	 //主调信贷员	员工号	隐藏
+	 if('${modelOne.creator}'==""){
+		 $("#creator").val('${sessionScope.login_user.empid}');
+	 }
+	 //受理支行一 	 机构名称	显示
+	 if('${modelOne.orgNameOne}'==""){
+		 $("#orgNameOne").val('${sessionScope.login_user.orgname}');
+	 }
+	 //受理支行一 	机构code	隐藏
+	 if('${modelOne.orgCodeOne}'==""){
+		 $("#orgCodeOne").val('${sessionScope.login_user.orgcode}');
 	 }
 	 if('${isView}'!=''){
 		 $("#deleteProcessBtn").hide();
@@ -251,7 +274,7 @@ function initPlanCell20(){
     		if(value!="1"){
     			if(checkForm($id("form1"))){
     			var strUrl = "/jbpm/jbpmDemoAction_toNextTaskConfig.action?taskAssgineeDto.executionId="+$id("executionId").value+"&taskAssgineeDto.beginOrg="+$("#beginOrg").val()+"&taskAssgineeDto.beginAssingee="+$("#createor").val()+"&taskAssgineeDto.definitionId=${taskAssgineeDto.definitionId}";
-        		showModalCenter(strUrl, null, taskAssigneeCallBack, 700, 400, '节点选择');
+    			showModalCenter(strUrl, null, taskAssigneeCallBack, 700, 400, '节点选择');
     			}
     		}else{
     			var _form = $id("form1");
@@ -281,7 +304,7 @@ function initPlanCell20(){
  	function taskAssigneeCallBack(arg){
   	 	var _form = $id("form1");
   	 	if(arg!=""){
-  	  	 	url="/euipApply/tApplyEuipAction_insertEuipInfo.action?"+arg;	
+  	  	 	url="/Generalprocess/generalProcessAction_handleModelOne.action?"+arg;	
   	  	    _form.action =url
   	        // 异步提交请求 
   	  	    ajaxsubmitO(1);
@@ -344,78 +367,22 @@ function initPlanCell20(){
 			$("#"+id).remove();
 		}
 
-		function open_newyw_tree_fun(){//方法名
+		//选择	受理支行	二级选项
+		function open_slzhej_fun(){
 			var strUrl ="";
 			var objName="";
 			var peArgument = [];
-			var deployType = $id("deployType").value;
-			if(deployType=="02"){
-		     strUrl="/tree/initMainTree_mainTree.action?changeTree.showTabOrg=1&changeTree.orgType=6&changeTree.showSelBox=2";
-		     objName="人员发布";
-		     var paramEntity = new ParamEntity('Employee');
-				paramEntity.setProperty('empid',$id("deployRange").value);
-				paramEntity.setProperty('empname',$id("objName").value);
-				peArgument[2]=[paramEntity,'empname','empid'];
-			}else if(deployType=="01"){
-			 strUrl = "/tree/initMainTree_mainTree.action?orgType=4&changeTree.showTabOrg=0&changeTree.showTabGroup=0&changeTree.showTabRole=1&showSelBox=4";
-			 objName="角色发布";
-			 var paramEntity = new ParamEntity('Role');
-				paramEntity.setProperty('roleid',$id("deployRange").value);
-				paramEntity.setProperty('rolename',$id("objName").value);
-				peArgument[2]=[paramEntity,'rolename','roleid'];
-			}else if(deployType=="03"){
-			strUrl ="/tree/initMainTree_mainTree.action?changeTree.showTabOrg=1&changeTree.orgType=4&changeTree.showSelBox=4"
-			objName="机构发布";  
+			strUrl ="/tree/initMainTree_mainTree.action?changeTree.showTabOrg=1&changeTree.orgType=4&changeTree.showSelBox=1&changeTree.checkcount=1"
+			objName="选择受理支行";  
 			var paramEntity = new ParamEntity('Organization');
-				paramEntity.setProperty('orgid',$id("deployRange").value);
-				paramEntity.setProperty('orgname',$id("objName").value);
-				paramEntity.setProperty('orgcode',$id("orgcode").value);
-				peArgument[3]=[paramEntity,'orgname','orgcode',"orgid"];	
-			}else if(deployType=="04"){
-				strUrl = "/empMngr/positionSelectWin2_empMngr.action"
-					peArgument[0]=$id("deployRange").value;
-				peArgument[1]=$id("objName").value;
-					objName="岗位发布";  
-			}			
-					showModalCenter(strUrl,peArgument,openNewEmpTreeCallBack,600,430,objName); 
+				paramEntity.setProperty('orgname',$id("orgNameTwo").value);
+				paramEntity.setProperty('orgcode',$id("orgCodeTwo").value);
+				peArgument[3]=[paramEntity,'orgname','orgcode',"orgid"];			
+			showModalCenter(strUrl,peArgument,open_slzhej_callback,600,430,objName); 
 			}
-
-		function openNewEmpTreeCallBack(arg){//回调方法
-			var deployType = $id("deployType").value;
-		    if(deployType=="01"){
-		        //角色
-				if(arg!=''){
-		    	if(arg['Role']){ //原写法无需判断是否为空
-				  		var sorgidArra  = arg['Role'].slice(0);//角色数组
-				  		argRes=[[],[],[],];
-						for(var i=0;i<sorgidArra.length;i++){
-							argRes[0].push(sorgidArra[i].getProperty("roleid"));
-							argRes[1].push(sorgidArra[i].getProperty("rolename"));
-						}
-						$id("deployRange").value = argRes[0];
-						$id("objName").value = argRes[1];
-					}else{
-						 $id("deployRange").value = "";
-						$id("objName").value = ""; 
-					}
-				}
-		    }else if(deployType=="02"){
-		        //人员
-				if(arg!=''){
-		    	if(arg['Employee']){ //原写法无需判断是否为空
-				  		var sorgidArra  = arg['Employee'].slice(0);//人员数组
-				  		argRes=[[],[],[],[]];
-						for(var i=0;i<sorgidArra.length;i++){
-							argRes[0].push(sorgidArra[i].getProperty("empid"));
-							argRes[1].push(sorgidArra[i].getProperty("empname"));
-						}
-						$id("deployRange").value = argRes[0];
-						$id("objName").value = argRes[1];
-					}else{
-						$id("objName").value = "";
-						$id("deployRange").value = "";
-					}}
-		    }else{
+		
+		//受理支行		二级选项	回调方法
+		function open_slzhej_callback(arg){//回调方法
 				if(arg!=''){
 		    	if(arg['Organization']){ //原写法无需判断是否为空
 				  		var sorgidArra  = arg['Organization'].slice(0);//人员数组
@@ -423,18 +390,11 @@ function initPlanCell20(){
 						for(var i=0;i<sorgidArra.length;i++){
 							argRes[0].push(sorgidArra[i].getProperty("orgcode"));
 							argRes[1].push(sorgidArra[i].getProperty("orgname"));
-							argRes[2].push(sorgidArra[i].getProperty("orgid"));
 						}
-						$id("deployRange").value = argRes[2];
-						$id("objName").value = argRes[1];
-						$id("orgcode").value = argRes[0];
-					}else{
-						//指定岗位
-						$id("deployRange").value =arg[0];
-						$id("objName").value =arg[1];
-						$id("orgcode").value=arg[2];
-					}}
-		    }
+						$id("orgNameTwo").value = argRes[1];
+						$id("orgCodeTwo").value = argRes[0];
+					}
+		    	}
 			}
 				
  </script>

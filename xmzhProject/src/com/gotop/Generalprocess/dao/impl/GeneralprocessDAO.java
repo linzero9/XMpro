@@ -48,5 +48,10 @@ public class GeneralprocessDAO extends SqlMapClientDao implements IGeneralproces
 		return list;
 	}
 
+	@Override
+	public List queryOrgName(String empIds) {
+		return queryForList("GENERAL_PROCESS_SqlMap.queryOrgName",empIds);
+	}
+
 	
 }

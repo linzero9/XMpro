@@ -1,7 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd" >
-<beans >
-  <bean id="generalProcessService" class="com.gotop.Generalprocess.service.impl.GeneralprocessService" >
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+  <bean class="com.gotop.Generalprocess.service.impl.GeneralprocessService" id="generalProcessService">
   	<property name="generalProcessDAO" ref="generalProcessDAO" />
+  	<property name="tApproveOpninionDAO" ref="tApproveOpninionDAO" />
+  	<property name="jbpmService" ref="jbpmService" />
   </bean>
-</beans>
+
+  </beans>

@@ -32,4 +32,11 @@ public interface IGeneralprocessDAO {
 	 */
 	public List<ProcessModelOne> getProcessModelOneByBussinessId(String bussinessId);
 	
+	/**
+	 * 根据多个empid查询出机构名称列表
+	 * @param empIds
+	 * @return
+	 */
+	public List queryOrgName(String empIds);
+	
 }

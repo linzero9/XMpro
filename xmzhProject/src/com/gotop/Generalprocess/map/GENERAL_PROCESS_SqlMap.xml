@@ -3,8 +3,8 @@
 <sqlMap namespace="GENERAL_PROCESS_SqlMap" >
 
 	<resultMap id="processModelOne_result" class="com.gotop.Generalprocess.model.ProcessModelOne" >
-		<result column="PROCESSMODELONEID" property="processModelOneID" jdbcType="DECIMAL" />
-    	<result column="FLOW_ID" property="flow_Id" jdbcType="DECIMAL" />
+		<result column="PROCESSMODELID" property="processModelId" jdbcType="DECIMAL" />
+    	<result column="FLOW_ID" property="flow_Id" jdbcType="VARCHAR" />
     	<result column="ORGCODEONE" property="orgCodeOne" jdbcType="VARCHAR" />
     	<result column="ORGCODETWO" property="orgCodeTwo" jdbcType="VARCHAR" />
     	<result column="CREATOR" property="creator" jdbcType="VARCHAR" />
@@ -30,7 +30,7 @@
 	
 	<!--通过主键查询数据-->
 	<select id="getProcessModelOneById" resultMap="processModelOne_result" parameterClass="java.util.HashMap">
-    	SELECT T.PROCESSMODELONEID,
+    	SELECT T.PROCESSMODELID,
        		T.FLOW_ID,
        		T.ORGCODEONE,
        		T.ORGCODETWO,
@@ -58,9 +58,10 @@
   		WHERE T.PROCESSMODELONEID = #id#
   	</select>
   	
+  	
   	<!--通过流程实例id查询数据-->
   	<select id="getProcessModelOneByBussinessId" resultMap="processModelOne_result" parameterClass="java.util.HashMap">
-  		SELECT T.PROCESSMODELONEID,
+  		SELECT T.PROCESSMODELID,
        		T.FLOW_ID,
        		T.ORGCODEONE,
        		T.ORGCODETWO,
@@ -87,13 +88,25 @@
   		WHERE T.FLOW_ID = #bussinessId#
   	</select>
   	
+  	<!-- 新增模式一表单 -->
   	<insert id="addModelOne" parameterClass="com.gotop.Generalprocess.model.ProcessModelOne" >
-  		INSERT INTO T_GENERALPROCESS_MODELONE(PROCESSMODELONEID,FLOW_ID,ORGCODEONE,ORGCODETWO,CREATOR,FDXDY,YXZG,YXRY,CURRENCY,APPLY_BAL,
-  		ONECATEGORY,LOANCATEGORY,DYWX_NAME,COORGANIZATION,SURVEY_TIME,CONTENT,CUST_NAME,CREATE_DATE,CREATE_TIME,CREATE_NAME,LAST_UP_DATE,
-  		LAST_UP_TIME,LAST_UP_NAME)
-  		VALUES(#processModelOneID:DECIMAL:-9999#,#flow_Id:DECIMAL:-9999#,#orgCodeOne:VARCHAR#,#orgCodeTwo:VARCHAR#,#creator:VARCHAR#,
-  		#fdxdy:VARCHAR#,#yxzg:VARCHAR#,#yxry:VARCHAR#
-  		)
+  		 <selectKey resultClass="long" keyProperty="processModelId">
+			SELECT SEQ_T_GENERALPROCESS_MODELONE.NEXTVAL AS VALUE FROM DUAL
+		</selectKey>
+  		insert into T_GENERALPROCESS_MODELONE (PROCESSMODELID, FLOW_ID, ORGCODEONE, ORGCODETWO,
+      CREATOR, FDXDY, YXZG, YXRY, CURRENCY, APPLY_BAL, ONECATEGORY, LOANCATEGORY, DYWX_NAME,
+      COORGANIZATION, SURVEY_TIME, CONTENT, CUST_NAME, CREATE_DATE, CREATE_TIME, CREATE_NAME,
+      LAST_UP_DATE, LAST_UP_TIME, LAST_UP_NAME)
+    values (#processModelId:DECIMAL:-9999#, #flow_Id:DECIMAL:-9999#, #orgCodeOne:VARCHAR#,
+      #orgCodeTwo:VARCHAR#, #creator:VARCHAR#, #fdxdy:VARCHAR#, #yxzg:VARCHAR#, #yxry:VARCHAR#,
+      #currency:VARCHAR#, #apply_bal:VARCHAR#, #oneCategory:VARCHAR#, #loanCategory:VARCHAR#,
+      #dywx_Name:VARCHAR#, #coOrganization:VARCHAR#, #survey_Time:VARCHAR#, #content:VARCHAR#,
+      #cust_Name:VARCHAR#, #create_Date:VARCHAR#, #create_time:VARCHAR#, #create_name:VARCHAR#,
+      #last_up_date:VARCHAR#, #last_up_time:VARCHAR#, #last_up_name:VARCHAR#)
   	</insert>
+  	
+  	<select id="queryOrgName" resultClass="java.util.HashMap" parameterClass="String">
+  		select b.orgname from om_emporg a,om_organization b where a.empid in($empIds$) and b.orgid = a.orgid
+  	</select>
   	
 </sqlMap>

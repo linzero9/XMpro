@@ -12,7 +12,7 @@ import com.gotop.Generalprocess.annonation.GeneralprocessField;
  * @version 1.0
  * 
  **/
-public class ProcessModelOne  implements  Serializable{
+public class ProcessModelOne extends ProcessModel  implements  Serializable {
 
 	/**
 	 * 
@@ -22,10 +22,10 @@ public class ProcessModelOne  implements  Serializable{
 	
 	
 	@GeneralprocessField(name="模式一编号,信贷业务编号",type="text",hidden=false)
-	private  Integer   processModelOneID;
+	private  Long   processModelOneID;
 	
 	@GeneralprocessField(name="流程ID",type="text",hidden=false)
-	private  Integer  flow_Id;
+	private  String  flow_Id;
 	
 	@GeneralprocessField(name="受理支行（一级选项）",type="text")
 	private  String   orgCodeOne;
@@ -91,17 +91,16 @@ public class ProcessModelOne  implements  Serializable{
 	@GeneralprocessField(name="最后操作员",type="text")
 	private String    last_up_name;
 	
-	
-	public Integer getProcessModelOneID() {
+	public Long getProcessModelOneID() {
 		return processModelOneID;
 	}
-	public void setProcessModelOneID(Integer processModelOneID) {
+	public void setProcessModelOneID(Long processModelOneID) {
 		this.processModelOneID = processModelOneID;
 	}
-	public Integer getFlow_Id() {
+	public String getFlow_Id() {
 		return flow_Id;
 	}
-	public void setFlow_Id(Integer flow_Id) {
+	public void setFlow_Id(String flow_Id) {
 		this.flow_Id = flow_Id;
 	}
 	public String getOrgCodeOne() {

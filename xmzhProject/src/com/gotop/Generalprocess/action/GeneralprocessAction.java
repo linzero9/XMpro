@@ -1,13 +1,21 @@
 package com.gotop.Generalprocess.action;
 
 import java.util.List;
+import java.util.Map;
 
+import net.sf.json.JSONObject;
+
+import com.gotop.Generalprocess.annonation.GeneralprocessFieldBean;
 import com.gotop.Generalprocess.model.ProcessModelOne;
+import com.gotop.Generalprocess.service.IGeneralprocessService;
+import com.gotop.Generalprocess.util.GeneralprocessUtil;
 
 import com.gotop.crm.util.BaseAction;
 import com.gotop.jbpm.dto.TaskAssgineeDto;
 import com.gotop.opinion.model.TDefaultOpinion;
 import com.gotop.opinion.service.ITDefaultOpinionService;
+import com.gotop.util.Struts2Utils;
+import com.gotop.vo.system.MUOUserSession;
 
 public class GeneralprocessAction extends BaseAction {
 
@@ -48,6 +56,17 @@ public class GeneralprocessAction extends BaseAction {
 	 * 
 	 */
 	private ITDefaultOpinionService tDefaultOpinionService;
+	
+	private IGeneralprocessService generalProcessService;
+	
+	public IGeneralprocessService getGeneralProcessService() {
+		return generalProcessService;
+	}
+
+	public void setGeneralProcessService(
+			IGeneralprocessService generalProcessService) {
+		this.generalProcessService = generalProcessService;
+	}
 
 	public TaskAssgineeDto getTaskAssgineeDto() {
 		return taskAssgineeDto;
@@ -120,9 +139,18 @@ public class GeneralprocessAction extends BaseAction {
 	 * @desc 跳转到模式二的表单页面
 	 * 
 	 * @return
+	 * @throws ClassNotFoundException 
+	 * @throws NoSuchFieldException 
+	 * @throws IllegalAccessException 
+	 * @throws SecurityException 
+	 * @throws IllegalArgumentException 
 	 */
-	public String toModelTwo(){
+	public String toModelTwo() throws ClassNotFoundException, IllegalArgumentException, SecurityException, IllegalAccessException, NoSuchFieldException{
 		
+		List<ProcessModelOne> modelOnes = this.generalProcessService.getProcessModelOneByBussinessId("1");
+		Map<String, List<GeneralprocessFieldBean>> beans =  GeneralprocessUtil.fixBean(modelOnes, ProcessModelOne.class,"com.gotop.Generalprocess.model.ProcessModelOne");
+		JSONObject s = JSONObject.fromObject(beans);
+		System.out.println(s.toString());
 		return "toModelTwo";
 	}
 	
@@ -131,11 +159,20 @@ public class GeneralprocessAction extends BaseAction {
 	 * @author wsd
 	 * @desc 后台处理模式一的新增模式一表单、结束流程、记录流程日志
 	 * @return
+	 * @throws Exception 
 	 * 
 	 */
-	public String handleModelOne() {
-
-		return "";
+	public void handleModelOne() throws Exception {
+		String info ="success";
+    	MUOUserSession muo = getCurrentOnlineUser();
+		try {
+			this.generalProcessService.handleModelOne(muo,modelOne,taskAssgineeDto);
+		} catch (Exception e) {
+			info="fails";
+			log.error("[提交模式一表单失败！]", e);
+			throw e;
+		}
+		Struts2Utils.renderText(info);
 	}
 
 }

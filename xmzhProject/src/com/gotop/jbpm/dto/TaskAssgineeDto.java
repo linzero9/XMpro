@@ -183,6 +183,35 @@ public class TaskAssgineeDto {
      */
     private String reSelectFlag;
     
+    /**
+     * 页面按钮类型
+     * 1	保存
+     * 2	提交
+     */
+    private String btnType;
+    
+    /**
+     * 是否是第一个节点
+     * 1	是
+     */
+    private String isFirst;
+    
+	public String getIsFirst() {
+		return isFirst;
+	}
+
+	public void setIsFirst(String isFirst) {
+		this.isFirst = isFirst;
+	}
+
+	public String getBtnType() {
+		return btnType;
+	}
+
+	public void setBtnType(String btnType) {
+		this.btnType = btnType;
+	}
+
 	public String getIsUpdate() {
 		return isUpdate;
 	}

@@ -1,7 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd" >
-<beans >
-  <bean id="generalProcessDAO" class="com.gotop.Generalprocess.dao.impl.GeneralprocessDAO" >
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+  <bean class="com.gotop.Generalprocess.dao.impl.GeneralprocessDAO" id="generalProcessDAO">
     <property name="sqlMapClient" ref="sqlMapClient" />
   </bean>
-</beans>
+
+  </beans>
