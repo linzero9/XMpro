@@ -1,11 +1,21 @@
 package com.gotop.Generalprocess.action;
 
 import java.lang.reflect.InvocationTargetException;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
+
+import javax.servlet.ServletContext;
+
+import org.apache.struts2.util.ServletContextAware;
+import org.springframework.core.io.support.PropertiesLoaderUtils;
 
 import com.gotop.Generalprocess.model.ProcessModel;
 import com.gotop.Generalprocess.model.ProcessModelOne;
+import com.gotop.Generalprocess.model.ProcessModelPublic;
 import com.gotop.Generalprocess.model.TGeneralprocessMain;
 import com.gotop.Generalprocess.service.IGeneralprocessService;
 import com.gotop.Generalprocess.service.ITGeneralprocessMainService;
@@ -17,7 +27,7 @@ import com.gotop.opinion.service.ITDefaultOpinionService;
 import com.gotop.util.Struts2Utils;
 import com.gotop.vo.system.MUOUserSession;
 
-public class GeneralprocessAction extends BaseAction {
+public class GeneralprocessAction extends BaseAction{
 
 	/**
 	 * 
@@ -210,35 +220,8 @@ public class GeneralprocessAction extends BaseAction {
 		if(taskAssgineeDto!=null&&taskAssgineeDto.getExecutionId()!=null&&!"".equals(taskAssgineeDto.getExecutionId()))
 			flowId=taskAssgineeDto.getExecutionId();
 		
-		
-		GeneralprocessUtil.returnAllObj(null, flowId);
-		
-		
-		
-		
-		if(main != null){
-			if(main.getRules() != null && !"".equals(main.getRules())){
-				String rules = main.getRules();
-				String[] rulesArray = rules.split(",");
-				
-				for (int i = 0; i < rulesArray.length; i++) {
-					String rule = rulesArray[i];
-					
-					//Map<String, List<GeneralprocessFieldBean>> beans =  GeneralprocessUtil.fixBean(modelOnes,,i);
-					
-					
-					if(rule.equals("com.gotop.Generalprocess.model.ProcessModelOne")){
-						//ProcessModelOne modelOne = this.generalProcessService.queryModelOne(processModelId,flowId);
-						//pmList.add(modelOne);
-					}
-				}
-			}
-		}else{
-			
-		}
-		
-		
-		
+		List<List<ProcessModelPublic>> aa = GeneralprocessUtil.returnAllObj(null, flowId);
+
 		return "toModelTwo";
 	}
 	
@@ -262,5 +245,6 @@ public class GeneralprocessAction extends BaseAction {
 		}
 		Struts2Utils.renderText(info);
 	}
+
 
 }

@@ -8,6 +8,11 @@ public abstract class ProcessModel implements  ProcessModelPublic{
 	private Long processModelId;
 
 	/**
+	 * 模式节点名称
+	 */
+	private String taskName;
+	
+	/**
 	 * 模式通用意见
 	 */
 	public String opinion;
@@ -28,4 +33,12 @@ public abstract class ProcessModel implements  ProcessModelPublic{
 		this.opinion = opinion;
 	}
 
+	public String getTaskName() {
+		return taskName;
+	}
+
+	public void setTaskName(String taskName) {
+		this.taskName = taskName;
+	}
+	
 }

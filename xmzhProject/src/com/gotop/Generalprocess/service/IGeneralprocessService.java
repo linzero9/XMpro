@@ -51,5 +51,4 @@ public interface IGeneralprocessService {
 	 */
 	public ProcessModelOne queryModelOne(String processModelId, String flowId);
 	
-	
 }

@@ -169,6 +169,7 @@ public class GeneralprocessUtil {
 	 * 
 	 */
 
+
 	public static List<List<ProcessModelPublic>> returnAllObj(String[] rules// 规则表中的集合
 			, String keyID// 每个模式的主键 用于查询
 	) throws ClassNotFoundException, SecurityException, NoSuchMethodException,
@@ -199,6 +200,7 @@ public class GeneralprocessUtil {
 
 		Object returnbean = thismethod.invoke(bean, keyID);
 
+	
 		return (List<List<ProcessModelPublic>>) returnbean;
 
 	}
