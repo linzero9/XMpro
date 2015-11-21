@@ -1,6 +1,8 @@
 package com.gotop.Generalprocess.util;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -144,26 +146,43 @@ public class GeneralprocessUtil {
 	/**
 	 * 
 	 * @author wujiajun
+	 * @throws ClassNotFoundException 
+	 * @throws NoSuchMethodException 
+	 * @throws SecurityException 
+	 * @throws InvocationTargetException 
+	 * @throws IllegalAccessException 
+	 * @throws IllegalArgumentException 
+	 * @throws InstantiationException 
 	 * @desc   传入  rules， 更具多个rules（eg:  com.gotop.ModelOne）  执行不一样的dao，然后获取到 不一样的  结果集
 	 * 
 	 *
 	 */
 	
-	public  static  List<List<ProcessModelPublic>>  returnAllObj(String[] rules){
+	public  static  List<List<ProcessModelPublic>>  returnAllObj(String[] rules//规则表中的集合
+			,String   keyID//每个模式的主键 用于查询
+			) throws ClassNotFoundException, SecurityException, NoSuchMethodException, IllegalArgumentException, IllegalAccessException, InvocationTargetException, InstantiationException{
+		
+		//1.
+		
+		String  classname=" com.gotop.Generalprocess.dao.impl.GeneralprocessDAO";
+		String  method="getProcessModelOneByBussinessId";
+		
+		//实例化dao？
 		
 		
 		
+		Class<?> classes= Class.forName(classname);
+		
+		Object bean= classes.newInstance();
+		
+		Method thismethod=   classes.getDeclaredMethod(method, String.class);
+		
+		Object  returnbean= thismethod.invoke(bean, keyID);
 		
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		return  null;
+		return (List<List<ProcessModelPublic>>) returnbean;
+
 		
 	}
 	
