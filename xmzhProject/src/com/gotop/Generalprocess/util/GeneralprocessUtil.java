@@ -94,6 +94,9 @@ public class GeneralprocessUtil {
 	 * @throws NoSuchFieldException
 	 * @throws ClassNotFoundException
 	 * @desc 传入 数据库查询的值+class+类名称
+	 * 
+	 * 
+	 * 更具传入的值，查询单个 实体类，包括 字段值+字段的描述等
 	 */
 	public static <T> Map<String, List<GeneralprocessFieldBean>> fixBean(
 			List<T> processLists, Class<?> classes, String className)
@@ -164,11 +167,10 @@ public class GeneralprocessUtil {
 	 * @throws IllegalArgumentException
 	 * @throws InstantiationException
 	 * @desc 传入 rules， 更具多个rules（eg: com.gotop.ModelOne） 执行不一样的dao，然后获取到 不一样的
-	 *       结果集
+	 *       结果集（值+注解）
 	 * 
 	 * 
 	 */
-
 
 	public static List<List<ProcessModelPublic>> returnAllObj(String[] rules// 规则表中的集合
 			, String keyID// 每个模式的主键 用于查询
@@ -176,33 +178,30 @@ public class GeneralprocessUtil {
 			IllegalArgumentException, IllegalAccessException,
 			InvocationTargetException, InstantiationException {
 
-		// 1.  读取配置文件2.循环  去 获取 结果集  3. 全部结果集  放在一起
+		// 1. 读取配置文件2.循环 去 获取 结果集 3. 全部结果集 放在一起
 
 		String classname = "com.gotop.Generalprocess.dao.impl.GeneralprocessDAO";
 		String method = "getProcessModelOneByBussinessId";
-
-		
 
 		/*
 		 * WebApplicationContext webContext = ContextLoader
 		 * .getCurrentWebApplicationContext(); IGeneralprocessService bean
 		 * =(IGeneralprocessService)webContext.getBean("generalProcessService");
 		 */
-		
-		
-		//实例化dao
-		Object bean =  SpringContextUtil
-				.getBean("generalProcessDAO");
+
+		// 实例化dao
+		Object bean = SpringContextUtil.getBean("generalProcessDAO");
 
 		System.out.println(bean);
 
 		Class<?> classes = Class.forName(classname);
+		//目前只有值，需要加入加入 @ 注解的 值
+		
 
 		Method thismethod = classes.getDeclaredMethod(method, String.class);
 
 		Object returnbean = thismethod.invoke(bean, keyID);
 
-	
 		return (List<List<ProcessModelPublic>>) returnbean;
 
 	}
