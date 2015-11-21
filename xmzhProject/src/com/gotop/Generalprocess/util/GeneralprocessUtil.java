@@ -176,20 +176,22 @@ public class GeneralprocessUtil {
 			IllegalArgumentException, IllegalAccessException,
 			InvocationTargetException, InstantiationException {
 
-		// 1.
+		// 1.  读取配置文件2.循环  去 获取 结果集  3. 全部结果集  放在一起
 
 		String classname = "com.gotop.Generalprocess.dao.impl.GeneralprocessDAO";
 		String method = "getProcessModelOneByBussinessId";
 
-		// 实例化dao？
+		
 
 		/*
 		 * WebApplicationContext webContext = ContextLoader
 		 * .getCurrentWebApplicationContext(); IGeneralprocessService bean
 		 * =(IGeneralprocessService)webContext.getBean("generalProcessService");
 		 */
-
-		GeneralprocessDAO bean = (GeneralprocessDAO) SpringContextUtil
+		
+		
+		//实例化dao
+		Object bean =  SpringContextUtil
 				.getBean("generalProcessDAO");
 
 		System.out.println(bean);
