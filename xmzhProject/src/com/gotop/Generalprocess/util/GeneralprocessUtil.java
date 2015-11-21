@@ -11,6 +11,7 @@ import org.apache.derby.tools.sysinfo;
 import com.gotop.Generalprocess.annonation.GeneralprocessField;
 import com.gotop.Generalprocess.annonation.GeneralprocessFieldBean;
 import com.gotop.Generalprocess.model.ProcessModelOne;
+import com.gotop.Generalprocess.model.ProcessModelPublic;
 
 /**
  * 
@@ -137,6 +138,49 @@ public class GeneralprocessUtil {
 		return returnbeans;
 
 	}
+	
+	
+	
+	/**
+	 * 
+	 * @author wujiajun
+	 * @desc   传入  rules， 更具多个rules（eg:  com.gotop.ModelOne）  执行不一样的dao，然后获取到 不一样的  结果集
+	 * 
+	 *
+	 */
+	
+	public  static  List<List<ProcessModelPublic>>  returnAllObj(String[] rules){
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		return  null;
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	public static void main(String[] args) throws ClassNotFoundException {
 

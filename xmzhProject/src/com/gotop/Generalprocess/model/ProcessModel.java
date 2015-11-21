@@ -1,6 +1,6 @@
 package com.gotop.Generalprocess.model;
 
-public abstract class ProcessModel {
+public abstract class ProcessModel implements  ProcessModelPublic{
 
 	/**
 	 * 模式通用主键

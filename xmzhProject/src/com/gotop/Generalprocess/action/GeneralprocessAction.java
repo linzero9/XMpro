@@ -154,6 +154,18 @@ public class GeneralprocessAction extends BaseAction {
     		if(taskAssgineeDto!=null&&taskAssgineeDto.getExecutionId()!=null&&!"".equals(taskAssgineeDto.getExecutionId()))
     			flowId=taskAssgineeDto.getExecutionId();
     		modelOne=this.generalProcessService.queryModelOne(processModelId,flowId);
+    		
+    		
+    		
+    		
+    		
+    		
+    		
+    		
+    		
+    		
+    		
+    		
 		} catch (Exception e) {
 			log.error("查询模式一表单信息失败", e);
 		}
