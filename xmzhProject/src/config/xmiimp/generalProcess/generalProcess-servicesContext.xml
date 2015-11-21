@@ -12,4 +12,8 @@
   <bean class="com.gotop.Generalprocess.service.impl.TGeneralprocessMainService" id="tGeneralprocessMainService">
     <property name="tGeneralprocessMainDAO" ref="generalprocessMainDAO" />
   </bean>
+  
+    <bean id="SpringContextUtil"  class="com.gotop.Generalprocess.util.SpringContextUtil" />
   </beans>
+  
+  

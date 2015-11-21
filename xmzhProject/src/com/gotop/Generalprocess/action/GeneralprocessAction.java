@@ -1,5 +1,6 @@
 package com.gotop.Generalprocess.action;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +9,7 @@ import com.gotop.Generalprocess.model.ProcessModelOne;
 import com.gotop.Generalprocess.model.TGeneralprocessMain;
 import com.gotop.Generalprocess.service.IGeneralprocessService;
 import com.gotop.Generalprocess.service.ITGeneralprocessMainService;
+import com.gotop.Generalprocess.util.GeneralprocessUtil;
 import com.gotop.crm.util.BaseAction;
 import com.gotop.jbpm.dto.TaskAssgineeDto;
 import com.gotop.opinion.model.TDefaultOpinion;
@@ -184,12 +186,19 @@ public class GeneralprocessAction extends BaseAction {
 	 * @throws IllegalAccessException 
 	 * @throws SecurityException 
 	 * @throws IllegalArgumentException 
+	 * @throws InstantiationException 
+	 * @throws InvocationTargetException 
+	 * @throws NoSuchMethodException 
 	 */
-	public String toModelTwo() throws ClassNotFoundException, IllegalArgumentException, SecurityException, IllegalAccessException, NoSuchFieldException{
+	public String toModelTwo() throws ClassNotFoundException, IllegalArgumentException, SecurityException, IllegalAccessException, NoSuchFieldException, NoSuchMethodException, InvocationTargetException, InstantiationException{
 		//List<ProcessModelOne> modelOnes = this.generalProcessService.getProcessModelOneByBussinessId("1");
 		//Map<String, List<GeneralprocessFieldBean>> beans =  GeneralprocessUtil.fixBean(modelOnes, ProcessModelOne.class,"com.gotop.Generalprocess.model.ProcessModelOne");
 		//JSONObject s = JSONObject.fromObject(beans);
 		//System.out.println(s.toString());
+		
+		
+		
+		
 		String businessId = taskAssgineeDto.getExecutionId();
 		TGeneralprocessMain main = this.generalprocessMainService.queryMainByBusinessId(businessId);
 		List<ProcessModel> pmList = new ArrayList<ProcessModel>();
@@ -200,6 +209,11 @@ public class GeneralprocessAction extends BaseAction {
 			processModelId=String.valueOf(taskAssgineeDto.getBusinessKey());
 		if(taskAssgineeDto!=null&&taskAssgineeDto.getExecutionId()!=null&&!"".equals(taskAssgineeDto.getExecutionId()))
 			flowId=taskAssgineeDto.getExecutionId();
+		
+		
+		GeneralprocessUtil.returnAllObj(null, flowId);
+		
+		
 		
 		
 		if(main != null){
