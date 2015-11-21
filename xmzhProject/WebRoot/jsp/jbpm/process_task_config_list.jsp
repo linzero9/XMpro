@@ -85,9 +85,13 @@
 					 strUrl = "/jbpm/jbpmDemoAction_toTaskConfig.action?taskAssgineeDto.definitionId="+definitionId + "&taskAssgineeDto.taskName=" + name +"&date="+new Date();
 				}
 		  		strUrl = encodeURI(strUrl);
-		  		showModalCenter(strUrl, null,  null, 800, 300, '流程节点配置'); 
+		  		showModalCenter(strUrl, null,callBackTaskConfig, 800, 300, '流程节点配置'); 
 			  	}
 		 }
+	  	
+	  	function callBackTaskConfig(){
+	  		window.location.reload();
+	  	}
 
 	  	//流程显示别名配置
 	  	function taskOtherNameConfig(){
@@ -111,6 +115,7 @@
 		  		showModalCenter(strUrl, null,  null, 800, 300, '流程节点别名配置'); 
 			  	}
 		}
+	  	
 	  	function backProcessConfig(){
 	  		window.history.go(-1);
 		 }

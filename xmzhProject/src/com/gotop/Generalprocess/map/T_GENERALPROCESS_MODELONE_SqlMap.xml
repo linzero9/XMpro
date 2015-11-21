@@ -1,0 +1,857 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="T_GENERALPROCESS_MODELONE_SqlMap" >
+  <resultMap id="abatorgenerated_TGeneralprocessModeloneResult" class="com.gotop.Generalprocess.model.TGeneralprocessModelone" >
+    <!--Bean方式返回全表-->
+    <result column="PROCESSMODELONEID" property="processmodeloneid" jdbcType="DECIMAL" />
+    <result column="FLOW_ID" property="flowId" jdbcType="DECIMAL" />
+    <result column="ORGCODEONE" property="orgcodeone" jdbcType="VARCHAR" />
+    <result column="ORGCODETWO" property="orgcodetwo" jdbcType="VARCHAR" />
+    <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+    <result column="FDXDY" property="fdxdy" jdbcType="VARCHAR" />
+    <result column="YXZG" property="yxzg" jdbcType="VARCHAR" />
+    <result column="YXRY" property="yxry" jdbcType="VARCHAR" />
+    <result column="CURRENCY" property="currency" jdbcType="VARCHAR" />
+    <result column="APPLY_BAL" property="applyBal" jdbcType="VARCHAR" />
+    <result column="ONECATEGORY" property="onecategory" jdbcType="VARCHAR" />
+    <result column="LOANCATEGORY" property="loancategory" jdbcType="VARCHAR" />
+    <result column="DYWX_NAME" property="dywxName" jdbcType="VARCHAR" />
+    <result column="COORGANIZATION" property="coorganization" jdbcType="VARCHAR" />
+    <result column="SURVEY_TIME" property="surveyTime" jdbcType="VARCHAR" />
+    <result column="CONTENT" property="content" jdbcType="VARCHAR" />
+    <result column="CUST_NAME" property="custName" jdbcType="VARCHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="VARCHAR" />
+    <result column="CREATE_NAME" property="createName" jdbcType="VARCHAR" />
+    <result column="LAST_UP_DATE" property="lastUpDate" jdbcType="VARCHAR" />
+    <result column="LAST_UP_TIME" property="lastUpTime" jdbcType="VARCHAR" />
+    <result column="LAST_UP_NAME" property="lastUpName" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="abatorgenerated_TGeneralprocessModelone_HashMapResult" class="java.util.HashMap" >
+    <!--HashMap方式返回全表-->
+    <result column="PROCESSMODELONEID" property="processmodeloneid" jdbcType="DECIMAL" />
+    <result column="FLOW_ID" property="flowId" jdbcType="DECIMAL" />
+    <result column="ORGCODEONE" property="orgcodeone" jdbcType="VARCHAR" />
+    <result column="ORGCODETWO" property="orgcodetwo" jdbcType="VARCHAR" />
+    <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+    <result column="FDXDY" property="fdxdy" jdbcType="VARCHAR" />
+    <result column="YXZG" property="yxzg" jdbcType="VARCHAR" />
+    <result column="YXRY" property="yxry" jdbcType="VARCHAR" />
+    <result column="CURRENCY" property="currency" jdbcType="VARCHAR" />
+    <result column="APPLY_BAL" property="applyBal" jdbcType="VARCHAR" />
+    <result column="ONECATEGORY" property="onecategory" jdbcType="VARCHAR" />
+    <result column="LOANCATEGORY" property="loancategory" jdbcType="VARCHAR" />
+    <result column="DYWX_NAME" property="dywxName" jdbcType="VARCHAR" />
+    <result column="COORGANIZATION" property="coorganization" jdbcType="VARCHAR" />
+    <result column="SURVEY_TIME" property="surveyTime" jdbcType="VARCHAR" />
+    <result column="CONTENT" property="content" jdbcType="VARCHAR" />
+    <result column="CUST_NAME" property="custName" jdbcType="VARCHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="VARCHAR" />
+    <result column="CREATE_NAME" property="createName" jdbcType="VARCHAR" />
+    <result column="LAST_UP_DATE" property="lastUpDate" jdbcType="VARCHAR" />
+    <result column="LAST_UP_TIME" property="lastUpTime" jdbcType="VARCHAR" />
+    <result column="LAST_UP_NAME" property="lastUpName" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="abatorgenerated_selectByPrimaryKey" resultMap="abatorgenerated_TGeneralprocessModeloneResult" parameterClass="com.gotop.Generalprocess.model.TGeneralprocessModelone" >
+    <!--通过主键查询一条数据-->
+    select PROCESSMODELONEID, FLOW_ID, ORGCODEONE, ORGCODETWO, CREATOR, FDXDY, YXZG, YXRY, CURRENCY,
+      APPLY_BAL, ONECATEGORY, LOANCATEGORY, DYWX_NAME, COORGANIZATION, SURVEY_TIME, CONTENT,
+      CUST_NAME, CREATE_DATE, CREATE_TIME, CREATE_NAME, LAST_UP_DATE, LAST_UP_TIME, LAST_UP_NAME
+    from T_GENERALPROCESS_MODELONE
+    where PROCESSMODELONEID = #processmodeloneid:DECIMAL#
+  </select>
+  <select id="abatorgenerated_selectByExample" resultMap="abatorgenerated_TGeneralprocessModeloneResult" parameterClass="com.gotop.Generalprocess.model.TGeneralprocessModeloneExample" >
+    <!--通过查询实体,查询满足条件的记录-->
+    select PROCESSMODELONEID, FLOW_ID, ORGCODEONE, ORGCODETWO, CREATOR, FDXDY, YXZG, YXRY, CURRENCY,
+      APPLY_BAL, ONECATEGORY, LOANCATEGORY, DYWX_NAME, COORGANIZATION, SURVEY_TIME, CONTENT,
+      CUST_NAME, CREATE_DATE, CREATE_TIME, CREATE_NAME, LAST_UP_DATE, LAST_UP_TIME, LAST_UP_NAME
+    from T_GENERALPROCESS_MODELONE
+    <isParameterPresent >
+      <include refid="COMMON.abatorgenerated_Example_Where_Clause" />
+      <isNotNull property="orderByClause" >
+        order by $orderByClause$
+      </isNotNull>
+    </isParameterPresent>
+  </select>
+  <select id="abatorgenerated_expandEntityByTemplate" resultMap="abatorgenerated_TGeneralprocessModeloneResult" parameterClass="com.gotop.Generalprocess.model.TGeneralprocessModelone" >
+    <!--根据Bean数据模板查询条件查询所有记录，可查询分页数据-->
+    select PROCESSMODELONEID, FLOW_ID, ORGCODEONE, ORGCODETWO, CREATOR, FDXDY, YXZG, YXRY, CURRENCY,
+      APPLY_BAL, ONECATEGORY, LOANCATEGORY, DYWX_NAME, COORGANIZATION, SURVEY_TIME, CONTENT,
+      CUST_NAME, CREATE_DATE, CREATE_TIME, CREATE_NAME, LAST_UP_DATE, LAST_UP_TIME, LAST_UP_NAME
+    from T_GENERALPROCESS_MODELONE where <![CDATA[ rownum<2 ]]>
+    <dynamic >
+      <isNotNull prepend="and" property="processmodeloneid" >
+        PROCESSMODELONEID = #processmodeloneid:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="and" property="flowId" >
+        FLOW_ID = #flowId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="and" property="orgcodeone" >
+        ORGCODEONE = #orgcodeone:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="orgcodetwo" >
+        ORGCODETWO = #orgcodetwo:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="creator" >
+        CREATOR = #creator:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="fdxdy" >
+        FDXDY = #fdxdy:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="yxzg" >
+        YXZG = #yxzg:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="yxry" >
+        YXRY = #yxry:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="currency" >
+        CURRENCY = #currency:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="applyBal" >
+        APPLY_BAL = #applyBal:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="onecategory" >
+        ONECATEGORY = #onecategory:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="loancategory" >
+        LOANCATEGORY = #loancategory:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="dywxName" >
+        DYWX_NAME = #dywxName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="coorganization" >
+        COORGANIZATION = #coorganization:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="surveyTime" >
+        SURVEY_TIME = #surveyTime:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="content" >
+        CONTENT = #content:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="custName" >
+        CUST_NAME = #custName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="createDate" >
+        CREATE_DATE = #createDate:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="createTime" >
+        CREATE_TIME = #createTime:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="createName" >
+        CREATE_NAME = #createName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="lastUpDate" >
+        LAST_UP_DATE = #lastUpDate:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="lastUpTime" >
+        LAST_UP_TIME = #lastUpTime:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="lastUpName" >
+        LAST_UP_NAME = #lastUpName:VARCHAR#
+      </isNotNull>
+    </dynamic>
+  </select>
+  <select id="abatorgenerated_queryEntitiesByTemplate" resultMap="abatorgenerated_TGeneralprocessModeloneResult" parameterClass="com.gotop.Generalprocess.model.TGeneralprocessModelone" >
+    <!--根据Bean数据模板查询条件查询所有记录，可查询分页数据-->
+    select PROCESSMODELONEID, FLOW_ID, ORGCODEONE, ORGCODETWO, CREATOR, FDXDY, YXZG, YXRY, CURRENCY,
+      APPLY_BAL, ONECATEGORY, LOANCATEGORY, DYWX_NAME, COORGANIZATION, SURVEY_TIME, CONTENT,
+      CUST_NAME, CREATE_DATE, CREATE_TIME, CREATE_NAME, LAST_UP_DATE, LAST_UP_TIME, LAST_UP_NAME
+    from T_GENERALPROCESS_MODELONE
+    <dynamic prepend="where" >
+      <isNotNull prepend="and" property="processmodeloneid" >
+        PROCESSMODELONEID = #processmodeloneid:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="and" property="flowId" >
+        FLOW_ID = #flowId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="and" property="orgcodeone" >
+        ORGCODEONE = #orgcodeone:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="orgcodetwo" >
+        ORGCODETWO = #orgcodetwo:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="creator" >
+        CREATOR = #creator:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="fdxdy" >
+        FDXDY = #fdxdy:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="yxzg" >
+        YXZG = #yxzg:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="yxry" >
+        YXRY = #yxry:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="currency" >
+        CURRENCY = #currency:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="applyBal" >
+        APPLY_BAL = #applyBal:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="onecategory" >
+        ONECATEGORY = #onecategory:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="loancategory" >
+        LOANCATEGORY = #loancategory:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="dywxName" >
+        DYWX_NAME = #dywxName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="coorganization" >
+        COORGANIZATION = #coorganization:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="surveyTime" >
+        SURVEY_TIME = #surveyTime:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="content" >
+        CONTENT = #content:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="custName" >
+        CUST_NAME = #custName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="createDate" >
+        CREATE_DATE = #createDate:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="createTime" >
+        CREATE_TIME = #createTime:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="createName" >
+        CREATE_NAME = #createName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="lastUpDate" >
+        LAST_UP_DATE = #lastUpDate:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="lastUpTime" >
+        LAST_UP_TIME = #lastUpTime:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="lastUpName" >
+        LAST_UP_NAME = #lastUpName:VARCHAR#
+      </isNotNull>
+    </dynamic>
+  </select>
+  <delete id="abatorgenerated_deleteByPrimaryKey" parameterClass="com.gotop.Generalprocess.model.TGeneralprocessModelone" >
+    <!--
+      WARNING - This element is automatically generated by Abator for iBATIS, do not modify.
+      This element was generated on .
+    -->
+    <!--通过主键删除一条记录-->
+    delete from T_GENERALPROCESS_MODELONE
+    where PROCESSMODELONEID = #processmodeloneid:DECIMAL#
+  </delete>
+  <delete id="abatorgenerated_deleteByExample" parameterClass="com.gotop.Generalprocess.model.TGeneralprocessModeloneExample" >
+    <!--通过查询实例，删除满足条件的数据-->
+    delete from T_GENERALPROCESS_MODELONE
+    <include refid="COMMON.abatorgenerated_Example_Where_Clause" />
+  </delete>
+  <delete id="abatorgenerated_deleteByTemplate" parameterClass="com.gotop.Generalprocess.model.TGeneralprocessModelone" >
+    <!--根据Bean数据模板查询条件删除记录-->
+    delete from T_GENERALPROCESS_MODELONE
+    <dynamic prepend="where" >
+      <isNotEmpty prepend="and" property="processmodeloneid" >
+        PROCESSMODELONEID = #processmodeloneid:DECIMAL#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="flowId" >
+        FLOW_ID = #flowId:DECIMAL#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="orgcodeone" >
+        ORGCODEONE = #orgcodeone:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="orgcodetwo" >
+        ORGCODETWO = #orgcodetwo:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="creator" >
+        CREATOR = #creator:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="fdxdy" >
+        FDXDY = #fdxdy:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="yxzg" >
+        YXZG = #yxzg:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="yxry" >
+        YXRY = #yxry:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="currency" >
+        CURRENCY = #currency:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="applyBal" >
+        APPLY_BAL = #applyBal:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="onecategory" >
+        ONECATEGORY = #onecategory:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="loancategory" >
+        LOANCATEGORY = #loancategory:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="dywxName" >
+        DYWX_NAME = #dywxName:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="coorganization" >
+        COORGANIZATION = #coorganization:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="surveyTime" >
+        SURVEY_TIME = #surveyTime:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="content" >
+        CONTENT = #content:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="custName" >
+        CUST_NAME = #custName:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="createDate" >
+        CREATE_DATE = #createDate:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="createTime" >
+        CREATE_TIME = #createTime:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="createName" >
+        CREATE_NAME = #createName:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="lastUpDate" >
+        LAST_UP_DATE = #lastUpDate:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="lastUpTime" >
+        LAST_UP_TIME = #lastUpTime:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="lastUpName" >
+        LAST_UP_NAME = #lastUpName:VARCHAR#
+      </isNotEmpty>
+    </dynamic>
+  </delete>
+  <insert id="abatorgenerated_insert" parameterClass="com.gotop.Generalprocess.model.TGeneralprocessModelone" >
+    <!--通过主键更新整条数据-->
+    insert into T_GENERALPROCESS_MODELONE (PROCESSMODELONEID, FLOW_ID, ORGCODEONE, ORGCODETWO,
+      CREATOR, FDXDY, YXZG, YXRY, CURRENCY, APPLY_BAL, ONECATEGORY, LOANCATEGORY, DYWX_NAME,
+      COORGANIZATION, SURVEY_TIME, CONTENT, CUST_NAME, CREATE_DATE, CREATE_TIME, CREATE_NAME,
+      LAST_UP_DATE, LAST_UP_TIME, LAST_UP_NAME)
+    values (#processmodeloneid:DECIMAL:-9999#, #flowId:DECIMAL:-9999#, #orgcodeone:VARCHAR#,
+      #orgcodetwo:VARCHAR#, #creator:VARCHAR#, #fdxdy:VARCHAR#, #yxzg:VARCHAR#, #yxry:VARCHAR#,
+      #currency:VARCHAR#, #applyBal:VARCHAR#, #onecategory:VARCHAR#, #loancategory:VARCHAR#,
+      #dywxName:VARCHAR#, #coorganization:VARCHAR#, #surveyTime:VARCHAR#, #content:VARCHAR#,
+      #custName:VARCHAR#, #createDate:VARCHAR#, #createTime:VARCHAR#, #createName:VARCHAR#,
+      #lastUpDate:VARCHAR#, #lastUpTime:VARCHAR#, #lastUpName:VARCHAR#)
+  </insert>
+  <update id="abatorgenerated_updateByPrimaryKey" parameterClass="com.gotop.Generalprocess.model.TGeneralprocessModelone" >
+    <!--通过主键更新一条全部字段内容-->
+    update T_GENERALPROCESS_MODELONE
+    set FLOW_ID = #flowId:DECIMAL:-9999#,
+      ORGCODEONE = #orgcodeone:VARCHAR#,
+      ORGCODETWO = #orgcodetwo:VARCHAR#,
+      CREATOR = #creator:VARCHAR#,
+      FDXDY = #fdxdy:VARCHAR#,
+      YXZG = #yxzg:VARCHAR#,
+      YXRY = #yxry:VARCHAR#,
+      CURRENCY = #currency:VARCHAR#,
+      APPLY_BAL = #applyBal:VARCHAR#,
+      ONECATEGORY = #onecategory:VARCHAR#,
+      LOANCATEGORY = #loancategory:VARCHAR#,
+      DYWX_NAME = #dywxName:VARCHAR#,
+      COORGANIZATION = #coorganization:VARCHAR#,
+      SURVEY_TIME = #surveyTime:VARCHAR#,
+      CONTENT = #content:VARCHAR#,
+      CUST_NAME = #custName:VARCHAR#,
+      CREATE_DATE = #createDate:VARCHAR#,
+      CREATE_TIME = #createTime:VARCHAR#,
+      CREATE_NAME = #createName:VARCHAR#,
+      LAST_UP_DATE = #lastUpDate:VARCHAR#,
+      LAST_UP_TIME = #lastUpTime:VARCHAR#,
+      LAST_UP_NAME = #lastUpName:VARCHAR#
+    where PROCESSMODELONEID = #processmodeloneid:DECIMAL#
+  </update>
+  <update id="abatorgenerated_updateByPrimaryKeySelective" parameterClass="com.gotop.Generalprocess.model.TGeneralprocessModelone" >
+    <!--通过主键更新部分字段，部分字段说明：当字段为null时不更新，当字段值为''空值是更新为空值-->
+    update T_GENERALPROCESS_MODELONE
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="flowId" >
+        FLOW_ID = #flowId:DECIMAL:-9999#
+      </isNotNull>
+      <isNotNull prepend="," property="orgcodeone" >
+        ORGCODEONE = #orgcodeone:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="orgcodetwo" >
+        ORGCODETWO = #orgcodetwo:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="creator" >
+        CREATOR = #creator:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="fdxdy" >
+        FDXDY = #fdxdy:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="yxzg" >
+        YXZG = #yxzg:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="yxry" >
+        YXRY = #yxry:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="currency" >
+        CURRENCY = #currency:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="applyBal" >
+        APPLY_BAL = #applyBal:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="onecategory" >
+        ONECATEGORY = #onecategory:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="loancategory" >
+        LOANCATEGORY = #loancategory:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="dywxName" >
+        DYWX_NAME = #dywxName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="coorganization" >
+        COORGANIZATION = #coorganization:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="surveyTime" >
+        SURVEY_TIME = #surveyTime:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="content" >
+        CONTENT = #content:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="custName" >
+        CUST_NAME = #custName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="createDate" >
+        CREATE_DATE = #createDate:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="createTime" >
+        CREATE_TIME = #createTime:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="createName" >
+        CREATE_NAME = #createName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="lastUpDate" >
+        LAST_UP_DATE = #lastUpDate:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="lastUpTime" >
+        LAST_UP_TIME = #lastUpTime:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="lastUpName" >
+        LAST_UP_NAME = #lastUpName:VARCHAR#
+      </isNotNull>
+    </dynamic>
+    where PROCESSMODELONEID = #processmodeloneid:DECIMAL#
+  </update>
+  <select id="abatorgenerated_countByExample" parameterClass="com.gotop.Generalprocess.model.TGeneralprocessModeloneExample" resultClass="java.lang.Integer" >
+    <!--通过查询实例，统计总数-->
+    select count(*) from T_GENERALPROCESS_MODELONE
+    <include refid="COMMON.abatorgenerated_Example_Where_Clause" />
+  </select>
+  <select id="abatorgenerated_countByTemplate" parameterClass="com.gotop.Generalprocess.model.TGeneralprocessModelone" resultClass="java.lang.Integer" >
+    <!--通过查询Bean数据模板，统计总数-->
+    select count(*) from T_GENERALPROCESS_MODELONE
+    <dynamic prepend="where" >
+      <isNotNull prepend="and" property="processmodeloneid" >
+        PROCESSMODELONEID = #processmodeloneid:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="and" property="flowId" >
+        FLOW_ID = #flowId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="and" property="orgcodeone" >
+        ORGCODEONE = #orgcodeone:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="orgcodetwo" >
+        ORGCODETWO = #orgcodetwo:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="creator" >
+        CREATOR = #creator:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="fdxdy" >
+        FDXDY = #fdxdy:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="yxzg" >
+        YXZG = #yxzg:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="yxry" >
+        YXRY = #yxry:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="currency" >
+        CURRENCY = #currency:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="applyBal" >
+        APPLY_BAL = #applyBal:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="onecategory" >
+        ONECATEGORY = #onecategory:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="loancategory" >
+        LOANCATEGORY = #loancategory:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="dywxName" >
+        DYWX_NAME = #dywxName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="coorganization" >
+        COORGANIZATION = #coorganization:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="surveyTime" >
+        SURVEY_TIME = #surveyTime:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="content" >
+        CONTENT = #content:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="custName" >
+        CUST_NAME = #custName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="createDate" >
+        CREATE_DATE = #createDate:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="createTime" >
+        CREATE_TIME = #createTime:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="createName" >
+        CREATE_NAME = #createName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="lastUpDate" >
+        LAST_UP_DATE = #lastUpDate:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="lastUpTime" >
+        LAST_UP_TIME = #lastUpTime:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="lastUpName" >
+        LAST_UP_NAME = #lastUpName:VARCHAR#
+      </isNotNull>
+    </dynamic>
+  </select>
+  <update id="abatorgenerated_updateByExampleSelective" >
+    <!--通过查询实例，更新非null字段-->
+    update T_GENERALPROCESS_MODELONE
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="record.processmodeloneid" >
+        PROCESSMODELONEID = #record.processmodeloneid:DECIMAL:-9999#
+      </isNotNull>
+      <isNotNull prepend="," property="record.flowId" >
+        FLOW_ID = #record.flowId:DECIMAL:-9999#
+      </isNotNull>
+      <isNotNull prepend="," property="record.orgcodeone" >
+        ORGCODEONE = #record.orgcodeone:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.orgcodetwo" >
+        ORGCODETWO = #record.orgcodetwo:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.creator" >
+        CREATOR = #record.creator:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.fdxdy" >
+        FDXDY = #record.fdxdy:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.yxzg" >
+        YXZG = #record.yxzg:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.yxry" >
+        YXRY = #record.yxry:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.currency" >
+        CURRENCY = #record.currency:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.applyBal" >
+        APPLY_BAL = #record.applyBal:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.onecategory" >
+        ONECATEGORY = #record.onecategory:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.loancategory" >
+        LOANCATEGORY = #record.loancategory:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.dywxName" >
+        DYWX_NAME = #record.dywxName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.coorganization" >
+        COORGANIZATION = #record.coorganization:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.surveyTime" >
+        SURVEY_TIME = #record.surveyTime:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.content" >
+        CONTENT = #record.content:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.custName" >
+        CUST_NAME = #record.custName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.createDate" >
+        CREATE_DATE = #record.createDate:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.createTime" >
+        CREATE_TIME = #record.createTime:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.createName" >
+        CREATE_NAME = #record.createName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.lastUpDate" >
+        LAST_UP_DATE = #record.lastUpDate:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.lastUpTime" >
+        LAST_UP_TIME = #record.lastUpTime:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.lastUpName" >
+        LAST_UP_NAME = #record.lastUpName:VARCHAR#
+      </isNotNull>
+    </dynamic>
+    <isParameterPresent >
+      <include refid="COMMON.abatorgenerated_Example_Where_Clause" />
+    </isParameterPresent>
+  </update>
+  <update id="abatorgenerated_updateByExample" >
+    <!--通过查询实例，更新全部字段-->
+    update T_GENERALPROCESS_MODELONE
+    set PROCESSMODELONEID = #record.processmodeloneid:DECIMAL:-9999#,
+      FLOW_ID = #record.flowId:DECIMAL:-9999#,
+      ORGCODEONE = #record.orgcodeone:VARCHAR#,
+      ORGCODETWO = #record.orgcodetwo:VARCHAR#,
+      CREATOR = #record.creator:VARCHAR#,
+      FDXDY = #record.fdxdy:VARCHAR#,
+      YXZG = #record.yxzg:VARCHAR#,
+      YXRY = #record.yxry:VARCHAR#,
+      CURRENCY = #record.currency:VARCHAR#,
+      APPLY_BAL = #record.applyBal:VARCHAR#,
+      ONECATEGORY = #record.onecategory:VARCHAR#,
+      LOANCATEGORY = #record.loancategory:VARCHAR#,
+      DYWX_NAME = #record.dywxName:VARCHAR#,
+      COORGANIZATION = #record.coorganization:VARCHAR#,
+      SURVEY_TIME = #record.surveyTime:VARCHAR#,
+      CONTENT = #record.content:VARCHAR#,
+      CUST_NAME = #record.custName:VARCHAR#,
+      CREATE_DATE = #record.createDate:VARCHAR#,
+      CREATE_TIME = #record.createTime:VARCHAR#,
+      CREATE_NAME = #record.createName:VARCHAR#,
+      LAST_UP_DATE = #record.lastUpDate:VARCHAR#,
+      LAST_UP_TIME = #record.lastUpTime:VARCHAR#,
+      LAST_UP_NAME = #record.lastUpName:VARCHAR#
+    <isParameterPresent >
+      <include refid="COMMON.abatorgenerated_Example_Where_Clause" />
+    </isParameterPresent>
+  </update>
+  <update id="abatorgenerated_updateEntityByTemplate" >
+    <!--根据Bean数据模板查询条件更新记录-->
+    update T_GENERALPROCESS_MODELONE
+    <dynamic prepend="set" >
+      <isNotEmpty prepend="," property="record.processmodeloneid" >
+        PROCESSMODELONEID = #record.processmodeloneid:DECIMAL:-9999#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="record.flowId" >
+        FLOW_ID = #record.flowId:DECIMAL:-9999#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="record.orgcodeone" >
+        ORGCODEONE = #record.orgcodeone:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="record.orgcodetwo" >
+        ORGCODETWO = #record.orgcodetwo:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="record.creator" >
+        CREATOR = #record.creator:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="record.fdxdy" >
+        FDXDY = #record.fdxdy:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="record.yxzg" >
+        YXZG = #record.yxzg:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="record.yxry" >
+        YXRY = #record.yxry:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="record.currency" >
+        CURRENCY = #record.currency:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="record.applyBal" >
+        APPLY_BAL = #record.applyBal:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="record.onecategory" >
+        ONECATEGORY = #record.onecategory:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="record.loancategory" >
+        LOANCATEGORY = #record.loancategory:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="record.dywxName" >
+        DYWX_NAME = #record.dywxName:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="record.coorganization" >
+        COORGANIZATION = #record.coorganization:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="record.surveyTime" >
+        SURVEY_TIME = #record.surveyTime:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="record.content" >
+        CONTENT = #record.content:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="record.custName" >
+        CUST_NAME = #record.custName:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="record.createDate" >
+        CREATE_DATE = #record.createDate:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="record.createTime" >
+        CREATE_TIME = #record.createTime:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="record.createName" >
+        CREATE_NAME = #record.createName:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="record.lastUpDate" >
+        LAST_UP_DATE = #record.lastUpDate:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="record.lastUpTime" >
+        LAST_UP_TIME = #record.lastUpTime:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="record.lastUpName" >
+        LAST_UP_NAME = #record.lastUpName:VARCHAR#
+      </isNotEmpty>
+    </dynamic>
+    <dynamic prepend="where" >
+      <isNotEmpty prepend="and" property="template.processmodeloneid" >
+        PROCESSMODELONEID = #template.processmodeloneid:DECIMAL#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="template.flowId" >
+        FLOW_ID = #template.flowId:DECIMAL#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="template.orgcodeone" >
+        ORGCODEONE = #template.orgcodeone:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="template.orgcodetwo" >
+        ORGCODETWO = #template.orgcodetwo:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="template.creator" >
+        CREATOR = #template.creator:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="template.fdxdy" >
+        FDXDY = #template.fdxdy:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="template.yxzg" >
+        YXZG = #template.yxzg:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="template.yxry" >
+        YXRY = #template.yxry:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="template.currency" >
+        CURRENCY = #template.currency:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="template.applyBal" >
+        APPLY_BAL = #template.applyBal:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="template.onecategory" >
+        ONECATEGORY = #template.onecategory:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="template.loancategory" >
+        LOANCATEGORY = #template.loancategory:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="template.dywxName" >
+        DYWX_NAME = #template.dywxName:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="template.coorganization" >
+        COORGANIZATION = #template.coorganization:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="template.surveyTime" >
+        SURVEY_TIME = #template.surveyTime:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="template.content" >
+        CONTENT = #template.content:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="template.custName" >
+        CUST_NAME = #template.custName:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="template.createDate" >
+        CREATE_DATE = #template.createDate:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="template.createTime" >
+        CREATE_TIME = #template.createTime:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="template.createName" >
+        CREATE_NAME = #template.createName:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="template.lastUpDate" >
+        LAST_UP_DATE = #template.lastUpDate:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="template.lastUpTime" >
+        LAST_UP_TIME = #template.lastUpTime:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="template.lastUpName" >
+        LAST_UP_NAME = #template.lastUpName:VARCHAR#
+      </isNotEmpty>
+    </dynamic>
+  </update>
+  <select id="abatorgenerated_selectByMapAndPage" resultMap="abatorgenerated_TGeneralprocessModelone_HashMapResult" parameterClass="java.util.HashMap" >
+    <!--通过Map方式的动态条件，查询分页数据-->
+    select PROCESSMODELONEID, FLOW_ID, ORGCODEONE, ORGCODETWO, CREATOR, FDXDY, YXZG, YXRY, CURRENCY,
+      APPLY_BAL, ONECATEGORY, LOANCATEGORY, DYWX_NAME, COORGANIZATION, SURVEY_TIME, CONTENT,
+      CUST_NAME, CREATE_DATE, CREATE_TIME, CREATE_NAME, LAST_UP_DATE, LAST_UP_TIME, LAST_UP_NAME
+    from T_GENERALPROCESS_MODELONE
+    <dynamic prepend="where" >
+      <isNotNull prepend="and" property="processmodeloneid" >
+        PROCESSMODELONEID = #processmodeloneid:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="and" property="flowId" >
+        FLOW_ID = #flowId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="and" property="orgcodeone" >
+        ORGCODEONE = #orgcodeone:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="orgcodetwo" >
+        ORGCODETWO = #orgcodetwo:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="creator" >
+        CREATOR = #creator:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="fdxdy" >
+        FDXDY = #fdxdy:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="yxzg" >
+        YXZG = #yxzg:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="yxry" >
+        YXRY = #yxry:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="currency" >
+        CURRENCY = #currency:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="applyBal" >
+        APPLY_BAL = #applyBal:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="onecategory" >
+        ONECATEGORY = #onecategory:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="loancategory" >
+        LOANCATEGORY = #loancategory:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="dywxName" >
+        DYWX_NAME = #dywxName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="coorganization" >
+        COORGANIZATION = #coorganization:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="surveyTime" >
+        SURVEY_TIME = #surveyTime:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="content" >
+        CONTENT = #content:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="custName" >
+        CUST_NAME = #custName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="createDate" >
+        CREATE_DATE = #createDate:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="createTime" >
+        CREATE_TIME = #createTime:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="createName" >
+        CREATE_NAME = #createName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="lastUpDate" >
+        LAST_UP_DATE = #lastUpDate:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="lastUpTime" >
+        LAST_UP_TIME = #lastUpTime:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="lastUpName" >
+        LAST_UP_NAME = #lastUpName:VARCHAR#
+      </isNotNull>
+    </dynamic>
+  </select>
+  <select id="abatorgenerated_selectByExampleAndPage" resultMap="abatorgenerated_TGeneralprocessModeloneResult" parameterClass="com.gotop.Generalprocess.model.TGeneralprocessModeloneExample" >
+    <!--通过Bean方式的动态条件，查询分页数据-->
+    select PROCESSMODELONEID, FLOW_ID, ORGCODEONE, ORGCODETWO, CREATOR, FDXDY, YXZG, YXRY, CURRENCY,
+      APPLY_BAL, ONECATEGORY, LOANCATEGORY, DYWX_NAME, COORGANIZATION, SURVEY_TIME, CONTENT,
+      CUST_NAME, CREATE_DATE, CREATE_TIME, CREATE_NAME, LAST_UP_DATE, LAST_UP_TIME, LAST_UP_NAME
+    from T_GENERALPROCESS_MODELONE
+    <isParameterPresent >
+      <include refid="COMMON.abatorgenerated_Example_Where_Clause" />
+    </isParameterPresent>
+  </select>
+</sqlMap>

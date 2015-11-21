@@ -232,7 +232,6 @@ function changeTaskConfigType(value){
 					if (data.indexOf("success") >= 0) {
 						alert("保存成功!");
 						unMaskTop();
-						window.parent.location.reload();
 						window.close();
 					} else if (data.indexOf("fails") >= 0) {
 						alert("保存失败!");

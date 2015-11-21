@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="GENERAL_PROCESS_SqlMap" >
+
+	<resultMap id="processModelOne_result" class="com.gotop.Generalprocess.model.ProcessModelOne" >
+		<result column="PROCESSMODELID" property="processModelId" jdbcType="DECIMAL" />
+    	<result column="FLOW_ID" property="flow_Id" jdbcType="VARCHAR" />
+    	<result column="ORGCODEONE" property="orgCodeOne" jdbcType="VARCHAR" />
+    	<result column="ORGCODETWO" property="orgCodeTwo" jdbcType="VARCHAR" />
+    	<result column="ORGNAMEONE" property="orgNameOne" jdbcType="VARCHAR" />
+    	<result column="ORGNAMETWO" property="orgNameTwo" jdbcType="VARCHAR" />
+    	<result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+    	<result column="CREATORNAME" property="creatorName" jdbcType="VARCHAR" />
+    	<result column="FDXDY" property="fdxdy" jdbcType="VARCHAR" />
+    	<result column="YXZG" property="yxzg" jdbcType="VARCHAR" />
+    	<result column="YXRY" property="yxry" jdbcType="VARCHAR" />
+    	<result column="CURRENCY" property="currency" jdbcType="VARCHAR" />
+    	<result column="APPLY_BAL" property="apply_bal" jdbcType="VARCHAR" />
+    	<result column="ONECATEGORY" property="oneCategory" jdbcType="VARCHAR" />
+    	<result column="LOANCATEGORY" property="loanCategory" jdbcType="VARCHAR" />
+    	<result column="DYWX_NAME" property="dywx_Name" jdbcType="VARCHAR" />
+    	<result column="COORGANIZATION" property="coOrganization" jdbcType="VARCHAR" />
+    	<result column="SURVEY_TIME" property="survey_Time" jdbcType="VARCHAR" />
+    	<result column="CONTENT" property="content" jdbcType="VARCHAR" />
+    	<result column="CUST_NAME" property="cust_Name" jdbcType="VARCHAR" />
+    	<result column="CREATE_DATE" property="create_Date" jdbcType="VARCHAR" />
+    	<result column="CREATE_TIME" property="create_time" jdbcType="VARCHAR" />
+    	<result column="CREATE_NAME" property="create_name" jdbcType="VARCHAR" />
+    	<result column="LAST_UP_DATE" property="last_up_date" jdbcType="VARCHAR" />
+    	<result column="LAST_UP_TIME" property="last_up_time" jdbcType="VARCHAR" />
+    	<result column="LAST_UP_NAME" property="last_up_name" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<!--通过主键和流程id查询数据-->
+	<select id="queryModelOne" resultMap="processModelOne_result" parameterClass="java.util.HashMap">
+    	SELECT T.PROCESSMODELID,
+       		T.FLOW_ID,
+       		T.ORGCODEONE,
+       		O1.ORGNAME AS ORGNAMEONE,
+       		T.ORGCODETWO,
+       		O2.ORGNAME AS ORGNAMETWO,
+       		T.CREATOR,
+       		E1.EMPNAME AS CREATORNAME,
+       		T.FDXDY,
+       		T.YXZG,
+       		T.YXRY,
+       		T.CURRENCY,
+       		T.APPLY_BAL,
+       		T.ONECATEGORY,
+       		T.LOANCATEGORY,
+       		T.LOANCATEGORY,
+       		T.DYWX_NAME,
+       		T.COORGANIZATION,
+       		T.SURVEY_TIME,
+       		T.CONTENT,
+       		T.CUST_NAME,
+       		T.CREATE_DATE,
+       		T.CREATE_TIME,
+       		T.CREATE_NAME,
+       		T.LAST_UP_DATE,
+       		T.LAST_UP_TIME,
+       		T.LAST_UP_NAME
+  		FROM T_GENERALPROCESS_MODELONE T,
+  		OM_ORGANIZATION O1,
+  		OM_ORGANIZATION O2,
+  		OM_EMPLOYEE E1
+  		WHERE 
+  			T.ORGCODEONE=O1.ORGCODE
+  		AND T.ORGCODETWO=O2.ORGCODE
+  		AND T.CREATOR = E1.EMPID
+  		AND (T.PROCESSMODELID = #processModelId#
+  		or T.FLOW_ID=#flowId#)
+  	</select>
+  	
+	<!--通过主键查询数据-->
+	<select id="getProcessModelOneById" resultMap="processModelOne_result" parameterClass="java.util.HashMap">
+    	SELECT T.PROCESSMODELID,
+       		T.FLOW_ID,
+       		T.ORGCODEONE,
+       		T.ORGCODETWO,
+       		T.CREATOR,
+       		T.FDXDY,
+       		T.YXZG,
+       		T.YXRY,
+       		T.CURRENCY,
+       		T.APPLY_BAL,
+       		T.ONECATEGORY,
+       		T.LOANCATEGORY,
+       		T.LOANCATEGORY,
+       		T.DYWX_NAME,
+       		T.COORGANIZATION,
+       		T.SURVEY_TIME,
+       		T.CONTENT,
+       		T.CUST_NAME,
+       		T.CREATE_DATE,
+       		T.CREATE_TIME,
+       		T.CREATE_NAME,
+       		T.LAST_UP_DATE,
+       		T.LAST_UP_TIME,
+       		T.LAST_UP_NAME
+  		FROM T_GENERALPROCESS_MODELONE T
+  		WHERE T.PROCESSMODELONEID = #id#
+  	</select>
+  	
+  	<!--通过流程实例id查询数据-->
+  	<select id="getProcessModelOneByBussinessId" resultMap="processModelOne_result" parameterClass="java.util.HashMap">
+  		SELECT T.PROCESSMODELID,
+       		T.FLOW_ID,
+       		T.ORGCODEONE,
+       		O1.ORGNAME AS ORGNAMEONE,
+       		T.ORGCODETWO,
+       		O2.ORGNAME AS ORGNAMETWO,
+       		T.CREATOR,
+       		E1.EMPNAME AS CREATORNAME,
+       		T.FDXDY,
+       		T.YXZG,
+       		T.YXRY,
+       		T.CURRENCY,
+       		T.APPLY_BAL,
+       		T.ONECATEGORY,
+       		T.LOANCATEGORY,
+       		T.LOANCATEGORY,
+       		T.DYWX_NAME,
+       		T.COORGANIZATION,
+       		T.SURVEY_TIME,
+       		T.CONTENT,
+       		T.CUST_NAME,
+       		T.CREATE_DATE,
+       		T.CREATE_TIME,
+       		T.CREATE_NAME,
+       		T.LAST_UP_DATE,
+       		T.LAST_UP_TIME,
+       		T.LAST_UP_NAME
+  		FROM T_GENERALPROCESS_MODELONE T,
+  		OM_ORGANIZATION O1,
+  		OM_ORGANIZATION O2,
+  		OM_EMPLOYEE E1
+  		WHERE 
+  			T.ORGCODEONE=O1.ORGCODE
+  		AND T.ORGCODETWO=O2.ORGCODE
+  		AND T.CREATOR = E1.EMPID
+  		AND T.FLOW_ID=#bussinessId#
+  	</select>
+  	
+  	<!-- 新增模式一表单 -->
+  	<insert id="addModelOne" parameterClass="com.gotop.Generalprocess.model.ProcessModelOne" >
+  		 <selectKey resultClass="long" keyProperty="processModelId">
+			SELECT SEQ_T_GENERALPROCESS_MODELONE.NEXTVAL AS VALUE FROM DUAL
+		</selectKey>
+  		insert into T_GENERALPROCESS_MODELONE (PROCESSMODELID, FLOW_ID, ORGCODEONE, ORGCODETWO,
+      CREATOR, FDXDY, YXZG, YXRY, CURRENCY, APPLY_BAL, ONECATEGORY, LOANCATEGORY, DYWX_NAME,
+      COORGANIZATION, SURVEY_TIME, CONTENT, CUST_NAME, CREATE_DATE, CREATE_TIME, CREATE_NAME,
+      LAST_UP_DATE, LAST_UP_TIME, LAST_UP_NAME)
+    values (#processModelId:DECIMAL:-9999#, #flow_Id:DECIMAL:-9999#, #orgCodeOne:VARCHAR#,
+      #orgCodeTwo:VARCHAR#, #creator:VARCHAR#, #fdxdy:VARCHAR#, #yxzg:VARCHAR#, #yxry:VARCHAR#,
+      #currency:VARCHAR#, #apply_bal:VARCHAR#, #oneCategory:VARCHAR#, #loanCategory:VARCHAR#,
+      #dywx_Name:VARCHAR#, #coOrganization:VARCHAR#, #survey_Time:VARCHAR#, #content:VARCHAR#,
+      #cust_Name:VARCHAR#, #create_Date:VARCHAR#, #create_time:VARCHAR#, #create_name:VARCHAR#,
+      #last_up_date:VARCHAR#, #last_up_time:VARCHAR#, #last_up_name:VARCHAR#)
+  	</insert>
+  	
+  	<select id="queryOrgName" resultClass="java.util.HashMap" parameterClass="String">
+  		select b.orgname from om_emporg a,om_organization b where a.empid in($empIds$) and b.orgid = a.orgid
+  	</select>
+  	
+</sqlMap>

@@ -26,10 +26,11 @@
      /jsp/jbpm/process_task_name_config.jsp
       </result>
      
-     <result name="success" type="redirectAction"> 
+   <result name="success" type="redirectAction"> 
 		<param name="actionName">${taskUrl}</param> 
 		<param name="namespace">${nameSpace}</param>
      </result>
+     
 
       <result name="apply_do.jsp">
      /jsp/jbpm/apply_do.jsp

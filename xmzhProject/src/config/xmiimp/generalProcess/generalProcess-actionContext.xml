@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+  <bean class="com.gotop.Generalprocess.action.GeneralprocessAction" id="generalProcessAction" name="generalProcessAction" singleton="false">
+    <property name="tDefaultOpinionService" ref="tDefaultOpinionService" />
+    <property name="generalProcessService" ref="generalProcessService" />
+    <property name="generalprocessMainService" ref="tGeneralprocessMainService" />
+  </bean>
+
+  
+  <bean class="com.gotop.Generalprocess.action.TGeneralprocessMainAction" id="tGeneralprocessMainaction" name="tGeneralprocessMainAction" singleton="false">
+    <property name="tGeneralprocessMainService" ref="tGeneralprocessMainService" />
+  </bean>
+  </beans>

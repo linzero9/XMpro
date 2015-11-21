@@ -4,12 +4,18 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link type="text/css" href="/js/jbpm/lib/jquery-ui-1.8.4.custom/css/smoothness/jquery-ui-1.8.4.custom.css" rel="stylesheet" />
+<link href="/common/skins/skin0/theme/style-component.css" type="text/css" rel="stylesheet" >
+<script type="text/javascript" src="/common/javascripts/eos-mask.js"></script>
+<script type="text/javascript" src="/common/javascripts/eos-dom.js"></script>
+<script  type="text/javascript"  src="/common/scripts/eos-web.js" ></script>
+<script  type="text/javascript"  src="/common/gotop/web-common.js" ></script>
 <script type="text/javascript" src="/js/jbpm/lib/raphael-min.js"></script>
 <script type="text/javascript" src="/js/jbpm/lib/jquery-ui-1.8.4.custom/js/jquery-1.4.2.min.js"></script>
 <script type="text/javascript" src="/js/jbpm/lib/jquery-ui-1.8.4.custom/js/jquery-ui-1.8.4.custom.min.js"></script>
 <script type="text/javascript" src="/js/jbpm/lib/myflow.js"></script>
 <script type="text/javascript" src="/js/jbpm/lib/myflow.jpdl4.js"></script>
 <script type="text/javascript" src="/js/jbpm/lib/myflow.editors.js"></script>
+
 <script type="text/javascript">
 	$(function() {
 		$('#myflow')
@@ -20,15 +26,33 @@
 							tools : {
 								save : {
 									onclick : function(data) {
-										  $.ajax({
+										maskTop();
+										$.ajax({
 										      url: "/jbpm/jbpmCommonConfigAction_makeJbpm.action",
 										      async: false,
 										      type: 'post',
-										      data: "data="+data,
+										      data: "data="+data+"&processDeployDto.processName=" + '${processDeployDto.processName}' + "&processDeployDto.orderNo=" + '${processDeployDto.orderNo}' + "&processDeployDto.businessType=" + '${processDeployDto.businessType}' + "&processDeployDto.deployType=" + '${processDeployDto.deployType}' + "&processDeployDto.processState=" + '${processDeployDto.processState}' + "&processDeployDto.deployRange=" + '${processDeployDto.deployRange}',
 										      dataType: 'text',
 										      timeout: 60000,
 										      success: function (data) {
-											  	alert("操作成功!");
+										    	if (data.indexOf("success") >= 0) {
+													unMaskTop();
+										    		if (confirm('流程图配置成功!是否要进行流程节点的配置?'))
+										    		{
+										    			var hh=data.split(",");
+														var strUrl = "/jbpm/jbpmDemoAction_toProcessTaskConfig.action?taskAssgineeDto.definitionId="+hh[1];
+														window.location.href = encodeURI(strUrl);	
+										    		}else{
+										    			var url="/jbpm/jbpmDemoAction_queryProcessDeployList.action";
+										    			window.location.href = encodeURI(url);	
+										    		}
+												} else if (data.indexOf("fails") >= 0) {
+													unMaskTop();
+													alert("保存失败!");
+												} else {
+													unMaskTop();
+													alert("操作失败!");
+												}
 										      }
 										});
 					}
@@ -37,6 +61,7 @@
 		});
 
 	});
+	
 </script>
 <style type="text/css">
 body {

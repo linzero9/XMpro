@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+  <bean class="com.gotop.Generalprocess.service.impl.GeneralprocessService" id="generalProcessService">
+  	<property name="generalProcessDAO" ref="generalProcessDAO" />
+  	<property name="generalprocessMainDAO" ref="generalprocessMainDAO" />
+  	<property name="tApproveOpninionDAO" ref="tApproveOpninionDAO" />
+  	<property name="jbpmService" ref="jbpmService" />
+  </bean>
+
+  
+  <bean class="com.gotop.Generalprocess.service.impl.TGeneralprocessMainService" id="tGeneralprocessMainService">
+    <property name="tGeneralprocessMainDAO" ref="generalprocessMainDAO" />
+  </bean>
+  
+    <bean id="SpringContextUtil"  class="com.gotop.Generalprocess.util.SpringContextUtil" />
+  </beans>
+  
+  

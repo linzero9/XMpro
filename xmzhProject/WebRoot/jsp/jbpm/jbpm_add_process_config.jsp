@@ -186,7 +186,7 @@ function openNewEmpTreeCallBack(arg){//回调方法
 
 	function saveAndPub(){
 		var frm=$name("data_form");
- 		 if(!checkForm(frm)){
+ 		  if(!checkForm(frm)){
 			 return ;
 		 }
  		/*if(!checkForm1(frm)){
@@ -194,8 +194,27 @@ function openNewEmpTreeCallBack(arg){//回调方法
 			 return ;
 		 } */
  		//ajaxsubmitO();
-		var strUrl = "/jbpm/jbpmCommonConfigAction_toJbpmCommonConfig.action";
-		parent.window.frames["mainFrame"].location.href = encodeURI(strUrl);
+		var processName = $id("processName").value;
+		var orderNo = $id("orderNo").value;
+		var businessType = $id("businessType").value;
+		var deployType = $id("deployType").value;
+		var processState = $id("processState").value;
+		var deployRange = $id("deployRange").value;
+		
+		var strUrl = "/jbpm/jbpmCommonConfigAction_toJbpmCommonConfig.action?" + "processDeployDto.processName=" + encodeURI(processName);
+		strUrl += "&processDeployDto.orderNo=" + orderNo;
+		strUrl += "&processDeployDto.businessType=" + businessType;
+		strUrl += "&processDeployDto.deployType=" + deployType;
+		strUrl += "&processDeployDto.processState=" + processState;
+		strUrl += "&processDeployDto.deployRange=" + deployRange;
+		if (confirm('是否要进行流程图的设计和配置?'))
+		{
+			parent.window.frames["mainFrame"].location.href = encodeURI(strUrl);
+			window.close();
+		}else{
+			return false;
+		}
+		
 	}
 
 	function ajaxsubmitO() {

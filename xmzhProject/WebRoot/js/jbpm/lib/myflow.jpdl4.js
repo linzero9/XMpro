@@ -105,7 +105,8 @@ $.extend(true,myflow.config.tools.states,{
 				img : {src : '/js/jbpm/img/48/task_empty.png',width :48, height:48},
 				props : {
 					text: {name:'text', label: '模式名称',value:'模式一',editor: function(){return new myflow.editors.textEditor();}},
-					form: {name:'form', label : '',value:'moshi1.action'}
+					form: {name:'form', label : '',value:'/Generalprocess/generalProcessAction_toModelOne.action'},
+					assignee: {name:'assignee', label: '', value:'#{user}'}
 				}},
 			task2: {showType: 'text',type : 'task',
 				name : {text:'<<task>>'},
@@ -113,7 +114,8 @@ $.extend(true,myflow.config.tools.states,{
 				img : {src : '/js/jbpm/img/48/task_empty.png',width :48, height:48},
 				props : {
 					text: {name:'text', label: '模式名称',value:'模式二',editor: function(){return new myflow.editors.textEditor();}},
-					form: {name:'form', label : '',value:'moshi2.action'}
+					form: {name:'form', label : '',value:'/Generalprocess/generalProcessAction_toModelTwo.action'},
+					assignee: {name:'assignee', label: '', value:'#{user}'}
 				}},
 			task3: {showType: 'text',type : 'task',
 				name : {text:'<<task>>'},
