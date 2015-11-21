@@ -5,4 +5,8 @@
     <property name="sqlMapClient" ref="sqlMapClient" />
   </bean>
 
+  
+  <bean class="com.gotop.Generalprocess.dao.impl.TGeneralprocessMainDAO" id="generalprocessMainDAO">
+    <property name="sqlMapClient" ref="sqlMapClient" />
+  </bean>
   </beans>

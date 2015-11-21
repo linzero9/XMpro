@@ -77,12 +77,12 @@
         </td>
       	</tr>
        <tr>
-     	<td class="form_label" align="right">客户姓名：</td>
+     	<td class="form_label" align="right" style="width:120px;">客户姓名：</td>
      	<td>
 	     	 <h:text property="modelOne.cust_Name" id="cust_Name" validateAttr="allowNull=false" style="width:130px;" />
 	     	 <font style="color: red;">*</font>
      	</td>
-     	<td class="form_label" align="right">合作机构：</td>
+     	<td class="form_label" align="right" style="width:120px;">合作机构：</td>
      	<td>
 	     	 <h:text property="modelOne.coOrganization" id="coOrganization" validateAttr="allowNull=ture" style="width:130px;" />
      	</td>
@@ -177,20 +177,20 @@
 		}
 	//隐藏结束流程按钮
 		$("#deleteProcessBtn").hide();
-		if('${sessionScope.login_user.empid}'=='${euip.empId}'){
+		if('${sessionScope.login_user.empid}'=='${modelOne.creator}'){
 			  if($("#executionId").val()){
 				  //当登录人等于发起人，显示结束流程按钮
 				  $("#deleteProcessBtn").show();
 		  	    }
 		}
-	 if('${euip.epId}'!=""){
-		 if('${euip.empId}'!='${sessionScope.login_user.empid}')
+	 if('${modelOne.processModelId}'!=""){
+		 if('${modelOne.creator}'!='${sessionScope.login_user.empid}')
 		 $("#save1").css("display","none"); 
 		 $.ajax({
 		        url: '/file/tFileResourceTableAction_queryFileList.action',
 		        async: false,
 		        type: 'post',
-		        data: "resourceType=${taskAssgineeDto.businessType}&resourceId=${euip.epId}",
+		        data: "resourceType=${taskAssgineeDto.businessType}&resourceId=${modelOne.processModelId}",
 		        dataType: 'json',
 		        timeout: 60000,
 		        success: function (files) {
@@ -210,15 +210,11 @@
 			        }
 		        }
 	    });
-		  $("#beginOrg").val("${euip.orgid}");	
+		  //$("#beginOrg").val("${euip.orgid}");	
 		  //判断
-		  WEB.doDisabledAttr('${isView}','${euip.empId}','${sessionScope.login_user.empid}',"opinion");  
-		  WEB.doConditionDisplay('${euip.empId}','${sessionScope.login_user.empid}',"row3,dopiRow","none");//隐藏意见
-		  if('${euip.empId}'!='${sessionScope.login_user.empid}'){
-			 //$("#opninion").val("已处理");
-			 }
+		  WEB.doDisabledAttr('${isView}','${modelOne.creator}','${sessionScope.login_user.empid}',"opinion");  
+		  WEB.doConditionDisplay('${modelOne.creator}','${sessionScope.login_user.empid}',"row3,dopiRow","none");//隐藏意见
 	 }else{
-		
 		 $("#row1").css("display","none");  
 		 $("#row2").css("display","none");  
 		 $("#row3").css("display","none");  
@@ -243,8 +239,9 @@
 	 if('${modelOne.orgCodeOne}'==""){
 		 $("#orgCodeOne").val('${sessionScope.login_user.orgcode}');
 	 }
+	 
 	 if('${isView}'!=''){
-		 $("#deleteProcessBtn").hide();
+		$("#deleteProcessBtn").hide();
 		$("#save1").hide();
 		$("#smit").hide();
 		$("#fujian").hide();
@@ -252,17 +249,18 @@
 		$("#hiddenTime").show();
 		$("#rowTemplate").hide();
 	}
+	 
 	 if('${taskAssgineeDto.isC}'){
 			$("#smit").hide();
 			$("#deleteProcessBtn").hide();
 		}else{			
 			$("#smit2").hide();
-			}
+	 }
 });
 
 function initPlanCell20(){
 		var queryCond="";
-			queryCond += "<resourceId>${euip.epId}</resourceId>";
+			queryCond += "<resourceId>${modelOne.processModelId}</resourceId>";
 		 	queryCond += "<resourceType>${taskAssgineeDto.businessType}</resourceType>";
 			return queryCond;
 		}
@@ -309,9 +307,9 @@ function initPlanCell20(){
   	        // 异步提交请求 
   	  	    ajaxsubmitO(1);
   	 	}
-  	   }
+  	 }
 
-  	  	function ajaxsubmitO(flag){
+  	  function ajaxsubmitO(flag){
   	  	maskTop();
   	  	 var options = {
   		  		type : "post",

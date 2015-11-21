@@ -1,15 +1,13 @@
 package com.gotop.Generalprocess.action;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import net.sf.json.JSONObject;
-
-import com.gotop.Generalprocess.annonation.GeneralprocessFieldBean;
+import com.gotop.Generalprocess.model.ProcessModel;
 import com.gotop.Generalprocess.model.ProcessModelOne;
+import com.gotop.Generalprocess.model.TGeneralprocessMain;
 import com.gotop.Generalprocess.service.IGeneralprocessService;
-import com.gotop.Generalprocess.util.GeneralprocessUtil;
-
+import com.gotop.Generalprocess.service.ITGeneralprocessMainService;
 import com.gotop.crm.util.BaseAction;
 import com.gotop.jbpm.dto.TaskAssgineeDto;
 import com.gotop.opinion.model.TDefaultOpinion;
@@ -50,6 +48,11 @@ public class GeneralprocessAction extends BaseAction {
 	private TaskAssgineeDto taskAssgineeDto;
 
 	/**
+	 * isView :1、为只读状态， 默认为空
+	 */
+	private String isView;
+	
+	/**
 	 * 
 	 * @author wsd
 	 * @desc 默认意见服务
@@ -59,6 +62,25 @@ public class GeneralprocessAction extends BaseAction {
 	
 	private IGeneralprocessService generalProcessService;
 	
+	private ITGeneralprocessMainService generalprocessMainService;
+	
+	public ITGeneralprocessMainService getGeneralprocessMainService() {
+		return generalprocessMainService;
+	}
+
+	public void setGeneralprocessMainService(
+			ITGeneralprocessMainService generalprocessMainService) {
+		this.generalprocessMainService = generalprocessMainService;
+	}
+
+	public String getIsView() {
+		return isView;
+	}
+
+	public void setIsView(String isView) {
+		this.isView = isView;
+	}
+
 	public IGeneralprocessService getGeneralProcessService() {
 		return generalProcessService;
 	}
@@ -125,9 +147,15 @@ public class GeneralprocessAction extends BaseAction {
 	 */
 	public String toModelOne() {
 		try {
-
+    		String flowId="";
+    		String processModelId="";
+    		if(taskAssgineeDto!=null&&taskAssgineeDto.getBusinessKey()!=null&&!"".equals(taskAssgineeDto.getBusinessKey()))
+    			processModelId=String.valueOf(taskAssgineeDto.getBusinessKey());
+    		if(taskAssgineeDto!=null&&taskAssgineeDto.getExecutionId()!=null&&!"".equals(taskAssgineeDto.getExecutionId()))
+    			flowId=taskAssgineeDto.getExecutionId();
+    		modelOne=this.generalProcessService.queryModelOne(processModelId,flowId);
 		} catch (Exception e) {
-			log.error("查询模式一信息失败", e);
+			log.error("查询模式一表单信息失败", e);
 		}
 		queryDefault();
 		return "toModelOne";
@@ -146,11 +174,45 @@ public class GeneralprocessAction extends BaseAction {
 	 * @throws IllegalArgumentException 
 	 */
 	public String toModelTwo() throws ClassNotFoundException, IllegalArgumentException, SecurityException, IllegalAccessException, NoSuchFieldException{
+		//List<ProcessModelOne> modelOnes = this.generalProcessService.getProcessModelOneByBussinessId("1");
+		//Map<String, List<GeneralprocessFieldBean>> beans =  GeneralprocessUtil.fixBean(modelOnes, ProcessModelOne.class,"com.gotop.Generalprocess.model.ProcessModelOne");
+		//JSONObject s = JSONObject.fromObject(beans);
+		//System.out.println(s.toString());
+		String businessId = taskAssgineeDto.getExecutionId();
+		TGeneralprocessMain main = this.generalprocessMainService.queryMainByBusinessId(businessId);
+		List<ProcessModel> pmList = new ArrayList<ProcessModel>();
 		
-		List<ProcessModelOne> modelOnes = this.generalProcessService.getProcessModelOneByBussinessId("1");
-		Map<String, List<GeneralprocessFieldBean>> beans =  GeneralprocessUtil.fixBean(modelOnes, ProcessModelOne.class,"com.gotop.Generalprocess.model.ProcessModelOne");
-		JSONObject s = JSONObject.fromObject(beans);
-		System.out.println(s.toString());
+		String flowId="";
+		String processModelId="";
+		if(taskAssgineeDto!=null&&taskAssgineeDto.getBusinessKey()!=null&&!"".equals(taskAssgineeDto.getBusinessKey()))
+			processModelId=String.valueOf(taskAssgineeDto.getBusinessKey());
+		if(taskAssgineeDto!=null&&taskAssgineeDto.getExecutionId()!=null&&!"".equals(taskAssgineeDto.getExecutionId()))
+			flowId=taskAssgineeDto.getExecutionId();
+		
+		
+		if(main != null){
+			if(main.getRules() != null && !"".equals(main.getRules())){
+				String rules = main.getRules();
+				String[] rulesArray = rules.split(",");
+				
+				for (int i = 0; i < rulesArray.length; i++) {
+					String rule = rulesArray[i];
+					
+					//Map<String, List<GeneralprocessFieldBean>> beans =  GeneralprocessUtil.fixBean(modelOnes,,i);
+					
+					
+					if(rule.equals("com.gotop.Generalprocess.model.ProcessModelOne")){
+						//ProcessModelOne modelOne = this.generalProcessService.queryModelOne(processModelId,flowId);
+						//pmList.add(modelOne);
+					}
+				}
+			}
+		}else{
+			
+		}
+		
+		
+		
 		return "toModelTwo";
 	}
 	

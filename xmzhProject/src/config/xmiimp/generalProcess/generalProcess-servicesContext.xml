@@ -3,8 +3,13 @@
 <beans>
   <bean class="com.gotop.Generalprocess.service.impl.GeneralprocessService" id="generalProcessService">
   	<property name="generalProcessDAO" ref="generalProcessDAO" />
+  	<property name="generalprocessMainDAO" ref="generalprocessMainDAO" />
   	<property name="tApproveOpninionDAO" ref="tApproveOpninionDAO" />
   	<property name="jbpmService" ref="jbpmService" />
   </bean>
 
+  
+  <bean class="com.gotop.Generalprocess.service.impl.TGeneralprocessMainService" id="tGeneralprocessMainService">
+    <property name="tGeneralprocessMainDAO" ref="generalprocessMainDAO" />
+  </bean>
   </beans>

@@ -42,6 +42,14 @@ public interface IGeneralprocessService {
 	 */
 	public void handleModelOne(MUOUserSession muo, ProcessModelOne modelOne,
 			TaskAssgineeDto taskAssgineeDto);
+
+	/**
+	 * 根据业务主键和实例id查找模式一对象
+	 * @param processModelId
+	 * @param flowId
+	 * @return
+	 */
+	public ProcessModelOne queryModelOne(String processModelId, String flowId);
 	
 	
 }

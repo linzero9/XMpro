@@ -91,6 +91,39 @@ public class ProcessModelOne extends ProcessModel  implements  Serializable {
 	@GeneralprocessField(name="最后操作员",type="text")
 	private String    last_up_name;
 	
+	/**
+	 * 主调信贷员	姓名
+	 */
+	private String creatorName;
+	
+	/**
+	 * 受理支行一	名称
+	 */
+	private String orgNameOne;
+	
+	/**
+	 * 受理支行二	名称
+	 */
+	private String orgNameTwo;
+	
+	public String getCreatorName() {
+		return creatorName;
+	}
+	public void setCreatorName(String creatorName) {
+		this.creatorName = creatorName;
+	}
+	public String getOrgNameOne() {
+		return orgNameOne;
+	}
+	public void setOrgNameOne(String orgNameOne) {
+		this.orgNameOne = orgNameOne;
+	}
+	public String getOrgNameTwo() {
+		return orgNameTwo;
+	}
+	public void setOrgNameTwo(String orgNameTwo) {
+		this.orgNameTwo = orgNameTwo;
+	}
 	public Long getProcessModelOneID() {
 		return processModelOneID;
 	}

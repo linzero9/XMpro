@@ -53,5 +53,13 @@ public class GeneralprocessDAO extends SqlMapClientDao implements IGeneralproces
 		return queryForList("GENERAL_PROCESS_SqlMap.queryOrgName",empIds);
 	}
 
+	@Override
+	public ProcessModelOne queryModelOne(String processModelId, String flowId) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("processModelId", processModelId);
+		map.put("flowId", flowId);
+		return (ProcessModelOne) queryForObject("GENERAL_PROCESS_SqlMap.queryModelOne", map);
+	}
+
 	
 }

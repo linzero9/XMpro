@@ -22,7 +22,7 @@
 
     <daoGenerator targetPackage="com.gotop.Generalprocess.dao" targetProject="xmzhProject" type="SPRING">
     </daoGenerator>    
-    <table  tableName="T_GENERALPROCESS_MODELONE" module="xmiimp.generalProcess">
+    <table  tableName="T_GENERALPROCESS_MAIN" module="xmiimp.generalProcess">
     </table>    
   </abatorContext>
 </abatorConfiguration>

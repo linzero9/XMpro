@@ -7,5 +7,11 @@
         /jsp/Generalprocess/modelone_input.jsp
       </result>
     </action>
+    
+    <action class="tGeneralprocessMainAction" method="{1}" name="tGeneralprocessMainAction_*">
+      <result name="viewlist">
+        /jsp/generalProcess/tGeneralprocessMainDatacell.jsp
+      </result>
+    </action>
     </package>
 </struts>

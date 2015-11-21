@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import com.gotop.Generalprocess.dao.IGeneralprocessDAO;
+import com.gotop.Generalprocess.dao.ITGeneralprocessMainDAO;
 import com.gotop.Generalprocess.model.ProcessModel;
 import com.gotop.Generalprocess.model.ProcessModelOne;
 import com.gotop.Generalprocess.service.IGeneralprocessService;
@@ -23,9 +24,20 @@ public class GeneralprocessService implements IGeneralprocessService {
 	protected Logger log = Logger.getLogger(GeneralprocessService.class);
 
 	private IGeneralprocessDAO generalProcessDAO;
+	
+	private ITGeneralprocessMainDAO generalprocessMainDAO;
 
 	protected ITApproveOpninionDAO tApproveOpninionDAO;
 	
+	public ITGeneralprocessMainDAO getGeneralprocessMainDAO() {
+		return generalprocessMainDAO;
+	}
+
+	public void setGeneralprocessMainDAO(
+			ITGeneralprocessMainDAO generalprocessMainDAO) {
+		this.generalprocessMainDAO = generalprocessMainDAO;
+	}
+
 	public ITApproveOpninionDAO gettApproveOpninionDAO() {
 		return tApproveOpninionDAO;
 	}
@@ -148,7 +160,7 @@ public class GeneralprocessService implements IGeneralprocessService {
 					submitType = "01";
 				if ("采购".equals(taskAssgineeDto.getTransitionName())) {
 					//
-
+					
 				} else {
 					// 正常下一步
 					nextTaskId = jbpmService
@@ -158,7 +170,8 @@ public class GeneralprocessService implements IGeneralprocessService {
 							taskAssgineeDto));
 				}
 
-				 insertApproveOpninion(modelOne, muo, nextTaskId, submitType, taskAssgineeDto);
+				generalprocessMainDAO.addGeneralProcessMain(taskAssgineeDto,ProcessModelOne.class);
+				insertApproveOpninion(modelOne, muo, nextTaskId, submitType, taskAssgineeDto);
 			} else {
 				// 退回上一步操作
 				// insertApproveOpninion(euip, muo,
@@ -265,6 +278,11 @@ public class GeneralprocessService implements IGeneralprocessService {
 			//保存审核意见失败。
 			log.error("保存审核意见失败。", e);
 		}
+	}
+
+	@Override
+	public ProcessModelOne queryModelOne(String processModelId, String flowId) {
+		return this.generalProcessDAO.queryModelOne(processModelId,flowId);
 	}
 
 }
