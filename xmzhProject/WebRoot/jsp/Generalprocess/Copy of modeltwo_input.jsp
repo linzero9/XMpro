@@ -14,6 +14,8 @@
 <title>设备申请</title>
 </head>
   <body>
+
+  
   <e:datasource name="euip" type="bean" path="com.gotop.euipApply.model.TApplyEuip" />
     <h:form name="form1" id="form1" action="/euipApply/tApplyEuipAction_insertEuipInfo.action" method="post" enctype="multipart/form-data" onsubmit="return checkForm(this);">
          <h:hidden property="euip.epId"/>
@@ -31,81 +33,10 @@
 		<table align="center" border="0" width="100%" class="form_table" >
        <tr>
          <td  colspan="4" style="text-align: center;font-weight:bold;font-size:12pt;height:50px" >
-        		设备申请单
+        		节点模式2
         </td>
       </tr>
       <tr>
-      	<td class="form_label" align="right" style="width:120px;">
-                                                     申请标题：
-        </td>
-        <td colspan="3">
-          <h:text property="euip.epTitle" id="epTitle" validateAttr="allowNull=false" readonly="true"style="width:90%;" /><font style="color: red">*</font>	
-        </td>
-      </tr>
-<%--       <tr>
-      	<td class="form_label" align="right" style="width:120px;">
-                                                     申请事项：
-        </td>
-        <td colspan="1">
-          <h:text property="euip.epMatter" id="epMatter" readonly="true" validateAttr="allowNull=false" /><font style="color: red">*</font>	
-        </td>
-        	<td class="form_label" align="right" style="width:120px;">
-                                                    设备申请类型：
-        </td>
-        <td colspan="1">
-        <d:write dictTypeId="ZHPT_EPAPPLY_TYPE" property="euip.epType" />
-        <d:select dictTypeId="ZHPT_EPAPPLY_TYPE" property="euip.epType" disabled="true" id="messageType" style="width:130px;" nullLabel="请选择"></d:select>
-        </td>
-      </tr> --%>
-  <%--      <tr>
-      	<td class="form_label" align="right" style="width:120px;">
-                                                     数量：
-        </td>
-        <td colspan="1">
-          <h:text property="euip.epNumber" id="epNumber" readonly="true" validateAttr="allowNull=false" /><font style="color: red">*</font>	
-        </td>
-        	<td class="form_label" align="right" style="width:120px;">
-                                                   预算金额：
-        </td>
-        <td colspan="1">
-         <h:text property="euip.epBudget" id="epBudget" readonly="true" validateAttr="allowNull=false" /><font style="color: red">*</font>	
-        </td>
-      </tr> --%>
-        <tr>
-        <td class="form_label" align="right" style="width:120px;">
-                                                   申请人：
-        </td>
-        <td colspan="1">
-         <h:text property="euip.empName" id="empName" validateAttr="allowNull=false" readonly="true" style="width:130px;" /><font style="color: red">*</font>	
-        </td>
-        <td class="form_label" align="right" style="width:120px;">
-                                                   申请部门：
-        </td>
-        <td colspan="1">
-         <h:text property="euip.orgName" id="orgName" validateAttr="allowNull=false" readonly="true" style="width:130px;" /><font style="color: red">*</font>	
-        </td>
-      </tr>
-       <tr>
-      <td class="form_label" align="right" style="width:120px;">
-                                                    联系电话：
-        </td>
-        <td colspan="1">
-          <h:text property="euip.phoneNo" id="phoneNo" validateAttr="allowNull=false" readonly="true" style="width:130px;" /><font style="color: red">*</font>	
-        	<b:write/>
-        </td>
-        
-        <td class="form_label" align="right" style="width:120px;">
-                                                    申请时间：
-        </td>
-        <td colspan="1">
-        <div id="inputTime">
-	         <w:date  id="applyTime" submitFormat="yyyy-MM-dd" format="yyyyMMdd" readonly="true" allowNull="false" property="euip.applyTime"/>
-         </div>
-        <%--   <div id="hiddenTime" style="display: none">
-         	<h:text property="euip.applyTime" readonly="true"/>
-         </div><font style="color: red">*</font> --%>
-        </td>
-      </tr>
       <tr>
      	<td class="form_label" align="right">原因：</td>
      	<td colspan="3">
@@ -113,23 +44,7 @@
 		    <font style="color: red">*</font>
      	</td>
       </tr>
-         <tr id="row1">
-      <td class="form_label" align="right">附件下载：</td>
-      <td colspan="3">
-      <div id="tag"></div>
-      </td>
-      </tr>
-     <tr id="fujian">
-     	<td class="form_label" align="right">附件：</td>
-     	<td colspan="3">
-				<input type="button" onclick="addFile('tabtest','files');return false;" value="新增附件" 
-					style="margin-left:2px;vertical-align:middle;cursor:hand;"/>
-				<font style="color: red">(说明：最多上传5个附件)</font>
-				<br/>
-				<table border=0 id="tabtest">
-				</table>
-     	</td>
-     </tr>
+    
       <tr id="row3">
      	<td class="form_label" align="right">意见：</td>
      	<td colspan="3">
@@ -144,19 +59,18 @@
           <input type="button" value="提交" onclick="doSave(2);" class="button" id="save3" />
           <input type="button" value="回退" onclick="doSave2(2);" class="button" id="save4" />
           <input type="button" value="查看流程" onclick="doflowpic();" class="button" id="flowpic" />
+          <d:write property="1"  dictTypeId='ABF_FILE_SAVE'/>
          </td>
       </tr>
-       <tr id="row2">
-     <td class="form_label" align="right">流 程 列 表：</td>
-     <td colspan="3">
-     <%@include file="/jsp/util/opinionUtil.jsp"%>
-		</td>
-     </tr>
     </table>
-   
     </h:form>
+      	<w:panel id="showpanel" title="我的流程">
+    	<div id='showdiv'>
+    	</div>	
+	</w:panel>
   </body>
  <script type="text/javascript">
+
  $(document).ready(function(){
 	 if('${euip.epId}'!=""){
 		 $("#save1").css("display","none"); 
@@ -320,12 +234,10 @@ function initPlanCell20(){
 			$("#"+id).remove();
 		}
 
-		function show(){
+		function show(jsonString){
 			var showpanel=$("#showdiv");
-			showpanel.html("");
-			var showpanelhtml=showpanel.html();
 		//	var jsonString='{"comments":[{"content":"很不错嘛","id":1,"nickname":"纳尼"},{"content":"哟西哟西","id":2,"nickname":"小强"}],"content":"你是木头人，哈哈。","infomap":{"性别":"男","职业":"程序员","博客":"http:\/\/www.cnblogs.com\/codeplus\/"},"title":"123木头人"}';
-			var jsonString='{"seq":[{"description":"","dicname":"","fieldName":"processModelOneID","handle":"","hidden":false,"name":"模式一编号,信贷业务编号","type":"text","url":"","value":11},{"description":"","dicname":"","fieldName":"flow_Id","handle":"","hidden":false,"name":"流程ID","type":"text","url":"","value":1},{"description":"","dicname":"","fieldName":"orgCodeOne","handle":"","hidden":true,"name":"受理支行（一级选项）","type":"text","url":"","value":"11"},{"description":"","dicname":"","fieldName":"orgCodeTwo","handle":"","hidden":true,"name":"受理支行（二级选项）","type":"text","url":"","value":"2"},{"description":"","dicname":"","fieldName":"creator","handle":"","hidden":true,"name":"主调信贷员","type":"text","url":"","value":"2"},{"description":"","dicname":"","fieldName":"fdxdy","handle":"","hidden":true,"name":"辅调信贷员","type":"text","url":"","value":"3"},{"description":"","dicname":"","fieldName":"yxzg","handle":"","hidden":true,"name":"营业主管","type":"text","url":"","value":"4"},{"description":"","dicname":"","fieldName":"yxry","handle":"","hidden":true,"name":"营销人员","type":"text","url":"","value":"6"},{"description":"","dicname":"","fieldName":"currency","handle":"","hidden":true,"name":"申请币别","type":"text","url":"","value":"5"},{"description":"","dicname":"","fieldName":"apply_bal","handle":"","hidden":true,"name":"申请金额","type":"text","url":"","value":"2"},{"description":"","dicname":"","fieldName":"oneCategory","handle":"","hidden":true,"name":"一级分类","type":"text","url":"","value":"rer"},{"description":"","dicname":"","fieldName":"loanCategory","handle":"","hidden":true,"name":"贷种分类","type":"text","url":"","value":"rere"},{"description":"","dicname":"","fieldName":"dywx_Name","handle":"","hidden":true,"name":"抵押物权属人姓名","type":"text","url":"","value":"rer"},{"description":"","dicname":"","fieldName":"coOrganization","handle":"","hidden":true,"name":"合作机构","type":"text","url":"","value":"房顶上的"},{"description":"","dicname":"","fieldName":"survey_Time","handle":"","hidden":true,"name":"调查时间","type":"text","url":"","value":"234"},{"description":"","dicname":"","fieldName":"content","handle":"","hidden":true,"name":"超限说明","type":"text","url":"","value":"防守对方"},{"description":"","dicname":"","fieldName":"cust_Name","handle":"","hidden":true,"name":"客户名称","type":"text","url":"","value":"防守对方说"},{"description":"","dicname":"","fieldName":"create_Date","handle":"","hidden":true,"name":"创建日期","type":"text","url":"","value":"发生的"},{"description":"","dicname":"","fieldName":"create_time","handle":"","hidden":true,"name":"创建时间","type":"text","url":"","value":"防守对方"},{"description":"","dicname":"","fieldName":"create_name","handle":"","hidden":true,"name":"创建人姓名","type":"text","url":"","value":"辅导费"},{"description":"","dicname":"","fieldName":"last_up_date","handle":"","hidden":true,"name":"最后修改日期","type":"text","url":"","value":"辅导费"},{"description":"","dicname":"","fieldName":"last_up_time","handle":"","hidden":true,"name":"最后修改时间","type":"text","url":"","value":"辅导费"},{"description":"","dicname":"","fieldName":"last_up_name","handle":"","hidden":true,"name":"最后操作员","type":"text","url":"","value":"发的"}],"seq1":[{"description":"","dicname":"","fieldName":"processModelOneID","handle":"","hidden":false,"name":"模式一编号,信贷业务编号","type":"text","url":"","value":22},{"description":"","dicname":"","fieldName":"flow_Id","handle":"","hidden":false,"name":"流程ID","type":"text","url":"","value":1},{"description":"","dicname":"","fieldName":"orgCodeOne","handle":"","hidden":true,"name":"受理支行（一级选项）","type":"text","url":"","value":"2"},{"description":"","dicname":"","fieldName":"orgCodeTwo","handle":"","hidden":true,"name":"受理支行（二级选项）","type":"text","url":"","value":"2"},{"description":"","dicname":"","fieldName":"creator","handle":"","hidden":true,"name":"主调信贷员","type":"text","url":"","value":"3"},{"description":"","dicname":"","fieldName":"fdxdy","handle":"","hidden":true,"name":"辅调信贷员","type":"text","url":"","value":"4"},{"description":"","dicname":"","fieldName":"yxzg","handle":"","hidden":true,"name":"营业主管","type":"text","url":"","value":"是否"},{"description":"","dicname":"","fieldName":"yxry","handle":"","hidden":true,"name":"营销人员","type":"text","url":"","value":"所属"},{"description":"","dicname":"","fieldName":"currency","handle":"","hidden":true,"name":"申请币别","type":"text","url":"","value":"淡定"},{"description":"","dicname":"","fieldName":"apply_bal","handle":"","hidden":true,"name":"申请金额","type":"text","url":"","value":"淡定"},{"description":"","dicname":"","fieldName":"oneCategory","handle":"","hidden":true,"name":"一级分类","type":"text","url":"","value":"方法"},{"description":"","dicname":"","fieldName":"loanCategory","handle":"","hidden":true,"name":"贷种分类","type":"text","url":"","value":"刚刚"},{"description":"","dicname":"","fieldName":"dywx_Name","handle":"","hidden":true,"name":"抵押物权属人姓名","type":"text","url":"","value":"呵呵"},{"description":"","dicname":"","fieldName":"coOrganization","handle":"","hidden":true,"name":"合作机构","type":"text","url":"","value":"阿萨德"},{"description":"","dicname":"","fieldName":"survey_Time","handle":"","hidden":true,"name":"调查时间","type":"text","url":"","value":"斯蒂芬"},{"description":"","dicname":"","fieldName":"content","handle":"","hidden":true,"name":"超限说明","type":"text","url":"","value":"斯蒂芬"},{"description":"","dicname":"","fieldName":"cust_Name","handle":"","hidden":true,"name":"客户名称","type":"text","url":"","value":"斯蒂芬"},{"description":"","dicname":"","fieldName":"create_Date","handle":"","hidden":true,"name":"创建日期","type":"text","url":"","value":"阿达"},{"description":"","dicname":"","fieldName":"create_time","handle":"","hidden":true,"name":"创建时间","type":"text","url":"","value":"洒"},{"description":"","dicname":"","fieldName":"create_name","handle":"","hidden":true,"name":"创建人姓名","type":"text","url":"","value":"多少份"},{"description":"","dicname":"","fieldName":"last_up_date","handle":"","hidden":true,"name":"最后修改日期","type":"text","url":"","value":"斯蒂芬"},{"description":"","dicname":"","fieldName":"last_up_time","handle":"","hidden":true,"name":"最后修改时间","type":"text","url":"","value":"发的"},{"description":"","dicname":"","fieldName":"last_up_name","handle":"","hidden":true,"name":"最后操作员","type":"text","url":"","value":"发生的"}]}';
+			jsonString='{"seq":[{"description":"","dicname":"","fieldName":"processModelOneID","handle":"","hidden":false,"name":"模式一编号,信贷业务编号","type":"text","url":"","value":11},{"description":"","dicname":"","fieldName":"flow_Id","handle":"","hidden":false,"name":"流程ID","type":"text","url":"","value":1},{"description":"","dicname":"","fieldName":"orgCodeOne","handle":"","hidden":true,"name":"受理支行（一级选项）","type":"text","url":"","value":"11"},{"description":"","dicname":"","fieldName":"orgCodeTwo","handle":"","hidden":true,"name":"受理支行（二级选项）","type":"text","url":"","value":"2"},{"description":"","dicname":"","fieldName":"creator","handle":"","hidden":true,"name":"主调信贷员","type":"text","url":"","value":"2"},{"description":"","dicname":"","fieldName":"fdxdy","handle":"","hidden":true,"name":"辅调信贷员","type":"text","url":"","value":"3"},{"description":"","dicname":"","fieldName":"yxzg","handle":"","hidden":true,"name":"营业主管","type":"text","url":"","value":"4"},{"description":"","dicname":"","fieldName":"yxry","handle":"","hidden":true,"name":"营销人员","type":"text","url":"","value":"6"},{"description":"","dicname":"ABF_FILE_SAVE","fieldName":"currency","handle":"","hidden":true,"name":"申请币别","type":"dic","url":"","value":"1"},{"description":"","dicname":"","fieldName":"apply_bal","handle":"","hidden":true,"name":"申请金额","type":"text","url":"","value":"2"},{"description":"","dicname":"","fieldName":"oneCategory","handle":"","hidden":true,"name":"一级分类","type":"text","url":"","value":"rer"},{"description":"","dicname":"","fieldName":"loanCategory","handle":"","hidden":true,"name":"贷种分类","type":"text","url":"","value":"rere"},{"description":"","dicname":"","fieldName":"dywx_Name","handle":"","hidden":true,"name":"抵押物权属人姓名","type":"text","url":"","value":"rer"},{"description":"","dicname":"","fieldName":"coOrganization","handle":"","hidden":true,"name":"合作机构","type":"text","url":"","value":"房顶上的"},{"description":"","dicname":"","fieldName":"survey_Time","handle":"","hidden":true,"name":"调查时间","type":"text","url":"","value":"234"},{"description":"","dicname":"","fieldName":"content","handle":"","hidden":true,"name":"超限说明","type":"text","url":"","value":"防守对方"},{"description":"","dicname":"","fieldName":"cust_Name","handle":"","hidden":true,"name":"客户名称","type":"text","url":"","value":"防守对方说"},{"description":"","dicname":"","fieldName":"create_Date","handle":"","hidden":true,"name":"创建日期","type":"date","url":"","value":"20151120"},{"description":"","dicname":"","fieldName":"create_time","handle":"","hidden":true,"name":"创建时间","type":"date","url":"","value":"防守对方"},{"description":"","dicname":"","fieldName":"create_name","handle":"","hidden":true,"name":"创建人姓名","type":"text","url":"","value":"辅导费"},{"description":"","dicname":"","fieldName":"last_up_date","handle":"","hidden":true,"name":"最后修改日期","type":"text","url":"","value":"辅导费"},{"description":"","dicname":"","fieldName":"last_up_time","handle":"","hidden":true,"name":"最后修改时间","type":"text","url":"","value":"辅导费"},{"description":"","dicname":"","fieldName":"last_up_name","handle":"","hidden":true,"name":"最后操作员","type":"text","url":"","value":"发的"}],"seq1":[{"description":"","dicname":"","fieldName":"processModelOneID","handle":"","hidden":false,"name":"模式一编号,信贷业务编号","type":"text","url":"","value":22},{"description":"","dicname":"","fieldName":"flow_Id","handle":"","hidden":false,"name":"流程ID","type":"text","url":"","value":1},{"description":"","dicname":"","fieldName":"orgCodeOne","handle":"","hidden":true,"name":"受理支行（一级选项）","type":"text","url":"","value":"2"},{"description":"","dicname":"","fieldName":"orgCodeTwo","handle":"","hidden":true,"name":"受理支行（二级选项）","type":"text","url":"","value":"2"},{"description":"","dicname":"","fieldName":"creator","handle":"","hidden":true,"name":"主调信贷员","type":"text","url":"","value":"3"},{"description":"","dicname":"","fieldName":"fdxdy","handle":"","hidden":true,"name":"辅调信贷员","type":"text","url":"","value":"4"},{"description":"","dicname":"","fieldName":"yxzg","handle":"","hidden":true,"name":"营业主管","type":"text","url":"","value":"是否"},{"description":"","dicname":"","fieldName":"yxry","handle":"","hidden":true,"name":"营销人员","type":"text","url":"","value":"所属"},{"description":"","dicname":"","fieldName":"currency","handle":"","hidden":true,"name":"申请币别","type":"text","url":"","value":"淡定"},{"description":"","dicname":"","fieldName":"apply_bal","handle":"","hidden":true,"name":"申请金额","type":"text","url":"","value":"淡定"},{"description":"","dicname":"","fieldName":"oneCategory","handle":"","hidden":true,"name":"一级分类","type":"text","url":"","value":"方法"},{"description":"","dicname":"","fieldName":"loanCategory","handle":"","hidden":true,"name":"贷种分类","type":"text","url":"","value":"刚刚"},{"description":"","dicname":"","fieldName":"dywx_Name","handle":"","hidden":true,"name":"抵押物权属人姓名","type":"text","url":"","value":"呵呵"},{"description":"","dicname":"","fieldName":"coOrganization","handle":"","hidden":true,"name":"合作机构","type":"text","url":"","value":"阿萨德"},{"description":"","dicname":"","fieldName":"survey_Time","handle":"","hidden":true,"name":"调查时间","type":"text","url":"","value":"斯蒂芬"},{"description":"","dicname":"","fieldName":"content","handle":"","hidden":true,"name":"超限说明","type":"text","url":"","value":"斯蒂芬"},{"description":"","dicname":"","fieldName":"cust_Name","handle":"","hidden":true,"name":"客户名称","type":"text","url":"","value":"斯蒂芬"},{"description":"","dicname":"","fieldName":"create_Date","handle":"","hidden":true,"name":"创建日期","type":"text","url":"","value":"阿达"},{"description":"","dicname":"","fieldName":"create_time","handle":"","hidden":true,"name":"创建时间","type":"text","url":"","value":"洒"},{"description":"","dicname":"","fieldName":"create_name","handle":"","hidden":true,"name":"创建人姓名","type":"text","url":"","value":"多少份"},{"description":"","dicname":"","fieldName":"last_up_date","handle":"","hidden":true,"name":"最后修改日期","type":"text","url":"","value":"斯蒂芬"},{"description":"","dicname":"","fieldName":"last_up_time","handle":"","hidden":true,"name":"最后修改时间","type":"date","url":"","value":"发的"},{"description":"","dicname":"","fieldName":"last_up_name","handle":"","hidden":true,"name":"最后操作员","type":"text","url":"","value":"发生的"}]}';
 			//var jsonString='[{"description":"","dicname":"","fieldName":"processModelOneID","handle":"","hidden":false,"name":"模式一编号,信贷业务编号","type":"text","url":"","value":11},{"description":"","dicname":"","fieldName":"flow_Id","handle":"","hidden":false,"name":"流程ID","type":"text","url":"","value":1},{"description":"","dicname":"","fieldName":"orgCodeOne","handle":"","hidden":true,"name":"受理支行（一级选项）","type":"text","url":"","value":"11"},{"description":"","dicname":"","fieldName":"orgCodeTwo","handle":"","hidden":true,"name":"受理支行（二级选项）","type":"text","url":"","value":"2"},{"description":"","dicname":"","fieldName":"creator","handle":"","hidden":true,"name":"主调信贷员","type":"text","url":"","value":"2"},{"description":"","dicname":"","fieldName":"fdxdy","handle":"","hidden":true,"name":"辅调信贷员","type":"text","url":"","value":"3"},{"description":"","dicname":"","fieldName":"yxzg","handle":"","hidden":true,"name":"营业主管","type":"text","url":"","value":"4"},{"description":"","dicname":"","fieldName":"yxry","handle":"","hidden":true,"name":"营销人员","type":"text","url":"","value":"6"},{"description":"","dicname":"","fieldName":"currency","handle":"","hidden":true,"name":"申请币别","type":"text","url":"","value":"5"},{"description":"","dicname":"","fieldName":"apply_bal","handle":"","hidden":true,"name":"申请金额","type":"text","url":"","value":"2"},{"description":"","dicname":"","fieldName":"oneCategory","handle":"","hidden":true,"name":"一级分类","type":"text","url":"","value":"rer"},{"description":"","dicname":"","fieldName":"loanCategory","handle":"","hidden":true,"name":"贷种分类","type":"text","url":"","value":"rere"},{"description":"","dicname":"","fieldName":"dywx_Name","handle":"","hidden":true,"name":"抵押物权属人姓名","type":"text","url":"","value":"rer"},{"description":"","dicname":"","fieldName":"coOrganization","handle":"","hidden":true,"name":"合作机构","type":"text","url":"","value":"房顶上的"},{"description":"","dicname":"","fieldName":"survey_Time","handle":"","hidden":true,"name":"调查时间","type":"text","url":"","value":"234"},{"description":"","dicname":"","fieldName":"content","handle":"","hidden":true,"name":"超限说明","type":"text","url":"","value":"防守对方"},{"description":"","dicname":"","fieldName":"cust_Name","handle":"","hidden":true,"name":"客户名称","type":"text","url":"","value":"防守对方说"},{"description":"","dicname":"","fieldName":"create_Date","handle":"","hidden":true,"name":"创建日期","type":"text","url":"","value":"发生的"},{"description":"","dicname":"","fieldName":"create_time","handle":"","hidden":true,"name":"创建时间","type":"text","url":"","value":"防守对方"},{"description":"","dicname":"","fieldName":"create_name","handle":"","hidden":true,"name":"创建人姓名","type":"text","url":"","value":"辅导费"},{"description":"","dicname":"","fieldName":"last_up_date","handle":"","hidden":true,"name":"最后修改日期","type":"text","url":"","value":"辅导费"},{"description":"","dicname":"","fieldName":"last_up_time","handle":"","hidden":true,"name":"最后修改时间","type":"text","url":"","value":"辅导费"},{"description":"","dicname":"","fieldName":"last_up_name","handle":"","hidden":true,"name":"最后操作员","type":"text","url":"","value":"发的"}],[{"description":"","dicname":"","fieldName":"processModelOneID","handle":"","hidden":false,"name":"模式一编号,信贷业务编号","type":"text","url":"","value":22},{"description":"","dicname":"","fieldName":"flow_Id","handle":"","hidden":false,"name":"流程ID","type":"text","url":"","value":1},{"description":"","dicname":"","fieldName":"orgCodeOne","handle":"","hidden":true,"name":"受理支行（一级选项）","type":"text","url":"","value":"2"},{"description":"","dicname":"","fieldName":"orgCodeTwo","handle":"","hidden":true,"name":"受理支行（二级选项）","type":"text","url":"","value":"2"},{"description":"","dicname":"","fieldName":"creator","handle":"","hidden":true,"name":"主调信贷员","type":"text","url":"","value":"3"},{"description":"","dicname":"","fieldName":"fdxdy","handle":"","hidden":true,"name":"辅调信贷员","type":"text","url":"","value":"4"},{"description":"","dicname":"","fieldName":"yxzg","handle":"","hidden":true,"name":"营业主管","type":"text","url":"","value":"是否"},{"description":"","dicname":"","fieldName":"yxry","handle":"","hidden":true,"name":"营销人员","type":"text","url":"","value":"所属"},{"description":"","dicname":"","fieldName":"currency","handle":"","hidden":true,"name":"申请币别","type":"text","url":"","value":"淡定"},{"description":"","dicname":"","fieldName":"apply_bal","handle":"","hidden":true,"name":"申请金额","type":"text","url":"","value":"淡定"},{"description":"","dicname":"","fieldName":"oneCategory","handle":"","hidden":true,"name":"一级分类","type":"text","url":"","value":"方法"},{"description":"","dicname":"","fieldName":"loanCategory","handle":"","hidden":true,"name":"贷种分类","type":"text","url":"","value":"刚刚"},{"description":"","dicname":"","fieldName":"dywx_Name","handle":"","hidden":true,"name":"抵押物权属人姓名","type":"text","url":"","value":"呵呵"},{"description":"","dicname":"","fieldName":"coOrganization","handle":"","hidden":true,"name":"合作机构","type":"text","url":"","value":"阿萨德"},{"description":"","dicname":"","fieldName":"survey_Time","handle":"","hidden":true,"name":"调查时间","type":"text","url":"","value":"斯蒂芬"},{"description":"","dicname":"","fieldName":"content","handle":"","hidden":true,"name":"超限说明","type":"text","url":"","value":"斯蒂芬"},{"description":"","dicname":"","fieldName":"cust_Name","handle":"","hidden":true,"name":"客户名称","type":"text","url":"","value":"斯蒂芬"},{"description":"","dicname":"","fieldName":"create_Date","handle":"","hidden":true,"name":"创建日期","type":"text","url":"","value":"阿达"},{"description":"","dicname":"","fieldName":"create_time","handle":"","hidden":true,"name":"创建时间","type":"text","url":"","value":"洒"},{"description":"","dicname":"","fieldName":"create_name","handle":"","hidden":true,"name":"创建人姓名","type":"text","url":"","value":"多少份"},{"description":"","dicname":"","fieldName":"last_up_date","handle":"","hidden":true,"name":"最后修改日期","type":"text","url":"","value":"斯蒂芬"},{"description":"","dicname":"","fieldName":"last_up_time","handle":"","hidden":true,"name":"最后修改时间","type":"text","url":"","value":"发的"},{"description":"","dicname":"","fieldName":"last_up_name","handle":"","hidden":true,"name":"最后操作员","type":"text","url":"","value":"发生的"}]';
 			//var jsonString='';
 			if (jsonString==""){
@@ -335,40 +247,61 @@ function initPlanCell20(){
 				var dataObj=eval("("+jsonString+")");
 				$.each(dataObj,function(key,value){
 					showpanelhtml=showpanelhtml+'<table align="center" border="0" width="100%" class="form_table">';
-		           alert(key);
-		           alert(value.length);
+		           var index=0;
 		           $.each(value, function(i, item) {
-			           if(i%2==0){
-			        	   if(item.type=='text'){
-			        		   showpanelhtml=showpanelhtml+'<tr><td class="form_label" align="right" style="width:120px;">'+item.name+ '</td><td>'+item.value+'</td>';
-			   				}else if(item.type=='dic'){
-			   					showpanelhtml=showpanelhtml+'<tr><td class="form_label" align="right" style="width:120px;">'+item.name+ '</td><td>'+item.value+'</td>';
-				   				}else if (item.type=='date'){
-				   					showpanelhtml=showpanelhtml+'<tr><td class="form_label" align="right" style="width:120px;">'+item.name+ '</td><td>'+item.value+'</td>';
-					   				}
-				           }else{
+				       if(item.hidden==true){
+					       //alert(item.name);
+				           if(index%2==0){
 				        	   if(item.type=='text'){
-				        		   showpanelhtml=showpanelhtml+'<td class="form_label" align="right" style="width:120px;">'+item.name+ '</td><td>'+item.value+'</td></tr>';
+				        		  // showpanel.append("<tr>");
+				        		   //showpanel.append("<td class='form_label' align='right' style='width:20%;'>"+item.name+"："+ "</td><td style='width:30%'>"+item.value+ "</td>");
+				        		  	 showpanelhtml=showpanelhtml+"<tr><td class='form_label' align='right' style='width:20%;'>"+item.name+"："+ "</td><td style='width:30%'>"+item.value+ "</td>";
+				        		   //showpanelhtml=showpanelhtml+'<tr><td class="form_label" align="right" style="width:20%">'+item.name+'：'+'</td><td style="width:30%">'+item.value+'</td>';
+				        		   //alert(item.name+':'+index);
+				        		   index=index+1;
 				   				}else if(item.type=='dic'){
-				   					showpanelhtml=showpanelhtml+'<tr><td class="form_label" align="right" style="width:120px;">'+item.name+ '</td><td>'+item.value+'</td></tr>';
+					   				//alert(item.value);
+					   				//$("#showdiv").append("<d:write property="+item.value+" dictTypeId='ABF_FILE_SAVE'>");
+									//alert($("#showdiv").html());
+				   					showpanelhtml=showpanelhtml+"<tr><td class='form_label' align='right' style='width:20%;'>"+item.name+"："+ 
+				   					"</td><td style='width:30%'> <d:write property="+item.value+" dictTypeId='ABF_FILE_SAVE'></d:write></td>";
+				   				 //alert(item.name+':'+index);
+				   					index=index+1;
 					   				}else if (item.type=='date'){
-					   					showpanelhtml=showpanelhtml+'<tr><td class="form_label" align="right" style="width:120px;">'+item.name+ '</td><td>'+item.value+'</td></tr>ipconfig';
+					   					showpanelhtml=showpanelhtml+"<tr><td class='form_label' align='right' style='width:20%;'>"+item.name+"："+ "</td><td style='width:30%'>"+item.value+ "</td>";
+					   					//showpanelhtml=showpanelhtml+'<tr><td class="form_label" align="right" style="width:20%;">'+item.name+'：'+ '</td><td style="width:30%"> '+item.value+'</td>';
+					   				 //alert(item.name+':'+index);
+					   					index=index+1;
 						   				}
+					           }else{
+					        	   if(item.type=='text'){
+					        		   showpanelhtml=showpanelhtml+"<td class='form_label' align='right' style='width:20%;'>"+item.name+"："+ "</td><td style='width:30%'>"+item.value+"</td></tr>";
+					        		   //showpanelhtml=showpanelhtml+'<td class="form_label" align="right" style="width:20%;">'+item.name+'：'+'</td><td style="width:30%">'+item.value+'</td></tr>';
+					        		  //alert(item.name+':'+index);
+					        		   index=index+1;
+					   				}else if(item.type=='dic'){
+
+						   				showpanelhtml=showpanelhtml+"<td class='form_label' align='right' style='width:20%;'>"+item.name+"："+ 
+					   					"</td><td style='width:30%'> <d:write property="+item.value+  "dictTypeId='ABF_FILE_SAVE'/></td></tr>";
+					   					//showpanelhtml=showpanelhtml+'<td class="form_label" align="right" style="width:20%;">'+item.name+'：'+ '</td><td style="width:30%">'+'<d:write value="'+item.value+'" dictTypeId="ABF_FILE_SAVE"/>'+'</td></tr>';
+					   					// alert(item.name+':'+index);
+					   					index=index+1;
+						   				}else if (item.type=='date'){
+						   					showpanelhtml=showpanelhtml+"<td class='form_label' align='right' style='width:20%;'>"+item.name+"："+ "</td><td style='width:30%'>"+item.value+ "</td></tr>";
+						   					//alert(item.type+':'+index);
+						   					//showpanelhtml=showpanelhtml+'<td class="form_label" align="right" style="width:20%;">'+item.name+'：'+ '</td><td style="width:30%">'+item.value+'</td></tr>';
+						   					index=index+1;
+							   				 //alert(item.name+':'+index);
+						           }
+					           }
 					           }
 		           });
 		           showpanelhtml=showpanelhtml+'</table>';
 
 		           });
 		        //解析数组
-	
-				
-				/*for(var i=0;i<datalength;i++){
-					if(i/0==0){
-						if(dataObj[i].type=='text')
-							showtablehtml=showtablehtml+'<tr><td class="form_label" align="right" style="width:120px;">'+dataObj[i].name+ '</td><td>'+dataObj[i].value+'</td></tr>';
-						}
-					}*/
-					alert(showpanelhtml);
+				//showpanel.append(showpanelhtml);
+					//alert(showpanelhtml);
 					showpanel.html(showpanelhtml);
 			}
 			}

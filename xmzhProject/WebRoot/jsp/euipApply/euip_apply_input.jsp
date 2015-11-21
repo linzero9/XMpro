@@ -175,8 +175,10 @@
     </h:form>
   </body>
  <script type="text/javascript">
+ 
+// alert(${taskAssgineeDto.businessType});
  $(document).ready(function(){
-	 var templateFileIds = $("#templateFileIds").val();
+	 alert(templateFileIds);
 		if(templateFileIds == "" || templateFileIds == null){
 			$("#rowTemplate").hide();
 		}
