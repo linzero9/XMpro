@@ -5,7 +5,9 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.servlet.ServletContext;
@@ -13,6 +15,7 @@ import javax.servlet.ServletContext;
 import org.apache.struts2.util.ServletContextAware;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
 
+import com.gotop.Generalprocess.annonation.GeneralprocessFieldBean;
 import com.gotop.Generalprocess.model.ProcessModel;
 import com.gotop.Generalprocess.model.ProcessModelOne;
 import com.gotop.Generalprocess.model.ProcessModelPublic;
@@ -220,7 +223,14 @@ public class GeneralprocessAction extends BaseAction{
 		if(taskAssgineeDto!=null&&taskAssgineeDto.getExecutionId()!=null&&!"".equals(taskAssgineeDto.getExecutionId()))
 			flowId=taskAssgineeDto.getExecutionId();
 		
-		List<List<ProcessModelPublic>> aa = GeneralprocessUtil.returnAllObj(null, flowId);
+		
+		Map<String, Object>  rules = new HashMap<String, Object>();
+		rules.put("com.gotop.Generalprocess.model.ProcessModelOne", "msyeszm.1320001");
+		
+		List<List<GeneralprocessFieldBean>> aa = GeneralprocessUtil.returnAllObj(rules);
+		
+		System.out.println(aa);
+		System.out.println(aa);
 
 		return "toModelTwo";
 	}

@@ -174,20 +174,50 @@ public class GeneralprocessUtil {
 	 * 
 	 */
 
-	public static List<List<ProcessModelPublic>> returnAllObj(String[] rules// 规则表中的集合
-			, String keyID// 每个模式的主键 用于查询
+	public static List<List<GeneralprocessFieldBean>> returnAllObj(Map<String, Object> rules// 规则表中的集合
 	) throws ClassNotFoundException, SecurityException, NoSuchMethodException,
 			IllegalArgumentException, IllegalAccessException,
 			InvocationTargetException, InstantiationException {
 		
 		
+
 		
-		System.out.println(SpringPropertyResourceReader.getProperty("com.gotop.Generalprocess.model.ProcessModelOne")+"++++配置文件的值");  
+		
+		List<List<GeneralprocessFieldBean>>   listss= new ArrayList<List<GeneralprocessFieldBean>>();
+		
+		
+		
+		for (String rule   : rules.keySet()) {
+			
+
+		
+		
+		
+		//获取到这个模式的对应配置
+
+			
+				//"com.gotop.Generalprocess.model.ProcessModelOne")+"++++配置文件的值"
+				
 
 		// 1. 读取配置文件2.循环 去 获取 结果集 3. 全部结果集 放在一起
 
-		String classname = "com.gotop.Generalprocess.dao.impl.GeneralprocessDAO";
-		String method = "getProcessModelOneByBussinessId";
+		String ruleOne = SpringPropertyResourceReader.getProperty(rule);
+		String[]   ruleOneArr= ruleOne.split(",");
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		String  classname=ruleOneArr[0];//数组第一个是     DAO 类名称  com.gotop.Generalprocess.dao.impl.GeneralprocessDAO
+		String method =ruleOneArr[1];   //数组第二个是    DAO方法名称    getProcessModelOneByBussinessId
+		
+		Object bean = SpringContextUtil.getBean(ruleOneArr[2]);  //数组第三个是   DAO的spring bean的 ID 名称 generalProcessDAO
+		
+		
 
 		/*
 		 * WebApplicationContext webContext = ContextLoader
@@ -196,19 +226,88 @@ public class GeneralprocessUtil {
 		 */
 
 		// 实例化dao       
-		Object bean = SpringContextUtil.getBean("generalProcessDAO");
+	
 
-		System.out.println(bean);
 
+		
+		
+		//class
 		Class<?> classes = Class.forName(classname);
+		
 		//目前只有值，需要加入加入 @ 注解的 值
 		
 
 		Method thismethod = classes.getDeclaredMethod(method, String.class);
+		
+		
+		//bean
+		Object returnbean = thismethod.invoke(bean, rules.get(rule));
+		
+		
+		
+		
+		
+	
+		
+		
+		//以下获取到了一个 实体类的  值 （注解+value）
+		
+		
+		//1.以上获取到了  实体类对象  + class  
+		//2.需要 获取到 注解内容  然后封装到     GeneralprocessFieldBean  中；
+		
+		List<GeneralprocessFieldBean> beforeBean = GeneralprocessUtil
+				.getBaseInfoByClassName(rule);  //根据 这个是哪个模式的！ 获取到模式的字段集合（没有value）
+		
+		
+		
 
-		Object returnbean = thismethod.invoke(bean, keyID);
+		
 
-		return (List<List<ProcessModelPublic>>) returnbean;
+		Field[] fields = returnbean.getClass().getDeclaredFields();
+
+		for (Field field : fields) {
+
+			field.setAccessible(true);
+
+			if (field.isAnnotationPresent(GeneralprocessField.class)) {
+
+				// //获取到了字段的值 ，需要set进入
+				// System.out.println(field.getName());
+				// System.out.println(field.get(bean));
+				//
+				Object fieldvalue = field.getName();
+
+				for (GeneralprocessFieldBean beforeBeanone : beforeBean) {
+
+					if (beforeBeanone.getFieldName().equals(fieldvalue)) {
+						
+						
+					
+
+						beforeBeanone.setValue(field.get(returnbean));
+
+					}
+
+				}
+
+			}
+
+		}
+		
+		
+		
+		
+		listss.add(beforeBean);
+		
+		
+		
+		
+		}
+		
+		
+
+		return   listss;
 
 	}
 

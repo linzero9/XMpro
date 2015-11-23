@@ -7,6 +7,14 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;  
 import org.springframework.context.support.ClassPathXmlApplicationContext;  
 import org.springframework.core.io.support.PropertiesLoaderSupport;  
+
+
+/**
+ * 
+ * @author wujiajun
+ * @desc   load  配置文件
+ *
+ */
 public class SpringPropertyResourceReader {  
 	
     private static ApplicationContext applicationContext=new   
