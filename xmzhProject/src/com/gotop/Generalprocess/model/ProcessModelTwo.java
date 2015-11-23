@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import com.gotop.Generalprocess.annonation.GeneralprocessField;
 
-public class ProcessModelTwo implements Serializable {
+public class ProcessModelTwo extends ProcessModel implements Serializable {
 
 	/**
 	 * 

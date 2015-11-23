@@ -1,27 +1,15 @@
 package com.gotop.Generalprocess.action;
 
 import java.lang.reflect.InvocationTargetException;
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
-
-import javax.servlet.ServletContext;
-
-import org.apache.struts2.util.ServletContextAware;
-import org.springframework.core.io.support.PropertiesLoaderUtils;
-
 import com.gotop.Generalprocess.annonation.GeneralprocessFieldBean;
-import com.gotop.Generalprocess.model.ProcessModel;
 import com.gotop.Generalprocess.model.ProcessModelOne;
-import com.gotop.Generalprocess.model.ProcessModelPublic;
 import com.gotop.Generalprocess.model.TGeneralprocessMain;
 import com.gotop.Generalprocess.service.IGeneralprocessService;
 import com.gotop.Generalprocess.service.ITGeneralprocessMainService;
+import com.gotop.Generalprocess.service.ITGeneralprocessModeloneService;
 import com.gotop.Generalprocess.util.GeneralprocessUtil;
 import com.gotop.crm.util.BaseAction;
 import com.gotop.jbpm.dto.TaskAssgineeDto;
@@ -77,8 +65,25 @@ public class GeneralprocessAction extends BaseAction{
 	
 	private IGeneralprocessService generalProcessService;
 	
+	/**
+	 * 模式一服务
+	 */
+	private ITGeneralprocessModeloneService generalprocessModeloneService;
+	
+	/**
+	 * 模式主表服务
+	 */
 	private ITGeneralprocessMainService generalprocessMainService;
 	
+	public ITGeneralprocessModeloneService getGeneralprocessModeloneService() {
+		return generalprocessModeloneService;
+	}
+
+	public void setGeneralprocessModeloneService(
+			ITGeneralprocessModeloneService generalprocessModeloneService) {
+		this.generalprocessModeloneService = generalprocessModeloneService;
+	}
+
 	public ITGeneralprocessMainService getGeneralprocessMainService() {
 		return generalprocessMainService;
 	}
@@ -168,19 +173,7 @@ public class GeneralprocessAction extends BaseAction{
     			processModelId=String.valueOf(taskAssgineeDto.getBusinessKey());
     		if(taskAssgineeDto!=null&&taskAssgineeDto.getExecutionId()!=null&&!"".equals(taskAssgineeDto.getExecutionId()))
     			flowId=taskAssgineeDto.getExecutionId();
-    		modelOne=this.generalProcessService.queryModelOne(processModelId,flowId);
-    		
-    		
-    		
-    		
-    		
-    		
-    		
-    		
-    		
-    		
-    		
-    		
+    		modelOne=this.generalprocessModeloneService.queryModelOne(processModelId,flowId);
 		} catch (Exception e) {
 			log.error("查询模式一表单信息失败", e);
 		}
@@ -204,17 +197,29 @@ public class GeneralprocessAction extends BaseAction{
 	 * @throws NoSuchMethodException 
 	 */
 	public String toModelTwo() throws ClassNotFoundException, IllegalArgumentException, SecurityException, IllegalAccessException, NoSuchFieldException, NoSuchMethodException, InvocationTargetException, InstantiationException{
-		//List<ProcessModelOne> modelOnes = this.generalProcessService.getProcessModelOneByBussinessId("1");
-		//Map<String, List<GeneralprocessFieldBean>> beans =  GeneralprocessUtil.fixBean(modelOnes, ProcessModelOne.class,"com.gotop.Generalprocess.model.ProcessModelOne");
-		//JSONObject s = JSONObject.fromObject(beans);
-		//System.out.println(s.toString());
-		
-		
-		
-		
 		String businessId = taskAssgineeDto.getExecutionId();
 		TGeneralprocessMain main = this.generalprocessMainService.queryMainByBusinessId(businessId);
-		List<ProcessModel> pmList = new ArrayList<ProcessModel>();
+		Map<String, Object>  map = new HashMap<String, Object>();
+		
+		String[] rulesArray = null;
+		String[] idsArray = null;
+		if(main != null){
+			if(main.getRules() != null && !"".equals(main.getRules())){
+				String rules = main.getRules();
+				rulesArray = rules.split(",");
+			}
+			
+			if(main.getIds() != null && !"".equals(main.getIds())){
+				String ids = main.getIds();
+				idsArray = ids.split(",");
+			}
+			
+			for (int i = 0; i < idsArray.length; i++) {
+				String id = idsArray[i];
+				String rule = rulesArray[i];
+				map.put(rule, id);
+			}
+		}
 		
 		String flowId="";
 		String processModelId="";
@@ -223,11 +228,7 @@ public class GeneralprocessAction extends BaseAction{
 		if(taskAssgineeDto!=null&&taskAssgineeDto.getExecutionId()!=null&&!"".equals(taskAssgineeDto.getExecutionId()))
 			flowId=taskAssgineeDto.getExecutionId();
 		
-		
-		Map<String, Object>  rules = new HashMap<String, Object>();
-		rules.put("com.gotop.Generalprocess.model.ProcessModelOne", "msyeszm.1320001");
-		
-		List<List<GeneralprocessFieldBean>> aa = GeneralprocessUtil.returnAllObj(rules);
+		List<List<GeneralprocessFieldBean>> aa = GeneralprocessUtil.returnAllObj(map);
 		
 		System.out.println(aa);
 		System.out.println(aa);

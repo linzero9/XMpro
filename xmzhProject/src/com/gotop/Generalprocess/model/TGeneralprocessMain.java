@@ -32,6 +32,11 @@ public class TGeneralprocessMain implements Serializable {
      * @abatorgenerated
      */
     private String businessId;
+    
+    /**
+     * 各个业务主键
+     */
+    private String ids;
 
     /**
      * 规则，用来存储哪些实体类！！ .
@@ -88,5 +93,14 @@ public class TGeneralprocessMain implements Serializable {
 	public void setBusinessId(String businessId) {
 		this.businessId = businessId;
 	}
+
+	public String getIds() {
+		return ids;
+	}
+
+	public void setIds(String ids) {
+		this.ids = ids;
+	}
+	
 
 }

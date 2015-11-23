@@ -1,9 +1,12 @@
 package com.gotop.Generalprocess.service.impl;
 
 import com.gotop.Generalprocess.dao.ITGeneralprocessModeloneDAO;
+import com.gotop.Generalprocess.model.ProcessModelOne;
 import com.gotop.Generalprocess.model.TGeneralprocessModelone;
 import com.gotop.Generalprocess.model.TGeneralprocessModeloneExample;
 import com.gotop.Generalprocess.service.ITGeneralprocessModeloneService;
+import com.gotop.jbpm.dto.TaskAssgineeDto;
+import com.gotop.vo.system.MUOUserSession;
 import com.primeton.utils.Page;
 import java.math.BigDecimal;
 import java.sql.SQLException;
@@ -155,4 +158,14 @@ public class TGeneralprocessModeloneService implements ITGeneralprocessModeloneS
         List list = tGeneralprocessModeloneDAO.selectByDynamic(map,page);
         return list;
     }
+
+	@Override
+	public ProcessModelOne queryModelOne(String processModelId, String flowId) {
+		return this.tGeneralprocessModeloneDAO.queryModelOne(processModelId,flowId);
+	}
+
+	@Override
+	public ProcessModelOne queryModelOneById(String processModelId) {
+		return this.tGeneralprocessModeloneDAO.queryModelOneById(processModelId);
+	}
 }

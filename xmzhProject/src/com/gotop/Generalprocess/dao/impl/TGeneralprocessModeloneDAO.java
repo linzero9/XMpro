@@ -1,6 +1,7 @@
 package com.gotop.Generalprocess.dao.impl;
 
 import com.gotop.Generalprocess.dao.ITGeneralprocessModeloneDAO;
+import com.gotop.Generalprocess.model.ProcessModelOne;
 import com.gotop.Generalprocess.model.TGeneralprocessModelone;
 import com.gotop.Generalprocess.model.TGeneralprocessModeloneExample;
 import com.gotop.util.dataSource.SqlMapClientDao;
@@ -28,6 +29,17 @@ public class TGeneralprocessModeloneDAO extends SqlMapClientDao implements ITGen
         super();
     }
 
+    /**
+     * 通过主键查询一条记录
+     * @abatorgenerated
+     */
+    public TGeneralprocessModelone selectByPrimaryKey(BigDecimal processmodeloneid) {
+        TGeneralprocessModelone key = new TGeneralprocessModelone();
+        key.setProcessmodeloneid(processmodeloneid);
+        TGeneralprocessModelone record = (TGeneralprocessModelone) queryForObject("T_GENERALPROCESS_MODELONE_SqlMap.abatorgenerated_selectByPrimaryKey", key);
+        return record;
+    }
+    
     /**
      * 插入一条新数据.
      * @abatorgenerated
@@ -113,16 +125,7 @@ public class TGeneralprocessModeloneDAO extends SqlMapClientDao implements ITGen
         return result;
     }
 
-    /**
-     * 通过主键查询一条记录
-     * @abatorgenerated
-     */
-    public TGeneralprocessModelone selectByPrimaryKey(BigDecimal processmodeloneid) {
-        TGeneralprocessModelone key = new TGeneralprocessModelone();
-        key.setProcessmodeloneid(processmodeloneid);
-        TGeneralprocessModelone record = (TGeneralprocessModelone) queryForObject("T_GENERALPROCESS_MODELONE_SqlMap.abatorgenerated_selectByPrimaryKey", key);
-        return record;
-    }
+    
 
     /**
      * 通过查询实例，删除数据
@@ -234,4 +237,24 @@ public class TGeneralprocessModeloneDAO extends SqlMapClientDao implements ITGen
             return record;
         }
     }
+
+	@Override
+	public void addModelOne(ProcessModelOne modelOne) {
+		getSqlMapClientTemplate().insert("T_GENERALPROCESS_MODELONE_SqlMap.addModelOne", modelOne);
+	}
+
+	@Override
+	public ProcessModelOne queryModelOne(String processModelId, String flowId) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("processModelId", processModelId);
+		map.put("flowId", flowId);
+		return (ProcessModelOne) queryForObject("T_GENERALPROCESS_MODELONE_SqlMap.queryModelOne", map);
+	}
+
+	@Override
+	public ProcessModelOne queryModelOneById(String processModelId) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("processModelId", processModelId);
+		return (ProcessModelOne) queryForObject("T_GENERALPROCESS_MODELONE_SqlMap.queryModelOne", map);
+	}
 }

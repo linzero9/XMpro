@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 
 import com.gotop.Generalprocess.dao.IGeneralprocessDAO;
 import com.gotop.Generalprocess.dao.ITGeneralprocessMainDAO;
+import com.gotop.Generalprocess.dao.ITGeneralprocessModeloneDAO;
 import com.gotop.Generalprocess.model.ProcessModel;
 import com.gotop.Generalprocess.model.ProcessModelOne;
 import com.gotop.Generalprocess.service.IGeneralprocessService;
@@ -26,9 +27,23 @@ public class GeneralprocessService implements IGeneralprocessService {
 	private IGeneralprocessDAO generalProcessDAO;
 	
 	private ITGeneralprocessMainDAO generalprocessMainDAO;
+	
+	/**
+	 * 模式一的DAO
+	 */
+	private ITGeneralprocessModeloneDAO generalprocessModeloneDAO;
 
 	protected ITApproveOpninionDAO tApproveOpninionDAO;
 	
+	public ITGeneralprocessModeloneDAO getGeneralprocessModeloneDAO() {
+		return generalprocessModeloneDAO;
+	}
+
+	public void setGeneralprocessModeloneDAO(
+			ITGeneralprocessModeloneDAO generalprocessModeloneDAO) {
+		this.generalprocessModeloneDAO = generalprocessModeloneDAO;
+	}
+
 	public ITGeneralprocessMainDAO getGeneralprocessMainDAO() {
 		return generalprocessMainDAO;
 	}
@@ -62,28 +77,6 @@ public class GeneralprocessService implements IGeneralprocessService {
 
 	public void setGeneralProcessDAO(IGeneralprocessDAO generalProcessDAO) {
 		this.generalProcessDAO = generalProcessDAO;
-	}
-
-	@Override
-	public void addModelOne(ProcessModelOne modelOne) {
-		this.generalProcessDAO.addModelOne(modelOne);
-	}
-
-	@Override
-	public void uptModelOne(ProcessModelOne modelOne) {
-		this.generalProcessDAO.uptModelOne(modelOne);
-	}
-
-	@Override
-	public ProcessModelOne getProcessModelOneById(String id) {
-		return this.generalProcessDAO.getProcessModelOneById(id);
-	}
-
-	@Override
-	public List<ProcessModelOne> getProcessModelOneByBussinessId(
-			String bussinessId) {
-		return this.generalProcessDAO
-				.getProcessModelOneByBussinessId(bussinessId);
 	}
 
 	@Override
@@ -123,7 +116,7 @@ public class GeneralprocessService implements IGeneralprocessService {
 			modelOne.setLast_up_name(String.valueOf(muo.getEmpid()));
 
 			// 插入模式一的表单信息
-			this.generalProcessDAO.addModelOne(modelOne);
+			this.generalprocessModeloneDAO.addModelOne(modelOne);
 			// 保存流程的信息
 
 			// 构建流程业务关系信息
@@ -170,7 +163,8 @@ public class GeneralprocessService implements IGeneralprocessService {
 							taskAssgineeDto));
 				}
 
-				generalprocessMainDAO.addGeneralProcessMain(taskAssgineeDto,ProcessModelOne.class);
+				generalprocessMainDAO.addGeneralProcessMain(taskAssgineeDto,modelOne,ProcessModelOne.class);
+				
 				insertApproveOpninion(modelOne, muo, nextTaskId, submitType, taskAssgineeDto);
 			} else {
 				// 退回上一步操作
@@ -278,11 +272,6 @@ public class GeneralprocessService implements IGeneralprocessService {
 			//保存审核意见失败。
 			log.error("保存审核意见失败。", e);
 		}
-	}
-
-	@Override
-	public ProcessModelOne queryModelOne(String processModelId, String flowId) {
-		return this.generalProcessDAO.queryModelOne(processModelId,flowId);
 	}
 
 }

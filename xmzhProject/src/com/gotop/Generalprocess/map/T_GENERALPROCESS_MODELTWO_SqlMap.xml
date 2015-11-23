@@ -1,0 +1,533 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="T_GENERALPROCESS_MODELTWO_SqlMap" >
+  <resultMap id="abatorgenerated_TGeneralprocessModeltwoResult" class="com.gotop.Generalprocess.model.TGeneralprocessModeltwo" >
+    <!--Bean方式返回全表-->
+    <result column="PROCESSMODELID" property="processmodelid" jdbcType="DECIMAL" />
+    <result column="FLOW_ID" property="flowId" jdbcType="VARCHAR" />
+    <result column="RESOURCE_TYPE" property="resourceType" jdbcType="VARCHAR" />
+    <result column="OPNINION_CONTENT" property="opninionContent" jdbcType="VARCHAR" />
+    <result column="OPERATOR_TYPE" property="operatorType" jdbcType="VARCHAR" />
+    <result column="OPERATOR" property="operator" jdbcType="VARCHAR" />
+    <result column="OPERATER_DATE" property="operaterDate" jdbcType="VARCHAR" />
+    <result column="OPERATER_TIME" property="operaterTime" jdbcType="VARCHAR" />
+    <result column="NODE_ID" property="nodeId" jdbcType="VARCHAR" />
+    <result column="NODE_NAME" property="nodeName" jdbcType="VARCHAR" />
+    <result column="ORGID" property="orgid" jdbcType="VARCHAR" />
+    <result column="NEXT_OPR_NAME" property="nextOprName" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="abatorgenerated_TGeneralprocessModeltwo_HashMapResult" class="java.util.HashMap" >
+    <!--HashMap方式返回全表-->
+    <result column="PROCESSMODELID" property="processmodelid" jdbcType="DECIMAL" />
+    <result column="FLOW_ID" property="flowId" jdbcType="VARCHAR" />
+    <result column="RESOURCE_TYPE" property="resourceType" jdbcType="VARCHAR" />
+    <result column="OPNINION_CONTENT" property="opninionContent" jdbcType="VARCHAR" />
+    <result column="OPERATOR_TYPE" property="operatorType" jdbcType="VARCHAR" />
+    <result column="OPERATOR" property="operator" jdbcType="VARCHAR" />
+    <result column="OPERATER_DATE" property="operaterDate" jdbcType="VARCHAR" />
+    <result column="OPERATER_TIME" property="operaterTime" jdbcType="VARCHAR" />
+    <result column="NODE_ID" property="nodeId" jdbcType="VARCHAR" />
+    <result column="NODE_NAME" property="nodeName" jdbcType="VARCHAR" />
+    <result column="ORGID" property="orgid" jdbcType="VARCHAR" />
+    <result column="NEXT_OPR_NAME" property="nextOprName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="processModelTwo_result" class="com.gotop.Generalprocess.model.ProcessModelTwo" >
+    <!--Bean方式返回全表-->
+    <result column="PROCESSMODELID" property="processModelId" jdbcType="DECIMAL" />
+    <result column="FLOW_ID" property="flow_Id" jdbcType="VARCHAR" />
+    <result column="RESOURCE_TYPE" property="Resource_type" jdbcType="VARCHAR" />
+    <result column="OPNINION_CONTENT" property="opninion_content" jdbcType="VARCHAR" />
+    <result column="OPERATOR_TYPE" property="operator_type" jdbcType="VARCHAR" />
+    <result column="OPERATOR" property="operator" jdbcType="VARCHAR" />
+    <result column="OPERATER_DATE" property="operater_date" jdbcType="VARCHAR" />
+    <result column="OPERATER_TIME" property="operater_time" jdbcType="VARCHAR" />
+    <result column="NODE_ID" property="node_id" jdbcType="VARCHAR" />
+    <result column="NODE_NAME" property="Node_name" jdbcType="VARCHAR" />
+    <result column="ORGID" property="orgid" jdbcType="VARCHAR" />
+    <result column="NEXT_OPR_NAME" property="next_opr_name" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="queryModelTwoById" resultMap="processModelTwo_result" parameterClass="java.util.HashMap">
+    <!--通过主键查询一条数据-->
+    select PROCESSMODELID, FLOW_ID, RESOURCE_TYPE, OPNINION_CONTENT, OPERATOR_TYPE, OPERATOR,
+      OPERATER_DATE, OPERATER_TIME, NODE_ID, NODE_NAME, ORGID, NEXT_OPR_NAME
+    from T_GENERALPROCESS_MODELTWO
+    where PROCESSMODELID = #processModelId#
+  </select>
+  
+  
+  <select id="abatorgenerated_selectByPrimaryKey" resultMap="abatorgenerated_TGeneralprocessModeltwoResult" parameterClass="com.gotop.Generalprocess.model.TGeneralprocessModeltwo" >
+    <!--通过主键查询一条数据-->
+    select PROCESSMODELID, FLOW_ID, RESOURCE_TYPE, OPNINION_CONTENT, OPERATOR_TYPE, OPERATOR,
+      OPERATER_DATE, OPERATER_TIME, NODE_ID, NODE_NAME, ORGID, NEXT_OPR_NAME
+    from T_GENERALPROCESS_MODELTWO
+    where PROCESSMODELID = #processmodelid:DECIMAL#
+  </select>
+  <select id="abatorgenerated_selectByExample" resultMap="abatorgenerated_TGeneralprocessModeltwoResult" parameterClass="com.gotop.Generalprocess.model.TGeneralprocessModeltwoExample" >
+    <!--通过查询实体,查询满足条件的记录-->
+    select PROCESSMODELID, FLOW_ID, RESOURCE_TYPE, OPNINION_CONTENT, OPERATOR_TYPE, OPERATOR,
+      OPERATER_DATE, OPERATER_TIME, NODE_ID, NODE_NAME, ORGID, NEXT_OPR_NAME
+    from T_GENERALPROCESS_MODELTWO
+    <isParameterPresent >
+      <include refid="COMMON.abatorgenerated_Example_Where_Clause" />
+      <isNotNull property="orderByClause" >
+        order by $orderByClause$
+      </isNotNull>
+    </isParameterPresent>
+  </select>
+  <select id="abatorgenerated_expandEntityByTemplate" resultMap="abatorgenerated_TGeneralprocessModeltwoResult" parameterClass="com.gotop.Generalprocess.model.TGeneralprocessModeltwo" >
+    <!--根据Bean数据模板查询条件查询所有记录，可查询分页数据-->
+    select PROCESSMODELID, FLOW_ID, RESOURCE_TYPE, OPNINION_CONTENT, OPERATOR_TYPE, OPERATOR,
+      OPERATER_DATE, OPERATER_TIME, NODE_ID, NODE_NAME, ORGID, NEXT_OPR_NAME
+    from T_GENERALPROCESS_MODELTWO where <![CDATA[ rownum<2 ]]>
+    <dynamic >
+      <isNotNull prepend="and" property="processmodelid" >
+        PROCESSMODELID = #processmodelid:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="and" property="flowId" >
+        FLOW_ID = #flowId:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="resourceType" >
+        RESOURCE_TYPE = #resourceType:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="opninionContent" >
+        OPNINION_CONTENT = #opninionContent:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="operatorType" >
+        OPERATOR_TYPE = #operatorType:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="operator" >
+        OPERATOR = #operator:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="operaterDate" >
+        OPERATER_DATE = #operaterDate:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="operaterTime" >
+        OPERATER_TIME = #operaterTime:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="nodeId" >
+        NODE_ID = #nodeId:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="nodeName" >
+        NODE_NAME = #nodeName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="orgid" >
+        ORGID = #orgid:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="nextOprName" >
+        NEXT_OPR_NAME = #nextOprName:VARCHAR#
+      </isNotNull>
+    </dynamic>
+  </select>
+  <select id="abatorgenerated_queryEntitiesByTemplate" resultMap="abatorgenerated_TGeneralprocessModeltwoResult" parameterClass="com.gotop.Generalprocess.model.TGeneralprocessModeltwo" >
+    <!--根据Bean数据模板查询条件查询所有记录，可查询分页数据-->
+    select PROCESSMODELID, FLOW_ID, RESOURCE_TYPE, OPNINION_CONTENT, OPERATOR_TYPE, OPERATOR,
+      OPERATER_DATE, OPERATER_TIME, NODE_ID, NODE_NAME, ORGID, NEXT_OPR_NAME
+    from T_GENERALPROCESS_MODELTWO
+    <dynamic prepend="where" >
+      <isNotNull prepend="and" property="processmodelid" >
+        PROCESSMODELID = #processmodelid:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="and" property="flowId" >
+        FLOW_ID = #flowId:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="resourceType" >
+        RESOURCE_TYPE = #resourceType:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="opninionContent" >
+        OPNINION_CONTENT = #opninionContent:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="operatorType" >
+        OPERATOR_TYPE = #operatorType:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="operator" >
+        OPERATOR = #operator:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="operaterDate" >
+        OPERATER_DATE = #operaterDate:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="operaterTime" >
+        OPERATER_TIME = #operaterTime:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="nodeId" >
+        NODE_ID = #nodeId:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="nodeName" >
+        NODE_NAME = #nodeName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="orgid" >
+        ORGID = #orgid:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="nextOprName" >
+        NEXT_OPR_NAME = #nextOprName:VARCHAR#
+      </isNotNull>
+    </dynamic>
+  </select>
+  <delete id="abatorgenerated_deleteByPrimaryKey" parameterClass="com.gotop.Generalprocess.model.TGeneralprocessModeltwo" >
+    <!--
+      WARNING - This element is automatically generated by Abator for iBATIS, do not modify.
+      This element was generated on .
+    -->
+    <!--通过主键删除一条记录-->
+    delete from T_GENERALPROCESS_MODELTWO
+    where PROCESSMODELID = #processmodelid:DECIMAL#
+  </delete>
+  <delete id="abatorgenerated_deleteByExample" parameterClass="com.gotop.Generalprocess.model.TGeneralprocessModeltwoExample" >
+    <!--通过查询实例，删除满足条件的数据-->
+    delete from T_GENERALPROCESS_MODELTWO
+    <include refid="COMMON.abatorgenerated_Example_Where_Clause" />
+  </delete>
+  <delete id="abatorgenerated_deleteByTemplate" parameterClass="com.gotop.Generalprocess.model.TGeneralprocessModeltwo" >
+    <!--根据Bean数据模板查询条件删除记录-->
+    delete from T_GENERALPROCESS_MODELTWO
+    <dynamic prepend="where" >
+      <isNotEmpty prepend="and" property="processmodelid" >
+        PROCESSMODELID = #processmodelid:DECIMAL#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="flowId" >
+        FLOW_ID = #flowId:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="resourceType" >
+        RESOURCE_TYPE = #resourceType:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="opninionContent" >
+        OPNINION_CONTENT = #opninionContent:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="operatorType" >
+        OPERATOR_TYPE = #operatorType:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="operator" >
+        OPERATOR = #operator:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="operaterDate" >
+        OPERATER_DATE = #operaterDate:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="operaterTime" >
+        OPERATER_TIME = #operaterTime:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="nodeId" >
+        NODE_ID = #nodeId:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="nodeName" >
+        NODE_NAME = #nodeName:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="orgid" >
+        ORGID = #orgid:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="nextOprName" >
+        NEXT_OPR_NAME = #nextOprName:VARCHAR#
+      </isNotEmpty>
+    </dynamic>
+  </delete>
+  <insert id="abatorgenerated_insert" parameterClass="com.gotop.Generalprocess.model.TGeneralprocessModeltwo" >
+    <!--通过主键更新整条数据-->
+    insert into T_GENERALPROCESS_MODELTWO (PROCESSMODELID, FLOW_ID, RESOURCE_TYPE, OPNINION_CONTENT,
+      OPERATOR_TYPE, OPERATOR, OPERATER_DATE, OPERATER_TIME, NODE_ID, NODE_NAME, ORGID,
+      NEXT_OPR_NAME)
+    values (#processmodelid:DECIMAL:-9999#, #flowId:VARCHAR#, #resourceType:VARCHAR#,
+      #opninionContent:VARCHAR#, #operatorType:VARCHAR#, #operator:VARCHAR#, #operaterDate:VARCHAR#,
+      #operaterTime:VARCHAR#, #nodeId:VARCHAR#, #nodeName:VARCHAR#, #orgid:VARCHAR#,
+      #nextOprName:VARCHAR#)
+  </insert>
+  <update id="abatorgenerated_updateByPrimaryKey" parameterClass="com.gotop.Generalprocess.model.TGeneralprocessModeltwo" >
+    <!--通过主键更新一条全部字段内容-->
+    update T_GENERALPROCESS_MODELTWO
+    set FLOW_ID = #flowId:VARCHAR#,
+      RESOURCE_TYPE = #resourceType:VARCHAR#,
+      OPNINION_CONTENT = #opninionContent:VARCHAR#,
+      OPERATOR_TYPE = #operatorType:VARCHAR#,
+      OPERATOR = #operator:VARCHAR#,
+      OPERATER_DATE = #operaterDate:VARCHAR#,
+      OPERATER_TIME = #operaterTime:VARCHAR#,
+      NODE_ID = #nodeId:VARCHAR#,
+      NODE_NAME = #nodeName:VARCHAR#,
+      ORGID = #orgid:VARCHAR#,
+      NEXT_OPR_NAME = #nextOprName:VARCHAR#
+    where PROCESSMODELID = #processmodelid:DECIMAL#
+  </update>
+  <update id="abatorgenerated_updateByPrimaryKeySelective" parameterClass="com.gotop.Generalprocess.model.TGeneralprocessModeltwo" >
+    <!--通过主键更新部分字段，部分字段说明：当字段为null时不更新，当字段值为''空值是更新为空值-->
+    update T_GENERALPROCESS_MODELTWO
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="flowId" >
+        FLOW_ID = #flowId:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="resourceType" >
+        RESOURCE_TYPE = #resourceType:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="opninionContent" >
+        OPNINION_CONTENT = #opninionContent:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="operatorType" >
+        OPERATOR_TYPE = #operatorType:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="operator" >
+        OPERATOR = #operator:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="operaterDate" >
+        OPERATER_DATE = #operaterDate:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="operaterTime" >
+        OPERATER_TIME = #operaterTime:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="nodeId" >
+        NODE_ID = #nodeId:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="nodeName" >
+        NODE_NAME = #nodeName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="orgid" >
+        ORGID = #orgid:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="nextOprName" >
+        NEXT_OPR_NAME = #nextOprName:VARCHAR#
+      </isNotNull>
+    </dynamic>
+    where PROCESSMODELID = #processmodelid:DECIMAL#
+  </update>
+  <select id="abatorgenerated_countByExample" parameterClass="com.gotop.Generalprocess.model.TGeneralprocessModeltwoExample" resultClass="java.lang.Integer" >
+    <!--通过查询实例，统计总数-->
+    select count(*) from T_GENERALPROCESS_MODELTWO
+    <include refid="COMMON.abatorgenerated_Example_Where_Clause" />
+  </select>
+  <select id="abatorgenerated_countByTemplate" parameterClass="com.gotop.Generalprocess.model.TGeneralprocessModeltwo" resultClass="java.lang.Integer" >
+    <!--通过查询Bean数据模板，统计总数-->
+    select count(*) from T_GENERALPROCESS_MODELTWO
+    <dynamic prepend="where" >
+      <isNotNull prepend="and" property="processmodelid" >
+        PROCESSMODELID = #processmodelid:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="and" property="flowId" >
+        FLOW_ID = #flowId:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="resourceType" >
+        RESOURCE_TYPE = #resourceType:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="opninionContent" >
+        OPNINION_CONTENT = #opninionContent:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="operatorType" >
+        OPERATOR_TYPE = #operatorType:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="operator" >
+        OPERATOR = #operator:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="operaterDate" >
+        OPERATER_DATE = #operaterDate:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="operaterTime" >
+        OPERATER_TIME = #operaterTime:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="nodeId" >
+        NODE_ID = #nodeId:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="nodeName" >
+        NODE_NAME = #nodeName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="orgid" >
+        ORGID = #orgid:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="nextOprName" >
+        NEXT_OPR_NAME = #nextOprName:VARCHAR#
+      </isNotNull>
+    </dynamic>
+  </select>
+  <update id="abatorgenerated_updateByExampleSelective" >
+    <!--通过查询实例，更新非null字段-->
+    update T_GENERALPROCESS_MODELTWO
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="record.processmodelid" >
+        PROCESSMODELID = #record.processmodelid:DECIMAL:-9999#
+      </isNotNull>
+      <isNotNull prepend="," property="record.flowId" >
+        FLOW_ID = #record.flowId:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.resourceType" >
+        RESOURCE_TYPE = #record.resourceType:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.opninionContent" >
+        OPNINION_CONTENT = #record.opninionContent:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.operatorType" >
+        OPERATOR_TYPE = #record.operatorType:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.operator" >
+        OPERATOR = #record.operator:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.operaterDate" >
+        OPERATER_DATE = #record.operaterDate:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.operaterTime" >
+        OPERATER_TIME = #record.operaterTime:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.nodeId" >
+        NODE_ID = #record.nodeId:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.nodeName" >
+        NODE_NAME = #record.nodeName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.orgid" >
+        ORGID = #record.orgid:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.nextOprName" >
+        NEXT_OPR_NAME = #record.nextOprName:VARCHAR#
+      </isNotNull>
+    </dynamic>
+    <isParameterPresent >
+      <include refid="COMMON.abatorgenerated_Example_Where_Clause" />
+    </isParameterPresent>
+  </update>
+  <update id="abatorgenerated_updateByExample" >
+    <!--通过查询实例，更新全部字段-->
+    update T_GENERALPROCESS_MODELTWO
+    set PROCESSMODELID = #record.processmodelid:DECIMAL:-9999#,
+      FLOW_ID = #record.flowId:VARCHAR#,
+      RESOURCE_TYPE = #record.resourceType:VARCHAR#,
+      OPNINION_CONTENT = #record.opninionContent:VARCHAR#,
+      OPERATOR_TYPE = #record.operatorType:VARCHAR#,
+      OPERATOR = #record.operator:VARCHAR#,
+      OPERATER_DATE = #record.operaterDate:VARCHAR#,
+      OPERATER_TIME = #record.operaterTime:VARCHAR#,
+      NODE_ID = #record.nodeId:VARCHAR#,
+      NODE_NAME = #record.nodeName:VARCHAR#,
+      ORGID = #record.orgid:VARCHAR#,
+      NEXT_OPR_NAME = #record.nextOprName:VARCHAR#
+    <isParameterPresent >
+      <include refid="COMMON.abatorgenerated_Example_Where_Clause" />
+    </isParameterPresent>
+  </update>
+  <update id="abatorgenerated_updateEntityByTemplate" >
+    <!--根据Bean数据模板查询条件更新记录-->
+    update T_GENERALPROCESS_MODELTWO
+    <dynamic prepend="set" >
+      <isNotEmpty prepend="," property="record.processmodelid" >
+        PROCESSMODELID = #record.processmodelid:DECIMAL:-9999#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="record.flowId" >
+        FLOW_ID = #record.flowId:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="record.resourceType" >
+        RESOURCE_TYPE = #record.resourceType:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="record.opninionContent" >
+        OPNINION_CONTENT = #record.opninionContent:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="record.operatorType" >
+        OPERATOR_TYPE = #record.operatorType:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="record.operator" >
+        OPERATOR = #record.operator:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="record.operaterDate" >
+        OPERATER_DATE = #record.operaterDate:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="record.operaterTime" >
+        OPERATER_TIME = #record.operaterTime:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="record.nodeId" >
+        NODE_ID = #record.nodeId:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="record.nodeName" >
+        NODE_NAME = #record.nodeName:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="record.orgid" >
+        ORGID = #record.orgid:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="record.nextOprName" >
+        NEXT_OPR_NAME = #record.nextOprName:VARCHAR#
+      </isNotEmpty>
+    </dynamic>
+    <dynamic prepend="where" >
+      <isNotEmpty prepend="and" property="template.processmodelid" >
+        PROCESSMODELID = #template.processmodelid:DECIMAL#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="template.flowId" >
+        FLOW_ID = #template.flowId:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="template.resourceType" >
+        RESOURCE_TYPE = #template.resourceType:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="template.opninionContent" >
+        OPNINION_CONTENT = #template.opninionContent:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="template.operatorType" >
+        OPERATOR_TYPE = #template.operatorType:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="template.operator" >
+        OPERATOR = #template.operator:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="template.operaterDate" >
+        OPERATER_DATE = #template.operaterDate:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="template.operaterTime" >
+        OPERATER_TIME = #template.operaterTime:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="template.nodeId" >
+        NODE_ID = #template.nodeId:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="template.nodeName" >
+        NODE_NAME = #template.nodeName:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="template.orgid" >
+        ORGID = #template.orgid:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="template.nextOprName" >
+        NEXT_OPR_NAME = #template.nextOprName:VARCHAR#
+      </isNotEmpty>
+    </dynamic>
+  </update>
+  <select id="abatorgenerated_selectByMapAndPage" resultMap="abatorgenerated_TGeneralprocessModeltwo_HashMapResult" parameterClass="java.util.HashMap" >
+    <!--通过Map方式的动态条件，查询分页数据-->
+    select PROCESSMODELID, FLOW_ID, RESOURCE_TYPE, OPNINION_CONTENT, OPERATOR_TYPE, OPERATOR,
+      OPERATER_DATE, OPERATER_TIME, NODE_ID, NODE_NAME, ORGID, NEXT_OPR_NAME
+    from T_GENERALPROCESS_MODELTWO
+    <dynamic prepend="where" >
+      <isNotNull prepend="and" property="processmodelid" >
+        PROCESSMODELID = #processmodelid:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="and" property="flowId" >
+        FLOW_ID = #flowId:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="resourceType" >
+        RESOURCE_TYPE = #resourceType:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="opninionContent" >
+        OPNINION_CONTENT = #opninionContent:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="operatorType" >
+        OPERATOR_TYPE = #operatorType:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="operator" >
+        OPERATOR = #operator:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="operaterDate" >
+        OPERATER_DATE = #operaterDate:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="operaterTime" >
+        OPERATER_TIME = #operaterTime:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="nodeId" >
+        NODE_ID = #nodeId:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="nodeName" >
+        NODE_NAME = #nodeName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="orgid" >
+        ORGID = #orgid:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="nextOprName" >
+        NEXT_OPR_NAME = #nextOprName:VARCHAR#
+      </isNotNull>
+    </dynamic>
+  </select>
+  <select id="abatorgenerated_selectByExampleAndPage" resultMap="abatorgenerated_TGeneralprocessModeltwoResult" parameterClass="com.gotop.Generalprocess.model.TGeneralprocessModeltwoExample" >
+    <!--通过Bean方式的动态条件，查询分页数据-->
+    select PROCESSMODELID, FLOW_ID, RESOURCE_TYPE, OPNINION_CONTENT, OPERATOR_TYPE, OPERATOR,
+      OPERATER_DATE, OPERATER_TIME, NODE_ID, NODE_NAME, ORGID, NEXT_OPR_NAME
+    from T_GENERALPROCESS_MODELTWO
+    <isParameterPresent >
+      <include refid="COMMON.abatorgenerated_Example_Where_Clause" />
+    </isParameterPresent>
+  </select>
+</sqlMap>

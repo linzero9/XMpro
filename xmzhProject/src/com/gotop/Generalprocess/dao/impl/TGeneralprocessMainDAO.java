@@ -1,6 +1,7 @@
 package com.gotop.Generalprocess.dao.impl;
 
 import com.gotop.Generalprocess.dao.ITGeneralprocessMainDAO;
+import com.gotop.Generalprocess.model.ProcessModel;
 import com.gotop.Generalprocess.model.TGeneralprocessMain;
 import com.gotop.Generalprocess.model.TGeneralprocessMainExample;
 import com.gotop.jbpm.dto.TaskAssgineeDto;
@@ -233,13 +234,15 @@ public class TGeneralprocessMainDAO extends SqlMapClientDao implements ITGeneral
     }
 
 	@Override
-	public void addGeneralProcessMain(TaskAssgineeDto taskAssgineeDto,Class<?> c) {
+	public void addGeneralProcessMain(TaskAssgineeDto taskAssgineeDto,ProcessModel pm,Class<?> c) {
 		TGeneralprocessMain main = new TGeneralprocessMain();
 		main.setBusinessId(taskAssgineeDto.getExecutionId());
 		main.setTemplateId(taskAssgineeDto.getDefinitionId());
 		if("com.gotop.Generalprocess.model.ProcessModelOne".equals(c.getName())){
 			main.setRules(c.getName());
 		}
+		
+		main.setIds(String.valueOf(pm.getProcessModelId()));
 		getSqlMapClientTemplate().insert("T_GENERALPROCESS_MAIN_SqlMap.addGeneralProcessMain", main);
 	}
 

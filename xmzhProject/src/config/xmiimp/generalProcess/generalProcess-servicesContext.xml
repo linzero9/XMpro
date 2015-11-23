@@ -4,6 +4,7 @@
   <bean class="com.gotop.Generalprocess.service.impl.GeneralprocessService" id="generalProcessService">
   	<property name="generalProcessDAO" ref="generalProcessDAO" />
   	<property name="generalprocessMainDAO" ref="generalprocessMainDAO" />
+  	<property name="generalprocessModeloneDAO" ref="generalprocessModeloneDAO" />
   	<property name="tApproveOpninionDAO" ref="tApproveOpninionDAO" />
   	<property name="jbpmService" ref="jbpmService" />
   </bean>
@@ -13,7 +14,14 @@
     <property name="tGeneralprocessMainDAO" ref="generalprocessMainDAO" />
   </bean>
   
-    <bean id="SpringContextUtil"  class="com.gotop.Generalprocess.util.SpringContextUtil" />
-  </beans>
+  <bean class="com.gotop.Generalprocess.service.impl.TGeneralprocessModeloneService" id="generalprocessModeloneService">
+    <property name="tGeneralprocessModeloneDAO" ref="generalprocessModeloneDAO" />
+  </bean>
   
+  <bean class="com.gotop.Generalprocess.service.impl.TGeneralprocessModeltwoService" id="tGeneralprocessModeltwoService">
+    <property name="tGeneralprocessModeltwoDAO" ref="tGeneralprocessModeltwoDAO" />
+  </bean>
   
+  <bean class="com.gotop.Generalprocess.util.SpringContextUtil" id="SpringContextUtil" />
+  
+</beans>
