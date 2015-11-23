@@ -47,7 +47,10 @@ public class GeneralprocessUtil {
 
 		Class<?> classc = Class.forName(classname);
 
+		
+		//类   注解 获取
 		Field[] fs = classc.getDeclaredFields();
+		
 
 		for (Field field : fs) {
 
@@ -76,8 +79,45 @@ public class GeneralprocessUtil {
 
 				returnBase.add(bean);
 			}
+			}
+			
+		
+			//super类 注解 获取
+			Field[] superFS = classc.getSuperclass().getDeclaredFields();
+			
+
+			for (Field sfield : superFS) {
+
+				if (sfield.isAnnotationPresent(GeneralprocessField.class)) {
+
+					String fieldName = sfield.getName();// 字段的名称，用于和字段的值匹配？
+
+					GeneralprocessField annotone = sfield
+							.getAnnotation(GeneralprocessField.class);
+
+					GeneralprocessFieldBean bean = new GeneralprocessFieldBean();
+
+					if (annotone == null) {
+						bean.setFieldName(fieldName);
+					} else {
+						bean.setDescription(annotone.description());
+						bean.setHandle(annotone.handle());
+						bean.setHidden(annotone.hidden());
+						bean.setName(annotone.name());
+						bean.setType(annotone.type());
+						bean.setUrl(annotone.url());
+						bean.setFieldName(fieldName);
+						bean.setDicname(annotone.dicname());
+
+					}
+
+					returnBase.add(bean);
+				}
 
 		}
+			
+
+		
 
 		return returnBase;
 
@@ -179,6 +219,8 @@ public class GeneralprocessUtil {
 			IllegalArgumentException, IllegalAccessException,
 			InvocationTargetException, InstantiationException {
 
+
+
 		List<List<GeneralprocessFieldBean>> listss = new ArrayList<List<GeneralprocessFieldBean>>();
 
 		for (String rule : rules.keySet()) {
@@ -203,16 +245,7 @@ public class GeneralprocessUtil {
 																	// 名称
 																	// generalProcessDAO
 
-			/*
-			 * WebApplicationContext webContext = ContextLoader
-			 * .getCurrentWebApplicationContext(); IGeneralprocessService bean
-			 * =(
-			 * IGeneralprocessService)webContext.getBean("generalProcessService"
-			 * );
-			 */
-
 			// 实例化dao
-
 			// class
 			Class<?> classes = Class.forName(classname);
 
@@ -232,6 +265,40 @@ public class GeneralprocessUtil {
 					.getBaseInfoByClassName(rule); // 根据 这个是哪个模式的！
 													// 获取到模式的字段集合（没有value）
 
+		
+			
+			
+			//给类 赋值
+			
+			Field[] superfields  =returnbean.getClass().getSuperclass().getDeclaredFields();
+			for (Field field : superfields) {
+				field.setAccessible(true);
+				if (field.isAnnotationPresent(GeneralprocessField.class)) {
+
+					// //获取到了字段的值 ，需要set进入
+			
+					//
+					Object fieldvalue = field.getName();
+					
+					System.out.println("super实体类字段的名称：：："+fieldvalue);
+					
+					for (GeneralprocessFieldBean beforeBeanone : beforeBean) {
+
+						if (beforeBeanone.getFieldName().equals(fieldvalue)) {
+
+							beforeBeanone.setValue(field.get(returnbean));
+
+						}
+
+					}
+					
+					
+					
+				}
+			}
+			
+			//给继承类 赋值
+			
 			Field[] fields = returnbean.getClass().getDeclaredFields();
 
 			for (Field field : fields) {
@@ -241,10 +308,11 @@ public class GeneralprocessUtil {
 				if (field.isAnnotationPresent(GeneralprocessField.class)) {
 
 					// //获取到了字段的值 ，需要set进入
-					// System.out.println(field.getName());
-					// System.out.println(field.get(bean));
+			
 					//
 					Object fieldvalue = field.getName();
+					
+					System.out.println("实体类字段的名称：：："+fieldvalue);
 
 					for (GeneralprocessFieldBean beforeBeanone : beforeBean) {
 

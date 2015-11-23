@@ -230,8 +230,7 @@ public class GeneralprocessAction extends BaseAction{
 		
 		List<List<GeneralprocessFieldBean>> aa = GeneralprocessUtil.returnAllObj(map);
 		
-		System.out.println(aa);
-		System.out.println(aa);
+
 
 		return "toModelTwo";
 	}
