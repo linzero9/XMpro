@@ -15,12 +15,15 @@
 		   http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
 		   
 	<import resource="classpath:serviceContext-xfire.xml"/>
+	
+
 		
 	<bean id="propertyConfigurer4News" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="ignoreUnresolvablePlaceholders" value="true"/>
         <property name="locations">
             <list>
                 <value>classpath:merchantInfo.properties</value>
+           
             </list>
         </property>
     </bean>

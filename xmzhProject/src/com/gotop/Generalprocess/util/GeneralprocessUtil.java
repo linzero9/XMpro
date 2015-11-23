@@ -32,6 +32,8 @@ import com.gotop.Generalprocess.service.impl.GeneralprocessService;
  * @author wujiajun
  * @desc 流程通用模板的工具类
  */
+
+
 public class GeneralprocessUtil {
 
 	/**
@@ -177,6 +179,10 @@ public class GeneralprocessUtil {
 	) throws ClassNotFoundException, SecurityException, NoSuchMethodException,
 			IllegalArgumentException, IllegalAccessException,
 			InvocationTargetException, InstantiationException {
+		
+		
+		
+		System.out.println(SpringPropertyResourceReader.getProperty("com.gotop.Generalprocess.model.ProcessModelOne")+"++++配置文件的值");  
 
 		// 1. 读取配置文件2.循环 去 获取 结果集 3. 全部结果集 放在一起
 
@@ -189,7 +195,7 @@ public class GeneralprocessUtil {
 		 * =(IGeneralprocessService)webContext.getBean("generalProcessService");
 		 */
 
-		// 实例化dao
+		// 实例化dao       
 		Object bean = SpringContextUtil.getBean("generalProcessDAO");
 
 		System.out.println(bean);
@@ -207,6 +213,9 @@ public class GeneralprocessUtil {
 	}
 
 	public static void main(String[] args) throws ClassNotFoundException {
+		
+
+		
 
 		GeneralprocessUtil iii = new GeneralprocessUtil();
 		List<GeneralprocessFieldBean> lists = iii
