@@ -64,76 +64,12 @@
     </table>
     </h:form>
       	<w:panel id="showpanel" title="我的流程">
-    		<table id="seq" align="center" border="0" width="100%" class="form_table">
-    		<tr><td class='form_label' align='right' style='width:20%;'>
-    		<d:write property="1"  dictTypeId='ABF_FILE_SAVE'/>
-    		</td></tr>
-    		<tr><td ><div id="11">123</div></td></tr>
-    		<tr><td >ddd</td></tr>
-    		<tr><td>ddd</td></tr>
-    		<tr><td>ddd</td></tr>
-    		</table>
+    		<div id='showdiv'>
+    	</div>	
 	</w:panel>
   </body>
  <script type="text/javascript">
- show();
-		function show(){
-			var showpanel=$("#showdiv");
-			//showpanel.html("");
-			var showpanelhtml="";
-		//	var jsonString='{"comments":[{"content":"很不错嘛","id":1,"nickname":"纳尼"},{"content":"哟西哟西","id":2,"nickname":"小强"}],"content":"你是木头人，哈哈。","infomap":{"性别":"男","职业":"程序员","博客":"http:\/\/www.cnblogs.com\/codeplus\/"},"title":"123木头人"}';
-			//jsonString='{"seq":[{"description":"","dicname":"","fieldName":"processModelOneID","handle":"","hidden":false,"name":"模式一编号,信贷业务编号","type":"text","url":"","value":11},{"description":"","dicname":"","fieldName":"flow_Id","handle":"","hidden":false,"name":"流程ID","type":"dic","url":"","value":1},{"description":"","dicname":"","fieldName":"orgCodeOne","handle":"","hidden":true,"name":"受理支行（一级选项）","type":"text","url":"","value":"11"},{"description":"","dicname":"","fieldName":"orgCodeTwo","handle":"","hidden":true,"name":"受理支行（二级选项）","type":"text","url":"","value":"2"},{"description":"","dicname":"","fieldName":"creator","handle":"","hidden":true,"name":"主调信贷员","type":"text","url":"","value":"2"},{"description":"","dicname":"","fieldName":"fdxdy","handle":"","hidden":true,"name":"辅调信贷员","type":"text","url":"","value":"3"},{"description":"","dicname":"","fieldName":"yxzg","handle":"","hidden":true,"name":"营业主管","type":"text","url":"","value":"4"},{"description":"","dicname":"","fieldName":"yxry","handle":"","hidden":true,"name":"营销人员","type":"text","url":"","value":"6"},{"description":"","dicname":"ABF_FILE_SAVE","fieldName":"currency","handle":"","hidden":true,"name":"申请币别","type":"dic","url":"","value":"1"},{"description":"","dicname":"","fieldName":"apply_bal","handle":"","hidden":true,"name":"申请金额","type":"text","url":"","value":"2"},{"description":"","dicname":"","fieldName":"oneCategory","handle":"","hidden":true,"name":"一级分类","type":"text","url":"","value":"rer"},{"description":"","dicname":"","fieldName":"loanCategory","handle":"","hidden":true,"name":"贷种分类","type":"text","url":"","value":"rere"},{"description":"","dicname":"","fieldName":"dywx_Name","handle":"","hidden":true,"name":"抵押物权属人姓名","type":"text","url":"","value":"rer"},{"description":"","dicname":"","fieldName":"coOrganization","handle":"","hidden":true,"name":"合作机构","type":"text","url":"","value":"房顶上的"},{"description":"","dicname":"","fieldName":"survey_Time","handle":"","hidden":true,"name":"调查时间","type":"text","url":"","value":"234"},{"description":"","dicname":"","fieldName":"content","handle":"","hidden":true,"name":"超限说明","type":"text","url":"","value":"防守对方"},{"description":"","dicname":"","fieldName":"cust_Name","handle":"","hidden":true,"name":"客户名称","type":"text","url":"","value":"防守对方说"},{"description":"","dicname":"","fieldName":"create_Date","handle":"","hidden":true,"name":"创建日期","type":"date","url":"","value":"20151120"},{"description":"","dicname":"","fieldName":"create_time","handle":"","hidden":true,"name":"创建时间","type":"date","url":"","value":"防守对方"},{"description":"","dicname":"","fieldName":"create_name","handle":"","hidden":true,"name":"创建人姓名","type":"text","url":"","value":"辅导费"},{"description":"","dicname":"","fieldName":"last_up_date","handle":"","hidden":true,"name":"最后修改日期","type":"text","url":"","value":"辅导费"},{"description":"","dicname":"","fieldName":"last_up_time","handle":"","hidden":true,"name":"最后修改时间","type":"text","url":"","value":"辅导费"},{"description":"","dicname":"","fieldName":"last_up_name","handle":"","hidden":true,"name":"最后操作员","type":"text","url":"","value":"发的"}],"seq1":[{"description":"","dicname":"","fieldName":"processModelOneID","handle":"","hidden":false,"name":"模式一编号,信贷业务编号","type":"text","url":"","value":22},{"description":"","dicname":"","fieldName":"flow_Id","handle":"","hidden":false,"name":"流程ID","type":"text","url":"","value":1},{"description":"","dicname":"","fieldName":"orgCodeOne","handle":"","hidden":true,"name":"受理支行（一级选项）","type":"text","url":"","value":"2"},{"description":"","dicname":"","fieldName":"orgCodeTwo","handle":"","hidden":true,"name":"受理支行（二级选项）","type":"text","url":"","value":"2"},{"description":"","dicname":"","fieldName":"creator","handle":"","hidden":true,"name":"主调信贷员","type":"text","url":"","value":"3"},{"description":"","dicname":"","fieldName":"fdxdy","handle":"","hidden":true,"name":"辅调信贷员","type":"text","url":"","value":"4"},{"description":"","dicname":"","fieldName":"yxzg","handle":"","hidden":true,"name":"营业主管","type":"text","url":"","value":"是否"},{"description":"","dicname":"","fieldName":"yxry","handle":"","hidden":true,"name":"营销人员","type":"text","url":"","value":"所属"},{"description":"","dicname":"","fieldName":"currency","handle":"","hidden":true,"name":"申请币别","type":"text","url":"","value":"淡定"},{"description":"","dicname":"","fieldName":"apply_bal","handle":"","hidden":true,"name":"申请金额","type":"text","url":"","value":"淡定"},{"description":"","dicname":"","fieldName":"oneCategory","handle":"","hidden":true,"name":"一级分类","type":"text","url":"","value":"方法"},{"description":"","dicname":"","fieldName":"loanCategory","handle":"","hidden":true,"name":"贷种分类","type":"text","url":"","value":"刚刚"},{"description":"","dicname":"","fieldName":"dywx_Name","handle":"","hidden":true,"name":"抵押物权属人姓名","type":"text","url":"","value":"呵呵"},{"description":"","dicname":"","fieldName":"coOrganization","handle":"","hidden":true,"name":"合作机构","type":"text","url":"","value":"阿萨德"},{"description":"","dicname":"","fieldName":"survey_Time","handle":"","hidden":true,"name":"调查时间","type":"text","url":"","value":"斯蒂芬"},{"description":"","dicname":"","fieldName":"content","handle":"","hidden":true,"name":"超限说明","type":"text","url":"","value":"斯蒂芬"},{"description":"","dicname":"","fieldName":"cust_Name","handle":"","hidden":true,"name":"客户名称","type":"text","url":"","value":"斯蒂芬"},{"description":"","dicname":"","fieldName":"create_Date","handle":"","hidden":true,"name":"创建日期","type":"text","url":"","value":"阿达"},{"description":"","dicname":"","fieldName":"create_time","handle":"","hidden":true,"name":"创建时间","type":"text","url":"","value":"洒"},{"description":"","dicname":"","fieldName":"create_name","handle":"","hidden":true,"name":"创建人姓名","type":"text","url":"","value":"多少份"},{"description":"","dicname":"","fieldName":"last_up_date","handle":"","hidden":true,"name":"最后修改日期","type":"text","url":"","value":"斯蒂芬"},{"description":"","dicname":"","fieldName":"last_up_time","handle":"","hidden":true,"name":"最后修改时间","type":"date","url":"","value":"发的"},{"description":"","dicname":"","fieldName":"last_up_name","handle":"","hidden":true,"name":"最后操作员","type":"text","url":"","value":"发生的"}]}';
-			//var jsonString='[{"description":"","dicname":"","fieldName":"processModelOneID","handle":"","hidden":false,"name":"模式一编号,信贷业务编号","type":"text","url":"","value":11},{"description":"","dicname":"","fieldName":"flow_Id","handle":"","hidden":false,"name":"流程ID","type":"text","url":"","value":1},{"description":"","dicname":"","fieldName":"orgCodeOne","handle":"","hidden":true,"name":"受理支行（一级选项）","type":"text","url":"","value":"11"},{"description":"","dicname":"","fieldName":"orgCodeTwo","handle":"","hidden":true,"name":"受理支行（二级选项）","type":"text","url":"","value":"2"},{"description":"","dicname":"","fieldName":"creator","handle":"","hidden":true,"name":"主调信贷员","type":"text","url":"","value":"2"},{"description":"","dicname":"","fieldName":"fdxdy","handle":"","hidden":true,"name":"辅调信贷员","type":"text","url":"","value":"3"},{"description":"","dicname":"","fieldName":"yxzg","handle":"","hidden":true,"name":"营业主管","type":"text","url":"","value":"4"},{"description":"","dicname":"","fieldName":"yxry","handle":"","hidden":true,"name":"营销人员","type":"text","url":"","value":"6"},{"description":"","dicname":"","fieldName":"currency","handle":"","hidden":true,"name":"申请币别","type":"text","url":"","value":"5"},{"description":"","dicname":"","fieldName":"apply_bal","handle":"","hidden":true,"name":"申请金额","type":"text","url":"","value":"2"},{"description":"","dicname":"","fieldName":"oneCategory","handle":"","hidden":true,"name":"一级分类","type":"text","url":"","value":"rer"},{"description":"","dicname":"","fieldName":"loanCategory","handle":"","hidden":true,"name":"贷种分类","type":"text","url":"","value":"rere"},{"description":"","dicname":"","fieldName":"dywx_Name","handle":"","hidden":true,"name":"抵押物权属人姓名","type":"text","url":"","value":"rer"},{"description":"","dicname":"","fieldName":"coOrganization","handle":"","hidden":true,"name":"合作机构","type":"text","url":"","value":"房顶上的"},{"description":"","dicname":"","fieldName":"survey_Time","handle":"","hidden":true,"name":"调查时间","type":"text","url":"","value":"234"},{"description":"","dicname":"","fieldName":"content","handle":"","hidden":true,"name":"超限说明","type":"text","url":"","value":"防守对方"},{"description":"","dicname":"","fieldName":"cust_Name","handle":"","hidden":true,"name":"客户名称","type":"text","url":"","value":"防守对方说"},{"description":"","dicname":"","fieldName":"create_Date","handle":"","hidden":true,"name":"创建日期","type":"text","url":"","value":"发生的"},{"description":"","dicname":"","fieldName":"create_time","handle":"","hidden":true,"name":"创建时间","type":"text","url":"","value":"防守对方"},{"description":"","dicname":"","fieldName":"create_name","handle":"","hidden":true,"name":"创建人姓名","type":"text","url":"","value":"辅导费"},{"description":"","dicname":"","fieldName":"last_up_date","handle":"","hidden":true,"name":"最后修改日期","type":"text","url":"","value":"辅导费"},{"description":"","dicname":"","fieldName":"last_up_time","handle":"","hidden":true,"name":"最后修改时间","type":"text","url":"","value":"辅导费"},{"description":"","dicname":"","fieldName":"last_up_name","handle":"","hidden":true,"name":"最后操作员","type":"text","url":"","value":"发的"}],[{"description":"","dicname":"","fieldName":"processModelOneID","handle":"","hidden":false,"name":"模式一编号,信贷业务编号","type":"text","url":"","value":22},{"description":"","dicname":"","fieldName":"flow_Id","handle":"","hidden":false,"name":"流程ID","type":"text","url":"","value":1},{"description":"","dicname":"","fieldName":"orgCodeOne","handle":"","hidden":true,"name":"受理支行（一级选项）","type":"text","url":"","value":"2"},{"description":"","dicname":"","fieldName":"orgCodeTwo","handle":"","hidden":true,"name":"受理支行（二级选项）","type":"text","url":"","value":"2"},{"description":"","dicname":"","fieldName":"creator","handle":"","hidden":true,"name":"主调信贷员","type":"text","url":"","value":"3"},{"description":"","dicname":"","fieldName":"fdxdy","handle":"","hidden":true,"name":"辅调信贷员","type":"text","url":"","value":"4"},{"description":"","dicname":"","fieldName":"yxzg","handle":"","hidden":true,"name":"营业主管","type":"text","url":"","value":"是否"},{"description":"","dicname":"","fieldName":"yxry","handle":"","hidden":true,"name":"营销人员","type":"text","url":"","value":"所属"},{"description":"","dicname":"","fieldName":"currency","handle":"","hidden":true,"name":"申请币别","type":"text","url":"","value":"淡定"},{"description":"","dicname":"","fieldName":"apply_bal","handle":"","hidden":true,"name":"申请金额","type":"text","url":"","value":"淡定"},{"description":"","dicname":"","fieldName":"oneCategory","handle":"","hidden":true,"name":"一级分类","type":"text","url":"","value":"方法"},{"description":"","dicname":"","fieldName":"loanCategory","handle":"","hidden":true,"name":"贷种分类","type":"text","url":"","value":"刚刚"},{"description":"","dicname":"","fieldName":"dywx_Name","handle":"","hidden":true,"name":"抵押物权属人姓名","type":"text","url":"","value":"呵呵"},{"description":"","dicname":"","fieldName":"coOrganization","handle":"","hidden":true,"name":"合作机构","type":"text","url":"","value":"阿萨德"},{"description":"","dicname":"","fieldName":"survey_Time","handle":"","hidden":true,"name":"调查时间","type":"text","url":"","value":"斯蒂芬"},{"description":"","dicname":"","fieldName":"content","handle":"","hidden":true,"name":"超限说明","type":"text","url":"","value":"斯蒂芬"},{"description":"","dicname":"","fieldName":"cust_Name","handle":"","hidden":true,"name":"客户名称","type":"text","url":"","value":"斯蒂芬"},{"description":"","dicname":"","fieldName":"create_Date","handle":"","hidden":true,"name":"创建日期","type":"text","url":"","value":"阿达"},{"description":"","dicname":"","fieldName":"create_time","handle":"","hidden":true,"name":"创建时间","type":"text","url":"","value":"洒"},{"description":"","dicname":"","fieldName":"create_name","handle":"","hidden":true,"name":"创建人姓名","type":"text","url":"","value":"多少份"},{"description":"","dicname":"","fieldName":"last_up_date","handle":"","hidden":true,"name":"最后修改日期","type":"text","url":"","value":"斯蒂芬"},{"description":"","dicname":"","fieldName":"last_up_time","handle":"","hidden":true,"name":"最后修改时间","type":"text","url":"","value":"发的"},{"description":"","dicname":"","fieldName":"last_up_name","handle":"","hidden":true,"name":"最后操作员","type":"text","url":"","value":"发生的"}]';
-			//var jsonString='';
-			jsonString='{"seq":[{"description":"","dicname":"","fieldName":"processModelOneID","handle":"","hidden":false,"name":"模式一编号,信贷业务编号","type":"dic","url":"","value":1}]}';
-			if (jsonString==""){
-				$("#showpanel").hide();
-				}
-			else{
-				var dataObj=eval("("+jsonString+")");
-				 
-				$.each(dataObj,function(key,value){
-		           var index=0;
-		           $.each(value, function(i, item) {
-			          // alert(value[i].name+":"+value[i+1].name);
-			          if(item.type=='dic'){
-				          alert(item.value);
-				          h2="<d:write property="+item.value+" dictTypeId='ABF_FILE_SAVE'/>";
-				          h="<tr><td class='form_label' align='right' style='width:20%;'>"+item.name+"："+ 
-		   					"</td><td style='width:30%'><d:write property=" + item.value + " dictTypeId='ABF_FILE_SAVE'/></td></tr>";
-				          alert(h);
-				          // $("<td class='form_label' align='right' style='width:20%;'>123</td><td style='width:30%'>12</td>").appendTo("#11");
-				           $("#11").append(h);
-							alert($("#11").html());
-				          }
-			          else{
-				    	   var t=tablepalnel.html();
-			        	   var htmltemp="<tr><td class='form_label' align='right' style='width:20%;'>"+item.name+"："+ "</td><td style='width:30%'>"+item.value+ "</td></tr>";
-			        	   $(htmltemp).appendTo("#"+key);
-		        		   //tablepalnel.append("<tr id="+trid+">");
-		        		   //tablepalnel.append("<td class='form_label' align='right' style='width:20%;'>"+item.name+"："+ "</td><td style='width:30%'>"+item.value+ "</td>");
-		        		 
-		        		  	// showpanelhtml=showpanelhtml+"<tr><td class='form_label' align='right' style='width:20%;'>"+item.name+"："+ "</td><td style='width:30%'>"+item.value+ "</td>";
-			   				//h="<d:write property="+item.value+" dictTypeId='ABF_FILE_SAVE'/>";
-			   				
-			   				// showpanel.append(h);
-		        		   //showpanelhtml=showpanelhtml+'<tr><td class="form_label" align="right" style="width:20%">'+item.name+'：'+'</td><td style="width:30%">'+item.value+'</td>';
-		        		   //alert(item.name+':'+index);
-		        		   var test =showpanel.html();
-
-				          }
-		           });
-		          // showpanel.append("</table>");
-		           });
-		           showpanelhtml=showpanel.html();
-		        //解析数组
-					//alert(showpanelhtml);
-					//showpanel.html(showpanelhtml);
-			}
-			}
-
-
-
+ show(value);
 		 $(document).ready(function(){
 			 if('${euip.epId}'!=""){
 				 $("#save1").css("display","none"); 
