@@ -164,4 +164,21 @@
         </isNull>
         order by t.sortno,t.dictid
 	</select>
+	<select id="query_dict_one_type" parameterClass="com.gotop.tyjg.datadictionary.model.DictEntry" resultClass="com.gotop.tyjg.datadictionary.model.DictEntry">
+        select 
+            t.dicttypeid as "dicttypeid",
+            t.dictid as "dictid",
+            t.dictname as "dictname",
+            t.status as "status",
+            t.sortno as "sortno"
+        from eos_dict_entry t
+        where 1=1
+        <isNotNull prepend="" property="dicttypeid">
+          and t.dicttypeid = #dicttypeid:VARCHAR#
+        </isNotNull>
+        <isNotNull prepend="" property="dictid">
+          and t.dictid = #dictid:VARCHAR#
+        </isNotNull>
+       
+     </select>
 </sqlMap>

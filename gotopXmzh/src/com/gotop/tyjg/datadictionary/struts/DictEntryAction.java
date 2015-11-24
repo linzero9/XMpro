@@ -21,7 +21,39 @@ import com.gotop.util.XmlConvert;
 
 public class DictEntryAction extends BaseAction{
 	private DictEntry dictEntry;
+	private DictEntry dictEntryjson;
+	private String dicttypeid;
+	private String dictid;
+	private DictEntry json;
+	
+	
+	public String getDicttypeid() {
+		return dicttypeid;
+	}
+
+	public void setDicttypeid(String dicttypeid) {
+		this.dicttypeid = dicttypeid;
+	}
+
+	public String getDictid() {
+		return dictid;
+	}
+
+	public void setDictid(String dictid) {
+		this.dictid = dictid;
+	}
+
+
+	public DictEntry getDictEntryjson() {
+		return dictEntryjson;
+	}
+
+	public void setDictEntryjson(DictEntry dictEntryjson) {
+		this.dictEntryjson = dictEntryjson;
+	}
+
 	private IDictEntryService dictEntryService;
+	
 	public IDictEntryService getDictEntryService() {
 		return dictEntryService;
 	}
@@ -34,6 +66,20 @@ public class DictEntryAction extends BaseAction{
 		return ActionSupport.SUCCESS;
 	}
 	
+	
+	/**
+	 * datacell查询
+	 * 分页查询查询数据字典类型
+	 * @return
+	 * @throws Exception
+	 */
+	public String queryDictOneType() throws Exception {
+		DictEntry dictEntry1=new DictEntry();
+		dictEntry1.setDicttypeid(dicttypeid);
+		dictEntry1.setDictid(dictid);
+		json=this.getDictEntryService().queryDictOneType(dictEntry1);
+		return "query1";
+    }
 	/**
 	 * datacell查询
 	 * 分页查询查询数据字典类型
@@ -152,5 +198,13 @@ public class DictEntryAction extends BaseAction{
 
 	public void setDictEntry(DictEntry dictEntry) {
 		this.dictEntry = dictEntry;
+	}
+
+	public DictEntry getJson() {
+		return json;
+	}
+
+	public void setJson(DictEntry json) {
+		this.json = json;
 	}
 }

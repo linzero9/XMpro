@@ -13,6 +13,7 @@ public interface IDictEntryService {
 	public boolean saveDictEntry(HashMap object,HashMap object1) throws Exception;
 	
 	public List<DictType> queryDictTypeList(HashMap object, Page page) throws Exception;
+	public DictEntry queryDictOneType(DictEntry object) throws Exception;
 	
 	public List<DictType> queryDictTypeList(DictType dictType) throws Exception;
 	

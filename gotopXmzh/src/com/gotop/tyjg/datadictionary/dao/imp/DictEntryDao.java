@@ -94,5 +94,11 @@ public class DictEntryDao extends SqlMapClientDao implements IDictEntryDao {
 		}
 	}
 
+	@Override
+	public DictEntry queryDictOneType(DictEntry object) {
+		// TODO Auto-generated method stub
+		return (DictEntry)this.queryForObject("DATADICTIONARY.query_dict_one_type", object);
+	}
+
 
 }
