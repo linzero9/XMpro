@@ -69,7 +69,7 @@
 	</w:panel>
   </body>
  <script type="text/javascript">
- show(value);
+ show();
 		 $(document).ready(function(){
 			 if('${euip.epId}'!=""){
 				 $("#save1").css("display","none"); 
