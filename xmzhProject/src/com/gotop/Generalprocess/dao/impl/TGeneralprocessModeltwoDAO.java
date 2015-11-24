@@ -244,4 +244,9 @@ public class TGeneralprocessModeltwoDAO extends SqlMapClientDao implements ITGen
 		return (ProcessModelTwo) queryForObject("T_GENERALPROCESS_MODELONE_SqlMap.queryModelTwoById", map);
 	
 	}
+
+	@Override
+	public void addModelTwo(ProcessModelTwo modelTwo) {
+		getSqlMapClientTemplate().insert("T_GENERALPROCESS_MODELTWO_SqlMap.addModelTwo", modelTwo);
+	}
 }

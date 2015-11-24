@@ -9,8 +9,10 @@ import org.apache.log4j.Logger;
 import com.gotop.Generalprocess.dao.IGeneralprocessDAO;
 import com.gotop.Generalprocess.dao.ITGeneralprocessMainDAO;
 import com.gotop.Generalprocess.dao.ITGeneralprocessModeloneDAO;
+import com.gotop.Generalprocess.dao.ITGeneralprocessModeltwoDAO;
 import com.gotop.Generalprocess.model.ProcessModel;
 import com.gotop.Generalprocess.model.ProcessModelOne;
+import com.gotop.Generalprocess.model.ProcessModelTwo;
 import com.gotop.Generalprocess.service.IGeneralprocessService;
 import com.gotop.jbpm.dto.TaskAssgineeDto;
 import com.gotop.jbpm.model.TProcessBusiness;
@@ -32,9 +34,23 @@ public class GeneralprocessService implements IGeneralprocessService {
 	 * 模式一的DAO
 	 */
 	private ITGeneralprocessModeloneDAO generalprocessModeloneDAO;
+	
+	/**
+	 * 模式二的DAO
+	 */
+	private ITGeneralprocessModeltwoDAO generalprocessModeltwoDAO;
 
 	protected ITApproveOpninionDAO tApproveOpninionDAO;
 	
+	public ITGeneralprocessModeltwoDAO getGeneralprocessModeltwoDAO() {
+		return generalprocessModeltwoDAO;
+	}
+
+	public void setGeneralprocessModeltwoDAO(
+			ITGeneralprocessModeltwoDAO generalprocessModeltwoDAO) {
+		this.generalprocessModeltwoDAO = generalprocessModeltwoDAO;
+	}
+
 	public ITGeneralprocessModeloneDAO getGeneralprocessModeloneDAO() {
 		return generalprocessModeloneDAO;
 	}
@@ -177,6 +193,35 @@ public class GeneralprocessService implements IGeneralprocessService {
 		}
 	}
 
+	@Override
+	public void handleModelTwo(MUOUserSession muo, ProcessModelTwo modelTwo,
+			TaskAssgineeDto taskAssgineeDto) {
+		
+		this.generalprocessModeltwoDAO.addModelTwo(modelTwo);
+		String taskId = taskAssgineeDto.getNextTaskId();
+		TaskAssgineeDto d1 = new TaskAssgineeDto();
+		
+		d1.setTaskId(taskId);
+		d1.setTaskExeAssginee(String.valueOf(muo.getEmpid()));
+		
+		taskAssgineeDto.setTaskId(taskId);
+		
+		jbpmService.assignTask(d1);
+		
+		jbpmService.completeTask(taskId,
+				taskAssgineeDto.getTransitionName(), null);
+		taskAssgineeDto.setPreTaskAssingee(muo.getEmpid());
+		jbpmService.updateTaskAssigneeState(taskAssgineeDto);
+		
+		String nextTaskId = jbpmService.getNextTaskId(taskAssgineeDto.getExecutionId());
+		
+		taskAssgineeDto.setNextTaskId(nextTaskId);
+		
+		taskAssgineeDto.setTaskExeAssginee(String.valueOf(muo.getEmpid()));
+		jbpmService.saceTaskAssignee(makeTaskAssgineeDtoNoPd(muo, taskAssgineeDto));
+		
+		
+	}
 	/**
 	 * 生成流程业务信息表
 	 * 
@@ -228,6 +273,30 @@ public class GeneralprocessService implements IGeneralprocessService {
 		return taskAssgineeDto;
 	}
 	
+	public TaskAssgineeDto makeTaskAssgineeDtoNoPd(MUOUserSession muo, TaskAssgineeDto dto) {
+		TaskAssgineeDto taskAssgineeDto = new TaskAssgineeDto();
+		try {
+			taskAssgineeDto.setExecutionId(dto.getExecutionId());
+			taskAssgineeDto.setPreTaskAssingee(muo.getEmpid());
+			taskAssgineeDto.setPreTaskId(dto.getTaskId());
+			taskAssgineeDto.setPreTaskOrg(muo.getOrgid());
+			String currDate = TimeUtil
+					.getCntDtStr(new Date(), "yyyyMMddHHmmss");
+			taskAssgineeDto.setPreTaskTime(currDate);
+			taskAssgineeDto.setEmpIds(dto.getEmpIds());
+			taskAssgineeDto.setEmpNames(dto.getEmpNames());
+			taskAssgineeDto.setNextTaskId(dto.getNextTaskId());
+//			taskAssgineeDto.setBusinessKey(pb.getBusinessKey());
+			taskAssgineeDto.setBusinessType(dto.getBusinessType());
+			taskAssgineeDto.setTargetName(dto.getTargetName());
+			// 存储节点配置对象主键
+			taskAssgineeDto.setTaskExeConfigId(dto.getTaskExeConfigId());
+		} catch (Exception e) {
+			log.error("获取任务实体", e);
+		}
+		return taskAssgineeDto;
+	}
+	
 	/**
 	 * 生成意见
 	 * @param muo
@@ -258,7 +327,6 @@ public class GeneralprocessService implements IGeneralprocessService {
 			    				opninion.setNextorgname(opninion.getNextorgname()+",");
 			    			}
 			    		}
-			    		
 			    	}
 			    	else
 			    		opninion.setNextOprName("");

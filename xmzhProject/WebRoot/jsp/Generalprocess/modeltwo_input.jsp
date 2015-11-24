@@ -11,51 +11,44 @@
 <script type="text/javascript" src="/js/jquery.form.js"></script>
 <script type="text/javascript" src="/js/fileDown.js"></script>
 <script type="text/javascript" src="/js/commonUtil.js"></script>
-<title>设备申请</title>
+<title>技术审查</title>
 </head>
   <body>
-
-  
-  <e:datasource name="euip" type="bean" path="com.gotop.euipApply.model.TApplyEuip" />
-    <h:form name="form1" id="form1" action="/euipApply/tApplyEuipAction_insertEuipInfo.action" method="post" enctype="multipart/form-data" onsubmit="return checkForm(this);">
-         <h:hidden property="euip.epId"/>
-         <h:hidden property="euip.flowId"/>
-	     <h:hidden property="euip.createDate"/>
-	     <h:hidden property="euip.empId" id="createor"/>
-        <h:hidden id="executionId" property="taskAssgineeDto.executionId"/>
-        <h:hidden id="taskId"  property="taskAssgineeDto.nextTaskId"/>
-        <h:hidden id="taskAssingee" property="taskAssgineeDto.taskAssingee"/>
-        <h:hidden id="beginOrg" property="taskAssgineeDto.beginOrg"/>
-        <h:hidden id="definitionId" property="taskAssgineeDto.definitionId"/>
-        <h:hidden id="businessType" property="taskAssgineeDto.businessType"/>
-        <h:hidden id="isC" name="isC" property="taskAssgineeDto/isC"/>
-		 <input type="hidden" id="btnType" name="btnType" />
+    <h:form name="form1" id="form1" action="" method="post" enctype="multipart/form-data" onsubmit="return checkForm(this);">
+        
+        <h:hidden id="businessKey" name="taskAssgineeDto.businessKey" property="taskAssgineeDto.businessKey"/>
+        <h:hidden id="nextTaskId" name="taskAssgineeDto.nextTaskId" property="taskAssgineeDto.nextTaskId"/>
+        <h:hidden id="executionId" name="taskAssgineeDto.executionId" property="taskAssgineeDto.executionId"/>
+        <h:hidden id="businessType" name="taskAssgineeDto.businessType" property="taskAssgineeDto.businessType"/>
+        <h:hidden id="taskAssingee" name="taskAssgineeDto.taskAssingee" property="taskAssgineeDto.taskAssingee"/>
+        <h:hidden id="processTaskAssigneeId" name="taskAssgineeDto.processTaskAssigneeId" property="taskAssgineeDto.processTaskAssigneeId"/>
+        <h:hidden id="parentId" name="taskAssgineeDto.parentId" property="taskAssgineeDto.parentId"/>
+        <h:hidden id="isChild" name="taskAssgineeDto.isChild" property="taskAssgineeDto.isChild"/>
+        <h:hidden id="preTaskAssingee" name="taskAssgineeDto.preTaskAssingee" property="taskAssgineeDto.preTaskAssingee"/>
+        <h:hidden id="definitionId" name="taskAssgineeDto.definitionId" property="taskAssgineeDto.definitionId"/>
+        
+        <input id="fxJson" name="taskAssgineeDto.fxJson" value="${taskAssgineeDto.fxJson}"/>
+        
+		<input type="hidden" id="btnType" name="btnType" />
+       
+       <%--  <h:hidden id="isC" name="isC" property="taskAssgineeDto/isC"/>
+		 <input type="hidden" id="btnType" name="btnType" /> --%>
 		<table align="center" border="0" width="100%" class="form_table" >
        <tr>
          <td  colspan="4" style="text-align: center;font-weight:bold;font-size:12pt;height:50px" >
-        		节点模式2
+        		技术审查
         </td>
       </tr>
       <tr>
-      <tr>
-     	<td class="form_label" align="right">原因：</td>
+     	<td class="form_label" align="right" style="width:10%;">处理意见：</td>
      	<td colspan="3">
-	     	<h:textarea  extAttr="class='h80' "  property="euip.epReason"  id="epReason" readonly="true" validateAttr="maxLength=512;allowNull=false" rows="4"  style="width:90%;" />
+	     	<h:textarea  extAttr="class='h80' "  property="modelTwo.opninion_content"  id="opninion_content" validateAttr="maxLength=512;allowNull=false" rows="4"  style="width:90%;" />
 		    <font style="color: red">*</font>
      	</td>
       </tr>
     
-      <tr id="row3">
-     	<td class="form_label" align="right">意见：</td>
-     	<td colspan="3">
-	     	<h:textarea property="euip.opninion" extAttr="class='h80'" id="opinion" name="euip.opninion" validateAttr="maxLength=512;allowNull=false" rows="4"  style="width:90%;"/>
-		    <font style="color: red">*</font>
-     	</td>
-      </tr>
-     	<%@include file="/jsp/util/default_opinionUtil.jsp" %>
       <tr class="form_bottom">
         <td colspan="4">
-          <input type="button" value="保存" class="button" id="save1" onclick="doSave(1);"  />
           <input type="button" value="提交" onclick="doSave(2);" class="button" id="save3" />
           <input type="button" value="回退" onclick="doSave2(2);" class="button" id="save4" />
           <input type="button" value="查看流程" onclick="doflowpic();" class="button" id="flowpic" />
@@ -69,7 +62,9 @@
 	</w:panel>
   </body>
  <script type="text/javascript">
- show();
+
+ show($id("fxJson").value);
+
 		 $(document).ready(function(){
 			 if('${euip.epId}'!=""){
 				 $("#save1").css("display","none"); 
@@ -136,21 +131,21 @@
 					return queryCond;
 				}
 
-		     function doSave(value){   		
-		    		$("#btnType").val(value);
-		    		if(value!="1"){
-		    			if(checkForm($id("form1"))){
-		    			var strUrl = "/jbpm/jbpmDemoAction_toNextTaskConfig.action?taskAssgineeDto.executionId="+$id("executionId").value+"&taskAssgineeDto.beginOrg="+$("#beginOrg").val()+"&taskAssgineeDto.beginAssingee="+$("#createor").val();
-		        		showModalCenter(strUrl, null, taskAssigneeCallBack, 700, 400, '节点选择');
-		    			}
-		    		}else{
-		    			var _form = $id("form1");
-		    	  	  	 	url="/euipApply/tApplyEuipAction_insertEuipInfo.action";	
-		    	  	  	    _form.action =url;
-		    	  	  	if(checkForm($id("form1")))
-		    			    ajaxsubmitO();
-		    	  	 	}
-		     }
+		function doSave(value){   		
+    		$("#btnType").val(value);
+    		if(value!="1"){
+    			if(checkForm($id("form1"))){
+    			var strUrl = "/jbpm/jbpmDemoAction_toNextTaskConfig.action?taskAssgineeDto.executionId="+$id("executionId").value;
+        		showModalCenter(strUrl, null, taskAssigneeCallBack, 700, 400, '节点选择');
+    			}
+    		}else{
+    			var _form = $id("form1");
+    	  	  	 	url="/euipApply/tApplyEuipAction_insertEuipInfo.action";	
+    	  	  	    _form.action =url;
+    	  	  	if(checkForm($id("form1")))
+    			    ajaxsubmitO();
+    	  	 	}
+     	}
 
 		     function doSave2(value){   		
 		 		$("#btnType").val(value);
@@ -170,7 +165,7 @@
 		 	function taskAssigneeCallBack(arg){
 		  	 	var _form = $id("form1");
 		  	 	if(arg!=""){
-		  	  	 	url="/euipApply/tApplyEuipAction_insertEuipInfo.action?"+arg;	
+		  	  	 	url="/Generalprocess/generalProcessAction_handleModelTwo.action?"+arg;	
 		  	  	    _form.action =url
 		  	        // 异步提交请求 
 		  	  	    ajaxsubmitO();

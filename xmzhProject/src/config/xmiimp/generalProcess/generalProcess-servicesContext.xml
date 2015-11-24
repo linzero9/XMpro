@@ -5,6 +5,7 @@
   	<property name="generalProcessDAO" ref="generalProcessDAO" />
   	<property name="generalprocessMainDAO" ref="generalprocessMainDAO" />
   	<property name="generalprocessModeloneDAO" ref="generalprocessModeloneDAO" />
+  	<property name="generalprocessModeltwoDAO" ref="tGeneralprocessModeltwoDAO" />
   	<property name="tApproveOpninionDAO" ref="tApproveOpninionDAO" />
   	<property name="jbpmService" ref="jbpmService" />
   </bean>

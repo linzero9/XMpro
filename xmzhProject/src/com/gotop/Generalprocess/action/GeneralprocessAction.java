@@ -4,8 +4,13 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
 import com.gotop.Generalprocess.annonation.GeneralprocessFieldBean;
 import com.gotop.Generalprocess.model.ProcessModelOne;
+import com.gotop.Generalprocess.model.ProcessModelTwo;
 import com.gotop.Generalprocess.model.TGeneralprocessMain;
 import com.gotop.Generalprocess.service.IGeneralprocessService;
 import com.gotop.Generalprocess.service.ITGeneralprocessMainService;
@@ -33,6 +38,13 @@ public class GeneralprocessAction extends BaseAction{
 	 * 
 	 */
 	private ProcessModelOne modelOne;
+	
+	/**
+	 * @author wsd
+	 * @desc 模式二页面对象
+	 * 
+	 */
+	private ProcessModelTwo modelTwo;
 
 	/**
 	 * 
@@ -75,6 +87,14 @@ public class GeneralprocessAction extends BaseAction{
 	 */
 	private ITGeneralprocessMainService generalprocessMainService;
 	
+	public ProcessModelTwo getModelTwo() {
+		return modelTwo;
+	}
+
+	public void setModelTwo(ProcessModelTwo modelTwo) {
+		this.modelTwo = modelTwo;
+	}
+
 	public ITGeneralprocessModeloneService getGeneralprocessModeloneService() {
 		return generalprocessModeloneService;
 	}
@@ -228,10 +248,11 @@ public class GeneralprocessAction extends BaseAction{
 		if(taskAssgineeDto!=null&&taskAssgineeDto.getExecutionId()!=null&&!"".equals(taskAssgineeDto.getExecutionId()))
 			flowId=taskAssgineeDto.getExecutionId();
 		
-		List<List<GeneralprocessFieldBean>> aa = GeneralprocessUtil.returnAllObj(map);
+		List<List<GeneralprocessFieldBean>> beans = GeneralprocessUtil.returnAllObj(map);
 		
-
-
+		String fxJson = JSONArray.fromObject(beans).toString();
+		taskAssgineeDto.setFxJson(fxJson);
+		System.out.println(taskAssgineeDto.getFxJson());
 		return "toModelTwo";
 	}
 	
@@ -255,6 +276,26 @@ public class GeneralprocessAction extends BaseAction{
 		}
 		Struts2Utils.renderText(info);
 	}
-
+	
+	/**
+	 * 
+	 * @author wsd
+	 * @desc 后台处理模式二表单、结束节点、记录流程日志
+	 * @return
+	 * @throws Exception 
+	 * 
+	 */
+	public void handleModelTwo() throws Exception {
+		String info ="success";
+    	MUOUserSession muo = getCurrentOnlineUser();
+		try {
+			this.generalProcessService.handleModelTwo(muo,modelTwo,taskAssgineeDto);
+		} catch (Exception e) {
+			info="fails";
+			log.error("[提交模式二表单失败！]", e);
+			throw e;
+		}
+		Struts2Utils.renderText(info);
+	}
 
 }

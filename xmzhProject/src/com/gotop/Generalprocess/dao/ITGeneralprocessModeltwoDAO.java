@@ -145,4 +145,6 @@ public interface ITGeneralprocessModeltwoDAO {
     void executeBatch() throws Exception;
 
 	ProcessModelTwo queryModelTwoById(String processModelId);
+
+	void addModelTwo(ProcessModelTwo modelTwo);
 }

@@ -196,6 +196,19 @@ public class TaskAssgineeDto {
      */
     private String isFirst;
     
+    /**
+     * 页面返显的JSON
+     */
+    private String fxJson;
+    
+	public String getFxJson() {
+		return fxJson;
+	}
+
+	public void setFxJson(String fxJson) {
+		this.fxJson = fxJson;
+	}
+
 	public String getIsFirst() {
 		return isFirst;
 	}

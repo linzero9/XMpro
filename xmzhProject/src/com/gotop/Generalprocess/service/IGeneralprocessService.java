@@ -1,6 +1,7 @@
 package com.gotop.Generalprocess.service;
 
 import com.gotop.Generalprocess.model.ProcessModelOne;
+import com.gotop.Generalprocess.model.ProcessModelTwo;
 import com.gotop.jbpm.dto.TaskAssgineeDto;
 import com.gotop.vo.system.MUOUserSession;
 
@@ -13,6 +14,15 @@ public interface IGeneralprocessService {
 	 * @param taskAssgineeDto
 	 */
 	public void handleModelOne(MUOUserSession muo, ProcessModelOne modelOne,
+			TaskAssgineeDto taskAssgineeDto);
+
+	/**
+	 * 新增模式二表单内容,完成模式二节点
+	 * @param muo
+	 * @param modelTwo
+	 * @param taskAssgineeDto
+	 */
+	public void handleModelTwo(MUOUserSession muo, ProcessModelTwo modelTwo,
 			TaskAssgineeDto taskAssgineeDto);
 
 }
