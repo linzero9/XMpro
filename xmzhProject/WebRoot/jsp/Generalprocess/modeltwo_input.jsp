@@ -27,9 +27,9 @@
         <h:hidden id="preTaskAssingee" name="taskAssgineeDto.preTaskAssingee" property="taskAssgineeDto.preTaskAssingee"/>
         <h:hidden id="definitionId" name="taskAssgineeDto.definitionId" property="taskAssgineeDto.definitionId"/>
         
-        <input id="fxJson" name="taskAssgineeDto.fxJson" value="${taskAssgineeDto.fxJson}"/>
+      	<%-- <h:text id="fxJson" name="taskAssgineeDto.fxJson" property="taskAssgineeDto.fxJson"/> --%>
         
-		<input type="hidden" id="btnType" name="btnType" />
+		<%-- <h:hidden type="hidden" id="btnType" name="taskAssgineeDto.btnType" /> --%>
        
        <%--  <h:hidden id="isC" name="isC" property="taskAssgineeDto/isC"/>
 		 <input type="hidden" id="btnType" name="btnType" /> --%>
@@ -50,7 +50,7 @@
       <tr class="form_bottom">
         <td colspan="4">
           <input type="button" value="提交" onclick="doSave(2);" class="button" id="save3" />
-          <input type="button" value="回退" onclick="doSave2(2);" class="button" id="save4" />
+          <input type="button" value="回退" onclick="doSave2(3);" class="button" id="save4" />
           <input type="button" value="查看流程" onclick="doflowpic();" class="button" id="flowpic" />
          </td>
       </tr>
@@ -63,7 +63,7 @@
   </body>
  <script type="text/javascript">
 
- show($id("fxJson").value);
+ show('${taskAssgineeDto.fxJson}');
 
 		 $(document).ready(function(){
 			 if('${euip.epId}'!=""){

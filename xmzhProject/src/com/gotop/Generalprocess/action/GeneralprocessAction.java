@@ -238,6 +238,7 @@ public class GeneralprocessAction extends BaseAction{
 				String id = idsArray[i];
 				String rule = rulesArray[i];
 				map.put(rule + "-" + id, id);
+				//map.put(rule, id);
 			}
 		}
 		
@@ -248,10 +249,10 @@ public class GeneralprocessAction extends BaseAction{
 		if(taskAssgineeDto!=null&&taskAssgineeDto.getExecutionId()!=null&&!"".equals(taskAssgineeDto.getExecutionId()))
 			flowId=taskAssgineeDto.getExecutionId();
 		
-		//List<List<GeneralprocessFieldBean>> beans = GeneralprocessUtil.returnAllObj(map);
+		List<List<GeneralprocessFieldBean>> beans = GeneralprocessUtil.returnAllObj(map);
 		
-		//String fxJson = JSONArray.fromObject(beans).toString();
-		//taskAssgineeDto.setFxJson(fxJson);
+		String fxJson = JSONArray.fromObject(beans).toString();
+		taskAssgineeDto.setFxJson(fxJson);
 		return "toModelTwo";
 	}
 	
