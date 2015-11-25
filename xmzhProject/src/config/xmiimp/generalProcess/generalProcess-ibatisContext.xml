@@ -18,4 +18,8 @@
   <bean class="com.gotop.Generalprocess.dao.impl.TGeneralprocessModeltwoDAO" id="tGeneralprocessModeltwoDAO">
     <property name="sqlMapClient" ref="sqlMapClient" />
   </bean>
+  
+  <bean class="com.gotop.Generalprocess.dao.impl.TGeneralprocessModelthreeDAO" id="tGeneralprocessModelthreeDAO">
+    <property name="sqlMapClient" ref="sqlMapClient" />
+  </bean>
   </beans>

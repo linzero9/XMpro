@@ -22,5 +22,11 @@
         /jsp/generalProcess/tGeneralprocessModeltwoDatacell.jsp
       </result>
     </action>
+    
+    <action class="tGeneralprocessModelthreeAction" method="{1}" name="tGeneralprocessModelthreeAction_*">
+      <result name="viewlist">
+        /jsp/generalProcess/tGeneralprocessModelthreeDatacell.jsp
+      </result>
+    </action>
     </package>
 </struts>

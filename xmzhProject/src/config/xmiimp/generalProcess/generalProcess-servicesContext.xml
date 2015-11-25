@@ -26,4 +26,8 @@
   
   <bean class="com.gotop.Generalprocess.util.SpringContextUtil" id="SpringContextUtil" />
   
-</beans>
+
+  <bean class="com.gotop.Generalprocess.service.impl.TGeneralprocessModelthreeService" id="tGeneralprocessModelthreeService">
+    <property name="tGeneralprocessModelthreeDAO" ref="tGeneralprocessModelthreeDAO" />
+  </bean>
+  </beans>
