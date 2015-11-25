@@ -86,4 +86,6 @@ public interface ITGeneralprocessModeltwoService {
 	 * @return
 	 */
 	ProcessModelTwo queryModelTwoById(String processModelId);
+
+	ProcessModelTwo queryModelTwo(ProcessModelTwo modelTwo);
 }

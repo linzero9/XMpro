@@ -6,7 +6,8 @@
     <property name="generalProcessService" ref="generalProcessService" />
     <property name="generalprocessMainService" ref="tGeneralprocessMainService" />
     <property name="generalprocessModeloneService" ref="generalprocessModeloneService" />
-    
+    <property name="generalprocessModeltwoService" ref="tGeneralprocessModeltwoService" />
+    <property name="jbpmService" ref="jbpmService" />
   </bean>
   
   <bean class="com.gotop.Generalprocess.action.TGeneralprocessMainAction" id="tGeneralprocessMainaction" name="tGeneralprocessMainAction" singleton="false">

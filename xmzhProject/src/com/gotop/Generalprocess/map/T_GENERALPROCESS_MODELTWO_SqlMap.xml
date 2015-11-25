@@ -37,11 +37,27 @@
     <result column="PROCESSMODELID" property="processModelId" jdbcType="DECIMAL" />
     <result column="FLOW_ID" property="flow_id" jdbcType="VARCHAR" />
     <result column="OPNINION_CONTENT" property="opninion_content" jdbcType="VARCHAR" />
+    <result column="TASKNAME" property="taskName" jdbcType="VARCHAR" />
   </resultMap>
+  
+   <select id="queryModelTwo" resultMap="processModelTwo_result" parameterClass="java.util.HashMap">
+    <!--通过主键查询一条数据-->
+    select PROCESSMODELID, FLOW_ID, OPNINION_CONTENT,TASKNAME
+    from T_GENERALPROCESS_MODELTWO
+    where 1=1
+    <dynamic>
+      <isNotNull prepend="and" property="flow_id" >
+        FLOW_ID = #flow_id:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="taskName" >
+        TASKNAME = #taskName:VARCHAR#
+      </isNotNull>
+      </dynamic>
+  </select>
   
   <select id="queryModelTwoById" resultMap="processModelTwo_result" parameterClass="java.util.HashMap">
     <!--通过主键查询一条数据-->
-    select PROCESSMODELID, FLOW_ID, OPNINION_CONTENT
+    select PROCESSMODELID, FLOW_ID, OPNINION_CONTENT,TASKNAME
     from T_GENERALPROCESS_MODELTWO
     where PROCESSMODELID = #processModelId#
   </select>

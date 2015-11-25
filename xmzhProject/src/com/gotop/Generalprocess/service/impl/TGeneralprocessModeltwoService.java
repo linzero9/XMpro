@@ -161,4 +161,18 @@ public class TGeneralprocessModeltwoService implements ITGeneralprocessModeltwoS
 	public ProcessModelTwo queryModelTwoById(String processModelId) {
         return tGeneralprocessModeltwoDAO.queryModelTwoById(processModelId);
 	}
+
+	@Override
+	public ProcessModelTwo queryModelTwo(ProcessModelTwo modelTwo) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		if(modelTwo != null){
+			if(modelTwo.getFlow_id() != null && !"".equals(modelTwo.getFlow_id())){
+				map.put("flow_id", modelTwo.getFlow_id());
+			}
+			if(modelTwo.getTaskName() != null && !"".equals(modelTwo.getTaskName())){
+				map.put("taskName", modelTwo.getTaskName());
+			}
+		}
+		return this.tGeneralprocessModeltwoDAO.queryModelTwo(map);
+	}
 }

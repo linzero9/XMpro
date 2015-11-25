@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-
 import com.gotop.Generalprocess.annonation.GeneralprocessFieldBean;
 import com.gotop.Generalprocess.model.ProcessModelOne;
 import com.gotop.Generalprocess.model.ProcessModelTwo;
@@ -15,9 +13,11 @@ import com.gotop.Generalprocess.model.TGeneralprocessMain;
 import com.gotop.Generalprocess.service.IGeneralprocessService;
 import com.gotop.Generalprocess.service.ITGeneralprocessMainService;
 import com.gotop.Generalprocess.service.ITGeneralprocessModeloneService;
+import com.gotop.Generalprocess.service.ITGeneralprocessModeltwoService;
 import com.gotop.Generalprocess.util.GeneralprocessUtil;
 import com.gotop.crm.util.BaseAction;
 import com.gotop.jbpm.dto.TaskAssgineeDto;
+import com.gotop.jbpm.service.JbpmService;
 import com.gotop.opinion.model.TDefaultOpinion;
 import com.gotop.opinion.service.ITDefaultOpinionService;
 import com.gotop.util.Struts2Utils;
@@ -83,10 +83,37 @@ public class GeneralprocessAction extends BaseAction{
 	private ITGeneralprocessModeloneService generalprocessModeloneService;
 	
 	/**
+	 * 模式二服务
+	 */
+	private ITGeneralprocessModeltwoService generalprocessModeltwoService;
+	
+	/**
 	 * 模式主表服务
 	 */
 	private ITGeneralprocessMainService generalprocessMainService;
 	
+	/**
+	 * jbpm服务
+	 */
+	private JbpmService jbpmService;
+	
+	public ITGeneralprocessModeltwoService getGeneralprocessModeltwoService() {
+		return generalprocessModeltwoService;
+	}
+
+	public void setGeneralprocessModeltwoService(
+			ITGeneralprocessModeltwoService generalprocessModeltwoService) {
+		this.generalprocessModeltwoService = generalprocessModeltwoService;
+	}
+
+	public JbpmService getJbpmService() {
+		return jbpmService;
+	}
+
+	public void setJbpmService(JbpmService jbpmService) {
+		this.jbpmService = jbpmService;
+	}
+
 	public ProcessModelTwo getModelTwo() {
 		return modelTwo;
 	}
@@ -217,9 +244,20 @@ public class GeneralprocessAction extends BaseAction{
 	 * @throws NoSuchMethodException 
 	 */
 	public String toModelTwo() throws ClassNotFoundException, IllegalArgumentException, SecurityException, IllegalAccessException, NoSuchFieldException, NoSuchMethodException, InvocationTargetException, InstantiationException{
+		//获取流程实例id
 		String businessId = taskAssgineeDto.getExecutionId();
+		//获取流程配置主表对象
 		TGeneralprocessMain main = this.generalprocessMainService.queryMainByBusinessId(businessId);
 		Map<String, Object>  map = new HashMap<String, Object>();
+		
+		String taskName = jbpmService.getTaskNameById(taskAssgineeDto.getNextTaskId());
+		
+		ProcessModelTwo modelTwo = new ProcessModelTwo();
+		modelTwo.setFlow_id(businessId);
+		modelTwo.setTaskName(taskName);
+		ProcessModelTwo newModelTwo = new ProcessModelTwo();
+		newModelTwo = this.generalprocessModeltwoService.queryModelTwo(modelTwo);
+
 		
 		String[] rulesArray = null;
 		String[] idsArray = null;
@@ -238,16 +276,16 @@ public class GeneralprocessAction extends BaseAction{
 				String id = idsArray[i];
 				String rule = rulesArray[i];
 				map.put(rule + "-" + id, id);
-				//map.put(rule, id);
 			}
 		}
 		
-		String flowId="";
-		String processModelId="";
-		if(taskAssgineeDto!=null&&taskAssgineeDto.getBusinessKey()!=null&&!"".equals(taskAssgineeDto.getBusinessKey()))
-			processModelId=String.valueOf(taskAssgineeDto.getBusinessKey());
-		if(taskAssgineeDto!=null&&taskAssgineeDto.getExecutionId()!=null&&!"".equals(taskAssgineeDto.getExecutionId()))
-			flowId=taskAssgineeDto.getExecutionId();
+		String rm = "";
+		if(newModelTwo != null){
+			rm="com.gotop.Generalprocess.model.ProcessModelTwo" + "-" + newModelTwo.getProcessModelId();
+			map.remove(rm);
+		}
+		
+		this.setModelTwo(newModelTwo);
 		
 		List<List<GeneralprocessFieldBean>> beans = GeneralprocessUtil.returnAllObj(map);
 		

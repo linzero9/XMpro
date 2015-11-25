@@ -27,13 +27,31 @@ public class ProcessModelOne extends ProcessModel  implements  Serializable {
 	@GeneralprocessField(name="流程ID",type="text",hidden=false)
 	private  String  flow_Id;
 	
+	/**
+	 * 受理支行一	名称
+	 */
 	@GeneralprocessField(name="受理支行（一级选项）",type="text")
+	private String orgNameOne;
+	
+	/**
+	 * 受理支行二	名称
+	 */
+	@GeneralprocessField(name="受理支行（二级选项）",type="text")
+	private String orgNameTwo;
+	
+	@GeneralprocessField(name="受理支行（一级选项）",type="text",hidden=false)
 	private  String   orgCodeOne;
 	
-	@GeneralprocessField(name="受理支行（二级选项）",type="text")
+	@GeneralprocessField(name="受理支行（二级选项）",type="text",hidden=false)
 	private  String   orgCodeTwo;
 	
+	/**
+	 * 主调信贷员	姓名
+	 */
 	@GeneralprocessField(name="主调信贷员",type="text")
+	private String creatorName;
+	
+	@GeneralprocessField(name="主调信贷员",type="text",hidden=false)
 	private String  creator;
 	
 	@GeneralprocessField(name="辅调信贷员",type="text")
@@ -91,20 +109,7 @@ public class ProcessModelOne extends ProcessModel  implements  Serializable {
 	@GeneralprocessField(name="最后操作员",type="text")
 	private String    last_up_name;
 	
-	/**
-	 * 主调信贷员	姓名
-	 */
-	private String creatorName;
 	
-	/**
-	 * 受理支行一	名称
-	 */
-	private String orgNameOne;
-	
-	/**
-	 * 受理支行二	名称
-	 */
-	private String orgNameTwo;
 	
 	public String getCreatorName() {
 		return creatorName;
