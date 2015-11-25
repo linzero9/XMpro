@@ -517,11 +517,8 @@ WEB.turnMainFrame=function(){
 				var dataObj=eval("("+jsonString+")");
 				$.each(dataObj,function(key,value){
 					var index=0;
-					//showpanelhtml=showpanelhtml+'<table align="center" border="0" width="100%" class="form_table">';
 					$("#showdiv").append('<table id="table'+key+'" align="center" border="0" width="100%" class="form_table">');
 					var showpanelhtml='';
-		           //alert(key);
-		           //alert(value.length);
 		           var title="节点名称";
 		           $.each(value, function(i, item) {
 			           if(item.type=='title'){
