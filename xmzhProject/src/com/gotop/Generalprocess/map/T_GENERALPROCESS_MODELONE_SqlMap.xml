@@ -81,6 +81,7 @@
     	<result column="LAST_UP_DATE" property="last_up_date" jdbcType="VARCHAR" />
     	<result column="LAST_UP_TIME" property="last_up_time" jdbcType="VARCHAR" />
     	<result column="LAST_UP_NAME" property="last_up_name" jdbcType="VARCHAR" />
+    	<result column="TASKNAME" property="taskName" jdbcType="VARCHAR" />
 	</resultMap>
 	
 	<!--通过主键和流程id查询数据-->
@@ -111,7 +112,8 @@
        		T.CREATE_NAME,
        		T.LAST_UP_DATE,
        		T.LAST_UP_TIME,
-       		T.LAST_UP_NAME
+       		T.LAST_UP_NAME,
+       		T.TASKNAME
   		FROM T_GENERALPROCESS_MODELONE T,
   		OM_ORGANIZATION O1,
   		OM_ORGANIZATION O2,
