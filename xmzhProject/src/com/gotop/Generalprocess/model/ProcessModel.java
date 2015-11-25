@@ -13,7 +13,7 @@ public abstract class ProcessModel implements  ProcessModelPublic{
 	/**
 	 * 模式节点名称
 	 */
-	@GeneralprocessField(name="节点的显示名称",type="text")
+	@GeneralprocessField(name="节点的显示名称",type="title")
 	private String taskName;
 	
 	/**
