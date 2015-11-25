@@ -63,11 +63,7 @@
 	</w:panel>
   </body>
  <script type="text/javascript">
-<<<<<<< Updated upstream
 
- show($id("fxJson").value);
-
-=======
 show(2);
  function show(){
 		var showpanel=$("#showdiv");
@@ -221,7 +217,7 @@ show(2);
  function tablehide(key){
 	$("#table"+key+" td").toggle();
 	 }
->>>>>>> Stashed changes
+
 		 $(document).ready(function(){
 			 if('${euip.epId}'!=""){
 				 $("#save1").css("display","none"); 
