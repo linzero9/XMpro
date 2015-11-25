@@ -178,7 +178,6 @@
  
 // alert(${taskAssgineeDto.businessType});
  $(document).ready(function(){
-	 alert(templateFileIds);
 		if(templateFileIds == "" || templateFileIds == null){
 			$("#rowTemplate").hide();
 		}
