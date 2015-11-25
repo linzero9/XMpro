@@ -27,7 +27,7 @@
         <h:hidden id="preTaskAssingee" name="taskAssgineeDto.preTaskAssingee" property="taskAssgineeDto.preTaskAssingee"/>
         <h:hidden id="definitionId" name="taskAssgineeDto.definitionId" property="taskAssgineeDto.definitionId"/>
         
-      	<%-- <h:text id="fxJson" name="taskAssgineeDto.fxJson" property="taskAssgineeDto.fxJson"/> --%>
+    	<%--   	<h:textarea property="taskAssgineeDto.fxJson"/>  --%>
         
 		<%-- <h:hidden type="hidden" id="btnType" name="taskAssgineeDto.btnType" /> --%>
        
