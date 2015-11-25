@@ -244,17 +244,14 @@ public class TGeneralprocessModeloneDAO extends SqlMapClientDao implements ITGen
 	}
 
 	@Override
-	public ProcessModelOne queryModelOne(String processModelId, String flowId) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("processModelId", processModelId);
-		map.put("flowId", flowId);
-		return (ProcessModelOne) queryForObject("T_GENERALPROCESS_MODELONE_SqlMap.queryModelOne", map);
-	}
-
-	@Override
 	public ProcessModelOne queryModelOneById(String processModelId) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("processModelId", processModelId);
+		return (ProcessModelOne) queryForObject("T_GENERALPROCESS_MODELONE_SqlMap.queryModelOneById", map);
+	}
+
+	@Override
+	public ProcessModelOne queryModelOne(HashMap<String, Object> map) {
 		return (ProcessModelOne) queryForObject("T_GENERALPROCESS_MODELONE_SqlMap.queryModelOne", map);
 	}
 }

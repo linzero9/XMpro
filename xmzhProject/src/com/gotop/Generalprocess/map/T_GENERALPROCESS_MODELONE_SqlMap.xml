@@ -84,7 +84,7 @@
     	<result column="TASKNAME" property="taskName" jdbcType="VARCHAR" />
 	</resultMap>
 	
-	<!--通过主键和流程id查询数据-->
+	<!--通过条件查询数据-->
 	<select id="queryModelOne" resultMap="processModelOne_result" parameterClass="java.util.HashMap">
     	SELECT T.PROCESSMODELID,
        		T.FLOW_ID,
@@ -122,8 +122,55 @@
   			T.ORGCODEONE=O1.ORGCODE
   		AND T.ORGCODETWO=O2.ORGCODE
   		AND T.CREATOR = E1.EMPID
-  		AND (T.PROCESSMODELID = #processModelId#
-  		or T.FLOW_ID=#flowId#)
+  		<dynamic>
+      <isNotNull prepend="and" property="flow_id" >
+        T.FLOW_ID = #flow_id:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="taskName" >
+        T.TASKNAME = #taskName:VARCHAR#
+      </isNotNull>
+      </dynamic>
+  	</select>
+  	
+	<!--通过主键和流程id查询数据-->
+	<select id="queryModelOneById" resultMap="processModelOne_result" parameterClass="java.util.HashMap">
+    	SELECT T.PROCESSMODELID,
+       		T.FLOW_ID,
+       		T.ORGCODEONE,
+       		O1.ORGNAME AS ORGNAMEONE,
+       		T.ORGCODETWO,
+       		O2.ORGNAME AS ORGNAMETWO,
+       		T.CREATOR,
+       		E1.EMPNAME AS CREATORNAME,
+       		T.FDXDY,
+       		T.YXZG,
+       		T.YXRY,
+       		T.CURRENCY,
+       		T.APPLY_BAL,
+       		T.ONECATEGORY,
+       		T.LOANCATEGORY,
+       		T.LOANCATEGORY,
+       		T.DYWX_NAME,
+       		T.COORGANIZATION,
+       		T.SURVEY_TIME,
+       		T.CONTENT,
+       		T.CUST_NAME,
+       		T.CREATE_DATE,
+       		T.CREATE_TIME,
+       		T.CREATE_NAME,
+       		T.LAST_UP_DATE,
+       		T.LAST_UP_TIME,
+       		T.LAST_UP_NAME,
+       		T.TASKNAME
+  		FROM T_GENERALPROCESS_MODELONE T,
+  		OM_ORGANIZATION O1,
+  		OM_ORGANIZATION O2,
+  		OM_EMPLOYEE E1
+  		WHERE 
+  			T.ORGCODEONE=O1.ORGCODE
+  		AND T.ORGCODETWO=O2.ORGCODE
+  		AND T.CREATOR = E1.EMPID
+  		AND T.PROCESSMODELID = #processModelId#
   	</select>
   	
   	<!-- 新增模式一表单 -->

@@ -8,6 +8,7 @@
   	<property name="generalprocessModeltwoDAO" ref="tGeneralprocessModeltwoDAO" />
   	<property name="tApproveOpninionDAO" ref="tApproveOpninionDAO" />
   	<property name="jbpmService" ref="jbpmService" />
+  	<property name="tProcessBusinessService" ref="tProcessBusinessService" />
   </bean>
 
   

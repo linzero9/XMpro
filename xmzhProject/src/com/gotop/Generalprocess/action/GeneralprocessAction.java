@@ -214,17 +214,67 @@ public class GeneralprocessAction extends BaseAction{
 	 */
 	public String toModelOne() {
 		try {
-    		String flowId="";
+    		/*String flowId="";
     		String processModelId="";
     		if(taskAssgineeDto!=null&&taskAssgineeDto.getBusinessKey()!=null&&!"".equals(taskAssgineeDto.getBusinessKey()))
     			processModelId=String.valueOf(taskAssgineeDto.getBusinessKey());
     		if(taskAssgineeDto!=null&&taskAssgineeDto.getExecutionId()!=null&&!"".equals(taskAssgineeDto.getExecutionId()))
     			flowId=taskAssgineeDto.getExecutionId();
-    		modelOne=this.generalprocessModeloneService.queryModelOne(processModelId,flowId);
+    		modelOne=this.generalprocessModeloneService.queryModelOne(processModelId,flowId);*/
+    		
+    		//获取流程实例id
+    		String businessId = taskAssgineeDto.getExecutionId();
+    		//获取流程配置主表对象
+    		TGeneralprocessMain main = this.generalprocessMainService.queryMainByBusinessId(businessId);
+    		Map<String, Object>  map = new HashMap<String, Object>();
+    		
+    		if(taskAssgineeDto.getNextTaskId() != null){
+    			String taskName = jbpmService.getTaskNameById(taskAssgineeDto.getNextTaskId());
+        		
+        		ProcessModelOne modelOne = new ProcessModelOne();
+        		modelOne.setFlow_Id(businessId);
+        		modelOne.setTaskName(taskName);
+        		ProcessModelOne newModelOne = new ProcessModelOne();
+        		newModelOne = this.generalprocessModeloneService.queryModelOne(modelOne);
+    			
+        		String[] rulesArray = null;
+        		String[] idsArray = null;
+        		if(main != null){
+        			if(main.getRules() != null && !"".equals(main.getRules())){
+        				String rules = main.getRules();
+        				rulesArray = rules.split(",");
+        			}
+        			
+        			if(main.getIds() != null && !"".equals(main.getIds())){
+        				String ids = main.getIds();
+        				idsArray = ids.split(",");
+        			}
+        			
+        			for (int i = 0; i < idsArray.length; i++) {
+        				String id = idsArray[i];
+        				String rule = rulesArray[i];
+        				map.put(rule + "-" + id, id);
+        			}
+        		}
+        		
+        		String rm = "";
+        		if(newModelOne != null){
+        			rm="com.gotop.Generalprocess.model.ProcessModelOne" + "-" + newModelOne.getProcessModelId();
+        			map.remove(rm);
+        		}
+        		
+        		this.setModelOne(newModelOne);
+        		
+        		List<List<GeneralprocessFieldBean>> beans = GeneralprocessUtil.returnAllObj(map);
+        		
+        		String fxJson = JSONArray.fromObject(beans).toString();
+        		taskAssgineeDto.setFxJson(fxJson);
+    		}
+    		
 		} catch (Exception e) {
 			log.error("查询模式一表单信息失败", e);
 		}
-		queryDefault();
+		//queryDefault();
 		return "toModelOne";
 	}
 

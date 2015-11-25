@@ -149,7 +149,7 @@ public interface ITGeneralprocessModeloneDAO {
 
 	void addModelOne(ProcessModelOne modelOne);
 
-	ProcessModelOne queryModelOne(String processModelId, String flowId);
-
 	ProcessModelOne queryModelOneById(String processModelId);
+
+	ProcessModelOne queryModelOne(HashMap<String, Object> map);
 }

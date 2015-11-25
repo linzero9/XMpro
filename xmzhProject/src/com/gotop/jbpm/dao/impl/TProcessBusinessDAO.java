@@ -303,4 +303,9 @@ public class TProcessBusinessDAO extends SqlMapClientDao implements ITProcessBus
 		update("T_PROCESS_BUSINESS_SqlMap.updateJbpmXml", map);
 	}
 
+	@Override
+	public TProcessBusiness queryProcessBusiness(HashMap<String, Object> map) {
+		return (TProcessBusiness) queryForObject("T_PROCESS_BUSINESS_SqlMap.queryProcessBusiness", map);
+	}
+
 }

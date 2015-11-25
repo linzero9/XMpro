@@ -50,13 +50,13 @@
       <tr class="form_bottom">
         <td colspan="4">
           <input type="button" value="提交" onclick="doSave(2);" class="button" id="save3" />
-          <input type="button" value="回退" onclick="doSave2(3);" class="button" id="save4" />
+          <!-- <input type="button" value="回退" onclick="doSave2(3);" class="button" id="save4" /> -->
           <input type="button" value="查看流程" onclick="doflowpic();" class="button" id="flowpic" />
          </td>
       </tr>
     </table>
     </h:form>
-      	<w:panel id="showpanel" title="我的流程">
+      	<w:panel id="showpanel" title="流程信息">
     		<div id='showdiv'>
     	</div>	
 	</w:panel>

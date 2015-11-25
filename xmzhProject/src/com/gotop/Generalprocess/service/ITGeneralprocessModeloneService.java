@@ -82,18 +82,12 @@ public interface ITGeneralprocessModeloneService {
      */
     List queryPageDataList(HashMap map, Page page) throws Exception;
 
-    /**
-     * 根据主键或者流程id查询出模式一对象
-     * @param processModelId	主键
-     * @param flowId			流程id
-     * @return
-     */
-	ProcessModelOne queryModelOne(String processModelId, String flowId);
-	
 	/**
 	 * 根据主键查询出模式一对象
 	 * @param processModelId
 	 * @return
 	 */
 	ProcessModelOne queryModelOneById(String processModelId);
+
+	ProcessModelOne queryModelOne(ProcessModelOne newModelOne);
 }
