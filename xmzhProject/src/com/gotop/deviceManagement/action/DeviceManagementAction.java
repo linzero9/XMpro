@@ -909,7 +909,9 @@ private HashMap checkData_maxLength(String str, String colName, int i, String ms
 	    		return "exportOrgcodeTable";
 		    }
 
-			private void createListBox(StringBuffer list,org.apache.poi.hssf.usermodel.HSSFSheet sheet, org.apache.poi.hssf.usermodel.HSSFWorkbook wb, int rownum, int colnum) {
+			private void createListBox(StringBuffer list,org.apache.poi.hssf.usermodel.HSSFSheet sheet, 
+					org.apache.poi.hssf.usermodel.HSSFWorkbook wb, int rownum, int colnum,
+					String dicnameby) {
 				
 				
 				try {
@@ -917,7 +919,7 @@ private HashMap checkData_maxLength(String str, String colName, int i, String ms
 					String dataSource = list.toString();
 					String[] datas = dataSource.split("\\,");
 					
-					org.apache.poi.hssf.usermodel.HSSFSheet hidden = wb.createSheet("hiddenSheet"+colnum);	
+					org.apache.poi.hssf.usermodel.HSSFSheet hidden = wb.createSheet(dicnameby);	
 					//数据源sheet页不显示
 //				    wb.setSheetHidden(1, true);
 					
@@ -928,6 +930,9 @@ private HashMap checkData_maxLength(String str, String colName, int i, String ms
 				      cell = row.createCell(0);
 				      cell.setCellValue(String.valueOf(datas[i]));
 				    }
+				    
+				    
+				    
 				    Name namedCell = wb.createName();
 				    namedCell.setNameName("hiddenSheet"+colnum);
 				    namedCell.setRefersToFormula("hiddenSheet!A1:A" + datas.length);
@@ -1085,6 +1090,7 @@ private HashMap checkData_maxLength(String str, String colName, int i, String ms
         	int rownum = 1;
         	int colnum = 0;
         	boolean myflag = true;
+        	String dicnameby="";
         	
         	StringBuffer infos = new StringBuffer();
         	
@@ -1110,10 +1116,13 @@ private HashMap checkData_maxLength(String str, String colName, int i, String ms
         			 
         			 if( (entry.getDictTypeId()).equals("DEVICE_NAME") ){
         				 colnum = colnum+1;
+        				 dicnameby="设备名称";
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_MODEL") ){
         				 colnum = colnum+2;
+        				 dicnameby="设备名称2";
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_OS_VERSION") ){
         				 colnum = colnum+8;
+        				 dicnameby="设备名称3";
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_IE_VERSION") ){
         				 colnum = colnum+10;
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_USEFUL") ){
@@ -1151,7 +1160,7 @@ private HashMap checkData_maxLength(String str, String colName, int i, String ms
         	
         	if(myflag == true){
         		infos = infos.deleteCharAt(infos.length() - 1);
-        		createListBox(infos, sheet, wb, rownum, colnum);
+        		createListBox(infos, sheet, wb, rownum, colnum,dicnameby);
         	}
         
         }
