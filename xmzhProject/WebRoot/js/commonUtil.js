@@ -506,8 +506,10 @@ WEB.turnMainFrame=function(){
 	}
 	
 	 function show(jsonString){
+
 			var showpanel=$("#showdiv");
 			showpanel.html("");
+			
 			if (jsonString==""){
 				$("#showpanel").hide();
 				}
@@ -518,17 +520,19 @@ WEB.turnMainFrame=function(){
 					//showpanelhtml=showpanelhtml+'<table align="center" border="0" width="100%" class="form_table">';
 					$("#showdiv").append('<table id="table'+key+'" align="center" border="0" width="100%" class="form_table">');
 					var showpanelhtml='';
+		           //alert(key);
+		           //alert(value.length);
 		           var title="节点名称";
 		           $.each(value, function(i, item) {
-			           if(item.type=='title'){//获取到流程节点名称
+			           if(item.type=='title'){
 			        	   title=item.value; 
 				           }
-		        	   if(item.hidden==true){//判断字段是否隐藏
+		        	   if(item.hidden==true){
 			           if(index%2==0){
-			        	   if(item.type=='text'){//属性字段是否为文本
+			        	   if(item.type=='text'){
 			        		   showpanelhtml=showpanelhtml+'<tr><td class="form_label" align="right" style="width:120px;">'+item.name+ '</td><td>'+item.value+'</td>';
 			        		   index=index+1;
-			   				}else if(item.type=='dic'){//判断字段属性为数据字典的、需要通过ajax到后台获取到数据字典内容
+			   				}else if(item.type=='dic'){
 						          var dicttypeid=item.dicname;
 						          var dictid=item.value;
 						          var dictname;
@@ -546,7 +550,7 @@ WEB.turnMainFrame=function(){
 								        	index=index+1;
 									        }
 							    });	
-				   				}else if (item.type=='date'){/属性字段是否为时间类型
+				   				}else if (item.type=='date'){
 				   					showpanelhtml=showpanelhtml+'<tr><td class="form_label" align="right" style="width:120px;">'+item.name+ '</td><td>'+item.value+'</td>';
 				   					index=index+1;
 					   				}
@@ -584,5 +588,7 @@ WEB.turnMainFrame=function(){
 		           $("#table"+key).prepend('<tr><th  colspan="4" style="text-align: center;font-weight:bold;font-size:16pt;background: rgb(167, 167, 226);" class="table_head" onclick="tablehide('+key+')">'+title+'</th></tr>');
 		           });
 			}
+			
+		 
 	 }
 	 
