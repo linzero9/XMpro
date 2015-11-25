@@ -222,9 +222,16 @@ public class GeneralprocessUtil {
 
 
 		List<List<GeneralprocessFieldBean>> listss = new ArrayList<List<GeneralprocessFieldBean>>();
-
+		
+		
+		
 		for (String rule : rules.keySet()) {
-
+			
+			
+			String[] ruleo=rule.split("-");
+			rule=ruleo[0];
+			
+			
 			// 获取到这个模式的对应配置
 
 			// "com.gotop.Generalprocess.model.ProcessModelOne")+"++++配置文件的值"
