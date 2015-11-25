@@ -13,6 +13,7 @@ import com.gotop.Generalprocess.dao.ITGeneralprocessModeltwoDAO;
 import com.gotop.Generalprocess.model.ProcessModel;
 import com.gotop.Generalprocess.model.ProcessModelOne;
 import com.gotop.Generalprocess.model.ProcessModelTwo;
+import com.gotop.Generalprocess.model.TGeneralprocessMain;
 import com.gotop.Generalprocess.service.IGeneralprocessService;
 import com.gotop.jbpm.dto.TaskAssgineeDto;
 import com.gotop.jbpm.model.TProcessBusiness;
@@ -103,6 +104,21 @@ public class GeneralprocessService implements IGeneralprocessService {
 		String submitType = "";
 		TaskAssgineeDto dto1 = null;
 		TProcessBusiness pb = null;
+		
+		//获取流程实例id
+		String executionId = taskAssgineeDto.getExecutionId();
+		//查询模式主板信息
+		TGeneralprocessMain main = this.generalprocessMainDAO.queryMainByBusinessId(executionId);
+		//新增或更新模式主板的rule和id
+		if(main != null){
+			//修改
+			this.generalprocessMainDAO.uptGeneralProcessMain(taskAssgineeDto, modelOne,main, ProcessModelOne.class);
+		}else{
+			//新增
+			this.generalprocessMainDAO.addGeneralProcessMain(taskAssgineeDto, modelOne, ProcessModelOne.class);
+		}
+		
+		
 		if (modelOne.getProcessModelOneID() != null
 				&& !"".equals(modelOne.getProcessModelOneID())) {
 			// 更新模式一表单
@@ -119,8 +135,10 @@ public class GeneralprocessService implements IGeneralprocessService {
 			// 用于做节点结束后的上一个节点
 			preTaskId = dto1.getNextTaskId();
 			taskAssgineeDto.setExecutionId(dto1.getExecutionId());
+			String taskName = jbpmService.getTaskNameById(preTaskId);
 			// 模式一赋值流程id
 			modelOne.setFlow_Id(dto1.getExecutionId());
+			modelOne.setTaskName(taskName);
 			// 创建时间
 			String currDate = TimeUtil
 					.getCntDtStr(new Date(), "yyyyMMddHHmmss");
@@ -196,29 +214,72 @@ public class GeneralprocessService implements IGeneralprocessService {
 	@Override
 	public void handleModelTwo(MUOUserSession muo, ProcessModelTwo modelTwo,
 			TaskAssgineeDto taskAssgineeDto) {
-		
-		this.generalprocessModeltwoDAO.addModelTwo(modelTwo);
 		String taskId = taskAssgineeDto.getNextTaskId();
-		TaskAssgineeDto d1 = new TaskAssgineeDto();
+		String taskName = jbpmService.getTaskNameById(taskId);
+		modelTwo.setTaskName(taskName);
+		modelTwo.setFlow_id(taskAssgineeDto.getExecutionId());
+		//保存模式二表单内容
+		this.generalprocessModeltwoDAO.addModelTwo(modelTwo);
 		
-		d1.setTaskId(taskId);
-		d1.setTaskExeAssginee(String.valueOf(muo.getEmpid()));
+		modelTwo.setOpinion(modelTwo.getOpninion_content());
 		
-		taskAssgineeDto.setTaskId(taskId);
+		//获取流程实例id
+		String executionId = taskAssgineeDto.getExecutionId();
 		
-		jbpmService.assignTask(d1);
+		//查询模式主板信息
+		TGeneralprocessMain main = this.generalprocessMainDAO.queryMainByBusinessId(executionId);
 		
-		jbpmService.completeTask(taskId,
-				taskAssgineeDto.getTransitionName(), null);
-		taskAssgineeDto.setPreTaskAssingee(muo.getEmpid());
-		jbpmService.updateTaskAssigneeState(taskAssgineeDto);
+		//新增或更新模式主板的rule和id
+		if(main != null){
+			//修改
+			this.generalprocessMainDAO.uptGeneralProcessMain(taskAssgineeDto, modelTwo,main, ProcessModelTwo.class);
+		}else{
+			//新增
+			this.generalprocessMainDAO.addGeneralProcessMain(taskAssgineeDto, modelTwo, ProcessModelTwo.class);
+		}
 		
-		String nextTaskId = jbpmService.getNextTaskId(taskAssgineeDto.getExecutionId());
+		String btnType = taskAssgineeDto.getBtnType();
+		if(btnType.equals("2")){
+			//模式二-提交操作
+			//审核通过
+			//提交下个节点
+			TaskAssgineeDto d1 = new TaskAssgineeDto();
+			
+			d1.setTaskId(taskId);
+			d1.setTaskExeAssginee(String.valueOf(muo.getEmpid()));
+			
+			//赋值当前节点id
+			taskAssgineeDto.setTaskId(taskId);
+			
+			//签收当前节点
+			jbpmService.assignTask(d1);
+			
+			//完成当前节点
+			jbpmService.completeTask(taskId,
+					taskAssgineeDto.getTransitionName(), null);
+			
+			taskAssgineeDto.setPreTaskAssingee(muo.getEmpid());
+			
+			jbpmService.updateTaskAssigneeState(taskAssgineeDto);
+			
+			//赋值下个节点id
+			String nextTaskId = jbpmService.getNextTaskId(taskAssgineeDto.getExecutionId());
+			taskAssgineeDto.setNextTaskId(nextTaskId);
+			
+			//当前节点执行人
+			taskAssgineeDto.setTaskExeAssginee(String.valueOf(muo.getEmpid()));
+			
+			TaskAssgineeDto newDto = makeTaskAssgineeDtoNoPd(muo, taskAssgineeDto);
+			
+			jbpmService.saceTaskAssignee(newDto);
+			
+			//insertApproveOpninion(modelTwo, muo, taskId, "01", newDto);
+		}else if (btnType.equals("3")){
+			//模式二-回退操作
+			//退回
+			//回退上个节点
+		}
 		
-		taskAssgineeDto.setNextTaskId(nextTaskId);
-		
-		taskAssgineeDto.setTaskExeAssginee(String.valueOf(muo.getEmpid()));
-		jbpmService.saceTaskAssignee(makeTaskAssgineeDtoNoPd(muo, taskAssgineeDto));
 		
 		
 	}
@@ -318,7 +379,7 @@ public class GeneralprocessService implements IGeneralprocessService {
 			    	opninion.setOpninionContent(processModel.getOpinion());
 
 			    	opninion.setNextorgname("");
-			    	if(dto.getEmpNames()!=null&&!"null".equals(dto.getEmpNames())){
+			    	if(dto.getEmpNames()!=null&&!"null".equals(dto.getEmpNames())&&!"".equals(dto.getEmpNames())){
 			    		opninion.setNextOprName(dto.getEmpNames());
 			    		List<HashMap<String,Object>> list = this.generalProcessDAO.queryOrgName(dto.getEmpIds());
 			    		for(int i=0;i<list.size();i++){

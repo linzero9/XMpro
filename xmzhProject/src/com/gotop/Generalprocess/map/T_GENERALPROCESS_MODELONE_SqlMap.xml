@@ -132,13 +132,13 @@
   		insert into T_GENERALPROCESS_MODELONE (PROCESSMODELID, FLOW_ID, ORGCODEONE, ORGCODETWO,
       CREATOR, FDXDY, YXZG, YXRY, CURRENCY, APPLY_BAL, ONECATEGORY, LOANCATEGORY, DYWX_NAME,
       COORGANIZATION, SURVEY_TIME, CONTENT, CUST_NAME, CREATE_DATE, CREATE_TIME, CREATE_NAME,
-      LAST_UP_DATE, LAST_UP_TIME, LAST_UP_NAME)
+      LAST_UP_DATE, LAST_UP_TIME, LAST_UP_NAME,TASKNAME)
     values (#processModelId:DECIMAL:-9999#, #flow_Id:DECIMAL:-9999#, #orgCodeOne:VARCHAR#,
       #orgCodeTwo:VARCHAR#, #creator:VARCHAR#, #fdxdy:VARCHAR#, #yxzg:VARCHAR#, #yxry:VARCHAR#,
       #currency:VARCHAR#, #apply_bal:VARCHAR#, #oneCategory:VARCHAR#, #loanCategory:VARCHAR#,
       #dywx_Name:VARCHAR#, #coOrganization:VARCHAR#, #survey_Time:VARCHAR#, #content:VARCHAR#,
       #cust_Name:VARCHAR#, #create_Date:VARCHAR#, #create_time:VARCHAR#, #create_name:VARCHAR#,
-      #last_up_date:VARCHAR#, #last_up_time:VARCHAR#, #last_up_name:VARCHAR#)
+      #last_up_date:VARCHAR#, #last_up_time:VARCHAR#, #last_up_name:VARCHAR#,#taskName:VARCHAR#)
   	</insert>
   
   

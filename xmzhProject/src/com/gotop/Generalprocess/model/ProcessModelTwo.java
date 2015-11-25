@@ -12,16 +12,16 @@ public class ProcessModelTwo extends ProcessModel implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@GeneralprocessField(name="流程业务id",type="text",hidden=false)
-	private Integer flow_id;//流程的id
+	private String flow_id;//流程的id
 	
 	@GeneralprocessField(name="意见内容",type="text")
 	private String opninion_content;
 
-	public Integer getFlow_id() {
+	public String getFlow_id() {
 		return flow_id;
 	}
 
-	public void setFlow_id(Integer flow_id) {
+	public void setFlow_id(String flow_id) {
 		this.flow_id = flow_id;
 	}
 

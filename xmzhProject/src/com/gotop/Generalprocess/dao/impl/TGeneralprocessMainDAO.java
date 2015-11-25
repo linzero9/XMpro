@@ -2,6 +2,7 @@ package com.gotop.Generalprocess.dao.impl;
 
 import com.gotop.Generalprocess.dao.ITGeneralprocessMainDAO;
 import com.gotop.Generalprocess.model.ProcessModel;
+import com.gotop.Generalprocess.model.ProcessModelTwo;
 import com.gotop.Generalprocess.model.TGeneralprocessMain;
 import com.gotop.Generalprocess.model.TGeneralprocessMainExample;
 import com.gotop.jbpm.dto.TaskAssgineeDto;
@@ -239,9 +240,13 @@ public class TGeneralprocessMainDAO extends SqlMapClientDao implements ITGeneral
 		main.setBusinessId(taskAssgineeDto.getExecutionId());
 		main.setTemplateId(taskAssgineeDto.getDefinitionId());
 		if("com.gotop.Generalprocess.model.ProcessModelOne".equals(c.getName())){
+			//模式一
 			main.setRules(c.getName());
 		}
-		
+		if("com.gotop.Generalprocess.model.ProcessModelTwo".equals(c.getName())){
+			//模式二
+			main.setRules(c.getName());
+		}
 		main.setIds(String.valueOf(pm.getProcessModelId()));
 		getSqlMapClientTemplate().insert("T_GENERALPROCESS_MAIN_SqlMap.addGeneralProcessMain", main);
 	}
@@ -251,5 +256,31 @@ public class TGeneralprocessMainDAO extends SqlMapClientDao implements ITGeneral
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("businessId", businessId);
 		return (TGeneralprocessMain) queryForObject("T_GENERALPROCESS_MAIN_SqlMap.queryMainByBusinessId", map);
+	}
+
+	@Override
+	public void uptGeneralProcessMain(TaskAssgineeDto taskAssgineeDto,
+			ProcessModel pm, TGeneralprocessMain main,Class<?> c) {
+		//规则更新
+		String rules = main.getRules();
+		if (rules != null) {
+			if ("com.gotop.Generalprocess.model.ProcessModelOne".equals(c.getName())) {
+				// 模式一
+				rules += "," + c.getName();
+			}
+			if ("com.gotop.Generalprocess.model.ProcessModelTwo".equals(c.getName())) {
+				// 模式二
+				rules += "," + c.getName();
+			}
+		}
+		
+		//主键更新
+		String ids = main.getIds();
+		if(ids != null){
+			ids += "," + String.valueOf(pm.getProcessModelId());
+		}
+		main.setRules(rules);
+		main.setIds(ids);
+		getSqlMapClientTemplate().update("T_GENERALPROCESS_MAIN_SqlMap.uptGeneralProcessMain", main);
 	}
 }
