@@ -579,7 +579,6 @@ WEB.turnMainFrame=function(){
 					           }
 		        	   }
 		           });
-		           alert('title:'+title);
 		           $("#table"+key).html(showpanelhtml);
 		           $("#table"+key+" td").hide();
 		           $("#table"+key).prepend('<tr><th  colspan="4" style="text-align: center;font-weight:bold;font-size:16pt;background: rgb(167, 167, 226);" class="table_head" onclick="tablehide('+key+')">'+title+'</th></tr>');
