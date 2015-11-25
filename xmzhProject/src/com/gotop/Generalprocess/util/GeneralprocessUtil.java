@@ -225,11 +225,11 @@ public class GeneralprocessUtil {
 		
 		
 		
-		for (String rule : rules.keySet()) {
+		for (String rulee : rules.keySet()) {
 			
 			
-			String[] ruleo=rule.split("-");
-			rule=ruleo[0];
+			String[] ruleo=rulee.split("-");
+			String rule=ruleo[0];
 			
 			
 			// 获取到这个模式的对应配置
@@ -261,7 +261,7 @@ public class GeneralprocessUtil {
 			Method thismethod = classes.getDeclaredMethod(method, String.class);
 
 			// bean
-			Object returnbean = thismethod.invoke(bean, rules.get(rule));
+			Object returnbean = thismethod.invoke(bean, rules.get(rulee));
 
 			// 以下获取到了一个 实体类的 值 （注解+value）
 
