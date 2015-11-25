@@ -25,25 +25,35 @@
     <result column="TEMPLATE_ID" property="templateId" jdbcType="VARCHAR" />
     <result column="RULES" property="rules" jdbcType="VARCHAR" />
     <result column="NAME" property="name" jdbcType="VARCHAR" />
+     <result column="IDS" property="ids" jdbcType="VARCHAR" />
     <result column="BUSINESS_ID" property="businessId" jdbcType="VARCHAR" />
   </resultMap>
   
-  <!-- 根据流程实例id获取流程主板对象 -->
+  <!-- 根据流程实例id获取模式主表对象 -->
   <select id="queryMainByBusinessId" parameterClass="java.util.HashMap" resultMap="resultMain">
-   select MAINID, TEMPLATE_ID, RULES, NAME, BUSINESS_ID
+   select MAINID, TEMPLATE_ID, RULES, NAME, IDS,BUSINESS_ID
     from T_GENERALPROCESS_MAIN
     where BUSINESS_ID = #businessId:VARCHAR#
   </select>
   
-  <!--新增流程主表记录-->
+  <!--新增模式主表记录-->
   <insert id="addGeneralProcessMain" parameterClass="com.gotop.Generalprocess.model.TGeneralprocessMain" >
     <selectKey resultClass="long" keyProperty="mainid">
 			SELECT SET_T_GENERALPROCESS_MAIN.NEXTVAL AS VALUE FROM DUAL
 		</selectKey>
-    insert into T_GENERALPROCESS_MAIN (MAINID, TEMPLATE_ID, RULES, NAME, BUSINESS_ID)
-    values (#mainid:DECIMAL:-9999#, #templateId:DECIMAL:-9999#, #rules:VARCHAR#, #name:VARCHAR#,
+    insert into T_GENERALPROCESS_MAIN (MAINID, TEMPLATE_ID, RULES, NAME, IDS,BUSINESS_ID)
+    values (#mainid:DECIMAL:-9999#, #templateId:DECIMAL:-9999#, #rules:VARCHAR#, #name:VARCHAR#,#ids:VARCHAR#,
       #businessId:DECIMAL:-9999#)
   </insert>
+  
+  <!-- 更新模式主表记录 -->
+  <update id="uptGeneralProcessMain" parameterClass="com.gotop.Generalprocess.model.TGeneralprocessMain">
+  	 update T_GENERALPROCESS_MAIN
+    set 
+      RULES = #rules:VARCHAR#,
+      IDS = #ids:VARCHAR#
+    where BUSINESS_ID = #businessId:DECIMAL#
+  </update>
   
   <select id="abatorgenerated_selectByPrimaryKey" resultMap="abatorgenerated_TGeneralprocessMainResult" parameterClass="com.gotop.Generalprocess.model.TGeneralprocessMain" >
     <!--通过主键查询一条数据-->

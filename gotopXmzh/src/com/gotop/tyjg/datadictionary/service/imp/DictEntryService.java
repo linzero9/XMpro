@@ -206,4 +206,11 @@ public class DictEntryService implements IDictEntryService {
 		return true;
 	}
 
+	@Override
+	public DictEntry queryDictOneType(DictEntry object)
+			throws Exception {
+		DictType dictType = new DictType();
+		return this.getDictEntryDao().queryDictOneType(object);
+	}
+
 }

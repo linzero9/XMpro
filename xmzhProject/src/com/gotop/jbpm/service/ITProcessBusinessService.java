@@ -79,4 +79,9 @@ public interface ITProcessBusinessService {
      */
     List queryPageDataList(HashMap map, Page page) throws Exception;
 
+	TProcessBusiness queryProcessBusiness(String executionId,
+			Long processModelId);
+    
+    
+
 }

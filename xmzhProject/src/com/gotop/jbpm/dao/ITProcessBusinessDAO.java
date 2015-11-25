@@ -160,4 +160,6 @@ public interface ITProcessBusinessDAO {
 
 	void updateJbpm(Map<String, Object> map);
 
+	TProcessBusiness queryProcessBusiness(HashMap<String, Object> map);
+
 }

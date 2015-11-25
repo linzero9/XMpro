@@ -1,5 +1,7 @@
 package com.gotop.Generalprocess.dao;
 
+import com.gotop.Generalprocess.model.ProcessModel;
+import com.gotop.Generalprocess.model.ProcessModelTwo;
 import com.gotop.Generalprocess.model.TGeneralprocessMain;
 import com.gotop.Generalprocess.model.TGeneralprocessMainExample;
 import com.gotop.jbpm.dto.TaskAssgineeDto;
@@ -145,10 +147,10 @@ public interface ITGeneralprocessMainDAO {
     void executeBatch() throws Exception;
 
     /**
-     * 根据流程id和模版id生成流程主表记录
+     * 根据流程id和模版id生成模式主表记录
      * @param taskAssgineeDto
      */
-	void addGeneralProcessMain(TaskAssgineeDto taskAssgineeDto,Class<?> c);
+	void addGeneralProcessMain(TaskAssgineeDto taskAssgineeDto,ProcessModel pm,Class<?> c);
 
 	/**
      * 根据流程实例id获取流程主表对象
@@ -156,4 +158,13 @@ public interface ITGeneralprocessMainDAO {
      * @return
      */
 	TGeneralprocessMain queryMainByBusinessId(String businessId);
+
+	/**
+	 * 根据流程实例id和模版id更新模式主表记录
+	 * @param taskAssgineeDto
+	 * @param modelTwo
+	 * @param class1
+	 */
+	void uptGeneralProcessMain(TaskAssgineeDto taskAssgineeDto,
+			ProcessModel pm,TGeneralprocessMain main, Class<?> c);
 }

@@ -158,4 +158,13 @@ public class TProcessBusinessService implements ITProcessBusinessService {
         return list;
     }
 
+	@Override
+	public TProcessBusiness queryProcessBusiness(String executionId,
+			Long processModelId) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("executionId", executionId);
+		map.put("processModelId", processModelId);
+		return this.tProcessBusinessDAO.queryProcessBusiness(map);
+	}
+
 }

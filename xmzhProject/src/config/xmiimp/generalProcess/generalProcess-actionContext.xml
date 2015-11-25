@@ -5,10 +5,21 @@
     <property name="tDefaultOpinionService" ref="tDefaultOpinionService" />
     <property name="generalProcessService" ref="generalProcessService" />
     <property name="generalprocessMainService" ref="tGeneralprocessMainService" />
+    <property name="generalprocessModeloneService" ref="generalprocessModeloneService" />
+    <property name="generalprocessModeltwoService" ref="tGeneralprocessModeltwoService" />
+    <property name="jbpmService" ref="jbpmService" />
   </bean>
-
   
   <bean class="com.gotop.Generalprocess.action.TGeneralprocessMainAction" id="tGeneralprocessMainaction" name="tGeneralprocessMainAction" singleton="false">
     <property name="tGeneralprocessMainService" ref="tGeneralprocessMainService" />
+  </bean>
+  
+  <bean class="com.gotop.Generalprocess.action.TGeneralprocessModeltwoAction" id="tGeneralprocessModeltwoaction" name="tGeneralprocessModeltwoAction" singleton="false">
+    <property name="tGeneralprocessModeltwoService" ref="tGeneralprocessModeltwoService" />
+  </bean>
+  
+  
+  <bean class="com.gotop.Generalprocess.action.TGeneralprocessModelthreeAction" id="tGeneralprocessModelthreeaction" name="tGeneralprocessModelthreeAction" singleton="false">
+    <property name="tGeneralprocessModelthreeService" ref="tGeneralprocessModelthreeService" />
   </bean>
   </beans>

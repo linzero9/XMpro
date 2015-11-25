@@ -1,7 +1,10 @@
 package com.gotop.Generalprocess.service;
 
 import com.gotop.Generalprocess.dao.ITGeneralprocessModeloneDAO;
+import com.gotop.Generalprocess.model.ProcessModelOne;
 import com.gotop.Generalprocess.model.TGeneralprocessModelone;
+import com.gotop.jbpm.dto.TaskAssgineeDto;
+import com.gotop.vo.system.MUOUserSession;
 import com.primeton.utils.Page;
 import java.util.HashMap;
 import java.util.List;
@@ -78,4 +81,13 @@ public interface ITGeneralprocessModeloneService {
      * @abatorgenerated
      */
     List queryPageDataList(HashMap map, Page page) throws Exception;
+
+	/**
+	 * 根据主键查询出模式一对象
+	 * @param processModelId
+	 * @return
+	 */
+	ProcessModelOne queryModelOneById(String processModelId);
+
+	ProcessModelOne queryModelOne(ProcessModelOne newModelOne);
 }

@@ -12,6 +12,11 @@
      <action class="dictEntryAction" method="toUpdateDictEntry" name="toUpdateDictEntry_action">
          <result name="toUpdateDictEntry">/jsp/tyjg/datadictionary/dictentry_update.jsp</result>
      </action>
+     <!-- <action class="dictEntryAction" method="queryDictOneType" name="queryDictOneType_action">
+          <result type="json">
+		   <param name="root">json</param>
+	  	</result>
+     </action> -->
      <action class="dictEntryAction" method="updateDictEntry" name="updateDictEntry_action"/>
      <action class="dictEntryAction" method="deleteDictEntry" name="deleteDictEntry_action"/>
      
@@ -30,6 +35,10 @@
      </action>
      <action class="operatorExcelAction" method="importDictEntryExcel" name="importDictEntryExcel_action">
      </action>
-     <action class="dictEntryAction" method="{1}" name="dictEntryAction_*"/>
+     <action class="dictEntryAction" method="{1}" name="dictEntryAction_*">
+     	 <result name="query1" type="json">
+		   <param name="root">json</param>
+	  	</result>
+     </action>
    </package>
 </struts>

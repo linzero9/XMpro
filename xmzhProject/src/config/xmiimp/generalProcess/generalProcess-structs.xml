@@ -6,11 +6,26 @@
       <result name="toModelOne">
         /jsp/Generalprocess/modelone_input.jsp
       </result>
+      <result name="toModelTwo">
+        /jsp/Generalprocess/modeltwo_input.jsp
+      </result>
     </action>
     
     <action class="tGeneralprocessMainAction" method="{1}" name="tGeneralprocessMainAction_*">
       <result name="viewlist">
         /jsp/generalProcess/tGeneralprocessMainDatacell.jsp
+      </result>
+    </action>
+    
+    <action class="tGeneralprocessModeltwoAction" method="{1}" name="tGeneralprocessModeltwoAction_*">
+      <result name="viewlist">
+        /jsp/generalProcess/tGeneralprocessModeltwoDatacell.jsp
+      </result>
+    </action>
+    
+    <action class="tGeneralprocessModelthreeAction" method="{1}" name="tGeneralprocessModelthreeAction_*">
+      <result name="viewlist">
+        /jsp/generalProcess/tGeneralprocessModelthreeDatacell.jsp
       </result>
     </action>
     </package>

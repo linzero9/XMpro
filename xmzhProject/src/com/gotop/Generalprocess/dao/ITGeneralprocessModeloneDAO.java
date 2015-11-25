@@ -1,5 +1,6 @@
 package com.gotop.Generalprocess.dao;
 
+import com.gotop.Generalprocess.model.ProcessModelOne;
 import com.gotop.Generalprocess.model.TGeneralprocessModelone;
 import com.gotop.Generalprocess.model.TGeneralprocessModeloneExample;
 import com.primeton.utils.Page;
@@ -9,6 +10,13 @@ import java.util.HashMap;
 import java.util.List;
 
 public interface ITGeneralprocessModeloneDAO {
+	
+	 /**
+     * 通过主键查询一条记录
+     * @abatorgenerated
+     */
+    TGeneralprocessModelone selectByPrimaryKey(BigDecimal processmodeloneid);
+    
     /**
      * 插入一条新数据.
      * @abatorgenerated
@@ -67,11 +75,7 @@ public interface ITGeneralprocessModeloneDAO {
      */
     List queryEntitiesByTemplateWithPage(TGeneralprocessModelone example, Page page);
 
-    /**
-     * 通过主键查询一条记录
-     * @abatorgenerated
-     */
-    TGeneralprocessModelone selectByPrimaryKey(BigDecimal processmodeloneid);
+   
 
     /**
      * 通过查询实例，删除数据
@@ -142,4 +146,10 @@ public interface ITGeneralprocessModeloneDAO {
      * @abatorgenerated
      */
     void executeBatch() throws Exception;
+
+	void addModelOne(ProcessModelOne modelOne);
+
+	ProcessModelOne queryModelOneById(String processModelId);
+
+	ProcessModelOne queryModelOne(HashMap<String, Object> map);
 }

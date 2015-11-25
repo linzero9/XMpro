@@ -26,8 +26,12 @@
         <h:hidden id="processName" property="taskAssgineeDto.processName"/>
         <h:hidden id="templateFileIds" property="taskAssgineeDto.templateFileIds"/>
         <h:hidden id="isC" name="isC" property="taskAssgineeDto/isC"/>
-		<input type="hidden" id="btnType" name="taskAssgineeDto.btnType" />
+		<h:hidden id="btnType" name="taskAssgineeDto.btnType" />
 		<h:hidden name="taskAssgineeDto.isFirst" value="1" />
+		
+		<h:hidden id="processModelId" name="modelOne.processModelId" property="modelOne.processModelId"/>
+		<h:hidden id="taskName" name="modelOne.taskName" property="modelOne.taskName"/>
+		
 		<table align="center" border="0" width="100%" class="form_table" >
       <tr>
          <td  colspan="4" style="text-align: center;font-weight:bold;font-size:12pt;height:50px" >
@@ -158,18 +162,22 @@
           <input type="button" value="查看流程" onclick="doflowpic();" class="button" id="flowpic" />
          </td>
       </tr>
-       <tr id="row2">
+       <%-- <tr id="row2">
      <td class="form_label" align="right">流 程 列 表：</td>
      <td colspan="3">
      <%@include file="/jsp/util/opinionUtil.jsp"%>
 		</td>
-     </tr>
+     </tr> --%>
+     <w:panel id="showpanel" title="流程信息">
+    		<div id='showdiv'>
+    	</div>	
+	</w:panel>
     </table>
     </div>
     </h:form>
   </body>
  <script type="text/javascript">
-
+ show('${taskAssgineeDto.fxJson}');
  $(document).ready(function(){
 	 var templateFileIds = $("#templateFileIds").val();
 		if(templateFileIds == "" || templateFileIds == null){

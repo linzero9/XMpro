@@ -36,6 +36,7 @@ import org.apache.poi.hssf.util.CellRangeAddress;
 import org.apache.poi.hssf.util.CellRangeAddressList;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Name;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.struts2.ServletActionContext;
 //import org.apache.poi.hssf.usermodel.HSSFCell;
@@ -908,24 +909,45 @@ private HashMap checkData_maxLength(String str, String colName, int i, String ms
 	    		return "exportOrgcodeTable";
 		    }
 
-			private void createListBox(String[] list,org.apache.poi.hssf.usermodel.HSSFSheet sheet, org.apache.poi.hssf.usermodel.HSSFWorkbook wb, int rownum, int colnum) {
+			private void createListBox(StringBuffer list,org.apache.poi.hssf.usermodel.HSSFSheet sheet, 
+					org.apache.poi.hssf.usermodel.HSSFWorkbook wb, int rownum, int colnum,
+					String dicnameby) {
 				
 				
 				try {
+					//生成下拉列表
+					String dataSource = list.toString();
+					String[] datas = dataSource.split("\\,");
 					
-			
-				//生成下拉列表
-
+					org.apache.poi.hssf.usermodel.HSSFSheet hidden = wb.createSheet(dicnameby);	
+					//数据源sheet页不显示
+//				    wb.setSheetHidden(1, true);
+					
+					org.apache.poi.hssf.usermodel.HSSFRow row = null;
+				    org.apache.poi.hssf.usermodel.HSSFCell cell = null;
+				    for (int i = 0, length = datas.length; i < length; i++) {
+				      row = hidden.createRow(i);
+				      cell = row.createCell(0);
+				      cell.setCellValue(String.valueOf(datas[i]));
+				    }
+				    
+				    
+				    
+				    Name namedCell = wb.createName();
+				    namedCell.setNameName("hiddenSheet"+colnum);
+				    namedCell.setRefersToFormula("hiddenSheet!A1:A" + datas.length);
+				  
+				    //生成下拉框内容
+				    DVConstraint constraint = DVConstraint
+				        .createFormulaListConstraint("hiddenSheet"+colnum);
 				//只对（0，0）单元格有效
 			
-				CellRangeAddressList regions = new CellRangeAddressList(rownum,rownum,colnum,colnum);   //CellRangeAddressList(int firstRow, int lastRow, int firstCol, int lastCol)
+				    CellRangeAddressList regions = new CellRangeAddressList(rownum,rownum,colnum,colnum);   //CellRangeAddressList(int firstRow, int lastRow, int firstCol, int lastCol)
 				
-				//生成下拉框内容
-				DVConstraint constraint = DVConstraint.createExplicitListConstraint(list);
-
+				
 				//绑定下拉框和作用区域
 				HSSFDataValidation data_validation = new HSSFDataValidation(regions,constraint);
-
+				data_validation.setShowErrorBox(false);// 取消弹出错误框
 				//对sheet页生效
 				sheet.addValidationData(data_validation);
 
@@ -1062,11 +1084,15 @@ private HashMap checkData_maxLength(String str, String colName, int i, String ms
         sheet.getRow(1).setHeight((short) (20*20));//Height的单位是1/20个点，也可以用sheet.getRow(1).setHeightInPoints(20);
         
         //数据字典生成下拉框内容
+       	
         for(List<Object> list : lists){
-        	String[] infos = new String[list.size()];
+        
         	int rownum = 1;
         	int colnum = 0;
         	boolean myflag = true;
+        	String dicnameby="";
+        	
+        	StringBuffer infos = new StringBuffer();
         	
         	for(Object object : list){
        		System.out.println(object.getClass().getName());
@@ -1084,13 +1110,19 @@ private HashMap checkData_maxLength(String str, String colName, int i, String ms
         			 break;
         		 }else if(object.getClass().getName().equals("com.gotop.dict.model.EosDictEntry")){
         			 EosDictEntry entry =  (EosDictEntry)object;
-        			 infos[list.indexOf(entry)] = entry.getDictId()+"--"+entry.getDictName();
+        		//	 infos[list.indexOf(entry)] = entry.getDictId()+"--"+entry.getDictName();
+        			 
+        			 infos.append(entry.getDictId()+"--"+entry.getDictName()).append(",");
+        			 
         			 if( (entry.getDictTypeId()).equals("DEVICE_NAME") ){
         				 colnum = colnum+1;
+        				 dicnameby="设备名称";
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_MODEL") ){
         				 colnum = colnum+2;
+        				 dicnameby="设备名称2";
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_OS_VERSION") ){
         				 colnum = colnum+8;
+        				 dicnameby="设备名称3";
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_IE_VERSION") ){
         				 colnum = colnum+10;
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_USEFUL") ){
@@ -1123,10 +1155,12 @@ private HashMap checkData_maxLength(String str, String colName, int i, String ms
         				 colnum = colnum+31;
         			 }
         		 }
+        		 
         	}
         	
         	if(myflag == true){
-        		createListBox(infos, sheet, wb, rownum, colnum);
+        		infos = infos.deleteCharAt(infos.length() - 1);
+        		createListBox(infos, sheet, wb, rownum, colnum,dicnameby);
         	}
         
         }

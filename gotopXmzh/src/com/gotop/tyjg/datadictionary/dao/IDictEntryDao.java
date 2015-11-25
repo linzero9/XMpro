@@ -80,4 +80,6 @@ public interface IDictEntryDao {
 	public List<DictEntry> queryDictEntryList(DictEntry dictEntry) throws Exception;
 	
 	public List<DictEntry> queryDictEntryList(DictEntry dictEntry, Page page) throws Exception;
+
+	public DictEntry queryDictOneType(DictEntry object);
 }

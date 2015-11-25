@@ -91,6 +91,7 @@
         </td>
         <td colspan="1">
           <h:text property="euip.phoneNo" id="phoneNo" validateAttr="allowNull=false" readonly="true" style="width:130px;" /><font style="color: red">*</font>	
+        	<b:write/>
         </td>
         
         <td class="form_label" align="right" style="width:120px;">
@@ -152,6 +153,7 @@
 		</td>
      </tr>
     </table>
+   
     </h:form>
   </body>
  <script type="text/javascript">
@@ -213,7 +215,6 @@
 		}
 
 });
-
 function initPlanCell20(){
 		var queryCond="";
 		queryCond += "<resourceId>${euip.epId}</resourceId>";
@@ -318,6 +319,5 @@ function initPlanCell20(){
 			$("#"+id).remove();
 		}
 
-		
  </script>
 </html>
