@@ -587,4 +587,11 @@ WEB.turnMainFrame=function(){
 			
 		 
 	 }
+	
+	 function tablehide(value){
+		  $("#table"+value+" td").toggle();
+	 }
 	 
+	 
+	  
+	
