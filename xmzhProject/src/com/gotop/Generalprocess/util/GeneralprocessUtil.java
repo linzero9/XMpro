@@ -287,7 +287,7 @@ public class GeneralprocessUtil {
 					//
 					Object fieldvalue = field.getName();
 					
-					System.out.println("super实体类字段的名称：：："+fieldvalue);
+					//System.out.println("super实体类字段的名称：：："+fieldvalue);
 					
 					for (GeneralprocessFieldBean beforeBeanone : beforeBean) {
 
@@ -319,7 +319,7 @@ public class GeneralprocessUtil {
 					//
 					Object fieldvalue = field.getName();
 					
-					System.out.println("实体类字段的名称：：："+fieldvalue);
+					//System.out.println("实体类字段的名称：：："+fieldvalue);
 
 					for (GeneralprocessFieldBean beforeBeanone : beforeBean) {
 
