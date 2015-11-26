@@ -2,9 +2,9 @@
      <div style="width:90%;">
 		<a href="#" onclick="showDetailopinion('<b:write property='taskAssgineeDto.businessKey'/>','<b:write property='taskAssgineeDto.businessType'/>','<b:write property='taskAssgineeDto.executionId'/>');">查看详细流程列表</a>
     <r:datacell
-		 id="planning20" xpath="TApproveOpninion" width="2" width="100%" height="150" pageSize="50"
-		 queryAction="/messagePublish/tMessagePublishAction_queryOpninions.action"
-		 entityType="com.gotop.leave.model.TApproveOpninion"
+		 id="planning20" xpath="TApproveOpninionGP" width="2" width="100%" height="150" pageSize="50"
+		 queryAction="/messagePublish/tMessagePublishAction_queryOpninionsGP.action"
+		 entityType="com.gotop.Generalprocess.model.TApproveOpninionGP"
 		 initParamFunc="initPlanCell20">
 			<r:field fieldName="empname" label="操作人员" allowModify="false" width="80" onRefreshFunc="showAll">
 				<h:text readonly="true"/>

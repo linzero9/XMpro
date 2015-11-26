@@ -163,12 +163,12 @@
           <input type="button" value="查看流程" onclick="doflowpic();" class="button" id="flowpic" />
          </td>
       </tr>
-       <%-- <tr id="row2">
+      <tr id="row2">
      <td class="form_label" align="right">流 程 列 表：</td>
      <td colspan="3">
-     <%@include file="/jsp/util/opinionUtil.jsp"%>
+     <%@include file="/jsp/util/opinionUtil_generalProcess.jsp"%>
 		</td>
-     </tr> --%>
+     </tr>
      <w:panel id="showpanel" title="流程信息">
     		<div id='showdiv'>
     	</div>	
@@ -267,12 +267,14 @@
 	 }
 });
 
+/**
+ * 查询流程列表
+ */
 function initPlanCell20(){
 		var queryCond="";
-			queryCond += "<resourceId>${modelOne.processModelId}</resourceId>";
-		 	queryCond += "<resourceType>${taskAssgineeDto.businessType}</resourceType>";
+			queryCond += "<flowId>${taskAssgineeDto.executionId}</flowId>";
 			return queryCond;
-		}
+}
 
 	 //value 为1		保存
 	 //value 为2 	提交

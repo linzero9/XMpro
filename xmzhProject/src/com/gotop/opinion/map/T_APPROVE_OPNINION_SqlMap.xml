@@ -30,6 +30,21 @@
     <result column="ORGID" property="orgid" jdbcType="VARCHAR" />
     <result column="NODE_NAME" property="nodeName" jdbcType="VARCHAR" />
   </resultMap>
+  
+  <!--新增通用流程的审核意见-->
+  <insert id="insertOpninionGP" parameterClass="com.gotop.Generalprocess.model.TApproveOpninionGP">
+  	 <selectKey keyProperty="recId" resultClass="long">
+    	SELECT SEQ_T_APPROVE_OPNINION_GP.NEXTVAL AS VALUE FROM DUAL 
+    </selectKey>
+    insert into T_APPROVE_OPNINION_GP (REC_ID, FLOW_ID, RESOURCE_TYPE, OPNINION_CONTENT,
+      OPERATOR_TYPE, OPERATOR, OPERATER_DATE, OPERATER_TIME, NODE_ID, ORGID, NODE_NAME,NEXT_OPR_NAME,NEXT_ORG_NAME)
+    values (#recId:DECIMAL:-9999#, #flowId:VARCHAR#, #resourceType:VARCHAR#,
+      #opninionContent:VARCHAR#, #operatorType:VARCHAR#, #operator:DECIMAL:-9999#,
+      #operaterDate:VARCHAR#, #operaterTime:VARCHAR#, #nodeId:VARCHAR#, #orgid:VARCHAR#,
+      #nodeName:VARCHAR#,#nextOprName:varchar#,#nextorgname:varchar#)
+  </insert>
+  
+  
   <select id="abatorgenerated_selectByPrimaryKey" resultMap="abatorgenerated_TApproveOpninionResult" parameterClass="com.gotop.opinion.model.TApproveOpninion" >
     <!--通过主键查询一条数据-->
     select REC_ID, RESOURCE_ID, RESOURCE_TYPE, OPNINION_CONTENT, OPERATOR_TYPE, OPERATOR,

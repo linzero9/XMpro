@@ -51,10 +51,15 @@
       <tr class="form_bottom">
         <td colspan="4">
           <input type="button" value="提交" onclick="doSave(2);" class="button" id="save3" />
-          <!-- <input type="button" value="回退" onclick="doSave2(3);" class="button" id="save4" /> -->
           <input type="button" value="查看流程" onclick="doflowpic();" class="button" id="flowpic" />
          </td>
       </tr>
+     <tr id="row2">
+     <td class="form_label" align="right">流 程 列 表：</td>
+     <td colspan="3">
+     <%@include file="/jsp/util/opinionUtil_generalProcess.jsp"%>
+	</td>
+     </tr>
     </table>
     </h:form>
       	<w:panel id="showpanel" title="流程信息">
@@ -108,7 +113,7 @@
 				 
 			 }else{
 				 $("#row1").css("display","none");  
-				 $("#row2").css("display","none");  
+				 //$("#row2").css("display","none");  
 				 $("#row3").css("display","none");  
 			 }
 			 if('${euip.empName}'==""){
@@ -127,8 +132,7 @@
 		
 		function initPlanCell20(){
 				var queryCond="";
-				queryCond += "<resourceId>${euip.epId}</resourceId>";
-				queryCond += "<resourceType>${taskAssgineeDto.businessType}</resourceType>";
+				queryCond += "<flowId>${taskAssgineeDto.executionId}</flowId>";
 					return queryCond;
 				}
 

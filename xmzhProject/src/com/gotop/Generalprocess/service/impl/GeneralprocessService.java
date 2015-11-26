@@ -22,7 +22,6 @@ import com.gotop.jbpm.model.TProcessBusiness;
 import com.gotop.jbpm.service.ITProcessBusinessService;
 import com.gotop.jbpm.service.JbpmService;
 import com.gotop.opinion.dao.ITApproveOpninionDAO;
-import com.gotop.opinion.model.TApproveOpninion;
 import com.gotop.util.time.TimeUtil;
 import com.gotop.vo.system.MUOUserSession;
 
@@ -130,7 +129,8 @@ public class GeneralprocessService implements IGeneralprocessService {
 	@Override
 	public void handleModelOne(MUOUserSession muo, ProcessModelOne modelOne,
 			TaskAssgineeDto taskAssgineeDto) {
-		
+		//当前节点id
+		String taskId = "";
 		String preTaskId = "";
 		String nextTaskId = "";
 		String submitType = "";
@@ -142,52 +142,58 @@ public class GeneralprocessService implements IGeneralprocessService {
 
 		if (modelOne.getProcessModelId() != null
 				&& !"".equals(modelOne.getProcessModelId())) {
+			//更新模式一表单
 			
-			// 修改时间
+			// 当前时间
 			String uptDate = TimeUtil.getCntDtStr(new Date(), "yyyyMMddHHmmss");
-			// 修改时间
+			// 赋值最后修改时间
 			modelOne.setLast_up_time(uptDate);
-			// 修改人empid
+			// 赋值最后修改人empid
 			modelOne.setLast_up_name(String.valueOf(muo.getEmpid()));
 			
-			// 更新模式一表单内容
+			// 执行更新模式一
 			this.generalprocessModeloneDAO.uptModelOne(modelOne);
 			
-			//获取
-			preTaskId = taskAssgineeDto.getNextTaskId();
+			//赋值当前节点id
+			taskId = taskAssgineeDto.getNextTaskId();
 
-			// pb =
-			// this.tProcessBusinessService.queryProcessBusiness(executionId,modelOne.getProcessModelId());
-
+			//给DTO赋值taskId
+			taskAssgineeDto.setTaskId(taskId);
+			
 			TaskAssgineeDto d1 = new TaskAssgineeDto();
-
-			taskAssgineeDto.setPreTaskAssingee(muo.getEmpid());
-
 			d1.setTaskExeAssginee(String.valueOf(muo.getEmpid()));
-			d1.setTaskId(preTaskId);
-			taskAssgineeDto.setTaskId(preTaskId);
-			// 节点签收人
+			d1.setTaskId(taskId);
+			
+			// 当前节点签收
 			jbpmService.assignTask(d1);
-			// 节点完成
-			jbpmService.completeTask(preTaskId,
+			// 当前节点完成
+			jbpmService.completeTask(taskId,
 					taskAssgineeDto.getTransitionName(), null);
 
+			//当前节点已经完成
+			//给DTO赋值上个节点的办理人为当前登录人
 			taskAssgineeDto.setPreTaskAssingee(muo.getEmpid());
 
+			//更新当前办理人的状态-为已办
 			jbpmService.updateTaskAssigneeState(taskAssgineeDto);
 
 			// 赋值下个节点id
 			nextTaskId = jbpmService.getNextTaskId(taskAssgineeDto
 					.getExecutionId());
+			//给DTO赋值下个节点id
 			taskAssgineeDto.setNextTaskId(nextTaskId);
 
 			// 当前节点执行人
 			taskAssgineeDto.setTaskExeAssginee(String.valueOf(muo.getEmpid()));
 
+			//新建DTO，重新赋值
 			TaskAssgineeDto newDto = makeTaskAssgineeDtoNoPd(muo,
 					taskAssgineeDto);
 
 			jbpmService.saceTaskAssignee(newDto);
+			
+			// 提交
+			submitType = "05";
 		} else {
 			// 新增模式一表单
 			HashMap<String, Object> map = new HashMap<String, Object>();
@@ -246,7 +252,15 @@ public class GeneralprocessService implements IGeneralprocessService {
 				jbpmService.completeTask(preTaskId,
 						taskAssgineeDto.getTransitionName(), null);
 
-				if (!"退回".equals(taskAssgineeDto.getTransitionName())) {
+				
+				// 正常下一步
+				nextTaskId = jbpmService.getNextTaskId(taskAssgineeDto
+						.getExecutionId());
+				taskAssgineeDto.setNextTaskId(nextTaskId);
+				jbpmService.saceTaskAssignee(makeTaskAssgineeDto(pb,
+						muo, taskAssgineeDto));
+				
+				/*if (!"退回".equals(taskAssgineeDto.getTransitionName())) {
 					// 节点完成,执行下一步
 					if (isFirst == null && taskAssgineeDto.getEmpIds() != null
 							&& !"".equals(taskAssgineeDto.getEmpIds()))
@@ -255,29 +269,27 @@ public class GeneralprocessService implements IGeneralprocessService {
 						//
 
 					} else {
-						// 正常下一步
-						nextTaskId = jbpmService.getNextTaskId(taskAssgineeDto
-								.getExecutionId());
-						taskAssgineeDto.setNextTaskId(nextTaskId);
-						jbpmService.saceTaskAssignee(makeTaskAssgineeDto(pb,
-								muo, taskAssgineeDto));
+						
 					}
-
-					// generalprocessMainDAO.addGeneralProcessMain(taskAssgineeDto,modelOne,ProcessModelOne.class);
-
-					insertApproveOpninion(modelOne, muo, nextTaskId,
-							submitType, taskAssgineeDto);
+					
 				} else {
 					// 退回上一步操作
 					// insertApproveOpninion(euip, muo,
 					// taskId,"02",taskAssgineeDto);
 					// jbpmService.turnBackTaskAssignee(makeTaskAssgineeDtoBack(taskAssgineeDto,
 					// euip, muo));
-				}
-
+				}*/
+			}
+			
+			if (isFirst == null && taskAssgineeDto.getEmpIds() != null
+					&& !"".equals(taskAssgineeDto.getEmpIds())){
+				submitType = "01";
 			}
 		}
 
+		insertApproveOpninion(modelOne, muo, nextTaskId,
+				submitType, taskAssgineeDto);
+		
 		// 查询模式主表信息
 		TGeneralprocessMain main = this.generalprocessMainDAO
 				.queryMainByBusinessId(executionId);
@@ -370,6 +382,25 @@ public class GeneralprocessService implements IGeneralprocessService {
 		/*
 		 * }else if (btnType.equals("3")){ //模式二-回退操作 //退回 //回退上个节点 }
 		 */
+		
+		String submitType ="";
+		
+		/**
+		 * submitType  操作类型
+		 */
+		if("结束".equals(taskAssgineeDto.getTargetName())){
+			//结束
+			submitType="08";
+		}else if("退回".equals(taskAssgineeDto.getTransitionName())){
+			//退回
+			submitType="02";
+		}else{
+			//通过
+			submitType="01";
+		}
+		
+		insertApproveOpninion(modelTwo, muo, nextTaskId,
+				submitType, taskAssgineeDto);
 
 	}
 
@@ -459,6 +490,20 @@ public class GeneralprocessService implements IGeneralprocessService {
 	 */
 	public void insertApproveOpninion(ProcessModel processModel,
 			MUOUserSession muo, String taskId, String type, TaskAssgineeDto dto) {
+		/**
+		 * type
+		 * 01-通过
+		 * 02-退回
+		 * 03-阅毕
+		 * 04-转发
+		 * 05-提交
+		 * 06-发布
+		 * 07-反馈
+		 * 08-结束
+		 * 09-部室办理
+		 * 10-部室反馈
+		 * 11-转督办
+		 */
 		try {
 			if (processModel != null
 					&& processModel.getProcessModelId() != null

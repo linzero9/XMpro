@@ -1,5 +1,6 @@
 package com.gotop.messagePublish.service;
 
+import com.gotop.Generalprocess.model.TApproveOpninionGP;
 import com.gotop.file.model.TFileResourceTable;
 import com.gotop.jbpm.dto.TaskAssgineeDto;
 import com.gotop.jbpm.service.JbpmService;
@@ -78,4 +79,6 @@ List querysupervise();
    public void insertMessageTransmit(TMessagePublish message,
 			MUOUserSession muo,String messageId)throws Exception;
    public void insertMessageRedPer_zdb(String messageId,String opninion,MUOUserSession muo) throws Exception;
+
+   List<TApproveOpninionGP> queryApproveOpninionsGP(HashMap<String, String> hmp);
 }

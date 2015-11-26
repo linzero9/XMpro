@@ -1,6 +1,7 @@
 package com.gotop.messagePublish.action;
 
 import com.fr.design.insert.formula.FunctionNAD;
+import com.gotop.Generalprocess.model.TApproveOpninionGP;
 import com.gotop.crm.util.BaseAction;
 import com.gotop.crm.util.MUO;
 import com.gotop.jbpm.dto.TaskAssgineeDto;
@@ -58,6 +59,12 @@ public class TMessagePublishAction extends BaseAction {
     private List<TMessagePublish> emplist;
     private TMessagePublish message;
     private List<TApproveOpninion> opninions;
+    
+    /**
+     * 通用流程意见列表
+     */
+    private List<TApproveOpninionGP> opninionsGP;
+    
     //任务流程有关的实体
     private TaskAssgineeDto taskAssgineeDto;
     
@@ -97,6 +104,14 @@ public class TMessagePublishAction extends BaseAction {
 	private List<TDefaultOpinion> defaultOps;
 	
 	private ITDefaultOpinionService tDefaultOpinionService;
+
+	public List<TApproveOpninionGP> getOpninionsGP() {
+		return opninionsGP;
+	}
+
+	public void setOpninionsGP(List<TApproveOpninionGP> opninionsGP) {
+		this.opninionsGP = opninionsGP;
+	}
 
 	public List<TDefaultOpinion> getDefaultOps() {
 		return defaultOps;
@@ -172,6 +187,22 @@ public class TMessagePublishAction extends BaseAction {
   			  //String src_cd = hmp.get("resourceType");
     	        opninions = tMessagePublishService.queryApproveOpninions(hmp);
     	        String xmlStr =XmlConvert.getXmlListBean(opninions);
+    	        MUO.write(xmlStr);
+    		
+		} catch (Exception e) {
+			log.error("查询意见列表出错", e);
+		}
+    	
+    }
+    
+    /**
+     * 加载通用流程的意见列表
+     */
+    public void  queryOpninionsGP(){
+    	try {
+    		  HashMap<String, String> hmp = XmlConvert.getParamsAjax();
+    	        opninionsGP = tMessagePublishService.queryApproveOpninionsGP(hmp);
+    	        String xmlStr =XmlConvert.getXmlListBean(opninionsGP);
     	        MUO.write(xmlStr);
     		
 		} catch (Exception e) {
