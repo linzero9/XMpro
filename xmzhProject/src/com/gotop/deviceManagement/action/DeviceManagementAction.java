@@ -939,7 +939,7 @@ private HashMap checkData_maxLength(String str, String colName, int i, String ms
 				      
 				      cell1.setCellValue(String.valueOf(datas[i].split("--")[1]));
 
-				      
+				   
 				    }
 				    
 				    
@@ -1113,54 +1113,54 @@ private HashMap checkData_maxLength(String str, String colName, int i, String ms
         				 dicnameby="设备名称";
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_MODEL") ){
         				 colnum = colnum+2;
-        				 dicnameby="设备名称2";
+        				 dicnameby="设备型号";
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_OS_VERSION") ){
         				 colnum = colnum+8;
-        				 dicnameby="设备名称3";
+        				 dicnameby="操作系统版本";
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_IE_VERSION") ){
         				 colnum = colnum+10;
-        				 dicnameby="1111";
+        				 dicnameby="IE版本";
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_USEFUL") ){
         				 colnum = colnum+11;
-        				 dicnameby="222222";
+        				 dicnameby="用途";
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_PLUGIN") ){
         				 colnum = colnum+14;
-        				 dicnameby="333";
+        				 dicnameby="安装的插件";
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_PERIPHERAL") ){
         				 colnum = colnum+15;
-        				 dicnameby="4444";
+        				 dicnameby="对应的外设";
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_OTHERATTRIBUTE_1") ){
-        				 dicnameby="55555";
+        				 dicnameby="其他属性1";
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_OTHERATTRIBUTE_2") ){
         				 colnum = colnum+17;
-        				 dicnameby="666";
+        				 dicnameby="其他属性2";
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_OTHERATTRIBUTE_3") ){
         				 colnum = colnum+18;
-        				 dicnameby="7777";
+        				 dicnameby="其他属性3";
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_OTHERATTRIBUTE_4") ){
         				 colnum = colnum+19;
-        				 dicnameby="8888";
+        				 dicnameby="其他属性4";
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_OTHERATTRIBUTE_5") ){
         				 colnum = colnum+20;
-        				 dicnameby="899999";
+        				 dicnameby="其他属性5";
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_OTHERINFO_1") ){
         				 colnum = colnum+21;
-        				 dicnameby="1101010101";
+        				 dicnameby="应用系统";
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_OTHERINFO_2") ){
         				 colnum = colnum+22;
-        				 dicnameby="3030303";
+        				 dicnameby="其他信息2";
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_OTHERINFO_3") ){
         				 colnum = colnum+23;
-        				 dicnameby="4040440";
+        				 dicnameby="其他信息3";
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_OTHERINFO_4") ){
         				 colnum = colnum+24;
-        				 dicnameby="5151511515";
+        				 dicnameby="其他信息4";
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_OTHERINFO_5") ){
         				 colnum = colnum+25;
-        				 dicnameby="616161616";
+        				 dicnameby="其他信息5";
         			 }else if( (entry.getDictTypeId() ).equals( "DEVICE_STATE") ){
         				 colnum = colnum+31;
-        				 dicnameby="7171717";
+        				 dicnameby="设备状态";
         			 }
         		 }
         		 
