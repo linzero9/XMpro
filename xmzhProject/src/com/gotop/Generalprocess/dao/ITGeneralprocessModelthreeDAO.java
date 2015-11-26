@@ -15,6 +15,10 @@ import com.gotop.Generalprocess.model.TGeneralprocessModelthreeExample;
 public interface ITGeneralprocessModelthreeDAO {
 
 	ProcessModelThree queryModelThree(HashMap<String, Object> map);
-	
-	
+
+	void addModelThree(ProcessModelThree modelThree);
+
+	ProcessModelThree queryModelThreeById(String processModelId);
+
+	void uptModelThree(ProcessModelThree modelThree);
 }

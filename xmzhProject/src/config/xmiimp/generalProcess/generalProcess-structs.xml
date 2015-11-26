@@ -24,8 +24,8 @@
     </action>
     
     <action class="tGeneralprocessModelthreeAction" method="{1}" name="tGeneralprocessModelthreeAction_*">
-      <result name="viewlist">
-        /jsp/generalProcess/tGeneralprocessModelthreeDatacell.jsp
+       <result name="toModelthree">
+        /jsp/Generalprocess/modelthree_input.jsp
       </result>
     </action>
     </package>

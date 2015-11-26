@@ -1,7 +1,9 @@
 package com.gotop.Generalprocess.dao.impl;
 
 import com.gotop.Generalprocess.dao.ITGeneralprocessModelthreeDAO;
+import com.gotop.Generalprocess.model.ProcessModelOne;
 import com.gotop.Generalprocess.model.ProcessModelThree;
+import com.gotop.Generalprocess.model.ProcessModelTwo;
 import com.gotop.Generalprocess.model.TGeneralprocessModelthree;
 import com.gotop.Generalprocess.model.TGeneralprocessModelthreeExample;
 import com.gotop.util.dataSource.SqlMapClientDao;
@@ -31,8 +33,26 @@ public class TGeneralprocessModelthreeDAO extends SqlMapClientDao implements ITG
 	@Override
 	public ProcessModelThree queryModelThree(HashMap<String, Object> map) {
 		// TODO Auto-generated method stub
-		return null;
+		return (ProcessModelThree) queryForObject("T_GENERALPROCESS_MODELTHREE_SqlMap.queryModelThree", map);
 	}
 
+	@Override
+	public void addModelThree(ProcessModelThree modelThree) {
+		getSqlMapClientTemplate().insert("T_GENERALPROCESS_MODELTHREE_SqlMap.addModelTwo", modelThree);
+		
+	}
+
+	@Override
+	public ProcessModelThree queryModelThreeById(String processModelId) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("processModelId", processModelId);
+		return (ProcessModelThree) queryForObject("T_GENERALPROCESS_MODELTHREE_SqlMap.c", map);
+	}
+	
+	
+	@Override
+	public void uptModelThree(ProcessModelThree modelThree) {
+		getSqlMapClientTemplate().update("T_GENERALPROCESS_MODELTHREE_SqlMap.uptModelThree", modelThree);
+	}
    
 }
