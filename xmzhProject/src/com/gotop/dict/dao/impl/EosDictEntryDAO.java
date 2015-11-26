@@ -33,6 +33,12 @@ public class EosDictEntryDAO extends SqlMapClientDao implements IEosDictEntryDAO
 	}
 
 	@Override
+	public List queryDictEntryBydictTypeId(EosDictEntry dictEntry, Page page2) {
+		List list = queryForList("EOS_DICT_ENTRY_SqlMap.queryDictEntryBydictTypeId", dictEntry, page2);
+		return list;
+	}
+	
+	@Override
 	public List queryDictEntryBydictTypeId(EosDictEntry dictEntry) {
 		List list = queryForList("EOS_DICT_ENTRY_SqlMap.queryDictEntryBydictTypeId", dictEntry);
 		return list;

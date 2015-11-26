@@ -9,6 +9,8 @@ public interface IEosDictEntryDAO {
 
 	List dictTypeList(Map<String, Object> map, Page page);
 	
+	List queryDictEntryBydictTypeId(EosDictEntry dictEntry, Page page2);
+	
 	List queryDictEntryBydictTypeId(EosDictEntry dictEntry);
 
 	EosDictEntry getDictEntryById(EosDictEntry dictEntry);

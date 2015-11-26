@@ -53,6 +53,12 @@ public class EosDictEntryService implements IEosDictEntryService {
 	} 
 
 	@Override
+	public List<EosDictEntry> queryDictEntryBydictTypeId(EosDictEntry dictEntry, Page page2) {
+		 List<EosDictEntry> dictEntrys = eosDictEntryDAO.queryDictEntryBydictTypeId(dictEntry,page2);
+		return dictEntrys;
+	}
+	
+	@Override
 	public List<EosDictEntry> queryDictEntryBydictTypeId(EosDictEntry dictEntry) {
 		 List<EosDictEntry> dictEntrys = eosDictEntryDAO.queryDictEntryBydictTypeId(dictEntry);
 		return dictEntrys;
