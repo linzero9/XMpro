@@ -40,6 +40,14 @@
     <result column="TASKNAME" property="taskName" jdbcType="VARCHAR" />
   </resultMap>
   
+  <update id="uptModelTwo" parameterClass="com.gotop.Generalprocess.model.ProcessModelTwo" >
+    <!--通过主键更新一条全部字段内容-->
+    update T_GENERALPROCESS_MODELTWO
+    set 
+      OPNINION_CONTENT = #opninion_content:VARCHAR#
+    where PROCESSMODELID = #processModelId:DECIMAL#
+  </update>
+  
    <!--通过条件查询数据-->
    <select id="queryModelTwo" resultMap="processModelTwo_result" parameterClass="java.util.HashMap">
     select PROCESSMODELID, FLOW_ID, OPNINION_CONTENT,TASKNAME
@@ -63,13 +71,13 @@
   </select>
   
   <!-- 新增模式二表单 -->
-  	<insert id="addModelTwo" parameterClass="com.gotop.Generalprocess.model.ProcessModelTwo" >
-  		 <selectKey resultClass="long" keyProperty="processModelId">
-			SELECT SEQ_T_GENERALPROCESS_MODELTWO.NEXTVAL AS VALUE FROM DUAL
-		</selectKey>
+  <insert id="addModelTwo" parameterClass="com.gotop.Generalprocess.model.ProcessModelTwo" >
+  	<selectKey resultClass="long" keyProperty="processModelId">
+		SELECT SEQ_T_GENERALPROCESS_MODELTWO.NEXTVAL AS VALUE FROM DUAL
+	</selectKey>
   		insert into T_GENERALPROCESS_MODELTWO (PROCESSMODELID, FLOW_ID,OPNINION_CONTENT,TASKNAME)
     	values (#processModelId:DECIMAL:-9999#, #flow_id:DECIMAL:-9999#,#opninion_content:VARCHAR#,#taskName:VARCHAR#)
-  	</insert>
+  </insert>
   
   <select id="abatorgenerated_selectByPrimaryKey" resultMap="abatorgenerated_TGeneralprocessModeltwoResult" parameterClass="com.gotop.Generalprocess.model.TGeneralprocessModeltwo" >
     <!--通过主键查询一条数据-->

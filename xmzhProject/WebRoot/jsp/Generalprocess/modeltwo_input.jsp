@@ -27,8 +27,9 @@
         <h:hidden id="preTaskAssingee" name="taskAssgineeDto.preTaskAssingee" property="taskAssgineeDto.preTaskAssingee"/>
         <h:hidden id="definitionId" name="taskAssgineeDto.definitionId" property="taskAssgineeDto.definitionId"/>
         
-    	<%--   	<h:textarea property="taskAssgineeDto.fxJson"/>  --%>
-        
+        <h:hidden id="processModelId" name="modelTwo.processModelId" property="modelTwo.processModelId"/>
+		<h:hidden id="taskName" name="modelTwo.taskName" property="modelTwo.taskName"/>
+		
 		<%-- <h:hidden type="hidden" id="btnType" name="taskAssgineeDto.btnType" /> --%>
        
        <%--  <h:hidden id="isC" name="isC" property="taskAssgineeDto/isC"/>

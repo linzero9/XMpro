@@ -149,4 +149,6 @@ public interface ITGeneralprocessModeltwoDAO {
 	void addModelTwo(ProcessModelTwo modelTwo);
 
 	ProcessModelTwo queryModelTwo(HashMap<String, Object> map);
+
+	void uptModelTwo(ProcessModelTwo modelTwo);
 }

@@ -31,6 +31,7 @@
 		
 		<h:hidden id="processModelId" name="modelOne.processModelId" property="modelOne.processModelId"/>
 		<h:hidden id="taskName" name="modelOne.taskName" property="modelOne.taskName"/>
+		<h:hidden id="flowId" name="modelOne.flow_Id" property="modelOne.flow_Id"/>
 		
 		<table align="center" border="0" width="100%" class="form_table" >
       <tr>

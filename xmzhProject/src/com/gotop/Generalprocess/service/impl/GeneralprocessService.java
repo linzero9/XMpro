@@ -13,8 +13,10 @@ import com.gotop.Generalprocess.dao.ITGeneralprocessModeltwoDAO;
 import com.gotop.Generalprocess.model.ProcessModel;
 import com.gotop.Generalprocess.model.ProcessModelOne;
 import com.gotop.Generalprocess.model.ProcessModelTwo;
+import com.gotop.Generalprocess.model.TApproveOpninionGP;
 import com.gotop.Generalprocess.model.TGeneralprocessMain;
 import com.gotop.Generalprocess.service.IGeneralprocessService;
+import com.gotop.Generalprocess.service.ITGeneralprocessModeltwoService;
 import com.gotop.jbpm.dto.TaskAssgineeDto;
 import com.gotop.jbpm.model.TProcessBusiness;
 import com.gotop.jbpm.service.ITProcessBusinessService;
@@ -30,6 +32,9 @@ public class GeneralprocessService implements IGeneralprocessService {
 
 	private IGeneralprocessDAO generalProcessDAO;
 
+	/**
+	 * 模式主表DAO
+	 */
 	private ITGeneralprocessMainDAO generalprocessMainDAO;
 
 	/**
@@ -45,6 +50,20 @@ public class GeneralprocessService implements IGeneralprocessService {
 	protected ITApproveOpninionDAO tApproveOpninionDAO;
 
 	private ITProcessBusinessService tProcessBusinessService;
+	
+	/**
+	 * 模式二服务
+	 */
+	private ITGeneralprocessModeltwoService generalprocessModeltwoService;
+	
+	public ITGeneralprocessModeltwoService getGeneralprocessModeltwoService() {
+		return generalprocessModeltwoService;
+	}
+
+	public void setGeneralprocessModeltwoService(
+			ITGeneralprocessModeltwoService generalprocessModeltwoService) {
+		this.generalprocessModeltwoService = generalprocessModeltwoService;
+	}
 
 	public ITProcessBusinessService gettProcessBusinessService() {
 		return tProcessBusinessService;
@@ -124,7 +143,15 @@ public class GeneralprocessService implements IGeneralprocessService {
 		if (modelOne.getProcessModelId() != null
 				&& !"".equals(modelOne.getProcessModelId())) {
 			
+			// 修改时间
+			String uptDate = TimeUtil.getCntDtStr(new Date(), "yyyyMMddHHmmss");
+			// 修改时间
+			modelOne.setLast_up_time(uptDate);
+			// 修改人empid
+			modelOne.setLast_up_name(String.valueOf(muo.getEmpid()));
+			
 			// 更新模式一表单内容
+			this.generalprocessModeloneDAO.uptModelOne(modelOne);
 			
 			//获取
 			preTaskId = taskAssgineeDto.getNextTaskId();
@@ -206,6 +233,7 @@ public class GeneralprocessService implements IGeneralprocessService {
 
 			// 根据按钮类型
 			if (!"1".equals(btnType)) {
+				
 				// 不为保存状态
 				// euip.setNodeName1(jbpmService.getTaskById(taskId).getName());
 				//
@@ -250,10 +278,10 @@ public class GeneralprocessService implements IGeneralprocessService {
 			}
 		}
 
-		// 查询模式主板信息
+		// 查询模式主表信息
 		TGeneralprocessMain main = this.generalprocessMainDAO
 				.queryMainByBusinessId(executionId);
-		// 新增或更新模式主板的rule和id
+		// 新增或更新模式主表的rule和id
 		if (main != null) {
 			// 修改
 			this.generalprocessMainDAO.uptGeneralProcessMain(taskAssgineeDto,
@@ -273,8 +301,14 @@ public class GeneralprocessService implements IGeneralprocessService {
 		String taskName = jbpmService.getTaskNameById(taskId);
 		modelTwo.setTaskName(taskName);
 		modelTwo.setFlow_id(taskAssgineeDto.getExecutionId());
-		// 保存模式二表单内容
-		this.generalprocessModeltwoDAO.addModelTwo(modelTwo);
+		
+		if (modelTwo.getProcessModelId() != null
+				&& !"".equals(modelTwo.getProcessModelId())){
+			this.generalprocessModeltwoDAO.uptModelTwo(modelTwo);
+		}else{
+			// 保存模式二表单内容
+			this.generalprocessModeltwoDAO.addModelTwo(modelTwo);
+		}
 
 		modelTwo.setOpinion(modelTwo.getOpninion_content());
 
@@ -432,14 +466,17 @@ public class GeneralprocessService implements IGeneralprocessService {
 				if (processModel.getOpinion() != null) {
 					String currDate = TimeUtil.getCntDtStr(new Date(),
 							"yyyyMMddHHmmss");
-					TApproveOpninion opninion = new TApproveOpninion();
-					opninion.setResourceId(processModel.getProcessModelId());
+					TApproveOpninionGP opninion = new TApproveOpninionGP();
+					//opninion.setResourceId(processModel.getProcessModelId());
+					opninion.setFlowId(dto.getExecutionId());
 					opninion.setOperator(muo.getEmpid());
 					opninion.setOrgid(String.valueOf(muo.getOrgid()));
 					opninion.setResourceType(dto.getBusinessType());
+					//操作类型
 					opninion.setOperatorType(type);
 					opninion.setOperaterDate(currDate.substring(0, 8));
 					opninion.setOperaterTime(currDate.substring(8));
+					//操作的意见
 					opninion.setOpninionContent(processModel.getOpinion());
 
 					opninion.setNextorgname("");
@@ -462,7 +499,7 @@ public class GeneralprocessService implements IGeneralprocessService {
 					// 需要taskId
 					opninion.setNodeId(taskId);
 					// opninion.setNodeName(euip.getNodeName1());
-					tApproveOpninionDAO.insert(opninion);
+					tApproveOpninionDAO.insertOpninionGP(opninion);
 				}
 			}
 		} catch (Exception e) {

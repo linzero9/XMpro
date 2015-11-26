@@ -91,22 +91,22 @@ public class ProcessModelOne extends ProcessModel  implements  Serializable {
 	private String   cust_Name;
 	
 	
-	@GeneralprocessField(name="创建日期",type="text")
+	@GeneralprocessField(name="创建日期",type="text",hidden=false)
 	private String    create_Date;
 	
-	@GeneralprocessField(name="创建时间",type="text")
+	@GeneralprocessField(name="创建时间",type="text",hidden=false)
 	private String    create_time;
 	
-	@GeneralprocessField(name="创建人姓名",type="text")
+	@GeneralprocessField(name="创建人姓名",type="text",hidden=false)
 	private String     create_name;
 	
-	@GeneralprocessField(name="最后修改日期",type="text")
+	@GeneralprocessField(name="最后修改日期",type="text",hidden=false)
 	private String last_up_date;
 	
-	@GeneralprocessField(name="最后修改时间",type="text")
+	@GeneralprocessField(name="最后修改时间",type="text",hidden=false)
 	private String last_up_time;
 	
-	@GeneralprocessField(name="最后操作员",type="text")
+	@GeneralprocessField(name="最后操作员",type="text",hidden=false)
 	private String    last_up_name;
 	
 	

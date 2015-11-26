@@ -1,5 +1,6 @@
 package com.gotop.opinion.dao.impl;
 
+import com.gotop.Generalprocess.model.TApproveOpninionGP;
 import com.gotop.opinion.dao.ITApproveOpninionDAO;
 import com.gotop.opinion.model.TApproveOpninion;
 import com.gotop.opinion.model.TApproveOpninionExample;
@@ -250,5 +251,10 @@ public class TApproveOpninionDAO extends SqlMapClientDao implements ITApproveOpn
 	public String receiveResourceId(HashMap map) {
 		String resourceId = (String) queryForObject("T_APPROVE_OPNINION_SqlMap.receiveResourceId", map);
 		return resourceId;
+	}
+
+	@Override
+	public void insertOpninionGP(TApproveOpninionGP opninion) {
+		getSqlMapClientTemplate().insert("T_APPROVE_OPNINION_SqlMap.insertOpninionGP", opninion);		
 	}
 }

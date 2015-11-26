@@ -254,4 +254,9 @@ public class TGeneralprocessModeloneDAO extends SqlMapClientDao implements ITGen
 	public ProcessModelOne queryModelOne(HashMap<String, Object> map) {
 		return (ProcessModelOne) queryForObject("T_GENERALPROCESS_MODELONE_SqlMap.queryModelOne", map);
 	}
+
+	@Override
+	public void uptModelOne(ProcessModelOne modelOne) {
+		getSqlMapClientTemplate().update("T_GENERALPROCESS_MODELONE_SqlMap.uptModelOne", modelOne);
+	}
 }
