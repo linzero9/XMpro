@@ -925,32 +925,26 @@ private HashMap checkData_maxLength(String str, String colName, int i, String ms
 					
 					org.apache.poi.hssf.usermodel.HSSFRow row = null;
 				    org.apache.poi.hssf.usermodel.HSSFCell cell = null;
+				    org.apache.poi.hssf.usermodel.HSSFCell cell1 = null;
+			
 				    for (int i = 0, length = datas.length; i < length; i++) {
-				      row = hidden.createRow(i);
+				      row = hidden.createRow(i+1);
 				      cell = row.createCell(0);
-				      cell.setCellValue(String.valueOf(datas[i]));
+				      cell1 = row.createCell(1);
+				      
+				    
+				      
+				      cell.setCellValue(String.valueOf(datas[i].split("--")[0]));
+				    
+				      
+				      cell1.setCellValue(String.valueOf(datas[i].split("--")[1]));
+
+				      
 				    }
 				    
 				    
 				    
-				    Name namedCell = wb.createName();
-				    namedCell.setNameName("hiddenSheet"+colnum);
-				    namedCell.setRefersToFormula("hiddenSheet!A1:A" + datas.length);
-				  
-				    //生成下拉框内容
-				    DVConstraint constraint = DVConstraint
-				        .createFormulaListConstraint("hiddenSheet"+colnum);
-				//只对（0，0）单元格有效
-			
-				    CellRangeAddressList regions = new CellRangeAddressList(rownum,rownum,colnum,colnum);   //CellRangeAddressList(int firstRow, int lastRow, int firstCol, int lastCol)
-				
-				
-				//绑定下拉框和作用区域
-				HSSFDataValidation data_validation = new HSSFDataValidation(regions,constraint);
-				data_validation.setShowErrorBox(false);// 取消弹出错误框
-				//对sheet页生效
-				sheet.addValidationData(data_validation);
-
+				    
 				//结束
 				System.out.println("createListBox Over");
 				} catch (Exception e) {
@@ -1090,7 +1084,7 @@ private HashMap checkData_maxLength(String str, String colName, int i, String ms
         	int rownum = 1;
         	int colnum = 0;
         	boolean myflag = true;
-        	String dicnameby="";
+        	String dicnameby="sheet";
         	
         	StringBuffer infos = new StringBuffer();
         	
@@ -1125,34 +1119,48 @@ private HashMap checkData_maxLength(String str, String colName, int i, String ms
         				 dicnameby="设备名称3";
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_IE_VERSION") ){
         				 colnum = colnum+10;
+        				 dicnameby="1111";
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_USEFUL") ){
         				 colnum = colnum+11;
+        				 dicnameby="222222";
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_PLUGIN") ){
         				 colnum = colnum+14;
+        				 dicnameby="333";
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_PERIPHERAL") ){
         				 colnum = colnum+15;
+        				 dicnameby="4444";
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_OTHERATTRIBUTE_1") ){
-        				 colnum = colnum+16;
+        				 dicnameby="55555";
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_OTHERATTRIBUTE_2") ){
         				 colnum = colnum+17;
+        				 dicnameby="666";
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_OTHERATTRIBUTE_3") ){
         				 colnum = colnum+18;
+        				 dicnameby="7777";
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_OTHERATTRIBUTE_4") ){
         				 colnum = colnum+19;
+        				 dicnameby="8888";
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_OTHERATTRIBUTE_5") ){
         				 colnum = colnum+20;
+        				 dicnameby="899999";
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_OTHERINFO_1") ){
         				 colnum = colnum+21;
+        				 dicnameby="1101010101";
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_OTHERINFO_2") ){
         				 colnum = colnum+22;
+        				 dicnameby="3030303";
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_OTHERINFO_3") ){
         				 colnum = colnum+23;
+        				 dicnameby="4040440";
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_OTHERINFO_4") ){
         				 colnum = colnum+24;
+        				 dicnameby="5151511515";
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_OTHERINFO_5") ){
         				 colnum = colnum+25;
+        				 dicnameby="616161616";
         			 }else if( (entry.getDictTypeId() ).equals( "DEVICE_STATE") ){
         				 colnum = colnum+31;
+        				 dicnameby="7171717";
         			 }
         		 }
         		 
