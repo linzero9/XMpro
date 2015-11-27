@@ -64,9 +64,9 @@
   </update>
   
 	<!--通过主键查询一条数据-->
-  <select id="processModelThree_result" resultMap="processModelThree_result" parameterClass="java.util.HashMap">
+  <select id="queryModelThreeById" resultMap="processModelThree_result" parameterClass="java.util.HashMap">
     select t.PROCESSMODELID,t.flow_id,t.isurgent,t.opninion_content,t.taskname,t.reporttime,t.reportcnt
-    from T_GENERALPROCESS_MODELTWO
+    from T_GENERALPROCESS_MODELTHREE t
     where PROCESSMODELID = #processModelId#
   </select>
 </sqlMap>

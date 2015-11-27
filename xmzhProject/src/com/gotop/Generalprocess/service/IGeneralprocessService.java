@@ -1,5 +1,6 @@
 package com.gotop.Generalprocess.service;
 
+import com.gotop.Generalprocess.model.ProcessModel;
 import com.gotop.Generalprocess.model.ProcessModelOne;
 import com.gotop.Generalprocess.model.ProcessModelTwo;
 import com.gotop.jbpm.dto.TaskAssgineeDto;
@@ -24,5 +25,9 @@ public interface IGeneralprocessService {
 	 */
 	public void handleModelTwo(MUOUserSession muo, ProcessModelTwo modelTwo,
 			TaskAssgineeDto taskAssgineeDto);
+	
+	
+	public void insertApproveOpninion(ProcessModel processModel,
+			MUOUserSession muo, String taskId, String type, TaskAssgineeDto dto);
 
 }

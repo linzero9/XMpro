@@ -68,7 +68,6 @@
 	</w:panel>
   </body>
  <script type="text/javascript">
-
  show('${taskAssgineeDto.fxJson}');
 
 		 $(document).ready(function(){

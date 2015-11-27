@@ -2,12 +2,15 @@ package com.gotop.Generalprocess.service.impl;
 
 import com.gotop.Generalprocess.dao.ITGeneralprocessMainDAO;
 import com.gotop.Generalprocess.dao.ITGeneralprocessModelthreeDAO;
+import com.gotop.Generalprocess.model.ProcessModel;
 import com.gotop.Generalprocess.model.ProcessModelOne;
 import com.gotop.Generalprocess.model.ProcessModelThree;
 import com.gotop.Generalprocess.model.ProcessModelTwo;
+import com.gotop.Generalprocess.model.TApproveOpninionGP;
 import com.gotop.Generalprocess.model.TGeneralprocessMain;
 import com.gotop.Generalprocess.model.TGeneralprocessModelthree;
 import com.gotop.Generalprocess.model.TGeneralprocessModelthreeExample;
+import com.gotop.Generalprocess.service.IGeneralprocessService;
 import com.gotop.Generalprocess.service.ITGeneralprocessModelthreeService;
 import com.gotop.jbpm.dto.TaskAssgineeDto;
 import com.gotop.jbpm.service.JbpmService;
@@ -36,8 +39,19 @@ public class TGeneralprocessModelthreeService implements ITGeneralprocessModelth
      * @abatorgenerated
      */
     protected ITGeneralprocessModelthreeDAO tGeneralprocessModelthreeDAO;
+    
+    protected IGeneralprocessService generalprocessService;
 
-    public JbpmService getJbpmService() {
+    public IGeneralprocessService getGeneralprocessService() {
+		return generalprocessService;
+	}
+
+	public void setGeneralprocessService(
+			IGeneralprocessService generalprocessService) {
+		this.generalprocessService = generalprocessService;
+	}
+
+	public JbpmService getJbpmService() {
 		return jbpmService;
 	}
 
@@ -81,10 +95,11 @@ public class TGeneralprocessModelthreeService implements ITGeneralprocessModelth
 		
 		if (modelThree.getProcessModelId() != null
 				&& !"".equals(modelThree.getProcessModelId())){
-			this.tGeneralprocessModelthreeDAO.addModelThree(modelThree);
-		}else{
-			// 保存模式三表单内容
+			//更新模式三
 			this.tGeneralprocessModelthreeDAO.uptModelThree(modelThree);
+		}else{
+			//保存模式三
+			this.tGeneralprocessModelthreeDAO.addModelThree(modelThree);
 		}
 
 		// 保存模式三表单内容
@@ -95,7 +110,7 @@ public class TGeneralprocessModelthreeService implements ITGeneralprocessModelth
 		// 获取流程实例id
 		String executionId = taskAssgineeDto.getExecutionId();
 
-		// 查询模式主板信息
+		// 查询模式主表信息
 		TGeneralprocessMain main = this.generalprocessMainDAO
 				.queryMainByBusinessId(executionId);
 
@@ -110,13 +125,13 @@ public class TGeneralprocessModelthreeService implements ITGeneralprocessModelth
 					modelThree, ProcessModelThree.class);
 		}
 
-		String btnType = taskAssgineeDto.getBtnType();
+		//String btnType = taskAssgineeDto.getBtnType();
 		/* if(btnType.equals("2")){ */
 		// 模式二-提交操作
 		// 审核通过
 		// 提交下个节点
+		
 		TaskAssgineeDto d1 = new TaskAssgineeDto();
-
 		d1.setTaskId(taskId);
 		d1.setTaskExeAssginee(String.valueOf(muo.getEmpid()));
 
@@ -146,11 +161,24 @@ public class TGeneralprocessModelthreeService implements ITGeneralprocessModelth
 
 		jbpmService.saceTaskAssignee(newDto);
 
-		// insertApproveOpninion(modelTwo, muo, taskId, "01", newDto);
-		/*
-		 * }else if (btnType.equals("3")){ //模式二-回退操作 //退回 //回退上个节点 }
+		String submitType = "";
+		/**
+		 * submitType  操作类型
 		 */
-
+		if("结束".equals(taskAssgineeDto.getTargetName())){
+			//结束
+			submitType="08";
+		}else if("退回".equals(taskAssgineeDto.getTransitionName())){
+			//退回
+			submitType="02";
+		}else{
+			//通过
+			submitType="01";
+		}
+		
+		this.generalprocessService.insertApproveOpninion(modelThree, muo, nextTaskId,
+				submitType, taskAssgineeDto);
+		
 	}
 
 	@Override

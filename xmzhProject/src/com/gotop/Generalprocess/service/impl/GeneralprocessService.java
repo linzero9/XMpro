@@ -252,6 +252,8 @@ public class GeneralprocessService implements IGeneralprocessService {
 				jbpmService.completeTask(preTaskId,
 						taskAssgineeDto.getTransitionName(), null);
 
+				taskAssgineeDto.setPreTaskAssingee(muo.getEmpid());
+				jbpmService.updateTaskAssigneeState(taskAssgineeDto);
 				
 				// 正常下一步
 				nextTaskId = jbpmService.getNextTaskId(taskAssgineeDto
@@ -482,12 +484,16 @@ public class GeneralprocessService implements IGeneralprocessService {
 		return taskAssgineeDto;
 	}
 
+
+
+	
 	/**
 	 * 生成意见
 	 * 
 	 * @param muo
 	 * @param taskId
 	 */
+	@Override
 	public void insertApproveOpninion(ProcessModel processModel,
 			MUOUserSession muo, String taskId, String type, TaskAssgineeDto dto) {
 		/**

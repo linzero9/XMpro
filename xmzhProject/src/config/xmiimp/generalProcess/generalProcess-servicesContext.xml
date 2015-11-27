@@ -32,5 +32,6 @@
     <property name="tGeneralprocessModelthreeDAO" ref="tGeneralprocessModelthreeDAO" />
     <property name="generalprocessMainDAO" ref="generalprocessMainDAO" />
     <property name="jbpmService" ref="jbpmService" />
+    <property name="generalprocessService" ref="generalProcessService" />
   </bean>
   </beans>
