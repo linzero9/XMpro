@@ -12,6 +12,7 @@ import org.jbpm.api.ProcessDefinition;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.gotop.Generalprocess.util.SpringPropertyResourceReader;
 import com.gotop.crm.util.BaseAction;
 import com.gotop.jbpm.dto.ProcessDeployDto;
 import com.gotop.jbpm.jpdl.JpdlModelDrawer;
@@ -141,7 +142,8 @@ public class JbpmCommonConfigAction extends BaseAction{
 		BufferedWriter buffWri = null;
 		String str = null;
 		
-		String xmlPath = "d:/jbpmOut.jpdl.xml";
+//		String xmlPath = "d:/jbpmOut.jpdl.xml";
+		String xmlPath = SpringPropertyResourceReader.getProperty("jbpm_file");
 		String pName = "";
 		//生成JBPM XML文件
 		try {
@@ -193,8 +195,11 @@ public class JbpmCommonConfigAction extends BaseAction{
 			if(!file.isDirectory()){
 				file.mkdir();
 			}*/
-			file2 = new File("d:/jbpmOut.png");
-			file2.createNewFile();
+			pngPath = SpringPropertyResourceReader.getProperty("jbpm_png_file");
+			file2 = new File(pngPath);
+			if(!file2.exists()){
+				file2.createNewFile();
+			}
 			//生成流程图片
 			JpdlModel jpdlModel;
 			try {
