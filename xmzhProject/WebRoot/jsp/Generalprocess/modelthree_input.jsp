@@ -42,7 +42,7 @@
       </tr>
       <tr>
       	<td class="form_label" align="right" style="width:10%;">是否加急：</td>
-      		 <td><d:select dictTypeId="ABF_APPTYPE" property="modelThree.isurgent" nullLabel="请选择" /></td> 
+      		 <td><d:select dictTypeId="ZHPT_ISURGENT" property="modelThree.isurgent" nullLabel="请选择" /></td> 
       	<td class="form_label" align="right" style="width:10%;">报单时间：</td>
       		 <td colspan="1">
       		  <div id="inputTime">
