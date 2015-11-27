@@ -71,6 +71,12 @@
           <input type="button" value="查看流程" onclick="doflowpic();" class="button" id="flowpic" />
          </td>
       </tr>
+           <tr id="row2">
+     <td class="form_label" align="right">流 程 列 表：</td>
+     <td colspan="3">
+     <%@include file="/jsp/util/opinionUtil_generalProcess.jsp"%>
+	</td>
+     </tr>
     </table>
     </h:form>
       	<w:panel id="showpanel" title="流程信息">
@@ -124,7 +130,7 @@
 				 
 			 }else{
 				 $("#row1").css("display","none");  
-				 $("#row2").css("display","none");  
+				 //$("#row2").css("display","none");  
 				 $("#row3").css("display","none");  
 			 }
 			 if('${euip.empName}'==""){
@@ -141,10 +147,9 @@
 
 		});
 		
-		function initPlanCell20(){
+			function initPlanCell20(){
 				var queryCond="";
-				queryCond += "<resourceId>${euip.epId}</resourceId>";
-				queryCond += "<resourceType>${taskAssgineeDto.businessType}</resourceType>";
+				queryCond += "<flowId>${taskAssgineeDto.executionId}</flowId>";
 					return queryCond;
 				}
 
@@ -182,7 +187,7 @@
 		 	function taskAssigneeCallBack(arg){
 		  	 	var _form = $id("form1");
 		  	 	if(arg!=""){
-		  	  	 	url="/Generalprocess/generalProcessAction_handleModelTwo.action?"+arg;	
+		  	  	 	url="/Generalprocess/tGeneralprocessModelthreeAction_handleModelThree.action?"+arg;	
 		  	  	    _form.action =url
 		  	        // 异步提交请求 
 		  	  	    ajaxsubmitO();

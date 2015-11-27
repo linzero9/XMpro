@@ -123,7 +123,8 @@ $.extend(true,myflow.config.tools.states,{
 				img : {src : '/js/jbpm/img/48/task_empty.png',width :48, height:48},
 				props : {
 					text: {name:'text', label: '模式名称',value:'模式三',editor: function(){return new myflow.editors.textEditor();}},
-					form: {name:'form', label : '',value:'moshi3.action'}
+					form: {name:'form', label : '',value:'/Generalprocess/tGeneralprocessModelthreeAction_toModelThree.action'},
+					assignee: {name:'assignee', label: '', value:'#{user}'}
 				}}
 				
 });

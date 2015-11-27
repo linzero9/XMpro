@@ -172,9 +172,9 @@ public class TGeneralprocessModelthreeAction extends BaseAction {
     		if(taskAssgineeDto.getNextTaskId() != null){
     			String taskName = jbpmService.getTaskNameById(taskAssgineeDto.getNextTaskId());
         		
-        		ProcessModelOne modelOne = new ProcessModelOne();
-        		modelOne.setFlow_Id(businessId);
-        		modelOne.setTaskName(taskName);
+    			ProcessModelThree modelThree = new ProcessModelThree();
+    			modelThree.setFlow_id(businessId);
+    			modelThree.setTaskName(taskName);
         		ProcessModelThree newModelThree = new ProcessModelThree();
         		newModelThree = this.generalprocessModelthreeService.queryModelThree(modelThree);
     			
