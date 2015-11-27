@@ -30,6 +30,7 @@
 
   <bean class="com.gotop.Generalprocess.service.impl.TGeneralprocessModelthreeService" id="tGeneralprocessModelthreeService">
     <property name="tGeneralprocessModelthreeDAO" ref="tGeneralprocessModelthreeDAO" />
+    <property name="generalprocessMainDAO" ref="generalprocessMainDAO" />
     <property name="jbpmService" ref="jbpmService" />
   </bean>
   </beans>

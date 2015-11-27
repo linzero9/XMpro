@@ -37,7 +37,24 @@ public class TGeneralprocessModelthreeService implements ITGeneralprocessModelth
      */
     protected ITGeneralprocessModelthreeDAO tGeneralprocessModelthreeDAO;
 
-    /**
+    public JbpmService getJbpmService() {
+		return jbpmService;
+	}
+
+	public void setJbpmService(JbpmService jbpmService) {
+		this.jbpmService = jbpmService;
+	}
+
+	public ITGeneralprocessMainDAO getGeneralprocessMainDAO() {
+		return generalprocessMainDAO;
+	}
+
+	public void setGeneralprocessMainDAO(
+			ITGeneralprocessMainDAO generalprocessMainDAO) {
+		this.generalprocessMainDAO = generalprocessMainDAO;
+	}
+
+	/**
      * 通过spring注入DAO的set类.
      * @abatorgenerated
      */
@@ -61,8 +78,17 @@ public class TGeneralprocessModelthreeService implements ITGeneralprocessModelth
 		String taskName = jbpmService.getTaskNameById(taskId);
 		modelThree.setTaskName(taskName);
 		modelThree.setFlow_id(taskAssgineeDto.getExecutionId());
-		// 保存模式二表单内容
-		this.tGeneralprocessModelthreeDAO.addModelThree(modelThree);
+		
+		if (modelThree.getProcessModelId() != null
+				&& !"".equals(modelThree.getProcessModelId())){
+			this.tGeneralprocessModelthreeDAO.addModelThree(modelThree);
+		}else{
+			// 保存模式三表单内容
+			this.tGeneralprocessModelthreeDAO.uptModelThree(modelThree);
+		}
+
+		// 保存模式三表单内容
+		
 
 		modelThree.setOpinion(modelThree.getOpninion_content());
 
