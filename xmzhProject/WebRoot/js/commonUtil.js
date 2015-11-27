@@ -540,8 +540,11 @@ WEB.turnMainFrame=function(){
 								        data: "",
 								        dataType: 'json',
 								        success: function (json) {
-								        	if(json){
+								        	if(json==""){
+								        		dictname= item.value;
+								        	}else {
 								        		dictname= json.dictname;
+								        		
 								        	}
 								        	showpanelhtml=showpanelhtml+'<tr><td class="form_label" align="right" style="width:120px;">'+item.name+ '</td><td>'+json.dictname+'</td>';
 								        	index=index+1;
@@ -566,8 +569,9 @@ WEB.turnMainFrame=function(){
 									        data: "",
 									        dataType: 'json',
 									        success: function (json) {
+									        	if(json.dictname)
 									        	dictname= json.dictname;
-									        	showpanelhtml=showpanelhtml+'<tr><td class="form_label" align="right" style="width:120px;">'+item.name+ '</td><td>'+json.dictname+'</td></tr>';
+									        	showpanelhtml=showpanelhtml+'<td class="form_label" align="right" style="width:120px;">'+item.name+ '</td><td>'+json.dictname+'</td></tr>';
 									        	index=index+1;
 										        }
 								    });	
