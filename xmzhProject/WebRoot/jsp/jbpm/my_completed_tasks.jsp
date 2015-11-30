@@ -144,6 +144,8 @@
 											property='currentAssingee' />
 										<h:param name='nextTaskId' iterateId='id1'
 											property='nextTaskId' />
+										<h:param name='oldTaskId' iterateId='id1'
+											property='oldTaskId' />
 									</w:rowRadio></td>
 								<td nowrap="nowrap"><b:write iterateId="id1"
 										property="businessTitle" /></td>
@@ -340,6 +342,7 @@
 				var currentActivityName = rows.getParam("currentActivityName");
 				var preTaskId = rows.getParam("preTaskId");
 				var businessType = rows.getParam("businessType");
+				var activityName = rows.getParam("activityName");
 
 				var strUrl = "/jbpm/jbpmDemoAction_viewBussinessDetail.action?isView="
 						+ 1
@@ -349,7 +352,8 @@
 						+ activityName
 						+ "&taskAssgineeDto.preTaskId="
 						+ preTaskId
-						+ "&taskAssgineeDto.businessType=" + businessType;
+						+ "&taskAssgineeDto.businessType=" + businessType
+						+ "&taskAssgineeDto.activityName=" + activityName;
 				/**
 				 * 2014.9.1 改为弹出框
 				 **/

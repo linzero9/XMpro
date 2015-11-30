@@ -1120,6 +1120,12 @@ public class JbpmDemoAction extends BaseAction {
 				buffer.append(taskAssgineeDto.getTaskConfigType());
 				buffer.append("&");
 			}
+			if(taskAssgineeDto.getActivityName()!= null){
+				buffer.append("taskAssgineeDto.activityName=");
+				//中文参数传递给业务时进行转码
+				buffer.append(java.net.URLEncoder.encode(taskAssgineeDto.getActivityName(), "utf-8"));
+				buffer.append("&");
+			}
 		}
 		String string = buffer.substring(0, buffer.length() - 1);
 		return string;

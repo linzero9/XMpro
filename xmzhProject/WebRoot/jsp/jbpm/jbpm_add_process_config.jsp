@@ -217,8 +217,6 @@ function openNewEmpTreeCallBack(arg){//回调方法
 			$id("processState").value="";
 			$id("deployRange").value="";
 			$id("objName").value="";
-			
-			
 			window.close();
 		}else{
 			return false;

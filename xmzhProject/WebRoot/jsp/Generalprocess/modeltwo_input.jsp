@@ -98,9 +98,6 @@
 				        }
 			    });	
 				 $("#beginOrg").val("${euip.orgid}");	
-				 if('${isView}'!=""){
-					 $(".smit").attr("display","none");
-				 }
 
 				 if('${taskAssgineeDto.isC}'){
 					 	$("#save3").hide();
@@ -119,12 +116,13 @@
 				 $("#empName").val('${sessionScope.login_user.empname}');
 			 }
 
+			 //查看详情界面
 			 if('${isView}'!=''){
 					$("#save1").hide();
 					$("#save3").hide();
 					$("#fujian").hide();
 					$("#row3").hide();
-					//$("#hiddenTime").show();
+					$("#opninion_content").attr("readonly",true);
 				}
 
 		});

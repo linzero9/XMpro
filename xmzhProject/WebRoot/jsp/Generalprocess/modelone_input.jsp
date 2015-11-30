@@ -144,16 +144,6 @@
 	     	<h:textarea property="modelOne.content" id="content"  extAttr="class='h80' "  validateAttr="maxLength=512;allowNull=ture" rows="4"  style="width:90%;" />
      	</td>
       </tr>
-       <tr id="row3">
-     	<td class="form_label" align="right">意见：</td>
-     	<td colspan="3">
-	     	<h:textarea property="modelOne.opinion"   extAttr="class='h80' " name="modelOne.opinion" id="opinion" validateAttr="maxLength=512" rows="4"  style="width:90%;"/>
-		    <font style="color: red">*</font>
-     	</td>
-      </tr>
-      <tbody id="dopiRow">
-     	<%@include file="/jsp/util/default_opinionUtil.jsp" %>
-     </tbody>
       <tr class="form_bottom">
         <td colspan="4">
           <input type="button" value="结束流程" class="button" onclick="doDeleteProcess('<b:write property="taskAssgineeDto/businessKey" />','07');" id="deleteProcessBtn">
@@ -249,13 +239,14 @@
 		 $("#orgCodeOne").val('${sessionScope.login_user.orgcode}');
 	 }
 	 
+	 //查看详情界面
 	 if('${isView}'!=''){
 		$("#deleteProcessBtn").hide();
 		$("#save1").hide();
 		$("#smit").hide();
 		$("#fujian").hide();
-		$("#row1").show();
-		$("#hiddenTime").show();
+		//$("#row1").show();
+		//$("#hiddenTime").show();
 		$("#rowTemplate").hide();
 	}
 	 
