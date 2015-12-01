@@ -156,11 +156,33 @@ body {
 <!-- <div class="node state" id="task" type="task"><img
 	src="/js/jbpm/img/16/task_empty.png" />&nbsp;&nbsp;任务</div> -->
 <div class="node state" id="task1" type="task1"><img
-	src="/js/jbpm/img/16/task_empty.png" />&nbsp;&nbsp;模式一</div>
+	src="/js/jbpm/img/16/task_empty.png" />&nbsp;&nbsp;模式一 受理调查</div>
 	<div class="node state" id="task2" type="task2"><img
-	src="/js/jbpm/img/16/task_empty.png" />&nbsp;&nbsp;模式二</div>
+	src="/js/jbpm/img/16/task_empty.png" />&nbsp;&nbsp;模式二  处理意见</div>
 	<div class="node state" id="task3" type="task3"><img
-	src="/js/jbpm/img/16/task_empty.png" />&nbsp;&nbsp;模式三</div>
+	src="/js/jbpm/img/16/task_empty.png" />&nbsp;&nbsp;模式三  收单派单</div>
+	
+		<div class="node state" id="task4" type="task4"><img
+	src="/js/jbpm/img/16/task_empty.png" />&nbsp;&nbsp;模式四 审查审批</div>
+	
+	
+			<div class="node state" id="task5" type="task5"><img
+	src="/js/jbpm/img/16/task_empty.png" />&nbsp;&nbsp;模式五 决策意见</div>
+	
+	
+				<div class="node state" id="task6" type="task6"><img
+	src="/js/jbpm/img/16/task_empty.png" />&nbsp;&nbsp;模式六	抵押支用</div>
+	
+	
+					<div class="node state" id="task7" type="task7"><img
+	src="/js/jbpm/img/16/task_empty.png" />&nbsp;&nbsp;模式七	支用审批意见</div>
+	
+	
+		
+					<div class="node state" id="task8" type=""task8""><img
+	src="/js/jbpm/img/16/task_empty.png" />&nbsp;&nbsp;模式八	公积金审批</div>
+	
+	
 <div class="node state" id="fork" type="fork"><img
 	src="/js/jbpm/img/16/gateway_parallel.png" />&nbsp;&nbsp;分支</div>
 <div class="node state" id="join" type="join"><img
