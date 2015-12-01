@@ -1334,7 +1334,14 @@ private HashMap checkData_maxLength(String str, String colName, int i, String ms
         	}
         	
         	if(myflag == true){
-        		infos = infos.deleteCharAt(infos.length() - 1);
+        		
+        		if(infos.length()==0){
+        		
+        		}else{
+        			infos = infos.deleteCharAt(infos.length() - 1);
+        		}
+        	
+        		
         		createListBox(infos, sheet, wb, rownum, colnum,dicnameby);
         	}
         
@@ -1527,7 +1534,16 @@ private HashMap checkData_maxLength(String str, String colName, int i, String ms
 				"*其他属性1(单选)", "*其他属性2(单选)", "*其他属性3(单选)", "*其他属性4(单选)", "*其他属性5(单选)", 
 				"*应用系统(多选)", "*其他信息2(多选)", "*其他信息3(多选)", "*其他信息4(多选)", "*其他信息5(多选)", 
 				"备注1", "备注2", "备注3", "备注4", "备注5", "*设备状态(单选)"};
+		
+		try {
+			
+		
 		exportExcelFuntion("设备信息导入模版", headers, null);
+		} catch (Exception e) {
+			e.printStackTrace();
+		
+			// TODO: handle exception
+		}
 		
        System.out.println("new22222");
 		
