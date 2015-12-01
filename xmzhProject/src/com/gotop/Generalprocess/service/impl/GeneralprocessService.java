@@ -129,7 +129,7 @@ public class GeneralprocessService implements IGeneralprocessService {
 	@Override
 	public void handleModelOne(MUOUserSession muo, ProcessModelOne modelOne,
 			TaskAssgineeDto taskAssgineeDto) {
-		//当前节点id
+		// 当前节点id
 		String taskId = "";
 		String preTaskId = "";
 		String nextTaskId = "";
@@ -142,59 +142,27 @@ public class GeneralprocessService implements IGeneralprocessService {
 
 		if (modelOne.getProcessModelId() != null
 				&& !"".equals(modelOne.getProcessModelId())) {
-			//更新模式一表单
-			
+			// 修改模式一
 			// 当前时间
 			String uptDate = TimeUtil.getCntDtStr(new Date(), "yyyyMMddHHmmss");
 			// 赋值最后修改时间
 			modelOne.setLast_up_time(uptDate);
 			// 赋值最后修改人empid
 			modelOne.setLast_up_name(String.valueOf(muo.getEmpid()));
-			
+
 			// 执行更新模式一
 			this.generalprocessModeloneDAO.uptModelOne(modelOne);
-			
-			//赋值当前节点id
 			taskId = taskAssgineeDto.getNextTaskId();
-
-			//给DTO赋值taskId
-			taskAssgineeDto.setTaskId(taskId);
-			
-			TaskAssgineeDto d1 = new TaskAssgineeDto();
-			d1.setTaskExeAssginee(String.valueOf(muo.getEmpid()));
-			d1.setTaskId(taskId);
-			
-			// 当前节点签收
-			jbpmService.assignTask(d1);
-			// 当前节点完成
-			jbpmService.completeTask(taskId,
-					taskAssgineeDto.getTransitionName(), null);
-
-			//当前节点已经完成
-			//给DTO赋值上个节点的办理人为当前登录人
-			taskAssgineeDto.setPreTaskAssingee(muo.getEmpid());
-
-			//更新当前办理人的状态-为已办
-			jbpmService.updateTaskAssigneeState(taskAssgineeDto);
-
-			// 赋值下个节点id
-			nextTaskId = jbpmService.getNextTaskId(taskAssgineeDto
-					.getExecutionId());
-			//给DTO赋值下个节点id
-			taskAssgineeDto.setNextTaskId(nextTaskId);
-
-			// 当前节点执行人
-			taskAssgineeDto.setTaskExeAssginee(String.valueOf(muo.getEmpid()));
-
-			//新建DTO，重新赋值
-			TaskAssgineeDto newDto = makeTaskAssgineeDtoNoPd(muo,
-					taskAssgineeDto);
-
-			jbpmService.saceTaskAssignee(newDto);
-			
+			modelOne.setOpinion("");
 			// 提交
 			submitType = "05";
+			// 修改流程信息
+			// TProcessBusiness business =
+			// jbpmService.findProcessBusiness(taskAssgineeDto);
+			// business.setBusinessTitle(euip.getEpTitle());
+			// jbpmService.updateProcessBusiness(business);
 		} else {
+			// 新增模式一
 			// 新增模式一表单
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			// 办理人为当前登录者
@@ -205,7 +173,9 @@ public class GeneralprocessService implements IGeneralprocessService {
 			// 获取当前节点的taskid
 			// 用于做节点结束后的上一个节点
 			preTaskId = dto1.getNextTaskId();
+			taskId = preTaskId;
 			taskAssgineeDto.setExecutionId(dto1.getExecutionId());
+			
 			String taskName = jbpmService.getTaskNameById(preTaskId);
 			// 模式一赋值流程id
 			modelOne.setFlow_Id(dto1.getExecutionId());
@@ -222,6 +192,8 @@ public class GeneralprocessService implements IGeneralprocessService {
 
 			// 插入模式一的表单信息
 			this.generalprocessModeloneDAO.addModelOne(modelOne);
+			
+			modelOne.setOpinion("");
 			// 保存流程的信息
 
 			// 构建流程业务关系信息
@@ -230,82 +202,59 @@ public class GeneralprocessService implements IGeneralprocessService {
 			submitType = "05";
 			// 保存流程业务关系的信息
 			jbpmService.saveProcessBusiness(muo, pb);
+		}
+		//提交模式一
+		String btnType = taskAssgineeDto.getBtnType();
+		String isFirst = taskAssgineeDto.getIsFirst();
+		if (isFirst == null && taskAssgineeDto.getEmpIds() != null
+				&& !"".equals(taskAssgineeDto.getEmpIds())){
+			submitType = "01";
+		}
+		if (!"1".equals(btnType)) {
+			//提交按钮
 
-			// 文件上传
-
-			String btnType = taskAssgineeDto.getBtnType();
-
-			String isFirst = taskAssgineeDto.getIsFirst();
-
-			// 根据按钮类型
-			if (!"1".equals(btnType)) {
-				
-				// 不为保存状态
-				// euip.setNodeName1(jbpmService.getTaskById(taskId).getName());
-				//
-				taskAssgineeDto.setTaskExeAssginee(String.valueOf(muo
-						.getEmpid()));
-				taskAssgineeDto.setTaskId(preTaskId);
-				// 节点签收人
-				jbpmService.assignTask(taskAssgineeDto);
-				// 节点完成
-				jbpmService.completeTask(preTaskId,
-						taskAssgineeDto.getTransitionName(), null);
-
-				taskAssgineeDto.setPreTaskAssingee(muo.getEmpid());
-				jbpmService.updateTaskAssigneeState(taskAssgineeDto);
-				
-				// 正常下一步
-				nextTaskId = jbpmService.getNextTaskId(taskAssgineeDto
-						.getExecutionId());
-				taskAssgineeDto.setNextTaskId(nextTaskId);
-				jbpmService.saceTaskAssignee(makeTaskAssgineeDto(pb,
-						muo, taskAssgineeDto));
-				
-				/*if (!"退回".equals(taskAssgineeDto.getTransitionName())) {
-					// 节点完成,执行下一步
-					if (isFirst == null && taskAssgineeDto.getEmpIds() != null
-							&& !"".equals(taskAssgineeDto.getEmpIds()))
-						submitType = "01";
-					if ("采购".equals(taskAssgineeDto.getTransitionName())) {
-						//
-
-					} else {
-						
-					}
-					
-				} else {
-					// 退回上一步操作
-					// insertApproveOpninion(euip, muo,
-					// taskId,"02",taskAssgineeDto);
-					// jbpmService.turnBackTaskAssignee(makeTaskAssgineeDtoBack(taskAssgineeDto,
-					// euip, muo));
-				}*/
-			}
+			//给DTO赋值taskId
+			taskAssgineeDto.setTaskId(taskId);
 			
-			if (isFirst == null && taskAssgineeDto.getEmpIds() != null
-					&& !"".equals(taskAssgineeDto.getEmpIds())){
-				submitType = "01";
+			TaskAssgineeDto d1 = new TaskAssgineeDto();
+			d1.setTaskExeAssginee(String.valueOf(muo.getEmpid()));
+			d1.setTaskId(taskId);
+			
+			// 当前节点签收
+			jbpmService.assignTask(d1);
+			// 当前节点完成
+			jbpmService.completeTask(taskId,
+					taskAssgineeDto.getTransitionName(), null);
+			
+			taskAssgineeDto.setPreTaskAssingee(muo.getEmpid());
+			
+			jbpmService.updateTaskAssigneeState(taskAssgineeDto);
+			
+			// 正常下一步
+			nextTaskId = jbpmService.getNextTaskId(taskAssgineeDto
+					.getExecutionId());
+			taskAssgineeDto.setNextTaskId(nextTaskId);
+			jbpmService.saceTaskAssignee(makeTaskAssgineeDto(pb,
+					muo, taskAssgineeDto));
+			
+			insertApproveOpninion(modelOne, muo, nextTaskId,
+					submitType, taskAssgineeDto);
+			
+			// 查询模式主表信息
+			TGeneralprocessMain main = this.generalprocessMainDAO
+				.queryMainByBusinessId(executionId);
+			// 新增或更新模式主表的rule和id
+			if (main != null) {
+				// 修改
+				this.generalprocessMainDAO.uptGeneralProcessMain(taskAssgineeDto,
+					modelOne, main, ProcessModelOne.class);
+			} else {
+				// 新增
+				this.generalprocessMainDAO.addGeneralProcessMain(taskAssgineeDto,
+					modelOne, ProcessModelOne.class);
 			}
 		}
-
-		insertApproveOpninion(modelOne, muo, nextTaskId,
-				submitType, taskAssgineeDto);
 		
-		// 查询模式主表信息
-		TGeneralprocessMain main = this.generalprocessMainDAO
-				.queryMainByBusinessId(executionId);
-		// 新增或更新模式主表的rule和id
-		if (main != null) {
-			// 修改
-			this.generalprocessMainDAO.uptGeneralProcessMain(taskAssgineeDto,
-					modelOne, main, ProcessModelOne.class);
-		} else {
-			// 新增
-			this.generalprocessMainDAO.addGeneralProcessMain(taskAssgineeDto,
-					modelOne, ProcessModelOne.class);
-		}
-
 	}
 
 	@Override
@@ -376,14 +325,9 @@ public class GeneralprocessService implements IGeneralprocessService {
 		// 当前节点执行人
 		taskAssgineeDto.setTaskExeAssginee(String.valueOf(muo.getEmpid()));
 
-		TaskAssgineeDto newDto = makeTaskAssgineeDtoNoPd(muo, taskAssgineeDto);
+		TaskAssgineeDto newDto = makeTaskAssgineeDto(null,muo, taskAssgineeDto);
 
 		jbpmService.saceTaskAssignee(newDto);
-
-		// insertApproveOpninion(modelTwo, muo, taskId, "01", newDto);
-		/*
-		 * }else if (btnType.equals("3")){ //模式二-回退操作 //退回 //回退上个节点 }
-		 */
 		
 		String submitType ="";
 		
@@ -446,34 +390,11 @@ public class GeneralprocessService implements IGeneralprocessService {
 			taskAssgineeDto.setEmpIds(dto.getEmpIds());
 			taskAssgineeDto.setEmpNames(dto.getEmpNames());
 			taskAssgineeDto.setNextTaskId(dto.getNextTaskId());
-			if (pb.getBusinessKey() != null) {
-				taskAssgineeDto.setBusinessKey(pb.getBusinessKey());
+			if(pb != null){
+				if (pb.getBusinessKey() != null) {
+					taskAssgineeDto.setBusinessKey(pb.getBusinessKey());
+				}
 			}
-			taskAssgineeDto.setBusinessType(dto.getBusinessType());
-			taskAssgineeDto.setTargetName(dto.getTargetName());
-			// 存储节点配置对象主键
-			taskAssgineeDto.setTaskExeConfigId(dto.getTaskExeConfigId());
-		} catch (Exception e) {
-			log.error("获取任务实体", e);
-		}
-		return taskAssgineeDto;
-	}
-
-	public TaskAssgineeDto makeTaskAssgineeDtoNoPd(MUOUserSession muo,
-			TaskAssgineeDto dto) {
-		TaskAssgineeDto taskAssgineeDto = new TaskAssgineeDto();
-		try {
-			taskAssgineeDto.setExecutionId(dto.getExecutionId());
-			taskAssgineeDto.setPreTaskAssingee(muo.getEmpid());
-			taskAssgineeDto.setPreTaskId(dto.getTaskId());
-			taskAssgineeDto.setPreTaskOrg(muo.getOrgid());
-			String currDate = TimeUtil
-					.getCntDtStr(new Date(), "yyyyMMddHHmmss");
-			taskAssgineeDto.setPreTaskTime(currDate);
-			taskAssgineeDto.setEmpIds(dto.getEmpIds());
-			taskAssgineeDto.setEmpNames(dto.getEmpNames());
-			taskAssgineeDto.setNextTaskId(dto.getNextTaskId());
-			// taskAssgineeDto.setBusinessKey(pb.getBusinessKey());
 			taskAssgineeDto.setBusinessType(dto.getBusinessType());
 			taskAssgineeDto.setTargetName(dto.getTargetName());
 			// 存储节点配置对象主键

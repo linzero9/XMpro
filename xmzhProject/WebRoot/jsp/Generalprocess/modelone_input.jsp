@@ -146,10 +146,9 @@
       </tr>
       <tr class="form_bottom">
         <td colspan="4">
-          <input type="button" value="结束流程" class="button" onclick="doDeleteProcess('<b:write property="taskAssgineeDto/businessKey" />','07');" id="deleteProcessBtn">
+          <input type="button" value="结束流程" class="button" onclick="doDeleteProcess('<b:write property="modelOne/processModelId" />','<b:write property="taskAssgineeDto/businessType" />');" id="deleteProcessBtn">
           <input type="button" value="保存" class="button" id="save1" onclick="doSave(1);"  />
           <input type="button" value="提交" onclick="doSave(2);" class="button" id="smit" />
-          <input type="button" value="回退" onclick="doSave2(2);" class="button" id="smit2" />
           <input type="button" value="查看流程" onclick="doflowpic();" class="button" id="flowpic" />
          </td>
       </tr>
@@ -184,32 +183,7 @@
 		}
 	 if('${modelOne.processModelId}'!=""){
 		 if('${modelOne.creator}'!='${sessionScope.login_user.empid}')
-		 $("#save1").css("display","none"); 
-		 $.ajax({
-		        url: '/file/tFileResourceTableAction_queryFileList.action',
-		        async: false,
-		        type: 'post',
-		        data: "resourceType=${taskAssgineeDto.businessType}&resourceId=${modelOne.processModelId}",
-		        dataType: 'json',
-		        timeout: 60000,
-		        success: function (files) {
-			        if(files!=""){
-			         	$.each(files,function( i,item ){
-			         		if('${sessionScope.login_user.empid}'!=item.creator)
-			    	        	$("#tag").fileDown({filename:item.fileName,filevalue:item.fileId});
-				         	else
-				         		 if('${isView}'!=''){
-				         			$("#tag").fileDown({filename:item.fileName,filevalue:item.fileId});
-					         	}else{
-					         		$("#tag").fileDown({filename:item.fileName,filevalue:item.fileId,remove:1});
-						         }
-			          		});	
-			        }else{
-			        	 $("#row1").css("display","none");  
-			        }
-		        }
-	    });
-		  //$("#beginOrg").val("${euip.orgid}");	
+		 $("#save1").css("display","none"); 	
 		  //判断
 		  WEB.doDisabledAttr('${isView}','${modelOne.creator}','${sessionScope.login_user.empid}',"opinion");  
 		  WEB.doConditionDisplay('${modelOne.creator}','${sessionScope.login_user.empid}',"row3,dopiRow","none");//隐藏意见
@@ -278,29 +252,13 @@ function initPlanCell20(){
     			}
     		}else{
     			var _form = $id("form1");
-    	  	  	url="/euipApply/tApplyEuipAction_insertEuipInfo.action";	
+    	  	  	url="/Generalprocess/generalProcessAction_handleModelOne.action";	
     	  	  	_form.action =url
     	  	  	if(checkForm($id("form1")))
     			    ajaxsubmitO(0);
     	  	 	}
      }
 
-	 //回退
-     function doSave2(value){
-    		$("#btnType").val(value);
-    		if(value!="1"){
-    			if(checkForm($id("form1"))){
-    			var strUrl = "/jbpm/jbpmDemoAction_toNextTaskConfig2.action?taskAssgineeDto.executionId="+$id("executionId").value+"&taskAssgineeDto.beginOrg="+$("#beginOrg").val()+"&taskAssgineeDto.beginAssingee="+$("#createor").val()+"&taskAssgineeDto.definitionId=${taskAssgineeDto.definitionId}";
-        		showModalCenter(strUrl, null, taskAssigneeCallBack, 700, 400, '节点选择');
-    			}
-    		}else{
-    			var _form = $id("form1");
-    	  	  	 	url="/euipApply/tApplyEuipAction_insertEuipInfo.action";	
-    	  	  	    _form.action =url
-    	  	  	if(checkForm($id("form1")))
-    			    ajaxsubmitO(0);
-    	  	 	}
-     }
  	function taskAssigneeCallBack(arg){
   	 	var _form = $id("form1");
   	 	if(arg!=""){
@@ -340,32 +298,7 @@ function initPlanCell20(){
   			}; 
   	  	$("#form1").ajaxSubmit(options);
   	  	}
-     
 
-		var rowId = 0;
-		function addFile(tabid,varName){
-		    var tab,row,td,fName,fId,tdStr;
-		    var zs=$("#tabtest tbody tr").length;
-		    tab = $id(tabid);
-		    if (zs>=5){
-		    	alert("新增附件不能超过5个");
-		    	return false;
-		    }
-		    fName = varName;
-		    fId = varName+rowId;
-		    row =  tab.insertRow();
-		    row.id = "fileRow"+rowId;
-		    td = row.insertCell(); 
-		    
-		    tdStr="<input type=\"file\" name=\""+fName+"\" id=\""+fId+"\" onchange=\"CheckUpLoadFile(this,2);\" size='70' class=smallInput validateAttr=\"allowNull=false\">";
-		    tdStr += "<input type=\"button\" onclick=\"delTr('fileRow"+rowId+"');\" name='button"+rowId+"' value=\"删除\" style=\"margin-left:2px;vertical-align:middle;cursor:hand;\"/>";
-		    td.innerHTML = tdStr;
-		    rowId = rowId+1;    
-		}
-		
-		function delTr(id){
-			$("#"+id).remove();
-		}
 
 		//选择	受理支行	二级选项
 		function open_slzhej_fun(){

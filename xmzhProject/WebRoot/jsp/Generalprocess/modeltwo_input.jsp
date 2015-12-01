@@ -136,11 +136,13 @@
 		function doSave(value){   		
     		$("#btnType").val(value);
     		if(value!="1"){
+    			//提交
     			if(checkForm($id("form1"))){
     			var strUrl = "/jbpm/jbpmDemoAction_toNextTaskConfig.action?taskAssgineeDto.executionId="+$id("executionId").value;
         		showModalCenter(strUrl, null, taskAssigneeCallBack, 700, 400, '节点选择');
     			}
     		}else{
+    			//保存
     			var _form = $id("form1");
     	  	  	 	url="/euipApply/tApplyEuipAction_insertEuipInfo.action";	
     	  	  	    _form.action =url;
