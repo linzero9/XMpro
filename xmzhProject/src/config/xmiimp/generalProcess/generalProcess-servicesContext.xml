@@ -34,4 +34,8 @@
     <property name="jbpmService" ref="jbpmService" />
     <property name="generalprocessService" ref="generalProcessService" />
   </bean>
+  
+  <bean class="com.gotop.Generalprocess.service.impl.TGeneralprocessCdtypeService" id="tGeneralprocessCdtypeService">
+    <property name="tGeneralprocessCdtypeDAO" ref="tGeneralprocessCdtypeDAO" />
+  </bean>
   </beans>

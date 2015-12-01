@@ -112,7 +112,7 @@
                                                  一级分类：
         </td>
         <td colspan="1">
-         <h:text property="modelOne.oneCategory" id="oneCategory" validateAttr="allowNull=false" style="width:130px;" /><font style="color: red">*</font>	
+         <h:text property="modelOne.oneCategory" id="oneCategory" validateAttr="allowNull=false" style="width:130px;" /><font style="color: red">*</font>	<a href="#" onclick="open_yjfl_fun()">选择</a>
         </td>
         <td class="form_label" align="right" style="width:120px;">
                                                    贷种分类：
