@@ -36,7 +36,7 @@
 		<table align="center" border="0" width="100%" class="form_table" >
       <tr>
          <td  colspan="4" style="text-align: center;font-weight:bold;font-size:12pt;height:50px" >
-        		受理调查表
+        		 ${taskName }
         </td>
       </tr>
       <tr>

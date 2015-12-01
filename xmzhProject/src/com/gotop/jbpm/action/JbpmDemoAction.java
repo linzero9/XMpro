@@ -40,6 +40,8 @@ import org.jbpm.pvm.internal.model.ProcessDefinitionImpl;
 import org.jbpm.pvm.internal.model.TransitionImpl;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import com.fr.third.antlr.Utils;
 import com.gotop.crm.util.BaseAction;
 import com.gotop.crm.util.MUO;
 import com.gotop.file.model.TFileResourceTable;
@@ -990,8 +992,12 @@ public class JbpmDemoAction extends BaseAction {
 	 */
 	public String handle() throws Exception {
 		String taskId = this.taskAssgineeDto.getNextTaskId();
+
 		Task task = jbpmDemoService.getTaskById(taskId);
 		taskAssgineeDto.setTaskName(task.getActivityName());
+	//	String name	=task.getActivityName();
+		
+		
 		this.setTaskAssgineeDto(taskAssgineeDto);
 		taskUrl = task.getFormResourceName();
 		nameSpace = taskUrl.substring(0, taskUrl.indexOf("/", 1));
@@ -1002,7 +1008,7 @@ public class JbpmDemoAction extends BaseAction {
 		TProcessTaskExeConfig tProcessTaskExeConfig = this.processTaskExeConfigService.getTaskExeConfig(instance.getProcessDefinitionId(),task.getName());
 		taskAssgineeDto.setTaskConfigType(tProcessTaskExeConfig.getTaskAssType());
 		//20140906
-		taskAssgineeDto.setTaskName(null);
+		//taskAssgineeDto.setTaskName(null);
 		String ss = getTaskUrlBuffer(taskAssgineeDto);
 		this.setNameSpace(nameSpace);
 		/**
@@ -1081,7 +1087,10 @@ public class JbpmDemoAction extends BaseAction {
 			}
 			if (taskAssgineeDto.getTaskName() != null) {
 				buffer.append("taskAssgineeDto.taskName=");
-				buffer.append(taskAssgineeDto.getTaskName());
+			
+				
+				
+				buffer.append(java.net.URLEncoder.encode(taskAssgineeDto.getTaskName(), "utf-8"));
 				buffer.append("&");
 			}
 			if (taskAssgineeDto.getProcessTaskAssigneeId()!= null) {
@@ -1736,6 +1745,8 @@ public class JbpmDemoAction extends BaseAction {
 	 * @throws UnsupportedEncodingException 
 	 */
 	public String startProcess() throws UnsupportedEncodingException {
+		
+		String  taskName="";
 		//获取流程定义的实现对象
 		ProcessDefinitionImpl processDefinitionImpl = (ProcessDefinitionImpl) jbpmService
 				.getRepositoryService().createProcessDefinitionQuery()
@@ -1748,6 +1759,8 @@ public class JbpmDemoAction extends BaseAction {
 				TransitionImpl transitionImpl = activityImpl.getDefaultOutgoingTransition();
 				ActivityImpl activityImpl1 = transitionImpl.getDestination();
 				taskActivity = (TaskActivity)activityImpl1.getActivityBehaviour();
+				
+				taskName=	activityImpl1.getName();
 				break;
 			}
 		}
@@ -1761,6 +1774,11 @@ public class JbpmDemoAction extends BaseAction {
 		if(config != null){
 			this.taskAssgineeDto.setTemplateFileIds(config.getFileIds());
 		}
+		
+		
+		
+	
+		taskAssgineeDto.setTaskName(taskName);
 		String ss = getTaskUrlBuffer(taskAssgineeDto);
 		this.setTaskUrl(taskUrl1+ss);
 		this.setNameSpace(nameSpace);

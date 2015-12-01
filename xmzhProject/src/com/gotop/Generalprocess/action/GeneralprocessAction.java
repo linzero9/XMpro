@@ -1,6 +1,7 @@
 package com.gotop.Generalprocess.action;
 
 import java.lang.reflect.InvocationTargetException;
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -61,6 +62,20 @@ public class GeneralprocessAction extends BaseAction{
 	 * 
 	 */
 	private TaskAssgineeDto taskAssgineeDto;
+	private  String taskName;
+	
+
+	public String getTaskName() {
+		return taskName;
+	}
+
+	public void setTaskName(String taskName) {
+		this.taskName = taskName;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 
 	/**
 	 * isView :1、为只读状态， 默认为空
@@ -224,6 +239,11 @@ public class GeneralprocessAction extends BaseAction{
     		
     		//获取流程实例id
     		String businessId = taskAssgineeDto.getExecutionId();
+    		taskName=taskAssgineeDto.getTaskName();
+    		
+    		
+    		System.out.println("+++++++++++"+taskName);
+    		
     		//获取流程配置主表对象
     		TGeneralprocessMain main = this.generalprocessMainService.queryMainByBusinessId(businessId);
     		Map<String, Object>  map = new HashMap<String, Object>();
@@ -302,6 +322,11 @@ public class GeneralprocessAction extends BaseAction{
 	public String toModelTwo() throws ClassNotFoundException, IllegalArgumentException, SecurityException, IllegalAccessException, NoSuchFieldException, NoSuchMethodException, InvocationTargetException, InstantiationException{
 		//获取流程实例id
 		String businessId = taskAssgineeDto.getExecutionId();
+		
+		 taskName= taskAssgineeDto.getTaskName();
+		
+		
+		
 		//获取流程配置主表对象
 		TGeneralprocessMain main = this.generalprocessMainService.queryMainByBusinessId(businessId);
 		Map<String, Object>  map = new HashMap<String, Object>();
