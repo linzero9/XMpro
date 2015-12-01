@@ -333,11 +333,17 @@ function initPlanCell20(){
 			}
 
 		function open_yjfl_fun(){
+			alert(123);
 			var strUrl ="";
 			var objName="";
 			var peArgument = [];
-			strUrl ="/tree/initMainTree_mainTree.action?changeTree.showTabOrg=1&changeTree.orgType=4&changeTree.showSelBox=1&changeTree.checkcount=1&changeTree.startOrgid="+startOrgid;
-			showModalCenter(strUrl,peArgument,open_slzhej_callback,600,430,objName); 
+			alert(123);
+			strUrl ="/Generalprocess/tGeneralprocessCdtypeAction_queryViewList.action";
+			showModalCenter(strUrl,peArgument,open_yjfl_fun_callback,600,430,"一级分类列表"); 
+			}
+
+		function open_yjfl_fun_callback(){
+
 			}
 				
  </script>

@@ -61,4 +61,7 @@ public interface ITGeneralprocessCdtypeService {
      * @abatorgenerated
      */
     List queryPageDataList(HashMap map, Page page) throws Exception;
+
+	List<TGeneralprocessCdtype> queryPageCdtype(TGeneralprocessCdtype cdtype,
+			Page page);
 }

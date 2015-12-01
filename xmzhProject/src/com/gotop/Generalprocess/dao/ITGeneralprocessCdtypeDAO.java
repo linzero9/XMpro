@@ -117,4 +117,6 @@ public interface ITGeneralprocessCdtypeDAO {
      * @abatorgenerated
      */
     void executeBatch() throws Exception;
+
+	List<TGeneralprocessCdtype> queryPageCdtype(TGeneralprocessCdtype cdtype, Page page);
 }

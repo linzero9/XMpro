@@ -170,8 +170,8 @@ public class TGeneralprocessCdtypeDAO extends SqlMapClientDao implements ITGener
      * 分页查询信息
      * @abatorgenerated
      */
-    public List selectByDynamic(HashMap map, Page page) throws Exception {
-        List list = queryForList("T_GENERALPROCESS_CDTYPE_SqlMap.abatorgenerated_selectByDynamic", map, page);
+    public List<TGeneralprocessCdtype> selectByDynamic(HashMap map, Page page) throws Exception {
+    	List<TGeneralprocessCdtype> list = (List<TGeneralprocessCdtype>)queryForList("T_GENERALPROCESS_CDTYPE_SqlMap.queryCdtypes", map, page);
         return list;
     }
 
@@ -193,4 +193,12 @@ public class TGeneralprocessCdtypeDAO extends SqlMapClientDao implements ITGener
             return record;
         }
     }
+
+	@Override
+	public List<TGeneralprocessCdtype> queryPageCdtype(
+			TGeneralprocessCdtype cdtype,Page page) {
+		// TODO Auto-generated method stub
+		List<TGeneralprocessCdtype> list = (List<TGeneralprocessCdtype>)queryForList("T_GENERALPROCESS_CDTYPE_SqlMap.queryCdtypes", cdtype, page);
+        return list;
+	}
 }

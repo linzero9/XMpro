@@ -13,7 +13,7 @@
     
     <action class="tGeneralprocessMainAction" method="{1}" name="tGeneralprocessMainAction_*">
       <result name="viewlist">
-        /jsp/generalProcess/tGeneralprocessMainDatacell.jsp
+        /jsp/GeneralProcess/tGeneralprocessMainDatacell.jsp
       </result>
     </action>
     

@@ -98,10 +98,10 @@ public class TGeneralprocessCdtypeService implements ITGeneralprocessCdtypeServi
      * 查询所有数据并返回List
      * @abatorgenerated
      */
-    public List queryAllDataList(HashMap map) throws Exception {
+    public List<TGeneralprocessCdtype> queryAllDataList(HashMap map) throws Exception {
         TGeneralprocessCdtypeExample example = new TGeneralprocessCdtypeExample();
         TGeneralprocessCdtypeExample.Criteria criteria = example.createCriteria();
-        List list = tGeneralprocessCdtypeDAO.selectByExample(example);
+        List<TGeneralprocessCdtype> list = (List<TGeneralprocessCdtype>)tGeneralprocessCdtypeDAO.selectByExample(example);
         return list;
     }
 
@@ -109,8 +109,8 @@ public class TGeneralprocessCdtypeService implements ITGeneralprocessCdtypeServi
      * 分页方式查询列表数据
      * @abatorgenerated
      */
-    public List queryPageDataList(HashMap map, Page page) throws Exception {
-        List list = tGeneralprocessCdtypeDAO.selectByDynamic(map,page);
+    public List<TGeneralprocessCdtype> queryPageDataList(HashMap map, Page page) throws Exception {
+    	List<TGeneralprocessCdtype> list = (List<TGeneralprocessCdtype>)tGeneralprocessCdtypeDAO.selectByDynamic(map,page);
         return list;
     }
 
@@ -118,5 +118,14 @@ public class TGeneralprocessCdtypeService implements ITGeneralprocessCdtypeServi
 	public void updateDataGrid(HashMap hmp) throws Exception {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public List<TGeneralprocessCdtype> queryPageCdtype(
+			TGeneralprocessCdtype cdtype, Page page) {
+		// TODO Auto-generated method stub
+		
+		List<TGeneralprocessCdtype> list = (List<TGeneralprocessCdtype>)tGeneralprocessCdtypeDAO.queryPageCdtype(cdtype,page);
+		return list;
 	}
 }

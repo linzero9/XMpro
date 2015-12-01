@@ -1,5 +1,6 @@
 package com.gotop.Generalprocess.action;
 
+import com.gotop.Generalprocess.model.TGeneralprocessCdtype;
 import com.gotop.Generalprocess.service.ITGeneralprocessCdtypeService;
 import com.gotop.crm.util.BaseAction;
 import com.gotop.crm.util.MUO;
@@ -18,6 +19,11 @@ public class TGeneralprocessCdtypeAction extends BaseAction {
      * @abatorgenerated
      */
     protected ITGeneralprocessCdtypeService tGeneralprocessCdtypeService;
+    
+    private List<TGeneralprocessCdtype> tGeneralprocessCdtypes;
+    private List<TGeneralprocessCdtype> aaa;
+    private  TGeneralprocessCdtype cdtype;
+    
 
     /**
      * 通过spring注入Service的set类.
@@ -35,41 +41,23 @@ public class TGeneralprocessCdtypeAction extends BaseAction {
         return this.tGeneralprocessCdtypeService;
     }
 
-    /**
-     * 查询datacell列表.
-     * @abatorgenerated
-     */
-    public void queryDataGrid() throws Exception {
-        AjaxParam apm = XmlConvert.queryDatacell();
-        Page page = apm.getPage();
-        HashMap hm = apm.getParams();
-        List data = tGeneralprocessCdtypeService.queryDataGrid(hm , page);
-        String xmlStr = XmlConvert.getXmlListBean(page,data);
-        MUO.write(xmlStr);
-    }
+	public List<TGeneralprocessCdtype> gettGeneralprocessCdtypes() {
+		return tGeneralprocessCdtypes;
+	}
 
-    /**
-     * 批量更新列表.
-     * @abatorgenerated
-     */
-    public void updateDataGrid() throws Exception {
-        HashMap hmp = XmlConvert.updateDatacell();
-        tGeneralprocessCdtypeService.updateDataGrid(hmp);
-    }
+	public void settGeneralprocessCdtypes(
+			List<TGeneralprocessCdtype> tGeneralprocessCdtypes) {
+		this.tGeneralprocessCdtypes = tGeneralprocessCdtypes;
+	}
 
-    /**
-     * comboselect演示.
-     * @abatorgenerated
-     */
-    public void comboSelect() throws Exception {
-        HashMap combopara = this.getCombopara();
-        if(combopara!=null){
-            	List combo = tGeneralprocessCdtypeService.queryAllDataList(combopara);
-            	String dataresult = XmlConvert.getXmlListBean(combo);
-            	MUO.write(dataresult);
-        }
-    }
+	public TGeneralprocessCdtype getCdtype() {
+		return cdtype;
+	}
 
+	public void setCdtype(TGeneralprocessCdtype cdtype) {
+		this.cdtype = cdtype;
+	}
+    
     /**
      * viewDataList说明.
      * @abatorgenerated
@@ -77,10 +65,21 @@ public class TGeneralprocessCdtypeAction extends BaseAction {
     public String queryViewList() throws Exception {
         HttpServletRequest request=ServletActionContext.getRequest();
         Page page = this.getPage();
-        HashMap hm = new HashMap();
-        List orgs = tGeneralprocessCdtypeService.queryPageDataList(hm,page);
-        request.setAttribute("orgs", orgs);
-        request.setAttribute("page", page);
+        setAaa(tGeneralprocessCdtypeService.queryPageCdtype(cdtype,page));
+//        for(int i=0;i<tGeneralprocessCdtypes.size();i++)
+//        {
+//         System.out.println(i+":"+tGeneralprocessCdtypes.get(i).getProcessName());
+//        }
         return "viewlist";
     }
+
+	public List<TGeneralprocessCdtype> getAaa() {
+		return aaa;
+	}
+
+	public void setAaa(List<TGeneralprocessCdtype> aaa) {
+		this.aaa = aaa;
+	}
+
+
 }
