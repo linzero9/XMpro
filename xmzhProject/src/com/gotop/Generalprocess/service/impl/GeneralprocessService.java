@@ -363,7 +363,7 @@ public class GeneralprocessService implements IGeneralprocessService {
 		try {
 			processBusiness.setBusinessKey(modelOne.getProcessModelOneID());
 			processBusiness.setBusinessType(dto.getBusinessType());
-			processBusiness.setBusinessTitle("受理调查表");
+			processBusiness.setBusinessTitle(dto.getProcessName());
 			processBusiness.setExecutionId(modelOne.getFlow_Id());
 		} catch (Exception e) {
 			log.error("生成实例标题信息", e);
