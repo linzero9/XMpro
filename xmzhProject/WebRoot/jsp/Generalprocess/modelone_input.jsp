@@ -331,6 +331,14 @@ function initPlanCell20(){
 					}
 		    	}
 			}
+
+		function open_yjfl_fun(){
+			var strUrl ="";
+			var objName="";
+			var peArgument = [];
+			strUrl ="/tree/initMainTree_mainTree.action?changeTree.showTabOrg=1&changeTree.orgType=4&changeTree.showSelBox=1&changeTree.checkcount=1&changeTree.startOrgid="+startOrgid;
+			showModalCenter(strUrl,peArgument,open_slzhej_callback,600,430,objName); 
+			}
 				
  </script>
 </html>

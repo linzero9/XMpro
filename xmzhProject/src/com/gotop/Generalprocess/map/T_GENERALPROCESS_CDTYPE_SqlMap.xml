@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="T_GENERALPROCESS_CDTYPE_SqlMap" >
+  <resultMap id="abatorgenerated_TGeneralprocessCdtypeResult" class="com.gotop.Generalprocess.model.TGeneralprocessCdtype" >
+    <!--Bean方式返回全表-->
+    <result column="CDTYPEID" property="cdtypeid" jdbcType="DECIMAL" />
+    <result column="PROCESS_NAME" property="processName" jdbcType="VARCHAR" />
+    <result column="FIRST_CLASS" property="firstClass" jdbcType="VARCHAR" />
+    <result column="CREDIT_TYPE" property="creditType" jdbcType="VARCHAR" />
+    <result column="LIMIT_TIME" property="limitTime" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="abatorgenerated_TGeneralprocessCdtype_HashMapResult" class="java.util.HashMap" >
+    <!--HashMap方式返回全表-->
+    <result column="CDTYPEID" property="cdtypeid" jdbcType="DECIMAL" />
+    <result column="PROCESS_NAME" property="processName" jdbcType="VARCHAR" />
+    <result column="FIRST_CLASS" property="firstClass" jdbcType="VARCHAR" />
+    <result column="CREDIT_TYPE" property="creditType" jdbcType="VARCHAR" />
+    <result column="LIMIT_TIME" property="limitTime" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="abatorgenerated_selectByExample" resultMap="abatorgenerated_TGeneralprocessCdtypeResult" parameterClass="com.gotop.Generalprocess.model.TGeneralprocessCdtypeExample" >
+    <!--通过查询实体,查询满足条件的记录-->
+    select CDTYPEID, PROCESS_NAME, FIRST_CLASS, CREDIT_TYPE, LIMIT_TIME
+    from T_GENERALPROCESS_CDTYPE
+    <isParameterPresent >
+      <include refid="COMMON.abatorgenerated_Example_Where_Clause" />
+      <isNotNull property="orderByClause" >
+        order by $orderByClause$
+      </isNotNull>
+    </isParameterPresent>
+  </select>
+  <select id="abatorgenerated_expandEntityByTemplate" resultMap="abatorgenerated_TGeneralprocessCdtypeResult" parameterClass="com.gotop.Generalprocess.model.TGeneralprocessCdtype" >
+    <!--根据Bean数据模板查询条件查询所有记录，可查询分页数据-->
+    select CDTYPEID, PROCESS_NAME, FIRST_CLASS, CREDIT_TYPE, LIMIT_TIME
+    from T_GENERALPROCESS_CDTYPE where <![CDATA[ rownum<2 ]]>
+    <dynamic >
+      <isNotNull prepend="and" property="cdtypeid" >
+        CDTYPEID = #cdtypeid:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="and" property="processName" >
+        PROCESS_NAME = #processName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="firstClass" >
+        FIRST_CLASS = #firstClass:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="creditType" >
+        CREDIT_TYPE = #creditType:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="limitTime" >
+        LIMIT_TIME = #limitTime:VARCHAR#
+      </isNotNull>
+    </dynamic>
+  </select>
+  <select id="abatorgenerated_queryEntitiesByTemplate" resultMap="abatorgenerated_TGeneralprocessCdtypeResult" parameterClass="com.gotop.Generalprocess.model.TGeneralprocessCdtype" >
+    <!--根据Bean数据模板查询条件查询所有记录，可查询分页数据-->
+    select CDTYPEID, PROCESS_NAME, FIRST_CLASS, CREDIT_TYPE, LIMIT_TIME
+    from T_GENERALPROCESS_CDTYPE
+    <dynamic prepend="where" >
+      <isNotNull prepend="and" property="cdtypeid" >
+        CDTYPEID = #cdtypeid:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="and" property="processName" >
+        PROCESS_NAME = #processName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="firstClass" >
+        FIRST_CLASS = #firstClass:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="creditType" >
+        CREDIT_TYPE = #creditType:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="limitTime" >
+        LIMIT_TIME = #limitTime:VARCHAR#
+      </isNotNull>
+    </dynamic>
+  </select>
+  <delete id="abatorgenerated_deleteByExample" parameterClass="com.gotop.Generalprocess.model.TGeneralprocessCdtypeExample" >
+    <!--通过查询实例，删除满足条件的数据-->
+    delete from T_GENERALPROCESS_CDTYPE
+    <include refid="COMMON.abatorgenerated_Example_Where_Clause" />
+  </delete>
+  <delete id="abatorgenerated_deleteByTemplate" parameterClass="com.gotop.Generalprocess.model.TGeneralprocessCdtype" >
+    <!--根据Bean数据模板查询条件删除记录-->
+    delete from T_GENERALPROCESS_CDTYPE
+    <dynamic prepend="where" >
+      <isNotEmpty prepend="and" property="cdtypeid" >
+        CDTYPEID = #cdtypeid:DECIMAL#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="processName" >
+        PROCESS_NAME = #processName:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="firstClass" >
+        FIRST_CLASS = #firstClass:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="creditType" >
+        CREDIT_TYPE = #creditType:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="limitTime" >
+        LIMIT_TIME = #limitTime:VARCHAR#
+      </isNotEmpty>
+    </dynamic>
+  </delete>
+  <insert id="abatorgenerated_insert" parameterClass="com.gotop.Generalprocess.model.TGeneralprocessCdtype" >
+    <!--通过主键更新整条数据-->
+    insert into T_GENERALPROCESS_CDTYPE (CDTYPEID, PROCESS_NAME, FIRST_CLASS, CREDIT_TYPE,
+      LIMIT_TIME)
+    values (#cdtypeid:DECIMAL:-9999#, #processName:VARCHAR#, #firstClass:VARCHAR#,
+      #creditType:VARCHAR#, #limitTime:VARCHAR#)
+  </insert>
+  <select id="abatorgenerated_countByExample" parameterClass="com.gotop.Generalprocess.model.TGeneralprocessCdtypeExample" resultClass="java.lang.Integer" >
+    <!--通过查询实例，统计总数-->
+    select count(*) from T_GENERALPROCESS_CDTYPE
+    <include refid="COMMON.abatorgenerated_Example_Where_Clause" />
+  </select>
+  <select id="abatorgenerated_countByTemplate" parameterClass="com.gotop.Generalprocess.model.TGeneralprocessCdtype" resultClass="java.lang.Integer" >
+    <!--通过查询Bean数据模板，统计总数-->
+    select count(*) from T_GENERALPROCESS_CDTYPE
+    <dynamic prepend="where" >
+      <isNotNull prepend="and" property="cdtypeid" >
+        CDTYPEID = #cdtypeid:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="and" property="processName" >
+        PROCESS_NAME = #processName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="firstClass" >
+        FIRST_CLASS = #firstClass:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="creditType" >
+        CREDIT_TYPE = #creditType:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="limitTime" >
+        LIMIT_TIME = #limitTime:VARCHAR#
+      </isNotNull>
+    </dynamic>
+  </select>
+  <update id="abatorgenerated_updateByExampleSelective" >
+    <!--通过查询实例，更新非null字段-->
+    update T_GENERALPROCESS_CDTYPE
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="record.cdtypeid" >
+        CDTYPEID = #record.cdtypeid:DECIMAL:-9999#
+      </isNotNull>
+      <isNotNull prepend="," property="record.processName" >
+        PROCESS_NAME = #record.processName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.firstClass" >
+        FIRST_CLASS = #record.firstClass:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.creditType" >
+        CREDIT_TYPE = #record.creditType:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.limitTime" >
+        LIMIT_TIME = #record.limitTime:VARCHAR#
+      </isNotNull>
+    </dynamic>
+    <isParameterPresent >
+      <include refid="COMMON.abatorgenerated_Example_Where_Clause" />
+    </isParameterPresent>
+  </update>
+  <update id="abatorgenerated_updateByExample" >
+    <!--通过查询实例，更新全部字段-->
+    update T_GENERALPROCESS_CDTYPE
+    set CDTYPEID = #record.cdtypeid:DECIMAL:-9999#,
+      PROCESS_NAME = #record.processName:VARCHAR#,
+      FIRST_CLASS = #record.firstClass:VARCHAR#,
+      CREDIT_TYPE = #record.creditType:VARCHAR#,
+      LIMIT_TIME = #record.limitTime:VARCHAR#
+    <isParameterPresent >
+      <include refid="COMMON.abatorgenerated_Example_Where_Clause" />
+    </isParameterPresent>
+  </update>
+  <update id="abatorgenerated_updateEntityByTemplate" >
+    <!--根据Bean数据模板查询条件更新记录-->
+    update T_GENERALPROCESS_CDTYPE
+    <dynamic prepend="set" >
+      <isNotEmpty prepend="," property="record.cdtypeid" >
+        CDTYPEID = #record.cdtypeid:DECIMAL:-9999#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="record.processName" >
+        PROCESS_NAME = #record.processName:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="record.firstClass" >
+        FIRST_CLASS = #record.firstClass:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="record.creditType" >
+        CREDIT_TYPE = #record.creditType:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="record.limitTime" >
+        LIMIT_TIME = #record.limitTime:VARCHAR#
+      </isNotEmpty>
+    </dynamic>
+    <dynamic prepend="where" >
+      <isNotEmpty prepend="and" property="template.cdtypeid" >
+        CDTYPEID = #template.cdtypeid:DECIMAL#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="template.processName" >
+        PROCESS_NAME = #template.processName:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="template.firstClass" >
+        FIRST_CLASS = #template.firstClass:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="template.creditType" >
+        CREDIT_TYPE = #template.creditType:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="and" property="template.limitTime" >
+        LIMIT_TIME = #template.limitTime:VARCHAR#
+      </isNotEmpty>
+    </dynamic>
+  </update>
+  <select id="abatorgenerated_selectByMapAndPage" resultMap="abatorgenerated_TGeneralprocessCdtype_HashMapResult" parameterClass="java.util.HashMap" >
+    <!--通过Map方式的动态条件，查询分页数据-->
+    select CDTYPEID, PROCESS_NAME, FIRST_CLASS, CREDIT_TYPE, LIMIT_TIME
+    from T_GENERALPROCESS_CDTYPE
+    <dynamic prepend="where" >
+      <isNotNull prepend="and" property="cdtypeid" >
+        CDTYPEID = #cdtypeid:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="and" property="processName" >
+        PROCESS_NAME = #processName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="firstClass" >
+        FIRST_CLASS = #firstClass:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="creditType" >
+        CREDIT_TYPE = #creditType:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="limitTime" >
+        LIMIT_TIME = #limitTime:VARCHAR#
+      </isNotNull>
+    </dynamic>
+  </select>
+  <select id="abatorgenerated_selectByExampleAndPage" resultMap="abatorgenerated_TGeneralprocessCdtypeResult" parameterClass="com.gotop.Generalprocess.model.TGeneralprocessCdtypeExample" >
+    <!--通过Bean方式的动态条件，查询分页数据-->
+    select CDTYPEID, PROCESS_NAME, FIRST_CLASS, CREDIT_TYPE, LIMIT_TIME
+    from T_GENERALPROCESS_CDTYPE
+    <isParameterPresent >
+      <include refid="COMMON.abatorgenerated_Example_Where_Clause" />
+    </isParameterPresent>
+  </select>
+</sqlMap>
