@@ -44,6 +44,7 @@
       	<td colspan="1">
          <h:text property="modelOne.orgNameOne" id="orgNameOne" validateAttr="allowNull=false" readonly="true" style="width:130px;" /><font style="color: red">*</font>
          <h:hidden property="modelOne.orgCodeOne" id="orgCodeOne"/>	
+         <h:hidden id="startOrgid" value="${sessionScope.login_user.orgid}"/>	
       	</td>
      	<td class="form_label" align="right" style="width:120px;" >受理支行<br>（二级选项）</td>
      	<td colspan="3">
@@ -97,7 +98,7 @@
                                                  申请金额：
         </td>
         <td colspan="1">
-         <h:text property="modelOne.apply_bal" id="apply_bal" validateAttr="allowNull=false" style="width:130px;" /><font style="color: red">*</font>	
+         <h:text property="modelOne.apply_bal" id="apply_bal" validateAttr="allowNull=false;type=float" style="width:130px;" /><font style="color: red">*</font>	
         </td>
         <td class="form_label" align="right" style="width:120px;">
                                                    申请币别：
@@ -305,7 +306,8 @@ function initPlanCell20(){
 			var strUrl ="";
 			var objName="";
 			var peArgument = [];
-			strUrl ="/tree/initMainTree_mainTree.action?changeTree.showTabOrg=1&changeTree.orgType=4&changeTree.showSelBox=1&changeTree.checkcount=1"
+			var startOrgid=$("#startOrgid").val();
+			strUrl ="/tree/initMainTree_mainTree.action?changeTree.showTabOrg=1&changeTree.orgType=4&changeTree.showSelBox=1&changeTree.checkcount=1&changeTree.startOrgid="+startOrgid;
 			objName="选择受理支行";  
 			var paramEntity = new ParamEntity('Organization');
 				paramEntity.setProperty('orgname',$id("orgNameTwo").value);
