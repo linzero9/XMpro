@@ -166,7 +166,7 @@ $.extend(true,myflow.config.tools.states,{
 									assignee: {name:'assignee', label: '', value:'#{user}'}
 								}},
 					
-								task7: {showType: 'text',type : 'task',
+								task8: {showType: 'text',type : 'task',
 									name : {text:'<<task>>'},
 									text : {text:'模式八-公积金审批'},
 									img : {src : '/js/jbpm/img/48/task_empty.png',width :48, height:48},
