@@ -23,7 +23,7 @@
       </result>
     </action>
     
-    <action class="tGeneralprocessModelthreeAction" method="{1}" name="tGeneralprocessModelthreeAction_*">
+    <action class="tGeneralprocessModelthreeAction" method="{1}" name="tGeneralprocessModelThreeAction_*">
        <result name="toModelthree">
         /jsp/Generalprocess/modelthree_input.jsp
       </result>
@@ -32,7 +32,17 @@
     <action class="tGeneralprocessCdtypeAction" method="{1}" name="tGeneralprocessCdtypeAction_*">
       <result name="viewlist">
         /jsp/generalProcess/tGeneralprocessCdtypeDatacell.jsp
+	</result>
+	</action>    
+    
+    <action class="tGeneralprocessModelfourAction" method="{1}" name="tGeneralprocessModelFourAction_*">
+      <result name="viewlist">
+        /jsp/generalProcess/tGeneralprocessModelfourDatacell.jsp
+      </result>
+      <result name="toModelFour">
+        /jsp/Generalprocess/modelfour_input.jsp
       </result>
     </action>
+    
     </package>
 </struts>

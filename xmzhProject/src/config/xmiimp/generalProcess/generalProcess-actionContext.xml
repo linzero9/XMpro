@@ -28,4 +28,10 @@
   <bean class="com.gotop.Generalprocess.action.TGeneralprocessCdtypeAction" id="tGeneralprocessCdtypeaction" name="tGeneralprocessCdtypeAction" singleton="false">
     <property name="tGeneralprocessCdtypeService" ref="tGeneralprocessCdtypeService" />
   </bean>
+  
+  <bean class="com.gotop.Generalprocess.action.TGeneralprocessModelfourAction" id="tGeneralprocessModelfouraction" name="tGeneralprocessModelfourAction" singleton="false">
+    <property name="tGeneralprocessModelfourService" ref="tGeneralprocessModelfourService" />
+    <property name="generalprocessMainService" ref="tGeneralprocessMainService" />
+    <property name="jbpmService" ref="jbpmService" />
+  </bean>
   </beans>

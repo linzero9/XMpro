@@ -168,10 +168,16 @@ public class TGeneralprocessModelthreeAction extends BaseAction {
     		//获取流程配置主表对象
     		TGeneralprocessMain main = this.generalprocessMainService.queryMainByBusinessId(businessId);
     		Map<String, Object>  map = new HashMap<String, Object>();
-    		
+    		String taskName="";
     		if(taskAssgineeDto.getNextTaskId() != null){
-    			String taskName = jbpmService.getTaskNameById(taskAssgineeDto.getNextTaskId());
-        		
+    			//待办-办理
+    			taskName = jbpmService.getTaskNameById(taskAssgineeDto.getNextTaskId());
+    		}else{
+    			if(taskAssgineeDto.getActivityName() != null){
+    				//已办-查看详情
+    				taskName = taskAssgineeDto.getActivityName();
+    			}
+    		}
     			ProcessModelThree modelThree = new ProcessModelThree();
     			modelThree.setFlow_id(businessId);
     			modelThree.setTaskName(taskName);
@@ -204,13 +210,12 @@ public class TGeneralprocessModelthreeAction extends BaseAction {
         			map.remove(rm);
         		}
         		
-        		this.setModelThree(modelThree);
+        		this.setModelThree(newModelThree);
         		
         		List<List<GeneralprocessFieldBean>> beans = GeneralprocessUtil.returnAllObj(map);
         		
         		String fxJson = JSONArray.fromObject(beans).toString();
         		taskAssgineeDto.setFxJson(fxJson);
-    		}
     		
 		} catch (Exception e) {
 			log.error("查询模式一表单信息失败", e);

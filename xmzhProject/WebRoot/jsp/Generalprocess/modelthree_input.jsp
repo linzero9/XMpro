@@ -42,24 +42,24 @@
       </tr>
       <tr>
       	<td class="form_label" align="right" style="width:10%;">是否加急：</td>
-      		 <td><d:select dictTypeId="ZHPT_ISURGENT" property="modelThree.isurgent" nullLabel="请选择" /></td> 
+      		 <td><d:select dictTypeId="ZHPT_ISURGENT" id="isurgent" property="modelThree.isurgent" nullLabel="请选择" /></td> 
       	<td class="form_label" align="right" style="width:10%;">报单时间：</td>
       		 <td colspan="1">
       		  <div id="inputTime">
-	         <w:date  id="reporttime" submitFormat="yyyy-MM-dd" format="yyyy-MM-dd" readonly="true" allowNull="false" property="modelThree.reporttime"/>
+	         <w:date  id="reporttime" submitFormat="yyyy-MM-dd" format="yyyy-MM-dd" allowNull="false" property="modelThree.reporttime"/>
         	 </div>
         </td>
       </tr>
       <tr>
-      	<td class="form_label" align="right" style="width:10%;">报单次数：</td>
+      	<td class="form_label" align="right" style="width:10%;" >报单次数：</td>
       	<td>
-      		<h:text property="modelThree.reportcnt" validateAttr="type=naturalNumber;minValue=1;allowNull=false;" style="width:130px;" /><font style="color: red">*</font>
+      		<h:text id="reportcnt" property="modelThree.reportcnt" validateAttr="type=naturalNumber;minValue=1;allowNull=false;" style="width:130px;" /><font style="color: red">*</font>
       	</td>
       </tr>
       <tr>
      	<td class="form_label" align="right" style="width:10%;">处理意见：</td>
      	<td colspan="3">
-	     	<h:textarea  extAttr="class='h80' "  property="modelThree.opninion_content"  id="opninion_content" validateAttr="maxLength=512;allowNull=false" rows="4"  style="width:90%;" />
+	     	<h:textarea  extAttr="class='h80' "  id="opninion_content" property="modelThree.opninion_content"  id="opninion_content" validateAttr="maxLength=512;allowNull=false" rows="4"  style="width:90%;" />
 		    <font style="color: red">*</font>
      	</td>
       </tr>
@@ -67,7 +67,6 @@
       <tr class="form_bottom">
         <td colspan="4">
           <input type="button" value="提交" onclick="doSave(2);" class="button" id="save3" />
-          <!-- <input type="button" value="回退" onclick="doSave2(3);" class="button" id="save4" /> -->
           <input type="button" value="查看流程" onclick="doflowpic();" class="button" id="flowpic" />
          </td>
       </tr>
@@ -142,7 +141,10 @@
 					$("#save3").hide();
 					$("#fujian").hide();
 					$("#row3").hide();
-					//$("#hiddenTime").show();
+					
+					
+					$("#reportcnt").attr("readonly",true);
+					$("#opninion_content").attr("readonly",true);
 				}
 
 		});
@@ -187,7 +189,7 @@
 		 	function taskAssigneeCallBack(arg){
 		  	 	var _form = $id("form1");
 		  	 	if(arg!=""){
-		  	  	 	url="/Generalprocess/tGeneralprocessModelthreeAction_handleModelThree.action?"+arg;	
+		  	  	 	url="/Generalprocess/tGeneralprocessModelThreeAction_handleModelThree.action?"+arg;	
 		  	  	    _form.action =url
 		  	        // 异步提交请求 
 		  	  	    ajaxsubmitO();

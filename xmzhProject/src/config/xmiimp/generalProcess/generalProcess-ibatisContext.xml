@@ -24,6 +24,10 @@
   </bean>
   
   <bean class="com.gotop.Generalprocess.dao.impl.TGeneralprocessCdtypeDAO" id="tGeneralprocessCdtypeDAO">
+  	 <property name="sqlMapClient" ref="sqlMapClient" />
+  </bean>
+  
+  <bean class="com.gotop.Generalprocess.dao.impl.TGeneralprocessModelfourDAO" id="tGeneralprocessModelfourDAO">
     <property name="sqlMapClient" ref="sqlMapClient" />
   </bean>
   </beans>

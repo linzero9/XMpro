@@ -174,9 +174,6 @@ $.extend(true,myflow.config.tools.states,{
 										text: {name:'text', label: '模式名称',value:'公积金审批',editor: function(){return new myflow.editors.textEditor();}},
 										form: {name:'form', label : '',value:'/Generalprocess/tGeneralprocessModelEightAction_toModelEight.action'},
 										assignee: {name:'assignee', label: '', value:'#{user}'}
-									}}
-				
-				
-				
+									}}		
 });
 })(jQuery);
