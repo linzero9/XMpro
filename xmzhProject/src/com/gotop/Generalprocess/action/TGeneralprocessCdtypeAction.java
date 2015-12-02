@@ -20,9 +20,9 @@ public class TGeneralprocessCdtypeAction extends BaseAction {
      */
     protected ITGeneralprocessCdtypeService tGeneralprocessCdtypeService;
     
-    private List<TGeneralprocessCdtype> tGeneralprocessCdtypes;
-    private List<TGeneralprocessCdtype> aaa;
+    private List<TGeneralprocessCdtype> cdtypes;
     private  TGeneralprocessCdtype cdtype;
+    private  String cdtypeJson;
     
 
     /**
@@ -41,14 +41,6 @@ public class TGeneralprocessCdtypeAction extends BaseAction {
         return this.tGeneralprocessCdtypeService;
     }
 
-	public List<TGeneralprocessCdtype> gettGeneralprocessCdtypes() {
-		return tGeneralprocessCdtypes;
-	}
-
-	public void settGeneralprocessCdtypes(
-			List<TGeneralprocessCdtype> tGeneralprocessCdtypes) {
-		this.tGeneralprocessCdtypes = tGeneralprocessCdtypes;
-	}
 
 	public TGeneralprocessCdtype getCdtype() {
 		return cdtype;
@@ -58,28 +50,43 @@ public class TGeneralprocessCdtypeAction extends BaseAction {
 		this.cdtype = cdtype;
 	}
     
-    /**
+
+
+	/**
      * viewDataList说明.
      * @abatorgenerated
      */
     public String queryViewList() throws Exception {
         HttpServletRequest request=ServletActionContext.getRequest();
         Page page = this.getPage();
-        setAaa(tGeneralprocessCdtypeService.queryPageCdtype(cdtype,page));
-//        for(int i=0;i<tGeneralprocessCdtypes.size();i++)
-//        {
-//         System.out.println(i+":"+tGeneralprocessCdtypes.get(i).getProcessName());
-//        }
+        cdtypes=this.tGeneralprocessCdtypeService.queryPageCdtype(cdtype, page);
+        this.setCdtypes(cdtypes);
         return "viewlist";
     }
+    
 
-	public List<TGeneralprocessCdtype> getAaa() {
-		return aaa;
+	/**
+     * querycreditType说明.
+     * @abatorgenerated
+     */
+    public String querycreditType() throws Exception {
+        cdtypes=this.tGeneralprocessCdtypeService.querycreditType(cdtype);
+        this.setCdtypes(cdtypes);
+        return "list";
+    }
+
+	public List<TGeneralprocessCdtype> getCdtypes() {
+		return cdtypes;
 	}
 
-	public void setAaa(List<TGeneralprocessCdtype> aaa) {
-		this.aaa = aaa;
+	public void setCdtypes(List<TGeneralprocessCdtype> cdtypes) {
+		this.cdtypes = cdtypes;
+	}
+	public String getCdtypeJson() {
+		return cdtypeJson;
 	}
 
-
+	public void setCdtypeJson(String cdtypeJson) {
+		this.cdtypeJson = cdtypeJson;
+	}
 }

@@ -31,8 +31,11 @@
 
     <action class="tGeneralprocessCdtypeAction" method="{1}" name="tGeneralprocessCdtypeAction_*">
       <result name="viewlist">
-        /jsp/generalProcess/tGeneralprocessCdtypeDatacell.jsp
+        /jsp/Generalprocess/tGeneralprocessCdtypeDatacell.jsp
 	</result>
+	 <result name="list" type="json">
+		   <param name="root">cdtypes</param>
+	  </result>
 	</action>    
     
     <action class="tGeneralprocessModelfourAction" method="{1}" name="tGeneralprocessModelFourAction_*">

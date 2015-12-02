@@ -128,4 +128,12 @@ public class TGeneralprocessCdtypeService implements ITGeneralprocessCdtypeServi
 		List<TGeneralprocessCdtype> list = (List<TGeneralprocessCdtype>)tGeneralprocessCdtypeDAO.queryPageCdtype(cdtype,page);
 		return list;
 	}
+
+	@Override
+	public List<TGeneralprocessCdtype> querycreditType(
+			TGeneralprocessCdtype cdtype) {
+		// TODO Auto-generated method stub
+		List<TGeneralprocessCdtype> list = (List<TGeneralprocessCdtype>)tGeneralprocessCdtypeDAO.querycreditType(cdtype);
+		return list;
+	}
 }

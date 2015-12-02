@@ -64,4 +64,6 @@ public interface ITGeneralprocessCdtypeService {
 
 	List<TGeneralprocessCdtype> queryPageCdtype(TGeneralprocessCdtype cdtype,
 			Page page);
+
+	List<TGeneralprocessCdtype> querycreditType(TGeneralprocessCdtype cdtype);
 }

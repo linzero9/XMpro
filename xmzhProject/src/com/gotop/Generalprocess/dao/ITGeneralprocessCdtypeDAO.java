@@ -119,4 +119,6 @@ public interface ITGeneralprocessCdtypeDAO {
     void executeBatch() throws Exception;
 
 	List<TGeneralprocessCdtype> queryPageCdtype(TGeneralprocessCdtype cdtype, Page page);
+
+	List<TGeneralprocessCdtype> querycreditType(TGeneralprocessCdtype cdtype);
 }

@@ -112,13 +112,17 @@
                                                  一级分类：
         </td>
         <td colspan="1">
-         <h:text property="modelOne.oneCategory" id="oneCategory" validateAttr="allowNull=false" style="width:130px;" /><font style="color: red">*</font>	<a href="#" onclick="open_yjfl_fun()">选择</a>
+         <h:text property="modelOne.oneCategory" id="oneCategory" validateAttr="allowNull=false" style="width:130px;" readonly="true"/><font style="color: red">*</font>	<a href="#" onclick="open_yjfl_fun()">选择</a>
         </td>
         <td class="form_label" align="right" style="width:120px;">
                                                    贷种分类：
         </td>
         <td colspan="1">
-         <h:text property="modelOne.loanCategory" id="loanCategory" validateAttr="allowNull=false" style="width:130px;" /><font style="color: red">*</font>	
+         <%-- <h:text property="modelOne.loanCategory" id="loanCategory" validateAttr="allowNull=false" style="width:130px;" /> --%>
+         <select id="loanCategorys" onchange="changeloanCategory()">
+         </select>
+         <h:hidden property="modelOne.loanCategory"  id="loanCategory"/>
+         <font style="color: red">*</font>	
         </td>
       </tr>
       <tr>
@@ -126,7 +130,9 @@
                                                    抵押物权属人名称：
         </td>
         <td colspan="1">
-          <h:text property="modelOne.dywx_Name" id="dywx_Name" validateAttr="allowNull=flase" style="width:130px;" /><font style="color: red">*</font>	
+
+          <h:text property="modelOne.dywx_Name" id="dywx_Name" validateAttr="allowNull=ture" style="width:130px;" />	
+
         </td>
         
         <td class="form_label" align="right" style="width:120px;">
@@ -212,6 +218,12 @@
 	 //受理支行一 	机构code	隐藏
 	 if('${modelOne.orgCodeOne}'==""){
 		 $("#orgCodeOne").val('${sessionScope.login_user.orgcode}');
+	 }
+
+	 if('${modelOne.oneCategory}'!=""){
+		 var oneCategory='${modelOne.oneCategory}';
+		 setselect(oneCategory);
+		 
 	 }
 	 
 	 //查看详情界面
@@ -333,18 +345,63 @@ function initPlanCell20(){
 			}
 
 		function open_yjfl_fun(){
-			alert(123);
 			var strUrl ="";
 			var objName="";
 			var peArgument = [];
-			alert(123);
 			strUrl ="/Generalprocess/tGeneralprocessCdtypeAction_queryViewList.action";
-			showModalCenter(strUrl,peArgument,open_yjfl_fun_callback,600,430,"一级分类列表"); 
+			showModalCenter(strUrl,peArgument,open_yjfl_fun_callback,800,500,"一级分类列表"); 
 			}
 
-		function open_yjfl_fun_callback(){
-
+		function open_yjfl_fun_callback(arg){
+				if(arg!=''){
+					$id("oneCategory").value=arg;
+					var x=document.getElementById("loanCategorys");
+					x.options.length=0;  
+					setselect(arg);
+				} 
 			}
-				
+		function changeloanCategory(){
+			$("#loanCategory").val($('#loanCategorys option:selected').val());
+			}	
+		function setselect(arg){
+			var x=document.getElementById("loanCategorys");
+			x.options.length=0;  
+			 $.ajax({
+			        url: "/Generalprocess/tGeneralprocessCdtypeAction_querycreditType.action?cdtype.firstClass="+arg,
+			        async: false,
+			        type: 'post',
+			        data: "",
+			        dataType: 'json',
+			        success: function (json) {
+			        	if(json==""){
+			        	}else {
+			        		$.each(json,function(key,value){
+				        		var y=document.createElement('option');
+				        		y.text=value.creditType;
+				        		y.value=value.creditType;
+				        		try
+							    {
+							    x.add(y,null); // standards compliant
+							    }
+							  catch(ex)
+							    {
+							    x.add(y); // IE only
+							    }
+				        		});
+			        	}
+				        }
+		    });	
+			    if($id("loanCategory").value==''){
+			    	$("#loanCategory").val($('#loanCategorys option:selected').val());
+				    }else{
+				    	var all_options = document.getElementById("loanCategorys").options;
+						for (i=0; i<all_options.length; i++){
+							if (all_options[i].value ==$id("loanCategory").value ) // 根据option标签的ID来进行判断 测试的代码这里是两个等号
+							{
+								all_options[i].selected = true;
+							}
+						}
+				    }
+		}
  </script>
 </html>

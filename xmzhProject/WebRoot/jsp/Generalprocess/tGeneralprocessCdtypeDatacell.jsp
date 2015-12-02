@@ -14,7 +14,6 @@
 <title>受理调查</title>
 
   </head>
-  
   <body>
    <%--  <h:form name="appQuery"	action="/jbpm/tProcessConfigAction_queryMyProcessList.action" method="post">
 		<w:panel id="panel1" title="我的流程">
@@ -40,7 +39,7 @@
 			<w:panel id="panel" width="100%" title="查询结果">
 				<viewlist id="e2c61865-3b56-470d-bd42-fff792fb9493">
 				<h:form name="page_form"
-					action="/jbpm/tProcessConfigAction_queryMyProcessList.action" method="post">
+					action="/Generalprocess/tGeneralprocessCdtypeAction_queryViewList.action" method="post">
 					<h:hidden property="page.begin" />
 					<h:hidden property="page.length" />
 					<h:hidden property="page.count" />
@@ -51,25 +50,25 @@
 							<th align="center" nowrap="nowrap" width="5%">
 								<b:message key="l_select"></b:message>
 							</th>
-							<th nowrap="nowrap" width="50%">
+							<th nowrap="nowrap" >
 								一级分类
 							</th>
-							<th nowrap="nowrap" width="45%">
+							<th nowrap="nowrap" >
 								一级分类
 							</th>
 						</tr>
 					<w:radioGroup id="group1">
-						<l:iterate property="aaa" id="id1">
+						<l:iterate property="cdtypes" id="id1">
 							<tr class="<l:output oddOutput='EOS_table_row_o' evenOutput='EOS_table_row' />">
 								<td align="center" nowrap="nowrap" width="5%">
 								<w:rowRadio>
-										<h:param name='id' iterateId='id1' property='cdtypeid' />
+										<h:param name='firstClass' iterateId='id1' property='firstClass' />
 								</w:rowRadio>
 								</td>
-								<td nowrap="nowrap"><b:write iterateId="id1" property="processName" />
+								<td nowrap="nowrap"  ><b:write iterateId="id1" property="processName" />
 								</td>
 								</td>
-								<td nowrap="nowrap"><b:write iterateId="id1" property="firstClass" />
+								<td nowrap="nowrap" ><b:write iterateId="id1" property="firstClass" />
 								</td>
 							</tr>
 						</l:iterate>
@@ -79,7 +78,7 @@
               	<div class="h3"> 
               	<l:greaterThan property="page.count" targetValue="0" compareType="number" >
 								&nbsp; &nbsp;
-								<input type="button" class="button" value="选择" onclick="startProcess();"/>
+								<input type="button" class="button" value="选择" onclick="returnValue();"/>
 								</l:greaterThan>
 								</div>
                 <div class="h4">
@@ -113,5 +112,19 @@
 		</DIV>
   </body>
   <script type="text/javascript">
+  function returnValue(){
+	  var gop = $id("group1");
+		var len = gop.getSelectLength();
+		if(len == 0){
+			alert("请选择一条流程信息");
+			return;
+		}else{
+			var rows=gop.getSelectRow();
+	  		var firstClass=rows.getParam("firstClass");
+	  		window.returnValue=firstClass;
+	  		window.close();
+	  		
+		}
+	  }
   </script>
 </html>

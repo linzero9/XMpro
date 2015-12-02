@@ -3,18 +3,26 @@
 <sqlMap namespace="T_GENERALPROCESS_CDTYPE_SqlMap" >
   <resultMap id="TGeneralprocessCdtypeResult" class="com.gotop.Generalprocess.model.TGeneralprocessCdtype" >
     <!--Bean方式返回全表-->
-    <result column="CDTYPEID" property="cdtypeid" jdbcType="DECIMAL" />
     <result column="PROCESS_NAME" property="processName" jdbcType="VARCHAR" />
     <result column="FIRST_CLASS" property="firstClass" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="creditTypeResult" class="com.gotop.Generalprocess.model.TGeneralprocessCdtype" >
+    <!--Bean方式返回全表-->
     <result column="CREDIT_TYPE" property="creditType" jdbcType="VARCHAR" />
-    <result column="LIMIT_TIME" property="limitTime" jdbcType="VARCHAR" />
   </resultMap>
   
   <!-- 查询一级分类列表 -->
  <select id="queryCdtypes" resultMap="TGeneralprocessCdtypeResult" parameterClass="java.util.HashMap" >
     <!--通过查询实体,查询满足条件的记录-->
-    select CDTYPEID, PROCESS_NAME, FIRST_CLASS, CREDIT_TYPE, LIMIT_TIME
+    select distinct PROCESS_NAME, FIRST_CLASS
     from T_GENERALPROCESS_CDTYPE
+  </select>
+  
+  <select id="querycreditType" resultMap="creditTypeResult" parameterClass="java.util.HashMap" >
+    <!--通过查询实体,查询满足条件的记录-->
+    select distinct CREDIT_TYPE
+    from T_GENERALPROCESS_CDTYPE
+    where FIRST_CLASS= #firstClass#
   </select>
   
 </sqlMap>

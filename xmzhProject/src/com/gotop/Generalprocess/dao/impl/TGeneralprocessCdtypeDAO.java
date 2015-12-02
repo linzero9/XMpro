@@ -201,4 +201,14 @@ public class TGeneralprocessCdtypeDAO extends SqlMapClientDao implements ITGener
 		List<TGeneralprocessCdtype> list = (List<TGeneralprocessCdtype>)queryForList("T_GENERALPROCESS_CDTYPE_SqlMap.queryCdtypes", cdtype, page);
         return list;
 	}
+
+	@Override
+	public List<TGeneralprocessCdtype> querycreditType(
+			TGeneralprocessCdtype cdtype) {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("firstClass", cdtype.getFirstClass());
+		List<TGeneralprocessCdtype> list = (List<TGeneralprocessCdtype>)queryForList("T_GENERALPROCESS_CDTYPE_SqlMap.querycreditType", map);
+        return list;
+	}
 }
