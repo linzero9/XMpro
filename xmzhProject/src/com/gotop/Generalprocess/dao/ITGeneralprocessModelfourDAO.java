@@ -1,6 +1,7 @@
 package com.gotop.Generalprocess.dao;
 
 import com.gotop.Generalprocess.model.ProcessModelFour;
+import com.gotop.Generalprocess.model.ProcessModelFourMistake;
 import com.gotop.Generalprocess.model.ProcessModelThree;
 import com.gotop.Generalprocess.model.TGeneralprocessModelfour;
 import com.gotop.Generalprocess.model.TGeneralprocessModelfourExample;
@@ -127,4 +128,10 @@ public interface ITGeneralprocessModelfourDAO {
 	void uptModelFour(ProcessModelFour modelFour);
 	
 	ProcessModelFour queryModelFourById(String processModelId);
+
+	void addModelFourMistake(ProcessModelFourMistake mistake);
+
+	List<ProcessModelFourMistake> queryFourMistake(HashMap<String, Object> map);
+
+	void deleteModelFourMistake(ProcessModelFour modelFour);
 }

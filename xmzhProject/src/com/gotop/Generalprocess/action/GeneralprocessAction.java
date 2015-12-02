@@ -285,7 +285,7 @@ public class GeneralprocessAction extends BaseAction{
         		
         		String rm = "";
         		if(newModelOne != null){
-        			rm="com.gotop.Generalprocess.model.ProcessModelOne" + "-" + newModelOne.getProcessModelId();
+        			rm="ProcessModelOne" + "-" + newModelOne.getProcessModelId();
         			map.remove(rm);
         		}
         		
@@ -371,7 +371,7 @@ public class GeneralprocessAction extends BaseAction{
 		
 		String rm = "";
 		if(newModelTwo != null){
-			rm="com.gotop.Generalprocess.model.ProcessModelTwo" + "-" + newModelTwo.getProcessModelId();
+			rm="ProcessModelTwo" + "-" + newModelTwo.getProcessModelId();
 			map.remove(rm);
 		}
 		

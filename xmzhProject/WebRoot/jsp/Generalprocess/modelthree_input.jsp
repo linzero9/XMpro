@@ -42,12 +42,10 @@
       </tr>
       <tr>
       	<td class="form_label" align="right" style="width:10%;">是否加急：</td>
-      		 <td><d:select dictTypeId="ZHPT_ISURGENT" id="isurgent" property="modelThree.isurgent" nullLabel="请选择" /></td> 
+      		 <td><d:select dictTypeId="ZHPT_ISURGENT" id="isurgent" property="modelThree.isurgent" nullLabel="请选择"/></td> 
       	<td class="form_label" align="right" style="width:10%;">报单时间：</td>
       		 <td colspan="1">
-      		  <div id="inputTime">
-	         <w:date  id="reporttime" submitFormat="yyyy-MM-dd" format="yyyy-MM-dd" allowNull="false" property="modelThree.reporttime"/>
-        	 </div>
+	         <w:date id="reporttime" submitFormat="yyyy-MM-dd" format="yyyy-MM-dd" allowNull="false" property="modelThree.reporttime"/>
         </td>
       </tr>
       <tr>
@@ -142,7 +140,8 @@
 					$("#fujian").hide();
 					$("#row3").hide();
 					
-					
+					$("#isurgent").attr("disabled",true);
+					$id("reporttime").attr("disabled",true);
 					$("#reportcnt").attr("readonly",true);
 					$("#opninion_content").attr("readonly",true);
 				}

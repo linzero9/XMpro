@@ -2,31 +2,23 @@ package com.gotop.Generalprocess.action;
 
 import com.gotop.Generalprocess.annonation.GeneralprocessFieldBean;
 import com.gotop.Generalprocess.model.ProcessModelFour;
-import com.gotop.Generalprocess.model.ProcessModelTwo;
+import com.gotop.Generalprocess.model.ProcessModelFourMistake;
 import com.gotop.Generalprocess.model.TGeneralprocessMain;
 import com.gotop.Generalprocess.service.ITGeneralprocessMainService;
 import com.gotop.Generalprocess.service.ITGeneralprocessModelfourService;
 import com.gotop.Generalprocess.util.GeneralprocessUtil;
 import com.gotop.crm.util.BaseAction;
-import com.gotop.crm.util.MUO;
 import com.gotop.jbpm.dto.TaskAssgineeDto;
 import com.gotop.jbpm.service.JbpmService;
 import com.gotop.util.Struts2Utils;
-import com.gotop.util.XmlConvert;
 import com.gotop.vo.system.MUOUserSession;
-import com.primeton.utils.AjaxParam;
-import com.primeton.utils.Page;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 import net.sf.json.JSONArray;
-
-import org.apache.struts2.ServletActionContext;
 
 /**
  * 模式四控制器
@@ -35,7 +27,20 @@ import org.apache.struts2.ServletActionContext;
  */
 public class TGeneralprocessModelfourAction extends BaseAction {
 
+	
+	private List<ProcessModelFourMistake> fourMistakes;
+	
 	private String isView;
+	
+	/**
+	 * 差错内容
+	 */
+	private String files;
+	
+	/**
+	 * 扣罚金额
+	 */
+	private String jees;
 	
 	/**
 	 * 模式四对象
@@ -62,6 +67,30 @@ public class TGeneralprocessModelfourAction extends BaseAction {
 	 */
 	private JbpmService jbpmService;
 	
+	public List<ProcessModelFourMistake> getFourMistakes() {
+		return fourMistakes;
+	}
+
+	public void setFourMistakes(List<ProcessModelFourMistake> fourMistakes) {
+		this.fourMistakes = fourMistakes;
+	}
+
+	public String getFiles() {
+		return files;
+	}
+
+	public void setFiles(String files) {
+		this.files = files;
+	}
+
+	public String getJees() {
+		return jees;
+	}
+
+	public void setJees(String jees) {
+		this.jees = jees;
+	}
+
 	public String getIsView() {
 		return isView;
 	}
@@ -198,7 +227,7 @@ public class TGeneralprocessModelfourAction extends BaseAction {
 		
 		String rm = "";
 		if(newModelFour != null){
-			rm="com.gotop.Generalprocess.model.ProcessModelFour" + "-" + newModelFour.getProcessModelId();
+			rm="ProcessModelFour" + "-" + newModelFour.getProcessModelId();
 			map.remove(rm);
 		}
 		
@@ -223,12 +252,27 @@ public class TGeneralprocessModelfourAction extends BaseAction {
 		String info ="success";
     	MUOUserSession muo = getCurrentOnlineUser();
 		try {
-			this.tGeneralprocessModelfourService.handleModelFour(muo,modelFour,taskAssgineeDto);
+			this.tGeneralprocessModelfourService.handleModelFour(muo,modelFour,files,jees,taskAssgineeDto);
 		} catch (Exception e) {
 			info="fails";
 			log.error("[提交模式四表单失败！]", e);
 			throw e;
 		}
 		Struts2Utils.renderText(info);
+	}
+	
+	/**
+	 * 查询差错列表信息
+	 * @return
+	 */
+	public String queryFourMistake(){
+		try {
+    		if(modelFour != null && modelFour.getProcessModelId() != null){
+    			fourMistakes = this.tGeneralprocessModelfourService.queryFourMistake(modelFour);
+    		}
+		} catch (Exception e) {
+			log.error("查询差错列表失败！！", e);
+		}
+		return "list1";
 	}
 }

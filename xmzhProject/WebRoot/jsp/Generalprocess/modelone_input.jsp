@@ -103,7 +103,7 @@
         <td class="form_label" align="right" style="width:120px;">
                                                    申请币别：
         </td>
-					<td colspan="1"  width="25%" nowrap="nowrap">
+					<td colspan="1">
 						<d:select  id="currency"  dictTypeId="PROCESS_MONEY" property="modelOne.currency" nullLabel="请选择"></d:select>
 					</td>
       </tr>

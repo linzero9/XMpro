@@ -206,7 +206,7 @@ public class TGeneralprocessModelthreeAction extends BaseAction {
         		
         		String rm = "";
         		if(newModelThree != null){
-        			rm="com.gotop.Generalprocess.model.ProcessModelThree" + "-" + newModelThree.getProcessModelId();
+        			rm="ProcessModelThree" + "-" + newModelThree.getProcessModelId();
         			map.remove(rm);
         		}
         		

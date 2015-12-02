@@ -42,6 +42,23 @@
 		    <font style="color: red">*</font>
      	</td>
       </tr>
+      <tr id="row1">
+      	<td class="form_label" align="right">差错情况：</td>
+     	<td colspan="3">
+      	<table border=0 id="ccTable">
+		</table>
+      	</td>
+      </tr>
+      <tr id="rowFile">
+     	<td class="form_label" align="right">差错情况：</td>
+     	<td colspan="3">
+				<input type="button" onclick="addMisTake('tabtest','files','jees');return false;" value="新增差错" 
+					style="margin-left:2px;vertical-align:middle;cursor:hand;"/>
+				<br/>
+				<table border=0 id="tabtest">
+				</table>
+     	</td>
+     </tr>
     
       <tr class="form_bottom">
         <td colspan="4">
@@ -66,11 +83,61 @@
  		 show('${taskAssgineeDto.fxJson}');
 
 		 $(document).ready(function(){
+			
 			 //查看详情界面
 			 if('${isView}'!=''){
 					$("#save3").hide();
+					$("#rowFile").hide();
 					$("#opninionContent").attr("readonly",true);
-				}
+			 }else{
+				 $("#row1").css("display","none");  
+			 }
+			 
+			 if('${modelFour.processModelId}'!=""){
+				 var tab,row,td,tdStr,rowId,fId,jeId
+		         var tab = $id("ccTable");
+				 var tab1 = $id("tabtest");
+				 var fName = "files";
+				 var jeName = "jees";
+				 $.ajax({
+				        url: '/Generalprocess/tGeneralprocessModelFourAction_queryFourMistake.action',
+				        async: false,
+				        type: 'post',
+				        data: "modelFour.processModelId=${modelFour.processModelId}",
+				        dataType: 'json',
+				        timeout: 60000,
+				        success: function (files) {
+					        if(files!=""){
+					        	$.each(files,function( i,item ){
+					        		 
+									 fId = fName+rowId;
+									 jeId= jeName+"je"+rowId;
+					         		 if('${isView}'!=''){
+					         			row =  tab.insertRow();
+										row.id = "fileRow"+rowId;
+										td = row.insertCell();
+					         			tdStr="差错内容：<input type=\"text\" value=\""+item.mistakeContent+"\" size='70' validateAttr=\"allowNull=false\" readonly=\"true\" >";
+									 	tdStr+="扣罚金额：<input type=\"text\" value=\""+item.punishBal+"\" size='10' validateAttr=\"allowNull=false\" readonly=\"true\">";
+									 	td.innerHTML = tdStr;
+										 rowId = rowId+1; 
+					         		 }else{
+										row =  tab1.insertRow();
+										row.id = "fileRow"+rowId;
+										td = row.insertCell();
+					         			tdStr="差错内容：<input type=\"text\" name=\""+fName+"\" id=\""+fId+"\" value=\""+item.mistakeContent+"\" size='70' validateAttr=\"allowNull=false\" >";
+									 	tdStr+="扣罚金额：<input type=\"text\" name=\""+jeName+"\" id=\""+jeId+"\" value=\""+item.punishBal+"\" size='10' validateAttr=\"allowNull=false\" >";
+									 	tdStr+= "<input type=\"button\" onclick=\"delTr('fileRow"+rowId+"');\" name='button"+rowId+"' value=\"删除\" style=\"margin-left:2px;vertical-align:middle;cursor:hand;\"/>";
+									 	td.innerHTML = tdStr;
+										rowId = rowId+1; 
+					         		 }
+					        	});
+					          	
+					        }else{
+					        	 $("#row1").css("display","none");  
+					        }    
+				        }
+			    });
+			 }
 		});
 		
 		function initPlanCell20(){
@@ -98,7 +165,6 @@
 		  	  	    ajaxsubmitO();
 		  	 	}
 		}
-
 		  	  	function ajaxsubmitO(){
 					maskTop();
 		  	  	 var options = {
@@ -127,6 +193,28 @@
 		  			}; 
 		  	  	$("#form1").ajaxSubmit(options);
 		  	  	}
+		 var rowId = 0;  	
+		 function addMisTake(tabid,varName,varJeName){
+			 var tab,row,td,fName,jeName,fId,jeId,tdStr;
+			 var zs=$("#tabtest tbody tr").length;
+			 tab = $id(tabid); 
+			 fName = varName;
+			 jeName = varJeName;
+			 fId = varName+rowId;
+			 jeId= varName+"je"+rowId;
+			 row =  tab.insertRow();
+			 row.id = "fileRow"+rowId;
+			 td = row.insertCell(); 
+			 	tdStr="差错内容：<input type=\"text\" name=\""+fName+"\" id=\""+fId+"\" size='70' validateAttr=\"allowNull=false\">";
+			 	tdStr+="扣罚金额：<input type=\"text\" name=\""+jeName+"\" id=\""+jeId+"\" size='10' validateAttr=\"allowNull=false\">";
+			    tdStr+= "<input type=\"button\" onclick=\"delTr('fileRow"+rowId+"');\" name='button"+rowId+"' value=\"删除\" style=\"margin-left:2px;vertical-align:middle;cursor:hand;\"/>";
+			    td.innerHTML = tdStr;
+			    rowId = rowId+1;    
+		 }
+		 
+		 function delTr(id){
+			$("#"+id).remove();
+		}
 				
  </script>
 </html>

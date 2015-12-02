@@ -2,6 +2,7 @@ package com.gotop.Generalprocess.dao.impl;
 
 import com.gotop.Generalprocess.dao.ITGeneralprocessModelfourDAO;
 import com.gotop.Generalprocess.model.ProcessModelFour;
+import com.gotop.Generalprocess.model.ProcessModelFourMistake;
 import com.gotop.Generalprocess.model.ProcessModelThree;
 import com.gotop.Generalprocess.model.TGeneralprocessModelfour;
 import com.gotop.Generalprocess.model.TGeneralprocessModelfourExample;
@@ -215,5 +216,21 @@ public class TGeneralprocessModelfourDAO extends SqlMapClientDao implements ITGe
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("processModelId", processModelId);
 		return (ProcessModelFour) queryForObject("T_GENERALPROCESS_MODELFOUR_SqlMap.queryModelFourById", map);
+	}
+
+	@Override
+	public void addModelFourMistake(ProcessModelFourMistake mistake) {
+		getSqlMapClientTemplate().insert("T_GENERALPROCESS_MODELFOUR_SqlMap.addModelFourMistake", mistake);
+	}
+
+	@Override
+	public List<ProcessModelFourMistake> queryFourMistake(
+			HashMap<String, Object> map) {
+		return getSqlMapClientTemplate().queryForList("T_GENERALPROCESS_MODELFOUR_SqlMap.queryFourMistake", map);
+	}
+
+	@Override
+	public void deleteModelFourMistake(ProcessModelFour modelFour) {
+		getSqlMapClientTemplate().delete("T_GENERALPROCESS_MODELFOUR_SqlMap.deleteModelFourMistake", modelFour);
 	}
 }

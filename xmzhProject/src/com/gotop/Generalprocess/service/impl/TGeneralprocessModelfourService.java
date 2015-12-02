@@ -3,6 +3,7 @@ package com.gotop.Generalprocess.service.impl;
 import com.gotop.Generalprocess.dao.ITGeneralprocessMainDAO;
 import com.gotop.Generalprocess.dao.ITGeneralprocessModelfourDAO;
 import com.gotop.Generalprocess.model.ProcessModelFour;
+import com.gotop.Generalprocess.model.ProcessModelFourMistake;
 import com.gotop.Generalprocess.model.ProcessModelTwo;
 import com.gotop.Generalprocess.model.TGeneralprocessMain;
 import com.gotop.Generalprocess.model.TGeneralprocessModelfour;
@@ -206,20 +207,42 @@ public class TGeneralprocessModelfourService implements ITGeneralprocessModelfou
 	}
 
 	@Override
-	public void handleModelFour(MUOUserSession muo, ProcessModelFour modelFour,
+	public void handleModelFour(MUOUserSession muo, ProcessModelFour modelFour,String files, String jees,
 			TaskAssgineeDto taskAssgineeDto) {
 		String taskId = taskAssgineeDto.getNextTaskId();
 		String taskName = jbpmService.getTaskNameById(taskId);
 		modelFour.setTaskName(taskName);
 		modelFour.setFlowId(taskAssgineeDto.getExecutionId());
 		
+		String[] fileArray = null;
+		String[] jeArray = null;
+		if(files != null && !"".equals(files)){
+			fileArray = files.split(",");
+		}
+		if(jees != null && !"".equals(jees)){
+			jeArray = jees.split(",");
+		}
 		if (modelFour.getProcessModelId() != null
 				&& !"".equals(modelFour.getProcessModelId())){
 			// 修改模式四表单内容
 			this.tGeneralprocessModelfourDAO.uptModelFour(modelFour);
+			
+			this.tGeneralprocessModelfourDAO.deleteModelFourMistake(modelFour);
 		}else{
 			// 保存模式四表单内容
 			this.tGeneralprocessModelfourDAO.addModelFour(modelFour);
+		}
+		if(fileArray.length !=0 && fileArray !=null && jeArray.length !=0 && jeArray != null){
+			for (int i = 0; i < fileArray.length; i++) {
+				ProcessModelFourMistake mistake =new ProcessModelFourMistake();
+				mistake.setEmpid(String.valueOf(muo.getEmpid()));
+				mistake.setFlowId(modelFour.getFlowId());
+				mistake.setTaskName(modelFour.getTaskName());
+				mistake.setMistakeContent(fileArray[i]);
+				mistake.setPunishBal(jeArray[i]);
+				mistake.setProcessModelIdFour(String.valueOf(modelFour.getProcessModelId()));
+				this.tGeneralprocessModelfourDAO.addModelFourMistake(mistake);
+			}
 		}
 
 		modelFour.setOpinion(modelFour.getOpninionContent());
@@ -294,6 +317,18 @@ public class TGeneralprocessModelfourService implements ITGeneralprocessModelfou
 		
 		this.generalprocessService.insertApproveOpninion(modelFour, muo, nextTaskId,
 				submitType, taskAssgineeDto);
+	}
+
+	@Override
+	public List<ProcessModelFourMistake> queryFourMistake(
+			ProcessModelFour modelFour) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		if(modelFour != null){
+			if(modelFour.getProcessModelId() != null && !"".equals(modelFour.getProcessModelId())){
+				map.put("processModelId", modelFour.getProcessModelId());
+			}
+		}
+		return this.tGeneralprocessModelfourDAO.queryFourMistake(map);
 	}
 	
 }

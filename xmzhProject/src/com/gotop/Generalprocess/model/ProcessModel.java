@@ -19,7 +19,7 @@ public abstract class ProcessModel implements  ProcessModelPublic{
 	/**
 	 * 模式通用意见
 	 */
-	@GeneralprocessField(name="模式通用意见",type="text")
+	@GeneralprocessField(name="模式通用意见",type="text",hidden=false)
 	public String opinion;
 
 	public Long getProcessModelId() {

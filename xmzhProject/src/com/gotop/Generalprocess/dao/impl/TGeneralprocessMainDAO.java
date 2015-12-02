@@ -241,19 +241,19 @@ public class TGeneralprocessMainDAO extends SqlMapClientDao implements ITGeneral
 		main.setTemplateId(taskAssgineeDto.getDefinitionId());
 		if("com.gotop.Generalprocess.model.ProcessModelOne".equals(c.getName())){
 			//模式一
-			main.setRules(c.getName());
+			main.setRules("ProcessModelOne");
 		}
 		if("com.gotop.Generalprocess.model.ProcessModelTwo".equals(c.getName())){
 			//模式二
-			main.setRules(c.getName());
+			main.setRules("ProcessModelTwo");
 		}
 		if("com.gotop.Generalprocess.model.ProcessModelThree".equals(c.getName())){
 			//模式三
-			main.setRules(c.getName());
+			main.setRules("ProcessModelThree");
 		}
 		if("com.gotop.Generalprocess.model.ProcessModelFour".equals(c.getName())){
 			//模式四
-			main.setRules(c.getName());
+			main.setRules("ProcessModelFour");
 		}
 		main.setIds(String.valueOf(pm.getProcessModelId()));
 		getSqlMapClientTemplate().insert("T_GENERALPROCESS_MAIN_SqlMap.addGeneralProcessMain", main);
@@ -274,19 +274,19 @@ public class TGeneralprocessMainDAO extends SqlMapClientDao implements ITGeneral
 		if (rules != null) {
 			if ("com.gotop.Generalprocess.model.ProcessModelOne".equals(c.getName())) {
 				// 模式一
-				rules += "," + c.getName();
+				rules += "," + "ProcessModelOne";
 			}
 			if ("com.gotop.Generalprocess.model.ProcessModelTwo".equals(c.getName())) {
 				// 模式二
-				rules += "," + c.getName();
+				rules += "," + "ProcessModelTwo";
 			}
 			if ("com.gotop.Generalprocess.model.ProcessModelThree".equals(c.getName())) {
 				// 模式三
-				rules += "," + c.getName();
+				rules += "," + "ProcessModelThree";
 			}
 			if ("com.gotop.Generalprocess.model.ProcessModelFour".equals(c.getName())) {
 				// 模式四
-				rules += "," + c.getName();
+				rules += "," + "ProcessModelFour";
 			}
 		}
 		

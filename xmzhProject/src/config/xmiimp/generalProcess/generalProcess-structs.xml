@@ -42,6 +42,9 @@
       <result name="toModelFour">
         /jsp/Generalprocess/modelfour_input.jsp
       </result>
+     <result name="list1" type="json">
+		   <param name="root">fourMistakes</param>
+	  </result>
     </action>
     
     </package>
