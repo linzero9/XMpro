@@ -126,7 +126,7 @@
                                                    抵押物权属人名称：
         </td>
         <td colspan="1">
-          <h:text property="modelOne.dywx_Name" id="dywx_Name" validateAttr="allowNull=ture" style="width:130px;" /><font style="color: red">*</font>	
+          <h:text property="modelOne.dywx_Name" id="dywx_Name" validateAttr="allowNull=flase" style="width:130px;" /><font style="color: red">*</font>	
         </td>
         
         <td class="form_label" align="right" style="width:120px;">
