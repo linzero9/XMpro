@@ -41,6 +41,16 @@ public class TGeneralprocessModelthreeAction extends BaseAction {
 	 */
 	private ProcessModelThree modelThree;
 	
+	private String taskName;
+	
+	public String getTaskName() {
+		return taskName;
+	}
+
+	public void setTaskName(String taskName) {
+		this.taskName = taskName;
+	}
+
 	public ProcessModelThree getModelThree() {
 		return modelThree;
 	}
@@ -168,19 +178,20 @@ public class TGeneralprocessModelthreeAction extends BaseAction {
     		//获取流程配置主表对象
     		TGeneralprocessMain main = this.generalprocessMainService.queryMainByBusinessId(businessId);
     		Map<String, Object>  map = new HashMap<String, Object>();
-    		String taskName="";
+    		String taskName1="";
     		if(taskAssgineeDto.getNextTaskId() != null){
     			//待办-办理
-    			taskName = jbpmService.getTaskNameById(taskAssgineeDto.getNextTaskId());
+    			taskName1 = jbpmService.getTaskNameById(taskAssgineeDto.getNextTaskId());
     		}else{
     			if(taskAssgineeDto.getActivityName() != null){
     				//已办-查看详情
-    				taskName = taskAssgineeDto.getActivityName();
+    				taskName1 = taskAssgineeDto.getActivityName();
+    				taskName = taskName1;
     			}
     		}
     			ProcessModelThree modelThree = new ProcessModelThree();
     			modelThree.setFlow_id(businessId);
-    			modelThree.setTaskName(taskName);
+    			modelThree.setTaskName(taskName1);
         		ProcessModelThree newModelThree = new ProcessModelThree();
         		newModelThree = this.generalprocessModelthreeService.queryModelThree(modelThree);
     			

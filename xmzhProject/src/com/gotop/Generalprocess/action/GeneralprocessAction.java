@@ -333,21 +333,22 @@ public class GeneralprocessAction extends BaseAction{
 		//获取流程配置主表对象
 		TGeneralprocessMain main = this.generalprocessMainService.queryMainByBusinessId(businessId);
 		Map<String, Object>  map = new HashMap<String, Object>();
-		String taskName = "";
+		String taskName1 = "";
 		if(taskAssgineeDto.getNextTaskId() != null){
 			//待办-办理
-			taskName = jbpmService.getTaskNameById(taskAssgineeDto.getNextTaskId());
+			taskName1 = jbpmService.getTaskNameById(taskAssgineeDto.getNextTaskId());
 		}else{
 			if(taskAssgineeDto.getActivityName() != null){
 				//已办-查看详情
-				taskName = taskAssgineeDto.getActivityName();
+				taskName1 = taskAssgineeDto.getActivityName();
+				taskName = taskName1;
 			}
 		}
 		
 		
 		ProcessModelTwo modelTwo = new ProcessModelTwo();
 		modelTwo.setFlow_id(businessId);
-		modelTwo.setTaskName(taskName);
+		modelTwo.setTaskName(taskName1);
 		ProcessModelTwo newModelTwo = new ProcessModelTwo();
 		newModelTwo = this.generalprocessModeltwoService.queryModelTwo(modelTwo);
 
