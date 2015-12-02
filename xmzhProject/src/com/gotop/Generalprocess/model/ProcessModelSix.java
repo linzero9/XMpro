@@ -2,8 +2,14 @@ package com.gotop.Generalprocess.model;
 
 import java.io.Serializable;
 
-import com.gotop.Generalprocess.annonation.GeneralprocessField;
 
+import com.gotop.Generalprocess.annonation.GeneralprocessField;
+/**
+ * 
+ * @author wujiajun
+ * 
+ *
+ */
 public class ProcessModelSix  extends ProcessModel  implements  Serializable {
 	
 	/**
@@ -15,106 +21,151 @@ public class ProcessModelSix  extends ProcessModel  implements  Serializable {
 		return serialVersionUID;
 	}
 	
-	
+
+
+    /**
+     * 流程id .
+     * @abatorgenerated
+     */
 	
 	@GeneralprocessField(name="流程id",type="text")
-	private  String flow_id;
-	
+    private String flowId;
+
+
+
+    /**
+     * 抵押送件时间 .
+     * @abatorgenerated
+     */
 	@GeneralprocessField(name="抵押送件时间",type="text")
-	private String  MORTGAGE_TIME;
-	
+    private String mortgageTime;
+
+    /**
+     * 收到他项时间 .
+     * @abatorgenerated
+     */
 	@GeneralprocessField(name="收到他项时间",type="text")
-	private String RECEIVE_TIME;
-	
+    private String receiveTime;
+
+    /**
+     * 公积金中心申请时间 .
+     * @abatorgenerated
+     */
 	@GeneralprocessField(name="公积金中心申请时间",type="text")
-	private String  APPLICATION_TIME;
-	
+    private String applicationTime;
+
+    /**
+     * 公积金中心下达放款指标时间 .
+     * @abatorgenerated
+     */
 	@GeneralprocessField(name="公积金中心下达放款指标时间",type="text")
-	private  String  ISSUED_TIME;
-	
+    private String issuedTime;
+
+    /**
+     * 支用类别 .
+     * @abatorgenerated
+     */
 	@GeneralprocessField(name="支用类别",type="dic",dicname="PROCESS_pay")
-	private  String SUPPORT_CATEGORY;
-	
+    private String supportCategory;
+
+    /**
+     * 支用金额 .
+     * @abatorgenerated
+     */
 	@GeneralprocessField(name="支用金额",type="text")
-	private  String  SUPPORT_MONEY;
+    private String supportMoney;
+
+    /**
+     * 是否风险额度重检 .
+     * @abatorgenerated
+     */
 	
 	@GeneralprocessField(name="是否风险额度重检",type="dic",dicname="PROCESS_QuotaCheck")
-	private String RISK;
-	
+    private String risk;
+
+    /**
+     * 处理意见 .
+     * @abatorgenerated
+     */
 	@GeneralprocessField(name="处理意见",type="text")
-	private String PROCESSING_OPINION;
+    private String processingOpinion;
 
-	public String getFlow_id() {
-		return flow_id;
+	public String getFlowId() {
+		return flowId;
 	}
 
-	public void setFlow_id(String flow_id) {
-		this.flow_id = flow_id;
+	public void setFlowId(String flowId) {
+		this.flowId = flowId;
 	}
 
-	public String getMORTGAGE_TIME() {
-		return MORTGAGE_TIME;
+	public String getMortgageTime() {
+		return mortgageTime;
 	}
 
-	public void setMORTGAGE_TIME(String mORTGAGE_TIME) {
-		MORTGAGE_TIME = mORTGAGE_TIME;
+	public void setMortgageTime(String mortgageTime) {
+		this.mortgageTime = mortgageTime;
 	}
 
-	public String getRECEIVE_TIME() {
-		return RECEIVE_TIME;
+	public String getReceiveTime() {
+		return receiveTime;
 	}
 
-	public void setRECEIVE_TIME(String rECEIVE_TIME) {
-		RECEIVE_TIME = rECEIVE_TIME;
+	public void setReceiveTime(String receiveTime) {
+		this.receiveTime = receiveTime;
 	}
 
-	public String getAPPLICATION_TIME() {
-		return APPLICATION_TIME;
+	public String getApplicationTime() {
+		return applicationTime;
 	}
 
-	public void setAPPLICATION_TIME(String aPPLICATION_TIME) {
-		APPLICATION_TIME = aPPLICATION_TIME;
+	public void setApplicationTime(String applicationTime) {
+		this.applicationTime = applicationTime;
 	}
 
-	public String getISSUED_TIME() {
-		return ISSUED_TIME;
+	public String getIssuedTime() {
+		return issuedTime;
 	}
 
-	public void setISSUED_TIME(String iSSUED_TIME) {
-		ISSUED_TIME = iSSUED_TIME;
+	public void setIssuedTime(String issuedTime) {
+		this.issuedTime = issuedTime;
 	}
 
-	public String getSUPPORT_CATEGORY() {
-		return SUPPORT_CATEGORY;
+	public String getSupportCategory() {
+		return supportCategory;
 	}
 
-	public void setSUPPORT_CATEGORY(String sUPPORT_CATEGORY) {
-		SUPPORT_CATEGORY = sUPPORT_CATEGORY;
+	public void setSupportCategory(String supportCategory) {
+		this.supportCategory = supportCategory;
 	}
 
-	public String getSUPPORT_MONEY() {
-		return SUPPORT_MONEY;
+	public String getSupportMoney() {
+		return supportMoney;
 	}
 
-	public void setSUPPORT_MONEY(String sUPPORT_MONEY) {
-		SUPPORT_MONEY = sUPPORT_MONEY;
+	public void setSupportMoney(String supportMoney) {
+		this.supportMoney = supportMoney;
 	}
 
-	public String getRISK() {
-		return RISK;
+	public String getRisk() {
+		return risk;
 	}
 
-	public void setRISK(String rISK) {
-		RISK = rISK;
+	public void setRisk(String risk) {
+		this.risk = risk;
 	}
 
-	public String getPROCESSING_OPINION() {
-		return PROCESSING_OPINION;
+	public String getProcessingOpinion() {
+		return processingOpinion;
 	}
 
-	public void setPROCESSING_OPINION(String pROCESSING_OPINION) {
-		PROCESSING_OPINION = pROCESSING_OPINION;
+	public void setProcessingOpinion(String processingOpinion) {
+		this.processingOpinion = processingOpinion;
 	}
+	
+	
+	
+	////
+	
 	
 	
 	

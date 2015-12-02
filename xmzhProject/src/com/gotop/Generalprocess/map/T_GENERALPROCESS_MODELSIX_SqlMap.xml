@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
 <sqlMap namespace="T_GENERALPROCESS_MODELSIX_SqlMap" >
-  <resultMap id="abatorgenerated_TGeneralprocessModelsixResult" class="com.gotop.Generalprocess.model.TGeneralprocessModelsix" >
+  <resultMap id="ProcessModelSix_Result" class="com.gotop.Generalprocess.model.ProcessModelSix" >
     <!--Bean方式返回全表-->
     <result column="PROCESSMODELID" property="processmodelid" jdbcType="DECIMAL" />
     <result column="FLOW_ID" property="flowId" jdbcType="VARCHAR" />
@@ -16,7 +16,9 @@
     <result column="RISK" property="risk" jdbcType="VARCHAR" />
     <result column="PROCESSING_OPINION" property="processingOpinion" jdbcType="VARCHAR" />
   </resultMap>
-  <resultMap id="abatorgenerated_TGeneralprocessModelsix_HashMapResult" class="java.util.HashMap" >
+  
+  
+  <resultMap id="ProcessModelSix_HashMapResult" class="java.util.HashMap" >
     <!--HashMap方式返回全表-->
     <result column="PROCESSMODELID" property="processmodelid" jdbcType="DECIMAL" />
     <result column="FLOW_ID" property="flowId" jdbcType="VARCHAR" />
@@ -31,18 +33,66 @@
     <result column="RISK" property="risk" jdbcType="VARCHAR" />
     <result column="PROCESSING_OPINION" property="processingOpinion" jdbcType="VARCHAR" />
   </resultMap>
-  <select id="abatorgenerated_selectByExample" resultMap="abatorgenerated_TGeneralprocessModelsixResult" parameterClass="com.gotop.Generalprocess.model.TGeneralprocessModelsixExample" >
-    <!--通过查询实体,查询满足条件的记录-->
+  
+  
+  
+  
+  <select id="queryModelSix" resultMap="ProcessModelSix_Result" parameterClass="java.util.HashMap" >
+    <!--更具主键查找一条记录-->
     select PROCESSMODELID, FLOW_ID, TASKNAME, OPINION, MORTGAGE_TIME, RECEIVE_TIME,
       APPLICATION_TIME, ISSUED_TIME, SUPPORT_CATEGORY, SUPPORT_MONEY, RISK, PROCESSING_OPINION
-    from T_GENERALPROCESS_MODELSIX
-    <isParameterPresent >
-      <include refid="COMMON.abatorgenerated_Example_Where_Clause" />
-      <isNotNull property="orderByClause" >
-        order by $orderByClause$
-      </isNotNull>
-    </isParameterPresent>
+    from T_GENERALPROCESS_MODELSIX  where PROCESSMODELID=$processmodelid$
+    
   </select>
+  
+  
+  <!-- 新增记录 -->
+  
+    <insert id="addModelSix" parameterClass="com.gotop.Generalprocess.model.ProcessModelSix">
+  <selectKey resultClass="long" keyProperty="processmodelid">
+			SELECT SEQ_T_GENERALPROCESS_MODELSIX.NEXTVAL AS VALUE FROM DUAL
+   </selectKey>
+  	 insert into T_GENERALPROCESS_MODELSIX (PROCESSMODELID, FLOW_ID, TASKNAME, OPINION,
+      MORTGAGE_TIME, RECEIVE_TIME, APPLICATION_TIME, ISSUED_TIME, SUPPORT_CATEGORY, SUPPORT_MONEY,
+      RISK, PROCESSING_OPINION)
+    values (#processmodelid:DECIMAL:-9999#, #flowId:VARCHAR#, #taskname:VARCHAR#, #opinion:VARCHAR#,
+      #mortgageTime:VARCHAR#, #receiveTime:VARCHAR#, #applicationTime:VARCHAR#,
+      #issuedTime:VARCHAR#, #supportCategory:VARCHAR#, #supportMoney:VARCHAR#, #risk:VARCHAR#,
+      #processingOpinion:VARCHAR#)
+  </insert>
+  
+  
+  
+  <!-- 更新记录 -->
+  
+  
+  
+  
+  <update id="uptModelSix"    parameterClass="com.gotop.Generalprocess.model.ProcessModelSix" >
+    <!--通过查询实例，更新全部字段-->
+    update T_GENERALPROCESS_MODELSIX
+    set PROCESSMODELID = #processmodelid:DECIMAL:-9999#,
+      FLOW_ID = #flowId:VARCHAR#,
+      TASKNAME = #taskname:VARCHAR#,
+      OPINION = #opinion:VARCHAR#,
+      MORTGAGE_TIME = #mortgageTime:VARCHAR#,
+      RECEIVE_TIME = #receiveTime:VARCHAR#,
+      APPLICATION_TIME = #applicationTime:VARCHAR#,
+      ISSUED_TIME = #issuedTime:VARCHAR#,
+      SUPPORT_CATEGORY = #supportCategory:VARCHAR#,
+      SUPPORT_MONEY = #supportMoney:VARCHAR#,
+      RISK = #risk:VARCHAR#,
+      PROCESSING_OPINION = #processingOpinion:VARCHAR#
+    
+  </update>
+  
+  
+  
+  
+  
+  
+  
+  
   <select id="abatorgenerated_expandEntityByTemplate" resultMap="abatorgenerated_TGeneralprocessModelsixResult" parameterClass="com.gotop.Generalprocess.model.TGeneralprocessModelsix" >
     <!--根据Bean数据模板查询条件查询所有记录，可查询分页数据-->
     select PROCESSMODELID, FLOW_ID, TASKNAME, OPINION, MORTGAGE_TIME, RECEIVE_TIME,
@@ -131,11 +181,17 @@
       </isNotNull>
     </dynamic>
   </select>
+  
+  
+  
   <delete id="abatorgenerated_deleteByExample" parameterClass="com.gotop.Generalprocess.model.TGeneralprocessModelsixExample" >
     <!--通过查询实例，删除满足条件的数据-->
     delete from T_GENERALPROCESS_MODELSIX
     <include refid="COMMON.abatorgenerated_Example_Where_Clause" />
   </delete>
+  
+  
+  
   <delete id="abatorgenerated_deleteByTemplate" parameterClass="com.gotop.Generalprocess.model.TGeneralprocessModelsix" >
     <!--根据Bean数据模板查询条件删除记录-->
     delete from T_GENERALPROCESS_MODELSIX
@@ -239,41 +295,41 @@
     <!--通过查询实例，更新非null字段-->
     update T_GENERALPROCESS_MODELSIX
     <dynamic prepend="set" >
-      <isNotNull prepend="," property="record.processmodelid" >
-        PROCESSMODELID = #record.processmodelid:DECIMAL:-9999#
+      <isNotNull prepend="," property="processmodelid" >
+        PROCESSMODELID = #processmodelid:DECIMAL:-9999#
       </isNotNull>
-      <isNotNull prepend="," property="record.flowId" >
-        FLOW_ID = #record.flowId:VARCHAR#
+      <isNotNull prepend="," property="flowId" >
+        FLOW_ID = #flowId:VARCHAR#
       </isNotNull>
-      <isNotNull prepend="," property="record.taskname" >
-        TASKNAME = #record.taskname:VARCHAR#
+      <isNotNull prepend="," property="taskname" >
+        TASKNAME = #taskname:VARCHAR#
       </isNotNull>
-      <isNotNull prepend="," property="record.opinion" >
-        OPINION = #record.opinion:VARCHAR#
+      <isNotNull prepend="," property="opinion" >
+        OPINION = #opinion:VARCHAR#
       </isNotNull>
-      <isNotNull prepend="," property="record.mortgageTime" >
-        MORTGAGE_TIME = #record.mortgageTime:VARCHAR#
+      <isNotNull prepend="," property="mortgageTime" >
+        MORTGAGE_TIME = #mortgageTime:VARCHAR#
       </isNotNull>
-      <isNotNull prepend="," property="record.receiveTime" >
-        RECEIVE_TIME = #record.receiveTime:VARCHAR#
+      <isNotNull prepend="," property="receiveTime" >
+        RECEIVE_TIME = #receiveTime:VARCHAR#
       </isNotNull>
-      <isNotNull prepend="," property="record.applicationTime" >
-        APPLICATION_TIME = #record.applicationTime:VARCHAR#
+      <isNotNull prepend="," property="applicationTime" >
+        APPLICATION_TIME = #applicationTime:VARCHAR#
       </isNotNull>
-      <isNotNull prepend="," property="record.issuedTime" >
-        ISSUED_TIME = #record.issuedTime:VARCHAR#
+      <isNotNull prepend="," property="issuedTime" >
+        ISSUED_TIME = #issuedTime:VARCHAR#
       </isNotNull>
-      <isNotNull prepend="," property="record.supportCategory" >
-        SUPPORT_CATEGORY = #record.supportCategory:VARCHAR#
+      <isNotNull prepend="," property="supportCategory" >
+        SUPPORT_CATEGORY = #supportCategory:VARCHAR#
       </isNotNull>
-      <isNotNull prepend="," property="record.supportMoney" >
-        SUPPORT_MONEY = #record.supportMoney:VARCHAR#
+      <isNotNull prepend="," property="supportMoney" >
+        SUPPORT_MONEY = #supportMoney:VARCHAR#
       </isNotNull>
-      <isNotNull prepend="," property="record.risk" >
-        RISK = #record.risk:VARCHAR#
+      <isNotNull prepend="," property="risk" >
+        RISK = #risk:VARCHAR#
       </isNotNull>
-      <isNotNull prepend="," property="record.processingOpinion" >
-        PROCESSING_OPINION = #record.processingOpinion:VARCHAR#
+      <isNotNull prepend="," property="processingOpinion" >
+        PROCESSING_OPINION = #processingOpinion:VARCHAR#
       </isNotNull>
     </dynamic>
     <isParameterPresent >
@@ -283,18 +339,18 @@
   <update id="abatorgenerated_updateByExample" >
     <!--通过查询实例，更新全部字段-->
     update T_GENERALPROCESS_MODELSIX
-    set PROCESSMODELID = #record.processmodelid:DECIMAL:-9999#,
-      FLOW_ID = #record.flowId:VARCHAR#,
-      TASKNAME = #record.taskname:VARCHAR#,
-      OPINION = #record.opinion:VARCHAR#,
-      MORTGAGE_TIME = #record.mortgageTime:VARCHAR#,
-      RECEIVE_TIME = #record.receiveTime:VARCHAR#,
-      APPLICATION_TIME = #record.applicationTime:VARCHAR#,
-      ISSUED_TIME = #record.issuedTime:VARCHAR#,
-      SUPPORT_CATEGORY = #record.supportCategory:VARCHAR#,
-      SUPPORT_MONEY = #record.supportMoney:VARCHAR#,
-      RISK = #record.risk:VARCHAR#,
-      PROCESSING_OPINION = #record.processingOpinion:VARCHAR#
+    set PROCESSMODELID = #processmodelid:DECIMAL:-9999#,
+      FLOW_ID = #flowId:VARCHAR#,
+      TASKNAME = #taskname:VARCHAR#,
+      OPINION = #opinion:VARCHAR#,
+      MORTGAGE_TIME = #mortgageTime:VARCHAR#,
+      RECEIVE_TIME = #receiveTime:VARCHAR#,
+      APPLICATION_TIME = #applicationTime:VARCHAR#,
+      ISSUED_TIME = #issuedTime:VARCHAR#,
+      SUPPORT_CATEGORY = #supportCategory:VARCHAR#,
+      SUPPORT_MONEY = #supportMoney:VARCHAR#,
+      RISK = #risk:VARCHAR#,
+      PROCESSING_OPINION = #processingOpinion:VARCHAR#
     <isParameterPresent >
       <include refid="COMMON.abatorgenerated_Example_Where_Clause" />
     </isParameterPresent>
@@ -303,41 +359,41 @@
     <!--根据Bean数据模板查询条件更新记录-->
     update T_GENERALPROCESS_MODELSIX
     <dynamic prepend="set" >
-      <isNotEmpty prepend="," property="record.processmodelid" >
-        PROCESSMODELID = #record.processmodelid:DECIMAL:-9999#
+      <isNotEmpty prepend="," property="processmodelid" >
+        PROCESSMODELID = #processmodelid:DECIMAL:-9999#
       </isNotEmpty>
-      <isNotEmpty prepend="," property="record.flowId" >
-        FLOW_ID = #record.flowId:VARCHAR#
+      <isNotEmpty prepend="," property="flowId" >
+        FLOW_ID = #flowId:VARCHAR#
       </isNotEmpty>
-      <isNotEmpty prepend="," property="record.taskname" >
-        TASKNAME = #record.taskname:VARCHAR#
+      <isNotEmpty prepend="," property="taskname" >
+        TASKNAME = #taskname:VARCHAR#
       </isNotEmpty>
-      <isNotEmpty prepend="," property="record.opinion" >
-        OPINION = #record.opinion:VARCHAR#
+      <isNotEmpty prepend="," property="opinion" >
+        OPINION = #opinion:VARCHAR#
       </isNotEmpty>
-      <isNotEmpty prepend="," property="record.mortgageTime" >
-        MORTGAGE_TIME = #record.mortgageTime:VARCHAR#
+      <isNotEmpty prepend="," property="mortgageTime" >
+        MORTGAGE_TIME = #mortgageTime:VARCHAR#
       </isNotEmpty>
-      <isNotEmpty prepend="," property="record.receiveTime" >
-        RECEIVE_TIME = #record.receiveTime:VARCHAR#
+      <isNotEmpty prepend="," property="receiveTime" >
+        RECEIVE_TIME = #receiveTime:VARCHAR#
       </isNotEmpty>
-      <isNotEmpty prepend="," property="record.applicationTime" >
-        APPLICATION_TIME = #record.applicationTime:VARCHAR#
+      <isNotEmpty prepend="," property="applicationTime" >
+        APPLICATION_TIME = #applicationTime:VARCHAR#
       </isNotEmpty>
-      <isNotEmpty prepend="," property="record.issuedTime" >
-        ISSUED_TIME = #record.issuedTime:VARCHAR#
+      <isNotEmpty prepend="," property="issuedTime" >
+        ISSUED_TIME = #issuedTime:VARCHAR#
       </isNotEmpty>
-      <isNotEmpty prepend="," property="record.supportCategory" >
-        SUPPORT_CATEGORY = #record.supportCategory:VARCHAR#
+      <isNotEmpty prepend="," property="supportCategory" >
+        SUPPORT_CATEGORY = #supportCategory:VARCHAR#
       </isNotEmpty>
-      <isNotEmpty prepend="," property="record.supportMoney" >
-        SUPPORT_MONEY = #record.supportMoney:VARCHAR#
+      <isNotEmpty prepend="," property="supportMoney" >
+        SUPPORT_MONEY = #supportMoney:VARCHAR#
       </isNotEmpty>
-      <isNotEmpty prepend="," property="record.risk" >
-        RISK = #record.risk:VARCHAR#
+      <isNotEmpty prepend="," property="risk" >
+        RISK = #risk:VARCHAR#
       </isNotEmpty>
-      <isNotEmpty prepend="," property="record.processingOpinion" >
-        PROCESSING_OPINION = #record.processingOpinion:VARCHAR#
+      <isNotEmpty prepend="," property="processingOpinion" >
+        PROCESSING_OPINION = #processingOpinion:VARCHAR#
       </isNotEmpty>
     </dynamic>
     <dynamic prepend="where" >
