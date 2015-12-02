@@ -362,11 +362,10 @@ function initPlanCell20(){
 			$("#loanCategory").val($('#loanCategorys option:selected').val());
 			}	
 		function setselect(arg){
-			var x=document.getElementById("loanCategorys");
-			x.options.length=0;  
+			$("#loanCategorys").html("");
 			var selecthtml=$("#loanCategorys").html();
 			 $.ajax({
-			        url: "/Generalprocess/tGeneralprocessCdtypeAction_querycreditType.action?cdtype.firstClass="+arg,
+			        url: "/Generalprocess/tGeneralprocessCdtypeAction_querycreditType.action?cdtype.firstClass="+encodeURI(arg),
 			        async: false,
 			        type: 'post',
 			        data: "",
