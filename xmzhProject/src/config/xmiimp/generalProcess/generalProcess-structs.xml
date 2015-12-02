@@ -51,11 +51,13 @@
     </action>
     
     
-    
-    <action name="tGeneralprocessModelsixAction_*" class="tGeneralprocessModelsixAction" method="{1}" >
-      <result name="viewlist" >
-        /jsp/wujiajuntest/tGeneralprocessModelsixDatacell.jsp
+ 
+    <action name="tGeneralprocessModelSixAction_*" class="tGeneralprocessModelsixAction" method="{1}" >
+ 
+      <result name="modelSix_input">
+        /jsp/Generalprocess/modelSix_input.jsp
       </result>
+      
     </action>
     
     

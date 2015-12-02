@@ -1,6 +1,9 @@
 package com.gotop.Generalprocess.action;
 
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.gotop.Generalprocess.model.ProcessModelSix;
 import com.gotop.Generalprocess.service.ITGeneralprocessMainService;
 import com.gotop.Generalprocess.service.ITGeneralprocessModelsixService;
@@ -63,6 +66,25 @@ public class TGeneralprocessModelsixAction extends BaseAction {
     
     
     
+    public String toModelSix(){
+    	
+    	HashMap<String, Object>map= new HashMap<String, Object>();
+    	map.put("processModelId", "9");
+    	ProcessModelSix six= tGeneralprocessModelsixService.queryModelSix(map);
+    	
+    	
+    
+    	
+    	six.setFlowId("222222");
+    	
+    	tGeneralprocessModelsixService.uptModelSix(six);
+    	
+    	
+    	
+    	
+    	
+    	return "modelSix_input";
+    }
     
     
     
