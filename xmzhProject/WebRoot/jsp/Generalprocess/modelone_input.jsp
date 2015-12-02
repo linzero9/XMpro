@@ -103,9 +103,9 @@
         <td class="form_label" align="right" style="width:120px;">
                                                    申请币别：
         </td>
-        <td colspan="1">
-         <h:text property="modelOne.currency" id="currency" validateAttr="allowNull=false" style="width:130px;" /><font style="color: red">*</font>	
-        </td>
+					<td colspan="1"  width="25%" nowrap="nowrap">
+						<d:select  id="currency"  dictTypeId="PROCESS_MONEY" property="modelOne.currency" nullLabel="请选择"></d:select>
+					</td>
       </tr>
        <tr>
         <td class="form_label" align="right" style="width:120px;">
