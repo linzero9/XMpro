@@ -49,7 +49,7 @@
   <!-- 新增记录 -->
   
     <insert id="addModelSix" parameterClass="com.gotop.Generalprocess.model.ProcessModelSix">
-  <selectKey resultClass="long" keyProperty="processmodelid">
+  <selectKey resultClass="long" keyProperty="processModelId">
 			SELECT SEQ_T_GENERALPROCESS_MODELSIX.NEXTVAL AS VALUE FROM DUAL
    </selectKey>
   	 insert into T_GENERALPROCESS_MODELSIX (PROCESSMODELID, FLOW_ID, TASKNAME, OPINION,
@@ -71,7 +71,7 @@
   <update id="uptModelSix"    parameterClass="com.gotop.Generalprocess.model.ProcessModelSix" >
     <!--通过查询实例，更新全部字段-->
     update T_GENERALPROCESS_MODELSIX
-    set PROCESSMODELID = #processModelId:DECIMAL:-9999#,
+    set 
       FLOW_ID = #flowId:VARCHAR#,
       TASKNAME = #taskName:VARCHAR#,
       OPINION = #opinion:VARCHAR#,
@@ -83,6 +83,8 @@
       SUPPORT_MONEY = #supportMoney:VARCHAR#,
       RISK = #risk:VARCHAR#,
       PROCESSING_OPINION = #processingOpinion:VARCHAR#
+      
+      where  PROCESSMODELID = #processModelId:DECIMAL:-9999#
     
   </update>
   
