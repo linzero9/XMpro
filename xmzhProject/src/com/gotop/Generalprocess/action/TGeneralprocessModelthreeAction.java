@@ -229,7 +229,7 @@ public class TGeneralprocessModelthreeAction extends BaseAction {
         		taskAssgineeDto.setFxJson(fxJson);
     		
 		} catch (Exception e) {
-			log.error("查询模式一表单信息失败", e);
+			log.error("查询模式三表单信息失败", e);
 		}
 		//queryDefault();
 		return "toModelthree";

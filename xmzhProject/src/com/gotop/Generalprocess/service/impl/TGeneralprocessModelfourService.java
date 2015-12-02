@@ -121,21 +121,25 @@ public class TGeneralprocessModelfourService implements ITGeneralprocessModelfou
 			// 保存模式四表单内容
 			this.tGeneralprocessModelfourDAO.addModelFour(modelFour);
 		}
-		if(fileArray.length !=0 && fileArray !=null && jeArray.length !=0 && jeArray != null){
-			for (int i = 0; i < fileArray.length; i++) {
-				ProcessModelFourMistake mistake =new ProcessModelFourMistake();
-				mistake.setEmpid(String.valueOf(muo.getEmpid()));
-				mistake.setFlowId(modelFour.getFlowId());
-				mistake.setTaskName(modelFour.getTaskName());
-				mistake.setMistakeContent(fileArray[i]);
-				mistake.setPunishBal(jeArray[i]);
-				mistake.setProcessModelIdFour(String.valueOf(modelFour.getProcessModelId()));
-				String currDate = TimeUtil.getCntDtStr(new Date(),
-						"yyyyMMddHHmmss");
-				mistake.setAddTime(currDate);
-				this.tGeneralprocessModelfourDAO.addModelFourMistake(mistake);
+		
+		if(fileArray !=null && jeArray != null){
+			if(fileArray.length !=0 && jeArray.length !=0){
+				for (int i = 0; i < fileArray.length; i++) {
+					ProcessModelFourMistake mistake =new ProcessModelFourMistake();
+					mistake.setEmpid(String.valueOf(muo.getEmpid()));
+					mistake.setFlowId(modelFour.getFlowId());
+					mistake.setTaskName(modelFour.getTaskName());
+					mistake.setMistakeContent(fileArray[i]);
+					mistake.setPunishBal(jeArray[i]);
+					mistake.setProcessModelIdFour(String.valueOf(modelFour.getProcessModelId()));
+					String currDate = TimeUtil.getCntDtStr(new Date(),
+							"yyyyMMddHHmmss");
+					mistake.setAddTime(currDate);
+					this.tGeneralprocessModelfourDAO.addModelFourMistake(mistake);
+				}
 			}
 		}
+		
 
 		modelFour.setOpinion(modelFour.getOpninionContent());
 
