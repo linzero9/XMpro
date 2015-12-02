@@ -14,6 +14,8 @@
 <title>收单派单</title>
 </head>
   <body>
+  <div id='showdiv'>
+    	</div>
     <h:form name="form1" id="form1" action="" method="post" enctype="multipart/form-data" onsubmit="return checkForm(this);">
         
         <h:hidden id="businessKey" name="taskAssgineeDto.businessKey" property="taskAssgineeDto.businessKey"/>
@@ -76,10 +78,7 @@
      </tr>
     </table>
     </h:form>
-      	<w:panel id="showpanel" title="流程信息">
-    		<div id='showdiv'>
-    	</div>	
-	</w:panel>
+    		
   </body>
  <script type="text/javascript">
 

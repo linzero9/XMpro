@@ -14,6 +14,8 @@
 <title>受理调查</title>
 </head>
   <body>
+  <div id='showdiv'>
+    	</div>	
     <h:form name="form1" id="form1" action="" method="post" enctype="multipart/form-data" onsubmit="return checkForm(this);">
     <div id="content">
     	<h:hidden id="createor"/>
@@ -165,8 +167,7 @@
      <%@include file="/jsp/util/opinionUtil_generalProcess.jsp"%>
 		</td>
      </tr>
-    	<div id='showdiv'>
-    	</div>	
+    	
     </table>
     </div>
     </h:form>
