@@ -366,13 +366,21 @@ public class DeviceManagementAction  extends BaseAction    {
 						//判断如果整行单元格都为空，则不插入
 						boolean allowInsert = false;
 						int cells = row.getPhysicalNumberOfCells();
-						for (int c = 0; c < cells; c++) {
-							HSSFCell cell = row.getCell(c);
-							if (cell.getCellType() != HSSFCell.CELL_TYPE_BLANK) {
-								allowInsert = true;		
-								break;//结束for循环语句,跳出
-							} 
+						
+						try {
+							for (int c = 0; c < cells; c++) {
+								HSSFCell cell = row.getCell(c);
+								if (cell.getCellType() != HSSFCell.CELL_TYPE_BLANK) {
+									allowInsert = true;		
+									break;//结束for循环语句,跳出
+								} 
+							}
+						} catch (Exception e) {
+							e.printStackTrace();
+							System.out.println("   针对整条数据的处理ERROR。。。");
 						}
+						
+				
 						
 						if(allowInsert == false){
 							all_num--;
