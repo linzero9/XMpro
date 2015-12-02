@@ -165,10 +165,8 @@
      <%@include file="/jsp/util/opinionUtil_generalProcess.jsp"%>
 		</td>
      </tr>
-     <w:panel id="showpanel" title="流程信息">
-    		<div id='showdiv'>
+    	<div id='showdiv'>
     	</div>	
-	</w:panel>
     </table>
     </div>
     </h:form>
@@ -366,6 +364,7 @@ function initPlanCell20(){
 		function setselect(arg){
 			var x=document.getElementById("loanCategorys");
 			x.options.length=0;  
+			var selecthtml=$("#loanCategorys").html();
 			 $.ajax({
 			        url: "/Generalprocess/tGeneralprocessCdtypeAction_querycreditType.action?cdtype.firstClass="+arg,
 			        async: false,
@@ -376,21 +375,12 @@ function initPlanCell20(){
 			        	if(json==""){
 			        	}else {
 			        		$.each(json,function(key,value){
-				        		var y=document.createElement('option');
-				        		y.text=value.creditType;
-				        		y.value=value.creditType;
-				        		try
-							    {
-							    x.add(y,null); // standards compliant
-							    }
-							  catch(ex)
-							    {
-							    x.add(y); // IE only
-							    }
+				        		selecthtml= selecthtml+"<option value="+value.creditType+">"+value.creditType+"</option>";
 				        		});
 			        	}
 				        }
 		    });	
+			    $("#loanCategorys").html(selecthtml);
 			    if($id("loanCategory").value==''){
 			    	$("#loanCategory").val($('#loanCategorys option:selected').val());
 				    }else{
