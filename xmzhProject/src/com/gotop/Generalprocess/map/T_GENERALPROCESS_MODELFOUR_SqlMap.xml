@@ -9,6 +9,15 @@
     <result column="TASKNAME" property="taskName" jdbcType="VARCHAR" />
   </resultMap>
   
+  <resultMap id="processModelFour_result1" class="com.gotop.Generalprocess.model.ProcessModelFour" >
+    <!--Bean方式返回全表-->
+    <result column="PROCESSMODELID" property="processModelId" jdbcType="DECIMAL" />
+    <result column="FLOW_ID" property="flowId" jdbcType="VARCHAR" />
+    <result column="OPNINION_CONTENT" property="opninionContent" jdbcType="VARCHAR" />
+    <result column="TASKNAME" property="taskName" jdbcType="VARCHAR" />
+    <result column="MISTAKETYPE" property="misTakeType" jdbcType="VARCHAR" />
+  </resultMap>
+  
    <resultMap id="processModelFourMistake_result" class="com.gotop.Generalprocess.model.ProcessModelFourMistake" >
     <!--Bean方式返回全表-->
     <result column="MISTAKEID" property="mistakeId" jdbcType="DECIMAL" />
@@ -45,8 +54,10 @@
     values (#mistakeId:DECIMAL:-9999#,#flowId:VARCHAR#,#mistakeContent:VARCHAR#,#punishBal:VARCHAR#,#empid:VARCHAR#,#taskName:VARCHAR#,#processModelIdFour:VARCHAR#)
   </insert>
   
-   <select id="queryModelFourById" resultMap="processModelFour_result" parameterClass="java.util.HashMap">
-   SELECT T.PROCESSMODELID,T.FLOW_ID,T.OPNINION_CONTENT,T.TASKNAME FROM T_GENERALPROCESS_MODELFOUR T
+   <select id="queryModelFourById" resultMap="processModelFour_result1" parameterClass="java.util.HashMap">
+   SELECT T.PROCESSMODELID,T.FLOW_ID,T.OPNINION_CONTENT,T.TASKNAME,
+   T.PROCESSMODELID as MISTAKETYPE
+   FROM T_GENERALPROCESS_MODELFOUR T
     where T.PROCESSMODELID = #processModelId#
   </select>
   
