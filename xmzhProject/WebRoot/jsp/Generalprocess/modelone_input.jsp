@@ -48,7 +48,7 @@
       	</td>
      	<td class="form_label" align="right" style="width:120px;" >受理支行<br>（二级选项）</td>
      	<td colspan="3">
-        <h:text id="orgNameTwo" property="modelOne.orgNameTwo" readonly="true" validateAttr="allowNull=false;" />
+        <h:text id="orgNameTwo" property="modelOne.orgNameTwo" readonly="true" />
 		<h:hidden id="orgCodeTwo" property="modelOne.orgCodeTwo" />
 	    <a href="#" onclick="open_slzhej_fun()">选择</a>
         </td>
