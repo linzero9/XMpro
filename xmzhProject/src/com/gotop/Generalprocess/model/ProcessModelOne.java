@@ -63,7 +63,7 @@ public class ProcessModelOne extends ProcessModel  implements  Serializable {
 	@GeneralprocessField(name="营销人员",type="text")
 	private String  yxry;
 	
-	@GeneralprocessField(name="申请币别",type="text")
+	@GeneralprocessField(name="申请币别",type="dic",dicname="PROCESS_MONEY")
 	private String  currency;
 	
 	@GeneralprocessField(name="申请金额",type="text")

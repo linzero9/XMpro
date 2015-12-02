@@ -16,4 +16,12 @@
   
   <sqlMap resource="com/gotop/Generalprocess/map/T_GENERALPROCESS_CDTYPE_SqlMap.xml" />
   <sqlMap resource="com/gotop/Generalprocess/map/T_GENERALPROCESS_MODELFOUR_SqlMap.xml" />
+  
+  
+
+  <sqlMap resource="com/gotop/Generalprocess/map/T_GENERALPROCESS_MODELSIX_SqlMap.xml" />
+
+  
+  
+  
   </sqlMapConfig>

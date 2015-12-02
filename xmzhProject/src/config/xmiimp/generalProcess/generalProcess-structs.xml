@@ -50,5 +50,16 @@
 	  </result>
     </action>
     
+    
+    
+    <action name="tGeneralprocessModelsixAction_*" class="tGeneralprocessModelsixAction" method="{1}" >
+      <result name="viewlist" >
+        /jsp/wujiajuntest/tGeneralprocessModelsixDatacell.jsp
+      </result>
+    </action>
+    
+    
+    
+    
     </package>
 </struts>

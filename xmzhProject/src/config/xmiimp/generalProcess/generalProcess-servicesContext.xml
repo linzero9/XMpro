@@ -44,4 +44,11 @@
     <property name="generalprocessMainDAO" ref="generalprocessMainDAO" />
     <property name="generalprocessService" ref="generalProcessService" />
   </bean>
+  
+  
+    <bean id="tGeneralprocessModelsixService" class="com.gotop.Generalprocess.service.impl.TGeneralprocessModelsixService" >
+    <property name="tGeneralprocessModelsixDAO" ref="tGeneralprocessModelsixDAO" />
+  </bean>
+  
+  
   </beans>
