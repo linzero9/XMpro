@@ -24,6 +24,17 @@ public class ProcessModelFour extends ProcessModel  implements  Serializable{
      */
 	@GeneralprocessField(name="处理意见",type="text")
     private String opninionContent;
+	
+	@GeneralprocessField(name="差错情况",type="mistaskType")
+	private String mistaskType;
+
+	public String getMistaskType() {
+		return mistaskType;
+	}
+
+	public void setMistaskType(String mistaskType) {
+		this.mistaskType = mistaskType;
+	}
 
 	public String getFlowId() {
 		return flowId;

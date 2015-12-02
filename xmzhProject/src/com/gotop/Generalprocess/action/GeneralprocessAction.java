@@ -257,11 +257,14 @@ public class GeneralprocessAction extends BaseAction{
     				taskName = taskAssgineeDto.getActivityName();
     			}
     		}
-        		ProcessModelOne modelOne = new ProcessModelOne();
-        		modelOne.setFlow_Id(businessId);
-        		modelOne.setTaskName(taskName);
-        		ProcessModelOne newModelOne = new ProcessModelOne();
-        		newModelOne = this.generalprocessModeloneService.queryModelOne(modelOne);
+    		ProcessModelOne newModelOne = new ProcessModelOne();
+    			if(businessId != null && taskName != null){
+    				ProcessModelOne modelOne = new ProcessModelOne();
+            		modelOne.setFlow_Id(businessId);
+            		modelOne.setTaskName(taskName);
+            		
+            		newModelOne = this.generalprocessModeloneService.queryModelOne(modelOne);
+    			}
     			
         		String[] rulesArray = null;
         		String[] idsArray = null;
