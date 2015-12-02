@@ -118,6 +118,7 @@
 										td = row.insertCell();
 					         			tdStr="差错内容：<input type=\"text\" value=\""+item.mistakeContent+"\" size='70' validateAttr=\"allowNull=false\" readonly=\"true\" >";
 									 	tdStr+="扣罚金额：<input type=\"text\" value=\""+item.punishBal+"\" size='10' validateAttr=\"allowNull=false\" readonly=\"true\">";
+									 	tdStr+="添加时间：<input type=\"text\" value=\""+item.addTime+"\" size='10' validateAttr=\"allowNull=false\" readonly=\"true\">";
 									 	td.innerHTML = tdStr;
 										 rowId = rowId+1; 
 					         		 }else{

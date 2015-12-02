@@ -16,6 +16,16 @@ public class ProcessModelFourMistake {
 	
 	private String processModelIdFour;
 
+	private String addTime;
+	
+	public String getAddTime() {
+		return addTime;
+	}
+
+	public void setAddTime(String addTime) {
+		this.addTime = addTime;
+	}
+
 	public long getMistakeId() {
 		return mistakeId;
 	}

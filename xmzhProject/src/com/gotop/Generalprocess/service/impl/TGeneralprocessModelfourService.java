@@ -9,7 +9,10 @@ import com.gotop.Generalprocess.service.IGeneralprocessService;
 import com.gotop.Generalprocess.service.ITGeneralprocessModelfourService;
 import com.gotop.jbpm.dto.TaskAssgineeDto;
 import com.gotop.jbpm.service.JbpmService;
+import com.gotop.util.time.TimeUtil;
 import com.gotop.vo.system.MUOUserSession;
+
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import org.apache.log4j.Logger;
@@ -127,6 +130,9 @@ public class TGeneralprocessModelfourService implements ITGeneralprocessModelfou
 				mistake.setMistakeContent(fileArray[i]);
 				mistake.setPunishBal(jeArray[i]);
 				mistake.setProcessModelIdFour(String.valueOf(modelFour.getProcessModelId()));
+				String currDate = TimeUtil.getCntDtStr(new Date(),
+						"yyyyMMddHHmmss");
+				mistake.setAddTime(currDate);
 				this.tGeneralprocessModelfourDAO.addModelFourMistake(mistake);
 			}
 		}

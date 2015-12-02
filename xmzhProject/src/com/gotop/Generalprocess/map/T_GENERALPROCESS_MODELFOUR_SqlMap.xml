@@ -27,6 +27,7 @@
     <result column="EMPID" property="empid" jdbcType="VARCHAR" />
     <result column="TASKNAME" property="taskName" jdbcType="VARCHAR" />
     <result column="PROCESSMODELID_FOUR" property="processModelIdFour" jdbcType="VARCHAR" />
+    <result column="ADD_TIME" property="addTime" jdbcType="VARCHAR" />
   </resultMap>
   
   <delete id="deleteModelFourMistake" parameterClass="com.gotop.Generalprocess.model.ProcessModelFour">
@@ -40,7 +41,8 @@
        t.punish_bal,
        t.empid,
        t.taskname,
-       t.processmodelid_four
+       t.processmodelid_four,
+       t.add_time
   from T_GENERALPROCESS_MISTAKE t, T_GENERALPROCESS_MODELFOUR T1
  WHERE t.processmodelid_four = t1.processmodelid
  and t.processmodelid_four=$processModelId$
@@ -50,8 +52,8 @@
   <selectKey resultClass="long" keyProperty="mistakeId">
 			SELECT SEQ_GENERALPROCESS_MISTAKE.NEXTVAL AS VALUE FROM DUAL
    </selectKey>
-  	insert into T_GENERALPROCESS_MISTAKE (MISTAKEID, FLOW_ID, MISTAKE_CONTENT, PUNISH_BAL,EMPID,TASKNAME,PROCESSMODELID_FOUR)
-    values (#mistakeId:DECIMAL:-9999#,#flowId:VARCHAR#,#mistakeContent:VARCHAR#,#punishBal:VARCHAR#,#empid:VARCHAR#,#taskName:VARCHAR#,#processModelIdFour:VARCHAR#)
+  	insert into T_GENERALPROCESS_MISTAKE (MISTAKEID, FLOW_ID, MISTAKE_CONTENT, PUNISH_BAL,EMPID,TASKNAME,PROCESSMODELID_FOUR,ADD_TIME)
+    values (#mistakeId:DECIMAL:-9999#,#flowId:VARCHAR#,#mistakeContent:VARCHAR#,#punishBal:VARCHAR#,#empid:VARCHAR#,#taskName:VARCHAR#,#processModelIdFour:VARCHAR#,#addTime:VARCHAR#)
   </insert>
   
    <select id="queryModelFourById" resultMap="processModelFour_result1" parameterClass="java.util.HashMap">
