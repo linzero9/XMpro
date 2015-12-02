@@ -197,6 +197,9 @@ public class GeneralprocessService implements IGeneralprocessService {
 			// 保存流程的信息
 
 			// 构建流程业务关系信息
+			
+			//需要客户姓名+流程名  modify
+			
 			pb = insertProcessBus(modelOne, taskAssgineeDto);
 			// 提交
 			submitType = "05";
@@ -363,7 +366,9 @@ public class GeneralprocessService implements IGeneralprocessService {
 		try {
 			processBusiness.setBusinessKey(modelOne.getProcessModelOneID());
 			processBusiness.setBusinessType(dto.getBusinessType());
-			processBusiness.setBusinessTitle(dto.getProcessName());
+			
+			//需要客户姓名+流程名  modify
+			processBusiness.setBusinessTitle(dto.getProcessName()+"-"+modelOne.getCust_Name());
 			processBusiness.setExecutionId(modelOne.getFlow_Id());
 		} catch (Exception e) {
 			log.error("生成实例标题信息", e);

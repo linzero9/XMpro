@@ -207,7 +207,7 @@
 		  		/**
 				* 2014.9.1 改为弹出框
 				**/
-		  		showModalCenter(encodeURI(strUrl), null, callBack, clientX*0.8, clientY*0.65, '待办详情');
+		  		showModalCenter(encodeURI(strUrl), null, callBack, clientX*0.9, clientY*0.9, '待办详情');
 			}
 		}
 		function callBack(){
@@ -224,7 +224,7 @@
 	  			var rows=gop.getSelectRow();
 		  		var executionId = rows.getParam("executionId");
 		  		var strUrl = "/jbpm/jbpmDemoAction_viewTask.action?executionId="+executionId;
-		  		showModalCenter(strUrl, null, null, clientX*0.8, clientY*0.65, '当前流程进度'); 
+		  		showModalCenter(strUrl, null, null, clientX*0.9, clientY*0.9, '当前流程进度'); 
 			  	}
 		  	}
 		</script>
