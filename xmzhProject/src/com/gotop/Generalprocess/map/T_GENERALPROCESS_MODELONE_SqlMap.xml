@@ -145,7 +145,7 @@
   		OM_EMPLOYEE E1
   		WHERE 
   			T.ORGCODEONE=O1.ORGCODE
-  		AND T.ORGCODETWO=O2.ORGCODE
+  		AND T.ORGCODETWO=O2.ORGCODE(+)
   		AND T.CREATOR = E1.EMPID
   		<dynamic>
       <isNotNull prepend="and" property="flow_id" >
@@ -193,7 +193,7 @@
   		OM_EMPLOYEE E1
   		WHERE 
   			T.ORGCODEONE=O1.ORGCODE
-  		AND T.ORGCODETWO=O2.ORGCODE
+  		AND T.ORGCODETWO=O2.ORGCODE(+)
   		AND T.CREATOR = E1.EMPID
   		AND T.PROCESSMODELID = #processModelId#
   	</select>
