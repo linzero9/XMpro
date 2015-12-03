@@ -179,7 +179,7 @@ body {
 	
 	
 		
-					<div class="node state" id="task8" type=""task8""><img
+					<div class="node state" id="task8" type="task8"><img
 	src="/js/jbpm/img/16/task_empty.png" />&nbsp;&nbsp;模式八	公积金审批</div>
 	
 	
