@@ -99,7 +99,7 @@ $.extend(true,myflow.config.tools.states,{
 					form: {name:'form', label : '表单',value:'',editor: function(){return new myflow.editors.inputEditor();}}
 					/*desc: {name:'desc', label : '', value:''}*/
 				}},
-			task1: {showType: 'text',type : 'task',
+			    task1: {showType: 'text',type : 'task',
 				name : {text:'<<task>>'},
 				text : {text:'模式一-受理调查'},
 				img : {src : '/js/jbpm/img/48/task_empty.png',width :48, height:48},
@@ -108,7 +108,7 @@ $.extend(true,myflow.config.tools.states,{
 					form: {name:'form', label : '',value:'/Generalprocess/generalProcessAction_toModelOne.action'},
 					assignee: {name:'assignee', label: '', value:'#{user}'}
 				}},
-			task2: {showType: 'text',type : 'task',
+			    task2: {showType: 'text',type : 'task',
 				name : {text:'<<task>>'},
 				text : {text:'模式二-处理意见'},
 				img : {src : '/js/jbpm/img/48/task_empty.png',width :48, height:48},
@@ -117,7 +117,7 @@ $.extend(true,myflow.config.tools.states,{
 					form: {name:'form', label : '',value:'/Generalprocess/generalProcessAction_toModelTwo.action'},
 					assignee: {name:'assignee', label: '', value:'#{user}'}
 				}},
-			task3: {showType: 'text',type : 'task',
+			    task3: {showType: 'text',type : 'task',
 				name : {text:'<<task>>'},
 				text : {text:'模式三-收单派单'},
 				img : {src : '/js/jbpm/img/48/task_empty.png',width :48, height:48},
@@ -136,7 +136,7 @@ $.extend(true,myflow.config.tools.states,{
 						assignee: {name:'assignee', label: '', value:'#{user}'}
 					}},
 					
-					task5: {showType: 'text',type : 'task',
+				task5: {showType: 'text',type : 'task',
 						name : {text:'<<task>>'},
 						text : {text:'模式五-决策意见'},
 						img : {src : '/js/jbpm/img/48/task_empty.png',width :48, height:48},
@@ -144,9 +144,9 @@ $.extend(true,myflow.config.tools.states,{
 							text: {name:'text', label: '模式名称',value:'决策意见',editor: function(){return new myflow.editors.textEditor();}},
 							form: {name:'form', label : '',value:'/Generalprocess/tGeneralprocessModelFiveAction_toModelFive.action'},
 							assignee: {name:'assignee', label: '', value:'#{user}'}
-						}},
+				}},
 						
-						task6: {showType: 'text',type : 'task',
+				task6: {showType: 'text',type : 'task',
 							name : {text:'<<task>>'},
 							text : {text:'模式六-抵押支用'},
 							img : {src : '/js/jbpm/img/48/task_empty.png',width :48, height:48},
@@ -154,9 +154,8 @@ $.extend(true,myflow.config.tools.states,{
 								text: {name:'text', label: '模式名称',value:'抵押支用',editor: function(){return new myflow.editors.textEditor();}},
 								form: {name:'form', label : '',value:'/Generalprocess/tGeneralprocessModelSixAction_toModelSix.action'},
 								assignee: {name:'assignee', label: '', value:'#{user}'}
-							}},
-							
-							task7: {showType: 'text',type : 'task',
+				}},
+				task7: {showType: 'text',type : 'task',
 								name : {text:'<<task>>'},
 								text : {text:'模式七-支用审批意见'},
 								img : {src : '/js/jbpm/img/48/task_empty.png',width :48, height:48},
@@ -164,9 +163,8 @@ $.extend(true,myflow.config.tools.states,{
 									text: {name:'text', label: '模式名称',value:'支用审批意见',editor: function(){return new myflow.editors.textEditor();}},
 									form: {name:'form', label : '',value:'/Generalprocess/tGeneralprocessModelSevenAction_toModelSeven.action'},
 									assignee: {name:'assignee', label: '', value:'#{user}'}
-								}},
-					
-								task8: {showType: 'text',type : 'task',
+				}},
+				task8: {showType: 'text',type : 'task',
 									name : {text:'<<task>>'},
 									text : {text:'模式八-公积金审批'},
 									img : {src : '/js/jbpm/img/48/task_empty.png',width :48, height:48},
@@ -174,6 +172,6 @@ $.extend(true,myflow.config.tools.states,{
 										text: {name:'text', label: '模式名称',value:'公积金审批',editor: function(){return new myflow.editors.textEditor();}},
 										form: {name:'form', label : '',value:'/Generalprocess/tGeneralprocessModelEightAction_toModelEight.action'},
 										assignee: {name:'assignee', label: '', value:'#{user}'}
-									}}		
+				}}		
 });
 })(jQuery);
