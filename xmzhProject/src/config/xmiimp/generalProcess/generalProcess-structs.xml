@@ -56,15 +56,13 @@
  
       <result name="modelSix_input">
         /jsp/Generalprocess/modelSix_input.jsp
-      </result>
-      
+      </result>    
     </action>
     
     
-    
-    <action class="tGeneralprocessModelfiveAction" method="{1}" name="tGeneralprocessModelfiveAction_*">
-      <result name="viewlist">
-        /jsp/generalProcess/tGeneralprocessModelfiveDatacell.jsp
+    <action class="tGeneralprocessModelfiveAction" method="{1}" name="tGeneralprocessModelFiveAction_*">
+      <result name="toModelFive">
+        /jsp/Generalprocess/modelfive_input.jsp
       </result>
     </action>
     
