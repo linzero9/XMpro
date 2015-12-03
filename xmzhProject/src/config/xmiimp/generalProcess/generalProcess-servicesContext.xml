@@ -57,5 +57,12 @@
     <property name="generalprocessMainDAO" ref="generalprocessMainDAO" />
     <property name="generalprocessService" ref="generalProcessService" />
   </bean>
+  
+  <bean class="com.gotop.Generalprocess.service.impl.TGeneralprocessModeleightService" id="tGeneralprocessModeleightService">
+    <property name="tGeneralprocessModeleightDAO" ref="tGeneralprocessModeleightDAO" />
+    <property name="jbpmService" ref="jbpmService" />
+    <property name="generalprocessMainDAO" ref="generalprocessMainDAO" />
+    <property name="generalprocessService" ref="generalProcessService" />
+  </bean>
 
   </beans>

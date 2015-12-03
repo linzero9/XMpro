@@ -180,7 +180,7 @@ public class TGeneralprocessModeleightAction extends BaseAction {
         		taskAssgineeDto.setFxJson(fxJson);
     		
 		} catch (Exception e) {
-			log.error("查询模式三表单信息失败", e);
+			log.error("查询模式八表单信息失败", e);
 		}
 		//queryDefault();
 		return "toModelEight";
@@ -191,7 +191,7 @@ public class TGeneralprocessModeleightAction extends BaseAction {
 	/**
 	 * 
 	 * @author yyx
-	 * @desc 后台处理模式一的新增模式三表单、结束流程、记录流程日志
+	 * @desc 后台处理模式一的新增模式八表单、结束流程、记录流程日志
 	 * @return
 	 * @throws Exception 
 	 */
@@ -202,7 +202,7 @@ public class TGeneralprocessModeleightAction extends BaseAction {
 			this.tGeneralprocessModeleigthService.handleModelEight(muo,modelEight,taskAssgineeDto);
 		} catch (Exception e) {
 			info="fails";
-			log.error("[提交模式一表单失败！]", e);
+			log.error("[提交模式八表单失败！]", e);
 			throw e;
 		}
 		Struts2Utils.renderText(info);

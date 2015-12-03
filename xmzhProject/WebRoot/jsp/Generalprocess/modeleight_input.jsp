@@ -184,7 +184,7 @@
 		 	function taskAssigneeCallBack(arg){
 		  	 	var _form = $id("form1");
 		  	 	if(arg!=""){
-		  	  	 	url="/Generalprocess/generalProcessAction_handleModelTwo.action?"+arg;	
+		  	  	 	url="/Generalprocess/tGeneralprocessModelEightAction_handleModelEight.action?"+arg;	
 		  	  	    _form.action =url
 		  	        // 异步提交请求 
 		  	  	    ajaxsubmitO();

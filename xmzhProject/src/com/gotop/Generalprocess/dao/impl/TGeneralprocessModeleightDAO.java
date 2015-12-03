@@ -30,9 +30,9 @@ public class TGeneralprocessModeleightDAO extends SqlMapClientDao implements ITG
 	@Override
 	public ProcessModelEight queryModelEight(HashMap<String, Object> map) {
 		// TODO Auto-generated method stub
-		return (ProcessModelEight) queryForObject("T_GENERALPROCESS_MODELEight_SqlMap.queryModelEight", map);
+		return (ProcessModelEight) queryForObject("T_GENERALPROCESS_MODELEIGHT_SqlMap.queryModelEight", map);
 	}
-
+	
 
 	@Override
 	public void uptModelEight(ProcessModelEight modelEight) {
@@ -51,7 +51,7 @@ public class TGeneralprocessModeleightDAO extends SqlMapClientDao implements ITG
 	public ProcessModelEight queryModelEightById(String processModelId) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("processModelId", processModelId);
-		return (ProcessModelEight) queryForObject("T_GENERALPROCESS_MODELTHREE_SqlMap.queryModelEightById", map);
+		return (ProcessModelEight) queryForObject("T_GENERALPROCESS_MODELEIGHT_SqlMap.queryModelEightById", map);
 	}
    
 	

@@ -28,6 +28,7 @@
         /jsp/Generalprocess/modelthree_input.jsp
       </result>
     </action>
+    
 
     <action class="tGeneralprocessCdtypeAction" method="{1}" name="tGeneralprocessCdtypeAction_*">
       <result name="viewlist">
@@ -66,10 +67,11 @@
       </result>
     </action>
     
-    <action class="tGeneralprocessModeleightAction" method="{1}" name="tGeneralprocessModeleightAction_*">
-      <result name="viewlist">
-        /jsp/Generalprocess/tGeneralprocessModeleightDatacell.jsp
+    <action class="tGeneralprocessModeleightAction" method="{1}" name="tGeneralprocessModelEightAction_*">
+      <result name="toModelEight">
+        /jsp/Generalprocess/modeleight_input.jsp
       </result>
     </action>
+    
     </package>
 </struts>
