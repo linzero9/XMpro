@@ -28,6 +28,11 @@ import net.sf.json.JSONArray;
 public class TGeneralprocessModelfourAction extends BaseAction {
 
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private List<ProcessModelFourMistake> fourMistakes;
 	
 	private String isView;

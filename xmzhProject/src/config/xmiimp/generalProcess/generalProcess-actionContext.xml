@@ -37,9 +37,13 @@
   
   
   
-    <bean name="tGeneralprocessModelsixAction" id="tGeneralprocessModelsixaction" class="com.gotop.Generalprocess.action.TGeneralprocessModelsixAction" singleton="false" >
+    <bean class="com.gotop.Generalprocess.action.TGeneralprocessModelsixAction" id="tGeneralprocessModelsixaction" name="tGeneralprocessModelsixAction" singleton="false">
     <property name="tGeneralprocessModelsixService" ref="tGeneralprocessModelsixService" />
   </bean>
   
   
+  
+  <bean class="com.gotop.Generalprocess.action.TGeneralprocessModelfiveAction" id="tGeneralprocessModelfiveaction" name="tGeneralprocessModelfiveAction" singleton="false">
+    <property name="tGeneralprocessModelfiveService" ref="tGeneralprocessModelfiveService" />
+  </bean>
   </beans>

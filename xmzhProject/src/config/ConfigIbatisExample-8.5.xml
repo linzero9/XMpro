@@ -3,10 +3,10 @@
 <abatorConfiguration >
   <abatorContext >
   <jdbcConnection driverClass="oracle.jdbc.OracleDriver" 
-    	connectionURL="jdbc:oracle:thin:@127.0.0.1:1521:wujiajun"
+    	connectionURL="jdbc:oracle:thin:@192.168.191.1:1521:wujiajun"
     	userId="xmzhpt" password="xmzhpt" >
       <!-- 数据库所用jar包,指定数据库jdbc驱动jar包的绝对路径。 -->
-<classPathEntry location="D:\TOMCAT\tomcat-6.0-new\tomcat-6.0\webapps\ROOT\WEB-INF\lib\ojdbc14.jar" />
+<classPathEntry location="E:\XMpro\XMpro\gotopXmzh\WebRoot\WEB-INF\lib\ojdbc14.jar" />
       <!-- 是否返回数据库注释(表、字段注释) -->
       <property name="remarksReporting" value="true"/>
     </jdbcConnection>
@@ -22,7 +22,7 @@
 
     <daoGenerator targetPackage="com.gotop.Generalprocess.dao" targetProject="xmzhProject" type="SPRING">
     </daoGenerator>    
-    <table  tableName="T_GENERALPROCESS_MODELSIX" module="xmiimp.wujiajuntest">
+    <table  tableName="T_GENERALPROCESS_MODELFIVE" module="xmiimp.generalProcess">
     </table>    
   </abatorContext>
 </abatorConfiguration>

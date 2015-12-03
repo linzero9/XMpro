@@ -24,4 +24,6 @@
   
   
   
+  
+  <sqlMap resource="com/gotop/Generalprocess/map/T_GENERALPROCESS_MODELFIVE_SqlMap.xml" />
   </sqlMapConfig>

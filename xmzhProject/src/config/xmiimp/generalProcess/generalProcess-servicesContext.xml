@@ -46,9 +46,13 @@
   </bean>
   
   
-    <bean id="tGeneralprocessModelsixService" class="com.gotop.Generalprocess.service.impl.TGeneralprocessModelsixService" >
+    <bean class="com.gotop.Generalprocess.service.impl.TGeneralprocessModelsixService" id="tGeneralprocessModelsixService">
     <property name="tGeneralprocessModelsixDAO" ref="tGeneralprocessModelsixDAO" />
   </bean>
   
   
+  
+  <bean class="com.gotop.Generalprocess.service.impl.TGeneralprocessModelfiveService" id="tGeneralprocessModelfiveService">
+    <property name="tGeneralprocessModelfiveDAO" ref="tGeneralprocessModelfiveDAO" />
+  </bean>
   </beans>

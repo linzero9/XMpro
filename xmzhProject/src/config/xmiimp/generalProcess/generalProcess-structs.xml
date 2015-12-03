@@ -52,7 +52,7 @@
     
     
  
-    <action name="tGeneralprocessModelSixAction_*" class="tGeneralprocessModelsixAction" method="{1}" >
+    <action class="tGeneralprocessModelsixAction" method="{1}" name="tGeneralprocessModelSixAction_*">
  
       <result name="modelSix_input">
         /jsp/Generalprocess/modelSix_input.jsp
@@ -63,5 +63,11 @@
     
     
     
+    
+    <action class="tGeneralprocessModelfiveAction" method="{1}" name="tGeneralprocessModelfiveAction_*">
+      <result name="viewlist">
+        /jsp/generalProcess/tGeneralprocessModelfiveDatacell.jsp
+      </result>
+    </action>
     </package>
 </struts>
