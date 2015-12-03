@@ -19,6 +19,7 @@ import com.gotop.crm.util.BaseAction;
 
 import com.gotop.jbpm.dto.TaskAssgineeDto;
 import com.gotop.jbpm.service.JbpmService;
+import com.gotop.util.Struts2Utils;
 
 /**
  * 
@@ -145,6 +146,14 @@ public class TGeneralprocessModelsixAction extends BaseAction {
     	return "modelSix_input";
     }
     
+    
+    
+    
+      public  void  handleModelSix(){
+    	  
+    	  System.out.println("222");
+    		Struts2Utils.renderText("success");
+      }
     
     
     

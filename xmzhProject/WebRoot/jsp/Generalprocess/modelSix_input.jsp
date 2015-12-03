@@ -152,7 +152,8 @@
 			}
 		} else {
 			var _form = $id("form1");
-			url = "/Generalprocess/generalProcessAction_handleModelOne.action";
+			alert(111);
+			url = "/Generalprocess/tGeneralprocessModelsixAction_handleModelSix.action";
 			_form.action = url
 			if (checkForm($id("form1")))
 				ajaxsubmitO(0);
@@ -162,7 +163,7 @@
 	function taskAssigneeCallBack(arg) {
 		var _form = $id("form1");
 		if (arg != "") {
-			url = "/Generalprocess/generalProcessAction_handleModelOne.action?"
+			url = "/Generalprocess/tGeneralprocessModelSixAction_handleModelSix.action?"
 					+ arg;
 			_form.action = url
 			// 异步提交请求 
