@@ -24,30 +24,25 @@ public class TGeneralprocessModeleightService implements ITGeneralprocessModelei
 	 * 通过spring注入的DAO对象.
 	 * @abatorgenerated
 	 */
-	protected ITGeneralprocessModeleightDAO tGeneralprocessModeleigthDAO;
+	protected ITGeneralprocessModeleightDAO tGeneralprocessModeleightDAO;
 	
 	private JbpmService jbpmService;
     private ITGeneralprocessMainDAO generalprocessMainDAO;
     protected IGeneralprocessService generalprocessService;
 	
 
-	/**
-     * 通过spring注入DAO的set类.
-     * @abatorgenerated
-     */
-    public void settGeneralprocessModeleigthDAO(ITGeneralprocessModeleightDAO tGeneralprocessModeleigthDAO) throws Exception {
-        this.tGeneralprocessModeleigthDAO = tGeneralprocessModeleigthDAO;
-    }
 
-    /**
-     * 通过spring注入DAO的get类.
-     * @abatorgenerated
-     */
-    public ITGeneralprocessModeleightDAO gettGeneralprocessModeleigthDAO() throws Exception {
-        return this.tGeneralprocessModeleigthDAO;
-    }
     
     
+	public ITGeneralprocessModeleightDAO gettGeneralprocessModeleightDAO() {
+		return tGeneralprocessModeleightDAO;
+	}
+
+	public void settGeneralprocessModeleightDAO(
+			ITGeneralprocessModeleightDAO tGeneralprocessModeleightDAO) {
+		this.tGeneralprocessModeleightDAO = tGeneralprocessModeleightDAO;
+	}
+
 	public JbpmService getJbpmService() {
 		return jbpmService;
 	}
@@ -86,7 +81,7 @@ public class TGeneralprocessModeleightService implements ITGeneralprocessModelei
 				map.put("taskName", modelEight2.getTaskName());
 			}
 		}
-		return this.tGeneralprocessModeleigthDAO.queryModelEight(map);
+		return this.tGeneralprocessModeleightDAO.queryModelEight(map);
 	}
 
 	@Override
@@ -100,10 +95,10 @@ public class TGeneralprocessModeleightService implements ITGeneralprocessModelei
 		if (modelEight.getProcessModelId() != null
 				&& !"".equals(modelEight.getProcessModelId())){
 			//更新模式三
-			this.tGeneralprocessModeleigthDAO.uptModelEight(modelEight);
+			this.tGeneralprocessModeleightDAO.uptModelEight(modelEight);
 		}else{
 			//保存模式三
-			this.tGeneralprocessModeleigthDAO.addModelEight(modelEight);
+			this.tGeneralprocessModeleightDAO.addModelEight(modelEight);
 		}
 
 		// 保存模式三表单内容

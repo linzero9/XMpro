@@ -9,17 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public interface ITGeneralprocessModeleightService {
-    /**
-     * 通过spring注入DAO的set类.
-     * @abatorgenerated
-     */
-    void settGeneralprocessModeleigthDAO(ITGeneralprocessModeleightDAO tGeneralprocessModeleigthDAO) throws Exception;
-
-    /**
-     * 通过spring注入DAO的get类.
-     * @abatorgenerated
-     */
-    ITGeneralprocessModeleightDAO gettGeneralprocessModeleigthDAO() throws Exception;
+    
 
 	ProcessModelEight queryModelEight(ProcessModelEight modelEight2);
 

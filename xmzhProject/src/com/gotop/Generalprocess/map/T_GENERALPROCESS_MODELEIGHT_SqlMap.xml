@@ -8,7 +8,7 @@
     <result column="OPNINION_CONTENT" jdbcType="VARCHAR" property="opninion_content" />
     <result column="TJGJJSJ" jdbcType="VARCHAR" property="tjgjjsj" />
     <result column="GJJZXSPSJ" jdbcType="VARCHAR" property="gjjzxspsj" />
-    <result column="TASKNAME" jdbcType="VARCHAR" property="taskname" />
+    <result column="TASKNAME" jdbcType="VARCHAR" property="taskName" />
   </resultMap>
 
 <select id="queryModelEightById" parameterClass="com.gotop.Generalprocess.model.ProcessModelEight" resultMap="modeleigthResult">
@@ -30,7 +30,7 @@
         FLOW_ID = #flow_id:VARCHAR#
       </isNotNull>
       <isNotNull prepend="and" property="opninion_content">
-        OPNINION_CONTENT = #opninionContent:VARCHAR#
+        OPNINION_CONTENT = #opninion_content:VARCHAR#
       </isNotNull>
       <isNotNull prepend="and" property="tjgjjsj">
         TJGJJSJ = #tjgjjsj:VARCHAR#
@@ -38,8 +38,8 @@
       <isNotNull prepend="and" property="gjjzxspsj">
         GJJZXSPSJ = #gjjzxspsj:VARCHAR#
       </isNotNull>
-      <isNotNull prepend="and" property="taskname">
-        TASKNAME = #taskname:VARCHAR#
+      <isNotNull prepend="and" property="taskName">
+        TASKNAME = #taskName:VARCHAR#
       </isNotNull>
     </dynamic>
   </select>
@@ -48,18 +48,18 @@
     <!--通过主键更新整条数据-->
     insert into T_GENERALPROCESS_MODELEIGTH (PROCESSMODELID, FLOW_ID, OPNINION_CONTENT, TJGJJSJ,
       GJJZXSPSJ, TASKNAME)
-    values (#processModelId:DECIMAL:-9999#, #flow_id:VARCHAR#, #opninionContent:VARCHAR#,
-      #tjgjjsj:VARCHAR#, #gjjzxspsj:VARCHAR#, #taskname:VARCHAR#)
+    values (#processModelId:DECIMAL:-9999#, #flow_id:VARCHAR#, #opninion_content:VARCHAR#,
+      #tjgjjsj:VARCHAR#, #gjjzxspsj:VARCHAR#, #taskName:VARCHAR#)
   </insert>
 
 <update id="uptModelThree" parameterClass="com.gotop.Generalprocess.model.ProcessModelEight">
     <!--通过主键更新一条全部字段内容-->
     update T_GENERALPROCESS_MODELEIGTH
     set FLOW_ID = #flow_id:VARCHAR#,
-      OPNINION_CONTENT = #opninionContent:VARCHAR#,
+      OPNINION_CONTENT = #opninion_content:VARCHAR#,
       TJGJJSJ = #tjgjjsj:VARCHAR#,
       GJJZXSPSJ = #gjjzxspsj:VARCHAR#,
-      TASKNAME = #taskname:VARCHAR#
+      TASKNAME = #taskName:VARCHAR#
     where PROCESSMODELID = #processModelId:DECIMAL#
   </update>
 

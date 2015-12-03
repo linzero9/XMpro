@@ -54,6 +54,4 @@ public class ProcessModelEight extends ProcessModel implements Serializable {
 	public void setGjjzxspsj(String gjjzxspsj) {
 		this.gjjzxspsj = gjjzxspsj;
 	}
-	
-	
 }
