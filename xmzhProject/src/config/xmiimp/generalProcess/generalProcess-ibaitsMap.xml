@@ -26,5 +26,4 @@
   
   
   <sqlMap resource="com/gotop/Generalprocess/map/T_GENERALPROCESS_MODELFIVE_SqlMap.xml" />
-  <sqlMap resource="com/gotop/Generalprocess/map/T_GENERALPROCESS_MODELEIGHT_SqlMap.xml" />
   </sqlMapConfig>
