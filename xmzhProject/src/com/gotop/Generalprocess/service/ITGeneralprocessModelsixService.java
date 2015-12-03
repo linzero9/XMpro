@@ -1,6 +1,7 @@
 package com.gotop.Generalprocess.service;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import com.gotop.Generalprocess.model.ProcessModelSix;
 
@@ -23,6 +24,9 @@ public interface ITGeneralprocessModelsixService {
 
     
      ProcessModelSix queryModelSixById(String processModelId);
+     
+     ProcessModelSix queryModelSixByFlowIdAndTaskName(ProcessModelSix six);
+     
 	
 	
 }

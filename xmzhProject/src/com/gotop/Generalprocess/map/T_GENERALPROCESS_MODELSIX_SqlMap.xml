@@ -91,4 +91,15 @@
   
   
   
+    <select id="queryModelSixByFlowIdAndTaskName" resultMap="ProcessModelSix_Result" parameterClass="com.gotop.Generalprocess.model.ProcessModelSix" >
+    <!--更具主键查找一条记录-->
+    select PROCESSMODELID, FLOW_ID, TASKNAME, OPINION, MORTGAGE_TIME, RECEIVE_TIME,
+      APPLICATION_TIME, ISSUED_TIME, SUPPORT_CATEGORY, SUPPORT_MONEY, RISK, PROCESSING_OPINION
+    from T_GENERALPROCESS_MODELSIX  where FLOW_ID=#flowId:VARCHAR#   and  TASKNAME=#taskName:VARCHAR#
+    
+  </select>
+  
+  
+  
+  
 </sqlMap>

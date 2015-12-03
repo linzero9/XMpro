@@ -47,5 +47,10 @@ public class TGeneralprocessModelsixDAO extends SqlMapClientDao implements ITGen
 		map.put("processModelId", processModelId);
 		return (ProcessModelSix) queryForObject("T_GENERALPROCESS_MODELSIX_SqlMap.queryModelSixById", map);
 	}
+
+	@Override
+	public ProcessModelSix queryModelSixByFlowIdAndTaskName(ProcessModelSix six) {
+		return  (ProcessModelSix) getSqlMapClientTemplate().queryForObject("T_GENERALPROCESS_MODELSIX_SqlMap.queryModelSixByFlowIdAndTaskName", six);		
+	}
    
 }

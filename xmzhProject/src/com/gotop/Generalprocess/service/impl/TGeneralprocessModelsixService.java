@@ -61,6 +61,11 @@ public class TGeneralprocessModelsixService implements ITGeneralprocessModelsixS
     public ProcessModelSix queryModelSixById(String processModelId){
     	return   tGeneralprocessModelsixDAO.queryModelSixById(processModelId);
     }
+
+	@Override
+	public ProcessModelSix queryModelSixByFlowIdAndTaskName(ProcessModelSix six) {
+		return   tGeneralprocessModelsixDAO.queryModelSixByFlowIdAndTaskName(six);
+	}
     
     
     

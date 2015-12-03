@@ -22,6 +22,9 @@ void uptModelSix(ProcessModelSix modelSix);
 
 ProcessModelSix queryModelSixById(String processModelId);
 
+ ProcessModelSix queryModelSixByFlowIdAndTaskName(ProcessModelSix six);
+
+
 
 
 }
