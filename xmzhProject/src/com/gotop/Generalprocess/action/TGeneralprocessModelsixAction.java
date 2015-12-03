@@ -104,7 +104,7 @@ public class TGeneralprocessModelsixAction extends BaseAction {
     			modelSix.setFlowId(businessId);
     			modelSix.setTaskName(taskName1);
     			ProcessModelSix newModelSix = new ProcessModelSix();
-    			newModelSix = this.tGeneralprocessModelsixService.queryModelSixByFlowIdAndTaskName(newModelSix);
+    			newModelSix = this.tGeneralprocessModelsixService.queryModelSixByFlowIdAndTaskName(modelSix);
 
     			
     			String[] rulesArray = null;
@@ -129,7 +129,7 @@ public class TGeneralprocessModelsixAction extends BaseAction {
     			
     			String rm = "";
     			if(newModelSix != null){
-    				rm="ProcessModelFour" + "-" + newModelSix.getProcessModelId();
+    				rm="ProcessModelSix" + "-" + newModelSix.getProcessModelId();
     				map.remove(rm);
     			}
     			

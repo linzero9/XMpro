@@ -48,6 +48,9 @@
   
     <bean class="com.gotop.Generalprocess.service.impl.TGeneralprocessModelsixService" id="tGeneralprocessModelsixService">
     <property name="tGeneralprocessModelsixDAO" ref="tGeneralprocessModelsixDAO" />
+        <property name="jbpmService" ref="jbpmService" />
+            <property name="generalprocessMainDAO" ref="generalprocessMainDAO" />
+               <property name="generalprocessService" ref="generalProcessService" />
   </bean>
   
   

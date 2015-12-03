@@ -45,7 +45,7 @@ public class TGeneralprocessModelsixDAO extends SqlMapClientDao implements ITGen
 		// TODO Auto-generated method stub
 	     HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("processModelId", processModelId);
-		return (ProcessModelSix) queryForObject("T_GENERALPROCESS_MODELSIX_SqlMap.queryModelSixById", map);
+		return (ProcessModelSix) queryForObject("T_GENERALPROCESS_MODELSIX_SqlMap.queryModelSix", map);
 	}
 
 	@Override
