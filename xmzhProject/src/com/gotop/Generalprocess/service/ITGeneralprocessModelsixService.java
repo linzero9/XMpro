@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.gotop.Generalprocess.model.ProcessModelSix;
+import com.gotop.jbpm.dto.TaskAssgineeDto;
+import com.gotop.vo.system.MUOUserSession;
 
 
 /**
@@ -26,6 +28,8 @@ public interface ITGeneralprocessModelsixService {
      ProcessModelSix queryModelSixById(String processModelId);
      
      ProcessModelSix queryModelSixByFlowIdAndTaskName(ProcessModelSix six);
+     
+     void handleModelSix(MUOUserSession muo,ProcessModelSix six,TaskAssgineeDto taskAssgineeDto,String ... otherParam );
      
 	
 	

@@ -20,6 +20,7 @@ import com.gotop.crm.util.BaseAction;
 import com.gotop.jbpm.dto.TaskAssgineeDto;
 import com.gotop.jbpm.service.JbpmService;
 import com.gotop.util.Struts2Utils;
+import com.gotop.vo.system.MUOUserSession;
 
 /**
  * 
@@ -149,10 +150,23 @@ public class TGeneralprocessModelsixAction extends BaseAction {
     
     
     
-      public  void  handleModelSix(){
+      public  void  handleModelSix() throws Exception{
     	  
     	  System.out.println("222");
-    		Struts2Utils.renderText("success");
+    	  
+    	  
+
+  		String info ="success";
+      	MUOUserSession muo = getCurrentOnlineUser();
+  		try {
+  			this.tGeneralprocessModelsixService.handleModelSix(muo,modelSix,taskAssgineeDto,"test1","test2");
+  		} catch (Exception e) {
+  			info="fails";
+  			log.error("[提交模式四表单失败！]", e);
+  			throw e;
+  		}
+  		Struts2Utils.renderText(info);
+
       }
     
     
