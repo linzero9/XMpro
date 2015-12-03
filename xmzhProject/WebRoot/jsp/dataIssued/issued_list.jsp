@@ -212,13 +212,19 @@
 		window.location.reload();}
 
 	function downExl(){
+		
 		var url = "/dataIssued/tSendDataAction_downexl.action?";
 		var isDes = $("#isDes").val();
 		var userOrg = $("#userOrg").val();
 		var dataType = $("#dataType").val();
 		var startTime = $("#d1_input").val().replaceAll("-","");
 		var endTime = $("#d2_input").val().replaceAll("-","");
-		url = url+"sendData.isDes="+isDes+"&sendData.userOrg="+encodeURI(userOrg)+"&sendData.dataType="+dataType+"&sendData.startTime="+startTime+"&sendData.endTime="+endTime;
+
+		
+		var beginTime = $("#d3_input").val().replaceAll("-","");
+		var closeTime = $("#d4_input").val().replaceAll("-","");
+		url = url+"sendData.isDes="+isDes+"&sendData.userOrg="+encodeURI(userOrg)+"&sendData.dataType="+dataType+"&sendData.startTime="+startTime+"&sendData.endTime="+endTime+"&sendData.beginTime="+beginTime+"&sendData.closeTime="+closeTime;
+
 		window.location.href=url;
 	  	
 	}

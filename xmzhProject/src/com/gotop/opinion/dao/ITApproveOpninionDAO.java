@@ -1,5 +1,6 @@
 package com.gotop.opinion.dao;
 
+import com.gotop.Generalprocess.model.TApproveOpninionGP;
 import com.gotop.opinion.model.TApproveOpninion;
 import com.gotop.opinion.model.TApproveOpninionExample;
 import com.primeton.utils.Page;
@@ -152,4 +153,10 @@ public interface ITApproveOpninionDAO {
 	List<TApproveOpninion> queryOpninions(HashMap hm, Page page);
 
 	String receiveResourceId(HashMap map);
+
+	/**
+	 * 新增通用流程的审核意见
+	 * @param opninion
+	 */
+	void insertOpninionGP(TApproveOpninionGP opninion);
 }

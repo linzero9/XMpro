@@ -3,7 +3,7 @@
 <abatorConfiguration >
   <abatorContext >
   <jdbcConnection driverClass="oracle.jdbc.OracleDriver" 
-    	connectionURL="jdbc:oracle:thin:@10.214.40.80:1521:khyx"
+    	connectionURL="jdbc:oracle:thin:@192.168.191.1:1521:wujiajun"
     	userId="xmzhpt" password="xmzhpt" >
       <!-- 数据库所用jar包,指定数据库jdbc驱动jar包的绝对路径。 -->
 <classPathEntry location="E:\XMpro\XMpro\gotopXmzh\WebRoot\WEB-INF\lib\ojdbc14.jar" />
@@ -22,7 +22,7 @@
 
     <daoGenerator targetPackage="com.gotop.Generalprocess.dao" targetProject="xmzhProject" type="SPRING">
     </daoGenerator>    
-    <table  tableName="T_GENERALPROCESS_MODELTWO" module="xmiimp.generalProcess">
+    <table  tableName="T_GENERALPROCESS_MODELFIVE" module="xmiimp.generalProcess">
     </table>    
   </abatorContext>
 </abatorConfiguration>

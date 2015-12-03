@@ -17,7 +17,7 @@ public class ProcessModelThree extends ProcessModel implements Serializable {
 	@GeneralprocessField(name="意见内容",type="text")
 	private String opninion_content;
 	
-	@GeneralprocessField(name="是否加急",type="dic")
+	@GeneralprocessField(name="是否加急",type="dic",dicname="ZHPT_ISURGENT")
 	private String isurgent;
 	@GeneralprocessField(name="报单时间",type="text")
 	private String reporttime;

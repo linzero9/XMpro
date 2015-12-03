@@ -201,7 +201,20 @@ public class TaskAssgineeDto {
      * 页面返显的JSON
      */
     private String fxJson;
+
+    /**
+     * 当前节点名称
+     */
+    private String activityName;
     
+	public String getActivityName() {
+		return activityName;
+	}
+
+	public void setActivityName(String activityName) {
+		this.activityName = activityName;
+	}
+
 	public String getFxJson() {
 		return fxJson;
 	}

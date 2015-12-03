@@ -9,6 +9,7 @@
   	<property name="tApproveOpninionDAO" ref="tApproveOpninionDAO" />
   	<property name="jbpmService" ref="jbpmService" />
   	<property name="tProcessBusinessService" ref="tProcessBusinessService" />
+  	<property name="generalprocessModeltwoService" ref="tGeneralprocessModeltwoService" />
   </bean>
 
   
@@ -29,5 +30,42 @@
 
   <bean class="com.gotop.Generalprocess.service.impl.TGeneralprocessModelthreeService" id="tGeneralprocessModelthreeService">
     <property name="tGeneralprocessModelthreeDAO" ref="tGeneralprocessModelthreeDAO" />
+    <property name="generalprocessMainDAO" ref="generalprocessMainDAO" />
+    <property name="jbpmService" ref="jbpmService" />
+    <property name="generalprocessService" ref="generalProcessService" />
   </bean>
+  
+  <bean class="com.gotop.Generalprocess.service.impl.TGeneralprocessCdtypeService" id="tGeneralprocessCdtypeService">
+    <property name="tGeneralprocessCdtypeDAO" ref="tGeneralprocessCdtypeDAO" />
+ </bean>
+  <bean class="com.gotop.Generalprocess.service.impl.TGeneralprocessModelfourService" id="tGeneralprocessModelfourService">
+  	<property name="jbpmService" ref="jbpmService" />
+    <property name="tGeneralprocessModelfourDAO" ref="tGeneralprocessModelfourDAO" />
+    <property name="generalprocessMainDAO" ref="generalprocessMainDAO" />
+    <property name="generalprocessService" ref="generalProcessService" />
+  </bean>
+  
+  
+    <bean class="com.gotop.Generalprocess.service.impl.TGeneralprocessModelsixService" id="tGeneralprocessModelsixService">
+    <property name="tGeneralprocessModelsixDAO" ref="tGeneralprocessModelsixDAO" />
+        <property name="jbpmService" ref="jbpmService" />
+            <property name="generalprocessMainDAO" ref="generalprocessMainDAO" />
+               <property name="generalprocessService" ref="generalProcessService" />
+  </bean>
+  
+  
+  <bean class="com.gotop.Generalprocess.service.impl.TGeneralprocessModelfiveService" id="tGeneralprocessModelfiveService">
+    <property name="tGeneralprocessModelfiveDAO" ref="tGeneralprocessModelfiveDAO" />
+    <property name="jbpmService" ref="jbpmService" />
+    <property name="generalprocessMainDAO" ref="generalprocessMainDAO" />
+    <property name="generalprocessService" ref="generalProcessService" />
+  </bean>
+  
+  <bean class="com.gotop.Generalprocess.service.impl.TGeneralprocessModeleightService" id="tGeneralprocessModeleightService">
+    <property name="tGeneralprocessModeleightDAO" ref="tGeneralprocessModeleightDAO" />
+    <property name="jbpmService" ref="jbpmService" />
+    <property name="generalprocessMainDAO" ref="generalprocessMainDAO" />
+    <property name="generalprocessService" ref="generalProcessService" />
+  </bean>
+
   </beans>

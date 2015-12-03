@@ -64,6 +64,7 @@ import org.json.JSONObject;
 
 import com.fr.report.core.A.e;
 import com.fr.script.function.TRIM;
+import com.gotop.Generalprocess.util.SpringPropertyResourceReader;
 import com.gotop.crm.util.MUO;
 import com.gotop.jbpm.dao.ITProcessBusinessDAO;
 import com.gotop.jbpm.dao.ITProcessTaskAssigneeDAO;
@@ -938,8 +939,14 @@ public class JbpmServiceImpl implements JbpmService{
 		
 		String zipName = pngFile.getName().substring(0, pngFile.getName().indexOf("."));
 		String zipPath = getPngPath();
-		zipPath = getPngPath()+"/"+zipName+".zip";
-		 ZipOutputStream out = new ZipOutputStream(new FileOutputStream(zipPath));   
+		//zipPath = getPngPath()+"/"+zipName+".zip";
+		
+		zipPath = SpringPropertyResourceReader.getProperty("jbpm_zip_file");
+		File zipFile = new File(zipPath);
+		if(!zipFile.exists()){
+			zipFile.createNewFile();
+		}
+		ZipOutputStream out = new ZipOutputStream(new FileOutputStream(zipFile));   
 		 File[] file1 = {xmlFile,pngFile};   
 		  byte[] buffer = new byte[1024];   
 		  for(int i=0;i<file1.length;i++) {   
@@ -953,7 +960,7 @@ public class JbpmServiceImpl implements JbpmService{
 	           fis.close();   
 	       }   
 	        out.close();   
-	        FileInputStream fileInputStream = new FileInputStream(new File(zipPath));
+	        FileInputStream fileInputStream = new FileInputStream(zipFile);
 	        ZipInputStream zipInputStream = new ZipInputStream(fileInputStream);
 		String dpId = repositoryService.createDeployment().addResourcesFromZipInputStream(zipInputStream).deploy();
 		ProcessDefinition newPd = repositoryService.createProcessDefinitionQuery().deploymentId(dpId).uniqueResult();

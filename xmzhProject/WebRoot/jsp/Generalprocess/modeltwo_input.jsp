@@ -14,6 +14,8 @@
 <title>技术审查</title>
 </head>
   <body>
+  <div id='showdiv'>
+    	</div>	
     <h:form name="form1" id="form1" action="" method="post" enctype="multipart/form-data" onsubmit="return checkForm(this);">
         
         <h:hidden id="businessKey" name="taskAssgineeDto.businessKey" property="taskAssgineeDto.businessKey"/>
@@ -27,8 +29,9 @@
         <h:hidden id="preTaskAssingee" name="taskAssgineeDto.preTaskAssingee" property="taskAssgineeDto.preTaskAssingee"/>
         <h:hidden id="definitionId" name="taskAssgineeDto.definitionId" property="taskAssgineeDto.definitionId"/>
         
-    	<%--   	<h:textarea property="taskAssgineeDto.fxJson"/>  --%>
-        
+        <h:hidden id="processModelId" name="modelTwo.processModelId" property="modelTwo.processModelId"/>
+		<h:hidden id="taskName" name="modelTwo.taskName" property="modelTwo.taskName"/>
+		
 		<%-- <h:hidden type="hidden" id="btnType" name="taskAssgineeDto.btnType" /> --%>
        
        <%--  <h:hidden id="isC" name="isC" property="taskAssgineeDto/isC"/>
@@ -36,13 +39,13 @@
 		<table align="center" border="0" width="100%" class="form_table" >
        <tr>
          <td  colspan="4" style="text-align: center;font-weight:bold;font-size:12pt;height:50px" >
-        		技术审查
+        		 ${taskName }
         </td>
       </tr>
       <tr>
      	<td class="form_label" align="right" style="width:10%;">处理意见：</td>
      	<td colspan="3">
-	     	<h:textarea  extAttr="class='h80' "  property="modelTwo.opninion_content"  id="opninion_content" validateAttr="maxLength=512;allowNull=false" rows="4"  style="width:90%;" />
+	     	<h:textarea  extAttr="class='h80' "  property="modelTwo.opninion_content"  id="opninion_content" validateAttr="maxLength=512;" rows="4"  style="width:90%;" />
 		    <font style="color: red">*</font>
      	</td>
       </tr>
@@ -50,19 +53,19 @@
       <tr class="form_bottom">
         <td colspan="4">
           <input type="button" value="提交" onclick="doSave(2);" class="button" id="save3" />
-          <!-- <input type="button" value="回退" onclick="doSave2(3);" class="button" id="save4" /> -->
           <input type="button" value="查看流程" onclick="doflowpic();" class="button" id="flowpic" />
          </td>
       </tr>
+     <tr id="row2">
+     <td class="form_label" align="right">流 程 列 表：</td>
+     <td colspan="3">
+     <%@include file="/jsp/util/opinionUtil_generalProcess.jsp"%>
+	</td>
+     </tr>
     </table>
     </h:form>
-      	<w:panel id="showpanel" title="流程信息">
-    		<div id='showdiv'>
-    	</div>	
-	</w:panel>
   </body>
  <script type="text/javascript">
-
  show('${taskAssgineeDto.fxJson}');
 
 		 $(document).ready(function(){
@@ -93,9 +96,6 @@
 				        }
 			    });	
 				 $("#beginOrg").val("${euip.orgid}");	
-				 if('${isView}'!=""){
-					 $(".smit").attr("display","none");
-				 }
 
 				 if('${taskAssgineeDto.isC}'){
 					 	$("#save3").hide();
@@ -107,38 +107,40 @@
 				 
 			 }else{
 				 $("#row1").css("display","none");  
-				 $("#row2").css("display","none");  
+				 //$("#row2").css("display","none");  
 				 $("#row3").css("display","none");  
 			 }
 			 if('${euip.empName}'==""){
 				 $("#empName").val('${sessionScope.login_user.empname}');
 			 }
 
+			 //查看详情界面
 			 if('${isView}'!=''){
 					$("#save1").hide();
 					$("#save3").hide();
 					$("#fujian").hide();
 					$("#row3").hide();
-					//$("#hiddenTime").show();
+					$("#opninion_content").attr("readonly",true);
 				}
 
 		});
 		
 		function initPlanCell20(){
 				var queryCond="";
-				queryCond += "<resourceId>${euip.epId}</resourceId>";
-				queryCond += "<resourceType>${taskAssgineeDto.businessType}</resourceType>";
+				queryCond += "<flowId>${taskAssgineeDto.executionId}</flowId>";
 					return queryCond;
 				}
 
 		function doSave(value){   		
     		$("#btnType").val(value);
     		if(value!="1"){
+    			//提交
     			if(checkForm($id("form1"))){
     			var strUrl = "/jbpm/jbpmDemoAction_toNextTaskConfig.action?taskAssgineeDto.executionId="+$id("executionId").value;
         		showModalCenter(strUrl, null, taskAssigneeCallBack, 700, 400, '节点选择');
     			}
     		}else{
+    			//保存
     			var _form = $id("form1");
     	  	  	 	url="/euipApply/tApplyEuipAction_insertEuipInfo.action";	
     	  	  	    _form.action =url;
@@ -227,6 +229,8 @@
 				function delTr(id){
 					$("#"+id).remove();
 				}
+
+
 				
  </script>
 </html>

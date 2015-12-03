@@ -520,68 +520,132 @@ WEB.turnMainFrame=function(){
 					$("#showdiv").append('<table id="table'+key+'" align="center" border="0" width="100%" class="form_table">');
 					var showpanelhtml='';
 		           var title="节点名称";
+		           var misTakeType="";
 		           $.each(value, function(i, item) {
 			           if(item.type=='title'){
 			        	   title=item.value; 
 				           }
+			           if(item.type=='misTakeType'){
+			        	   misTakeType=item.value; 
+				           }
 		        	   if(item.hidden==true){
 			           if(index%2==0){
 			        	   if(item.type=='text'){
-			        		   showpanelhtml=showpanelhtml+'<tr><td class="form_label" align="right" style="width:120px;">'+item.name+ '</td><td>'+item.value+'</td>';
+				        	   var value1;
+				        	   if(item.value==''||item.value==null||item.value==undefined){
+					        	   value1="";
+					        	   }else{
+						        	   value1=item.value;
+						        	   }
+			        		   showpanelhtml=showpanelhtml+'<tr><td class="form_label" align="right" style="width:120px;">'+item.name+ '</td><td>'+value1+'</td>';
 			        		   index=index+1;
 			   				}else if(item.type=='dic'){
 						          var dicttypeid=item.dicname;
 						          var dictid=item.value;
 						          var dictname;
-					        	  $.ajax({
-								        url: "/tyjg/datadictionary/dictEntryAction_queryDictOneType.action?dicttypeid="+dicttypeid+"&dictid="+dictid,
-								        async: false,
-								        type: 'post',
-								        data: "",
-								        dataType: 'json',
-								        success: function (json) {
-								        	if(json){
-								        		dictname= json.dictname;
-								        	}
-								        	showpanelhtml=showpanelhtml+'<tr><td class="form_label" align="right" style="width:120px;">'+item.name+ '</td><td>'+json.dictname+'</td>';
-								        	index=index+1;
-									        }
-							    });	
+						          if(dictid=='' || dictid==undefined || dictid==null){
+						        	  dictname="";
+							          }else{
+							        	  $.ajax({
+										        url: "/tyjg/datadictionary/dictEntryAction_queryDictOneType.action?dicttypeid="+dicttypeid+"&dictid="+dictid,
+										        async: false,
+										        type: 'post',
+										        data: "",
+										        dataType: 'json',
+										        success: function (json) {
+										        	if(json==""||json==null){
+										        		dictname= item.value;
+										        	}else {
+										        		dictname= json.dictname;
+										        	}
+											        }
+									    });	
+								     }
+					        	showpanelhtml=showpanelhtml+'<tr><td class="form_label" align="right" style="width:120px;">'+item.name+ '</td><td>'+dictname+'</td>';
+					        	index=index+1;
+			   					//showpanelhtml=showpanelhtml+'<tr><td class="form_label" align="right" style="width:120px;">'+item.name+ '</td><td>'+item.value+'</td></tr>';
 				   				}else if (item.type=='date'){
-				   					showpanelhtml=showpanelhtml+'<tr><td class="form_label" align="right" style="width:120px;">'+item.name+ '</td><td>'+item.value+'</td>';
+				   				 var value1;
+					        	   if(item.value==''||item.value==null||item.value==undefined){
+						        	   value1="";
+						        	   }else{
+							        	   value1=item.value;
+							        	   }
+				   					showpanelhtml=showpanelhtml+'<tr><td class="form_label" align="right" style="width:120px;">'+item.name+ '</td><td>'+value1+'</td>';
 				   					index=index+1;
 					   				}
 				           }else{
 				        	   if(item.type=='text'){
-				        		   showpanelhtml=showpanelhtml+'<td class="form_label" align="right" style="width:120px;">'+item.name+ '</td><td>'+item.value+'</td></tr>';
+				        		   if(item.value==''||item.value==null|| item.value==undefined){
+						        	   value1="";
+						        	   }else{
+							        	   value1=item.value;
+							        	   }
+				        		   showpanelhtml=showpanelhtml+'<td class="form_label" align="right" style="width:120px;">'+item.name+ '</td><td>'+value1+'</td></tr>';
 				        		   index=index+1;
 				        	   }else if(item.type=='dic'){
 							          var dicttypeid=item.dicname;
 							          var dictid=item.value;
 							          var dictname;
-						        	  $.ajax({
-									        url: "/tyjg/datadictionary/dictEntryAction_queryDictOneType.action?dicttypeid="+dicttypeid+"&dictid="+dictid,
-									        async: false,
-									        type: 'post',
-									        data: "",
-									        dataType: 'json',
-									        success: function (json) {
-									        	dictname= json.dictname;
-									        	showpanelhtml=showpanelhtml+'<tr><td class="form_label" align="right" style="width:120px;">'+item.name+ '</td><td>'+json.dictname+'</td></tr>';
-									        	index=index+1;
-										        }
-								    });	
+							          if(dictid=='' || dictid==undefined ||dictid==null){
+							        	  dictname="";
+								          }else{
+								        	  $.ajax({
+											        url: "/tyjg/datadictionary/dictEntryAction_queryDictOneType.action?dicttypeid="+dicttypeid+"&dictid="+dictid,
+											        async: false,
+											        type: 'post',
+											        data: "",
+											        dataType: 'json',
+											        success: function (json) {
+											        	if(json==""||json==null){
+											        		dictname= item.value;
+											        	}else {
+											        		dictname= json.dictname;
+											        	}
+												        }
+										    });	
+									     }
+						        	showpanelhtml=showpanelhtml+'<td class="form_label" align="right" style="width:120px;">'+item.name+ '</td><td>'+dictname+'</td></tr>';
+						        	index=index+1;
 				   					//showpanelhtml=showpanelhtml+'<tr><td class="form_label" align="right" style="width:120px;">'+item.name+ '</td><td>'+item.value+'</td></tr>';
 					   				}else if (item.type=='date'){
-					   					showpanelhtml=showpanelhtml+'<tr><td class="form_label" align="right" style="width:120px;">'+item.name+ '</td><td>'+item.value+'</td></tr>ipconfig';
+					   					if(item.value==''||item.value==''||item.value==null||item.value==undefined){
+								        	   value1="";
+								        	   }else{
+									        	   value1=item.value;
+									        	   }
+					   					showpanelhtml=showpanelhtml+'<tr><td class="form_label" align="right" style="width:120px;">'+item.name+ '</td><td>'+value1+'</td></tr>ipconfig';
 					   					index=index+1;
 						   				}
 					           }
 		        	   }
 		           });
 		           $("#table"+key).html(showpanelhtml);
-		           $("#table"+key+" td").hide();
 		           $("#table"+key).prepend('<tr><th  colspan="4" style="text-align: center;font-weight:bold;font-size:16pt;background: rgb(167, 167, 226);" class="table_head" onclick="tablehide('+key+')">'+title+'</th></tr>');
+		           if(misTakeType!=''){
+		        	   $.ajax({
+					        url: '/Generalprocess/tGeneralprocessModelFourAction_queryFourMistake.action',
+					        async: false,
+					        type: 'post',
+					        data: "modelFour.processModelId="+misTakeType,
+					        dataType: 'json',
+					        timeout: 60000,
+					        success: function (files) {
+						        if(files!=""){
+						        	var mistakeshtml=$("#table"+key).html();
+						        	mistakeshtml=mistakeshtml+'<tr class="form_label" align="right" style="width:120px;"><td>差错情况</td><td colspan="3"><table id="mistake'+misTakeType+'" border="0" width="100%" class="form_table"></table></td></tr>';
+						        	$("#table"+key).html(mistakeshtml);
+						        	var mistake="<tr><th style='width:60%;'>差错内容</th><th style='width:20%;'>扣罚金额</th><th style='width:20%;'>添加时间</th></tr>";
+						        	$.each(files,function( i,item ){
+						        		mistake=mistake+"<tr><td>"+item.mistakeContent+"</td><td>"+item.punishBal+"</td><td>"+item.addTime+"</td></tr>";
+						        	});
+						        	$("#mistake"+misTakeType).html(mistake);
+						        }  
+					        }
+				    });
+			           
+			           }
+
 		           });
 			}
 			

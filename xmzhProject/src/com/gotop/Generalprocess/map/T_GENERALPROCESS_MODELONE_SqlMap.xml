@@ -84,7 +84,32 @@
     	<result column="TASKNAME" property="taskName" jdbcType="VARCHAR" />
 	</resultMap>
 	
-	<!--通过条件查询数据-->
+	<!-- 更新模式一 -->
+	<update id="uptModelOne" parameterClass="com.gotop.Generalprocess.model.ProcessModelOne" >
+    update T_GENERALPROCESS_MODELONE
+    set FLOW_ID = #flow_Id:VARCHAR#,
+      ORGCODEONE = #orgCodeOne:VARCHAR#,
+      ORGCODETWO = #orgCodeTwo:VARCHAR#,
+      CREATOR = #creator:VARCHAR#,
+      FDXDY = #fdxdy:VARCHAR#,
+      YXZG = #yxzg:VARCHAR#,
+      YXRY = #yxry:VARCHAR#,
+      CURRENCY = #currency:VARCHAR#,
+      APPLY_BAL = #apply_bal:VARCHAR#,
+      ONECATEGORY = #oneCategory:VARCHAR#,
+      LOANCATEGORY = #loanCategory:VARCHAR#,
+      DYWX_NAME = #dywx_Name:VARCHAR#,
+      COORGANIZATION = #coOrganization:VARCHAR#,
+      SURVEY_TIME = #survey_Time:VARCHAR#,
+      CONTENT = #content:VARCHAR#,
+      CUST_NAME = #cust_Name:VARCHAR#,
+      LAST_UP_DATE = #last_up_date:VARCHAR#,
+      LAST_UP_TIME = #last_up_time:VARCHAR#,
+      LAST_UP_NAME = #last_up_name:VARCHAR#
+    where PROCESSMODELID = #processModelId:DECIMAL#
+  </update>
+  
+	<!--根据条件查询模式一-->
 	<select id="queryModelOne" resultMap="processModelOne_result" parameterClass="java.util.HashMap">
     	SELECT T.PROCESSMODELID,
        		T.FLOW_ID,
@@ -120,7 +145,7 @@
   		OM_EMPLOYEE E1
   		WHERE 
   			T.ORGCODEONE=O1.ORGCODE
-  		AND T.ORGCODETWO=O2.ORGCODE
+  		AND T.ORGCODETWO=O2.ORGCODE(+)
   		AND T.CREATOR = E1.EMPID
   		<dynamic>
       <isNotNull prepend="and" property="flow_id" >
@@ -132,7 +157,7 @@
       </dynamic>
   	</select>
   	
-	<!--通过主键和流程id查询数据-->
+	<!--根据主键查询模式一-->
 	<select id="queryModelOneById" resultMap="processModelOne_result" parameterClass="java.util.HashMap">
     	SELECT T.PROCESSMODELID,
        		T.FLOW_ID,
@@ -168,12 +193,12 @@
   		OM_EMPLOYEE E1
   		WHERE 
   			T.ORGCODEONE=O1.ORGCODE
-  		AND T.ORGCODETWO=O2.ORGCODE
+  		AND T.ORGCODETWO=O2.ORGCODE(+)
   		AND T.CREATOR = E1.EMPID
   		AND T.PROCESSMODELID = #processModelId#
   	</select>
   	
-  	<!-- 新增模式一表单 -->
+  	<!-- 新增模式一 -->
   	<insert id="addModelOne" parameterClass="com.gotop.Generalprocess.model.ProcessModelOne" >
   		 <selectKey resultClass="long" keyProperty="processModelId">
 			SELECT SEQ_T_GENERALPROCESS_MODELONE.NEXTVAL AS VALUE FROM DUAL
@@ -191,6 +216,10 @@
   	</insert>
   
   
+  
+  
+  
+  
   <select id="selectByPrimaryKey" resultMap="abatorgenerated_TGeneralprocessModeloneResult" parameterClass="com.gotop.Generalprocess.model.TGeneralprocessModelone" >
     <!--通过主键查询一条数据-->
     select PROCESSMODELONEID, FLOW_ID, ORGCODEONE, ORGCODETWO, CREATOR, FDXDY, YXZG, YXRY, CURRENCY,
@@ -199,10 +228,6 @@
     from T_GENERALPROCESS_MODELONE
     where PROCESSMODELONEID = #processmodeloneid:DECIMAL#
   </select>
-  
-  
-  
-  
   
   <select id="abatorgenerated_selectByExample" resultMap="abatorgenerated_TGeneralprocessModeloneResult" parameterClass="com.gotop.Generalprocess.model.TGeneralprocessModeloneExample" >
     <!--通过查询实体,查询满足条件的记录-->

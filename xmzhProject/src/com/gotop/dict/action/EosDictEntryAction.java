@@ -29,8 +29,26 @@ public class EosDictEntryAction extends BaseAction {
     private EosDictEntry dictEntry;
     
     private List<EosDictEntry> dictEntrys;
-    
 
+    public Page page2;
+    
+    
+    public Page getPage2() {
+    	if(page2==null){
+			page2 = new Page();
+			page2.setBegin(0);
+			page2.setLength(10);
+			page2.setCount(0);
+			page2.setCount(true);
+		}
+		return page2;
+	}
+	public void setPage2(Page page2) {
+		pageCondExpand pce = new pageCondExpand();
+		pce.putPageCond(page2);
+		this.page2 = page2;
+	}
+	
 	/**
      * 通过spring注入Service的set类.
      * @abatorgenerated
@@ -91,9 +109,10 @@ public class EosDictEntryAction extends BaseAction {
 	
 	public String queryDictEntryBydictTypeId(){
 		dictTypes = eosDictEntryService.dictTypeList(dictType,this.getPage());
-		dictEntrys = eosDictEntryService.queryDictEntryBydictTypeId(dictEntry);
+		dictEntrys = eosDictEntryService.queryDictEntryBydictTypeId(dictEntry,this.getPage2());
 		this.setDictTypes(dictTypes);
 		this.setDictEntrys(dictEntrys);
+		this.setDictEntry(dictEntry);
 		return "dictList";
 	}
 	

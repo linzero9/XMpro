@@ -1,5 +1,6 @@
 package com.gotop.messagePublish.dao;
 
+import com.gotop.Generalprocess.model.TApproveOpninionGP;
 import com.gotop.file.model.TFileResourceTable;
 import com.gotop.opinion.model.TApproveOpninion;
 import com.gotop.messagePublish.model.TMessagePublish;
@@ -65,5 +66,8 @@ public interface ITMessagePublishDAO {
      * </pre>
      */
    public Long queryMessageRed(HashMap op) throws Exception ;
+
+	public List<TApproveOpninionGP> queryApproveOpninionsGP(
+			HashMap<String, String> hmp);
 	
 }

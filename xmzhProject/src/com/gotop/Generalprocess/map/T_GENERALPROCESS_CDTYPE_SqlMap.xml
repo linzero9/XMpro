@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="T_GENERALPROCESS_CDTYPE_SqlMap" >
+  <resultMap id="TGeneralprocessCdtypeResult" class="com.gotop.Generalprocess.model.TGeneralprocessCdtype" >
+    <!--Bean方式返回全表-->
+    <result column="PROCESS_NAME" property="processName" jdbcType="VARCHAR" />
+    <result column="FIRST_CLASS" property="firstClass" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="creditTypeResult" class="com.gotop.Generalprocess.model.TGeneralprocessCdtype" >
+    <!--Bean方式返回全表-->
+    <result column="CREDIT_TYPE" property="creditType" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <!-- 查询一级分类列表 -->
+ <select id="queryCdtypes" resultMap="TGeneralprocessCdtypeResult" parameterClass="java.util.HashMap" >
+    <!--通过查询实体,查询满足条件的记录-->
+    select distinct PROCESS_NAME, FIRST_CLASS
+    from T_GENERALPROCESS_CDTYPE
+  </select>
+  
+  <select id="querycreditType" resultMap="creditTypeResult" parameterClass="java.util.HashMap" >
+    <!--通过查询实体,查询满足条件的记录-->
+    select distinct CREDIT_TYPE
+    from T_GENERALPROCESS_CDTYPE
+    where FIRST_CLASS= #firstClass#
+  </select>
+  
+</sqlMap>

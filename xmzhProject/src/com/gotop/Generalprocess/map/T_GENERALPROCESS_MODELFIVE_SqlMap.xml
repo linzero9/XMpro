@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="T_GENERALPROCESS_MODELFIVE_SqlMap" >
+  
+   <resultMap id="processModelFive_Result" class="com.gotop.Generalprocess.model.ProcessModelFive" >
+    <!--Bean方式返回全表-->
+    <result column="PROCESSMODELID" property="processModelId" jdbcType="DECIMAL" />
+    <result column="APP_WAY" property="appWay" jdbcType="VARCHAR" />
+    <result column="POL_NO" property="polNo" jdbcType="VARCHAR" />
+    <result column="MEETING_COUNT" property="meetingCount" jdbcType="VARCHAR" />
+    <result column="VOTE_NO" property="voteNo" jdbcType="VARCHAR" />
+    <result column="APP_TIME" property="appTime" jdbcType="VARCHAR" />
+    <result column="CON_MATTER" property="conMatter" jdbcType="VARCHAR" />
+    <result column="SX_APP_TIME" property="sxAppTime" jdbcType="VARCHAR" />
+    <result column="YQ_APP_TIME" property="yqAppTime" jdbcType="VARCHAR" />
+    <result column="DY_APP" property="dyApp" jdbcType="VARCHAR" />
+    <result column="DE_APP" property="deApp" jdbcType="VARCHAR" />
+    <result column="HY_ZR_NAME" property="hyZrName" jdbcType="VARCHAR" />
+    <result column="HY_WY_ONE" property="hyWyOne" jdbcType="VARCHAR" />
+    <result column="HY_WY_TWO" property="hyWyTwo" jdbcType="VARCHAR" />
+    <result column="DS_MS_ONE" property="dsMsOne" jdbcType="VARCHAR" />
+    <result column="DS_MS_TWO" property="dsMsTwo" jdbcType="VARCHAR" />
+    <result column="SH_ADDR" property="shAddr" jdbcType="VARCHAR" />
+    <result column="FX_TYPE" property="fxType" jdbcType="VARCHAR" />
+    <result column="SP_TYPE" property="spType" jdbcType="VARCHAR" />
+    <result column="YBJ_NUM" property="ybjNum" jdbcType="VARCHAR" />
+    <result column="HY_SY_JL" property="hySyJl" jdbcType="VARCHAR" />
+    <result column="PJ_JL" property="pjJl" jdbcType="VARCHAR" />
+    <result column="FX_BB" property="fxBb" jdbcType="VARCHAR" />
+    <result column="FX_ED" property="fxEd" jdbcType="VARCHAR" />
+    <result column="SX_BB" property="sxBb" jdbcType="VARCHAR" />
+    <result column="SX_ED" property="sxEd" jdbcType="VARCHAR" />
+    <result column="YW_BB" property="ywBb" jdbcType="VARCHAR" />
+    <result column="YW_ED" property="ywEd" jdbcType="VARCHAR" />
+    <result column="FLOW_ID" property="flowId" jdbcType="VARCHAR" />
+    <result column="TASKNAME" property="taskName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="queryModelFive" parameterClass="java.util.HashMap" resultMap="processModelFive_Result">
+  	select PROCESSMODELID, APP_WAY, POL_NO, MEETING_COUNT, VOTE_NO, APP_TIME, CON_MATTER,
+      SX_APP_TIME, YQ_APP_TIME, DY_APP, DE_APP, HY_ZR_NAME, HY_WY_ONE, HY_WY_TWO, DS_MS_ONE,
+      DS_MS_TWO, SH_ADDR, FX_TYPE, SP_TYPE, YBJ_NUM, HY_SY_JL, PJ_JL, FX_BB, FX_ED, SX_BB, SX_ED,
+      YW_BB, YW_ED, FLOW_ID, TASKNAME
+    from T_GENERALPROCESS_MODELFIVE
+     where 1=1
+    <dynamic>
+      <isNotNull prepend="and" property="flow_id" >
+        FLOW_ID = #flow_id:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="taskName" >
+        TASKNAME = #taskName:VARCHAR#
+      </isNotNull>
+      </dynamic>
+  </select>
+  
+  <select id="queryModelFiveById" parameterClass="java.util.HashMap" resultMap="processModelFive_Result">
+  select PROCESSMODELID, APP_WAY, POL_NO, MEETING_COUNT, VOTE_NO, APP_TIME, CON_MATTER,
+      SX_APP_TIME, YQ_APP_TIME, DY_APP, DE_APP, HY_ZR_NAME, HY_WY_ONE, HY_WY_TWO, DS_MS_ONE,
+      DS_MS_TWO, SH_ADDR, FX_TYPE, SP_TYPE, YBJ_NUM, HY_SY_JL, PJ_JL, FX_BB, FX_ED, SX_BB, SX_ED,
+      YW_BB, YW_ED, FLOW_ID, TASKNAME
+    from T_GENERALPROCESS_MODELFIVE
+    where PROCESSMODELID = #processModelId#
+  </select>
+  
+  <insert id="addModelFive" parameterClass="com.gotop.Generalprocess.model.ProcessModelFive">
+   <selectKey resultClass="long" keyProperty="processModelId">
+			SELECT SEQ_T_GENERALPROCESS_MODELFIVE.NEXTVAL AS VALUE FROM DUAL
+   </selectKey>
+   insert into T_GENERALPROCESS_MODELFIVE (PROCESSMODELID, APP_WAY, POL_NO, MEETING_COUNT, VOTE_NO,
+      APP_TIME, CON_MATTER, SX_APP_TIME, YQ_APP_TIME, DY_APP, DE_APP, HY_ZR_NAME, HY_WY_ONE,
+      HY_WY_TWO, DS_MS_ONE, DS_MS_TWO, SH_ADDR, FX_TYPE, SP_TYPE, YBJ_NUM, HY_SY_JL, PJ_JL, FX_BB,
+      FX_ED, SX_BB, SX_ED, YW_BB, YW_ED, FLOW_ID, TASKNAME)
+    values (#processModelId:DECIMAL:-9999#, #appWay:VARCHAR#, #polNo:VARCHAR#,
+      #meetingCount:VARCHAR#, #voteNo:VARCHAR#, #appTime:VARCHAR#, #conMatter:VARCHAR#,
+      #sxAppTime:VARCHAR#, #yqAppTime:VARCHAR#, #dyApp:VARCHAR#, #deApp:VARCHAR#,
+      #hyZrName:VARCHAR#, #hyWyOne:VARCHAR#, #hyWyTwo:VARCHAR#, #dsMsOne:VARCHAR#,
+      #dsMsTwo:VARCHAR#, #shAddr:VARCHAR#, #fxType:VARCHAR#, #spType:VARCHAR#, #ybjNum:VARCHAR#,
+      #hySyJl:VARCHAR#, #pjJl:VARCHAR#, #fxBb:VARCHAR#, #fxEd:VARCHAR#, #sxBb:VARCHAR#,
+      #sxEd:VARCHAR#, #ywBb:VARCHAR#, #ywEd:VARCHAR#, #flowId:VARCHAR#, #taskName:VARCHAR#)
+  </insert>
+  
+  <update id="uptModelFive" parameterClass="com.gotop.Generalprocess.model.ProcessModelFive">
+  update T_GENERALPROCESS_MODELFIVE
+    set APP_WAY = #appWay:VARCHAR#,
+      POL_NO = #polNo:VARCHAR#,
+      MEETING_COUNT = #meetingCount:VARCHAR#,
+      VOTE_NO = #voteNo:VARCHAR#,
+      APP_TIME = #appTime:VARCHAR#,
+      CON_MATTER = #conMatter:VARCHAR#,
+      SX_APP_TIME = #sxAppTime:VARCHAR#,
+      YQ_APP_TIME = #yqAppTime:VARCHAR#,
+      DY_APP = #dyApp:VARCHAR#,
+      DE_APP = #deApp:VARCHAR#,
+      HY_ZR_NAME = #hyZrName:VARCHAR#,
+      HY_WY_ONE = #hyWyOne:VARCHAR#,
+      HY_WY_TWO = #hyWyTwo:VARCHAR#,
+      DS_MS_ONE = #dsMsOne:VARCHAR#,
+      DS_MS_TWO = #dsMsTwo:VARCHAR#,
+      SH_ADDR = #shAddr:VARCHAR#,
+      FX_TYPE = #fxType:VARCHAR#,
+      SP_TYPE = #spType:VARCHAR#,
+      YBJ_NUM = #ybjNum:VARCHAR#,
+      HY_SY_JL = #hySyJl:VARCHAR#,
+      PJ_JL = #pjJl:VARCHAR#,
+      FX_BB = #fxBb:VARCHAR#,
+      FX_ED = #fxEd:VARCHAR#,
+      SX_BB = #sxBb:VARCHAR#,
+      SX_ED = #sxEd:VARCHAR#,
+      YW_BB = #ywBb:VARCHAR#,
+      YW_ED = #ywEd:VARCHAR#,
+      FLOW_ID = #flowId:VARCHAR#,
+      TASKNAME = #taskName:VARCHAR#
+    where PROCESSMODELID = #processModelId:DECIMAL#
+  </update>
+  
+</sqlMap>

@@ -22,4 +22,26 @@
   <bean class="com.gotop.Generalprocess.dao.impl.TGeneralprocessModelthreeDAO" id="tGeneralprocessModelthreeDAO">
     <property name="sqlMapClient" ref="sqlMapClient" />
   </bean>
+  
+  <bean class="com.gotop.Generalprocess.dao.impl.TGeneralprocessCdtypeDAO" id="tGeneralprocessCdtypeDAO">
+  	 <property name="sqlMapClient" ref="sqlMapClient" />
+  </bean>
+  
+  <bean class="com.gotop.Generalprocess.dao.impl.TGeneralprocessModelfourDAO" id="tGeneralprocessModelfourDAO">
+    <property name="sqlMapClient" ref="sqlMapClient" />
+  </bean>
+  
+  
+    <bean class="com.gotop.Generalprocess.dao.impl.TGeneralprocessModelsixDAO" id="tGeneralprocessModelsixDAO">
+    <property name="sqlMapClient" ref="sqlMapClient" />
+  </bean>
+  
+  
+  
+  <bean class="com.gotop.Generalprocess.dao.impl.TGeneralprocessModelfiveDAO" id="tGeneralprocessModelfiveDAO">
+    <property name="sqlMapClient" ref="sqlMapClient" />
+  </bean>
+  <bean class="com.gotop.Generalprocess.dao.impl.TGeneralprocessModeleightDAO" id="tGeneralprocessModeleightDAO">
+    <property name="sqlMapClient" ref="sqlMapClient" />
+  </bean>
   </beans>

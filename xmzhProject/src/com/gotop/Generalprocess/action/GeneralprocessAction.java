@@ -1,6 +1,7 @@
 package com.gotop.Generalprocess.action;
 
 import java.lang.reflect.InvocationTargetException;
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -61,6 +62,20 @@ public class GeneralprocessAction extends BaseAction{
 	 * 
 	 */
 	private TaskAssgineeDto taskAssgineeDto;
+	private  String taskName;
+	
+
+	public String getTaskName() {
+		return taskName;
+	}
+
+	public void setTaskName(String taskName) {
+		this.taskName = taskName;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 
 	/**
 	 * isView :1、为只读状态， 默认为空
@@ -224,18 +239,32 @@ public class GeneralprocessAction extends BaseAction{
     		
     		//获取流程实例id
     		String businessId = taskAssgineeDto.getExecutionId();
+    		taskName=taskAssgineeDto.getTaskName();
+    		
+    		
+    		System.out.println("+++++++++++"+taskName);
+    		
     		//获取流程配置主表对象
     		TGeneralprocessMain main = this.generalprocessMainService.queryMainByBusinessId(businessId);
     		Map<String, Object>  map = new HashMap<String, Object>();
-    		
+    		String taskName = "";
     		if(taskAssgineeDto.getNextTaskId() != null){
-    			String taskName = jbpmService.getTaskNameById(taskAssgineeDto.getNextTaskId());
-        		
-        		ProcessModelOne modelOne = new ProcessModelOne();
-        		modelOne.setFlow_Id(businessId);
-        		modelOne.setTaskName(taskName);
-        		ProcessModelOne newModelOne = new ProcessModelOne();
-        		newModelOne = this.generalprocessModeloneService.queryModelOne(modelOne);
+    			//待办-办理
+    			taskName = jbpmService.getTaskNameById(taskAssgineeDto.getNextTaskId());
+    		}else{
+    			if(taskAssgineeDto.getActivityName() != null){
+    				//已办-查看详情
+    				taskName = taskAssgineeDto.getActivityName();
+    			}
+    		}
+    		ProcessModelOne newModelOne = new ProcessModelOne();
+    			if(businessId != null && taskName != null){
+    				ProcessModelOne modelOne = new ProcessModelOne();
+            		modelOne.setFlow_Id(businessId);
+            		modelOne.setTaskName(taskName);
+            		
+            		newModelOne = this.generalprocessModeloneService.queryModelOne(modelOne);
+    			}
     			
         		String[] rulesArray = null;
         		String[] idsArray = null;
@@ -259,7 +288,7 @@ public class GeneralprocessAction extends BaseAction{
         		
         		String rm = "";
         		if(newModelOne != null){
-        			rm="com.gotop.Generalprocess.model.ProcessModelOne" + "-" + newModelOne.getProcessModelId();
+        			rm="ProcessModelOne" + "-" + newModelOne.getProcessModelId();
         			map.remove(rm);
         		}
         		
@@ -269,7 +298,7 @@ public class GeneralprocessAction extends BaseAction{
         		
         		String fxJson = JSONArray.fromObject(beans).toString();
         		taskAssgineeDto.setFxJson(fxJson);
-    		}
+    	
     		
 		} catch (Exception e) {
 			log.error("查询模式一表单信息失败", e);
@@ -296,15 +325,30 @@ public class GeneralprocessAction extends BaseAction{
 	public String toModelTwo() throws ClassNotFoundException, IllegalArgumentException, SecurityException, IllegalAccessException, NoSuchFieldException, NoSuchMethodException, InvocationTargetException, InstantiationException{
 		//获取流程实例id
 		String businessId = taskAssgineeDto.getExecutionId();
+		
+		 taskName= taskAssgineeDto.getTaskName();
+		
+		
+		
 		//获取流程配置主表对象
 		TGeneralprocessMain main = this.generalprocessMainService.queryMainByBusinessId(businessId);
 		Map<String, Object>  map = new HashMap<String, Object>();
+		String taskName1 = "";
+		if(taskAssgineeDto.getNextTaskId() != null){
+			//待办-办理
+			taskName1 = jbpmService.getTaskNameById(taskAssgineeDto.getNextTaskId());
+		}else{
+			if(taskAssgineeDto.getActivityName() != null){
+				//已办-查看详情
+				taskName1 = taskAssgineeDto.getActivityName();
+				taskName = taskName1;
+			}
+		}
 		
-		String taskName = jbpmService.getTaskNameById(taskAssgineeDto.getNextTaskId());
 		
 		ProcessModelTwo modelTwo = new ProcessModelTwo();
 		modelTwo.setFlow_id(businessId);
-		modelTwo.setTaskName(taskName);
+		modelTwo.setTaskName(taskName1);
 		ProcessModelTwo newModelTwo = new ProcessModelTwo();
 		newModelTwo = this.generalprocessModeltwoService.queryModelTwo(modelTwo);
 
@@ -331,7 +375,7 @@ public class GeneralprocessAction extends BaseAction{
 		
 		String rm = "";
 		if(newModelTwo != null){
-			rm="com.gotop.Generalprocess.model.ProcessModelTwo" + "-" + newModelTwo.getProcessModelId();
+			rm="ProcessModelTwo" + "-" + newModelTwo.getProcessModelId();
 			map.remove(rm);
 		}
 		

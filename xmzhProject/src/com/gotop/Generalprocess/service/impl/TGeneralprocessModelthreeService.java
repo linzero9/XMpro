@@ -1,12 +1,25 @@
 package com.gotop.Generalprocess.service.impl;
 
+import com.gotop.Generalprocess.dao.ITGeneralprocessMainDAO;
 import com.gotop.Generalprocess.dao.ITGeneralprocessModelthreeDAO;
+import com.gotop.Generalprocess.model.ProcessModel;
+import com.gotop.Generalprocess.model.ProcessModelOne;
+import com.gotop.Generalprocess.model.ProcessModelThree;
+import com.gotop.Generalprocess.model.ProcessModelTwo;
+import com.gotop.Generalprocess.model.TApproveOpninionGP;
+import com.gotop.Generalprocess.model.TGeneralprocessMain;
 import com.gotop.Generalprocess.model.TGeneralprocessModelthree;
 import com.gotop.Generalprocess.model.TGeneralprocessModelthreeExample;
+import com.gotop.Generalprocess.service.IGeneralprocessService;
 import com.gotop.Generalprocess.service.ITGeneralprocessModelthreeService;
+import com.gotop.jbpm.dto.TaskAssgineeDto;
+import com.gotop.jbpm.service.JbpmService;
+import com.gotop.util.time.TimeUtil;
+import com.gotop.vo.system.MUOUserSession;
 import com.primeton.utils.Page;
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import org.apache.log4j.Logger;
@@ -18,13 +31,44 @@ public class TGeneralprocessModelthreeService implements ITGeneralprocessModelth
      */
     protected Logger log = Logger.getLogger(TGeneralprocessModelthreeService.class);
 
+    
+    private JbpmService jbpmService;
+    private ITGeneralprocessMainDAO generalprocessMainDAO;
     /**
      * 通过spring注入的DAO对象.
      * @abatorgenerated
      */
     protected ITGeneralprocessModelthreeDAO tGeneralprocessModelthreeDAO;
+    
+    protected IGeneralprocessService generalprocessService;
 
-    /**
+    public IGeneralprocessService getGeneralprocessService() {
+		return generalprocessService;
+	}
+
+	public void setGeneralprocessService(
+			IGeneralprocessService generalprocessService) {
+		this.generalprocessService = generalprocessService;
+	}
+
+	public JbpmService getJbpmService() {
+		return jbpmService;
+	}
+
+	public void setJbpmService(JbpmService jbpmService) {
+		this.jbpmService = jbpmService;
+	}
+
+	public ITGeneralprocessMainDAO getGeneralprocessMainDAO() {
+		return generalprocessMainDAO;
+	}
+
+	public void setGeneralprocessMainDAO(
+			ITGeneralprocessMainDAO generalprocessMainDAO) {
+		this.generalprocessMainDAO = generalprocessMainDAO;
+	}
+
+	/**
      * 通过spring注入DAO的set类.
      * @abatorgenerated
      */
@@ -40,111 +84,140 @@ public class TGeneralprocessModelthreeService implements ITGeneralprocessModelth
         return this.tGeneralprocessModelthreeDAO;
     }
 
-    /**
-     * 动态查询实例，分页查询数据并返回list
-     * @abatorgenerated
-     */
-    public List queryDataGrid(HashMap map, Page page) throws Exception {
-        TGeneralprocessModelthreeExample example = new TGeneralprocessModelthreeExample();
-        TGeneralprocessModelthreeExample.Criteria criteria = example.createCriteria();
-        example.setOracleStart(page.getBegin());
-        example.setOracleEnd(page.getBegin()+page.getLength());
-        TGeneralprocessModelthree record = new TGeneralprocessModelthree();
-        List list = tGeneralprocessModelthreeDAO.selectByExampleAndPage(record,example,page);
-        return list;
-    }
 
-    /**
-     * 插入单条记录
-     * @abatorgenerated
-     */
-    public void insert(TGeneralprocessModelthree obj) throws Exception {
-        this.tGeneralprocessModelthreeDAO.insert(obj);
-    }
+	@Override
+	public void handleModelThree(MUOUserSession muo,
+			ProcessModelThree modelThree, TaskAssgineeDto taskAssgineeDto) {
+		String taskId = taskAssgineeDto.getNextTaskId();
+		String taskName = jbpmService.getTaskNameById(taskId);
+		modelThree.setTaskName(taskName);
+		modelThree.setFlow_id(taskAssgineeDto.getExecutionId());
+		
+		if (modelThree.getProcessModelId() != null
+				&& !"".equals(modelThree.getProcessModelId())){
+			//更新模式三
+			this.tGeneralprocessModelthreeDAO.uptModelThree(modelThree);
+		}else{
+			//保存模式三
+			this.tGeneralprocessModelthreeDAO.addModelThree(modelThree);
+		}
 
-    /**
-     * 删除单条记录
-     * @abatorgenerated
-     */
-    public void delete(TGeneralprocessModelthree obj) throws Exception {
-        
-        this.tGeneralprocessModelthreeDAO.deleteByPrimaryKey(key);
-    }
+		// 保存模式三表单内容
+		
 
-    /**
-     * 批量更新数据
-     * @abatorgenerated
-     */
-    public void updateBatch(List abs) throws Exception {
-        if(abs==null){
-            	return;
-        }
-        for(int i=0;i<abs.size();i++){
-            	TGeneralprocessModelthree tObject = (TGeneralprocessModelthree)abs.get(i);
-            //  没有主键的表，请自行处理
-        }
-    }
+		modelThree.setOpinion(modelThree.getOpninion_content());
 
-    /**
-     * 批量插入数据
-     * @abatorgenerated
-     */
-    public void insertBatch(List abs) throws Exception {
-        if(abs==null){
-            	return;
-        }
-        for(int i=0;i<abs.size();i++){
-            	TGeneralprocessModelthree tObject = (TGeneralprocessModelthree)abs.get(i);
-            	this.insert(tObject);
-        }
-    }
+		// 获取流程实例id
+		String executionId = taskAssgineeDto.getExecutionId();
 
-    /**
-     * 批量删除数据
-     * @abatorgenerated
-     */
-    public void deleteBatch(List abs) throws Exception {
-        if(abs==null){
-            	return;
-        }
-        for(int i=0;i<abs.size();i++){
-            	TGeneralprocessModelthree tObject = (TGeneralprocessModelthree)abs.get(i);
-            	this.delete(tObject);
-        }
-    }
+		// 查询模式主表信息
+		TGeneralprocessMain main = this.generalprocessMainDAO
+				.queryMainByBusinessId(executionId);
 
-    /**
-     * datacell方式批量更新数据
-     * @abatorgenerated
-     */
-    public void updateDataGrid(HashMap hmp) throws Exception {
-        this.tGeneralprocessModelthreeDAO.startBatch();
-        List insertEntities = (List) hmp.get("insertEntities");
-        List deleteEntities = (List) hmp.get("deleteEntities");
-        List updateEntities = (List) hmp.get("updateEntities");
-        this.updateBatch(updateEntities);
-        this.insertBatch(insertEntities);
-        this.deleteBatch(deleteEntities);
-        this.tGeneralprocessModelthreeDAO.executeBatch();
-    }
+		// 新增或更新模式主板的rule和id
+		if (main != null) {
+			// 修改
+			this.generalprocessMainDAO.uptGeneralProcessMain(taskAssgineeDto,
+					modelThree, main, ProcessModelThree.class);
+		} else {
+			// 新增
+			this.generalprocessMainDAO.addGeneralProcessMain(taskAssgineeDto,
+					modelThree, ProcessModelThree.class);
+		}
 
-    /**
-     * 查询所有数据并返回List
-     * @abatorgenerated
-     */
-    public List queryAllDataList(HashMap map) throws Exception {
-        TGeneralprocessModelthreeExample example = new TGeneralprocessModelthreeExample();
-        TGeneralprocessModelthreeExample.Criteria criteria = example.createCriteria();
-        List list = tGeneralprocessModelthreeDAO.selectByExample(example);
-        return list;
-    }
+		//String btnType = taskAssgineeDto.getBtnType();
+		/* if(btnType.equals("2")){ */
+		// 模式二-提交操作
+		// 审核通过
+		// 提交下个节点
+		
+		TaskAssgineeDto d1 = new TaskAssgineeDto();
+		d1.setTaskId(taskId);
+		d1.setTaskExeAssginee(String.valueOf(muo.getEmpid()));
 
-    /**
-     * 分页方式查询列表数据
-     * @abatorgenerated
-     */
-    public List queryPageDataList(HashMap map, Page page) throws Exception {
-        List list = tGeneralprocessModelthreeDAO.selectByDynamic(map,page);
-        return list;
-    }
+		// 赋值当前节点id
+		taskAssgineeDto.setTaskId(taskId);
+
+		// 签收当前节点
+		jbpmService.assignTask(d1);
+
+		// 完成当前节点
+		jbpmService.completeTask(taskId, taskAssgineeDto.getTransitionName(),
+				null);
+
+		taskAssgineeDto.setPreTaskAssingee(muo.getEmpid());
+
+		jbpmService.updateTaskAssigneeState(taskAssgineeDto);
+
+		// 赋值下个节点id
+		String nextTaskId = jbpmService.getNextTaskId(taskAssgineeDto
+				.getExecutionId());
+		taskAssgineeDto.setNextTaskId(nextTaskId);
+
+		// 当前节点执行人
+		taskAssgineeDto.setTaskExeAssginee(String.valueOf(muo.getEmpid()));
+
+		TaskAssgineeDto newDto = makeTaskAssgineeDtoNoPd(muo, taskAssgineeDto);
+
+		jbpmService.saceTaskAssignee(newDto);
+
+		String submitType = "";
+		/**
+		 * submitType  操作类型
+		 */
+		if("结束".equals(taskAssgineeDto.getTargetName())){
+			//结束
+			submitType="08";
+		}else if("退回".equals(taskAssgineeDto.getTransitionName())){
+			//退回
+			submitType="02";
+		}else{
+			//通过
+			submitType="01";
+		}
+		
+		this.generalprocessService.insertApproveOpninion(modelThree, muo, nextTaskId,
+				submitType, taskAssgineeDto);
+		
+	}
+
+	@Override
+	public ProcessModelThree queryModelThree(ProcessModelThree modelThree) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		if(modelThree != null){
+			if(modelThree.getFlow_id() != null && !"".equals(modelThree.getFlow_id())){
+				map.put("flow_id", modelThree.getFlow_id());
+			}
+			if(modelThree.getTaskName() != null && !"".equals(modelThree.getTaskName())){
+				map.put("taskName", modelThree.getTaskName());
+			}
+		}
+		return this.tGeneralprocessModelthreeDAO.queryModelThree(map);
+	}
+	
+	
+	public TaskAssgineeDto makeTaskAssgineeDtoNoPd(MUOUserSession muo,
+			TaskAssgineeDto dto) {
+		TaskAssgineeDto taskAssgineeDto = new TaskAssgineeDto();
+		try {
+			taskAssgineeDto.setExecutionId(dto.getExecutionId());
+			taskAssgineeDto.setPreTaskAssingee(muo.getEmpid());
+			taskAssgineeDto.setPreTaskId(dto.getTaskId());
+			taskAssgineeDto.setPreTaskOrg(muo.getOrgid());
+			String currDate = TimeUtil
+					.getCntDtStr(new Date(), "yyyyMMddHHmmss");
+			taskAssgineeDto.setPreTaskTime(currDate);
+			taskAssgineeDto.setEmpIds(dto.getEmpIds());
+			taskAssgineeDto.setEmpNames(dto.getEmpNames());
+			taskAssgineeDto.setNextTaskId(dto.getNextTaskId());
+			// taskAssgineeDto.setBusinessKey(pb.getBusinessKey());
+			taskAssgineeDto.setBusinessType(dto.getBusinessType());
+			taskAssgineeDto.setTargetName(dto.getTargetName());
+			// 存储节点配置对象主键
+			taskAssgineeDto.setTaskExeConfigId(dto.getTaskExeConfigId());
+		} catch (Exception e) {
+			log.error("获取任务实体", e);
+		}
+		return taskAssgineeDto;
+	}
 }

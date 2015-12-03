@@ -61,9 +61,9 @@
 			    var all_num=$name("map/all_num").value;
 			    var su_num=$name("map/sumnum").value;
 			 	var fa_num=$name("map/failnum").value;
-			 	alert("总共导入数据"+all_num+"条，其中成功导入数据"+su_num+"条，失败"+fa_num+"条。");
+			 	alert("总共导入数据"+(parseInt(su_num)+parseInt(fa_num))+"条，其中成功导入数据"+su_num+"条，失败"+fa_num+"条。");
 			 	
-			 	$id("showInfo").innerHTML="<font style='color:red'>总共导入数据"+all_num+"条，其中成功导入数据"+su_num+"条，失败"+fa_num+"条。</font>"+"<br>";
+			 	$id("showInfo").innerHTML="<font style='color:red'>总共导入数据"+(parseInt(su_num)+parseInt(fa_num))+"条，其中成功导入数据"+su_num+"条，失败"+fa_num+"条。</font>"+"<br>";
 			 	var msg = $name("map/msg").value;
 				var xxs = msg.split("||");
 			 	for (var i=0; i<=xxs.length; i++){

@@ -4,6 +4,16 @@
 
 <typeAlias alias="tmessagePublish" type="com.gotop.messagePublish.model.TMessagePublish"/>
 
+<select id="queryApproveOpninionsGP" resultClass="com.gotop.Generalprocess.model.TApproveOpninionGP" parameterClass="java.util.HashMap" >
+        select a.REC_ID as recId, a.FLOW_ID as flowId, a.RESOURCE_TYPE as resourceType, a.OPNINION_CONTENT as opninionContent,
+   a.OPERATOR_TYPE as operatorType, a.OPERATOR as operator,next_opr_name as nextOprName,next_org_name as nextOrgName,
+     to_char(TO_DATE(a.OPERATER_DATE || a.OPERATER_TIME, 'yyyy/MM/dd hh24:mi:ss'),'yyyy-mm-dd hh24:mi:ss')  as operaterDate,a.OPERATER_TIME as operaterTime, a.NODE_ID as nodeId, a.ORGID as orgid,c.orgname, a.NODE_NAME as nodeName,b.empname as empname
+    from T_APPROVE_OPNINION_GP a,om_employee b,om_organization c
+    where 
+       a.OPERATOR=b.empid and a.FLOW_ID = '$flowId$' and a.orgid = c.orgid
+        order by a.rec_id desc
+  </select>
+  
   <select id="query_message_info" resultClass="tmessagePublish" parameterClass="tmessagePublish" >
     <!--通过主键查询一条数据-->
     select a.MESSAGE_ID    as messageId,

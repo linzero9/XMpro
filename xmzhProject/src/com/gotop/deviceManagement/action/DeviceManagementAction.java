@@ -366,13 +366,21 @@ public class DeviceManagementAction  extends BaseAction    {
 						//判断如果整行单元格都为空，则不插入
 						boolean allowInsert = false;
 						int cells = row.getPhysicalNumberOfCells();
-						for (int c = 0; c < cells; c++) {
-							HSSFCell cell = row.getCell(c);
-							if (cell.getCellType() != HSSFCell.CELL_TYPE_BLANK) {
-								allowInsert = true;		
-								break;//结束for循环语句,跳出
-							} 
+						
+						try {
+							for (int c = 0; c < cells; c++) {
+								HSSFCell cell = row.getCell(c);
+								if (cell.getCellType() != HSSFCell.CELL_TYPE_BLANK) {
+									allowInsert = true;		
+									break;//结束for循环语句,跳出
+								} 
+							}
+						} catch (Exception e) {
+							e.printStackTrace();
+							System.out.println("   针对整条数据的处理ERROR。。。");
 						}
+						
+				
 						
 						if(allowInsert == false){
 							all_num--;
@@ -400,8 +408,19 @@ public class DeviceManagementAction  extends BaseAction    {
 							}
 							device.setDeviceId(Long.valueOf(deviceId));
 						}
+						
+						HSSFCell cell1 ;
+						com.fr.third.org.apache.poi.hssf.usermodel.HSSFCellStyle textStyle = wb.createCellStyle();
+					    com.fr.third.org.apache.poi.hssf.usermodel.HSSFDataFormat format = wb.createDataFormat();
+					    textStyle.setDataFormat(format.getFormat("@"));//设置单元格格式为"文本"
+					    
 				//校验数据输入的正确性，不通过则不做插入操作
-						String orgcode =getCellValue(row.getCell(column)).trim();
+						cell1 = row.getCell(column);
+						if(cell1 == null){
+							cell1 = row.createCell((short) (column));
+						}
+						cell1.setCellStyle(textStyle);
+						String orgcode =getCellValue(cell1).trim();
 						if ("".equals(orgcode) || orgcode == null){
 							msg+="第"+(i+1)+"行，机构号不能为空。||";
 							map.put("msg", msg);
@@ -416,7 +435,12 @@ public class DeviceManagementAction  extends BaseAction    {
 							continue;
 						}
 						
-						String deviceName = getCellValue(row.getCell(column+1)).trim();
+						cell1 = row.getCell(column+1);
+						if(cell1 == null){
+							cell1 = row.createCell((short) (column+1));
+						}
+						cell1.setCellStyle(textStyle);
+						String deviceName = getCellValue(cell1).trim();
 						HashMap infoMap = checkData_singleSelect("DEVICE_NAME", deviceName, "设备名称", i, msg);
 						boolean flag = (Boolean) infoMap.get("flag");
 						msg =  (String) infoMap.get("msg");
@@ -426,7 +450,12 @@ public class DeviceManagementAction  extends BaseAction    {
 							continue;
 						}
 						
-						String deviceModel = getCellValue(row.getCell(column+2)).trim();
+						cell1 = row.getCell(column+2);
+						if(cell1 == null){
+							cell1 = row.createCell((short) (column+2));
+						}
+						cell1.setCellStyle(textStyle);
+						String deviceModel = getCellValue(cell1).trim();
 						infoMap = checkData_singleSelect("DEVICE_MODEL", deviceModel, "型号", i, msg);
 						flag = (Boolean) infoMap.get("flag");
 						msg =  (String) infoMap.get("msg");
@@ -436,7 +465,12 @@ public class DeviceManagementAction  extends BaseAction    {
 							continue;
 						}
 						
-						String ipAdress = getCellValue(row.getCell(column+3)).trim();
+						cell1 = row.getCell(column+3);
+						if(cell1 == null){
+							cell1 = row.createCell((short) (column+3));
+						}
+						cell1.setCellStyle(textStyle);
+						String ipAdress = getCellValue(cell1).trim();
 						Pattern pattern = null;
 						Matcher matcher = null;
 						if(!"".equals(ipAdress)){
@@ -451,7 +485,12 @@ public class DeviceManagementAction  extends BaseAction    {
 							}
 						}
 						
-						String productionMachineName = getCellValue(row.getCell(column+4)).trim();
+						cell1 = row.getCell(column+4);
+						if(cell1 == null){
+							cell1 = row.createCell((short) (column+4));
+						}
+						cell1.setCellStyle(textStyle);
+						String productionMachineName = getCellValue(cell1).trim();
 						infoMap = checkData_maxLength(productionMachineName, "生产机器名称", i, msg);
 						flag = (Boolean) infoMap.get("flag");
 						msg =  (String) infoMap.get("msg");
@@ -461,7 +500,12 @@ public class DeviceManagementAction  extends BaseAction    {
 							continue;
 						}
 						
-						String cpuCode = getCellValue(row.getCell(column+5)).trim();
+						cell1 = row.getCell(column+5);
+						if(cell1 == null){
+							cell1 = row.createCell((short) (column+5));
+						}
+						cell1.setCellStyle(textStyle);
+						String cpuCode = getCellValue(cell1).trim();
 						infoMap = checkData_maxLength(cpuCode, "CPU型号", i, msg);
 						flag = (Boolean) infoMap.get("flag");
 						msg =  (String) infoMap.get("msg");
@@ -471,7 +515,12 @@ public class DeviceManagementAction  extends BaseAction    {
 							continue;
 						}
 						
-						String memory = getCellValue(row.getCell(column+6)).trim();
+						cell1 = row.getCell(column+6);
+						if(cell1 == null){
+							cell1 = row.createCell((short) (column+6));
+						}
+						cell1.setCellStyle(textStyle);
+						String memory = getCellValue(cell1).trim();
 						if(!"".equals(memory)){
 							//正则表达式校验最大只能输入两位小数的正实数
 							pattern = Pattern.compile("^[0-9]+(.[0-9]{1,2})?$"); 
@@ -485,7 +534,12 @@ public class DeviceManagementAction  extends BaseAction    {
 							}
 						}
 						
-						String hardDisk = getCellValue(row.getCell(column+7)).trim();
+						cell1 = row.getCell(column+7);
+						if(cell1 == null){
+							cell1 = row.createCell((short) (column+7));
+						}
+						cell1.setCellStyle(textStyle);
+						String hardDisk = getCellValue(cell1).trim();
 						if(!"".equals(hardDisk)){
 							//正则表达式校验最大只能输入两位小数的正实数
 							pattern = Pattern.compile("^[0-9]+(.[0-9]{1,2})?$"); 
@@ -499,7 +553,12 @@ public class DeviceManagementAction  extends BaseAction    {
 							}
 						}
 						
-						String osVersion = getCellValue(row.getCell(column+8)).trim();
+						cell1 = row.getCell(column+8);
+						if(cell1 == null){
+							cell1 = row.createCell((short) (column+8));
+						}
+						cell1.setCellStyle(textStyle);
+						String osVersion = getCellValue(cell1).trim();
 						infoMap = checkData_singleSelect("DEVICE_OS_VERSION", osVersion, "操作系统版本", i, msg);
 						flag = (Boolean) infoMap.get("flag");
 						msg =  (String) infoMap.get("msg");
@@ -509,7 +568,12 @@ public class DeviceManagementAction  extends BaseAction    {
 							continue;
 						}
 						
-						String softwareVersion = getCellValue(row.getCell(column+9)).trim();
+						cell1 = row.getCell(column+9);
+						if(cell1 == null){
+							cell1 = row.createCell((short) (column+9));
+						}
+						cell1.setCellStyle(textStyle);
+						String softwareVersion = getCellValue(cell1).trim();
 						infoMap = checkData_maxLength(softwareVersion, "内置软件版本", i, msg);
 						flag = (Boolean) infoMap.get("flag");
 						msg =  (String) infoMap.get("msg");
@@ -519,8 +583,12 @@ public class DeviceManagementAction  extends BaseAction    {
 							continue;
 						}
 						
-						
-						String ieVersion = getCellValue(row.getCell(column+10)).trim();
+						cell1 = row.getCell(column+10);
+						if(cell1 == null){
+							cell1 = row.createCell((short) (column+10));
+						}
+						cell1.setCellStyle(textStyle);
+						String ieVersion = getCellValue(cell1).trim();
 						infoMap = checkData_singleSelect("DEVICE_IE_VERSION", ieVersion, "IE版本", i, msg);
 						flag = (Boolean) infoMap.get("flag");
 						msg =  (String) infoMap.get("msg");
@@ -530,7 +598,12 @@ public class DeviceManagementAction  extends BaseAction    {
 							continue;
 						}
 						
-						String useful = getCellValue(row.getCell(column+11)).trim();
+						cell1 = row.getCell(column+11);
+						if(cell1 == null){
+							cell1 = row.createCell((short) (column+11));
+						}
+						cell1.setCellStyle(textStyle);
+						String useful = getCellValue(cell1).trim();
 						infoMap = checkData_multiSelect("DEVICE_USEFUL",useful , "用途", i, msg);
 						flag = (Boolean) infoMap.get("flag");
 						msg =  (String) infoMap.get("msg");
@@ -541,7 +614,12 @@ public class DeviceManagementAction  extends BaseAction    {
 						}
 						useful =replace_separator(useful);
 						
-						String terminalNumber = getCellValue(row.getCell(column+12)).trim();
+						cell1 = row.getCell(column+12);
+						if(cell1 == null){
+							cell1 = row.createCell((short) (column+12));
+						}
+						cell1.setCellStyle(textStyle);
+						String terminalNumber = getCellValue(cell1).trim();
 						infoMap = checkData_maxLength(terminalNumber, "终端号", i, msg);
 						flag = (Boolean) infoMap.get("flag");
 						msg =  (String) infoMap.get("msg");
@@ -551,7 +629,12 @@ public class DeviceManagementAction  extends BaseAction    {
 							continue;
 						}
 						
-						String user = getCellValue(row.getCell(column+13)).trim();
+						cell1 = row.getCell(column+13);
+						if(cell1 == null){
+							cell1 = row.createCell((short) (column+13));
+						}
+						cell1.setCellStyle(textStyle);
+						String user = getCellValue(cell1).trim();
 						infoMap = checkData_maxLength(user, "使用人", i, msg);
 						flag = (Boolean) infoMap.get("flag");
 						msg =  (String) infoMap.get("msg");
@@ -561,7 +644,12 @@ public class DeviceManagementAction  extends BaseAction    {
 							continue;
 						}
 						
-						String plugIn = getCellValue(row.getCell(column+14)).trim();
+						cell1 = row.getCell(column+14);
+						if(cell1 == null){
+							cell1 = row.createCell((short) (column+14));
+						}
+						cell1.setCellStyle(textStyle);
+						String plugIn = getCellValue(cell1).trim();
 						infoMap = checkData_multiSelect("DEVICE_PLUGIN",plugIn , "安装的插件", i, msg);
 						flag = (Boolean) infoMap.get("flag");
 						msg =  (String) infoMap.get("msg");
@@ -572,7 +660,12 @@ public class DeviceManagementAction  extends BaseAction    {
 						}
 						plugIn = replace_separator(plugIn);
 						
-						String peripheral = getCellValue(row.getCell(column+15)).trim();
+						cell1 = row.getCell(column+15);
+						if(cell1 == null){
+							cell1 = row.createCell((short) (column+15));
+						}
+						cell1.setCellStyle(textStyle);
+						String peripheral = getCellValue(cell1).trim();
 						infoMap = checkData_multiSelect("DEVICE_PERIPHERAL",peripheral , "对应的外设", i, msg);
 						flag = (Boolean) infoMap.get("flag");
 						msg =  (String) infoMap.get("msg");
@@ -583,7 +676,12 @@ public class DeviceManagementAction  extends BaseAction    {
 						}
 						peripheral = replace_separator(peripheral);
 						
-						String otherAttribute_1 = getCellValue(row.getCell(column+16)).trim();
+						cell1 = row.getCell(column+16);
+						if(cell1 == null){
+							cell1 = row.createCell((short) (column+16));
+						}
+						cell1.setCellStyle(textStyle);
+						String otherAttribute_1 = getCellValue(cell1).trim();
 						infoMap = checkData_singleSelect("DEVICE_OTHERATTRIBUTE_1", otherAttribute_1, "其他属性1", i, msg);
 						flag = (Boolean) infoMap.get("flag");
 						msg =  (String) infoMap.get("msg");
@@ -593,7 +691,12 @@ public class DeviceManagementAction  extends BaseAction    {
 							continue;
 						}
 						
-						String otherAttribute_2 = getCellValue(row.getCell(column+17)).trim();
+						cell1 = row.getCell(column+17);
+						if(cell1 == null){
+							cell1 = row.createCell((short) (column+17));
+						}
+						cell1.setCellStyle(textStyle);
+						String otherAttribute_2 = getCellValue(cell1).trim();
 						infoMap = checkData_singleSelect("DEVICE_OTHERATTRIBUTE_2", otherAttribute_2, "其他属性2", i, msg);
 						flag = (Boolean) infoMap.get("flag");
 						msg =  (String) infoMap.get("msg");
@@ -603,7 +706,12 @@ public class DeviceManagementAction  extends BaseAction    {
 							continue;
 						}
 						
-						String otherAttribute_3 = getCellValue(row.getCell(column+18)).trim();
+						cell1 = row.getCell(column+18);
+						if(cell1 == null){
+							cell1 = row.createCell((short) (column+18));
+						}
+						cell1.setCellStyle(textStyle);
+						String otherAttribute_3 = getCellValue(cell1).trim();
 						infoMap = checkData_singleSelect("DEVICE_OTHERATTRIBUTE_3", otherAttribute_3, "其他属性3", i, msg);
 						flag = (Boolean) infoMap.get("flag");
 						msg =  (String) infoMap.get("msg");
@@ -613,7 +721,12 @@ public class DeviceManagementAction  extends BaseAction    {
 							continue;
 						}
 						
-						String otherAttribute_4 = getCellValue(row.getCell(column+19)).trim();
+						cell1 = row.getCell(column+19);
+						if(cell1 == null){
+							cell1 = row.createCell((short) (column+19));
+						}
+						cell1.setCellStyle(textStyle);
+						String otherAttribute_4 = getCellValue(cell1).trim();
 						infoMap = checkData_singleSelect("DEVICE_OTHERATTRIBUTE_4", otherAttribute_4, "其他属性4", i, msg);
 						flag = (Boolean) infoMap.get("flag");
 						msg =  (String) infoMap.get("msg");
@@ -623,7 +736,12 @@ public class DeviceManagementAction  extends BaseAction    {
 							continue;
 						}
 						
-						String otherAttribute_5 = getCellValue(row.getCell(column+20)).trim();
+						cell1 = row.getCell(column+20);
+						if(cell1 == null){
+							cell1 = row.createCell((short) (column+20));
+						}
+						cell1.setCellStyle(textStyle);
+						String otherAttribute_5 = getCellValue(cell1).trim();
 						infoMap = checkData_singleSelect("DEVICE_OTHERATTRIBUTE_5", otherAttribute_5, "其他属性5", i, msg);
 						flag = (Boolean) infoMap.get("flag");
 						msg =  (String) infoMap.get("msg");
@@ -633,7 +751,12 @@ public class DeviceManagementAction  extends BaseAction    {
 							continue;
 						}
 						
-						String otherInfo_1 = getCellValue(row.getCell(column+21)).trim();
+						cell1 = row.getCell(column+21);
+						if(cell1 == null){
+							cell1 = row.createCell((short) (column+21));
+						}
+						cell1.setCellStyle(textStyle);
+						String otherInfo_1 = getCellValue(cell1).trim();
 						infoMap = checkData_multiSelect("DEVICE_OTHERINFO_1",otherInfo_1 , "其他信息1", i, msg);
 						flag = (Boolean) infoMap.get("flag");
 						msg =  (String) infoMap.get("msg");
@@ -644,7 +767,12 @@ public class DeviceManagementAction  extends BaseAction    {
 						}
 						otherInfo_1 =  replace_separator(otherInfo_1);
 						
-						String otherInfo_2 = getCellValue(row.getCell(column+22)).trim();
+						cell1 = row.getCell(column+22);
+						if(cell1 == null){
+							cell1 = row.createCell((short) (column+22));
+						}
+						cell1.setCellStyle(textStyle);
+						String otherInfo_2 = getCellValue(cell1).trim();
 						infoMap = checkData_multiSelect("DEVICE_OTHERINFO_2",otherInfo_2 , "其他信息2", i, msg);
 						flag = (Boolean) infoMap.get("flag");
 						msg =  (String) infoMap.get("msg");
@@ -655,7 +783,12 @@ public class DeviceManagementAction  extends BaseAction    {
 						}
 						otherInfo_2 = replace_separator(otherInfo_2);
 						
-						String otherInfo_3 = getCellValue(row.getCell(column+23)).trim();
+						cell1 = row.getCell(column+23);
+						if(cell1 == null){
+							cell1 = row.createCell((short) (column+23));
+						}
+						cell1.setCellStyle(textStyle);
+						String otherInfo_3 = getCellValue(cell1).trim();
 						infoMap = checkData_multiSelect("DEVICE_OTHERINFO_3",otherInfo_3 , "其他信息3", i, msg);
 						flag = (Boolean) infoMap.get("flag");
 						msg =  (String) infoMap.get("msg");
@@ -666,7 +799,12 @@ public class DeviceManagementAction  extends BaseAction    {
 						}
 						otherInfo_3 = replace_separator(otherInfo_3);
 						
-						String otherInfo_4 = getCellValue(row.getCell(column+24)).trim();
+						cell1 = row.getCell(column+24);
+						if(cell1 == null){
+							cell1 = row.createCell((short) (column+24));
+						}
+						cell1.setCellStyle(textStyle);
+						String otherInfo_4 = getCellValue(cell1).trim();
 						infoMap = checkData_multiSelect("DEVICE_OTHERINFO_4",otherInfo_4 , "其他信息4", i, msg);
 						flag = (Boolean) infoMap.get("flag");
 						msg =  (String) infoMap.get("msg");
@@ -677,7 +815,12 @@ public class DeviceManagementAction  extends BaseAction    {
 						}
 						otherInfo_4 = replace_separator(otherInfo_4);
 						
-						String otherInfo_5 = getCellValue(row.getCell(column+25)).trim();
+						cell1 = row.getCell(column+25);
+						if(cell1 == null){
+							cell1 = row.createCell((short) (column+25));
+						}
+						cell1.setCellStyle(textStyle);
+						String otherInfo_5 = getCellValue(cell1).trim();
 						infoMap = checkData_multiSelect("DEVICE_OTHERINFO_5",otherInfo_5 , "其他信息5", i, msg);
 						flag = (Boolean) infoMap.get("flag");
 						msg =  (String) infoMap.get("msg");
@@ -688,7 +831,12 @@ public class DeviceManagementAction  extends BaseAction    {
 						}
 						otherInfo_5 = replace_separator(otherInfo_5);
 						
-						String remarks_1 = getCellValue(row.getCell(column+26)).trim();
+						cell1 = row.getCell(column+26);
+						if(cell1 == null){
+							cell1 = row.createCell((short) (column+26));
+						}
+						cell1.setCellStyle(textStyle);
+						String remarks_1 = getCellValue(cell1).trim();
 						infoMap = checkData_maxLength(remarks_1, "备注1", i, msg);
 						flag = (Boolean) infoMap.get("flag");
 						msg =  (String) infoMap.get("msg");
@@ -698,7 +846,12 @@ public class DeviceManagementAction  extends BaseAction    {
 							continue;
 						}
 						
-						String remarks_2 = getCellValue(row.getCell(column+27)).trim();
+						cell1 = row.getCell(column+27);
+						if(cell1 == null){
+							cell1 = row.createCell((short) (column+27));
+						}
+						cell1.setCellStyle(textStyle);
+						String remarks_2 = getCellValue(cell1).trim();
 						infoMap = checkData_maxLength(remarks_2, "备注2", i, msg);
 						flag = (Boolean) infoMap.get("flag");
 						msg =  (String) infoMap.get("msg");
@@ -708,7 +861,12 @@ public class DeviceManagementAction  extends BaseAction    {
 							continue;
 						}
 						
-						String remarks_3 = getCellValue(row.getCell(column+28)).trim();
+						cell1 = row.getCell(column+28);
+						if(cell1 == null){
+							cell1 = row.createCell((short) (column+28));
+						}
+						cell1.setCellStyle(textStyle);
+						String remarks_3 = getCellValue(cell1).trim();
 						infoMap = checkData_maxLength(remarks_3, "备注3", i, msg);
 						flag = (Boolean) infoMap.get("flag");
 						msg =  (String) infoMap.get("msg");
@@ -718,7 +876,12 @@ public class DeviceManagementAction  extends BaseAction    {
 							continue;
 						}
 						
-						String remarks_4 = getCellValue(row.getCell(column+29)).trim();
+						cell1 = row.getCell(column+29);
+						if(cell1 == null){
+							cell1 = row.createCell((short) (column+29));
+						}
+						cell1.setCellStyle(textStyle);
+						String remarks_4 = getCellValue(cell1).trim();
 						infoMap = checkData_maxLength(remarks_4, "备注4", i, msg);
 						flag = (Boolean) infoMap.get("flag");
 						msg =  (String) infoMap.get("msg");
@@ -728,7 +891,12 @@ public class DeviceManagementAction  extends BaseAction    {
 							continue;
 						}
 						
-						String remarks_5 = getCellValue(row.getCell(column+30)).trim();
+						cell1 = row.getCell(column+30);
+						if(cell1 == null){
+							cell1 = row.createCell((short) (column+30));
+						}
+						cell1.setCellStyle(textStyle);
+						String remarks_5 = getCellValue(cell1).trim();
 						infoMap = checkData_maxLength(remarks_5, "备注5", i, msg);
 						flag = (Boolean) infoMap.get("flag");
 						msg =  (String) infoMap.get("msg");
@@ -738,7 +906,12 @@ public class DeviceManagementAction  extends BaseAction    {
 							continue;
 						}
 						
-						String deviceState = getCellValue(row.getCell(column+31)).trim();
+						cell1 = row.getCell(column+31);
+						if(cell1 == null){
+							cell1 = row.createCell((short) (column+31));
+						}
+						cell1.setCellStyle(textStyle);
+						String deviceState = getCellValue(cell1).trim();
 						infoMap = checkData_singleSelect("DEVICE_STATE",deviceState , "设备状态", i, msg);
 						flag = (Boolean) infoMap.get("flag");
 						msg =  (String) infoMap.get("msg");
@@ -886,6 +1059,8 @@ private HashMap checkData_maxLength(String str, String colName, int i, String ms
 		
 		//返回列值
 			public String getCellValue(HSSFCell cell1){
+				
+				System.out.println(cell1.getCellType());
 				switch(cell1.getCellType()){
 					case HSSFCell.CELL_TYPE_NUMERIC:
 						DecimalFormat df = new DecimalFormat("#.##");
@@ -925,32 +1100,26 @@ private HashMap checkData_maxLength(String str, String colName, int i, String ms
 					
 					org.apache.poi.hssf.usermodel.HSSFRow row = null;
 				    org.apache.poi.hssf.usermodel.HSSFCell cell = null;
+				    org.apache.poi.hssf.usermodel.HSSFCell cell1 = null;
+			
 				    for (int i = 0, length = datas.length; i < length; i++) {
-				      row = hidden.createRow(i);
+				      row = hidden.createRow(i+1);
 				      cell = row.createCell(0);
-				      cell.setCellValue(String.valueOf(datas[i]));
+				      cell1 = row.createCell(1);
+				      
+				    
+				      
+				      cell.setCellValue(String.valueOf(datas[i].split("--")[0]));
+				    
+				      
+				      cell1.setCellValue(String.valueOf(datas[i].split("--")[1]));
+
+				   
 				    }
 				    
 				    
 				    
-				    Name namedCell = wb.createName();
-				    namedCell.setNameName("hiddenSheet"+colnum);
-				    namedCell.setRefersToFormula("hiddenSheet!A1:A" + datas.length);
-				  
-				    //生成下拉框内容
-				    DVConstraint constraint = DVConstraint
-				        .createFormulaListConstraint("hiddenSheet"+colnum);
-				//只对（0，0）单元格有效
-			
-				    CellRangeAddressList regions = new CellRangeAddressList(rownum,rownum,colnum,colnum);   //CellRangeAddressList(int firstRow, int lastRow, int firstCol, int lastCol)
-				
-				
-				//绑定下拉框和作用区域
-				HSSFDataValidation data_validation = new HSSFDataValidation(regions,constraint);
-				data_validation.setShowErrorBox(false);// 取消弹出错误框
-				//对sheet页生效
-				sheet.addValidationData(data_validation);
-
+				    
 				//结束
 				System.out.println("createListBox Over");
 				} catch (Exception e) {
@@ -1090,7 +1259,7 @@ private HashMap checkData_maxLength(String str, String colName, int i, String ms
         	int rownum = 1;
         	int colnum = 0;
         	boolean myflag = true;
-        	String dicnameby="";
+        	String dicnameby="sheet";
         	
         	StringBuffer infos = new StringBuffer();
         	
@@ -1119,47 +1288,68 @@ private HashMap checkData_maxLength(String str, String colName, int i, String ms
         				 dicnameby="设备名称";
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_MODEL") ){
         				 colnum = colnum+2;
-        				 dicnameby="设备名称2";
+        				 dicnameby="设备型号";
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_OS_VERSION") ){
         				 colnum = colnum+8;
-        				 dicnameby="设备名称3";
+        				 dicnameby="操作系统版本";
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_IE_VERSION") ){
         				 colnum = colnum+10;
+        				 dicnameby="IE版本";
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_USEFUL") ){
         				 colnum = colnum+11;
+        				 dicnameby="用途";
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_PLUGIN") ){
         				 colnum = colnum+14;
+        				 dicnameby="安装的插件";
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_PERIPHERAL") ){
         				 colnum = colnum+15;
+        				 dicnameby="对应的外设";
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_OTHERATTRIBUTE_1") ){
-        				 colnum = colnum+16;
+        				 dicnameby="其他属性1";
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_OTHERATTRIBUTE_2") ){
         				 colnum = colnum+17;
+        				 dicnameby="其他属性2";
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_OTHERATTRIBUTE_3") ){
         				 colnum = colnum+18;
+        				 dicnameby="其他属性3";
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_OTHERATTRIBUTE_4") ){
         				 colnum = colnum+19;
+        				 dicnameby="其他属性4";
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_OTHERATTRIBUTE_5") ){
         				 colnum = colnum+20;
+        				 dicnameby="其他属性5";
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_OTHERINFO_1") ){
         				 colnum = colnum+21;
+        				 dicnameby="应用系统";
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_OTHERINFO_2") ){
         				 colnum = colnum+22;
+        				 dicnameby="其他信息2";
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_OTHERINFO_3") ){
         				 colnum = colnum+23;
+        				 dicnameby="其他信息3";
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_OTHERINFO_4") ){
         				 colnum = colnum+24;
+        				 dicnameby="其他信息4";
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_OTHERINFO_5") ){
         				 colnum = colnum+25;
+        				 dicnameby="其他信息5";
         			 }else if( (entry.getDictTypeId() ).equals( "DEVICE_STATE") ){
         				 colnum = colnum+31;
+        				 dicnameby="设备状态";
         			 }
         		 }
         		 
         	}
         	
         	if(myflag == true){
-        		infos = infos.deleteCharAt(infos.length() - 1);
+        		
+        		if(infos.length()==0){
+        		
+        		}else{
+        			infos = infos.deleteCharAt(infos.length() - 1);
+        		}
+        	
+        		
         		createListBox(infos, sheet, wb, rownum, colnum,dicnameby);
         	}
         
@@ -1352,7 +1542,16 @@ private HashMap checkData_maxLength(String str, String colName, int i, String ms
 				"*其他属性1(单选)", "*其他属性2(单选)", "*其他属性3(单选)", "*其他属性4(单选)", "*其他属性5(单选)", 
 				"*应用系统(多选)", "*其他信息2(多选)", "*其他信息3(多选)", "*其他信息4(多选)", "*其他信息5(多选)", 
 				"备注1", "备注2", "备注3", "备注4", "备注5", "*设备状态(单选)"};
+		
+		try {
+			
+		
 		exportExcelFuntion("设备信息导入模版", headers, null);
+		} catch (Exception e) {
+			e.printStackTrace();
+		
+			// TODO: handle exception
+		}
 		
        System.out.println("new22222");
 		

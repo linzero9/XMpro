@@ -147,9 +147,29 @@ public interface ITGeneralprocessModeloneDAO {
      */
     void executeBatch() throws Exception;
 
+    /**
+     * 新增模式一
+     * @param modelOne
+     */
 	void addModelOne(ProcessModelOne modelOne);
 
+	/**
+	 * 根据主键查询模式一
+	 * @param processModelId
+	 * @return
+	 */
 	ProcessModelOne queryModelOneById(String processModelId);
 
+	/**
+	 * 根据条件查询模式一
+	 * @param map
+	 * @return
+	 */
 	ProcessModelOne queryModelOne(HashMap<String, Object> map);
+
+	/**
+	 * 更新模式一
+	 * @param modelOne
+	 */
+	void uptModelOne(ProcessModelOne modelOne);
 }

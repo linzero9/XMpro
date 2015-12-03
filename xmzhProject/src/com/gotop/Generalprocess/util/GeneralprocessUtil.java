@@ -229,7 +229,7 @@ public class GeneralprocessUtil {
 			
 			
 			String[] ruleo=rulee.split("-");
-			String rule=ruleo[0];
+			String rule="com.gotop.Generalprocess.model."+ruleo[0];
 			
 			
 			// 获取到这个模式的对应配置

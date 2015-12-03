@@ -241,11 +241,27 @@ public class TGeneralprocessMainDAO extends SqlMapClientDao implements ITGeneral
 		main.setTemplateId(taskAssgineeDto.getDefinitionId());
 		if("com.gotop.Generalprocess.model.ProcessModelOne".equals(c.getName())){
 			//模式一
-			main.setRules(c.getName());
+			main.setRules("ProcessModelOne");
 		}
 		if("com.gotop.Generalprocess.model.ProcessModelTwo".equals(c.getName())){
 			//模式二
-			main.setRules(c.getName());
+			main.setRules("ProcessModelTwo");
+		}
+		if("com.gotop.Generalprocess.model.ProcessModelThree".equals(c.getName())){
+			//模式三
+			main.setRules("ProcessModelThree");
+		}
+		if("com.gotop.Generalprocess.model.ProcessModelFour".equals(c.getName())){
+			//模式四
+			main.setRules("ProcessModelFour");
+		}
+		if("com.gotop.Generalprocess.model.ProcessModelFive".equals(c.getName())){
+			//模式五
+			main.setRules("ProcessModelFive");
+		}
+		if("com.gotop.Generalprocess.model.ProcessModelSix".equals(c.getName())){
+			//模式六
+			main.setRules("ProcessModelSix");
 		}
 		main.setIds(String.valueOf(pm.getProcessModelId()));
 		getSqlMapClientTemplate().insert("T_GENERALPROCESS_MAIN_SqlMap.addGeneralProcessMain", main);
@@ -266,12 +282,30 @@ public class TGeneralprocessMainDAO extends SqlMapClientDao implements ITGeneral
 		if (rules != null) {
 			if ("com.gotop.Generalprocess.model.ProcessModelOne".equals(c.getName())) {
 				// 模式一
-				rules += "," + c.getName();
+				rules += "," + "ProcessModelOne";
 			}
 			if ("com.gotop.Generalprocess.model.ProcessModelTwo".equals(c.getName())) {
 				// 模式二
-				rules += "," + c.getName();
+				rules += "," + "ProcessModelTwo";
 			}
+			if ("com.gotop.Generalprocess.model.ProcessModelThree".equals(c.getName())) {
+				// 模式三
+				rules += "," + "ProcessModelThree";
+			}
+			if ("com.gotop.Generalprocess.model.ProcessModelFour".equals(c.getName())) {
+				// 模式四
+				rules += "," + "ProcessModelFour";
+			}
+			if ("com.gotop.Generalprocess.model.ProcessModelFive".equals(c.getName())) {
+				// 模式五
+				rules += "," + "ProcessModelFive";
+			}
+			if ("com.gotop.Generalprocess.model.ProcessModelSix".equals(c.getName())) {
+				// 模式六
+				rules += "," + "ProcessModelSix";
+			}
+			
+			
 		}
 		
 		//主键更新

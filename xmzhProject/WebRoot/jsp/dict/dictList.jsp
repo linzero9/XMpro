@@ -94,10 +94,14 @@
 				<div style="border:1px solid #dddddd;width:100%;height:100%">
 				<h:form name="formy_list" id="formy_list"
 				action="/dict/eosDictEntryAction_queryDictEntryBydictTypeId.action"  target="_self" method="post" >
+				
+				<h:hiddendata property="dictEntry"  />
+				<h:hiddendata property="page" />
+				<h:hiddendata property="page2" />
 				<table align="center" border="0" width="100%" class="EOS_table">
 					<tr>
 						<th nowrap="nowrap">
-							<l:greaterThan property="page.count" targetValue="0" compareType="number">
+							<l:greaterThan property="page2.count" targetValue="0" compareType="number">
 	                 					<h:checkbox id="selectBox" onclick="allItem();"/>
 	             				 </l:greaterThan>
 								<b:message key="l_select"></b:message>
@@ -120,19 +124,43 @@
 					<tr>
 						<td colspan="23" class="command_sort_area">
 							<div class="h3">
+							<l:notEmpty property="dictEntry.dictTypeId">
 							<input type="button" class="button" value="新增"
 										onclick="addItem();" />
-								<l:greaterThan property="page.count" targetValue="0"
+							</l:notEmpty>
+								<l:greaterThan property="page2.count" targetValue="0"
 									compareType="number">
 							<input type="button" class="button" value="修改"
 										onclick="uptItem();" />
 								</l:greaterThan>
-								<l:greaterThan property="page.count" targetValue="0"
+								<l:greaterThan property="page2.count" targetValue="0"
 									compareType="number">
 							<input type="button" class="button" value="删除"
 										onclick="delItem();" />
 								</l:greaterThan>
 							</div>
+							<div class="h4">
+	                <l:equal property="page2.isCount" targetValue="true" >
+	                  <b:message key="l_total"></b:message>
+	                  <b:write property="page2.count" />
+	                  <b:message key="l_recordNO."></b:message>
+	                  <b:write property="page2.currentPage" />
+	                  <b:message key="l_page"></b:message>
+	                  <b:write property="page2.totalPage" />
+	                  <b:message key="l_page"></b:message>
+	                </l:equal>
+	                <l:equal property="page2.isCount" targetValue="false" >
+	                  <b:message key="l_NO."></b:message>
+	                  <b:write property="page2.currentPage" />
+	                  <b:message key="l_page"></b:message>
+	                </l:equal>
+	                <input type="button" class="button" onclick="firstPage('page2', '', null, null, 'formy_list');" value='<b:message key="l_firstPage"></b:message>'  <l:equal property="page2.isFirst"  targetValue="true">disabled</l:equal> >
+	                <input type="button" class="button" onclick="prevPage('page2', '', null, null, 'formy_list');" value='<b:message key="l_upPage"></b:message>' <l:equal property="page2.isFirst"  targetValue="true">disabled</l:equal> >
+	                <input type="button" class="button" onclick="nextPage('page2', '', null, null, 'formy_list');" value='<b:message key="l_nextPage"></b:message>' <l:equal property="page2.isLast"  targetValue="true">disabled</l:equal> >
+	                <l:equal property="page2.isCount" targetValue="true">
+	                  <input type="button" class="button" onclick="lastPage('page2', '', null, null, 'formy_list');" value='<b:message key="l_lastPage"></b:message>' <l:equal property="page2.isLast"  targetValue="true">disabled</l:equal> >
+	                </l:equal>
+              </div>
               </td>
 					</tr>
 				</table>

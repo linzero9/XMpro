@@ -1,6 +1,7 @@
 package com.gotop.messagePublish.dao.impl;
 
 import com.fr.report.core.A.f;
+import com.gotop.Generalprocess.model.TApproveOpninionGP;
 import com.gotop.file.model.TFileResourceTable;
 import com.gotop.opinion.model.TApproveOpninion;
 import com.gotop.messagePublish.dao.ITMessagePublishDAO;
@@ -107,5 +108,12 @@ public class TMessagePublishDAO extends SqlMapClientDao implements ITMessagePubl
        Object object=this.getSqlMapClient().queryForObject("T_MESSAGE_PUBLISH_SqlMap.queryTmessagetRed", op);
        return Long.valueOf(String.valueOf(object));
    }
+
+	@Override
+	public List<TApproveOpninionGP> queryApproveOpninionsGP(
+			HashMap<String, String> hmp) {
+		 List<TApproveOpninionGP> list= queryForList("T_MESSAGE_PUBLISH_SqlMap.queryApproveOpninionsGP", hmp);
+			return list;
+	}
   
 }

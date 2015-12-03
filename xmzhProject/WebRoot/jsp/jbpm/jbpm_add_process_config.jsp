@@ -210,6 +210,13 @@ function openNewEmpTreeCallBack(arg){//回调方法
 		if (confirm('是否要进行流程图的设计和配置?'))
 		{
 			parent.window.frames["mainFrame"].location.href = encodeURI(strUrl);
+			$id("processName").value="";
+			$id("orderNo").value="";
+			$id("businessType").value="";
+			$id("deployType").value="";
+			$id("processState").value="";
+			$id("deployRange").value="";
+			$id("objName").value="";
 			window.close();
 		}else{
 			return false;

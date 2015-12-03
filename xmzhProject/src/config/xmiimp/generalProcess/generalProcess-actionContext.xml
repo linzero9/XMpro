@@ -20,6 +20,38 @@
   
   
   <bean class="com.gotop.Generalprocess.action.TGeneralprocessModelthreeAction" id="tGeneralprocessModelthreeaction" name="tGeneralprocessModelthreeAction" singleton="false">
-    <property name="tGeneralprocessModelthreeService" ref="tGeneralprocessModelthreeService" />
+    <property name="generalprocessModelthreeService" ref="tGeneralprocessModelthreeService" />
+  	<property name="generalprocessMainService" ref="tGeneralprocessMainService" />
+  	 <property name="jbpmService" ref="jbpmService" />
+  </bean>
+  
+  <bean class="com.gotop.Generalprocess.action.TGeneralprocessCdtypeAction" id="tGeneralprocessCdtypeaction" name="tGeneralprocessCdtypeAction" singleton="false">
+    <property name="tGeneralprocessCdtypeService" ref="tGeneralprocessCdtypeService" />
+  </bean>
+  
+  <bean class="com.gotop.Generalprocess.action.TGeneralprocessModelfourAction" id="tGeneralprocessModelfouraction" name="tGeneralprocessModelfourAction" singleton="false">
+    <property name="tGeneralprocessModelfourService" ref="tGeneralprocessModelfourService" />
+    <property name="generalprocessMainService" ref="tGeneralprocessMainService" />
+    <property name="jbpmService" ref="jbpmService" />
+  </bean>
+  
+  
+  
+    <bean class="com.gotop.Generalprocess.action.TGeneralprocessModelsixAction" id="tGeneralprocessModelsixaction" name="tGeneralprocessModelsixAction" singleton="false">
+    <property name="tGeneralprocessModelsixService" ref="tGeneralprocessModelsixService" />
+        <property name="generalprocessMainService" ref="tGeneralprocessMainService" />
+            <property name="jbpmService" ref="jbpmService" />
+  </bean>
+  
+  <bean class="com.gotop.Generalprocess.action.TGeneralprocessModelfiveAction" id="tGeneralprocessModelfiveaction" name="tGeneralprocessModelfiveAction" singleton="false">
+    <property name="tGeneralprocessModelfiveService" ref="tGeneralprocessModelfiveService" />
+    <property name="generalprocessMainService" ref="tGeneralprocessMainService" />
+    <property name="jbpmService" ref="jbpmService" />
+  </bean>
+  
+  <bean class="com.gotop.Generalprocess.action.TGeneralprocessModeleightAction" id="tGeneralprocessModeleightaction" name="tGeneralprocessModeleightAction" singleton="false">
+    <property name="tGeneralprocessModeleigthService" ref="tGeneralprocessModeleightService" />
+    <property name="generalprocessMainService" ref="tGeneralprocessMainService" />
+    <property name="jbpmService" ref="jbpmService" />
   </bean>
   </beans>

@@ -1,5 +1,6 @@
 package com.gotop.messagePublish.service.impl;
 
+import com.gotop.Generalprocess.model.TApproveOpninionGP;
 import com.gotop.file.model.FileBean;
 import com.gotop.file.model.TFileResourceTable;
 import com.gotop.file.service.ITFileResourceTableService;
@@ -926,6 +927,12 @@ public class TMessagePublishService implements ITMessagePublishService {
 	public List querysupervise() {
 		return this.tMessagePublishDAO.querysupervise();
 		
+	}
+
+	@Override
+	public List<TApproveOpninionGP> queryApproveOpninionsGP(
+			HashMap<String, String> hmp) {
+		return tMessagePublishDAO.queryApproveOpninionsGP(hmp);
 	}
 
    

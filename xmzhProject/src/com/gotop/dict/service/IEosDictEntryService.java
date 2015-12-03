@@ -22,6 +22,8 @@ public interface IEosDictEntryService {
     
     List<EosDictType> dictTypeList(EosDictType dictType, Page page);
     
+    List<EosDictEntry> queryDictEntryBydictTypeId(EosDictEntry dictEntry, Page page2);
+    
     List<EosDictEntry> queryDictEntryBydictTypeId(EosDictEntry dictEntry);
 
 	EosDictEntry getDictEntryById(EosDictEntry dictEntry);

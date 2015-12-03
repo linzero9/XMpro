@@ -6,7 +6,6 @@ import com.gotop.crm.util.MUO;
 import com.gotop.util.XmlConvert;
 import com.primeton.utils.AjaxParam;
 import com.primeton.utils.Page;
-import com.primeton.utils.pageCondExpand;
 import java.util.HashMap;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +13,10 @@ import org.apache.struts2.ServletActionContext;
 
 public class TGeneralprocessMainAction extends BaseAction {
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
      * 通过spring注入的Service对象.
      * @abatorgenerated
      */

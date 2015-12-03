@@ -13,7 +13,7 @@
     
     <action class="tGeneralprocessMainAction" method="{1}" name="tGeneralprocessMainAction_*">
       <result name="viewlist">
-        /jsp/generalProcess/tGeneralprocessMainDatacell.jsp
+        /jsp/GeneralProcess/tGeneralprocessMainDatacell.jsp
       </result>
     </action>
     
@@ -23,10 +23,55 @@
       </result>
     </action>
     
-    <action class="tGeneralprocessModelthreeAction" method="{1}" name="tGeneralprocessModelthreeAction_*">
-      <result name="viewlist">
-        /jsp/generalProcess/tGeneralprocessModelthreeDatacell.jsp
+    <action class="tGeneralprocessModelthreeAction" method="{1}" name="tGeneralprocessModelThreeAction_*">
+       <result name="toModelthree">
+        /jsp/Generalprocess/modelthree_input.jsp
       </result>
     </action>
+    
+
+    <action class="tGeneralprocessCdtypeAction" method="{1}" name="tGeneralprocessCdtypeAction_*">
+      <result name="viewlist">
+        /jsp/Generalprocess/tGeneralprocessCdtypeDatacell.jsp
+	</result>
+	 <result name="list" type="json">
+		   <param name="root">cdtypes</param>
+	  </result>
+	</action>    
+    
+    <action class="tGeneralprocessModelfourAction" method="{1}" name="tGeneralprocessModelFourAction_*">
+      <result name="viewlist">
+        /jsp/generalProcess/tGeneralprocessModelfourDatacell.jsp
+      </result>
+      <result name="toModelFour">
+        /jsp/Generalprocess/modelfour_input.jsp
+      </result>
+     <result name="list1" type="json">
+		   <param name="root">fourMistakes</param>
+	  </result>
+    </action>
+    
+    
+ 
+    <action class="tGeneralprocessModelsixAction" method="{1}" name="tGeneralprocessModelSixAction_*">
+ 
+      <result name="modelSix_input">
+        /jsp/Generalprocess/modelSix_input.jsp
+      </result>    
+    </action>
+    
+    
+    <action class="tGeneralprocessModelfiveAction" method="{1}" name="tGeneralprocessModelFiveAction_*">
+      <result name="toModelFive">
+        /jsp/Generalprocess/modelfive_input.jsp
+      </result>
+    </action>
+    
+    <action class="tGeneralprocessModeleightAction" method="{1}" name="tGeneralprocessModelEightAction_*">
+      <result name="toModelEight">
+        /jsp/Generalprocess/modeleight_input.jsp
+      </result>
+    </action>
+    
     </package>
 </struts>
