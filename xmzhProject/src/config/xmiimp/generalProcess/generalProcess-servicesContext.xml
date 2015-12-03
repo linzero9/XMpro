@@ -54,5 +54,8 @@
   
   <bean class="com.gotop.Generalprocess.service.impl.TGeneralprocessModelfiveService" id="tGeneralprocessModelfiveService">
     <property name="tGeneralprocessModelfiveDAO" ref="tGeneralprocessModelfiveDAO" />
+    <property name="jbpmService" ref="jbpmService" />
+    <property name="generalprocessMainDAO" ref="generalprocessMainDAO" />
+    <property name="generalprocessService" ref="generalProcessService" />
   </bean>
   </beans>
