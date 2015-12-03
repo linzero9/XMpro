@@ -62,11 +62,15 @@
     
     
     
-    
-    
     <action class="tGeneralprocessModelfiveAction" method="{1}" name="tGeneralprocessModelfiveAction_*">
       <result name="viewlist">
         /jsp/generalProcess/tGeneralprocessModelfiveDatacell.jsp
+      </result>
+    </action>
+    
+    <action class="tGeneralprocessModeleightAction" method="{1}" name="tGeneralprocessModeleightAction_*">
+      <result name="viewlist">
+        /jsp/Generalprocess/tGeneralprocessModeleightDatacell.jsp
       </result>
     </action>
     </package>

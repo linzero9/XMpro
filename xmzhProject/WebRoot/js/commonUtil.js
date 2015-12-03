@@ -581,7 +581,7 @@ WEB.turnMainFrame=function(){
 						        	   }else{
 							        	   value1=item.value;
 							        	   }
-				        		   showpanelhtml=showpanelhtml+'<td class="form_label" align="right" style="width:120px;">'+item.name+ '</td><td>'+item.value+'</td></tr>';
+				        		   showpanelhtml=showpanelhtml+'<td class="form_label" align="right" style="width:120px;">'+item.name+ '</td><td>'+value1+'</td></tr>';
 				        		   index=index+1;
 				        	   }else if(item.type=='dic'){
 							          var dicttypeid=item.dicname;
@@ -614,7 +614,7 @@ WEB.turnMainFrame=function(){
 								        	   }else{
 									        	   value1=item.value;
 									        	   }
-					   					showpanelhtml=showpanelhtml+'<tr><td class="form_label" align="right" style="width:120px;">'+item.name+ '</td><td>'+item.value+'</td></tr>ipconfig';
+					   					showpanelhtml=showpanelhtml+'<tr><td class="form_label" align="right" style="width:120px;">'+item.name+ '</td><td>'+value1+'</td></tr>ipconfig';
 					   					index=index+1;
 						   				}
 					           }
