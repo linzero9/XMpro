@@ -22,6 +22,20 @@ public class ProcessModelFive extends ProcessModel  implements  Serializable{
 	@GeneralprocessField(name="流程业务id",type="text",hidden=false)
 	private String flowId;
 	
+	 /**
+     * 决策单编号 .
+     * @abatorgenerated
+     */
+	@GeneralprocessField(name="决策单编号",type="text")
+    private String polNo;
+	
+	 /**
+     * 表决表编号 .
+     * @abatorgenerated
+     */
+	@GeneralprocessField(name="表决表编号",type="text")
+    private String voteNo;
+	
 	/**
      * 审批方式,0-当签,1-双签,2-会议 .
      * @abatorgenerated
@@ -30,25 +44,13 @@ public class ProcessModelFive extends ProcessModel  implements  Serializable{
     private String appWay;
 
     /**
-     * 决策单编号 .
-     * @abatorgenerated
-     */
-	@GeneralprocessField(name="决策单编号",type="text")
-    private String polNo;
-
-    /**
      * 会议期数 .
      * @abatorgenerated
      */
 	@GeneralprocessField(name="会议期数",type="text")
     private String meetingCount;
 
-    /**
-     * 表决表编号 .
-     * @abatorgenerated
-     */
-	@GeneralprocessField(name="表决表编号",type="text")
-    private String voteNo;
+   
 
     /**
      * 审批岗审结时间,格式YYYYMMDD .
@@ -163,13 +165,6 @@ public class ProcessModelFive extends ProcessModel  implements  Serializable{
     private String hySyJl;
 
     /**
-     * 评级结论 .
-     * @abatorgenerated
-     */
-	@GeneralprocessField(name="评级结论",type="text")
-    private String pjJl;
-
-    /**
      * 风险币别 .
      * @abatorgenerated
      */
@@ -210,6 +205,13 @@ public class ProcessModelFive extends ProcessModel  implements  Serializable{
      */
 	@GeneralprocessField(name="业务额度",type="text")
     private String ywEd;
+	
+	 /**
+     * 评级结论 .
+     * @abatorgenerated
+     */
+	@GeneralprocessField(name="评级结论",type="text")
+    private String pjJl;
 
 	public String getAppWay() {
 		return appWay;
