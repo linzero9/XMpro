@@ -556,11 +556,14 @@ WEB.turnMainFrame=function(){
 										        	if(json==""||json==null){
 										        		dictname= item.value;
 										        	}else {
-										        		dictname= json.dictname;
+										        		dictname= json;
 										        	}
 											        }
 									    });	
 								     }
+						          if(dictname=='' || dictname==undefined ||dictname==null){
+						        	  dictname='';
+						          }
 					        	showpanelhtml=showpanelhtml+'<tr><td class="form_label" align="right" style="width:20%;">'+item.name+ '</td><td style="width:30%;">'+dictname+'</td>';
 					        	index=index+1;
 			   					//showpanelhtml=showpanelhtml+'<tr><td class="form_label" align="right" style="width:120px;">'+item.name+ '</td><td>'+item.value+'</td></tr>';
@@ -600,11 +603,14 @@ WEB.turnMainFrame=function(){
 											        	if(json==""||json==null){
 											        		dictname= item.value;
 											        	}else {
-											        		dictname= json.dictname;
+											        		dictname= json;
 											        	}
 												        }
 										    });	
 									     }
+							          if(dictname=='' || dictname==undefined ||dictname==null){
+							        	  dictname='';
+							          }
 						        	showpanelhtml=showpanelhtml+'<td class="form_label" align="right" style="width:20%;">'+item.name+ '</td><td style="width:30%;">'+dictname+'</td></tr>';
 						        	index=index+1;
 				   					//showpanelhtml=showpanelhtml+'<tr><td class="form_label" align="right" style="width:120px;">'+item.name+ '</td><td>'+item.value+'</td></tr>';
