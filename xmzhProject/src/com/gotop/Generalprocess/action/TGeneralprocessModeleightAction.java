@@ -132,6 +132,9 @@ public class TGeneralprocessModeleightAction extends BaseAction {
 			TGeneralprocessMain main = this.generalprocessMainService
 					.queryMainByBusinessId(businessId);
 			Map<String, Object> map = new HashMap<String, Object>();
+			
+			taskName= taskAssgineeDto.getTaskName();
+			
 			String taskName1 = "";
 			if (taskAssgineeDto.getNextTaskId() != null) {
 				// 待办-办理

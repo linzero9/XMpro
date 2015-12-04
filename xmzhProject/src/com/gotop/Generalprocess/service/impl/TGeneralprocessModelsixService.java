@@ -174,9 +174,13 @@ public class TGeneralprocessModelsixService implements ITGeneralprocessModelsixS
 			taskId = preTaskId;
 			taskAssgineeDto.setExecutionId(dto1.getExecutionId());
 			
-			//String taskName = jbpmService.getTaskNameById(preTaskId);
-
+			String taskName = jbpmService.getTaskNameById(preTaskId);
+			
+			
+			Six.setTaskName(taskName);
 			this.tGeneralprocessModelsixDAO.addModelSix(Six);
+			
+			
 			
 			/**
 			 * flowId  要赋值
