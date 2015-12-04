@@ -14,7 +14,7 @@
 			<tr>
 				<td class="form_label" align="right" width="15%">流程名称：</td>
 				<td colspan="1" width="30%"><h:text
-						validateAttr="allowNull=false;maxLength=15" id="processName"
+						validateAttr="allowNull=false;" id="processName"
 						property="processDeployDto.processName" /></td>
 			</tr>
 			<tr>
