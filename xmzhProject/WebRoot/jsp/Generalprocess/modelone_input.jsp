@@ -155,7 +155,7 @@
       </tr>
       <tr class="form_bottom">
         <td colspan="4">
-          <input type="button" value="结束流程" class="button" onclick="doDeleteProcess('<b:write property="modelOne/processModelId" />','<b:write property="taskAssgineeDto/businessType" />');" id="deleteProcessBtn">
+        
           <input type="button" value="保存" class="button" id="save1" onclick="doSave(1);"  />
           <input type="button" value="提交" onclick="doSave(2);" class="button" id="smit" />
           <input type="button" value="查看流程" onclick="doflowpic();" class="button" id="flowpic" />

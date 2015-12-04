@@ -305,18 +305,9 @@ public class TGeneralprocessModelsixService implements ITGeneralprocessModelsixS
 
 			this.generalprocessService.insertApproveOpninion(Six, muo, nextTaskId,
 					submitType, taskAssgineeDto);
-			
-			
-			
-			
-			
-			
-			
+
 			
 		}else{
-			
-			
-			
 
 			//正常发起
 			
@@ -344,7 +335,6 @@ public class TGeneralprocessModelsixService implements ITGeneralprocessModelsixS
 			 * 不存在： insert
 			 * 
 			 */
-			
 			
 			if (Six.getProcessModelId() != null
 					&& !"".equals(Six.getProcessModelId())){
