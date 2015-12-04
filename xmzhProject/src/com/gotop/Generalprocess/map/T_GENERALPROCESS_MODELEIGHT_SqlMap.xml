@@ -11,7 +11,7 @@
     <result column="TASKNAME" jdbcType="VARCHAR" property="taskName" />
   </resultMap>
 
-<select id="queryModelEightById" parameterClass="com.gotop.Generalprocess.model.ProcessModelEight" resultMap="modeleigthResult">
+<select id="queryModelEightById" parameterClass="java.util.HashMap" resultMap="modeleigthResult">
     <!--通过主键查询一条数据-->
     select PROCESSMODELID, FLOW_ID, OPNINION_CONTENT, TJGJJSJ, GJJZXSPSJ, TASKNAME
     from T_GENERALPROCESS_MODELEIGHT

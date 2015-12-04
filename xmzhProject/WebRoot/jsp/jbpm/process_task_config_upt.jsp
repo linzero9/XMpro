@@ -63,7 +63,9 @@ function custInit(){
 	var isRecordSubmit = '${isRecordSubmit}';
 	if( isRecordSubmit !=null){
 		if(isRecordSubmit == "1"){
-			$id("isRecordSubmit").checked="checked";
+			if(value != "05"){
+				$id("isRecordSubmit").checked="checked";
+			}
 		}
 	}
 	if("01" == value){
@@ -208,6 +210,7 @@ function changeTaskConfigType(value){
 			}else{
 				$id("isRecordSubmit").value="";
 			}
+		
 		ajaxsubmitO();
 	}
 

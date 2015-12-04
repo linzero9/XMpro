@@ -196,10 +196,10 @@ public class TGeneralprocessModelfourService implements ITGeneralprocessModelfou
 		jbpmService.saceTaskAssignee(newDto);
 		
 		String submitType ="";
-		
+		submitType = taskAssgineeDto.getTransitionName();
 		/**
 		 * submitType  操作类型
-		 */
+		 *//*
 		if("结束".equals(taskAssgineeDto.getTargetName())){
 			//结束
 			submitType="08";
@@ -209,7 +209,7 @@ public class TGeneralprocessModelfourService implements ITGeneralprocessModelfou
 		}else{
 			//通过
 			submitType="01";
-		}
+		}*/
 		
 		this.generalprocessService.insertApproveOpninion(modelFour, muo, nextTaskId,
 				submitType, taskAssgineeDto);

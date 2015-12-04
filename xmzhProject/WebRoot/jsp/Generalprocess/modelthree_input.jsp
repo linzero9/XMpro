@@ -157,7 +157,7 @@
     		$("#btnType").val(value);
     		if(value!="1"){
     			if(checkForm($id("form1"))){
-    			var strUrl = "/jbpm/jbpmDemoAction_toNextTaskConfig.action?taskAssgineeDto.executionId="+$id("executionId").value;
+    			var strUrl = "/jbpm/jbpmDemoAction_toNextTaskConfig.action?taskAssgineeDto.executionId="+$id("executionId").value+"&taskAssgineeDto.definitionId=${taskAssgineeDto.definitionId}";
         		showModalCenter(strUrl, null, taskAssigneeCallBack, 700, 400, '节点选择');
     			}
     		}else{
@@ -208,6 +208,9 @@
 		      					  WEB.turnMainFrame();
 		  					  	}else if(data.indexOf("fails")>=0){
 		      					  	alert("操作失败!");
+			 					  	unMaskTop();
+		  					  	}else if(data.indexOf("noFirst")>=0){
+		      					  	alert("该节点不能用于发起流程!");
 			 					  	unMaskTop();
 		  					  	}else{	 
 		  					  	    alert("操作失败!"); 

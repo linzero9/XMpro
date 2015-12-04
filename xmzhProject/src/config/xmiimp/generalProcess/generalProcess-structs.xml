@@ -34,7 +34,10 @@
       <result name="viewlist">
         /jsp/Generalprocess/tGeneralprocessCdtypeDatacell.jsp
 	</result>
-	 <result name="list" type="json">
+	 <result name="ctlist" type="json">
+		   <param name="root">cdtypes</param>
+	  </result>
+	 <result name="fslist" type="json">
 		   <param name="root">cdtypes</param>
 	  </result>
 	</action>    

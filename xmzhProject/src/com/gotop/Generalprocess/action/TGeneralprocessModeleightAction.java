@@ -27,12 +27,13 @@ import net.sf.json.JSONArray;
 import org.apache.struts2.ServletActionContext;
 
 public class TGeneralprocessModeleightAction extends BaseAction {
-    /**
+	/**
 	 * 通过spring注入的Service对象.
+	 * 
 	 * @abatorgenerated
 	 */
 	protected ITGeneralprocessModeleightService tGeneralprocessModeleigthService;
-	
+
 	/**
 	 * 
 	 * @author yyx
@@ -40,40 +41,41 @@ public class TGeneralprocessModeleightAction extends BaseAction {
 	 * 
 	 */
 	private TaskAssgineeDto taskAssgineeDto;
-	
+
 	/**
 	 * jbpm服务
 	 */
 	private JbpmService jbpmService;
 
 	private String taskName;
-	
+
 	private ProcessModelEight modelEight;
-	
+
 	/**
 	 * 模式主表服务
 	 */
 	private ITGeneralprocessMainService generalprocessMainService;
-	
-	/**
-     * 通过spring注入Service的set类.
-     * @abatorgenerated
-     */
-    public void settGeneralprocessModeleigthService(ITGeneralprocessModeleightService tGeneralprocessModeleigthService) {
-        this.tGeneralprocessModeleigthService = tGeneralprocessModeleigthService;
-    }
 
-    /**
-     * 通过spring注入Service的get类.
-     * @abatorgenerated
-     */
-    public ITGeneralprocessModeleightService gettGeneralprocessModeleigthService() {
-        return this.tGeneralprocessModeleigthService;
-    }
-    
-    
-    
-    public TaskAssgineeDto getTaskAssgineeDto() {
+	/**
+	 * 通过spring注入Service的set类.
+	 * 
+	 * @abatorgenerated
+	 */
+	public void settGeneralprocessModeleigthService(
+			ITGeneralprocessModeleightService tGeneralprocessModeleigthService) {
+		this.tGeneralprocessModeleigthService = tGeneralprocessModeleigthService;
+	}
+
+	/**
+	 * 通过spring注入Service的get类.
+	 * 
+	 * @abatorgenerated
+	 */
+	public ITGeneralprocessModeleightService gettGeneralprocessModeleigthService() {
+		return this.tGeneralprocessModeleigthService;
+	}
+
+	public TaskAssgineeDto getTaskAssgineeDto() {
 		return taskAssgineeDto;
 	}
 
@@ -123,89 +125,101 @@ public class TGeneralprocessModeleightAction extends BaseAction {
 	 */
 	public String toModelEight() {
 		try {
-    		
-    		//获取流程实例id
-    		String businessId = taskAssgineeDto.getExecutionId();
-    		//获取流程配置主表对象
-    		TGeneralprocessMain main = this.generalprocessMainService.queryMainByBusinessId(businessId);
-    		Map<String, Object>  map = new HashMap<String, Object>();
-    		String taskName1="";
-    		if(taskAssgineeDto.getNextTaskId() != null){
-    			//待办-办理
-    			taskName1 = jbpmService.getTaskNameById(taskAssgineeDto.getNextTaskId());
-    		}else{
-    			if(taskAssgineeDto.getActivityName() != null){
-    				//已办-查看详情
-    				taskName1 = taskAssgineeDto.getActivityName();
-    				taskName = taskName1;
-    			}
-    		}
-    			ProcessModelEight modelEight2= new ProcessModelEight();
-    			modelEight2.setFlow_id(businessId);
-    			modelEight2.setTaskName(taskName1);
-        		ProcessModelEight newModelEight = new ProcessModelEight();
-        		newModelEight = this.tGeneralprocessModeleigthService.queryModelEight(modelEight2);
-    			
-        		String[] rulesArray = null;
-        		String[] idsArray = null;
-        		if(main != null){
-        			if(main.getRules() != null && !"".equals(main.getRules())){
-        				String rules = main.getRules();
-        				rulesArray = rules.split(",");
-        			}
-        			
-        			if(main.getIds() != null && !"".equals(main.getIds())){
-        				String ids = main.getIds();
-        				idsArray = ids.split(",");
-        			}
-        			
-        			for (int i = 0; i < idsArray.length; i++) {
-        				String id = idsArray[i];
-        				String rule = rulesArray[i];
-        				map.put(rule + "-" + id, id);
-        			}
-        		}
-        		
-        		String rm = "";
-        		if(newModelEight!= null){
-        			rm="ProcessModelEight" + "-" + newModelEight.getProcessModelId();
-        			map.remove(rm);
-        		}
-        		
-        		this.setModelEight(newModelEight);
-        		
-        		List<List<GeneralprocessFieldBean>> beans = GeneralprocessUtil.returnAllObj(map);
-        		
-        		String fxJson = JSONArray.fromObject(beans).toString();
-        		taskAssgineeDto.setFxJson(fxJson);
-    		
+
+			// 获取流程实例id
+			String businessId = taskAssgineeDto.getExecutionId();
+			// 获取流程配置主表对象
+			TGeneralprocessMain main = this.generalprocessMainService
+					.queryMainByBusinessId(businessId);
+			Map<String, Object> map = new HashMap<String, Object>();
+			
+			taskName= taskAssgineeDto.getTaskName();
+			
+			String taskName1 = "";
+			if (taskAssgineeDto.getNextTaskId() != null) {
+				// 待办-办理
+				taskName1 = jbpmService.getTaskNameById(taskAssgineeDto
+						.getNextTaskId());
+			} else {
+				if (taskAssgineeDto.getActivityName() != null) {
+					// 已办-查看详情
+					taskName1 = taskAssgineeDto.getActivityName();
+					taskName = taskName1;
+				}
+			}
+			ProcessModelEight modelEight2 = new ProcessModelEight();
+			modelEight2.setFlow_id(businessId);
+			modelEight2.setTaskName(taskName1);
+			ProcessModelEight newModelEight = new ProcessModelEight();
+			newModelEight = this.tGeneralprocessModeleigthService
+					.queryModelEight(modelEight2);
+
+			String[] rulesArray = null;
+			String[] idsArray = null;
+			if (main != null) {
+				if (main.getRules() != null && !"".equals(main.getRules())) {
+					String rules = main.getRules();
+					rulesArray = rules.split(",");
+				}
+
+				if (main.getIds() != null && !"".equals(main.getIds())) {
+					String ids = main.getIds();
+					idsArray = ids.split(",");
+				}
+
+				for (int i = 0; i < idsArray.length; i++) {
+					String id = idsArray[i];
+					String rule = rulesArray[i];
+					map.put(rule + "-" + id, id);
+				}
+			}
+
+			String rm = "";
+			if (newModelEight != null) {
+				rm = "ProcessModelEight" + "-"
+						+ newModelEight.getProcessModelId();
+				map.remove(rm);
+			}
+
+			this.setModelEight(newModelEight);
+
+			List<List<GeneralprocessFieldBean>> beans = GeneralprocessUtil
+					.returnAllObj(map);
+
+			String fxJson = JSONArray.fromObject(beans).toString();
+			taskAssgineeDto.setFxJson(fxJson);
+
 		} catch (Exception e) {
 			log.error("查询模式八表单信息失败", e);
 		}
-		//queryDefault();
+		// queryDefault();
 		return "toModelEight";
 	}
-	
-	
-	
+
 	/**
 	 * 
 	 * @author yyx
 	 * @desc 后台处理模式一的新增模式八表单、结束流程、记录流程日志
 	 * @return
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public void handleModelEight() throws Exception {
-		String info ="success";
-    	MUOUserSession muo = getCurrentOnlineUser();
-		try {
-			this.tGeneralprocessModeleigthService.handleModelEight(muo,modelEight,taskAssgineeDto);
-		} catch (Exception e) {
-			info="fails";
-			log.error("[提交模式八表单失败！]", e);
-			throw e;
+		String info = "success";
+		String nextTaskId = this.taskAssgineeDto.getNextTaskId();
+		if ("".equals(nextTaskId) || nextTaskId == null) {
+			info = "noFirst";
+		} else {
+			MUOUserSession muo = getCurrentOnlineUser();
+			try {
+				this.tGeneralprocessModeleigthService.handleModelEight(muo,
+						modelEight, taskAssgineeDto);
+			} catch (Exception e) {
+				info = "fails";
+				log.error("[提交模式八表单失败！]", e);
+				throw e;
+			}
 		}
 		Struts2Utils.renderText(info);
-		
+
 	}
 }

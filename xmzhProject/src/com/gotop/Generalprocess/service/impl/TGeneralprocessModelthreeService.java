@@ -2,26 +2,16 @@ package com.gotop.Generalprocess.service.impl;
 
 import com.gotop.Generalprocess.dao.ITGeneralprocessMainDAO;
 import com.gotop.Generalprocess.dao.ITGeneralprocessModelthreeDAO;
-import com.gotop.Generalprocess.model.ProcessModel;
-import com.gotop.Generalprocess.model.ProcessModelOne;
 import com.gotop.Generalprocess.model.ProcessModelThree;
-import com.gotop.Generalprocess.model.ProcessModelTwo;
-import com.gotop.Generalprocess.model.TApproveOpninionGP;
 import com.gotop.Generalprocess.model.TGeneralprocessMain;
-import com.gotop.Generalprocess.model.TGeneralprocessModelthree;
-import com.gotop.Generalprocess.model.TGeneralprocessModelthreeExample;
 import com.gotop.Generalprocess.service.IGeneralprocessService;
 import com.gotop.Generalprocess.service.ITGeneralprocessModelthreeService;
 import com.gotop.jbpm.dto.TaskAssgineeDto;
 import com.gotop.jbpm.service.JbpmService;
 import com.gotop.util.time.TimeUtil;
 import com.gotop.vo.system.MUOUserSession;
-import com.primeton.utils.Page;
-import java.math.BigDecimal;
-import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import org.apache.log4j.Logger;
 
 public class TGeneralprocessModelthreeService implements ITGeneralprocessModelthreeService {
@@ -162,9 +152,11 @@ public class TGeneralprocessModelthreeService implements ITGeneralprocessModelth
 		jbpmService.saceTaskAssignee(newDto);
 
 		String submitType = "";
+		
+		submitType = taskAssgineeDto.getTransitionName();
 		/**
 		 * submitType  操作类型
-		 */
+		 *//*
 		if("结束".equals(taskAssgineeDto.getTargetName())){
 			//结束
 			submitType="08";
@@ -174,7 +166,7 @@ public class TGeneralprocessModelthreeService implements ITGeneralprocessModelth
 		}else{
 			//通过
 			submitType="01";
-		}
+		}*/
 		
 		this.generalprocessService.insertApproveOpninion(modelThree, muo, nextTaskId,
 				submitType, taskAssgineeDto);

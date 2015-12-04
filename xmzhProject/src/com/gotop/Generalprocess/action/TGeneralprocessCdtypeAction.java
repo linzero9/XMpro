@@ -61,7 +61,7 @@ public class TGeneralprocessCdtypeAction extends BaseAction {
         Page page = this.getPage();
         cdtypes=this.tGeneralprocessCdtypeService.queryPageCdtype(cdtype, page);
         this.setCdtypes(cdtypes);
-        return "viewlist";
+        return "fslist";
     }
     
 
@@ -72,7 +72,7 @@ public class TGeneralprocessCdtypeAction extends BaseAction {
     public String querycreditType() throws Exception {
         cdtypes=this.tGeneralprocessCdtypeService.querycreditType(cdtype);
         this.setCdtypes(cdtypes);
-        return "list";
+        return "ctlist";
     }
 
 	public List<TGeneralprocessCdtype> getCdtypes() {

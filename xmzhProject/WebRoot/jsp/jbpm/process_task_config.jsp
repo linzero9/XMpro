@@ -62,7 +62,9 @@ function custInit(){
 	var isRecordSubmit = '${isRecordSubmit}';
 	if( isRecordSubmit !=null){
 		if(isRecordSubmit == "1"){
-			$id("isRecordSubmit").checked="checked";
+			if(value != "05"){
+				$id("isRecordSubmit").checked="checked";
+			}
 		}
 	}
 	if("01" == value){
@@ -214,10 +216,10 @@ function changeTaskConfigType(value){
 			return;
 		}
 
-		 if($id("isRecordSubmit").checked){
-			$id("isRecordSubmit").value=1;
-		}else{
-			$id("isRecordSubmit").value="";
+		if($id("isRecordSubmit").checked){
+				$id("isRecordSubmit").value=1;
+			}else{
+				$id("isRecordSubmit").value="";
 		}
 		ajaxsubmitO();
 	}

@@ -8,6 +8,10 @@ import com.gotop.jbpm.model.TProcessBusiness;
 import com.gotop.vo.system.MUOUserSession;
 
 public interface IGeneralprocessService {
+	
+	
+	public TProcessBusiness insertProcessBus(ProcessModel model,
+				TaskAssgineeDto dto);
 
 	/**
 	 * 新增模式一表单内容,完成模式一节点

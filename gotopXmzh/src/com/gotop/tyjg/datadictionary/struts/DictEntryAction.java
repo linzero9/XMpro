@@ -24,7 +24,7 @@ public class DictEntryAction extends BaseAction{
 	private DictEntry dictEntryjson;
 	private String dicttypeid;
 	private String dictid;
-	private DictEntry json;
+	private String  json;
 	
 	
 	public String getDicttypeid() {
@@ -75,9 +75,20 @@ public class DictEntryAction extends BaseAction{
 	 */
 	public String queryDictOneType() throws Exception {
 		DictEntry dictEntry1=new DictEntry();
+		DictEntry dictEntryresult=new DictEntry();
+		String[] strarray=dictid.split(","); 
 		dictEntry1.setDicttypeid(dicttypeid);
-		dictEntry1.setDictid(dictid);
-		json=this.getDictEntryService().queryDictOneType(dictEntry1);
+		StringBuffer sb=new StringBuffer();
+		for (int i = 0; i < strarray.length; i++) {
+			dictEntry1.setDictid(strarray[i]);
+			dictEntryresult=this.getDictEntryService().queryDictOneType(dictEntry1);
+			if (null!=dictEntryresult) {
+				sb.append(dictEntryresult.getDictname());
+				sb.append(',');
+			}
+			
+		}
+		json=sb.toString().substring(0, sb.length()-1);
 		return "query1";
     }
 	/**
@@ -200,11 +211,11 @@ public class DictEntryAction extends BaseAction{
 		this.dictEntry = dictEntry;
 	}
 
-	public DictEntry getJson() {
+	public String getJson() {
 		return json;
 	}
 
-	public void setJson(DictEntry json) {
+	public void setJson(String json) {
 		this.json = json;
 	}
 }

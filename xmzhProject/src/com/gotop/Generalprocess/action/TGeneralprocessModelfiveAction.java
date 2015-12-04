@@ -161,7 +161,7 @@ public class TGeneralprocessModelfiveAction extends BaseAction {
 		TGeneralprocessMain main = this.generalprocessMainService
 				.queryMainByBusinessId(businessId);
 		Map<String, Object> map = new HashMap<String, Object>();
-		String taskName1 = "";
+		String taskName1 = null;
 		if (taskAssgineeDto.getNextTaskId() != null) {
 			// 待办-办理
 			taskName1 = jbpmService.getTaskNameById(taskAssgineeDto
@@ -173,12 +173,16 @@ public class TGeneralprocessModelfiveAction extends BaseAction {
 				taskName = taskName1;
 			}
 		}
-
-		ProcessModelFive five = new ProcessModelFive();
-		five.setFlowId(businessId);
-		five.setTaskName(taskName1);
+		
 		ProcessModelFive newFive = new ProcessModelFive();
-		newFive = this.tGeneralprocessModelfiveService.queryModelFive(five);
+		
+		if(businessId != null && taskName1 != null){
+			ProcessModelFive five = new ProcessModelFive();
+			five.setFlowId(businessId);
+			five.setTaskName(taskName1);
+			newFive = this.tGeneralprocessModelfiveService.queryModelFive(five);
+		}
+		
 
 		String[] rulesArray = null;
 		String[] idsArray = null;
@@ -226,14 +230,20 @@ public class TGeneralprocessModelfiveAction extends BaseAction {
 	 */
 	public void handleModelFive() throws Exception {
 		String info ="success";
-    	MUOUserSession muo = getCurrentOnlineUser();
-		try {
-			this.tGeneralprocessModelfiveService.handleModelFive(muo,modelFive,taskAssgineeDto);
-		} catch (Exception e) {
-			info="fails";
-			log.error("[提交模式五表单失败！]", e);
-			throw e;
+		String nextTaskId = this.taskAssgineeDto.getNextTaskId();
+		if("".equals(nextTaskId) || nextTaskId == null){
+			info = "noFirst";
+		}else{
+			MUOUserSession muo = getCurrentOnlineUser();
+			try {
+				this.tGeneralprocessModelfiveService.handleModelFive(muo,modelFive,taskAssgineeDto);
+			} catch (Exception e) {
+				info="fails";
+				log.error("[提交模式五表单失败！]", e);
+				throw e;
+			}
 		}
+    	
 		Struts2Utils.renderText(info);
 	}
 

@@ -28,15 +28,17 @@
 			<h:hidden id="templateFileIds"
 				property="taskAssgineeDto.templateFileIds" />
 			<h:hidden id="isC" name="isC" property="taskAssgineeDto/isC" />
+			
+				<h:hidden id="startFlag" name="taskAssgineeDto.startFlag" property="taskAssgineeDto.startFlag" />
 			<h:hidden id="btnType" name="taskAssgineeDto.btnType" />
 			<h:hidden name="taskAssgineeDto.isFirst" value="1" />
 
-			<h:hidden id="processModelId" name="modelOne.processModelId"
-				property="modelOne.processModelId" />
-			<h:hidden id="taskName" name="modelOne.taskName"
-				property="modelOne.taskName" />
-			<h:hidden id="flowId" name="modelOne.flow_Id"
-				property="modelOne.flow_Id" />
+			<h:hidden id="processModelId" name="modelSix.processModelId"
+				property="modelSix.processModelId" />
+			<h:hidden id="taskName" name="modelSix.taskName"
+				property="modelSix.taskName" />
+			<h:hidden id="flowId" name="modelSix.flow_Id"
+				property="modelSix.flow_Id" />
 
 			<table align="center" border="0" width="100%" class="form_table">
 				<tr>
@@ -44,45 +46,81 @@
 						style="text-align: center;font-weight:bold;font-size:12pt;height:50px">
 						${taskName }</td>
 				</tr>
+				
+				
+				<tr>
+					<td class="form_label" align="right" style="width:120px;">是否风险额度重检：</td>
+					<td>
+							
+							
+							<d:select  id="risk"  dictTypeId="PROCESS_QuotaCheck" property="modelSix.risk" ></d:select><font 			style="color: red;">*</font></td>
+				
+				<td class="form_label" align="right" style="width:120px;">客户姓名</td>
+					<td colspan="3"><h:text id="custName"
+							property="modelSix.custName"   validateAttr="allowNull=false"/></td>
+				</tr>
+				
+				
 				<tr>
 					<td class="form_label" align="right" style="width:120px;">抵押送件时间</td>
-					<td colspan="1"><h:text property="modelSix.mortgageTime"
-							id="mortgageTime" validateAttr="allowNull=false"
-							style="width:130px;" /></td>
+					<td colspan="1">
+					
+				
+							
+							
+							   <w:date  id="mortgageTime" submitFormat="yyyy-MM-dd" format="yyyy-MM-dd" allowNull="false" property="modelSix.mortgageTime"/>
+							</td>
 					<td class="form_label" align="right" style="width:120px;">收到他项时间</td>
-					<td colspan="3"><h:text id="receiveTime"
-							property="modelSix.receiveTime" /></td>
+					<td colspan="3">
+							
+							
+														   <w:date  id="receiveTime" submitFormat="yyyy-MM-dd" format="yyyy-MM-dd" allowNull="false" property="modelSix.receiveTime"/>
+							
+							
+							
+							</td>
 				</tr>
 				<tr>
 					<td class="form_label" align="right" style="width:120px;">
 						公积金中心申请时间：</td>
-					<td colspan="1"><h:text property="modelSix.applicationTime"
-							id="applicationTime" validateAttr="allowNull=false"
-							style="width:130px;" /><font style="color: red">*</font></td>
+					<td colspan="1">
+					
+					
+							
+							
+<w:date  id="applicationTime" submitFormat="yyyy-MM-dd" format="yyyy-MM-dd" allowNull="false" property="modelSix.applicationTime"/>
+
+							
+							
+							
+							<font style="color: red">*</font></td>
 					<td class="form_label" align="right" style="width:120px;">
 						公积金中心下达放款指标时间：</td>
-					<td colspan="1"><h:text property="modelSix.issuedTime"
-							id="issuedTime" validateAttr="allowNull=false"
-							style="width:130px;" /><font style="color: red">*</font></td>
+					<td colspan="1">
+					
+			
+							
+	<w:date  id="issuedTime" submitFormat="yyyy-MM-dd" format="yyyy-MM-dd" allowNull="false" property="modelSix.issuedTime"/>
+							
+							
+							<font style="color: red">*</font></td>
 				</tr>
 				<tr>
 					<td class="form_label" align="right" style="width:120px;">
 						支用类别：</td>
-					<td colspan="1"><h:text property="modelSix.supportCategory"
-							id="supportCategory" validateAttr="allowNull=false"
-							style="width:130px;" /><font style="color: red">*</font></td>
+					<td colspan="1">
+							
+							<d:select  id="supportCategory"  dictTypeId="PROCESS_pay" property="modelSix.supportCategory" ></d:select>
+							
+							
+							<font style="color: red">*</font></td>
 					<td class="form_label" align="right" style="width:120px;">
 						支用金额：</td>
-					<td colspan="1"><h:text property="modelSix.supportMoney"
+					<td colspan="1"><h:text   property="modelSix.supportMoney"
 							id="supportMoney" validateAttr="allowNull=ture"
 							style="width:130px;" /></td>
 				</tr>
-				<tr>
-					<td class="form_label" align="right" style="width:120px;">是否风险额度重检：</td>
-					<td><h:text property="modelSix.risk" id="risk"
-							validateAttr="allowNull=false" style="width:130px;" /> <font
-						style="color: red;">*</font></td>
-				</tr>
+				
 
 
 
@@ -95,10 +133,7 @@
 							style="width:90%;" /></td>
 				</tr>
 				<tr class="form_bottom">
-					<td colspan="4"><input type="button" value="结束流程"
-						class="button"
-						onclick="doDeleteProcess('<b:write property="modelOne/processModelId" />','<b:write property="taskAssgineeDto/businessType" />');"
-						id="deleteProcessBtn"> <input type="button" value="保存"
+					<td colspan="4"> <input type="button" value="保存"
 						class="button" id="save1" onclick="doSave(1);" /> <input
 						type="button" value="提交" onclick="doSave(2);" class="button"
 						id="smit" /> <input type="button" value="查看流程"
@@ -123,6 +158,14 @@
 
 
 
+						if($("#custName").val()==""||$("#custName").val()==null){
+						
+							}else{
+								$("#custName").attr("disabled",true);
+								}
+
+
+
 							});
 
 	/**
@@ -142,17 +185,12 @@
 			if (checkForm($id("form1"))) {
 				var strUrl = "/jbpm/jbpmDemoAction_toNextTaskConfig.action?taskAssgineeDto.executionId="
 						+ $id("executionId").value
-						+ "&taskAssgineeDto.beginOrg="
-						+ $("#beginOrg").val()
-						+ "&taskAssgineeDto.beginAssingee="
-						+ $("#createor").val()
 						+ "&taskAssgineeDto.definitionId=${taskAssgineeDto.definitionId}";
 				showModalCenter(strUrl, null, taskAssigneeCallBack, 700, 400,
 						'节点选择');
 			}
 		} else {
 			var _form = $id("form1");
-			alert(111);
 			url = "/Generalprocess/tGeneralprocessModelsixAction_handleModelSix.action";
 			_form.action = url
 			if (checkForm($id("form1")))

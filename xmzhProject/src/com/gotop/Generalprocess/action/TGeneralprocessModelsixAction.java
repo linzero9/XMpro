@@ -39,7 +39,7 @@ public class TGeneralprocessModelsixAction extends BaseAction {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 模式四对象
+	 * 模式对象
 	 */
 	private ProcessModelSix modelSix;
 	
@@ -79,6 +79,11 @@ public class TGeneralprocessModelsixAction extends BaseAction {
     public String toModelSix() throws SecurityException, IllegalArgumentException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException{
     	
     	//获取流程实例id
+    	
+    	         
+    	//显示客户姓名  不可改        
+    	
+    	
     			String businessId = taskAssgineeDto.getExecutionId();
     			
     			taskName= taskAssgineeDto.getTaskName();
@@ -99,13 +104,13 @@ public class TGeneralprocessModelsixAction extends BaseAction {
     			}
     			
     			
-    			
-    			ProcessModelSix modelSix = new ProcessModelSix();
-    			modelSix.setFlowId(businessId);
-    			modelSix.setTaskName(taskName1);
     			ProcessModelSix newModelSix = new ProcessModelSix();
-    			newModelSix = this.tGeneralprocessModelsixService.queryModelSixByFlowIdAndTaskName(modelSix);
-
+    			if(businessId != null && taskName1 != null){
+    				ProcessModelSix modelSix = new ProcessModelSix();
+        			modelSix.setFlowId(businessId);
+        			modelSix.setTaskName(taskName1);
+        			newModelSix = this.tGeneralprocessModelsixService.queryModelSixByFlowIdAndTaskName(modelSix);
+    			}
     			
     			String[] rulesArray = null;
     			String[] idsArray = null;
@@ -133,8 +138,21 @@ public class TGeneralprocessModelsixAction extends BaseAction {
     				map.remove(rm);
     			}
     			
-    			
+    			//模式6显示 客户名称
     			this.setModelSix(newModelSix);
+    			
+    			
+    			
+    			if(modelSix==null){
+    				modelSix= new ProcessModelSix();
+    			}
+    			
+    			if((!"start".equals(taskAssgineeDto.getStartFlag()))&&(!"detial".equals(taskAssgineeDto.getStartFlag()))){
+    				//不是第一次  才能set  custname
+    				modelSix.setCustName(taskAssgineeDto.getBusinessTitle().split("-")[1]);
+    				
+    			}
+    			
     			
     		
     			

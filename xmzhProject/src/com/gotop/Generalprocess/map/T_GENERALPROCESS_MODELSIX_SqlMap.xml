@@ -15,6 +15,8 @@
     <result column="SUPPORT_MONEY" property="supportMoney" jdbcType="VARCHAR" />
     <result column="RISK" property="risk" jdbcType="VARCHAR" />
     <result column="PROCESSING_OPINION" property="processingOpinion" jdbcType="VARCHAR" />
+        <result column="CUST_NAME" property="custName" jdbcType="VARCHAR" />
+    
   </resultMap>
   
   
@@ -32,6 +34,7 @@
     <result column="SUPPORT_MONEY" property="supportMoney" jdbcType="VARCHAR" />
     <result column="RISK" property="risk" jdbcType="VARCHAR" />
     <result column="PROCESSING_OPINION" property="processingOpinion" jdbcType="VARCHAR" />
+    <result column="CUST_NAME" property="custName" jdbcType="VARCHAR" />
   </resultMap>
   
   
@@ -40,7 +43,7 @@
   <select id="queryModelSix" resultMap="ProcessModelSix_Result" parameterClass="java.util.HashMap" >
     <!--更具主键查找一条记录-->
     select PROCESSMODELID, FLOW_ID, TASKNAME, OPINION, MORTGAGE_TIME, RECEIVE_TIME,
-      APPLICATION_TIME, ISSUED_TIME, SUPPORT_CATEGORY, SUPPORT_MONEY, RISK, PROCESSING_OPINION
+      APPLICATION_TIME, ISSUED_TIME, SUPPORT_CATEGORY, SUPPORT_MONEY, RISK, PROCESSING_OPINION,CUST_NAME
     from T_GENERALPROCESS_MODELSIX  where PROCESSMODELID=$processModelId$
     
   </select>
@@ -54,11 +57,11 @@
    </selectKey>
   	 insert into T_GENERALPROCESS_MODELSIX (PROCESSMODELID, FLOW_ID, TASKNAME, OPINION,
       MORTGAGE_TIME, RECEIVE_TIME, APPLICATION_TIME, ISSUED_TIME, SUPPORT_CATEGORY, SUPPORT_MONEY,
-      RISK, PROCESSING_OPINION)
+      RISK, PROCESSING_OPINION,CUST_NAME)
     values (#processModelId:DECIMAL:-9999#, #flowId:VARCHAR#, #taskName:VARCHAR#, #opinion:VARCHAR#,
       #mortgageTime:VARCHAR#, #receiveTime:VARCHAR#, #applicationTime:VARCHAR#,
       #issuedTime:VARCHAR#, #supportCategory:VARCHAR#, #supportMoney:VARCHAR#, #risk:VARCHAR#,
-      #processingOpinion:VARCHAR#)
+      #processingOpinion:VARCHAR#,#custName:VARCHAR#)
   </insert>
   
   
@@ -82,7 +85,8 @@
       SUPPORT_CATEGORY = #supportCategory:VARCHAR#,
       SUPPORT_MONEY = #supportMoney:VARCHAR#,
       RISK = #risk:VARCHAR#,
-      PROCESSING_OPINION = #processingOpinion:VARCHAR#
+      PROCESSING_OPINION = #processingOpinion:VARCHAR#,
+      CUST_NAME=#custName:VARCHAR#
       
       where  PROCESSMODELID = #processModelId:DECIMAL:-9999#
     
@@ -94,7 +98,7 @@
     <select id="queryModelSixByFlowIdAndTaskName" resultMap="ProcessModelSix_Result" parameterClass="com.gotop.Generalprocess.model.ProcessModelSix" >
     <!--更具主键查找一条记录-->
     select PROCESSMODELID, FLOW_ID, TASKNAME, OPINION, MORTGAGE_TIME, RECEIVE_TIME,
-      APPLICATION_TIME, ISSUED_TIME, SUPPORT_CATEGORY, SUPPORT_MONEY, RISK, PROCESSING_OPINION
+      APPLICATION_TIME, ISSUED_TIME, SUPPORT_CATEGORY, SUPPORT_MONEY, RISK, PROCESSING_OPINION,CUST_NAME
     from T_GENERALPROCESS_MODELSIX  where FLOW_ID=#flowId:VARCHAR#   and  TASKNAME=#taskName:VARCHAR#
     
   </select>

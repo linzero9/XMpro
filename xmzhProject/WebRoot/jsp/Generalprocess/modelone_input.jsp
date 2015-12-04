@@ -114,16 +114,20 @@
                                                  一级分类：
         </td>
         <td colspan="1">
-         <h:text property="modelOne.oneCategory" id="oneCategory" validateAttr="allowNull=false" style="width:130px;" readonly="true"/><font style="color: red">*</font>	<a href="#" onclick="open_yjfl_fun()">选择</a>
+        
+        <select id="oneCategorys" onchange="changeoneCategory()"   required>
+         </select>
+         <h:hidden property="modelOne.oneCategory"  id="oneCategory" />
+         <font style="color: red">*</font>	
         </td>
         <td class="form_label" align="right" style="width:120px;">
                                                    贷种分类：
         </td>
         <td colspan="1">
          <%-- <h:text property="modelOne.loanCategory" id="loanCategory" validateAttr="allowNull=false" style="width:130px;" /> --%>
-         <select id="loanCategorys" onchange="changeloanCategory()">
+         <select id="loanCategorys" onchange="changeloanCategory()" required>
          </select>
-         <h:hidden property="modelOne.loanCategory"  id="loanCategory"/>
+         <h:hidden property="modelOne.loanCategory"  id="loanCategory" />
          <font style="color: red">*</font>	
         </td>
       </tr>
@@ -155,7 +159,7 @@
       </tr>
       <tr class="form_bottom">
         <td colspan="4">
-          <input type="button" value="结束流程" class="button" onclick="doDeleteProcess('<b:write property="modelOne/processModelId" />','<b:write property="taskAssgineeDto/businessType" />');" id="deleteProcessBtn">
+        
           <input type="button" value="保存" class="button" id="save1" onclick="doSave(1);"  />
           <input type="button" value="提交" onclick="doSave(2);" class="button" id="smit" />
           <input type="button" value="查看流程" onclick="doflowpic();" class="button" id="flowpic" />
@@ -218,12 +222,14 @@
 	 if('${modelOne.orgCodeOne}'==""){
 		 $("#orgCodeOne").val('${sessionScope.login_user.orgcode}');
 	 }
-
+	 alert('${taskAssgineeDto.processName}')
+	 setOneSelect('${taskAssgineeDto.processName}')
+	 
 	 if('${modelOne.oneCategory}'!=""){
 		 var oneCategory='${modelOne.oneCategory}';
-		 setselect(oneCategory);
-		 
+		 setLcselect(oneCategory);
 	 }
+
 	 
 	 //查看详情界面
 	 if('${isView}'!=''){
@@ -362,7 +368,11 @@ function initPlanCell20(){
 		function changeloanCategory(){
 			$("#loanCategory").val($('#loanCategorys option:selected').val());
 			}	
-		function setselect(arg){
+		function changeoneCategory(){
+			$("#oneCategory").val($('#oneCategorys option:selected').val());
+			 setLcselect($("#oneCategory").val());
+			}	
+		function setLcselect(arg){
 			$("#loanCategorys").html("");
 			var selecthtml=$("#loanCategorys").html();
 			 $.ajax({
@@ -391,6 +401,41 @@ function initPlanCell20(){
 								all_options[i].selected = true;
 							}
 						}
+				    }
+		}
+
+		function setOneSelect(arg){
+			$("#oneCategorys").html("");
+			var selecthtml=$("#oneCategorys").html();
+			 $.ajax({
+			        url: "/Generalprocess/tGeneralprocessCdtypeAction_queryViewList.action?cdtype.processName="+encodeURI(arg),
+			        async: false,
+			        type: 'post',
+			        data: "",
+			        dataType: 'json',
+			        success: function (json) {
+			        	if(json==""){
+			        	}else {
+			        		$.each(json,function(key,value){
+				        		selecthtml= selecthtml+"<option value="+value.firstClass+">"+value.firstClass+"</option>";
+				        		});
+			        	}
+				        }
+		    });	
+			    $("#oneCategorys").html(selecthtml);
+			    if($id("oneCategory").value==''){
+			    	$("#oneCategory").val($('#oneCategorys option:selected').val());
+			    	 setLcselect($("#oneCategory").val());
+				    }else{
+				    	var all_options = document.getElementById("oneCategorys").options;
+						for (i=0; i<all_options.length; i++){
+							if (all_options[i].value ==$id("oneCategory").value ) // 根据option标签的ID来进行判断 测试的代码这里是两个等号
+							{
+								all_options[i].selected = true;
+							}
+						}
+						$("#oneCategory").val($('#oneCategorys option:selected').val());
+						 setLcselect($("#oneCategory").val());
 				    }
 		}
  </script>

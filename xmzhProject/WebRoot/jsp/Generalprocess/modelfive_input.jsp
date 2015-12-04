@@ -28,55 +28,184 @@
         <h:hidden id="preTaskAssingee" name="taskAssgineeDto.preTaskAssingee" property="taskAssgineeDto.preTaskAssingee"/>
         <h:hidden id="definitionId" name="taskAssgineeDto.definitionId" property="taskAssgineeDto.definitionId"/>
         
-        <h:hidden id="processModelId" name="modelFour.processModelId" property="modelFour.processModelId"/>
-		<h:hidden id="taskName" name="modelFour.taskName" property="modelFour.taskName"/>
+        <h:hidden id="btnType" name="taskAssgineeDto.btnType" property="taskAssgineeDto.btnType"/>
+         
+        <h:hidden id="processModelId" name="modelFive.processModelId" property="modelFive.processModelId"/>
+		<h:hidden id="taskName" name="modelFive.taskName" property="modelFive.taskName"/>
 		
 		<table align="center" border="0" width="100%" class="form_table" >
-       <tr>
+      <tr>
          <td  colspan="4" style="text-align: center;font-weight:bold;font-size:12pt;height:50px" >
         		 ${taskName}
         </td>
       </tr>
+      
       <tr>
-     	<td class="form_label" align="right" style="width:10%;">处理意见：</td>
-     	<td colspan="3">
-	     	<h:textarea  extAttr="class='h80' "  name="modelFour.opninionContent" property="modelFour.opninionContent"  id="opninionContent" validateAttr="maxLength=512;allowNull=false" rows="4"  style="width:90%;" />
-		    <font style="color: red">*</font>
-     	</td>
+     	<td class="form_label" align="right" style="width:20%;" >决策单编号</td>
+      	<td colspan="1" style="width:30%">
+        	<h:text id="polNo" property="modelFive.polNo"   />
+      	</td>
+     	<td class="form_label" align="right">表决表编号</td>
+     	<td colspan="1" style="width:30%">
+        	<h:text id="voteNo" property="modelFive.voteNo" />
+        </td>
       </tr>
-      <tr id="row1">
-      	<td class="form_label" align="right">差错情况：</td>
-     	<td colspan="3">
-      	<table border=0 id="ccTable">
-		</table>
+      
+      <tr>
+     	<td class="form_label" align="right" style="width:20%;" >会议期数</td>
+      	<td colspan="1" style="width:30%">
+        	<h:text id="meetingCount" property="modelFive.meetingCount"   />
+      	</td>
+     	<td class="form_label" align="right" style="width:20%;">审批方式</td>
+     	<td colspan="1" style="width:30%">
+        	<d:select id="appWay" dictTypeId="PROCESS_method" property="modelFive.appWay" ></d:select>
+        </td>
+      </tr>
+      
+      <tr>
+     	<td class="form_label" align="right" style="width:20%;" >审批岗审结时间</td>
+      	<td colspan="1" style="width:30%">
+        	<w:date id="appTime" submitFormat="yyyyMMdd" format="yyyy-MM-dd" property="modelFive.appTime"/>
+      	</td>
+     	<td class="form_label" align="right" >审议事项</td>
+     	<td colspan="1" style="width:30%">
+        	 <d:checkbox id="conMatter" dictTypeId="PROCESS_Consideration" property="modelFive.conMatter" />
+        </td>
+      </tr>
+      
+      <tr>
+     	<td class="form_label" align="right" style="width:20%;" >授信部负责人签批时间</td>
+      	<td colspan="1" style="width:30%">
+        	<w:date id="sxAppTime" submitFormat="yyyyMMdd" format="yyyy-MM-dd" property="modelFive.sxAppTime"/>
+      	</td>
+     	<td class="form_label" align="right">有权审批人签批时间</td>
+     	<td colspan="1" style="width:30%">
+        	<w:date id="yqAppTime" submitFormat="yyyyMMdd" format="yyyy-MM-dd" property="modelFive.yqAppTime"/>
+        </td>
+      </tr>
+    
+    	<tr>
+     	<td class="form_label" align="right" style="width:20%;" >第一审批人（会议审批委员）</td>
+      	<td colspan="1" style="width:30%">
+        	<h:text id="dyApp" property="modelFive.dyApp"/>
+      	</td>
+     	<td class="form_label" align="right">第二审批人（会议审批委员）</td>
+     	<td colspan="1" style="width:30%">
+        	<h:text id="deApp" property="modelFive.deApp"/>
+        </td>
+      </tr>
+      
+      <tr>
+     	<td class="form_label" align="right" style="width:20%;" >会议审批委员1</td>
+      	<td colspan="1" style="width:30%">
+        	<h:text id="hyWyOne" property="modelFive.hyWyOne"/>
+      	</td>
+     	<td class="form_label" align="right">会议审批委员2</td>
+     	<td colspan="1" style="width:30%">
+        	<h:text id="hyWyTwo" property="modelFive.hyWyTwo"/>
+        </td>
+      </tr>
+      
+       <tr>
+     	<td class="form_label" align="right" style="width:20%;" >会议审批主任委员</td>
+      	<td colspan="1" style="width:30%">
+        	<h:text id="hyZrName" property="modelFive.hyZrName"/>
+      	</td>
+     	<td class="form_label" align="right">有表决权人数</td>
+     	<td colspan="1" style="width:30%">
+        	<h:text id="ybjNum" property="modelFive.ybjNum"/>
+        </td>
+      </tr>
+      
+      <tr>
+     	<td class="form_label" align="right" style="width:20%;" >贷审会秘书一</td>
+      	<td colspan="1" style="width:30%">
+        	<h:text id="dsMsOne" property="modelFive.dsMsOne"/>
+      	</td>
+     	<td class="form_label" align="right">贷审会秘书二</td>
+     	<td colspan="1" style="width:30%">
+        	<h:text id="dsMsTwo" property="modelFive.dsMsTwo"/>
+        </td>
+      </tr>
+      
+       <tr>
+     	<td class="form_label" align="right" style="width:20%;" >风险类型</td>
+      	<td colspan="1" style="width:30%">
+        	<d:select id="fxType" dictTypeId="PROCESS_risk" property="modelFive.fxType"></d:select>
+      	</td>
+     	<td class="form_label" align="right">审批类型</td>
+     	<td colspan="1" style="width:30%">
+        	<d:select id="spType" dictTypeId="PROCESS_approve" property="modelFive.spType"></d:select>
+        </td>
+      </tr>
+      
+      <tr>
+     	<td class="form_label" align="right" style="width:20%;" >上会地点</td>
+      	<td colspan="1" style="width:30%">
+        	<h:text id="shAddr" property="modelFive.shAddr"/>
+      	</td>
+     	<td class="form_label" align="right">会议审议结论</td>
+     	<td colspan="1" style="width:30%">
+        	<d:select id="hySyJl" dictTypeId="PROCESS_conclusion" property="modelFive.hySyJl"></d:select>
+        </td>
+      </tr>
+      
+       <tr>
+     	<td class="form_label" align="right" style="width:20%;" >评级结论</td>
+      	<td colspan="1" style="width:30%">
+        	<h:text id="pjJl" property="modelFive.pjJl"/>
       	</td>
       </tr>
-      <tr id="rowFile">
-     	<td class="form_label" align="right">差错情况：</td>
-     	<td colspan="3">
-				<input type="button" onclick="addMisTake('tabtest','files','jees');return false;" value="新增差错" 
-					style="margin-left:2px;vertical-align:middle;cursor:hand;"/>
-				<br/>
-				<table border=0 id="tabtest">
-				</table>
-     	</td>
-     </tr>
-    
+      
+      <tr>
+     	<td class="form_label" align="right" style="width:20%;" >风险币别</td>
+      	<td colspan="1" style="width:30%">
+        	<d:select id="fxBb" property="modelFive.fxBb" dictTypeId="PROCESS_MONEY"></d:select>
+      	</td>
+     	<td class="form_label" align="right">风险额度</td>
+     	<td colspan="1" style="width:30%">
+        	<h:text id="fxEd" property="modelFive.fxEd"/>
+        </td>
+      </tr>
+      
+      <tr>
+     	<td class="form_label" align="right" style="width:20%;" >授信币别</td>
+      	<td colspan="1" style="width:30%">
+        	<d:select id="sxBb" property="modelFive.sxBb" dictTypeId="PROCESS_MONEY"></d:select>
+      	</td>
+     	<td class="form_label" align="right">授信额度</td>
+     	<td colspan="1" style="width:30%">
+        	<h:text id="sxEd" property="modelFive.sxEd"/>
+        </td>
+      </tr>
+      
+       <tr>
+     	<td class="form_label" align="right" style="width:20%;" >业务币别</td>
+      	<td colspan="1" style="width:30%">
+        	<d:select id="ywBb" property="modelFive.ywBb" dictTypeId="PROCESS_MONEY"></d:select>
+      	</td>
+     	<td class="form_label" align="right" style="width:20%;">业务额度</td>
+     	<td colspan="1" style="width:30%">
+        	<h:text id="ywEd" property="modelFive.ywEd"/>
+        </td>
+      </tr>
+      
       <tr class="form_bottom">
         <td colspan="4">
+          <input type="button" value="保存" onclick="doSave(1);" class="button" id="save2" />
           <input type="button" value="提交" onclick="doSave(2);" class="button" id="save3" />
           <input type="button" value="查看流程" onclick="doflowpic();" class="button" id="flowpic" />
          </td>
       </tr>
      <tr id="row2">
-     <td class="form_label" align="right">流 程 列 表：</td>
-     <td colspan="3">
-     <%@include file="/jsp/util/opinionUtil_generalProcess.jsp"%>
-	</td>
+     	<td class="form_label" align="right">流 程 列 表：</td>
+     	<td colspan="3">
+     	<%@include file="/jsp/util/opinionUtil_generalProcess.jsp"%>
+		</td>
      </tr>
+     
     </table>
     </h:form>
-    		
   </body>
  <script type="text/javascript">
  		 show('${taskAssgineeDto.fxJson}');
@@ -154,12 +283,18 @@
     				var strUrl = "/jbpm/jbpmDemoAction_toNextTaskConfig.action?taskAssgineeDto.executionId="+$id("executionId").value+"&taskAssgineeDto.definitionId=${taskAssgineeDto.definitionId}";
             		showModalCenter(strUrl, null, taskAssigneeCallBack, 700, 400, '节点选择');
         			}
+    		}else{
+    			var _form = $id("form1");
+    	  	  	url="/Generalprocess/tGeneralprocessModelFiveAction_handleModelFive.action";	
+    	  	  	_form.action =url
+    	  	  	if(checkForm($id("form1")))
+    			    ajaxsubmitO(0);
     		}
      	}
 		function taskAssigneeCallBack(arg){
 		  	 	var _form = $id("form1");
 		  	 	if(arg!=""){
-		  	  	 	url="/Generalprocess/tGeneralprocessModelFourAction_handleModelFour.action?"+arg;	
+		  	  	 	url="/Generalprocess/tGeneralprocessModelFiveAction_handleModelFive.action?"+arg;	
 		  	  	    _form.action =url
 		  	        // 异步提交请求 
 		  	  	    ajaxsubmitO();

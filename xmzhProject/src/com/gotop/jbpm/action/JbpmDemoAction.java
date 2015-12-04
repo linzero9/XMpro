@@ -991,6 +991,8 @@ public class JbpmDemoAction extends BaseAction {
 	 * @throws Exception
 	 */
 	public String handle() throws Exception {
+		
+	
 		String taskId = this.taskAssgineeDto.getNextTaskId();
 
 		Task task = jbpmDemoService.getTaskById(taskId);
@@ -1034,6 +1036,7 @@ public class JbpmDemoAction extends BaseAction {
 			throws UnsupportedEncodingException {
 		StringBuffer buffer = new StringBuffer(1000);
 		buffer.append("?");
+		
 		if (taskAssgineeDto != null) {
 			if(taskAssgineeDto.getDefinitionId()!=null){
 				buffer.append("taskAssgineeDto.definitionId=");
@@ -1050,6 +1053,13 @@ public class JbpmDemoAction extends BaseAction {
 				buffer.append(taskAssgineeDto.getBusinessType());
 				buffer.append("&");
 			}
+			
+			if (taskAssgineeDto.getStartFlag() != null) {
+				buffer.append("taskAssgineeDto.startFlag=");
+				buffer.append(taskAssgineeDto.getStartFlag());
+				buffer.append("&");
+			}
+			
 			if (taskAssgineeDto.getExecutionId() != null) {
 				buffer.append("taskAssgineeDto.executionId=");
 				buffer.append(taskAssgineeDto.getExecutionId());
@@ -1124,6 +1134,16 @@ public class JbpmDemoAction extends BaseAction {
 				buffer.append(java.net.URLEncoder.encode(taskAssgineeDto.getProcessName(), "utf-8"));
 				buffer.append("&");
 			}
+			
+			if (taskAssgineeDto.getBusinessTitle()!= null) {
+				buffer.append("taskAssgineeDto.businessTitle=");
+				
+				buffer.append(java.net.URLEncoder.encode(taskAssgineeDto.getBusinessTitle(), "utf-8"));
+				buffer.append("&");
+			}
+			
+			
+			
 			if (taskAssgineeDto.getTaskConfigType()!= null) {
 				buffer.append("taskAssgineeDto.taskConfigType=");
 				buffer.append(taskAssgineeDto.getTaskConfigType());
@@ -1646,6 +1666,11 @@ public class JbpmDemoAction extends BaseAction {
 		}else{
 			tProcessTaskExeConfig.setIsRecordSubmit(isRecordSubmit);
 		}
+		
+		if("05".equals(taskConfigType)){
+			//起草人 -通用流程-默认记录提交人
+			tProcessTaskExeConfig.setIsRecordSubmit("1");
+		}
 		tProcessTaskExeConfig.setTaskAssType(taskConfigType);
 		tProcessTaskExeConfig.setDefinitionId(taskAssgineeDto.getDefinitionId());
 		tProcessTaskExeConfig.setActivityName(taskAssgineeDto.getTaskName());
@@ -1695,6 +1720,8 @@ public class JbpmDemoAction extends BaseAction {
 	 * @throws UnsupportedEncodingException
 	 */
 	public String viewBussinessDetail() throws UnsupportedEncodingException{
+		
+		taskAssgineeDto.setStartFlag("detial");
 		this.setTaskAssgineeDto(taskAssgineeDto);
 		taskUrl = this.jbpmDemoService.getFormName(taskAssgineeDto);
 		nameSpace = taskUrl.substring(0, taskUrl.indexOf("/", 1));
@@ -1776,7 +1803,7 @@ public class JbpmDemoAction extends BaseAction {
 		}
 		
 		
-		
+		this.taskAssgineeDto.setStartFlag("start");
 	
 		taskAssgineeDto.setTaskName(taskName);
 		String ss = getTaskUrlBuffer(taskAssgineeDto);
@@ -2057,6 +2084,10 @@ public class JbpmDemoAction extends BaseAction {
 			tProcessTaskExeConfig.setIsRecordSubmit("");
 		}else{
 			tProcessTaskExeConfig.setIsRecordSubmit(isRecordSubmit);
+		}
+		if("05".equals(taskConfigType)){
+			//起草人 -通用流程-默认记录提交人
+			tProcessTaskExeConfig.setIsRecordSubmit("1");
 		}
 		tProcessTaskExeConfig.setTaskAssType(taskConfigType);
 		tProcessTaskExeConfig.setDefinitionId(taskAssgineeDto.getDefinitionId());

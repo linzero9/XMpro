@@ -109,7 +109,11 @@ public class TGeneralprocessModelfiveService implements
 		String taskName = jbpmService.getTaskNameById(taskId);
 		modelFive.setTaskName(taskName);
 		modelFive.setFlowId(taskAssgineeDto.getExecutionId());
-
+		String conMatter = modelFive.getConMatter();
+		if(conMatter != null){
+			conMatter = conMatter.replace(" ", "");
+		}
+		modelFive.setConMatter(conMatter);
 		if (modelFive.getProcessModelId() != null
 				&& !"".equals(modelFive.getProcessModelId())) {
 			// 修改模式五表单内容
@@ -117,82 +121,74 @@ public class TGeneralprocessModelfiveService implements
 
 		} else {
 			// 保存模式五表单内容
+			
 			this.tGeneralprocessModelfiveDAO.addModelFive(modelFive);
 		}
 
 		modelFive.setOpinion("");
 
-		// 获取流程实例id
-		String executionId = taskAssgineeDto.getExecutionId();
+		if(taskAssgineeDto != null){
+			if(taskAssgineeDto.getBtnType() != null && !"1".equals(taskAssgineeDto.getBtnType())){
+				// 获取流程实例id
+				String executionId = taskAssgineeDto.getExecutionId();
 
-		// 查询模式主板信息
-		TGeneralprocessMain main = this.generalprocessMainDAO
-				.queryMainByBusinessId(executionId);
+				// 查询模式主板信息
+				TGeneralprocessMain main = this.generalprocessMainDAO
+						.queryMainByBusinessId(executionId);
 
-		// 新增或更新模式主板的rule和id
-		if (main != null) {
-			// 修改
-			this.generalprocessMainDAO.uptGeneralProcessMain(taskAssgineeDto,
-					modelFive, main, ProcessModelFive.class);
-		} else {
-			// 新增
-			this.generalprocessMainDAO.addGeneralProcessMain(taskAssgineeDto,
-					modelFive, ProcessModelFive.class);
+				// 新增或更新模式主板的rule和id
+				if (main != null) {
+					// 修改
+					this.generalprocessMainDAO.uptGeneralProcessMain(taskAssgineeDto,
+							modelFive, main, ProcessModelFive.class);
+				} else {
+					// 新增
+					this.generalprocessMainDAO.addGeneralProcessMain(taskAssgineeDto,
+							modelFive, ProcessModelFive.class);
+				}
+
+				// 模式五-提交操作
+				// 审核通过
+				// 提交下个节点
+				TaskAssgineeDto d1 = new TaskAssgineeDto();
+
+				d1.setTaskId(taskId);
+				d1.setTaskExeAssginee(String.valueOf(muo.getEmpid()));
+
+				// 赋值当前节点id
+				taskAssgineeDto.setTaskId(taskId);
+
+				// 签收当前节点
+				jbpmService.assignTask(d1);
+
+				// 完成当前节点
+				jbpmService.completeTask(taskId, taskAssgineeDto.getTransitionName(),
+						null);
+
+				taskAssgineeDto.setPreTaskAssingee(muo.getEmpid());
+
+				jbpmService.updateTaskAssigneeState(taskAssgineeDto);
+
+				// 赋值下个节点id
+				String nextTaskId = jbpmService.getNextTaskId(taskAssgineeDto
+						.getExecutionId());
+				taskAssgineeDto.setNextTaskId(nextTaskId);
+
+				// 当前节点执行人
+				taskAssgineeDto.setTaskExeAssginee(String.valueOf(muo.getEmpid()));
+
+				TaskAssgineeDto newDto = this.generalprocessService
+						.makeTaskAssgineeDto(null, muo, taskAssgineeDto);
+
+				jbpmService.saceTaskAssignee(newDto);
+
+				String submitType = taskAssgineeDto.getTransitionName();
+
+				this.generalprocessService.insertApproveOpninion(modelFive, muo,
+						nextTaskId, submitType, taskAssgineeDto);
+			}
 		}
-
-		// 模式五-提交操作
-		// 审核通过
-		// 提交下个节点
-		TaskAssgineeDto d1 = new TaskAssgineeDto();
-
-		d1.setTaskId(taskId);
-		d1.setTaskExeAssginee(String.valueOf(muo.getEmpid()));
-
-		// 赋值当前节点id
-		taskAssgineeDto.setTaskId(taskId);
-
-		// 签收当前节点
-		jbpmService.assignTask(d1);
-
-		// 完成当前节点
-		jbpmService.completeTask(taskId, taskAssgineeDto.getTransitionName(),
-				null);
-
-		taskAssgineeDto.setPreTaskAssingee(muo.getEmpid());
-
-		jbpmService.updateTaskAssigneeState(taskAssgineeDto);
-
-		// 赋值下个节点id
-		String nextTaskId = jbpmService.getNextTaskId(taskAssgineeDto
-				.getExecutionId());
-		taskAssgineeDto.setNextTaskId(nextTaskId);
-
-		// 当前节点执行人
-		taskAssgineeDto.setTaskExeAssginee(String.valueOf(muo.getEmpid()));
-
-		TaskAssgineeDto newDto = this.generalprocessService
-				.makeTaskAssgineeDto(null, muo, taskAssgineeDto);
-
-		jbpmService.saceTaskAssignee(newDto);
-
-		String submitType = "";
-
-		/**
-		 * submitType 操作类型
-		 */
-		if ("结束".equals(taskAssgineeDto.getTargetName())) {
-			// 结束
-			submitType = "08";
-		} else if ("退回".equals(taskAssgineeDto.getTransitionName())) {
-			// 退回
-			submitType = "02";
-		} else {
-			// 通过
-			submitType = "01";
-		}
-
-		this.generalprocessService.insertApproveOpninion(modelFive, muo,
-				nextTaskId, submitType, taskAssgineeDto);
+		
 	}
 
 }
