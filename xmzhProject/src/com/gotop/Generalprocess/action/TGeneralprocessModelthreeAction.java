@@ -241,14 +241,19 @@ public class TGeneralprocessModelthreeAction extends BaseAction {
 	 */
 	public void handleModelThree() throws Exception {
 		String info = "success";
-		MUOUserSession muo = getCurrentOnlineUser();
-		try {
-			this.generalprocessModelthreeService.handleModelThree(muo,
-					modelThree, taskAssgineeDto);
-		} catch (Exception e) {
-			info = "fails";
-			log.error("[提交模式一表单失败！]", e);
-			throw e;
+		String nextTaskId = this.taskAssgineeDto.getNextTaskId();
+		if ("".equals(nextTaskId) || nextTaskId == null) {
+			info = "noFirst";
+		} else {
+			MUOUserSession muo = getCurrentOnlineUser();
+			try {
+				this.generalprocessModelthreeService.handleModelThree(muo,
+						modelThree, taskAssgineeDto);
+			} catch (Exception e) {
+				info = "fails";
+				log.error("[提交模式一表单失败！]", e);
+				throw e;
+			}
 		}
 		Struts2Utils.renderText(info);
 

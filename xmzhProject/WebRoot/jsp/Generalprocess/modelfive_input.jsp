@@ -314,6 +314,9 @@
 		  					  	}else if(data.indexOf("fails")>=0){
 		      					  	alert("操作失败!");
 			 					  	unMaskTop();
+		  					  	}else if(data.indexOf("noFirst")>=0){
+		      					  	alert("该节点不能用于发起流程!");
+			 					  	unMaskTop();
 		  					  	}else{	 
 		  					  	    alert("操作失败!"); 
 			 					  	unMaskTop();	
