@@ -31,12 +31,12 @@
 			<h:hidden id="btnType" name="taskAssgineeDto.btnType" />
 			<h:hidden name="taskAssgineeDto.isFirst" value="1" />
 
-			<h:hidden id="processModelId" name="modelOne.processModelId"
-				property="modelOne.processModelId" />
-			<h:hidden id="taskName" name="modelOne.taskName"
-				property="modelOne.taskName" />
-			<h:hidden id="flowId" name="modelOne.flow_Id"
-				property="modelOne.flow_Id" />
+			<h:hidden id="processModelId" name="modelSix.processModelId"
+				property="modelSix.processModelId" />
+			<h:hidden id="taskName" name="modelSix.taskName"
+				property="modelSix.taskName" />
+			<h:hidden id="flowId" name="modelSix.flow_Id"
+				property="modelSix.flow_Id" />
 
 			<table align="center" border="0" width="100%" class="form_table">
 				<tr>
@@ -133,7 +133,7 @@
 				<tr class="form_bottom">
 					<td colspan="4"><input type="button" value="结束流程"
 						class="button"
-						onclick="doDeleteProcess('<b:write property="modelOne/processModelId" />','<b:write property="taskAssgineeDto/businessType" />');"
+						onclick="doDeleteProcess('<b:write property="modelSix/processModelId" />','<b:write property="taskAssgineeDto/businessType" />');"
 						id="deleteProcessBtn"> <input type="button" value="保存"
 						class="button" id="save1" onclick="doSave(1);" /> <input
 						type="button" value="提交" onclick="doSave(2);" class="button"

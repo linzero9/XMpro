@@ -28,7 +28,7 @@ public class ProcessModelSix  extends ProcessModel  implements  Serializable {
      * @abatorgenerated
      */
 	
-	@GeneralprocessField(name="流程id",type="text")
+	@GeneralprocessField(name="流程id",type="text",hidden=false)
     private String flowId;
 
 
