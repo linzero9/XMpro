@@ -28,6 +28,8 @@
 			<h:hidden id="templateFileIds"
 				property="taskAssgineeDto.templateFileIds" />
 			<h:hidden id="isC" name="isC" property="taskAssgineeDto/isC" />
+			
+				<h:hidden id="startFlag" name="taskAssgineeDto.startFlag" property="taskAssgineeDto.startFlag" />
 			<h:hidden id="btnType" name="taskAssgineeDto.btnType" />
 			<h:hidden name="taskAssgineeDto.isFirst" value="1" />
 

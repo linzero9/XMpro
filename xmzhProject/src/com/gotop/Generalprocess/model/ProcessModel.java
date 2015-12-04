@@ -21,6 +21,36 @@ public abstract class ProcessModel implements  ProcessModelPublic{
 	 */
 	@GeneralprocessField(name="模式通用意见",type="text",hidden=false)
 	public String opinion;
+	
+	
+	@GeneralprocessField(name="通用的客户姓名",type="text",hidden=false)
+	private  String pubCustName;
+	
+	
+	
+	@GeneralprocessField(name="通用的FLOWID",type="text",hidden=false)
+	private  String pubFlowId;
+	
+	
+	
+
+	public String getPubFlowId() {
+		return pubFlowId;
+	}
+
+	public void setPubFlowId(String pubFlowId) {
+		this.pubFlowId = pubFlowId;
+	}
+
+
+
+	public String getPubCustName() {
+		return pubCustName;
+	}
+
+	public void setPubCustName(String pubCustName) {
+		this.pubCustName = pubCustName;
+	}
 
 	public Long getProcessModelId() {
 		return processModelId;

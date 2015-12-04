@@ -2,6 +2,19 @@ package com.gotop.jbpm.dto;
 
 public class TaskAssgineeDto {
 	
+	
+	private String startFlag;
+	
+	
+	
+	public String getStartFlag() {
+		return startFlag;
+	}
+
+	public void setStartFlag(String startFlag) {
+		this.startFlag = startFlag;
+	}
+
 	private String isC;
 	public String getIsC() {
 		return isC;

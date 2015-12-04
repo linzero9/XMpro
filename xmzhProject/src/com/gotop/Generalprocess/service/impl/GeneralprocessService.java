@@ -129,6 +129,8 @@ public class GeneralprocessService implements IGeneralprocessService {
 	@Override
 	public void handleModelOne(MUOUserSession muo, ProcessModelOne modelOne,
 			TaskAssgineeDto taskAssgineeDto) {
+	
+		
 		// 当前节点id
 		String taskId = "";
 		String preTaskId = "";
@@ -193,14 +195,18 @@ public class GeneralprocessService implements IGeneralprocessService {
 			// 插入模式一的表单信息
 			this.generalprocessModeloneDAO.addModelOne(modelOne);
 			
-			modelOne.setOpinion("");
+			modelOne.setOpinion(modelOne.getContent());
 			// 保存流程的信息
 
 			// 构建流程业务关系信息
 			
 			//需要客户姓名+流程名  modify
 			
+			modelOne.setPubCustName(modelOne.getCust_Name());
+			modelOne.setPubFlowId(modelOne.getFlow_Id());
+			
 			pb = insertProcessBus(modelOne, taskAssgineeDto);
+		
 			// 提交
 			submitType = "05";
 			// 保存流程业务关系的信息
@@ -213,6 +219,9 @@ public class GeneralprocessService implements IGeneralprocessService {
 				&& !"".equals(taskAssgineeDto.getEmpIds())){
 			//submitType = "01";
 		}
+		
+		
+		
 		if (!"1".equals(btnType)) {
 			//提交按钮
 
@@ -362,16 +371,16 @@ public class GeneralprocessService implements IGeneralprocessService {
 	 * @param dto
 	 * @return
 	 */
-	private TProcessBusiness insertProcessBus(ProcessModelOne modelOne,
+	public TProcessBusiness insertProcessBus(ProcessModel model,
 			TaskAssgineeDto dto) {
 		TProcessBusiness processBusiness = new TProcessBusiness();
 		try {
-			processBusiness.setBusinessKey(modelOne.getProcessModelOneID());
+			processBusiness.setBusinessKey(model.getProcessModelId());
 			processBusiness.setBusinessType(dto.getBusinessType());
 			
-			//需要客户姓名+流程名  modify
-			processBusiness.setBusinessTitle(dto.getProcessName()+"-"+modelOne.getCust_Name());
-			processBusiness.setExecutionId(modelOne.getFlow_Id());
+			//需要客户姓名+流程名  modify  wujiajun
+			processBusiness.setBusinessTitle(dto.getProcessName()+"-"+model.getPubCustName());
+			processBusiness.setExecutionId(model.getPubFlowId());
 		} catch (Exception e) {
 			log.error("生成实例标题信息", e);
 		}

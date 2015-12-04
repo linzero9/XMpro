@@ -1034,6 +1034,7 @@ public class JbpmDemoAction extends BaseAction {
 			throws UnsupportedEncodingException {
 		StringBuffer buffer = new StringBuffer(1000);
 		buffer.append("?");
+		
 		if (taskAssgineeDto != null) {
 			if(taskAssgineeDto.getDefinitionId()!=null){
 				buffer.append("taskAssgineeDto.definitionId=");
@@ -1050,6 +1051,13 @@ public class JbpmDemoAction extends BaseAction {
 				buffer.append(taskAssgineeDto.getBusinessType());
 				buffer.append("&");
 			}
+			
+			if (taskAssgineeDto.getStartFlag() != null) {
+				buffer.append("taskAssgineeDto.startFlag=");
+				buffer.append(taskAssgineeDto.getStartFlag());
+				buffer.append("&");
+			}
+			
 			if (taskAssgineeDto.getExecutionId() != null) {
 				buffer.append("taskAssgineeDto.executionId=");
 				buffer.append(taskAssgineeDto.getExecutionId());
@@ -1781,7 +1789,7 @@ public class JbpmDemoAction extends BaseAction {
 		}
 		
 		
-		
+		this.taskAssgineeDto.setStartFlag("start");
 	
 		taskAssgineeDto.setTaskName(taskName);
 		String ss = getTaskUrlBuffer(taskAssgineeDto);
