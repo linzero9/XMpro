@@ -2,6 +2,8 @@ package com.gotop.Generalprocess.model;
 
 import java.io.Serializable;
 
+import com.gotop.Generalprocess.annonation.GeneralprocessField;
+
 /**
  * 模式五对象
  * @author wsd
@@ -17,168 +19,196 @@ public class ProcessModelFive extends ProcessModel  implements  Serializable{
 	/**
 	 * 流程实例id
 	 */
+	@GeneralprocessField(name="流程业务id",type="text",hidden=false)
 	private String flowId;
 	
 	/**
      * 审批方式,0-当签,1-双签,2-会议 .
      * @abatorgenerated
      */
+	@GeneralprocessField(name="审批方式",type="dic",dicname="PROCESS_method")
     private String appWay;
 
     /**
      * 决策单编号 .
      * @abatorgenerated
      */
+	@GeneralprocessField(name="决策单编号",type="text")
     private String polNo;
 
     /**
      * 会议期数 .
      * @abatorgenerated
      */
+	@GeneralprocessField(name="会议期数",type="text")
     private String meetingCount;
 
     /**
      * 表决表编号 .
      * @abatorgenerated
      */
+	@GeneralprocessField(name="表决表编号",type="text")
     private String voteNo;
 
     /**
      * 审批岗审结时间,格式YYYYMMDD .
      * @abatorgenerated
      */
+	@GeneralprocessField(name="审批岗审结时间",type="text")
     private String appTime;
 
     /**
      * 审议事项（可多选）,0-评级,1-授信额度,2-单笔业务 .
      * @abatorgenerated
      */
+	@GeneralprocessField(name="审议事项",type="dic",dicname="PROCESS_Consideration")
     private String conMatter;
 
     /**
      * 授信部负责人签批时间,格式YYYYMMDD .
      * @abatorgenerated
      */
+	@GeneralprocessField(name="授信部负责人签批时间",type="text")
     private String sxAppTime;
 
     /**
      * 有权审批人签批时间,格式YYYYMMDD .
      * @abatorgenerated
      */
+	@GeneralprocessField(name="有权审批人签批时间",type="text")
     private String yqAppTime;
 
     /**
      * 第一审批人（会议审批委员） .
      * @abatorgenerated
      */
+	@GeneralprocessField(name="第一审批人（会议审批委员）",type="text")
     private String dyApp;
 
     /**
      * 第二审批人（会议审批委员） .
      * @abatorgenerated
      */
+	@GeneralprocessField(name="第二审批人（会议审批委员）",type="text")
     private String deApp;
 
     /**
      * 会议审批主任委员 .
      * @abatorgenerated
      */
+	@GeneralprocessField(name="会议审批主任委员",type="text")
     private String hyZrName;
 
     /**
      * 会议审批委员1 .
      * @abatorgenerated
      */
+	@GeneralprocessField(name="会议审批委员1",type="text")
     private String hyWyOne;
 
     /**
      * 会议审批委员2 .
      * @abatorgenerated
      */
+	@GeneralprocessField(name="会议审批委员2",type="text")
     private String hyWyTwo;
 
     /**
      * 贷审会秘书一 .
      * @abatorgenerated
      */
+	@GeneralprocessField(name="贷审会秘书一",type="text")
     private String dsMsOne;
 
     /**
      * 贷审会秘书二 .
      * @abatorgenerated
      */
+	@GeneralprocessField(name="贷审会秘书二",type="text")
     private String dsMsTwo;
 
     /**
      * 上会地点 .
      * @abatorgenerated
      */
+	@GeneralprocessField(name="上会地点",type="text")
     private String shAddr;
 
     /**
      * 风险类型,0-低风险,1-非低风险 .
      * @abatorgenerated
      */
+	@GeneralprocessField(name="风险类型",type="dic",dicname="PROCESS_risk")
     private String fxType;
 
     /**
      * 审批类型,0-首次,1-复议,2-变更 .
      * @abatorgenerated
      */
+	@GeneralprocessField(name="审批类型",type="dic",dicname="PROCESS_approve")
     private String spType;
 
     /**
      * 有表决权人数 .
      * @abatorgenerated
      */
+	@GeneralprocessField(name="有表决权人数",type="text")
     private String ybjNum;
 
     /**
      * 会议审议结论,0-同意,1-有条件同意,2-退回,3-拒绝 .
      * @abatorgenerated
      */
+	@GeneralprocessField(name="会议审议结论",type="dic",dicname="PROCESS_conclusion")
     private String hySyJl;
 
     /**
      * 评级结论 .
      * @abatorgenerated
      */
+	@GeneralprocessField(name="评级结论",type="text")
     private String pjJl;
 
     /**
      * 风险币别 .
      * @abatorgenerated
      */
+	@GeneralprocessField(name="风险币别",type="dic",dicname="PROCESS_MONEY")
     private String fxBb;
 
     /**
      * 风险额度,单位万元 .
      * @abatorgenerated
      */
+	@GeneralprocessField(name="风险额度",type="text")
     private String fxEd;
 
     /**
      * 授信币别 .
      * @abatorgenerated
      */
+	@GeneralprocessField(name="授信币别",type="dic",dicname="PROCESS_MONEY")
     private String sxBb;
 
     /**
      * 授信额度,单位万元 .
      * @abatorgenerated
      */
+	@GeneralprocessField(name="授信额度",type="text")
     private String sxEd;
 
     /**
      * 业务币别 .
      * @abatorgenerated
      */
+	@GeneralprocessField(name="业务币别",type="dic",dicname="PROCESS_MONEY")
     private String ywBb;
 
     /**
      * 业务额度,单位万元 .
      * @abatorgenerated
      */
+	@GeneralprocessField(name="业务额度",type="text")
     private String ywEd;
 
 	public String getAppWay() {

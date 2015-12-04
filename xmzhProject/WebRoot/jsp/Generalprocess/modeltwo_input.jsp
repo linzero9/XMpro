@@ -33,7 +33,6 @@
 		<h:hidden id="taskName" name="modelTwo.taskName" property="modelTwo.taskName"/>
 		
 		<%-- <h:hidden type="hidden" id="btnType" name="taskAssgineeDto.btnType" /> --%>
-       
        <%--  <h:hidden id="isC" name="isC" property="taskAssgineeDto/isC"/>
 		 <input type="hidden" id="btnType" name="btnType" /> --%>
 		<table align="center" border="0" width="100%" class="form_table" >

@@ -333,7 +333,7 @@ public class GeneralprocessAction extends BaseAction{
 		//获取流程配置主表对象
 		TGeneralprocessMain main = this.generalprocessMainService.queryMainByBusinessId(businessId);
 		Map<String, Object>  map = new HashMap<String, Object>();
-		String taskName1 = "";
+		String taskName1 = null;
 		if(taskAssgineeDto.getNextTaskId() != null){
 			//待办-办理
 			taskName1 = jbpmService.getTaskNameById(taskAssgineeDto.getNextTaskId());
@@ -345,13 +345,13 @@ public class GeneralprocessAction extends BaseAction{
 			}
 		}
 		
-		
-		ProcessModelTwo modelTwo = new ProcessModelTwo();
-		modelTwo.setFlow_id(businessId);
-		modelTwo.setTaskName(taskName1);
 		ProcessModelTwo newModelTwo = new ProcessModelTwo();
-		newModelTwo = this.generalprocessModeltwoService.queryModelTwo(modelTwo);
-
+		if(businessId != null && taskName1 != null){
+			ProcessModelTwo modelTwo = new ProcessModelTwo();
+			modelTwo.setFlow_id(businessId);
+			modelTwo.setTaskName(taskName1);
+			newModelTwo = this.generalprocessModeltwoService.queryModelTwo(modelTwo);
+		}
 		
 		String[] rulesArray = null;
 		String[] idsArray = null;

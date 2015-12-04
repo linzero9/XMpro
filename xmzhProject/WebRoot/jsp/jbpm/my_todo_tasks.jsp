@@ -202,6 +202,7 @@
 		  		var parentId = rows.getParam("parentId");
 		  		var isChild = rows.getParam("isChild");
 		  		var assignee = rows.getParam("assignee");
+		  		
 		  		var strUrl = "/jbpm/jbpmDemoAction_handle.action?taskAssgineeDto.businessKey="+businessKey + "&taskAssgineeDto.nextTaskId=" + nextTaskId + "&taskAssgineeDto.executionId=" + executionId + "&taskAssgineeDto.businessType=" + businessType + "&taskAssgineeDto.taskAssingee=" + preTaskAssingee+"&taskAssgineeDto.processTaskAssigneeId="+processTaskAssigneeId+"&taskAssgineeDto.parentId="+parentId+"&taskAssgineeDto.isChild="+isChild+"&taskAssgineeDto.preTaskAssingee="+assignee;
 		  		/* parent.window.frames["mainFrame"].location.href = encodeURI(strUrl); */	
 		  		/**

@@ -211,7 +211,7 @@ public class GeneralprocessService implements IGeneralprocessService {
 		String isFirst = taskAssgineeDto.getIsFirst();
 		if (isFirst == null && taskAssgineeDto.getEmpIds() != null
 				&& !"".equals(taskAssgineeDto.getEmpIds())){
-			submitType = "01";
+			//submitType = "01";
 		}
 		if (!"1".equals(btnType)) {
 			//提交按钮
@@ -239,6 +239,8 @@ public class GeneralprocessService implements IGeneralprocessService {
 			taskAssgineeDto.setNextTaskId(nextTaskId);
 			jbpmService.saceTaskAssignee(makeTaskAssgineeDto(pb,
 					muo, taskAssgineeDto));
+			
+			submitType = taskAssgineeDto.getTransitionName();
 			
 			insertApproveOpninion(modelOne, muo, nextTaskId,
 					submitType, taskAssgineeDto);
@@ -333,10 +335,10 @@ public class GeneralprocessService implements IGeneralprocessService {
 		jbpmService.saceTaskAssignee(newDto);
 		
 		String submitType ="";
-		
+		submitType = taskAssgineeDto.getTransitionName();
 		/**
 		 * submitType  操作类型
-		 */
+		 *//*
 		if("结束".equals(taskAssgineeDto.getTargetName())){
 			//结束
 			submitType="08";
@@ -347,7 +349,7 @@ public class GeneralprocessService implements IGeneralprocessService {
 			//通过
 			submitType="01";
 		}
-		
+		*/
 		insertApproveOpninion(modelTwo, muo, nextTaskId,
 				submitType, taskAssgineeDto);
 
