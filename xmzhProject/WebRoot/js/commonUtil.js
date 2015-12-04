@@ -537,7 +537,7 @@ WEB.turnMainFrame=function(){
 					        	   }else{
 						        	   value1=item.value;
 						        	   }
-			        		   showpanelhtml=showpanelhtml+'<tr><td class="form_label" align="right" style="width:20%;">'+item.name+ '</td><td style="width:30%;">'+value1+'</td>';
+			        		   showpanelhtml=showpanelhtml+'<tr><td  class="form_label" align="right" style="width:20%;">'+item.name+ '</td><td colspan="1" >'+value1+'</td>';
 			        		   index=index+1;
 			   				}else if(item.type=='dic'){
 						          var dicttypeid=item.dicname;
@@ -584,7 +584,7 @@ WEB.turnMainFrame=function(){
 						        	   }else{
 							        	   value1=item.value;
 							        	   }
-				        		   showpanelhtml=showpanelhtml+'<td class="form_label" align="right" style="width:20%;">'+item.name+ '</td><td style="width:30%;"> '+value1+'</td></tr>';
+				        		   showpanelhtml=showpanelhtml+'<td  class="form_label" align="right" style="width:20%;">'+item.name+ '</td><td > '+value1+'</td></tr>';
 				        		   index=index+1;
 				        	   }else if(item.type=='dic'){
 							          var dicttypeid=item.dicname;
@@ -639,7 +639,7 @@ WEB.turnMainFrame=function(){
 					        success: function (files) {
 						        if(files!=""){
 						        	var mistakeshtml=$("#table"+key).html();
-						        	mistakeshtml=mistakeshtml+'<tr class="form_label" align="right" style="width:20%;"><td>差错情况</td><td colspan="3"><table id="mistake'+misTakeType+'" border="0" width="100%" class="form_table"></table></td></tr>';
+						        	mistakeshtml=mistakeshtml+'<tr class="form_label" align="right" style="width:20%;"><td>差错情况</td><td colspan="3" style="width:80%;"><table id="mistake'+misTakeType+'" border="0" width="100%" class="form_table"></table></td></tr>';
 						        	$("#table"+key).html(mistakeshtml);
 						        	var mistake="<tr><th style='width:60%;'>差错内容</th><th style='width:20%;'>扣罚金额</th><th style='width:20%;'>添加时间</th></tr>";
 						        	$.each(files,function( i,item ){
