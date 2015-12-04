@@ -110,7 +110,9 @@ public class TGeneralprocessModelfiveService implements
 		modelFive.setTaskName(taskName);
 		modelFive.setFlowId(taskAssgineeDto.getExecutionId());
 		String conMatter = modelFive.getConMatter();
-		conMatter = conMatter.replace(" ", "");
+		if(conMatter != null){
+			conMatter = conMatter.replace(" ", "");
+		}
 		modelFive.setConMatter(conMatter);
 		if (modelFive.getProcessModelId() != null
 				&& !"".equals(modelFive.getProcessModelId())) {
