@@ -151,7 +151,7 @@
     		if(value!="1"){
     			//提交
     			if(checkForm($id("form1"))){
-    				var strUrl = "/jbpm/jbpmDemoAction_toNextTaskConfig.action?taskAssgineeDto.executionId="+$id("executionId").value
+    				var strUrl = "/jbpm/jbpmDemoAction_toNextTaskConfig.action?taskAssgineeDto.executionId="+$id("executionId").value+"&taskAssgineeDto.definitionId=${taskAssgineeDto.definitionId}";
             		showModalCenter(strUrl, null, taskAssigneeCallBack, 700, 400, '节点选择');
         			}
     		}

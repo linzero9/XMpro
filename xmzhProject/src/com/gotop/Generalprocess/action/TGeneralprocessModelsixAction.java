@@ -99,13 +99,13 @@ public class TGeneralprocessModelsixAction extends BaseAction {
     			}
     			
     			
-    			
-    			ProcessModelSix modelSix = new ProcessModelSix();
-    			modelSix.setFlowId(businessId);
-    			modelSix.setTaskName(taskName1);
     			ProcessModelSix newModelSix = new ProcessModelSix();
-    			newModelSix = this.tGeneralprocessModelsixService.queryModelSixByFlowIdAndTaskName(modelSix);
-
+    			if(businessId != null && taskName1 != null){
+    				ProcessModelSix modelSix = new ProcessModelSix();
+        			modelSix.setFlowId(businessId);
+        			modelSix.setTaskName(taskName1);
+        			newModelSix = this.tGeneralprocessModelsixService.queryModelSixByFlowIdAndTaskName(modelSix);
+    			}
     			
     			String[] rulesArray = null;
     			String[] idsArray = null;

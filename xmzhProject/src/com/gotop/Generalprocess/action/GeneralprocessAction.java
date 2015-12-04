@@ -1,7 +1,6 @@
 package com.gotop.Generalprocess.action;
 
 import java.lang.reflect.InvocationTargetException;
-import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,13 +23,12 @@ import com.gotop.opinion.service.ITDefaultOpinionService;
 import com.gotop.util.Struts2Utils;
 import com.gotop.vo.system.MUOUserSession;
 
-public class GeneralprocessAction extends BaseAction{
+public class GeneralprocessAction extends BaseAction {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
 
 	/**
 	 * 
@@ -39,7 +37,7 @@ public class GeneralprocessAction extends BaseAction{
 	 * 
 	 */
 	private ProcessModelOne modelOne;
-	
+
 	/**
 	 * @author wsd
 	 * @desc 模式二页面对象
@@ -62,8 +60,7 @@ public class GeneralprocessAction extends BaseAction{
 	 * 
 	 */
 	private TaskAssgineeDto taskAssgineeDto;
-	private  String taskName;
-	
+	private String taskName;
 
 	public String getTaskName() {
 		return taskName;
@@ -81,7 +78,7 @@ public class GeneralprocessAction extends BaseAction{
 	 * isView :1、为只读状态， 默认为空
 	 */
 	private String isView;
-	
+
 	/**
 	 * 
 	 * @author wsd
@@ -89,29 +86,29 @@ public class GeneralprocessAction extends BaseAction{
 	 * 
 	 */
 	private ITDefaultOpinionService tDefaultOpinionService;
-	
+
 	private IGeneralprocessService generalProcessService;
-	
+
 	/**
 	 * 模式一服务
 	 */
 	private ITGeneralprocessModeloneService generalprocessModeloneService;
-	
+
 	/**
 	 * 模式二服务
 	 */
 	private ITGeneralprocessModeltwoService generalprocessModeltwoService;
-	
+
 	/**
 	 * 模式主表服务
 	 */
 	private ITGeneralprocessMainService generalprocessMainService;
-	
+
 	/**
 	 * jbpm服务
 	 */
 	private JbpmService jbpmService;
-	
+
 	public ITGeneralprocessModeltwoService getGeneralprocessModeltwoService() {
 		return generalprocessModeltwoService;
 	}
@@ -213,7 +210,8 @@ public class GeneralprocessAction extends BaseAction{
 	 */
 	public void queryDefault() {
 		try {
-			defaultOps = tDefaultOpinionService.queryDefaultOpsForshow(this.getCurrentOnlineUser().getEmpid());
+			defaultOps = tDefaultOpinionService.queryDefaultOpsForshow(this
+					.getCurrentOnlineUser().getEmpid());
 		} catch (Exception e) {
 			log.error("[获取默认意见失败]", e);
 			e.printStackTrace();
@@ -229,81 +227,90 @@ public class GeneralprocessAction extends BaseAction{
 	 */
 	public String toModelOne() {
 		try {
-    		/*String flowId="";
-    		String processModelId="";
-    		if(taskAssgineeDto!=null&&taskAssgineeDto.getBusinessKey()!=null&&!"".equals(taskAssgineeDto.getBusinessKey()))
-    			processModelId=String.valueOf(taskAssgineeDto.getBusinessKey());
-    		if(taskAssgineeDto!=null&&taskAssgineeDto.getExecutionId()!=null&&!"".equals(taskAssgineeDto.getExecutionId()))
-    			flowId=taskAssgineeDto.getExecutionId();
-    		modelOne=this.generalprocessModeloneService.queryModelOne(processModelId,flowId);*/
-    		
-    		//获取流程实例id
-    		String businessId = taskAssgineeDto.getExecutionId();
-    		taskName=taskAssgineeDto.getTaskName();
-    		
-    		
-    		System.out.println("+++++++++++"+taskName);
-    		
-    		//获取流程配置主表对象
-    		TGeneralprocessMain main = this.generalprocessMainService.queryMainByBusinessId(businessId);
-    		Map<String, Object>  map = new HashMap<String, Object>();
-    		String taskName = "";
-    		if(taskAssgineeDto.getNextTaskId() != null){
-    			//待办-办理
-    			taskName = jbpmService.getTaskNameById(taskAssgineeDto.getNextTaskId());
-    		}else{
-    			if(taskAssgineeDto.getActivityName() != null){
-    				//已办-查看详情
-    				taskName = taskAssgineeDto.getActivityName();
-    			}
-    		}
-    		ProcessModelOne newModelOne = new ProcessModelOne();
-    			if(businessId != null && taskName != null){
-    				ProcessModelOne modelOne = new ProcessModelOne();
-            		modelOne.setFlow_Id(businessId);
-            		modelOne.setTaskName(taskName);
-            		
-            		newModelOne = this.generalprocessModeloneService.queryModelOne(modelOne);
-    			}
-    			
-        		String[] rulesArray = null;
-        		String[] idsArray = null;
-        		if(main != null){
-        			if(main.getRules() != null && !"".equals(main.getRules())){
-        				String rules = main.getRules();
-        				rulesArray = rules.split(",");
-        			}
-        			
-        			if(main.getIds() != null && !"".equals(main.getIds())){
-        				String ids = main.getIds();
-        				idsArray = ids.split(",");
-        			}
-        			
-        			for (int i = 0; i < idsArray.length; i++) {
-        				String id = idsArray[i];
-        				String rule = rulesArray[i];
-        				map.put(rule + "-" + id, id);
-        			}
-        		}
-        		
-        		String rm = "";
-        		if(newModelOne != null){
-        			rm="ProcessModelOne" + "-" + newModelOne.getProcessModelId();
-        			map.remove(rm);
-        		}
-        		
-        		this.setModelOne(newModelOne);
-        		
-        		List<List<GeneralprocessFieldBean>> beans = GeneralprocessUtil.returnAllObj(map);
-        		
-        		String fxJson = JSONArray.fromObject(beans).toString();
-        		taskAssgineeDto.setFxJson(fxJson);
-    	
-    		
+			/*
+			 * String flowId=""; String processModelId="";
+			 * if(taskAssgineeDto!=null
+			 * &&taskAssgineeDto.getBusinessKey()!=null&&
+			 * !"".equals(taskAssgineeDto.getBusinessKey()))
+			 * processModelId=String.valueOf(taskAssgineeDto.getBusinessKey());
+			 * if
+			 * (taskAssgineeDto!=null&&taskAssgineeDto.getExecutionId()!=null&&
+			 * !"".equals(taskAssgineeDto.getExecutionId()))
+			 * flowId=taskAssgineeDto.getExecutionId();
+			 * modelOne=this.generalprocessModeloneService
+			 * .queryModelOne(processModelId,flowId);
+			 */
+
+			// 获取流程实例id
+			String businessId = taskAssgineeDto.getExecutionId();
+			taskName = taskAssgineeDto.getTaskName();
+
+			System.out.println("+++++++++++" + taskName);
+
+			// 获取流程配置主表对象
+			TGeneralprocessMain main = this.generalprocessMainService
+					.queryMainByBusinessId(businessId);
+			Map<String, Object> map = new HashMap<String, Object>();
+			String taskName1 = null;
+			if (taskAssgineeDto.getNextTaskId() != null) {
+				// 待办-办理
+				taskName1 = jbpmService.getTaskNameById(taskAssgineeDto
+						.getNextTaskId());
+			} else {
+				if (taskAssgineeDto.getActivityName() != null) {
+					// 已办-查看详情
+					taskName1 = taskAssgineeDto.getActivityName();
+					taskName = taskName1;
+				}
+			}
+			ProcessModelOne newModelOne = new ProcessModelOne();
+			if (businessId != null && taskName1 != null) {
+				ProcessModelOne modelOne = new ProcessModelOne();
+				modelOne.setFlow_Id(businessId);
+				modelOne.setTaskName(taskName1);
+
+				newModelOne = this.generalprocessModeloneService
+						.queryModelOne(modelOne);
+			}
+
+			String[] rulesArray = null;
+			String[] idsArray = null;
+			if (main != null) {
+				if (main.getRules() != null && !"".equals(main.getRules())) {
+					String rules = main.getRules();
+					rulesArray = rules.split(",");
+				}
+
+				if (main.getIds() != null && !"".equals(main.getIds())) {
+					String ids = main.getIds();
+					idsArray = ids.split(",");
+				}
+
+				for (int i = 0; i < idsArray.length; i++) {
+					String id = idsArray[i];
+					String rule = rulesArray[i];
+					map.put(rule + "-" + id, id);
+				}
+			}
+
+			String rm = "";
+			if (newModelOne != null) {
+				rm = "ProcessModelOne" + "-" + newModelOne.getProcessModelId();
+				map.remove(rm);
+			}
+
+			this.setModelOne(newModelOne);
+
+			List<List<GeneralprocessFieldBean>> beans = GeneralprocessUtil
+					.returnAllObj(map);
+
+			String fxJson = JSONArray.fromObject(beans).toString();
+			taskAssgineeDto.setFxJson(fxJson);
+
 		} catch (Exception e) {
 			log.error("查询模式一表单信息失败", e);
 		}
-		//queryDefault();
+		// queryDefault();
 		return "toModelOne";
 	}
 
@@ -313,117 +320,125 @@ public class GeneralprocessAction extends BaseAction{
 	 * @desc 跳转到模式二的表单页面
 	 * 
 	 * @return
-	 * @throws ClassNotFoundException 
-	 * @throws NoSuchFieldException 
-	 * @throws IllegalAccessException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws InstantiationException 
-	 * @throws InvocationTargetException 
-	 * @throws NoSuchMethodException 
+	 * @throws ClassNotFoundException
+	 * @throws NoSuchFieldException
+	 * @throws IllegalAccessException
+	 * @throws SecurityException
+	 * @throws IllegalArgumentException
+	 * @throws InstantiationException
+	 * @throws InvocationTargetException
+	 * @throws NoSuchMethodException
 	 */
-	public String toModelTwo() throws ClassNotFoundException, IllegalArgumentException, SecurityException, IllegalAccessException, NoSuchFieldException, NoSuchMethodException, InvocationTargetException, InstantiationException{
-		//获取流程实例id
+	public String toModelTwo() throws ClassNotFoundException,
+			IllegalArgumentException, SecurityException,
+			IllegalAccessException, NoSuchFieldException,
+			NoSuchMethodException, InvocationTargetException,
+			InstantiationException {
+		// 获取流程实例id
 		String businessId = taskAssgineeDto.getExecutionId();
-		
-		 taskName= taskAssgineeDto.getTaskName();
-		
-		
-		
-		//获取流程配置主表对象
-		TGeneralprocessMain main = this.generalprocessMainService.queryMainByBusinessId(businessId);
-		Map<String, Object>  map = new HashMap<String, Object>();
+
+		taskName = taskAssgineeDto.getTaskName();
+
+		// 获取流程配置主表对象
+		TGeneralprocessMain main = this.generalprocessMainService
+				.queryMainByBusinessId(businessId);
+		Map<String, Object> map = new HashMap<String, Object>();
 		String taskName1 = null;
-		if(taskAssgineeDto.getNextTaskId() != null){
-			//待办-办理
-			taskName1 = jbpmService.getTaskNameById(taskAssgineeDto.getNextTaskId());
-		}else{
-			if(taskAssgineeDto.getActivityName() != null){
-				//已办-查看详情
+		if (taskAssgineeDto.getNextTaskId() != null) {
+			// 待办-办理
+			taskName1 = jbpmService.getTaskNameById(taskAssgineeDto
+					.getNextTaskId());
+		} else {
+			if (taskAssgineeDto.getActivityName() != null) {
+				// 已办-查看详情
 				taskName1 = taskAssgineeDto.getActivityName();
 				taskName = taskName1;
 			}
 		}
-		
+
 		ProcessModelTwo newModelTwo = new ProcessModelTwo();
-		if(businessId != null && taskName1 != null){
+		if (businessId != null && taskName1 != null) {
 			ProcessModelTwo modelTwo = new ProcessModelTwo();
 			modelTwo.setFlow_id(businessId);
 			modelTwo.setTaskName(taskName1);
-			newModelTwo = this.generalprocessModeltwoService.queryModelTwo(modelTwo);
+			newModelTwo = this.generalprocessModeltwoService
+					.queryModelTwo(modelTwo);
 		}
-		
+
 		String[] rulesArray = null;
 		String[] idsArray = null;
-		if(main != null){
-			if(main.getRules() != null && !"".equals(main.getRules())){
+		if (main != null) {
+			if (main.getRules() != null && !"".equals(main.getRules())) {
 				String rules = main.getRules();
 				rulesArray = rules.split(",");
 			}
-			
-			if(main.getIds() != null && !"".equals(main.getIds())){
+
+			if (main.getIds() != null && !"".equals(main.getIds())) {
 				String ids = main.getIds();
 				idsArray = ids.split(",");
 			}
-			
+
 			for (int i = 0; i < idsArray.length; i++) {
 				String id = idsArray[i];
 				String rule = rulesArray[i];
 				map.put(rule + "-" + id, id);
 			}
 		}
-		
+
 		String rm = "";
-		if(newModelTwo != null){
-			rm="ProcessModelTwo" + "-" + newModelTwo.getProcessModelId();
+		if (newModelTwo != null) {
+			rm = "ProcessModelTwo" + "-" + newModelTwo.getProcessModelId();
 			map.remove(rm);
 		}
-		
+
 		this.setModelTwo(newModelTwo);
-		
-		List<List<GeneralprocessFieldBean>> beans = GeneralprocessUtil.returnAllObj(map);
-		
+
+		List<List<GeneralprocessFieldBean>> beans = GeneralprocessUtil
+				.returnAllObj(map);
+
 		String fxJson = JSONArray.fromObject(beans).toString();
 		taskAssgineeDto.setFxJson(fxJson);
 		return "toModelTwo";
 	}
-	
+
 	/**
 	 * 
 	 * @author wsd
 	 * @desc 后台处理模式一的新增模式一表单、结束流程、记录流程日志
 	 * @return
-	 * @throws Exception 
+	 * @throws Exception
 	 * 
 	 */
 	public void handleModelOne() throws Exception {
-		String info ="success";
-    	MUOUserSession muo = getCurrentOnlineUser();
+		String info = "success";
+		MUOUserSession muo = getCurrentOnlineUser();
 		try {
-			this.generalProcessService.handleModelOne(muo,modelOne,taskAssgineeDto);
+			this.generalProcessService.handleModelOne(muo, modelOne,
+					taskAssgineeDto);
 		} catch (Exception e) {
-			info="fails";
+			info = "fails";
 			log.error("[提交模式一表单失败！]", e);
 			throw e;
 		}
 		Struts2Utils.renderText(info);
 	}
-	
+
 	/**
 	 * 
 	 * @author wsd
 	 * @desc 后台处理模式二表单、结束节点、记录流程日志
 	 * @return
-	 * @throws Exception 
+	 * @throws Exception
 	 * 
 	 */
 	public void handleModelTwo() throws Exception {
-		String info ="success";
-    	MUOUserSession muo = getCurrentOnlineUser();
+		String info = "success";
+		MUOUserSession muo = getCurrentOnlineUser();
 		try {
-			this.generalProcessService.handleModelTwo(muo,modelTwo,taskAssgineeDto);
+			this.generalProcessService.handleModelTwo(muo, modelTwo,
+					taskAssgineeDto);
 		} catch (Exception e) {
-			info="fails";
+			info = "fails";
 			log.error("[提交模式二表单失败！]", e);
 			throw e;
 		}
