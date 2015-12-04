@@ -118,6 +118,7 @@
 										<h:param name='parentId' iterateId='id1' property='parentId' />
 										<h:param name='isChild' iterateId='id1' property='isChild' />
 										<h:param name='assignee' iterateId='id1' property='assignee' />
+										<h:param name='processName' iterateId='id1' property='processName' />
 									</w:rowRadio>
 								</td>
 								<td nowrap="nowrap"> 
@@ -203,7 +204,9 @@
 		  		var isChild = rows.getParam("isChild");
 		  		var assignee = rows.getParam("assignee");
 		  		
+		  		var processName = rows.getParam("processName");
 		  		var strUrl = "/jbpm/jbpmDemoAction_handle.action?taskAssgineeDto.businessKey="+businessKey + "&taskAssgineeDto.nextTaskId=" + nextTaskId + "&taskAssgineeDto.executionId=" + executionId + "&taskAssgineeDto.businessType=" + businessType + "&taskAssgineeDto.taskAssingee=" + preTaskAssingee+"&taskAssgineeDto.processTaskAssigneeId="+processTaskAssigneeId+"&taskAssgineeDto.parentId="+parentId+"&taskAssgineeDto.isChild="+isChild+"&taskAssgineeDto.preTaskAssingee="+assignee;
+		  		strUrl+="&taskAssgineeDto.processName="+processName;
 		  		/* parent.window.frames["mainFrame"].location.href = encodeURI(strUrl); */	
 		  		/**
 				* 2014.9.1 改为弹出框
