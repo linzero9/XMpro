@@ -89,6 +89,27 @@ public class ProcessModelSix  extends ProcessModel  implements  Serializable {
      */
 	@GeneralprocessField(name="处理意见",type="text")
     private String processingOpinion;
+	
+	
+    /**
+     * 客户姓名
+     * @abatorgenerated
+     */
+	@GeneralprocessField(name="客户姓名",type="text")
+    private String custName;
+	
+	
+	
+	
+	
+
+	public String getCustName() {
+		return custName;
+	}
+
+	public void setCustName(String custName) {
+		this.custName = custName;
+	}
 
 	public String getFlowId() {
 		return flowId;

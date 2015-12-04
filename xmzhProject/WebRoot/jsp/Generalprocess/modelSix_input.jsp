@@ -44,45 +44,81 @@
 						style="text-align: center;font-weight:bold;font-size:12pt;height:50px">
 						${taskName }</td>
 				</tr>
+				
+				
+				<tr>
+					<td class="form_label" align="right" style="width:120px;">是否风险额度重检：</td>
+					<td>
+							
+							
+							<d:select  id="risk"  dictTypeId="PROCESS_QuotaCheck" property="modelSix.risk" ></d:select><font 			style="color: red;">*</font></td>
+				
+				<td class="form_label" align="right" style="width:120px;">客户姓名</td>
+					<td colspan="3"><h:text id="custName"
+							property="modelSix.custName"   validateAttr="allowNull=false"/></td>
+				</tr>
+				
+				
 				<tr>
 					<td class="form_label" align="right" style="width:120px;">抵押送件时间</td>
-					<td colspan="1"><h:text property="modelSix.mortgageTime"
-							id="mortgageTime" validateAttr="allowNull=false"
-							style="width:130px;" /></td>
+					<td colspan="1">
+					
+				
+							
+							
+							   <w:date  id="mortgageTime" submitFormat="yyyy-MM-dd" format="yyyy-MM-dd" allowNull="false" property="modelSix.mortgageTime"/>
+							</td>
 					<td class="form_label" align="right" style="width:120px;">收到他项时间</td>
-					<td colspan="3"><h:text id="receiveTime"
-							property="modelSix.receiveTime" /></td>
+					<td colspan="3">
+							
+							
+														   <w:date  id="receiveTime" submitFormat="yyyy-MM-dd" format="yyyy-MM-dd" allowNull="false" property="modelSix.receiveTime"/>
+							
+							
+							
+							</td>
 				</tr>
 				<tr>
 					<td class="form_label" align="right" style="width:120px;">
 						公积金中心申请时间：</td>
-					<td colspan="1"><h:text property="modelSix.applicationTime"
-							id="applicationTime" validateAttr="allowNull=false"
-							style="width:130px;" /><font style="color: red">*</font></td>
+					<td colspan="1">
+					
+					
+							
+							
+<w:date  id="applicationTime" submitFormat="yyyy-MM-dd" format="yyyy-MM-dd" allowNull="false" property="modelSix.applicationTime"/>
+
+							
+							
+							
+							<font style="color: red">*</font></td>
 					<td class="form_label" align="right" style="width:120px;">
 						公积金中心下达放款指标时间：</td>
-					<td colspan="1"><h:text property="modelSix.issuedTime"
-							id="issuedTime" validateAttr="allowNull=false"
-							style="width:130px;" /><font style="color: red">*</font></td>
+					<td colspan="1">
+					
+			
+							
+	<w:date  id="issuedTime" submitFormat="yyyy-MM-dd" format="yyyy-MM-dd" allowNull="false" property="modelSix.issuedTime"/>
+							
+							
+							<font style="color: red">*</font></td>
 				</tr>
 				<tr>
 					<td class="form_label" align="right" style="width:120px;">
 						支用类别：</td>
-					<td colspan="1"><h:text property="modelSix.supportCategory"
-							id="supportCategory" validateAttr="allowNull=false"
-							style="width:130px;" /><font style="color: red">*</font></td>
+					<td colspan="1">
+							
+							<d:select  id="supportCategory"  dictTypeId="PROCESS_pay" property="modelSix.supportCategory" ></d:select>
+							
+							
+							<font style="color: red">*</font></td>
 					<td class="form_label" align="right" style="width:120px;">
 						支用金额：</td>
 					<td colspan="1"><h:text property="modelSix.supportMoney"
 							id="supportMoney" validateAttr="allowNull=ture"
 							style="width:130px;" /></td>
 				</tr>
-				<tr>
-					<td class="form_label" align="right" style="width:120px;">是否风险额度重检：</td>
-					<td><h:text property="modelSix.risk" id="risk"
-							validateAttr="allowNull=false" style="width:130px;" /> <font
-						style="color: red;">*</font></td>
-				</tr>
+				
 
 
 
