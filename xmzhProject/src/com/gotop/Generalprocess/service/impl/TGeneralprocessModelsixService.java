@@ -187,6 +187,116 @@ public class TGeneralprocessModelsixService implements ITGeneralprocessModelsixS
 			jbpmService.saveProcessBusiness(muo, pb);
 			
 			
+			//
+			
+			this.tGeneralprocessModelsixDAO.addModelSix(Six);
+			
+			Six.setOpinion(Six.getProcessingOpinion());
+			
+			
+			
+			//////////////////////////
+			
+			
+			/**
+			 * ★★★★★★★★★★★★★★★★★★★★
+			 * 获取流程实例id  更新 主模板main的信息   （rule----类名和id--当前模式的主键id）
+			 * 已存在：update  PS：一个实例就一条记录
+			 * 不存在： insert
+			 */
+			// 获取流程实例id
+			String executionId = taskAssgineeDto.getExecutionId();
+
+			// 查询模式主板信息
+			TGeneralprocessMain main = this.generalprocessMainDAO
+					.queryMainByBusinessId(executionId);
+
+			// 新增或更新模式主板的rule和id
+			if (main != null) {
+				// 修改
+				this.generalprocessMainDAO.uptGeneralProcessMain(taskAssgineeDto,
+						Six, main, ProcessModelSix.class);
+			} else {
+				// 新增
+				this.generalprocessMainDAO.addGeneralProcessMain(taskAssgineeDto,
+						Six, ProcessModelSix.class);
+			}
+			
+			
+			
+			
+			
+			
+	
+			
+			
+			/**
+			 * ★★★★★★★★★★★★★★★★★★★★
+			 * 
+			 */
+			
+			
+			/**
+			 * ★★★★★★★★★★★★★★★★★★★★
+			 * 流程通用的一些操作   ---
+			 * 1.获取下一个选择的节点的名字--存成  提交类型
+			 */
+			
+			
+			
+			// 模式四-提交操作
+			// 审核通过
+			// 提交下个节点
+			TaskAssgineeDto d1 = new TaskAssgineeDto();
+
+			d1.setTaskId(taskId);
+			d1.setTaskExeAssginee(String.valueOf(muo.getEmpid()));
+
+			// 赋值当前节点id
+			taskAssgineeDto.setTaskId(taskId);
+
+			// 签收当前节点
+			jbpmService.assignTask(d1);
+
+			// 完成当前节点
+			jbpmService.completeTask(taskId, taskAssgineeDto.getTransitionName(),
+					null);
+
+			taskAssgineeDto.setPreTaskAssingee(muo.getEmpid());
+
+			jbpmService.updateTaskAssigneeState(taskAssgineeDto);
+
+			// 赋值下个节点id
+			 nextTaskId = jbpmService.getNextTaskId(taskAssgineeDto
+					.getExecutionId());
+			taskAssgineeDto.setNextTaskId(nextTaskId);
+
+			// 当前节点执行人
+			taskAssgineeDto.setTaskExeAssginee(String.valueOf(muo.getEmpid()));
+
+			TaskAssgineeDto newDto = this.generalprocessService.makeTaskAssgineeDto(null,muo, taskAssgineeDto);
+
+			jbpmService.saceTaskAssignee(newDto);
+			
+			
+
+			
+			/**
+			 * ★★★★★★★★★★★★★★★★★★★★
+			 * 显示操作记录-的部分 
+			 */
+			
+			
+			 submitType =taskAssgineeDto.getTransitionName();
+
+			
+
+			this.generalprocessService.insertApproveOpninion(Six, muo, nextTaskId,
+					submitType, taskAssgineeDto);
+			
+			
+			
+			
 			
 			
 			
