@@ -165,6 +165,7 @@ public class TGeneralprocessModelthreeAction extends BaseAction {
 
 			// 获取流程实例id
 			String businessId = taskAssgineeDto.getExecutionId();
+			taskName = taskAssgineeDto.getTaskName();
 			// 获取流程配置主表对象
 			TGeneralprocessMain main = this.generalprocessMainService
 					.queryMainByBusinessId(businessId);
