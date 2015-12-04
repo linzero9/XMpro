@@ -180,17 +180,12 @@
 			if (checkForm($id("form1"))) {
 				var strUrl = "/jbpm/jbpmDemoAction_toNextTaskConfig.action?taskAssgineeDto.executionId="
 						+ $id("executionId").value
-						+ "&taskAssgineeDto.beginOrg="
-						+ $("#beginOrg").val()
-						+ "&taskAssgineeDto.beginAssingee="
-						+ $("#createor").val()
 						+ "&taskAssgineeDto.definitionId=${taskAssgineeDto.definitionId}";
 				showModalCenter(strUrl, null, taskAssigneeCallBack, 700, 400,
 						'节点选择');
 			}
 		} else {
 			var _form = $id("form1");
-			alert(111);
 			url = "/Generalprocess/tGeneralprocessModelsixAction_handleModelSix.action";
 			_form.action = url
 			if (checkForm($id("form1")))

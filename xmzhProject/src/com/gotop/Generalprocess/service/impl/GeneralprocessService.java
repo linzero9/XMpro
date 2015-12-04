@@ -246,6 +246,7 @@ public class GeneralprocessService implements IGeneralprocessService {
 			nextTaskId = jbpmService.getNextTaskId(taskAssgineeDto
 					.getExecutionId());
 			taskAssgineeDto.setNextTaskId(nextTaskId);
+			
 			jbpmService.saceTaskAssignee(makeTaskAssgineeDto(pb,
 					muo, taskAssgineeDto));
 			

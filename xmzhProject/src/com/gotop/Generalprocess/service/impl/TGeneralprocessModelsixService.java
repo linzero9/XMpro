@@ -174,14 +174,22 @@ public class TGeneralprocessModelsixService implements ITGeneralprocessModelsixS
 			taskId = preTaskId;
 			taskAssgineeDto.setExecutionId(dto1.getExecutionId());
 			
-			String taskName = jbpmService.getTaskNameById(preTaskId);
+			//String taskName = jbpmService.getTaskNameById(preTaskId);
 
-		
+			this.tGeneralprocessModelsixDAO.addModelSix(Six);
+			
+			/**
+			 * flowId  要赋值
+			 */
+			Six.setFlowId(dto1.getExecutionId());
 			
 			// 保存流程业务关系的信息	
 			Six.setPubCustName(Six.getCustName());
 			Six.setPubFlowId(Six.getFlowId());
 			
+			/**
+			 * 这样待办、已办才能关联的到
+			 */
 			pb =generalprocessService.insertProcessBus(Six, taskAssgineeDto);
 
 			jbpmService.saveProcessBusiness(muo, pb);
@@ -189,9 +197,9 @@ public class TGeneralprocessModelsixService implements ITGeneralprocessModelsixS
 			
 			//
 			
-			this.tGeneralprocessModelsixDAO.addModelSix(Six);
 			
-			Six.setOpinion(Six.getProcessingOpinion());
+			
+			Six.setOpinion("");
 			
 			
 			
@@ -272,9 +280,9 @@ public class TGeneralprocessModelsixService implements ITGeneralprocessModelsixS
 			taskAssgineeDto.setNextTaskId(nextTaskId);
 
 			// 当前节点执行人
-			taskAssgineeDto.setTaskExeAssginee(String.valueOf(muo.getEmpid()));
+			//taskAssgineeDto.setTaskExeAssginee(String.valueOf(muo.getEmpid()));
 
-			TaskAssgineeDto newDto = this.generalprocessService.makeTaskAssgineeDto(null,muo, taskAssgineeDto);
+			TaskAssgineeDto newDto = this.generalprocessService.makeTaskAssgineeDto(pb,muo, taskAssgineeDto);
 
 			jbpmService.saceTaskAssignee(newDto);
 			
