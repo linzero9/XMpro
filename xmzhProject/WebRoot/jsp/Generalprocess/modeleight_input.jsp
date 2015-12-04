@@ -29,8 +29,8 @@
         <h:hidden id="preTaskAssingee" name="taskAssgineeDto.preTaskAssingee" property="taskAssgineeDto.preTaskAssingee"/>
         <h:hidden id="definitionId" name="taskAssgineeDto.definitionId" property="taskAssgineeDto.definitionId"/>
         
-        <h:hidden id="processModelId" name="modelTwo.processModelId" property="modelTwo.processModelId"/>
-		<h:hidden id="taskName" name="modelTwo.taskName" property="modelTwo.taskName"/>
+        <h:hidden id="processModelId" name="modelEight.processModelId" property="modelEight.processModelId"/>
+		<h:hidden id="taskName" name="modelEight.taskName" property="modelEight.taskName"/>
 		
 		<%-- <h:hidden type="hidden" id="btnType" name="taskAssgineeDto.btnType" /> --%>
        
