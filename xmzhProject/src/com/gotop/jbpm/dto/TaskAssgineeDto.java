@@ -220,6 +220,25 @@ public class TaskAssgineeDto {
      */
     private String activityName;
     
+    
+    
+    
+    /**
+     * 当前记录的 代办  流程名称
+     */
+    private String businessTitle;
+    
+    
+    
+    
+	public String getBusinessTitle() {
+		return businessTitle;
+	}
+
+	public void setBusinessTitle(String businessTitle) {
+		this.businessTitle = businessTitle;
+	}
+
 	public String getActivityName() {
 		return activityName;
 	}

@@ -116,7 +116,7 @@
 							<font style="color: red">*</font></td>
 					<td class="form_label" align="right" style="width:120px;">
 						支用金额：</td>
-					<td colspan="1"><h:text property="modelSix.supportMoney"
+					<td colspan="1"><h:text   property="modelSix.supportMoney"
 							id="supportMoney" validateAttr="allowNull=ture"
 							style="width:130px;" /></td>
 				</tr>
@@ -155,6 +155,14 @@
 	$(document)
 			.ready(
 					function() {
+
+
+
+						if($("#custName").val()==""||$("#custName").val()==null){
+						
+							}else{
+								$("#custName").attr("disabled",true);
+								}
 
 
 

@@ -991,6 +991,8 @@ public class JbpmDemoAction extends BaseAction {
 	 * @throws Exception
 	 */
 	public String handle() throws Exception {
+		
+	
 		String taskId = this.taskAssgineeDto.getNextTaskId();
 
 		Task task = jbpmDemoService.getTaskById(taskId);
@@ -1132,6 +1134,16 @@ public class JbpmDemoAction extends BaseAction {
 				buffer.append(java.net.URLEncoder.encode(taskAssgineeDto.getProcessName(), "utf-8"));
 				buffer.append("&");
 			}
+			
+			if (taskAssgineeDto.getBusinessTitle()!= null) {
+				buffer.append("taskAssgineeDto.businessTitle=");
+				
+				buffer.append(java.net.URLEncoder.encode(taskAssgineeDto.getBusinessTitle(), "utf-8"));
+				buffer.append("&");
+			}
+			
+			
+			
 			if (taskAssgineeDto.getTaskConfigType()!= null) {
 				buffer.append("taskAssgineeDto.taskConfigType=");
 				buffer.append(taskAssgineeDto.getTaskConfigType());
@@ -1708,6 +1720,8 @@ public class JbpmDemoAction extends BaseAction {
 	 * @throws UnsupportedEncodingException
 	 */
 	public String viewBussinessDetail() throws UnsupportedEncodingException{
+		
+		taskAssgineeDto.setStartFlag("detial");
 		this.setTaskAssgineeDto(taskAssgineeDto);
 		taskUrl = this.jbpmDemoService.getFormName(taskAssgineeDto);
 		nameSpace = taskUrl.substring(0, taskUrl.indexOf("/", 1));

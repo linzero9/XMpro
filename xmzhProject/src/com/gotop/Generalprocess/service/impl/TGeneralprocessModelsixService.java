@@ -178,7 +178,7 @@ public class TGeneralprocessModelsixService implements ITGeneralprocessModelsixS
 			
 			
 			Six.setTaskName(taskName);
-			this.tGeneralprocessModelsixDAO.addModelSix(Six);
+		
 			
 			
 			
@@ -209,7 +209,7 @@ public class TGeneralprocessModelsixService implements ITGeneralprocessModelsixS
 			
 			//////////////////////////
 			
-			
+			this.tGeneralprocessModelsixDAO.addModelSix(Six);
 			/**
 			 * ★★★★★★★★★★★★★★★★★★★★
 			 * 获取流程实例id  更新 主模板main的信息   （rule----类名和id--当前模式的主键id）
