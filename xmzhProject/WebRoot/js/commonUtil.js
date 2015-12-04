@@ -641,7 +641,7 @@ WEB.turnMainFrame=function(){
 						        	var mistakeshtml=$("#table"+key).html();
 						        	mistakeshtml=mistakeshtml+'<tr class="form_label" align="right" style="width:20%;"><td>差错情况</td><td colspan="3" style="width:80%;"><table id="mistake'+misTakeType+'" border="0" width="100%" class="form_table"></table></td></tr>';
 						        	$("#table"+key).html(mistakeshtml);
-						        	var mistake="<tr><th style='width:60%;'>差错内容</th><th style='width:20%;'>扣罚金额</th><th style='width:20%;'>添加时间</th></tr>";
+						        	var mistake="<tr><th style='width:60%;'>差错内容</th><th style='width:20%;'>扣罚金额</th><th style='width:20%;'>登记时间</th></tr>";
 						        	$.each(files,function( i,item ){
 						        		mistake=mistake+"<tr><td>"+item.mistakeContent+"</td><td>"+item.punishBal+"</td><td>"+item.addTime+"</td></tr>";
 						        	});
