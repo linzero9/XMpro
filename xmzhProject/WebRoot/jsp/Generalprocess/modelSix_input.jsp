@@ -114,12 +114,19 @@
 							
 							
 							<font style="color: red">*</font></td>
-					<td class="form_label" align="right" style="width:120px;">
-						支用金额：</td>
-					<td colspan="1"><h:text   property="modelSix.supportMoney"
-							id="supportMoney" validateAttr="allowNull=ture"
-							style="width:130px;" /></td>
+		
 				</tr>
+				
+				     <tr>
+     	<td class="form_label" align="right" style="width:20%;" >支用金额币别</td>
+      	<td colspan="1" style="width:30%">
+        	<d:select id="supportMoneyType" property="modelSix.supportMoneyType" dictTypeId="PROCESS_MONEY"  ></d:select>
+      	</td>
+     	<td class="form_label" align="right" style="width:20%;">支用金额</td>
+     	<td colspan="1" style="width:30%">
+        	<h:text id="supportMoney" property="modelSix.supportMoney"   validateAttr="allowNull=false;type=float"/>
+        </td>
+      </tr>
 				
 
 
@@ -189,6 +196,7 @@
 				var strUrl = "/jbpm/jbpmDemoAction_toNextTaskConfig.action?taskAssgineeDto.executionId="
 						+ $id("executionId").value
 						+ "&taskAssgineeDto.definitionId=${taskAssgineeDto.definitionId}";
+
 				showModalCenter(strUrl, null, taskAssigneeCallBack, 700, 400,
 						'节点选择');
 			}
@@ -206,7 +214,12 @@
 		if (arg != "") {
 			url = "/Generalprocess/tGeneralprocessModelSixAction_handleModelSix.action?"
 					+ arg;
-			_form.action = url
+			_form.action = url;
+			 debugger;
+
+
+
+			
 			// 异步提交请求 
 			ajaxsubmitO(1);
 		}

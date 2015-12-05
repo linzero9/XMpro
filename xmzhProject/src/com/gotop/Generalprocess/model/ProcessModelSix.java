@@ -61,12 +61,14 @@ public class ProcessModelSix  extends ProcessModel  implements  Serializable {
 	@GeneralprocessField(name="公积金中心下达放款指标时间",type="text")
     private String issuedTime;
 
-    /**
-     * 支用类别 .
+	
+	/**
+     * 支用金额 .
      * @abatorgenerated
      */
-	@GeneralprocessField(name="支用类别",type="dic",dicname="PROCESS_pay")
-    private String supportCategory;
+	@GeneralprocessField(name="支用金额币别",type="dic",dicname="PROCESS_MONEY")
+    private String supportMoneyType;
+	
 
     /**
      * 支用金额 .
@@ -74,6 +76,21 @@ public class ProcessModelSix  extends ProcessModel  implements  Serializable {
      */
 	@GeneralprocessField(name="支用金额",type="text")
     private String supportMoney;
+	
+	
+	
+    /**
+     * 支用类别 .
+     * @abatorgenerated
+     */
+	@GeneralprocessField(name="支用类别",type="dic",dicname="PROCESS_pay")
+    private String supportCategory;
+	
+    
+	
+	
+
+	
 
     /**
      * 是否风险额度重检 .
@@ -97,6 +114,12 @@ public class ProcessModelSix  extends ProcessModel  implements  Serializable {
      */
 	@GeneralprocessField(name="客户姓名",type="text")
     private String custName;
+	
+	
+	
+
+	
+	
 	
 	
 	
@@ -181,6 +204,14 @@ public class ProcessModelSix  extends ProcessModel  implements  Serializable {
 
 	public void setProcessingOpinion(String processingOpinion) {
 		this.processingOpinion = processingOpinion;
+	}
+
+	public String getSupportMoneyType() {
+		return supportMoneyType;
+	}
+
+	public void setSupportMoneyType(String supportMoneyType) {
+		this.supportMoneyType = supportMoneyType;
 	}
 	
 	
