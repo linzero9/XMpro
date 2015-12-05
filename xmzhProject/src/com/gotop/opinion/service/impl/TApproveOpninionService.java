@@ -1,5 +1,6 @@
 package com.gotop.opinion.service.impl;
 
+import com.gotop.Generalprocess.model.TApproveOpninionGP;
 import com.gotop.jbpm.service.JbpmService;
 import com.gotop.opinion.dao.ITApproveOpninionDAO;
 import com.gotop.opinion.model.OpninionBean;
@@ -217,5 +218,11 @@ public class TApproveOpninionService implements ITApproveOpninionService {
 		map.put("resourceFlow", resourceFlow);
 		map.put("resourceType", resourceType);
 		return tApproveOpninionDAO.receiveResourceId(map);
+	}
+
+	@Override
+	public List queryViewListForGP(HashMap hm, Page page) {
+		 List<TApproveOpninionGP> list = tApproveOpninionDAO.queryViewListForGP(hm,page);
+	        return list;
 	}
 }

@@ -31,6 +31,16 @@
     <result column="NODE_NAME" property="nodeName" jdbcType="VARCHAR" />
   </resultMap>
   
+  <select id="queryViewListForGP" resultClass="com.gotop.Generalprocess.model.TApproveOpninionGP" parameterClass="java.util.HashMap" >
+        select a.REC_ID as recId, a.FLOW_ID as flowId, a.RESOURCE_TYPE as resourceType, a.OPNINION_CONTENT as opninionContent,
+   a.OPERATOR_TYPE as operatorType, a.OPERATOR as operator,next_opr_name as nextOprName,next_org_name as nextOrgName,
+     to_char(TO_DATE(a.OPERATER_DATE || a.OPERATER_TIME, 'yyyy/MM/dd hh24:mi:ss'),'yyyy-mm-dd hh24:mi:ss')  as operaterDate,a.OPERATER_TIME as operaterTime, a.NODE_ID as nodeId, a.ORGID as orgid,c.orgname, a.NODE_NAME as nodeName,b.empname as empname
+    from T_APPROVE_OPNINION_GP a,om_employee b,om_organization c
+    where 
+       a.OPERATOR=b.empid and a.FLOW_ID = '$resourceFlow$' and a.orgid = c.orgid
+        order by a.rec_id desc
+  </select>
+  
   <!--新增通用流程的审核意见-->
   <insert id="insertOpninionGP" parameterClass="com.gotop.Generalprocess.model.TApproveOpninionGP">
   	 <selectKey keyProperty="recId" resultClass="long">

@@ -108,4 +108,6 @@ public interface ITApproveOpninionService {
 
 	String receiveResourceId(String resourceFlow, String resourceType);
 
+	List queryViewListForGP(HashMap hm, Page page);
+
 }

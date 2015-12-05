@@ -450,6 +450,11 @@ WEB.turnMainFrame=function(){
 		showModalCenter(url, null, null, 700, 400, '展示流程列表');
 	}
 	
+	function showDetailopinionForGP(resourceType,flowId){
+		var url = "/opinion/tApproveOpninionAction_queryViewListForGP.action?"+"resourceType="+resourceType+"&resourceFlow="+flowId;
+		showModalCenter(url, null, null, 700, 400, '展示流程列表');
+	}
+	
 	function downLoadTemplateFiles(templateFileIds){
 		if(templateFileIds == null || templateFileIds == ""){
 			alert("没有模板文件，请在修改流程模块上传模板文件");

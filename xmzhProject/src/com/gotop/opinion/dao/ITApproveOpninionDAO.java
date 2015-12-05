@@ -159,4 +159,6 @@ public interface ITApproveOpninionDAO {
 	 * @param opninion
 	 */
 	void insertOpninionGP(TApproveOpninionGP opninion);
+
+	List<TApproveOpninionGP> queryViewListForGP(HashMap hm, Page page);
 }

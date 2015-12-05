@@ -166,6 +166,25 @@ public class TApproveOpninionAction extends BaseAction {
         return "downExl";
     }
     
+    public String downExl1() throws Exception {
+    	HttpServletRequest request=ServletActionContext.getRequest();
+        HashMap hm = new HashMap();
+        hm.put("resourceFlow", resourceFlow);
+        List data = tApproveOpninionService.queryViewListForGP(hm,page);
+        request.setAttribute("data", data);
+        return "downExl";
+    }
+    
+    public String queryViewListForGP(){
+    	 HttpServletRequest request=ServletActionContext.getRequest();
+         Page page = this.getPage();
+         HashMap hm = new HashMap();
+         hm.put("resourceFlow", resourceFlow);
+         List data = tApproveOpninionService.queryViewListForGP(hm,page);
+         request.setAttribute("data", data);
+         request.setAttribute("page", page);
+         return "viewlist1";
+    }
 	/**
 	 * 异步获取所有请假审核表
 	 * @throws Exception

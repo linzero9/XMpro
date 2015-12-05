@@ -1,6 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
      <div style="width:90%;">
-		<a href="#" onclick="showDetailopinion('<b:write property='taskAssgineeDto.businessKey'/>','<b:write property='taskAssgineeDto.businessType'/>','<b:write property='taskAssgineeDto.executionId'/>');">查看详细流程列表</a>
+		<a href="#" onclick="showDetailopinionForGP('<b:write property='taskAssgineeDto.businessType'/>','<b:write property='taskAssgineeDto.executionId'/>');">查看详细流程列表</a>
     <r:datacell
 		 id="planning20" xpath="TApproveOpninionGP" width="2" width="100%" height="150" pageSize="50"
 		 queryAction="/messagePublish/tMessagePublishAction_queryOpninionsGP.action"
@@ -46,6 +46,5 @@
  	<div class="h6">&nbsp;</div>
  </div>
  
-<!-- <input type="button" class="button" value="复制" onclick="coptct();">	 -->
 </div> 
 <input type="button" id="exitButton" value="aaaa" style="display:none" />

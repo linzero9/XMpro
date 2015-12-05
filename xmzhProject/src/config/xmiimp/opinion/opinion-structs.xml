@@ -6,6 +6,9 @@
       <result name="viewlist">
         /jsp/approveOpninion/tApproveOpninionDatacell.jsp
       </result>
+       <result name="viewlist1">
+        /jsp/approveOpninion/tApproveOpninionGPDatacell.jsp
+      </result>
       <result name="downExl">
         /jsp/approveOpninion/opinion_downexl.jsp
       </result>
