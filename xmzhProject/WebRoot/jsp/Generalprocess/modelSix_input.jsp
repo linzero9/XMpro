@@ -163,7 +163,7 @@
 						if($("#custName").val()==""||$("#custName").val()==null){
 						
 							}else{
-								$("#custName").attr("disabled",true);
+								$("#custName").attr("readonly",true);
 								}
 
 						if('${isView}'!=''){
