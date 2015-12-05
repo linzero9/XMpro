@@ -1,7 +1,9 @@
 package com.gotop.Generalprocess.service.impl;
 
 import com.gotop.Generalprocess.dao.ITGeneralprocessMainDAO;
+import com.gotop.Generalprocess.dao.ITGeneralprocessModeloneDAO;
 import com.gotop.Generalprocess.dao.ITGeneralprocessModelthreeDAO;
+import com.gotop.Generalprocess.model.ProcessModelOne;
 import com.gotop.Generalprocess.model.ProcessModelThree;
 import com.gotop.Generalprocess.model.TGeneralprocessMain;
 import com.gotop.Generalprocess.service.IGeneralprocessService;
@@ -22,8 +24,14 @@ public class TGeneralprocessModelthreeService implements ITGeneralprocessModelth
     protected Logger log = Logger.getLogger(TGeneralprocessModelthreeService.class);
 
     
-    private JbpmService jbpmService;
-    private ITGeneralprocessMainDAO generalprocessMainDAO;
+    protected JbpmService jbpmService;
+    
+    protected ITGeneralprocessMainDAO generalprocessMainDAO;
+    
+    /**
+     * 模式一DAO
+     */
+    protected ITGeneralprocessModeloneDAO generalprocessModeloneDAO;
     /**
      * 通过spring注入的DAO对象.
      * @abatorgenerated
@@ -32,7 +40,16 @@ public class TGeneralprocessModelthreeService implements ITGeneralprocessModelth
     
     protected IGeneralprocessService generalprocessService;
 
-    public IGeneralprocessService getGeneralprocessService() {
+    public ITGeneralprocessModeloneDAO getGeneralprocessModeloneDAO() {
+		return generalprocessModeloneDAO;
+	}
+
+	public void setGeneralprocessModeloneDAO(
+			ITGeneralprocessModeloneDAO generalprocessModeloneDAO) {
+		this.generalprocessModeloneDAO = generalprocessModeloneDAO;
+	}
+
+	public IGeneralprocessService getGeneralprocessService() {
 		return generalprocessService;
 	}
 
@@ -77,12 +94,25 @@ public class TGeneralprocessModelthreeService implements ITGeneralprocessModelth
 
 	@Override
 	public void handleModelThree(MUOUserSession muo,
-			ProcessModelThree modelThree, TaskAssgineeDto taskAssgineeDto) {
+			ProcessModelThree modelThree,ProcessModelOne modelOne, TaskAssgineeDto taskAssgineeDto) {
 		String taskId = taskAssgineeDto.getNextTaskId();
 		String taskName = jbpmService.getTaskNameById(taskId);
 		modelThree.setTaskName(taskName);
 		modelThree.setFlow_id(taskAssgineeDto.getExecutionId());
 		
+		//更新模式一
+		
+		if(modelOne != null){
+			if (modelOne.getProcessModelId() != null
+					&& !"".equals(modelOne.getProcessModelId())){
+				String uptDate = TimeUtil.getCntDtStr(new Date(), "yyyyMMddHHmmss");
+				// 赋值最后修改时间
+				modelOne.setLast_up_time(uptDate);
+				// 赋值最后修改人empid
+				modelOne.setLast_up_name(String.valueOf(muo.getEmpid()));
+				this.generalprocessModeloneDAO.uptModelOne(modelOne);
+			}
+		}
 		if (modelThree.getProcessModelId() != null
 				&& !"".equals(modelThree.getProcessModelId())){
 			//更新模式三
@@ -92,6 +122,7 @@ public class TGeneralprocessModelthreeService implements ITGeneralprocessModelth
 			this.tGeneralprocessModelthreeDAO.addModelThree(modelThree);
 		}
 
+		
 		// 保存模式三表单内容
 		
 

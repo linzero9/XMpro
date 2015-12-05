@@ -21,6 +21,7 @@
   
   <bean class="com.gotop.Generalprocess.action.TGeneralprocessModelthreeAction" id="tGeneralprocessModelthreeaction" name="tGeneralprocessModelthreeAction" singleton="false">
     <property name="generalprocessModelthreeService" ref="tGeneralprocessModelthreeService" />
+    <property name="generalprocessModeloneService" ref="generalprocessModeloneService" />
   	<property name="generalprocessMainService" ref="tGeneralprocessMainService" />
   	 <property name="jbpmService" ref="jbpmService" />
   </bean>
