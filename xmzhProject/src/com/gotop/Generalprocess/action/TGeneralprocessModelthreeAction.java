@@ -1,9 +1,11 @@
 package com.gotop.Generalprocess.action;
 
 import com.gotop.Generalprocess.annonation.GeneralprocessFieldBean;
+import com.gotop.Generalprocess.model.ProcessModelOne;
 import com.gotop.Generalprocess.model.ProcessModelThree;
 import com.gotop.Generalprocess.model.TGeneralprocessMain;
 import com.gotop.Generalprocess.service.ITGeneralprocessMainService;
+import com.gotop.Generalprocess.service.ITGeneralprocessModeloneService;
 import com.gotop.Generalprocess.service.ITGeneralprocessModelthreeService;
 import com.gotop.Generalprocess.util.GeneralprocessUtil;
 import com.gotop.crm.util.BaseAction;
@@ -35,7 +37,21 @@ public class TGeneralprocessModelthreeAction extends BaseAction {
 	 */
 	private ProcessModelThree modelThree;
 
+	/**
+	 * @author wsd
+	 * @desc 可修改模式一
+	 */
+	private ProcessModelOne modelOne;
+
 	private String taskName;
+	
+	public ProcessModelOne getModelOne() {
+		return modelOne;
+	}
+
+	public void setModelOne(ProcessModelOne modelOne) {
+		this.modelOne = modelOne;
+	}
 
 	public String getTaskName() {
 		return taskName;
@@ -134,6 +150,20 @@ public class TGeneralprocessModelthreeAction extends BaseAction {
 
 	private ITGeneralprocessModelthreeService generalprocessModelthreeService;
 
+	/**
+	 * 模式一服务
+	 */
+	private ITGeneralprocessModeloneService generalprocessModeloneService;
+	
+	public ITGeneralprocessModeloneService getGeneralprocessModeloneService() {
+		return generalprocessModeloneService;
+	}
+
+	public void setGeneralprocessModeloneService(
+			ITGeneralprocessModeloneService generalprocessModeloneService) {
+		this.generalprocessModeloneService = generalprocessModeloneService;
+	}
+
 	public ITGeneralprocessModelthreeService getGeneralprocessModelthreeService() {
 		return generalprocessModelthreeService;
 	}
@@ -169,6 +199,14 @@ public class TGeneralprocessModelthreeAction extends BaseAction {
 			// 获取流程配置主表对象
 			TGeneralprocessMain main = this.generalprocessMainService
 					.queryMainByBusinessId(businessId);
+			ProcessModelOne one = new ProcessModelOne();
+			one.setFlow_Id(businessId);
+			modelOne = this.generalprocessModeloneService.queryModelOne(one);
+			
+			if(modelOne != null){
+				this.setModelOne(modelOne);
+			}
+			
 			Map<String, Object> map = new HashMap<String, Object>();
 			String taskName1 = null;
 			if (taskAssgineeDto.getNextTaskId() != null) {
@@ -217,6 +255,11 @@ public class TGeneralprocessModelthreeAction extends BaseAction {
 						+ newModelThree.getProcessModelId();
 				map.remove(rm);
 			}
+			
+			if(modelOne != null){
+				rm = "ProcessModelOne" + "-" + modelOne.getProcessModelId();
+				map.remove(rm);
+			}
 
 			this.setModelThree(newModelThree);
 
@@ -229,7 +272,6 @@ public class TGeneralprocessModelthreeAction extends BaseAction {
 		} catch (Exception e) {
 			log.error("查询模式三表单信息失败", e);
 		}
-		// queryDefault();
 		return "toModelthree";
 	}
 
@@ -249,7 +291,7 @@ public class TGeneralprocessModelthreeAction extends BaseAction {
 			MUOUserSession muo = getCurrentOnlineUser();
 			try {
 				this.generalprocessModelthreeService.handleModelThree(muo,
-						modelThree, taskAssgineeDto);
+						modelThree, modelOne,taskAssgineeDto);
 			} catch (Exception e) {
 				info = "fails";
 				log.error("[提交模式一表单失败！]", e);

@@ -41,7 +41,11 @@
 				</tr>
 				<tr>
 					<td class="form_label" align="right" width="15%">工作事项类型：</td>
-					<td colspan="1" width="30%"><h:select id="businessType"
+					<td colspan="1" width="30%">
+					<d:select dictTypeId="ZHPT_BUSINESS_TYPE" id="businessType"
+							name="taskAssignee.businessType"
+							property="taskAssignee.businessType" nullLabel="请选择"></d:select>
+				<%-- 	<h:select id="businessType"
 							name="taskAssignee.businessType"
 							property="taskAssignee.businessType">
 							<h:option label="未选择" value="" />
@@ -53,7 +57,9 @@
 							<h:option label="数据下发" value="06" />
 							<h:option label="设备申请" value="07" />
 							<h:option label="请假流程" value="08" />
-						</h:select></td>
+						</h:select> --%>
+						
+						</td>
 				</tr>
 				<%-- <tr>
 					<td class="form_label" align="right" width="20%">提交时间</td>

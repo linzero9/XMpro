@@ -25,7 +25,7 @@ public interface ITGeneralprocessModelthreeService {
 
     
 
-	void handleModelThree(MUOUserSession muo, ProcessModelThree modelThree,
+	void handleModelThree(MUOUserSession muo, ProcessModelThree modelThree,ProcessModelOne modelOne,
 			TaskAssgineeDto taskAssgineeDto);
 
 	ProcessModelThree queryModelThree(ProcessModelThree modelThree);

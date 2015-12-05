@@ -32,11 +32,130 @@
         <h:hidden id="processModelId" name="modelThree.processModelId" property="modelThree.processModelId"/>
 		<h:hidden id="taskName" name="modelThree.taskName" property="modelThree.taskName"/>
 		
-		<%-- <h:hidden type="hidden" id="btnType" name="taskAssgineeDto.btnType" /> --%>
-       
-       <%--  <h:hidden id="isC" name="isC" property="taskAssgineeDto/isC"/>
-		 <input type="hidden" id="btnType" name="btnType" /> --%>
-		<table align="center" border="0" width="100%" class="form_table" >
+		<h:hidden id="modelOneId" name="modelOne.processModelId" property="modelOne.processModelId"/>
+		<h:hidden id="modelOneTaskName" name="modelOne.taskName" property="modelOne.taskName"/>
+		<h:hidden id="modelOneFlowId" name="modelOne.flow_Id" property="modelOne.flow_Id"/>
+		<h:hidden id="modelOneCreateName" name="modelOne.create_name" property="modelOne.create_name"/>
+		<h:hidden id="modelOneTime" name="modelOne.create_time" property="modelOne.create_time"/>
+		
+	<table id="modelOneTb" align="center" border="0" width="100%" class="form_table" >
+      <tr>
+         <td  colspan="4" style="text-align: center;font-weight:bold;font-size:12pt;height:50px" >
+        		 ${modelOne.taskName}
+        </td>
+      </tr>
+      <tr>
+      	<td class="form_label" align="right" style="width:120px;" >受理支行<br>（一级选项）</td>
+      	<td colspan="1">
+         <h:text property="modelOne.orgNameOne" id="orgNameOne" validateAttr="allowNull=false" style="width:130px;" /><font style="color: red">*</font>
+         <h:hidden property="modelOne.orgCodeOne" id="orgCodeOne"/>	
+      	</td>
+     	<td class="form_label" align="right" style="width:120px;" >受理支行<br>（二级选项）</td>
+     	<td colspan="3">
+        <h:text id="orgNameTwo" property="modelOne.orgNameTwo" />
+		<h:hidden id="orgCodeTwo" property="modelOne.orgCodeTwo" />
+	    <a href="#" onclick="open_slzhej_fun()">选择</a>
+        </td>
+      </tr>
+       <tr>
+        <td class="form_label" align="right" style="width:120px;">
+                                                   主调信贷员：
+        </td>
+        <td colspan="1">
+         <h:text property="modelOne.creatorName" id="creatorName" validateAttr="allowNull=false" style="width:130px;" /><font style="color: red">*</font>	
+         <h:hidden id="creator" property="modelOne.creator" />
+        </td>
+        <td class="form_label" align="right" style="width:120px;">
+                                                  辅调信贷员：
+        </td>
+        <td colspan="1">
+         <h:text property="modelOne.fdxdy" id="fdxdy" validateAttr="allowNull=false" style="width:130px;" /><font style="color: red">*</font>	
+        </td>
+      </tr>
+       <tr>
+        <td class="form_label" align="right" style="width:120px;">
+                                                   营业主管：
+        </td>
+        <td colspan="1">
+         <h:text property="modelOne.yxzg" id="yxzg" validateAttr="allowNull=false"  style="width:130px;" /><font style="color: red">*</font>	
+        </td>
+        <td class="form_label" align="right" style="width:120px;">
+                                                   营销人员：
+        </td>
+        <td colspan="1">
+         <h:text property="modelOne.yxry" id="yxry" validateAttr="allowNull=ture" style="width:130px;" />	
+        </td>
+      	</tr>
+       <tr>
+     	<td class="form_label" align="right" style="width:120px;">客户姓名：</td>
+     	<td>
+	     	 <h:text property="modelOne.cust_Name" id="cust_Name" validateAttr="allowNull=false" style="width:130px;" />
+	     	 <font style="color: red;">*</font>
+     	</td>
+     	<td class="form_label" align="right" style="width:120px;">合作机构：</td>
+     	<td>
+	     	 <h:text property="modelOne.coOrganization" id="coOrganization" validateAttr="allowNull=ture" style="width:130px;" />
+     	</td>
+      </tr>
+       <tr>
+        <td class="form_label" align="right" style="width:120px;">
+                                                 申请金额：
+        </td>
+        <td colspan="1">
+         <h:text property="modelOne.apply_bal" id="apply_bal" validateAttr="allowNull=false;type=float" style="width:130px;" /><font style="color: red">*</font>	
+        </td>
+        <td class="form_label" align="right" style="width:120px;">
+                                                   申请币别：
+        </td>
+					<td colspan="1">
+						<d:select  id="currency"  dictTypeId="PROCESS_MONEY" property="modelOne.currency"></d:select>
+					</td>
+      </tr>
+       <tr>
+        <td class="form_label" align="right" style="width:120px;">
+                                                 一级分类：
+        </td>
+        <td colspan="1">
+         <h:text property="modelOne.oneCategory" id="oneCategory" validateAttr="allowNull=false" style="width:130px;" readonly="true"/><font style="color: red">*</font>	<a href="#" onclick="open_yjfl_fun()">选择</a>
+        </td>
+        <td class="form_label" align="right" style="width:120px;">
+                                                   贷种分类：
+        </td>
+        <td colspan="1">
+         <select id="loanCategorys" onchange="changeloanCategory()">
+         </select>
+         <h:hidden property="modelOne.loanCategory"  id="loanCategory"/>
+         <font style="color: red">*</font>	
+        </td>
+      </tr>
+      <tr>
+      <td class="form_label" align="right" style="width:120px;">
+                                                   抵押物权属人名称：
+        </td>
+        <td colspan="1">
+
+          <h:text property="modelOne.dywx_Name" id="dywx_Name" validateAttr="allowNull=ture" style="width:130px;" />	
+
+        </td>
+        
+        <td class="form_label" align="right" style="width:120px;">
+                                                    调查时间：
+        </td>
+        <td colspan="1">
+        <div id="inputTime">
+	         <w:date  id="survey_Time" submitFormat="yyyy-MM-dd" format="yyyy-MM-dd" allowNull="false" property="modelOne.survey_Time"/>
+         </div>
+        </td>
+      </tr>
+     
+      <tr>
+     	<td class="form_label" align="right">超限说明：</td>
+     	<td colspan="3">
+	     	<h:textarea property="modelOne.content" id="content"  extAttr="class='h80' "  validateAttr="maxLength=512;allowNull=ture" rows="4"  style="width:90%;" />
+     	</td>
+      </tr>
+    </table>
+	<table align="center" border="0" width="100%" class="form_table" >
        <tr>
          <td  colspan="4" style="text-align: center;font-weight:bold;font-size:12pt;height:50px" >
         		${taskName }
@@ -85,60 +204,21 @@
  show('${taskAssgineeDto.fxJson}');
 
 		 $(document).ready(function(){
-			 if('${euip.epId}'!=""){
-				 $("#save1").css("display","none"); 
-				 $.ajax({
-				        url: '/file/tFileResourceTableAction_queryFileList.action',
-				        async: false,
-				        type: 'post',
-				        data: "resourceType=${taskAssgineeDto.businessType}&resourceId=${euip.epId}",
-				        dataType: 'json',
-				        timeout: 60000,
-				        success: function (files) {
-					        if(files!=""){
-					         	$.each(files,function( i,item ){
-					         		if('${sessionScope.login_user.empid}'!=item.creator)
-					    	        	$("#tag").fileDown({filename:item.fileName,filevalue:item.fileId});
-						         	else
-						         		 if('${isView}'!=''){
-						         			$("#tag").fileDown({filename:item.fileName,filevalue:item.fileId});
-							         	}else{
-							         		$("#tag").fileDown({filename:item.fileName,filevalue:item.fileId,remove:1});
-								         }
-					          		});	
-					        }else{
-					        	 $("#row1").css("display","none");  
-					        }
-				        }
-			    });	
-				 $("#beginOrg").val("${euip.orgid}");	
-				 if('${isView}'!=""){
-					 $(".smit").attr("display","none");
-				 }
-
-				 if('${taskAssgineeDto.isC}'){
-					 	$("#save3").hide();
-						$("#save1").hide();
-					}else{
-						$("#save4").hide();
-						
-						}
-				 
+			//存在模式一则显示模式一表单
+			 if('${modelOne.processModelId}' != ""){
+				 $("#modelOneTb").show();
 			 }else{
-				 $("#row1").css("display","none");  
-				 //$("#row2").css("display","none");  
-				 $("#row3").css("display","none");  
+				 $("#modelOneTb").hide();
 			 }
-			 if('${euip.empName}'==""){
-				 $("#empName").val('${sessionScope.login_user.empname}');
+			
+			 if('${modelOne.oneCategory}'!=""){
+				 var oneCategory='${modelOne.oneCategory}';
+				 setselect(oneCategory);
+				 
 			 }
-
+			 
 			 if('${isView}'!=''){
-					$("#save1").hide();
 					$("#save3").hide();
-					$("#fujian").hide();
-					$("#row3").hide();
-					
 					$("#isurgent").attr("disabled",true);
 					$id("reporttime").attr("disabled",true);
 					$("#reportcnt").attr("readonly",true);
@@ -160,30 +240,8 @@
     			var strUrl = "/jbpm/jbpmDemoAction_toNextTaskConfig.action?taskAssgineeDto.executionId="+$id("executionId").value+"&taskAssgineeDto.definitionId=${taskAssgineeDto.definitionId}";
         		showModalCenter(strUrl, null, taskAssigneeCallBack, 700, 400, '节点选择');
     			}
-    		}else{
-    			var _form = $id("form1");
-    	  	  	 	url="/euipApply/tApplyEuipAction_insertEuipInfo.action";	
-    	  	  	    _form.action =url;
-    	  	  	if(checkForm($id("form1")))
-    			    ajaxsubmitO();
-    	  	 	}
+    		}
      	}
-
-		     function doSave2(value){   		
-		 		$("#btnType").val(value);
-		 		if(value!="1"){
-		 			if(checkForm($id("form1"))){
-		 			var strUrl = "/jbpm/jbpmDemoAction_toNextTaskConfig2.action?taskAssgineeDto.executionId="+$id("executionId").value+"&taskAssgineeDto.beginOrg="+$("#beginOrg").val()+"&taskAssgineeDto.beginAssingee="+$("#createor").val();
-		     		showModalCenter(strUrl, null, taskAssigneeCallBack, 700, 400, '节点选择');
-		 			}
-		 		}else{
-		 			var _form = $id("form1");
-		 	  	  	 	url="/euipApply/tApplyEuipAction_insertEuipInfo.action";	
-		 	  	  	    _form.action =url;
-		 	  	  	if(checkForm($id("form1")))
-		 			    ajaxsubmitO();
-		 	  	 	}
-		  }
 		 	function taskAssigneeCallBack(arg){
 		  	 	var _form = $id("form1");
 		  	 	if(arg!=""){
@@ -226,31 +284,40 @@
 		  			}; 
 		  	  	$("#form1").ajaxSubmit(options);
 		  	  	}
-		     
-
-				var rowId = 0;
-				function addFile(tabid,varName){
-				    var tab,row,td,fName,fId,tdStr;
-				    var zs=$("#tabtest tbody tr").length;
-				    tab = $id(tabid);
-				    if (zs>=5){
-				    	alert("新增附件不能超过5个");
-				    	return false;
-				    }
-				    fName = varName;
-				    fId = varName+rowId;
-				    row =  tab.insertRow();
-				    row.id = "fileRow"+rowId;
-				    td = row.insertCell(); 
-				    
-				    tdStr="<input type=\"file\" name=\""+fName+"\" id=\""+fId+"\" onchange=\"CheckUpLoadFile(this,2);\" size='70' class=smallInput validateAttr=\"allowNull=false\">";
-				    tdStr += "<input type=\"button\" onclick=\"delTr('fileRow"+rowId+"');\" name='button"+rowId+"' value=\"删除\" style=\"margin-left:2px;vertical-align:middle;cursor:hand;\"/>";
-				    td.innerHTML = tdStr;
-				    rowId = rowId+1;    
-				}
 				
-				function delTr(id){
-					$("#"+id).remove();
+				function changeloanCategory(){
+					$("#loanCategory").val($('#loanCategorys option:selected').val());
+					}	
+				function setselect(arg){
+					$("#loanCategorys").html("");
+					var selecthtml=$("#loanCategorys").html();
+					 $.ajax({
+					        url: "/Generalprocess/tGeneralprocessCdtypeAction_querycreditType.action?cdtype.firstClass="+encodeURI(arg),
+					        async: false,
+					        type: 'post',
+					        data: "",
+					        dataType: 'json',
+					        success: function (json) {
+					        	if(json==""){
+					        	}else {
+					        		$.each(json,function(key,value){
+						        		selecthtml= selecthtml+"<option value="+value.creditType+">"+value.creditType+"</option>";
+						        		});
+					        	}
+						        }
+				    });	
+					    $("#loanCategorys").html(selecthtml);
+					    if($id("loanCategory").value==''){
+					    	$("#loanCategory").val($('#loanCategorys option:selected').val());
+						    }else{
+						    	var all_options = document.getElementById("loanCategorys").options;
+								for (i=0; i<all_options.length; i++){
+									if (all_options[i].value ==$id("loanCategory").value ) // 根据option标签的ID来进行判断 测试的代码这里是两个等号
+									{
+										all_options[i].selected = true;
+									}
+								}
+						    }
 				}
 				
  </script>
