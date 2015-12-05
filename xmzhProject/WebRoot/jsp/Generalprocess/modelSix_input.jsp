@@ -21,7 +21,6 @@
 			<h:hidden id="executionId" property="taskAssgineeDto.executionId" />
 			<h:hidden id="taskId" property="taskAssgineeDto.nextTaskId" />
 			<h:hidden id="taskAssingee" property="taskAssgineeDto.taskAssingee" />
-			<h:hidden id="beginOrg" property="taskAssgineeDto.beginOrg" />
 			<h:hidden id="definitionId" property="taskAssgineeDto.definitionId" />
 			<h:hidden id="businessType" property="taskAssgineeDto.businessType" />
 			<h:hidden id="processName" property="taskAssgineeDto.processName" />
