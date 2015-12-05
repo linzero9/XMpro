@@ -147,7 +147,7 @@ public class TGeneralprocessModelsixAction extends BaseAction {
     				modelSix= new ProcessModelSix();
     			}
     			
-    			if((!"start".equals(taskAssgineeDto.getStartFlag()))&&(!"detial".equals(taskAssgineeDto.getStartFlag()))){
+    			if((!"start".equals(taskAssgineeDto.getStartFlag()))&&(!"detial".equals(taskAssgineeDto.getStartFlag()))&&(taskAssgineeDto.getBusinessTitle()!=null)){
     				//不是第一次  才能set  custname
     				modelSix.setCustName(taskAssgineeDto.getBusinessTitle().split("-")[1]);
     				

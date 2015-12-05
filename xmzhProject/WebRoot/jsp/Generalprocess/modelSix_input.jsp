@@ -197,7 +197,7 @@
 			}
 		} else {
 			var _form = $id("form1");
-			url = "/Generalprocess/tGeneralprocessModelsixAction_handleModelSix.action";
+			url = "/Generalprocess/tGeneralprocessModelSixAction_handleModelSix.action";
 			_form.action = url
 			if (checkForm($id("form1")))
 				ajaxsubmitO(0);
