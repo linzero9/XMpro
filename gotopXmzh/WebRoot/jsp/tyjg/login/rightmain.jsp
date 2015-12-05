@@ -325,8 +325,13 @@
 	* 2014.9.1 改为弹出框'<b:write iterateId="ids" property="processTaskAssigneeId"/>'
 	**/
   function viewBussinessDetail(businessKey,nextTaskId,executionId,businessType,preTaskAssingee,assignee,processTaskAssigneeId,parentId,isChild){
-	  var strUrl = "/jbpm/jbpmDemoAction_handle.action?taskAssgineeDto.businessKey="+businessKey+"&taskAssgineeDto.nextTaskId="+nextTaskId+"&taskAssgineeDto.executionId="+executionId+"&taskAssgineeDto.businessType="+businessType+"&taskAssgineeDto.taskAssingee="+preTaskAssingee+"&taskAssgineeDto.preTaskAssingee="+assignee+"&taskAssgineeDto.processTaskAssigneeId="+processTaskAssigneeId+"&taskAssgineeDto.parentId="+parentId+"&taskAssgineeDto.isChild="+isChild;
-		showModalCenter(encodeURI(strUrl), null, callBack, clientX*0.8, clientY*0.65, '详情');
+	  var strUrl = "";
+	  if(businessKey == 'null'){
+		  strUrl = "/jbpm/jbpmDemoAction_handle.action?"+"taskAssgineeDto.nextTaskId="+nextTaskId+"&taskAssgineeDto.executionId="+executionId+"&taskAssgineeDto.businessType="+businessType+"&taskAssgineeDto.taskAssingee="+preTaskAssingee+"&taskAssgineeDto.preTaskAssingee="+assignee+"&taskAssgineeDto.processTaskAssigneeId="+processTaskAssigneeId+"&taskAssgineeDto.parentId="+parentId+"&taskAssgineeDto.isChild="+isChild;
+	  }else{
+		  strUrl = "/jbpm/jbpmDemoAction_handle.action?taskAssgineeDto.businessKey="+businessKey+"&taskAssgineeDto.nextTaskId="+nextTaskId+"&taskAssgineeDto.executionId="+executionId+"&taskAssgineeDto.businessType="+businessType+"&taskAssgineeDto.taskAssingee="+preTaskAssingee+"&taskAssgineeDto.preTaskAssingee="+assignee+"&taskAssgineeDto.processTaskAssigneeId="+processTaskAssigneeId+"&taskAssgineeDto.parentId="+parentId+"&taskAssgineeDto.isChild="+isChild;
+	  }
+	  showModalCenter(encodeURI(strUrl), null, callBack, clientX*0.8, clientY*0.65, '详情');
 	  }
   function viewMettingDetail(recId,status,mettingId){
 	  var strUrl = "/mettingApply/tMettingApplyAction_info.action?meet.recId="+recId+"&meet.status="+status+"&meet.mettingId="+mettingId;
