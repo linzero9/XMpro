@@ -38,7 +38,7 @@
 		
 		<table align="center" border="0" width="100%" class="form_table" >
       <tr>
-         <td  colspan="4" style="text-align: center;font-weight:bold;font-size:12pt;height:50px" >
+         <td  colspan="4" style="text-align: center;font-weight:bold;font-size:12pt;height:50px;background-color: rgb(145, 186, 221);" >
         		 ${taskName}
         </td>
       </tr>

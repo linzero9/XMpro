@@ -632,7 +632,7 @@ WEB.turnMainFrame=function(){
 		        	   }
 		           });
 		           $("#table"+key).html(showpanelhtml);
-		           $("#table"+key).prepend('<tr><th  colspan="4" style="text-align: center;font-weight:bold;font-size:16pt;background: rgb(167, 167, 226);" class="table_head" onclick="tablehide('+key+')">'+title+'</th></tr>');
+		           $("#table"+key).prepend('<tr><th  colspan="4" style="text-align: center;font-weight:bold;font-size:16pt;background: rgb(226, 210, 244);" class="table_head" onclick="tablehide('+key+')">'+title+'</th></tr>');
 		           if(misTakeType!=''){
 		        	   $.ajax({
 					        url: '/Generalprocess/tGeneralprocessModelFourAction_queryFourMistake.action',
