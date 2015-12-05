@@ -164,7 +164,10 @@
 								$("#custName").attr("disabled",true);
 								}
 
-
+						if('${isView}'!=''){
+							$("#save1").hide();
+							$("#smit").hide();
+						}
 
 							});
 

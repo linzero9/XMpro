@@ -214,58 +214,8 @@
 			
 			 //查看详情界面
 			 if('${isView}'!=''){
+				 	$("#save2").hide();
 					$("#save3").hide();
-					$("#rowFile").hide();
-					$("#opninionContent").attr("readonly",true);
-			 }else{
-				 $("#row1").css("display","none");  
-			 }
-			 
-			 if('${modelFour.processModelId}'!=""){
-				 var tab,row,td,tdStr,rowId,fId,jeId
-		         var tab = $id("ccTable");
-				 var tab1 = $id("tabtest");
-				 var fName = "files";
-				 var jeName = "jees";
-				 $.ajax({
-				        url: '/Generalprocess/tGeneralprocessModelFourAction_queryFourMistake.action',
-				        async: false,
-				        type: 'post',
-				        data: "modelFour.processModelId=${modelFour.processModelId}",
-				        dataType: 'json',
-				        timeout: 60000,
-				        success: function (files) {
-					        if(files!=""){
-					        	$.each(files,function( i,item ){
-					        		 
-									 fId = fName+rowId;
-									 jeId= jeName+"je"+rowId;
-					         		 if('${isView}'!=''){
-					         			row =  tab.insertRow();
-										row.id = "fileRow"+rowId;
-										td = row.insertCell();
-					         			tdStr="差错内容：<input type=\"text\" value=\""+item.mistakeContent+"\" size='70' validateAttr=\"allowNull=false\" readonly=\"true\" >";
-									 	tdStr+="扣罚金额：<input type=\"text\" value=\""+item.punishBal+"\" size='10' validateAttr=\"allowNull=false\" readonly=\"true\">";
-									 	tdStr+="添加时间：<input type=\"text\" value=\""+item.addTime+"\" size='10' validateAttr=\"allowNull=false\" readonly=\"true\">";
-									 	td.innerHTML = tdStr;
-										 rowId = rowId+1; 
-					         		 }else{
-										row =  tab1.insertRow();
-										row.id = "fileRow"+rowId;
-										td = row.insertCell();
-					         			tdStr="差错内容：<input type=\"text\" name=\""+fName+"\" id=\""+fId+"\" value=\""+item.mistakeContent+"\" size='70' validateAttr=\"allowNull=false\" readonly=\"true\">";
-									 	tdStr+="扣罚金额：<input type=\"text\" name=\""+jeName+"\" id=\""+jeId+"\" value=\""+item.punishBal+"\" size='10' validateAttr=\"allowNull=false\" readonly=\"true\" >";
-									 	//tdStr+= "<input type=\"button\" onclick=\"delTr('fileRow"+rowId+"');\" name='button"+rowId+"' value=\"删除\" style=\"margin-left:2px;vertical-align:middle;cursor:hand;\"/>";
-									 	td.innerHTML = tdStr;
-										rowId = rowId+1; 
-					         		 }
-					        	});
-					          	
-					        }else{
-					        	 $("#row1").css("display","none");  
-					        }    
-				        }
-			    });
 			 }
 		});
 		

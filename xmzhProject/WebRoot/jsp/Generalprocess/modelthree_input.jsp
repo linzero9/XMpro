@@ -47,14 +47,14 @@
       <tr>
       	<td class="form_label" align="right" style="width:120px;" >受理支行<br>（一级选项）</td>
       	<td colspan="1">
-         <h:text property="modelOne.orgNameOne" id="orgNameOne" style="width:130px;" /><font style="color: red">*</font>
+         <h:text property="modelOne.orgNameOne" id="orgNameOne" validateAttr="allowNull=false" style="width:130px;" readonly="true"/><font style="color: red">*</font>
          <h:hidden property="modelOne.orgCodeOne" id="orgCodeOne"/>	
       	</td>
      	<td class="form_label" align="right" style="width:120px;" >受理支行<br>（二级选项）</td>
      	<td colspan="3">
-        <h:text id="orgNameTwo" property="modelOne.orgNameTwo" />
+        <h:text id="orgNameTwo" property="modelOne.orgNameTwo" readonly="true"/>
 		<h:hidden id="orgCodeTwo" property="modelOne.orgCodeTwo" />
-	    <a href="#" onclick="open_slzhej_fun()">选择</a>
+	   <!--  <a href="#" onclick="open_slzhej_fun()">选择</a> -->
         </td>
       </tr>
        <tr>
@@ -62,7 +62,11 @@
                                                    主调信贷员：
         </td>
         <td colspan="1">
+<<<<<<< 6a640b786e1228dee715a91ec61497685d84c4ba
          <h:text property="modelOne.creatorName" id="creatorName" style="width:130px;" /><font style="color: red">*</font>	
+=======
+         <h:text property="modelOne.creatorName" id="creatorName" validateAttr="allowNull=false" style="width:130px;" readonly="true"/><font style="color: red">*</font>	
+>>>>>>> 7be1bfa66588fbf4f6c41439ff5f8f76ac0f5894
          <h:hidden id="creator" property="modelOne.creator" />
         </td>
         <td class="form_label" align="right" style="width:120px;">
@@ -89,7 +93,11 @@
        <tr>
      	<td class="form_label" align="right" style="width:120px;">客户姓名：</td>
      	<td>
+<<<<<<< 6a640b786e1228dee715a91ec61497685d84c4ba
 	     	 <h:text property="modelOne.cust_Name" id="cust_Name"  style="width:130px;" />
+=======
+	     	 <h:text property="modelOne.cust_Name" id="cust_Name" validateAttr="allowNull=false" style="width:130px;" readonly="true"/>
+>>>>>>> 7be1bfa66588fbf4f6c41439ff5f8f76ac0f5894
 	     	 <font style="color: red;">*</font>
      	</td>
      	<td class="form_label" align="right" style="width:120px;">合作机构：</td>

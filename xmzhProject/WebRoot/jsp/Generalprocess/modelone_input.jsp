@@ -222,7 +222,6 @@
 	 if('${modelOne.orgCodeOne}'==""){
 		 $("#orgCodeOne").val('${sessionScope.login_user.orgcode}');
 	 }
-	 alert('${taskAssgineeDto.processName}')
 	 setOneSelect('${taskAssgineeDto.processName}')
 	 
 	 if('${modelOne.oneCategory}'!=""){
@@ -233,13 +232,8 @@
 	 
 	 //查看详情界面
 	 if('${isView}'!=''){
-		$("#deleteProcessBtn").hide();
 		$("#save1").hide();
 		$("#smit").hide();
-		$("#fujian").hide();
-		//$("#row1").show();
-		//$("#hiddenTime").show();
-		$("#rowTemplate").hide();
 	}
 	 
 	 if('${taskAssgineeDto.isC}'){

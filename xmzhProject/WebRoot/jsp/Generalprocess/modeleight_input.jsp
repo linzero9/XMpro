@@ -133,10 +133,7 @@
 
 			 //查看详情界面
 			 if('${isView}'!=''){
-					$("#save1").hide();
 					$("#save3").hide();
-					$("#fujian").hide();
-					$("#row3").hide();
 					$("#opninion_content").attr("readonly",true);
 				}
 
