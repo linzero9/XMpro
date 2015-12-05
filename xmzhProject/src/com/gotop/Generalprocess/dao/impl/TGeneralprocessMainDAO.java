@@ -239,6 +239,8 @@ public class TGeneralprocessMainDAO extends SqlMapClientDao implements ITGeneral
 		TGeneralprocessMain main = new TGeneralprocessMain();
 		main.setBusinessId(taskAssgineeDto.getExecutionId());
 		main.setTemplateId(taskAssgineeDto.getDefinitionId());
+		main.setBeginEmpId(taskAssgineeDto.getBeginAssingee());
+		main.setBeginOrgId(taskAssgineeDto.getBeginOrg());
 		if("com.gotop.Generalprocess.model.ProcessModelOne".equals(c.getName())){
 			//模式一
 			main.setRules("ProcessModelOne");

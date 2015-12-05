@@ -32,8 +32,12 @@
         <h:hidden id="processModelId" name="modelEight.processModelId" property="modelEight.processModelId"/>
 		<h:hidden id="taskName" name="modelEight.taskName" property="modelEight.taskName"/>
 		
-		<%-- <h:hidden type="hidden" id="btnType" name="taskAssgineeDto.btnType" /> --%>
+		<h:hidden id="btnType" name="taskAssgineeDto.btnType" />
        
+       <h:hidden id="beginAssingee" name="taskAssgineeDto.beginAssingee" property="taskAssgineeDto.beginAssingee"/>
+			<h:hidden id="beginOrg" name="taskAssgineeDto.beginOrg" property="taskAssgineeDto.beginOrg"/>
+		
+		
        <%--  <h:hidden id="isC" name="isC" property="taskAssgineeDto/isC"/>
 		 <input type="hidden" id="btnType" name="btnType" /> --%>
 		<table align="center" border="0" width="100%" class="form_table" >
@@ -47,7 +51,7 @@
         </td>
         <td colspan="1">
         <div id="inputTime">
-	         <w:date  id="tjgjjsj" submitFormat="yyyy-MM-dd" format="yyyy-MM-dd" allowNull="false" property="modelEight.tjgjjsj"/>
+	         <w:date  id="tjgjjsj" submitFormat="yyyy-MM-dd" format="yyyy-MM-dd" allowNull="false" property="modelEight.tjgjjsj" allowInput="false"/>
          </div>
         </td>
         <td class="form_label" align="right" style="width:120px;">
@@ -55,7 +59,7 @@
         </td>
         <td colspan="1">
         <div id="inputTime">
-	         <w:date  id="gjjzxspsj" submitFormat="yyyy-MM-dd" format="yyyy-MM-dd" allowNull="false" property="modelEight.gjjzxspsj"/>
+	         <w:date  id="gjjzxspsj" submitFormat="yyyy-MM-dd" format="yyyy-MM-dd" allowNull="false" property="modelEight.gjjzxspsj" allowInput="false"/>
          </div>
         </td>
       </tr>
@@ -69,6 +73,7 @@
     
       <tr class="form_bottom">
         <td colspan="4">
+        <input type="button" value="保存" class="button" id="save1" onclick="doSave(1);"  />
           <input type="button" value="提交" onclick="doSave(2);" class="button" id="save3" />
           <input type="button" value="查看流程" onclick="doflowpic();" class="button" id="flowpic" />
          </td>
@@ -134,6 +139,7 @@
 			 //查看详情界面
 			 if('${isView}'!=''){
 					$("#save3").hide();
+					$("#save1").hide();
 					$("#opninion_content").attr("readonly",true);
 				}
 
@@ -151,12 +157,14 @@
     			//提交
     			if(checkForm($id("form1"))){
     			var strUrl = "/jbpm/jbpmDemoAction_toNextTaskConfig.action?taskAssgineeDto.executionId="+$id("executionId").value+"&taskAssgineeDto.definitionId=${taskAssgineeDto.definitionId}";
+    			strUrl+="&taskAssgineeDto.beginOrg="+$id("beginOrg").value+"&taskAssgineeDto.beginAssingee="+$id("beginAssingee").value
+	    		
         		showModalCenter(strUrl, null, taskAssigneeCallBack, 700, 400, '节点选择');
     			}
     		}else{
     			//保存
     			var _form = $id("form1");
-    	  	  	 	url="/euipApply/tApplyEuipAction_insertEuipInfo.action";	
+    	  	  	 	url="/Generalprocess/tGeneralprocessModelEightAction_handleModelEight.action";	
     	  	  	    _form.action =url;
     	  	  	if(checkForm($id("form1")))
     			    ajaxsubmitO();
@@ -172,7 +180,7 @@
 		 			}
 		 		}else{
 		 			var _form = $id("form1");
-		 	  	  	 	url="/euipApply/tApplyEuipAction_insertEuipInfo.action";	
+		 	  	  	 	url="/Generalprocess/generalProcessAction_handleModelOne.action";	
 		 	  	  	    _form.action =url;
 		 	  	  	if(checkForm($id("form1")))
 		 			    ajaxsubmitO();

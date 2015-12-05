@@ -258,6 +258,11 @@ public class GeneralprocessService implements IGeneralprocessService {
 			// 查询模式主表信息
 			TGeneralprocessMain main = this.generalprocessMainDAO
 				.queryMainByBusinessId(executionId);
+			
+			//起草人empid
+			taskAssgineeDto.setBeginAssingee(muo.getEmpid());
+			//起草人
+			taskAssgineeDto.setBeginOrg(muo.getOrgid());
 			// 新增或更新模式主表的rule和id
 			if (main != null) {
 				// 修改

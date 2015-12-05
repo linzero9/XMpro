@@ -27,11 +27,13 @@
     <result column="NAME" property="name" jdbcType="VARCHAR" />
      <result column="IDS" property="ids" jdbcType="VARCHAR" />
     <result column="BUSINESS_ID" property="businessId" jdbcType="VARCHAR" />
+    <result column="BEGIN_EMPID" property="beginEmpId" jdbcType="DECIMAL" />
+    <result column="BEGIN_ORGID" property="beginOrgId" jdbcType="DECIMAL" />
   </resultMap>
   
   <!-- 根据流程实例id获取模式主表对象 -->
   <select id="queryMainByBusinessId" parameterClass="java.util.HashMap" resultMap="resultMain">
-   select MAINID, TEMPLATE_ID, RULES, NAME, IDS,BUSINESS_ID
+   select MAINID, TEMPLATE_ID, RULES, NAME, IDS,BUSINESS_ID,BEGIN_EMPID,BEGIN_ORGID
     from T_GENERALPROCESS_MAIN
     where BUSINESS_ID = #businessId:VARCHAR#
   </select>
@@ -41,9 +43,9 @@
     <selectKey resultClass="long" keyProperty="mainid">
 			SELECT SET_T_GENERALPROCESS_MAIN.NEXTVAL AS VALUE FROM DUAL
 		</selectKey>
-    insert into T_GENERALPROCESS_MAIN (MAINID, TEMPLATE_ID, RULES, NAME, IDS,BUSINESS_ID)
+    insert into T_GENERALPROCESS_MAIN (MAINID, TEMPLATE_ID, RULES, NAME, IDS,BUSINESS_ID,BEGIN_EMPID,BEGIN_ORGID)
     values (#mainid:DECIMAL:-9999#, #templateId:DECIMAL:-9999#, #rules:VARCHAR#, #name:VARCHAR#,#ids:VARCHAR#,
-      #businessId:DECIMAL:-9999#)
+      #businessId:DECIMAL:-9999#,#beginEmpId:DECIMAL:-9999#,#beginOrgId:DECIMAL:-9999#)
   </insert>
   
   <!-- 更新模式主表记录 -->

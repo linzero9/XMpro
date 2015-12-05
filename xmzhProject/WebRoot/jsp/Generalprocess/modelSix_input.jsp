@@ -40,6 +40,9 @@
 			<h:hidden id="flowId" name="modelSix.flow_Id"
 				property="modelSix.flow_Id" />
 
+			<h:hidden id="beginAssingee" name="taskAssgineeDto.beginAssingee" property="taskAssgineeDto.beginAssingee"/>
+			<h:hidden id="beginOrg" name="taskAssgineeDto.beginOrg" property="taskAssgineeDto.beginOrg"/>
+		
 			<table align="center" border="0" width="100%" class="form_table">
 				<tr>
 					<td colspan="4"
@@ -191,7 +194,8 @@
 				var strUrl = "/jbpm/jbpmDemoAction_toNextTaskConfig.action?taskAssgineeDto.executionId="
 						+ $id("executionId").value
 						+ "&taskAssgineeDto.definitionId=${taskAssgineeDto.definitionId}";
-
+				strUrl+="&taskAssgineeDto.beginOrg="+$id("beginOrg").value+"&taskAssgineeDto.beginAssingee="+$id("beginAssingee").value
+	    				
 				showModalCenter(strUrl, null, taskAssigneeCallBack, 700, 400,
 						'节点选择');
 			}

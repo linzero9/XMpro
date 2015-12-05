@@ -55,6 +55,19 @@ public class TGeneralprocessModeleightAction extends BaseAction {
 	 * 模式主表服务
 	 */
 	private ITGeneralprocessMainService generalprocessMainService;
+	
+	/**
+	 * isView :1、为只读状态， 默认为空
+	 */
+	private String isView;
+
+	public String getIsView() {
+		return isView;
+	}
+
+	public void setIsView(String isView) {
+		this.isView = isView;
+	}
 
 	/**
 	 * 通过spring注入Service的set类.
@@ -131,6 +144,14 @@ public class TGeneralprocessModeleightAction extends BaseAction {
 			// 获取流程配置主表对象
 			TGeneralprocessMain main = this.generalprocessMainService
 					.queryMainByBusinessId(businessId);
+			
+			if(main != null){
+				if(main.getBeginEmpId() != null && main.getBeginOrgId() != null){
+					taskAssgineeDto.setBeginAssingee(main.getBeginEmpId());
+					taskAssgineeDto.setBeginOrg(main.getBeginOrgId());
+				}
+			}
+			
 			Map<String, Object> map = new HashMap<String, Object>();
 			
 			taskName= taskAssgineeDto.getTaskName();

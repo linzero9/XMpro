@@ -37,6 +37,16 @@ public class TGeneralprocessMain implements Serializable {
      * 各个业务主键
      */
     private String ids;
+    
+    /**
+     * 起草人empid
+     */
+    private Long beginEmpId;
+    
+    /**
+     * 起草人所属机构orgid
+     */
+    private Long beginOrgId;
 
     /**
      * 规则，用来存储哪些实体类！！ .
@@ -101,6 +111,21 @@ public class TGeneralprocessMain implements Serializable {
 	public void setIds(String ids) {
 		this.ids = ids;
 	}
-	
+
+	public Long getBeginEmpId() {
+		return beginEmpId;
+	}
+
+	public void setBeginEmpId(Long beginEmpId) {
+		this.beginEmpId = beginEmpId;
+	}
+
+	public Long getBeginOrgId() {
+		return beginOrgId;
+	}
+
+	public void setBeginOrgId(Long beginOrgId) {
+		this.beginOrgId = beginOrgId;
+	}
 
 }

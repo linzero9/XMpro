@@ -38,6 +38,8 @@
 		<h:hidden id="modelOneCreateName" name="modelOne.create_name" property="modelOne.create_name"/>
 		<h:hidden id="modelOneTime" name="modelOne.create_time" property="modelOne.create_time"/>
 		
+		<h:hidden id="beginAssingee" name="taskAssgineeDto.beginAssingee" property="taskAssgineeDto.beginAssingee"/>
+		<h:hidden id="beginOrg" name="taskAssgineeDto.beginOrg" property="taskAssgineeDto.beginOrg"/>
 	<table id="modelOneTb" align="center" border="0" width="100%" class="form_table" >
       <tr>
          <td  colspan="4" style="text-align: center;font-weight:bold;font-size:12pt;height:50px" >
@@ -62,11 +64,7 @@
                                                    主调信贷员：
         </td>
         <td colspan="1">
-<<<<<<< 6a640b786e1228dee715a91ec61497685d84c4ba
          <h:text property="modelOne.creatorName" id="creatorName" style="width:130px;" /><font style="color: red">*</font>	
-=======
-         <h:text property="modelOne.creatorName" id="creatorName" validateAttr="allowNull=false" style="width:130px;" readonly="true"/><font style="color: red">*</font>	
->>>>>>> 7be1bfa66588fbf4f6c41439ff5f8f76ac0f5894
          <h:hidden id="creator" property="modelOne.creator" />
         </td>
         <td class="form_label" align="right" style="width:120px;">
@@ -93,11 +91,7 @@
        <tr>
      	<td class="form_label" align="right" style="width:120px;">客户姓名：</td>
      	<td>
-<<<<<<< 6a640b786e1228dee715a91ec61497685d84c4ba
 	     	 <h:text property="modelOne.cust_Name" id="cust_Name"  style="width:130px;" />
-=======
-	     	 <h:text property="modelOne.cust_Name" id="cust_Name" validateAttr="allowNull=false" style="width:130px;" readonly="true"/>
->>>>>>> 7be1bfa66588fbf4f6c41439ff5f8f76ac0f5894
 	     	 <font style="color: red;">*</font>
      	</td>
      	<td class="form_label" align="right" style="width:120px;">合作机构：</td>
@@ -245,6 +239,7 @@
     		if(value!="1"){
     			if(checkForm($id("form1"))){
     			var strUrl = "/jbpm/jbpmDemoAction_toNextTaskConfig.action?taskAssgineeDto.executionId="+$id("executionId").value+"&taskAssgineeDto.definitionId=${taskAssgineeDto.definitionId}";
+        		strUrl+="&taskAssgineeDto.beginOrg="+$id("beginOrg").value+"&taskAssgineeDto.beginAssingee="+$id("beginAssingee").value
         		showModalCenter(strUrl, null, taskAssigneeCallBack, 700, 400, '节点选择');
     			}
     		}
