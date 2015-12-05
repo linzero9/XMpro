@@ -131,6 +131,14 @@ public class TGeneralprocessModeleightAction extends BaseAction {
 			// 获取流程配置主表对象
 			TGeneralprocessMain main = this.generalprocessMainService
 					.queryMainByBusinessId(businessId);
+			
+			if(main != null){
+				if(main.getBeginEmpId() != null && main.getBeginOrgId() != null){
+					taskAssgineeDto.setBeginAssingee(main.getBeginEmpId());
+					taskAssgineeDto.setBeginOrg(main.getBeginOrgId());
+				}
+			}
+			
 			Map<String, Object> map = new HashMap<String, Object>();
 			
 			taskName= taskAssgineeDto.getTaskName();

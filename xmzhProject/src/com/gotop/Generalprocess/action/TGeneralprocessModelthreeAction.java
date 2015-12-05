@@ -207,6 +207,12 @@ public class TGeneralprocessModelthreeAction extends BaseAction {
 				this.setModelOne(modelOne);
 			}
 			
+			if(main != null){
+				if(main.getBeginEmpId() != null && main.getBeginOrgId() != null){
+					taskAssgineeDto.setBeginAssingee(main.getBeginEmpId());
+					taskAssgineeDto.setBeginOrg(main.getBeginOrgId());
+				}
+			}
 			Map<String, Object> map = new HashMap<String, Object>();
 			String taskName1 = null;
 			if (taskAssgineeDto.getNextTaskId() != null) {
