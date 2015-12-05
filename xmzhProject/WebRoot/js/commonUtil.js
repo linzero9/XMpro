@@ -643,7 +643,9 @@ WEB.turnMainFrame=function(){
 						        	$("#table"+key).html(mistakeshtml);
 						        	var mistake="<tr><th style='width:60%;'>差错内容</th><th style='width:20%;'>扣罚金额</th><th style='width:20%;'>登记时间</th></tr>";
 						        	$.each(files,function( i,item ){
-						        		mistake=mistake+"<tr><td>"+item.mistakeContent+"</td><td>"+item.punishBal+"</td><td>"+item.addTime+"</td></tr>";
+						        		var addtimestr=item.addTime;
+						        		var addtime=addtimestr.substring(0,4)+"-"+addtimestr.substring(4,6)+"-"+addtimestr.substring(6,8)+"  "+addtimestr.substring(8,10)+":"+addtimestr.substring(10,12) +":"+addtimestr.substring(12,14);
+						        		mistake=mistake+"<tr><td>"+item.mistakeContent+"</td><td>"+item.punishBal+"</td><td>"+addtime+"</td></tr>";
 						        	});
 						        	$("#mistake"+misTakeType).html(mistake);
 						        }  
