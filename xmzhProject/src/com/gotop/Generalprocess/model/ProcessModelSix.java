@@ -63,7 +63,7 @@ public class ProcessModelSix  extends ProcessModel  implements  Serializable {
 
 	
 	/**
-     * 支用金额 .
+     * 支用金额币别
      * @abatorgenerated
      */
 	@GeneralprocessField(name="支用金额币别",type="dic",dicname="PROCESS_MONEY")

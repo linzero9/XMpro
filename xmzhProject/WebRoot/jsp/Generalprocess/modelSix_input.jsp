@@ -68,13 +68,13 @@
 				
 							
 							
-							   <w:date  id="mortgageTime" submitFormat="yyyy-MM-dd" format="yyyy-MM-dd" allowNull="false" property="modelSix.mortgageTime"/>
+							   <w:date  id="mortgageTime" submitFormat="yyyy-MM-dd" format="yyyy-MM-dd" allowNull="false" property="modelSix.mortgageTime"/><font style="color: red">*</font>
 							</td>
 					<td class="form_label" align="right" style="width:120px;">收到他项时间</td>
 					<td colspan="3">
 							
 							
-														   <w:date  id="receiveTime" submitFormat="yyyy-MM-dd" format="yyyy-MM-dd" allowNull="false" property="modelSix.receiveTime"/>
+														   <w:date  id="receiveTime" submitFormat="yyyy-MM-dd" format="yyyy-MM-dd" allowNull="false" property="modelSix.receiveTime"/><font style="color: red">*</font>
 							
 							
 							
@@ -88,29 +88,24 @@
 					
 							
 							
-<w:date  id="applicationTime" submitFormat="yyyy-MM-dd" format="yyyy-MM-dd" allowNull="false" property="modelSix.applicationTime"/>
-
-							
-							
-							
-							<font style="color: red">*</font></td>
+<w:date  id="applicationTime" submitFormat="yyyy-MM-dd" format="yyyy-MM-dd" property="modelSix.applicationTime"/></td>
 					<td class="form_label" align="right" style="width:120px;">
 						公积金中心下达放款指标时间：</td>
 					<td colspan="1">
 					
 			
 							
-	<w:date  id="issuedTime" submitFormat="yyyy-MM-dd" format="yyyy-MM-dd" allowNull="false" property="modelSix.issuedTime"/>
+	<w:date  id="issuedTime" submitFormat="yyyy-MM-dd" format="yyyy-MM-dd"  property="modelSix.issuedTime"/>
 							
 							
-							<font style="color: red">*</font></td>
+							</td>
 				</tr>
 				<tr>
 					<td class="form_label" align="right" style="width:120px;">
 						支用类别：</td>
 					<td colspan="1">
 							
-							<d:select  id="supportCategory"  dictTypeId="PROCESS_pay" property="modelSix.supportCategory" ></d:select>
+							<d:select  id="supportCategory"  dictTypeId="PROCESS_pay" property="modelSix.supportCategory"   ></d:select>
 							
 							
 							<font style="color: red">*</font></td>
