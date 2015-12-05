@@ -139,6 +139,7 @@
 			 //查看详情界面
 			 if('${isView}'!=''){
 					$("#save3").hide();
+					$("#save1").hide();
 					$("#opninion_content").attr("readonly",true);
 				}
 
