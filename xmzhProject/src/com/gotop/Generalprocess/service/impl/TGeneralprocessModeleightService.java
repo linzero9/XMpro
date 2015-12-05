@@ -124,12 +124,12 @@ public class TGeneralprocessModeleightService implements ITGeneralprocessModelei
 					modelEight, ProcessModelEight.class);
 		}
 
-		//String btnType = taskAssgineeDto.getBtnType();
+		String btnType = taskAssgineeDto.getBtnType();
 		/* if(btnType.equals("2")){ */
 		// 模式二-提交操作
 		// 审核通过
 		// 提交下个节点
-		
+		if (!"1".equals(btnType)) {
 		TaskAssgineeDto d1 = new TaskAssgineeDto();
 		d1.setTaskId(taskId);
 		d1.setTaskExeAssginee(String.valueOf(muo.getEmpid()));
@@ -177,6 +177,7 @@ public class TGeneralprocessModeleightService implements ITGeneralprocessModelei
 		
 		this.generalprocessService.insertApproveOpninion(modelEight, muo, nextTaskId,
 				submitType, taskAssgineeDto);
+		}
 		
 	}
 	
