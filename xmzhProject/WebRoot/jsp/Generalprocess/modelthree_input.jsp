@@ -47,7 +47,7 @@
       <tr>
       	<td class="form_label" align="right" style="width:120px;" >受理支行<br>（一级选项）</td>
       	<td colspan="1">
-         <h:text property="modelOne.orgNameOne" id="orgNameOne" validateAttr="allowNull=false" style="width:130px;" /><font style="color: red">*</font>
+         <h:text property="modelOne.orgNameOne" id="orgNameOne" style="width:130px;" /><font style="color: red">*</font>
          <h:hidden property="modelOne.orgCodeOne" id="orgCodeOne"/>	
       	</td>
      	<td class="form_label" align="right" style="width:120px;" >受理支行<br>（二级选项）</td>
@@ -62,14 +62,14 @@
                                                    主调信贷员：
         </td>
         <td colspan="1">
-         <h:text property="modelOne.creatorName" id="creatorName" validateAttr="allowNull=false" style="width:130px;" /><font style="color: red">*</font>	
+         <h:text property="modelOne.creatorName" id="creatorName" style="width:130px;" /><font style="color: red">*</font>	
          <h:hidden id="creator" property="modelOne.creator" />
         </td>
         <td class="form_label" align="right" style="width:120px;">
                                                   辅调信贷员：
         </td>
         <td colspan="1">
-         <h:text property="modelOne.fdxdy" id="fdxdy" validateAttr="allowNull=false" style="width:130px;" /><font style="color: red">*</font>	
+         <h:text property="modelOne.fdxdy" id="fdxdy" style="width:130px;" /><font style="color: red">*</font>	
         </td>
       </tr>
        <tr>
@@ -77,24 +77,24 @@
                                                    营业主管：
         </td>
         <td colspan="1">
-         <h:text property="modelOne.yxzg" id="yxzg" validateAttr="allowNull=false"  style="width:130px;" /><font style="color: red">*</font>	
+         <h:text property="modelOne.yxzg" id="yxzg" style="width:130px;" /><font style="color: red">*</font>	
         </td>
         <td class="form_label" align="right" style="width:120px;">
                                                    营销人员：
         </td>
         <td colspan="1">
-         <h:text property="modelOne.yxry" id="yxry" validateAttr="allowNull=ture" style="width:130px;" />	
+         <h:text property="modelOne.yxry" id="yxry" style="width:130px;" />	
         </td>
       	</tr>
        <tr>
      	<td class="form_label" align="right" style="width:120px;">客户姓名：</td>
      	<td>
-	     	 <h:text property="modelOne.cust_Name" id="cust_Name" validateAttr="allowNull=false" style="width:130px;" />
+	     	 <h:text property="modelOne.cust_Name" id="cust_Name"  style="width:130px;" />
 	     	 <font style="color: red;">*</font>
      	</td>
      	<td class="form_label" align="right" style="width:120px;">合作机构：</td>
      	<td>
-	     	 <h:text property="modelOne.coOrganization" id="coOrganization" validateAttr="allowNull=ture" style="width:130px;" />
+	     	 <h:text property="modelOne.coOrganization" id="coOrganization"  style="width:130px;" />
      	</td>
       </tr>
        <tr>
@@ -102,7 +102,7 @@
                                                  申请金额：
         </td>
         <td colspan="1">
-         <h:text property="modelOne.apply_bal" id="apply_bal" validateAttr="allowNull=false;type=float" style="width:130px;" /><font style="color: red">*</font>	
+         <h:text property="modelOne.apply_bal" id="apply_bal" validateAttr="type=float" style="width:130px;" /><font style="color: red">*</font>	
         </td>
         <td class="form_label" align="right" style="width:120px;">
                                                    申请币别：
@@ -116,7 +116,7 @@
                                                  一级分类：
         </td>
         <td colspan="1">
-         <h:text property="modelOne.oneCategory" id="oneCategory" validateAttr="allowNull=false" style="width:130px;" readonly="true"/><font style="color: red">*</font>	<a href="#" onclick="open_yjfl_fun()">选择</a>
+         <h:text property="modelOne.oneCategory" id="oneCategory" style="width:130px;" readonly="true"/><font style="color: red">*</font>	<a href="#" onclick="open_yjfl_fun()">选择</a>
         </td>
         <td class="form_label" align="right" style="width:120px;">
                                                    贷种分类：
@@ -125,7 +125,7 @@
          <select id="loanCategorys" onchange="changeloanCategory()">
          </select>
          <h:hidden property="modelOne.loanCategory"  id="loanCategory"/>
-         <font style="color: red">*</font>	
+         
         </td>
       </tr>
       <tr>
@@ -134,7 +134,7 @@
         </td>
         <td colspan="1">
 
-          <h:text property="modelOne.dywx_Name" id="dywx_Name" validateAttr="allowNull=ture" style="width:130px;" />	
+          <h:text property="modelOne.dywx_Name" id="dywx_Name" style="width:130px;" />	
 
         </td>
         
@@ -143,7 +143,7 @@
         </td>
         <td colspan="1">
         <div id="inputTime">
-	         <w:date  id="survey_Time" submitFormat="yyyy-MM-dd" format="yyyy-MM-dd" allowNull="false" property="modelOne.survey_Time"/>
+	         <w:date  id="survey_Time" submitFormat="yyyy-MM-dd" format="yyyy-MM-dd"  property="modelOne.survey_Time"/>
          </div>
         </td>
       </tr>
@@ -151,7 +151,7 @@
       <tr>
      	<td class="form_label" align="right">超限说明：</td>
      	<td colspan="3">
-	     	<h:textarea property="modelOne.content" id="content"  extAttr="class='h80' "  validateAttr="maxLength=512;allowNull=ture" rows="4"  style="width:90%;" />
+	     	<h:textarea property="modelOne.content" id="content"  extAttr="class='h80' "  validateAttr="maxLength=512;" rows="4"  style="width:90%;" />
      	</td>
       </tr>
     </table>
@@ -178,8 +178,7 @@
       <tr>
      	<td class="form_label" align="right" style="width:10%;">处理意见：</td>
      	<td colspan="3">
-	     	<h:textarea  extAttr="class='h80' "  id="opninion_content" property="modelThree.opninion_content"  id="opninion_content" validateAttr="maxLength=512;allowNull=false" rows="4"  style="width:90%;" />
-		    <font style="color: red">*</font>
+	     	<h:textarea  extAttr="class='h80' "  id="opninion_content" property="modelThree.opninion_content"  id="opninion_content" validateAttr="maxLength=512;" rows="4"  style="width:90%;" />
      	</td>
       </tr>
     
