@@ -37,4 +37,6 @@ public interface IGeneralprocessService {
 
 	public TaskAssgineeDto makeTaskAssgineeDto(TProcessBusiness pb,
 			MUOUserSession muo, TaskAssgineeDto dto);
+
+	public String isHaveParentOrgId(String orgcode);
 }

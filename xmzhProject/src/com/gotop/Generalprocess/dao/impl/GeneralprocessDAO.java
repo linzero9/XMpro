@@ -1,5 +1,6 @@
 package com.gotop.Generalprocess.dao.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -23,6 +24,11 @@ public class GeneralprocessDAO extends SqlMapClientDao implements IGeneralproces
 	@Override
 	public List queryOrgName(String empIds) {
 		return queryForList("GENERAL_PROCESS_SqlMap.queryOrgName",empIds);
+	}
+
+	@Override
+	public String isHaveParentOrgId(HashMap<String, Object> map) {
+		return (String) queryForObject("GENERAL_PROCESS_SqlMap.isHaveParentOrgId",map);
 	}
 
 }

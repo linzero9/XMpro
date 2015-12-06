@@ -46,7 +46,7 @@
       	<td colspan="1">
          <h:text property="modelOne.orgNameOne" id="orgNameOne" validateAttr="allowNull=false" readonly="true" style="width:130px;" /><font style="color: red">*</font>
          <h:hidden property="modelOne.orgCodeOne" id="orgCodeOne"/>	
-         <h:hidden id="startOrgid" value="${sessionScope.login_user.orgid}"/>	
+         <h:hidden id="startOrgid"/>	
       	</td>
      	<td class="form_label" align="right" style="width:120px;" >受理支行<br>（二级选项）</td>
      	<td colspan="3">
@@ -179,10 +179,35 @@
  <script type="text/javascript">
  show('${taskAssgineeDto.fxJson}');
  $(document).ready(function(){
-	 var templateFileIds = $("#templateFileIds").val();
-		if(templateFileIds == "" || templateFileIds == null){
-			$("#rowTemplate").hide();
-		}
+	 //获取当前登录者的上级机构code
+	 var orgcode = '${sessionScope.login_user.orgcode}'
+	 $.ajax({
+	        url: '/Generalprocess/generalProcessAction_isHaveParentOrgId.action',
+	        async: false,
+	        type: 'post',
+	        data: "orgcode="+orgcode,
+	        dataType: 'text',
+	        timeout: 60000,
+	        success: function (data) {
+		       if(data.indexOf("success")>=0){
+		    	 //上级机构为厦门市分行
+		  		 //受理支行(一级) 为当前登录者的所属机构
+		  		 //受理支行(二级) 的startOrgId为当前登录者的所属机构
+		  		 $("#orgNameOne").val('${sessionScope.login_user.orgname}');
+		  		 $("#orgCodeOne").val('${sessionScope.login_user.orgcode}');
+		  		 $("#startOrgid").val('${sessionScope.login_user.orgid}'); 
+		       }else{
+		    	 //上级机构非厦门市分行
+		  		 //受理支行(一级) 为当前登录者的所属机构的上级机构
+		  		 //受理支行(二级) 为当前登录者的所属机构
+		  		 $("#orgNameOne").val('${sessionScope.login_user.orgentityname}');
+		  		 $("#orgCodeOne").val('${sessionScope.login_user.orgentitycode}');
+		  		 $("#orgNameTwo").val('${sessionScope.login_user.orgname}');
+		  		 $("#orgCodeTwo").val('${sessionScope.login_user.orgcode}');
+		  		 $("#startOrgid").val('${sessionScope.login_user.orgentityid}');
+		       }
+	        }
+ 	});
 	//隐藏结束流程按钮
 		$("#deleteProcessBtn").hide();
 		if('${sessionScope.login_user.empid}'=='${modelOne.creator}'){
@@ -214,14 +239,7 @@
 	 if('${modelOne.creator}'==""){
 		 $("#creator").val('${sessionScope.login_user.empid}');
 	 }
-	 //受理支行一 	 机构名称	显示
-	 if('${modelOne.orgNameOne}'==""){
-		 $("#orgNameOne").val('${sessionScope.login_user.orgname}');
-	 }
-	 //受理支行一 	机构code	隐藏
-	 if('${modelOne.orgCodeOne}'==""){
-		 $("#orgCodeOne").val('${sessionScope.login_user.orgcode}');
-	 }
+
 	 setOneSelect('${taskAssgineeDto.processName}')
 	 
 	 if('${modelOne.oneCategory}'!=""){

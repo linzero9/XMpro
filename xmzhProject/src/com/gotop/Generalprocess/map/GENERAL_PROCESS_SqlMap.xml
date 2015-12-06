@@ -7,4 +7,10 @@
   		select b.orgname from om_emporg a,om_organization b where a.empid in($empIds$) and b.orgid = a.orgid
   	</select>
   	
+  	<select id="isHaveParentOrgId" resultClass="String" parameterClass="java.util.HashMap">
+  		select a.parentorgid
+  from om_organization a
+ where a.orgid =
+       (select t.parentorgid from om_organization t where t.orgcode = #orgcode#)
+  	</select>
 </sqlMap>

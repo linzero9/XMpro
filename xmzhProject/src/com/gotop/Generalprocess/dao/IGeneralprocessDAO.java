@@ -1,5 +1,6 @@
 package com.gotop.Generalprocess.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 public interface IGeneralprocessDAO {
@@ -10,5 +11,7 @@ public interface IGeneralprocessDAO {
 	 * @return
 	 */
 	public List queryOrgName(String empIds);
+
+	public String isHaveParentOrgId(HashMap<String, Object> map);
 
 }

@@ -30,6 +30,8 @@ public class GeneralprocessAction extends BaseAction {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	private String orgcode;
+	
 	/**
 	 * 
 	 * @author wsd
@@ -60,10 +62,19 @@ public class GeneralprocessAction extends BaseAction {
 	 * 
 	 */
 	private TaskAssgineeDto taskAssgineeDto;
+	
 	private String taskName;
 
 	public String getTaskName() {
 		return taskName;
+	}
+
+	public String getOrgcode() {
+		return orgcode;
+	}
+
+	public void setOrgcode(String orgcode) {
+		this.orgcode = orgcode;
 	}
 
 	public void setTaskName(String taskName) {
@@ -240,7 +251,6 @@ public class GeneralprocessAction extends BaseAction {
 			 * modelOne=this.generalprocessModeloneService
 			 * .queryModelOne(processModelId,flowId);
 			 */
-
 			// 获取流程实例id
 			String businessId = taskAssgineeDto.getExecutionId();
 			taskName = taskAssgineeDto.getTaskName();
@@ -289,7 +299,12 @@ public class GeneralprocessAction extends BaseAction {
 				for (int i = 0; i < idsArray.length; i++) {
 					String id = idsArray[i];
 					String rule = rulesArray[i];
-					map.put(rule + "-" + id, id);
+					if(map.containsKey(rule + "-" + id)){
+						break;
+					}else{
+						map.put(rule + "-" + id, id);
+					}
+					
 				}
 			}
 
@@ -454,6 +469,22 @@ public class GeneralprocessAction extends BaseAction {
 				log.error("[提交模式二表单失败！]", e);
 				throw e;
 			}
+		}
+		Struts2Utils.renderText(info);
+	}
+	
+	/**
+	 * 判断当前登录者的上上级机构是否为空
+	 * 为空，则当前登录者的所属机构为二级机构，上级为厦门分行
+	 * 不为空，则当前登录者的所属机构为区级机构，上级机构为区分行
+	 * @return
+	 */
+	public void isHaveParentOrgId(){
+		String info = "success";
+		String parentOrgId = null;
+		parentOrgId = this.generalProcessService.isHaveParentOrgId(orgcode);
+		if(parentOrgId != null){
+			info = "fails";
 		}
 		Struts2Utils.renderText(info);
 	}

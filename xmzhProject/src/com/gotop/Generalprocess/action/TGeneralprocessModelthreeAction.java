@@ -192,7 +192,7 @@ public class TGeneralprocessModelthreeAction extends BaseAction {
 	 */
 	public String toModelThree() {
 		try {
-
+			MUOUserSession muo = getCurrentOnlineUser();
 			// 获取流程实例id
 			String businessId = taskAssgineeDto.getExecutionId();
 			taskName = taskAssgineeDto.getTaskName();

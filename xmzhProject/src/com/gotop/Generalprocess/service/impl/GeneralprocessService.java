@@ -502,4 +502,11 @@ public class GeneralprocessService implements IGeneralprocessService {
 		}
 	}
 
+	@Override
+	public String isHaveParentOrgId(String orgcode) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("orgcode", orgcode);
+		return this.generalProcessDAO.isHaveParentOrgId(map);
+	}
+
 }
