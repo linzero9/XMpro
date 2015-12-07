@@ -2,6 +2,7 @@ package com.gotop.Generalprocess.action;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -272,7 +273,7 @@ public class GeneralprocessAction extends BaseAction {
 				taskAssgineeDto.setBeginOrg(muo.getOrgid());
 			}
 			
-			Map<String, Object> map = new HashMap<String, Object>();
+			Map<String, Object> map = new LinkedHashMap<String, Object>();
 			String taskName1 = null;
 			if (taskAssgineeDto.getNextTaskId() != null) {
 				// 待办-办理
@@ -377,7 +378,7 @@ public class GeneralprocessAction extends BaseAction {
 			}
 		}
 		
-		Map<String, Object> map = new HashMap<String, Object>();
+		Map<String, Object> map = new LinkedHashMap<String, Object>();
 		String taskName1 = null;
 		if (taskAssgineeDto.getNextTaskId() != null) {
 			// 待办-办理

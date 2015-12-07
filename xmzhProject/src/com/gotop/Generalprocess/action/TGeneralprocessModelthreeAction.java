@@ -17,6 +17,7 @@ import com.gotop.util.Struts2Utils;
 import com.gotop.vo.system.MUOUserSession;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -213,7 +214,7 @@ public class TGeneralprocessModelthreeAction extends BaseAction {
 					taskAssgineeDto.setBeginOrg(main.getBeginOrgId());
 				}
 			}
-			Map<String, Object> map = new HashMap<String, Object>();
+			Map<String, Object> map = new LinkedHashMap<String, Object>();
 			String taskName1 = null;
 			if (taskAssgineeDto.getNextTaskId() != null) {
 				// 待办-办理

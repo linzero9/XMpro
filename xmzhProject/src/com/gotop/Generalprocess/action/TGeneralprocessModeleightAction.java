@@ -17,6 +17,7 @@ import com.primeton.utils.AjaxParam;
 import com.primeton.utils.Page;
 import com.primeton.utils.pageCondExpand;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -152,7 +153,7 @@ public class TGeneralprocessModeleightAction extends BaseAction {
 				}
 			}
 			
-			Map<String, Object> map = new HashMap<String, Object>();
+			Map<String, Object> map = new LinkedHashMap<String, Object>();
 			
 			taskName= taskAssgineeDto.getTaskName();
 			

@@ -15,8 +15,10 @@ import com.gotop.vo.system.MUOUserSession;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import net.sf.json.JSONArray;
 
@@ -207,7 +209,7 @@ public class TGeneralprocessModelfourAction extends BaseAction {
 			}
 		}
 		
-		Map<String, Object> map = new HashMap<String, Object>();
+		Map<String, Object> map = new LinkedHashMap<String, Object>();
 		String taskName1 = null;
 		if (taskAssgineeDto.getNextTaskId() != null) {
 			// 待办-办理
@@ -250,6 +252,7 @@ public class TGeneralprocessModelfourAction extends BaseAction {
 					continue;
 				}else{
 					map.put(rule + "-" + id, id);
+					
 				}
 			}
 		}
