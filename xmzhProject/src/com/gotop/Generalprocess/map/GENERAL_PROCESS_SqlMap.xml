@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
 <sqlMap namespace="GENERAL_PROCESS_SqlMap" >
-
+	<resultMap id="omOrganization_result" class="com.gotop.vo.tyjg.Omorganization" >
+    	<!--Bean方式返回全表-->
+    	<result column="ORGID" property="orgid" jdbcType="DECIMAL" />
+    	<result column="ORGCODE" property="orgCode" jdbcType="VARCHAR" />
+    	<result column="ORGNAME" property="orgName" jdbcType="VARCHAR" />
+ 	 </resultMap>
+  
   	<!-- 根据员工号查询出其所属机构名称 -->
   	<select id="queryOrgName" resultClass="java.util.HashMap" parameterClass="String">
   		select b.orgname from om_emporg a,om_organization b where a.empid in($empIds$) and b.orgid = a.orgid
@@ -9,6 +15,13 @@
   	
   	<select id="isHaveParentOrgId" resultClass="String" parameterClass="java.util.HashMap">
   		select a.parentorgid
+  from om_organization a
+ where a.orgid =
+       (select t.parentorgid from om_organization t where t.orgcode = #orgcode#)
+  	</select>
+  	
+  	<select id="getParentOrgId" resultMap="omOrganization_result" parameterClass="java.util.HashMap">
+  		select a.orgid,a.orgcode,a.orgname
   from om_organization a
  where a.orgid =
        (select t.parentorgid from om_organization t where t.orgcode = #orgcode#)

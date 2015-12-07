@@ -22,6 +22,7 @@ import com.gotop.opinion.model.TDefaultOpinion;
 import com.gotop.opinion.service.ITDefaultOpinionService;
 import com.gotop.util.Struts2Utils;
 import com.gotop.vo.system.MUOUserSession;
+import com.gotop.vo.tyjg.Omorganization;
 
 public class GeneralprocessAction extends BaseAction {
 
@@ -482,9 +483,11 @@ public class GeneralprocessAction extends BaseAction {
 	public void isHaveParentOrgId(){
 		String info = "success";
 		String parentOrgId = null;
+		Omorganization om = null;
 		parentOrgId = this.generalProcessService.isHaveParentOrgId(orgcode);
 		if(parentOrgId != null){
-			info = "fails";
+			om = this.generalProcessService.getParentOrgId(orgcode);
+			info = om.getOrgid()+"," + om.getOrgCode()+","+om.getOrgName();
 		}
 		Struts2Utils.renderText(info);
 	}

@@ -200,11 +200,13 @@
 		    	 //上级机构非厦门市分行
 		  		 //受理支行(一级) 为当前登录者的所属机构的上级机构
 		  		 //受理支行(二级) 为当前登录者的所属机构
-		  		 $("#orgNameOne").val('${sessionScope.login_user.orgentityname}');
-		  		 $("#orgCodeOne").val('${sessionScope.login_user.orgentitycode}');
+		  		 var ss= new Array();
+		  		 ss = data.split(",");
+		  		 $("#orgNameOne").val(ss[2]);
+		  		 $("#orgCodeOne").val(ss[1]);
 		  		 $("#orgNameTwo").val('${sessionScope.login_user.orgname}');
 		  		 $("#orgCodeTwo").val('${sessionScope.login_user.orgcode}');
-		  		 $("#startOrgid").val('${sessionScope.login_user.orgentityid}');
+		  		 $("#startOrgid").val(ss[0]);
 		       }
 	        }
  	});

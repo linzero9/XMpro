@@ -3,6 +3,8 @@ package com.gotop.Generalprocess.dao;
 import java.util.HashMap;
 import java.util.List;
 
+import com.gotop.vo.tyjg.Omorganization;
+
 public interface IGeneralprocessDAO {
 
 	/**
@@ -13,5 +15,7 @@ public interface IGeneralprocessDAO {
 	public List queryOrgName(String empIds);
 
 	public String isHaveParentOrgId(HashMap<String, Object> map);
+
+	public Omorganization getParentOrgId(HashMap<String, Object> map);
 
 }

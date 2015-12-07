@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import com.gotop.Generalprocess.dao.IGeneralprocessDAO;
 import com.gotop.euipApply.dao.impl.TApplyEuipDAO;
 import com.gotop.util.dataSource.SqlMapClientDao;
+import com.gotop.vo.tyjg.Omorganization;
 
 public class GeneralprocessDAO extends SqlMapClientDao implements IGeneralprocessDAO{
 
@@ -29,6 +30,11 @@ public class GeneralprocessDAO extends SqlMapClientDao implements IGeneralproces
 	@Override
 	public String isHaveParentOrgId(HashMap<String, Object> map) {
 		return (String) queryForObject("GENERAL_PROCESS_SqlMap.isHaveParentOrgId",map);
+	}
+
+	@Override
+	public Omorganization getParentOrgId(HashMap<String, Object> map) {
+		return (Omorganization) queryForObject("GENERAL_PROCESS_SqlMap.getParentOrgId",map);
 	}
 
 }

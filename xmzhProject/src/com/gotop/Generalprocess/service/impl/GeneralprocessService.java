@@ -24,6 +24,7 @@ import com.gotop.jbpm.service.JbpmService;
 import com.gotop.opinion.dao.ITApproveOpninionDAO;
 import com.gotop.util.time.TimeUtil;
 import com.gotop.vo.system.MUOUserSession;
+import com.gotop.vo.tyjg.Omorganization;
 
 public class GeneralprocessService implements IGeneralprocessService {
 
@@ -507,6 +508,13 @@ public class GeneralprocessService implements IGeneralprocessService {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("orgcode", orgcode);
 		return this.generalProcessDAO.isHaveParentOrgId(map);
+	}
+
+	@Override
+	public Omorganization getParentOrgId(String orgcode) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("orgcode", orgcode);
+		return this.generalProcessDAO.getParentOrgId(map);
 	}
 
 }

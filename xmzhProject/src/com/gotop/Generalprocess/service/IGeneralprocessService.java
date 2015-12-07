@@ -6,6 +6,7 @@ import com.gotop.Generalprocess.model.ProcessModelTwo;
 import com.gotop.jbpm.dto.TaskAssgineeDto;
 import com.gotop.jbpm.model.TProcessBusiness;
 import com.gotop.vo.system.MUOUserSession;
+import com.gotop.vo.tyjg.Omorganization;
 
 public interface IGeneralprocessService {
 	
@@ -39,4 +40,6 @@ public interface IGeneralprocessService {
 			MUOUserSession muo, TaskAssgineeDto dto);
 
 	public String isHaveParentOrgId(String orgcode);
+
+	public Omorganization getParentOrgId(String orgcode);
 }
