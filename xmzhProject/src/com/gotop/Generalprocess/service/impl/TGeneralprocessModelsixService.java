@@ -210,7 +210,17 @@ public class TGeneralprocessModelsixService implements ITGeneralprocessModelsixS
 			
 			//////////////////////////
 			
-			this.tGeneralprocessModelsixDAO.addModelSix(Six);
+			
+			if (Six.getProcessModelId() != null
+					&& !"".equals(Six.getProcessModelId())){
+				// 修改模式四表单内容
+				this.tGeneralprocessModelsixDAO.uptModelSix(Six);
+				
+				
+			}else{
+				// 保存模式四表单内容
+				this.tGeneralprocessModelsixDAO.addModelSix(Six);
+			}
 			/**
 			 * ★★★★★★★★★★★★★★★★★★★★
 			 * 获取流程实例id  更新 主模板main的信息   （rule----类名和id--当前模式的主键id）
