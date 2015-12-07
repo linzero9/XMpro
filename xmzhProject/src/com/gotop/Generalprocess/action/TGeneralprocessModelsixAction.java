@@ -56,11 +56,16 @@ public class TGeneralprocessModelsixAction extends BaseAction {
 	 */
 	private JbpmService jbpmService;
 	
+	
 	/**
 	 * 页面标题展示
 	 */
 	private String taskName;
 	
+	/**
+	 * isView :1、为只读状态， 默认为空
+	 */
+	private String isView;
 	
 
     /**
@@ -220,7 +225,21 @@ public class TGeneralprocessModelsixAction extends BaseAction {
         this.tGeneralprocessModelsixService = tGeneralprocessModelsixService;
     }
 
-    /**
+    public String getIsView() {
+		return isView;
+	}
+
+
+
+
+	public void setIsView(String isView) {
+		this.isView = isView;
+	}
+
+
+
+
+	/**
      * 通过spring注入Service的get类.
      * @abatorgenerated
      */

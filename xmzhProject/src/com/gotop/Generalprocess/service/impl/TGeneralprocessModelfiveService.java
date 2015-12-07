@@ -127,25 +127,25 @@ public class TGeneralprocessModelfiveService implements
 
 		modelFive.setOpinion("");
 
+		// 获取流程实例id
 		if(taskAssgineeDto != null){
+		String executionId = taskAssgineeDto.getExecutionId();
+		
+		// 查询模式主板信息
+		TGeneralprocessMain main = this.generalprocessMainDAO
+				.queryMainByBusinessId(executionId);
+		
+		// 新增或更新模式主板的rule和id
+		if (main != null) {
+			// 修改
+			this.generalprocessMainDAO.uptGeneralProcessMain(taskAssgineeDto,
+					modelFive, main, ProcessModelFive.class);
+		} else {
+			// 新增
+			this.generalprocessMainDAO.addGeneralProcessMain(taskAssgineeDto,
+					modelFive, ProcessModelFive.class);
+		}
 			if(taskAssgineeDto.getBtnType() != null && !"1".equals(taskAssgineeDto.getBtnType())){
-				// 获取流程实例id
-				String executionId = taskAssgineeDto.getExecutionId();
-
-				// 查询模式主板信息
-				TGeneralprocessMain main = this.generalprocessMainDAO
-						.queryMainByBusinessId(executionId);
-
-				// 新增或更新模式主板的rule和id
-				if (main != null) {
-					// 修改
-					this.generalprocessMainDAO.uptGeneralProcessMain(taskAssgineeDto,
-							modelFive, main, ProcessModelFive.class);
-				} else {
-					// 新增
-					this.generalprocessMainDAO.addGeneralProcessMain(taskAssgineeDto,
-							modelFive, ProcessModelFive.class);
-				}
 
 				// 模式五-提交操作
 				// 审核通过
