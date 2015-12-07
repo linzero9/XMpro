@@ -136,7 +136,11 @@ public class TGeneralprocessModelsixAction extends BaseAction {
     				for (int i = 0; i < idsArray.length; i++) {
     					String id = idsArray[i];
     					String rule = rulesArray[i];
-    					map.put(rule + "-" + id, id);
+    					if(map.containsKey(rule + "-" + id)){
+    						continue;
+    					}else{
+    						map.put(rule + "-" + id, id);
+    					}
     				}
     			}
     			

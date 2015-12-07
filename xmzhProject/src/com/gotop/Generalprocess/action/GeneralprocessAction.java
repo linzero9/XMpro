@@ -301,7 +301,7 @@ public class GeneralprocessAction extends BaseAction {
 					String id = idsArray[i];
 					String rule = rulesArray[i];
 					if(map.containsKey(rule + "-" + id)){
-						break;
+						continue;
 					}else{
 						map.put(rule + "-" + id, id);
 					}
@@ -405,7 +405,12 @@ public class GeneralprocessAction extends BaseAction {
 			for (int i = 0; i < idsArray.length; i++) {
 				String id = idsArray[i];
 				String rule = rulesArray[i];
-				map.put(rule + "-" + id, id);
+				if(map.containsKey(rule + "-" + id)){
+					continue;
+				}else{
+					map.put(rule + "-" + id, id);
+				}
+				
 			}
 		}
 

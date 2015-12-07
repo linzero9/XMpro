@@ -192,7 +192,7 @@ public class TGeneralprocessModeleightAction extends BaseAction {
 					String id = idsArray[i];
 					String rule = rulesArray[i];
 					if(map.containsKey(rule + "-" + id)){
-						break;
+						continue;
 					}else{
 						map.put(rule + "-" + id, id);
 					}
