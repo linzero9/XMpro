@@ -233,7 +233,7 @@
 					if (data.indexOf("success") >= 0) {
 						alert("操作成功!")
 						unMaskTop();
-						if (flag == 1)
+						
 							WEB.turnMainFrame();
 					} else if (data.indexOf("fails") >= 0) {
 						unMaskTop();
