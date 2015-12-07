@@ -22,7 +22,6 @@
         <h:hidden id="executionId" property="taskAssgineeDto.executionId"/>
         <h:hidden id="taskId"  property="taskAssgineeDto.nextTaskId"/>
         <h:hidden id="taskAssingee" property="taskAssgineeDto.taskAssingee"/>
-        <h:hidden id="beginOrg" property="taskAssgineeDto.beginOrg"/>
         <h:hidden id="definitionId" property="taskAssgineeDto.definitionId"/>
         <h:hidden id="businessType" property="taskAssgineeDto.businessType"/>
         <h:hidden id="processName" property="taskAssgineeDto.processName"/>
@@ -35,6 +34,9 @@
 		<h:hidden id="taskName" name="modelOne.taskName" property="modelOne.taskName"/>
 		<h:hidden id="flowId" name="modelOne.flow_Id" property="modelOne.flow_Id"/>
 		
+		 <h:hidden id="beginAssingee" name="taskAssgineeDto.beginAssingee" property="taskAssgineeDto.beginAssingee"/>
+		<h:hidden id="beginOrg" name="taskAssgineeDto.beginOrg" property="taskAssgineeDto.beginOrg"/>
+			
 		<table align="center" border="0" width="100%" class="form_table" >
       <tr>
          <td  colspan="4" style="text-align: center;font-weight:bold;font-size:12pt;height:50px;background-color: rgb(145, 186, 221);" >
@@ -279,7 +281,7 @@ function initPlanCell20(){
     		$("#btnType").val(value);
     		if(value!="1"){
     			if(checkForm($id("form1"))){
-    			var strUrl = "/jbpm/jbpmDemoAction_toNextTaskConfig.action?taskAssgineeDto.executionId="+$id("executionId").value+"&taskAssgineeDto.beginOrg="+$("#beginOrg").val()+"&taskAssgineeDto.beginAssingee="+$("#createor").val()+"&taskAssgineeDto.definitionId=${taskAssgineeDto.definitionId}";
+    			var strUrl = "/jbpm/jbpmDemoAction_toNextTaskConfig.action?taskAssgineeDto.executionId="+$id("executionId").value+"&taskAssgineeDto.beginOrg="+$("#beginOrg").val()+"&taskAssgineeDto.beginAssingee="+$("#beginAssingee").val()+"&taskAssgineeDto.definitionId=${taskAssgineeDto.definitionId}";
     			showModalCenter(strUrl, null, taskAssigneeCallBack, 700, 400, '节点选择');
     			}
     		}else{

@@ -96,11 +96,15 @@ public class TGeneralprocessModelsixAction extends BaseAction {
     			//获取流程配置主表对象
     			TGeneralprocessMain main = this.generalprocessMainService.queryMainByBusinessId(businessId);
     			
+    			MUOUserSession muo = getCurrentOnlineUser();
     			if(main != null){
     				if(main.getBeginEmpId() != null && main.getBeginOrgId() != null){
     					taskAssgineeDto.setBeginAssingee(main.getBeginEmpId());
     					taskAssgineeDto.setBeginOrg(main.getBeginOrgId());
     				}
+    			}else{
+    				taskAssgineeDto.setBeginAssingee(muo.getEmpid());
+					taskAssgineeDto.setBeginOrg(muo.getOrgid());
     			}
     			
     			Map<String, Object>  map = new HashMap<String, Object>();
