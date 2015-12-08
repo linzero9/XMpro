@@ -13,15 +13,18 @@ public class ProcessModelEight extends ProcessModel implements Serializable {
 	
 	@GeneralprocessField(name="流程业务id",type="text",hidden=false)
 	private String flow_id;//流程的id
-	
-	@GeneralprocessField(name="意见内容",type="text")
-	private String opninion_content;
+
 	
 	@GeneralprocessField(name="提交公积金中心时间",type="text")
 	private String tjgjjsj;
 	
 	@GeneralprocessField(name="公积金中心审批时间",type="text")
 	private String gjjzxspsj;
+	
+	
+	
+	@GeneralprocessField(name="意见内容",type="text")
+	private String opninion_content;
 	
 	public String getFlow_id() {
 		return flow_id;

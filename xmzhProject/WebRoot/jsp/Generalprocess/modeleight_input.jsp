@@ -51,15 +51,15 @@
         </td>
         <td colspan="1">
         <div id="inputTime">
-	         <w:date  id="tjgjjsj" submitFormat="yyyy-MM-dd" format="yyyy-MM-dd" allowNull="false" property="modelEight.tjgjjsj" allowInput="false"/>
-         </div>
+	         <w:date  id="tjgjjsj" submitFormat="yyyy-MM-dd" format="yyyy-MM-dd" allowNull="false" property="modelEight.tjgjjsj" allowInput="false"/>  <font style="color: red">*</font>
+         </div>  
         </td>
         <td class="form_label" align="right" style="width:120px;">
                                                     公积金中心审批时间：
         </td>
         <td colspan="1">
         <div id="inputTime">
-	         <w:date  id="gjjzxspsj" submitFormat="yyyy-MM-dd" format="yyyy-MM-dd" allowNull="false" property="modelEight.gjjzxspsj" allowInput="false"/>
+	         <w:date  id="gjjzxspsj" submitFormat="yyyy-MM-dd" format="yyyy-MM-dd" allowNull="false" property="modelEight.gjjzxspsj" allowInput="false"/>  <font style="color: red">*</font>
          </div>
         </td>
       </tr>
@@ -162,6 +162,13 @@
         		showModalCenter(strUrl, null, taskAssigneeCallBack, 700, 400, '节点选择');
     			}
     		}else{
+
+        		
+     
+        	    $("#tjgjjsj_input").attr("validateattr","type=calendar;allowNull=true");
+        		$("#gjjzxspsj_input").attr("validateattr","type=calendar;allowNull=true");
+        		
+      
     			//保存
     			var _form = $id("form1");
     	  	  	 	url="/Generalprocess/tGeneralprocessModelEightAction_handleModelEight.action";	

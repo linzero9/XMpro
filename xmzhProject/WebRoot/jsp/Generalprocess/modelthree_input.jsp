@@ -172,7 +172,7 @@
       		 <td><d:select dictTypeId="ZHPT_ISURGENT" id="isurgent" property="modelThree.isurgent" nullLabel="请选择"/></td> 
       	<td class="form_label" align="right" style="width:10%;">报单时间：</td>
       		 <td colspan="1">
-	         <w:date id="reporttime" submitFormat="yyyy-MM-dd" format="yyyy-MM-dd" allowNull="false" property="modelThree.reporttime"/>
+	         <w:date id="reporttime" submitFormat="yyyy-MM-dd" format="yyyy-MM-dd" allowNull="false" property="modelThree.reporttime"/><font style="color: red">*</font>	
         </td>
       </tr>
       <tr>

@@ -89,7 +89,7 @@
        <tr>
      	<td class="form_label" align="right" style="width:120px;">客户姓名：</td>
      	<td>
-	     	 <h:text property="modelOne.cust_Name" id="cust_Name" validateAttr="allowNull=false" style="width:130px;" />
+	     	 <h:text property="modelOne.cust_Name" id="cust_Name" validateAttr="allowNull=false" style="width:250px;" />
 	     	 <font style="color: red;">*</font>
      	</td>
      	<td class="form_label" align="right" style="width:120px;">合作机构：</td>
@@ -102,13 +102,13 @@
                                                  申请金额：
         </td>
         <td colspan="1">
-         <h:text property="modelOne.apply_bal" id="apply_bal" validateAttr="allowNull=false;type=float" style="width:130px;" /><font style="color: red">*</font>	
+         <h:text property="modelOne.apply_bal" id="apply_bal" validateAttr="allowNull=false;type=float" style="width:130px;" /><font style="color: red">*</font>	元
         </td>
         <td class="form_label" align="right" style="width:120px;">
                                                    申请币别：
         </td>
 					<td colspan="1">
-						<d:select  id="currency"  dictTypeId="PROCESS_MONEY" property="modelOne.currency"></d:select>
+						<d:select  id="currency"  dictTypeId="PROCESS_MONEY" property="modelOne.currency"></d:select>    <font style="color: red">*</font>	
 					</td>
       </tr>
        <tr>
@@ -117,8 +117,8 @@
         </td>
         <td colspan="1">
         
-        <select id="oneCategorys" onchange="changeoneCategory()"   required>
-         </select>
+        <select    id="oneCategorys" onchange="changeoneCategory()"     >
+         </select> 
          <h:hidden property="modelOne.oneCategory"  id="oneCategory" />
          <font style="color: red">*</font>	
         </td>
@@ -127,8 +127,8 @@
         </td>
         <td colspan="1">
          <%-- <h:text property="modelOne.loanCategory" id="loanCategory" validateAttr="allowNull=false" style="width:130px;" /> --%>
-         <select id="loanCategorys" onchange="changeloanCategory()" required>
-         </select>
+         <select    id="loanCategorys" onchange="changeloanCategory()" >
+         </select> 
          <h:hidden property="modelOne.loanCategory"  id="loanCategory" />
          <font style="color: red">*</font>	
         </td>
@@ -147,8 +147,8 @@
                                                     调查时间：
         </td>
         <td colspan="1">
-        <div id="inputTime">
-	         <w:date  id="survey_Time" submitFormat="yyyy-MM-dd" format="yyyy-MM-dd" allowNull="false" property="modelOne.survey_Time"/>
+        <div id="inputTime"> 
+	         <w:date  id="survey_Time" submitFormat="yyyy-MM-dd" format="yyyy-MM-dd" allowNull="false" property="modelOne.survey_Time"/>    <font style="color: red">*</font>	
          </div>
         </td>
       </tr>
@@ -280,6 +280,21 @@ function initPlanCell20(){
      function doSave(value){
     		$("#btnType").val(value);
     		if(value!="1"){
+
+        		if($("#oneCategory").val($('#oneCategorys option:selected').val())==""||$("#oneCategory").val($('#oneCategorys option:selected').val())==null){
+            		alert("请选择一级分类");
+            		return false;
+            		}
+
+        		if($("#loanCategory").val($('#loanCategorys option:selected').val())==""||    		$("#loanCategory").val($('#loanCategorys option:selected').val())==null){
+        			alert("请选择贷种分类");
+            		return false;
+                		}
+
+        		$("#oneCategory").val($('#oneCategorys option:selected').val());
+
+        		$("#loanCategory").val($('#loanCategorys option:selected').val())
+        		
     			if(checkForm($id("form1"))){
     			var strUrl = "/jbpm/jbpmDemoAction_toNextTaskConfig.action?taskAssgineeDto.executionId="+$id("executionId").value+"&taskAssgineeDto.beginOrg="+$("#beginOrg").val()+"&taskAssgineeDto.beginAssingee="+$("#beginAssingee").val()+"&taskAssgineeDto.definitionId=${taskAssgineeDto.definitionId}";
     			showModalCenter(strUrl, null, taskAssigneeCallBack, 700, 400, '节点选择');
@@ -387,6 +402,9 @@ function initPlanCell20(){
 		function changeoneCategory(){
 			$("#oneCategory").val($('#oneCategorys option:selected').val());
 			 setLcselect($("#oneCategory").val());
+			
+
+			
 			}	
 		function setLcselect(arg){
 			$("#loanCategorys").html("");
