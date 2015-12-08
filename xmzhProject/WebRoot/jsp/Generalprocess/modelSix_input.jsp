@@ -55,11 +55,11 @@
 					<td>
 							
 							
-							<d:select  id="risk"  dictTypeId="PROCESS_QuotaCheck" property="modelSix.risk" ></d:select><font 			style="color: red;">*</font></td>
+							<d:select  id="risk"  dictTypeId="PROCESS_QuotaCheck" property="modelSix.risk"  nullLabel="请选择"></d:select><font 			style="color: red;">*</font></td>
 				
 				<td class="form_label" align="right" style="width:120px;">客户姓名</td>
 					<td colspan="3"><h:text id="custName"
-							property="modelSix.custName"   validateAttr="allowNull=false"/></td>
+							property="modelSix.custName"   validateAttr="allowNull=false"/>		<font style="color: red">*</font></td>
 				</tr>
 				
 				
@@ -107,7 +107,7 @@
 						支用类别：</td>
 					<td colspan="1">
 							
-							<d:select  id="supportCategory"  dictTypeId="PROCESS_pay" property="modelSix.supportCategory"   ></d:select>
+							<d:select  id="supportCategory"  dictTypeId="PROCESS_pay" property="modelSix.supportCategory"   nullLabel="请选择"></d:select>
 							
 							
 							<font style="color: red">*</font></td>
@@ -117,11 +117,11 @@
 				     <tr>
      	<td class="form_label" align="right" style="width:20%;" >支用金额币别</td>
       	<td colspan="1" style="width:30%">
-        	<d:select id="supportMoneyType" property="modelSix.supportMoneyType" dictTypeId="PROCESS_MONEY"  ></d:select>
+        	<d:select id="supportMoneyType" property="modelSix.supportMoneyType" dictTypeId="PROCESS_MONEY"   nullLabel="请选择"></d:select>
       	</td>
      	<td class="form_label" align="right" style="width:20%;">支用金额</td>
      	<td colspan="1" style="width:30%">
-        	<h:text id="supportMoney" property="modelSix.supportMoney"   validateAttr="allowNull=false;type=float"/>
+        	<h:text id="supportMoney" property="modelSix.supportMoney"   validateAttr="type=float"/>元
         </td>
       </tr>
 				

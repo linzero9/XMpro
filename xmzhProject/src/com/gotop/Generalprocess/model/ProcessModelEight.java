@@ -23,7 +23,7 @@ public class ProcessModelEight extends ProcessModel implements Serializable {
 	
 	
 	
-	@GeneralprocessField(name="意见内容",type="text")
+	@GeneralprocessField(name="处理意见",type="text")
 	private String opninion_content;
 	
 	public String getFlow_id() {
