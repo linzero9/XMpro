@@ -61,7 +61,7 @@
       	</td>
      	<td class="form_label" align="right" style="width:20%;">审批方式</td>
      	<td colspan="1" style="width:30%">
-        	<d:select id="appWay" dictTypeId="PROCESS_method" property="modelFive.appWay" ></d:select>
+        	<d:select id="appWay" dictTypeId="PROCESS_method" property="modelFive.appWay"  nullLabel="请选择"></d:select>
         </td>
       </tr>
       
@@ -99,11 +99,11 @@
       </tr>
       
       <tr>
-     	<td class="form_label" align="right" style="width:20%;" >会议审批委员1</td>
+     	<td class="form_label" align="right" style="width:20%;" >会议审批委员一</td>
       	<td colspan="1" style="width:30%">
         	<h:text id="hyWyOne" property="modelFive.hyWyOne"/>
       	</td>
-     	<td class="form_label" align="right">会议审批委员2</td>
+     	<td class="form_label" align="right">会议审批委员二</td>
      	<td colspan="1" style="width:30%">
         	<h:text id="hyWyTwo" property="modelFive.hyWyTwo"/>
         </td>
@@ -138,7 +138,7 @@
       	</td>
      	<td class="form_label" align="right">审批类型</td>
      	<td colspan="1" style="width:30%">
-        	<d:select id="spType" dictTypeId="PROCESS_approve" property="modelFive.spType"></d:select>
+        	<d:select id="spType" dictTypeId="PROCESS_approve" property="modelFive.spType"  nullLabel="请选择"></d:select>
         </td>
       </tr>
       
@@ -149,7 +149,7 @@
       	</td>
      	<td class="form_label" align="right">会议审议结论</td>
      	<td colspan="1" style="width:30%">
-        	<d:select id="hySyJl" dictTypeId="PROCESS_conclusion" property="modelFive.hySyJl"></d:select>
+        	<d:select id="hySyJl" dictTypeId="PROCESS_conclusion" property="modelFive.hySyJl"  nullLabel="请选择"></d:select>
         </td>
       </tr>
       
@@ -163,33 +163,33 @@
       <tr>
      	<td class="form_label" align="right" style="width:20%;" >风险币别</td>
       	<td colspan="1" style="width:30%">
-        	<d:select id="fxBb" property="modelFive.fxBb" dictTypeId="PROCESS_MONEY"></d:select>
+        	<d:select id="fxBb" property="modelFive.fxBb" dictTypeId="PROCESS_MONEY"  nullLabel="请选择"></d:select>
       	</td>
      	<td class="form_label" align="right">风险额度</td>
      	<td colspan="1" style="width:30%">
-        	<h:text id="fxEd" property="modelFive.fxEd"/>
+        	<h:text id="fxEd" property="modelFive.fxEd"/>元
         </td>
       </tr>
       
       <tr>
      	<td class="form_label" align="right" style="width:20%;" >授信币别</td>
       	<td colspan="1" style="width:30%">
-        	<d:select id="sxBb" property="modelFive.sxBb" dictTypeId="PROCESS_MONEY"></d:select>
+        	<d:select id="sxBb" property="modelFive.sxBb" dictTypeId="PROCESS_MONEY"  nullLabel="请选择"></d:select>
       	</td>
      	<td class="form_label" align="right">授信额度</td>
      	<td colspan="1" style="width:30%">
-        	<h:text id="sxEd" property="modelFive.sxEd"/>
+        	<h:text id="sxEd" property="modelFive.sxEd"/>元
         </td>
       </tr>
       
        <tr>
      	<td class="form_label" align="right" style="width:20%;" >业务币别</td>
       	<td colspan="1" style="width:30%">
-        	<d:select id="ywBb" property="modelFive.ywBb" dictTypeId="PROCESS_MONEY"></d:select>
+        	<d:select id="ywBb" property="modelFive.ywBb" dictTypeId="PROCESS_MONEY"  nullLabel="请选择"></d:select>
       	</td>
      	<td class="form_label" align="right" style="width:20%;">业务额度</td>
      	<td colspan="1" style="width:30%">
-        	<h:text id="ywEd" property="modelFive.ywEd"/>
+        	<h:text id="ywEd" property="modelFive.ywEd"/>元
         </td>
       </tr>
       
