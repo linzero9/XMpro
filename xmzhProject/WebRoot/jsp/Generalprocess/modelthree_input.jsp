@@ -209,6 +209,8 @@
  show('${taskAssgineeDto.fxJson}');
 
 		 $(document).ready(function(){
+			 $("#opninion_content").text("");
+			 
 			//存在模式一则显示模式一表单
 			 if('${modelOne.processModelId}' != ""){
 				 $("#modelOneTb").show();

@@ -71,6 +71,9 @@
  show('${taskAssgineeDto.fxJson}');
 
 		 $(document).ready(function(){
+			 $("#opninion_content").text("");
+
+			 
 			 if('${euip.epId}'!=""){
 				 $("#save1").css("display","none"); 
 				 $.ajax({

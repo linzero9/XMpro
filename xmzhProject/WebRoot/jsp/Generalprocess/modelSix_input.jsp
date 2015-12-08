@@ -160,6 +160,8 @@
 			.ready(
 					function() {
 
+						 $("#processingOpinion").text("");
+
 
 
 						if($("#custName").val()==""||$("#custName").val()==null){

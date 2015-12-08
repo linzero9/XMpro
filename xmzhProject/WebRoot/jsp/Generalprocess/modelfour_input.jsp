@@ -85,6 +85,9 @@
  		 show('${taskAssgineeDto.fxJson}');
 
 		 $(document).ready(function(){
+
+			 
+			 $("#opninionContent").text("");
 			
 			 //查看详情界面
 			 if('${isView}'!=''){
