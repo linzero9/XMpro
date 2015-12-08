@@ -37,6 +37,46 @@ public class TGeneralprocessModelfourAction extends BaseAction {
 
 	private List<ProcessModelFourMistake> fourMistakes;
 
+	private List<ProcessModelFourMistake> otherMistakes;
+	
+	/**
+	 * 历史差错内容
+	 */
+	private String hiFiles;
+	
+	/**
+	 * 历史扣款金额
+	 */
+	private String hiJees;
+	
+	/**
+	 * 历史流程实例id
+	 */
+	private String hiFlowId;
+	
+	/**
+	 * 历史登记人id
+	 */
+	private String hiEmpId;
+	
+	/**
+	 * 历史节点名称
+	 */
+	private String hiTaskName;
+	
+	/**
+	 * 历史模式四主键
+	 */
+	private String hiProFour;
+	
+	/**
+	 * 历史添加时间
+	 */
+	private String hiAddTime;
+	
+	/**
+	 * 
+	 */
 	private String isView;
 
 	/**
@@ -74,9 +114,73 @@ public class TGeneralprocessModelfourAction extends BaseAction {
 	 */
 	private JbpmService jbpmService;
 
+	public List<ProcessModelFourMistake> getOtherMistakes() {
+		return otherMistakes;
+	}
+
+	public void setOtherMistakes(List<ProcessModelFourMistake> otherMistakes) {
+		this.otherMistakes = otherMistakes;
+	}
+
+	public String getHiFiles() {
+		return hiFiles;
+	}
+
+	public void setHiFiles(String hiFiles) {
+		this.hiFiles = hiFiles;
+	}
+
+	public String getHiJees() {
+		return hiJees;
+	}
+
+	public void setHiJees(String hiJees) {
+		this.hiJees = hiJees;
+	}
+
+	public String getHiFlowId() {
+		return hiFlowId;
+	}
+
+	public void setHiFlowId(String hiFlowId) {
+		this.hiFlowId = hiFlowId;
+	}
+
+	public String getHiEmpId() {
+		return hiEmpId;
+	}
+
+	public void setHiEmpId(String hiEmpId) {
+		this.hiEmpId = hiEmpId;
+	}
+
+	public String getHiTaskName() {
+		return hiTaskName;
+	}
+
+	public void setHiTaskName(String hiTaskName) {
+		this.hiTaskName = hiTaskName;
+	}
+
+	public String getHiProFour() {
+		return hiProFour;
+	}
+
+	public void setHiProFour(String hiProFour) {
+		this.hiProFour = hiProFour;
+	}
+
+	public String getHiAddTime() {
+		return hiAddTime;
+	}
+
+	public void setHiAddTime(String hiAddTime) {
+		this.hiAddTime = hiAddTime;
+	}
+
 	public List<ProcessModelFourMistake> getFourMistakes() {
 		return fourMistakes;
-	}
+	} 
 
 	public void setFourMistakes(List<ProcessModelFourMistake> fourMistakes) {
 		this.fourMistakes = fourMistakes;
@@ -288,9 +392,19 @@ public class TGeneralprocessModelfourAction extends BaseAction {
 			info = "noFirst";
 		} else {
 			MUOUserSession muo = getCurrentOnlineUser();
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("hiAddTime", hiAddTime);
+			map.put("hiProFour", hiProFour);
+			map.put("hiTaskName", hiTaskName);
+			map.put("hiEmpId", hiEmpId);
+			map.put("hiFlowId", hiFlowId);
+			map.put("hiJees", hiJees);
+			map.put("hiFiles", hiFiles);
+			map.put("files", files);
+			map.put("jees", jees);
 			try {
 				this.tGeneralprocessModelfourService.handleModelFour(muo,
-						modelFour, files, jees, taskAssgineeDto);
+						modelFour, map, taskAssgineeDto);
 			} catch (Exception e) {
 				info = "fails";
 				log.error("[提交模式四表单失败！]", e);
@@ -315,5 +429,18 @@ public class TGeneralprocessModelfourAction extends BaseAction {
 			log.error("查询差错列表失败！！", e);
 		}
 		return "list1";
+	}
+	
+	public String queryFourMistakeByFlowId(){
+		String busId = taskAssgineeDto.getExecutionId();
+		try {
+			if (busId != null && busId != null) {
+				otherMistakes = this.tGeneralprocessModelfourService
+						.queryFourMistakeByFlowId(busId,modelFour);
+			}
+		} catch (Exception e) {
+			log.error("查询差错列表失败！！", e);
+		}
+		return "list2";
 	}
 }

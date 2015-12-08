@@ -15,6 +15,8 @@ import com.gotop.vo.system.MUOUserSession;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.log4j.Logger;
 
 public class TGeneralprocessModelfourService implements ITGeneralprocessModelfourService {
@@ -96,15 +98,107 @@ public class TGeneralprocessModelfourService implements ITGeneralprocessModelfou
 	}
 
 	@Override
-	public void handleModelFour(MUOUserSession muo, ProcessModelFour modelFour,String files, String jees,
+	public void handleModelFour(MUOUserSession muo, ProcessModelFour modelFour,Map<String, Object> map,
 			TaskAssgineeDto taskAssgineeDto) {
 		String taskId = taskAssgineeDto.getNextTaskId();
 		String taskName = jbpmService.getTaskNameById(taskId);
 		modelFour.setTaskName(taskName);
 		modelFour.setFlowId(taskAssgineeDto.getExecutionId());
+		String[] hiAddTimeAr = null;
+		String[] hiProFourAr = null;
+		String[] hiTaskNameAr = null;
+		String[] hiEmpIdAr = null;
+		String[] hiFlowIdAr = null;
+		String[] hiJeesAr = null;
+		String[] hiFilesAr = null;
+		
+		String hiAddTime = null;
+		String hiProFour = null;
+		String hiTaskName = null;
+		String hiEmpId = null;
+		String hiFlowId = null;
+		String hiJees = null;
+		String hiFiles = null;
+		
+		if(map.get("hiAddTime") != null){
+			hiAddTime = (String) map.get("hiAddTime");
+			hiAddTime=hiAddTime.replace(" ", "");
+			hiAddTimeAr = hiAddTime.split(",");
+		}
+		
+		if(map.get("hiProFour") != null){
+			hiProFour = (String) map.get("hiProFour");
+			hiProFour=hiProFour.replace(" ", "");
+			hiProFourAr = hiProFour.split(",");
+		}
+		
+		if(map.get("hiTaskName") != null){
+			hiTaskName = (String) map.get("hiTaskName");
+			hiTaskName=hiTaskName.replace(" ", "");
+			hiTaskNameAr = hiTaskName.split(",");
+		}
+		
+		if(map.get("hiEmpId") != null){
+			hiEmpId = (String) map.get("hiEmpId");
+			hiEmpId=hiEmpId.replace(" ", "");
+			hiEmpIdAr = hiEmpId.split(",");
+		}
+		
+		if(map.get("hiFlowId") != null){
+			hiFlowId = (String) map.get("hiFlowId");
+			hiFlowId=hiFlowId.replace(" ", "");
+			hiFlowIdAr = hiFlowId.split(",");
+		}
+		
+		if(map.get("hiJees") != null){
+			hiJees = (String) map.get("hiJees");
+			hiJees=hiJees.replace(" ", "");
+			hiJeesAr = hiJees.split(",");
+		}
+		
+		if(map.get("hiFiles") != null){
+			hiFiles = (String) map.get("hiFiles");
+			hiFiles=hiFiles.replace(" ", "");
+			hiFilesAr = hiFiles.split(",");
+		}
+		
+		if(hiProFourAr !=null){
+		if(hiProFourAr.length !=0 && hiProFourAr != null){
+			for (int i = 0; i < hiProFourAr.length; i++) {
+				ProcessModelFour mf = new ProcessModelFour();
+				mf.setProcessModelId(Long.valueOf(hiProFourAr[i]));
+				this.tGeneralprocessModelfourDAO.deleteModelFourMistake(mf);
+			}
+		}
+		}
+		
+		if(hiAddTimeAr !=null && hiProFourAr != null && hiTaskNameAr != null && hiEmpIdAr != null && hiFlowIdAr != null && hiJeesAr != null && hiFilesAr != null){
+				for (int i = 0; i < hiAddTimeAr.length; i++) {
+					ProcessModelFourMistake mistake =new ProcessModelFourMistake();
+					mistake.setEmpid(hiEmpIdAr[i]);
+					mistake.setFlowId(hiFlowIdAr[i]);
+					mistake.setTaskName(hiTaskNameAr[i]);
+					mistake.setMistakeContent(hiFilesAr[i]);
+					mistake.setPunishBal(hiJeesAr[i]);
+					mistake.setProcessModelIdFour(hiProFourAr[i]);
+					mistake.setAddTime(hiAddTimeAr[i]);
+					this.tGeneralprocessModelfourDAO.addModelFourMistake(mistake);
+				}
+		}
+		
 		
 		String[] fileArray = null;
 		String[] jeArray = null;
+		String files = null;
+		String jees = null;
+		if(map.get("files") != null){
+			files = (String) map.get("files");
+			files=files.replace(" ", "");
+		}
+		if(map.get("jees") != null){
+			jees = (String) map.get("jees");
+			jees=jees.replace(" ", "");
+		}
 		if(files != null && !"".equals(files)){
 			fileArray = files.split(",");
 		}
@@ -225,6 +319,19 @@ public class TGeneralprocessModelfourService implements ITGeneralprocessModelfou
 			}
 		}
 		return this.tGeneralprocessModelfourDAO.queryFourMistake(map);
+	}
+
+	@Override
+	public List<ProcessModelFourMistake> queryFourMistakeByFlowId(String busId,
+			ProcessModelFour modelFour) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("busId", busId);
+		if(modelFour != null){
+			if(modelFour.getProcessModelId() != null){
+				map.put("processModelId", modelFour.getProcessModelId());
+			}
+		}
+		return this.tGeneralprocessModelfourDAO.queryFourMistakeByFlowId(map);
 	}
 	
 }

@@ -62,4 +62,10 @@ public class TGeneralprocessModelfourDAO extends SqlMapClientDao implements ITGe
 	public void deleteModelFourMistake(ProcessModelFour modelFour) {
 		getSqlMapClientTemplate().delete("T_GENERALPROCESS_MODELFOUR_SqlMap.deleteModelFourMistake", modelFour);
 	}
+
+	@Override
+	public List<ProcessModelFourMistake> queryFourMistakeByFlowId(
+			HashMap<String, Object> map) {
+		return queryForList("T_GENERALPROCESS_MODELFOUR_SqlMap.queryFourMistakeByFlowId", map);
+	}
 }
