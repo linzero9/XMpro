@@ -201,6 +201,12 @@
 						'节点选择');
 			}
 		} else {
+
+    	    $("#mortgageTime_input").attr("validateattr","type=calendar;allowNull=true");
+    		$("#custName").attr("validateattr","allowNull=true");
+    		$("#receiveTime_input").attr("validateattr","type=calendar;allowNull=true");
+
+			
 			var _form = $id("form1");
 			url = "/Generalprocess/tGeneralprocessModelSixAction_handleModelSix.action";
 			_form.action = url
