@@ -64,6 +64,50 @@
       <result column="objName" property="objName" jdbcType="VARCHAR" />
   </resultMap>
 
+<select id="getEmpByBeginSjGxPosi" resultMap="abatorgenerated_hashMap"  parameterClass="java.util.HashMap">
+select t5.empid as empId,t5.empname as empName from om_position     t1,
+            om_empposition  t2,
+            om_emporg       t3,
+            om_organization t4,
+            om_employee t5
+ where t1.positionid = #posiId#
+   and t1.positionid = t2.positionid
+   and t2.empid = t3.empid
+   and t3.orgid=t4.orgid
+   and t3.empid=t5.empid
+   and t4.orgid in(select t.orgid from om_organization t start with orgid =(select t.parentorgid from om_organization t where t.orgid= #beginOrg#)
+           connect by prior orgid = parentorgid)
+</select>
+
+	<select id="getEmpByBeginSjPosi" resultMap="abatorgenerated_hashMap"  parameterClass="java.util.HashMap">
+	select t5.empid as empId,t5.empname as empName from om_position     t1,
+            om_empposition  t2,
+            om_emporg       t3,
+            om_organization t4,
+            om_employee t5
+ where t1.positionid = #posiId#
+   and t1.positionid = t2.positionid
+   and t2.empid = t3.empid
+   and t3.orgid=t4.orgid
+   and t3.empid=t5.empid
+   and t4.orgid = (select t.parentorgid from om_organization t where t.orgid= #beginOrg#)
+	</select>
+	
+	<!-- 起草人本级指定岗位 -->
+	<select id="getEmpByBeginBjPosi" resultMap="abatorgenerated_hashMap"  parameterClass="java.util.HashMap" >
+   			select t5.empid as empId,t5.empname as empName from om_position     t1,
+            om_empposition  t2,
+            om_emporg       t3,
+            om_organization t4,
+            om_employee t5
+ where t1.positionid = #posiId#
+   and t1.positionid = t2.positionid
+   and t2.empid = t3.empid
+   and t3.orgid=t4.orgid
+   and t3.empid=t5.empid
+   and t4.orgid = #beginOrg#
+	</select>
+
 	<select id="judgeTaskNameConfig" resultMap="abatorgenerated_TProcessTaskExeConfigResult2"
 		parameterClass="java.util.HashMap">
 		select ID,DEFINITION_ID,ACTIVITY_NAME,TASK_ASS_ID,TASK_ASS_TYPE,ACT_SHOW_NAME,BEFORE_NAME

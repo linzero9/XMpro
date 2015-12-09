@@ -1543,4 +1543,31 @@ public class JbpmServiceImpl implements JbpmService{
 	public void depolyProcessXmlPng(File xmlFile, File pngFile) {
 		
 	}
+
+	@Override
+	public List<Map<String, Object>> getEmpByBeginBjPosi(
+			TaskAssgineeDto taskAssgineeDto) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("beginOrg", taskAssgineeDto.getBeginOrg());
+		map.put("posiId", taskAssgineeDto.getTaskExeAssginee());
+		return this.tProcessTaskExeConfigDAO.getEmpByBeginBjPosi(map);
+	}
+
+	@Override
+	public List<Map<String, Object>> getEmpByBeginSjPosi(
+			TaskAssgineeDto taskAssgineeDto) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("beginOrg", taskAssgineeDto.getBeginOrg());
+		map.put("posiId", taskAssgineeDto.getTaskExeAssginee());
+		return this.tProcessTaskExeConfigDAO.getEmpByBeginSjPosi(map);
+	}
+
+	@Override
+	public List<Map<String, Object>> getEmpByBeginSjGxPosi(
+			TaskAssgineeDto taskAssgineeDto) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("beginOrg", taskAssgineeDto.getBeginOrg());
+		map.put("posiId", taskAssgineeDto.getTaskExeAssginee());
+		return this.tProcessTaskExeConfigDAO.getEmpByBeginSjGxPosi(map);
+	}
 }

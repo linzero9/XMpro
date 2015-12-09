@@ -67,7 +67,7 @@ function custInit(){
 			}
 		}
 	}
-	if("01" == value){
+	if("01" == value || "13" == value){
 		//指定岗位
 			$id("selectFun").disabled="";
 			$id("objName").disabled="";
@@ -163,7 +163,7 @@ function changeTaskConfigType(value){
 		var objName = "";
 		var peArgument = [];
 		var taskConfigType = $id("taskConfigType").value;
-		if (taskConfigType == "01") {
+		if (taskConfigType == "01"|| taskConfigType == "13" || taskConfigType == "14" || taskConfigType == "15") {
 			//指定岗位
 			var strUrl = "/empMngr/positionSelectWin2_empMngr.action?date="+new Date();
 			peArgument[0]=$id("objId").value;

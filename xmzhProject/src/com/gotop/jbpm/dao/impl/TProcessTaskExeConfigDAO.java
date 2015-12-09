@@ -341,4 +341,23 @@ public class TProcessTaskExeConfigDAO extends SqlMapClientDao implements ITProce
 	public void insert1(TProcessTaskExeConfig config) {
 		 getSqlMapClientTemplate().insert("T_PROCESS_TASK_EXE_CONFIG_SqlMap.abatorgenerated_insert1", config);
 	}
+
+	@Override
+	public List<Map<String, Object>> getEmpByBeginBjPosi(Map<String, Object> map) {
+		List list = queryForList("T_PROCESS_TASK_EXE_CONFIG_SqlMap.getEmpByBeginBjPosi", map);
+        return list;
+	}
+
+	@Override
+	public List<Map<String, Object>> getEmpByBeginSjPosi(Map<String, Object> map) {
+		List list = queryForList("T_PROCESS_TASK_EXE_CONFIG_SqlMap.getEmpByBeginSjPosi", map);
+        return list;
+	}
+
+	@Override
+	public List<Map<String, Object>> getEmpByBeginSjGxPosi(
+			Map<String, Object> map) {
+		List list = queryForList("T_PROCESS_TASK_EXE_CONFIG_SqlMap.getEmpByBeginSjGxPosi", map);
+        return list;
+	}
 }

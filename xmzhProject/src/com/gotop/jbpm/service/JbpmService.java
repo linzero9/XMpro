@@ -298,4 +298,28 @@ public interface JbpmService {
 
 	public void depolyProcessXmlPng(File xmlFile, File pngFile);
 
+	/**
+	 * 起草人本级指定岗位
+	 * @param taskAssgineeDto
+	 * @return
+	 */
+	public List<Map<String, Object>> getEmpByBeginBjPosi(
+			TaskAssgineeDto taskAssgineeDto);
+
+	/**
+	 * 起草人上级指定岗位
+	 * @param taskAssgineeDto
+	 * @return
+	 */
+	public List<Map<String, Object>> getEmpByBeginSjPosi(
+			TaskAssgineeDto taskAssgineeDto);
+
+	/**
+	 * 起草人上级管辖范围指定岗位
+	 * @param taskAssgineeDto
+	 * @return
+	 */
+	public List<Map<String, Object>> getEmpByBeginSjGxPosi(
+			TaskAssgineeDto taskAssgineeDto);
+
 }

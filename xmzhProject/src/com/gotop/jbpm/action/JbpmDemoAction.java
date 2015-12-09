@@ -1478,7 +1478,87 @@ public class JbpmDemoAction extends BaseAction {
 							taskType="06";
 							//最后节点
 						}*/
-						
+						else if("13".equals(tProcessTaskExeConfig.getTaskAssType())){
+							//起草人本级指定岗位
+							String taskAssId = tProcessTaskExeConfig.getTaskAssId();
+							this.taskAssgineeDto.setTaskExeAssginee(taskAssId);
+							taskAssgineeDto.setDefinitionId(tProcessTaskExeConfig
+									.getDefinitionId());
+							//
+							List<Map<String, Object>> empids = jbpmService
+									.getEmpByBeginBjPosi(taskAssgineeDto);
+							if (empids.size() != 0) {
+								for (Map<String, Object> map : empids) {
+									if(this.taskAssgineeDto.getTaskAssingee() != null){
+										String taskAssingee = String.valueOf(this.taskAssgineeDto.getTaskAssingee());
+										//获取上一节点提交人id
+										
+										if(String.valueOf(map.get("empId")).equals(taskAssingee)){
+											empIds.add(String.valueOf(map.get("empId")));
+											empNames.add((String) map.get("empName"));
+										}
+									}else{
+										empIds.add(String.valueOf(map.get("empId")));
+										empNames.add((String) map.get("empName"));
+									}
+								}
+							}
+							taskType="13";
+						}
+						else if("14".equals(tProcessTaskExeConfig.getTaskAssType())){
+							//起草人上级指定岗位
+							String taskAssId = tProcessTaskExeConfig.getTaskAssId();
+							this.taskAssgineeDto.setTaskExeAssginee(taskAssId);
+							taskAssgineeDto.setDefinitionId(tProcessTaskExeConfig
+									.getDefinitionId());
+							//
+							List<Map<String, Object>> empids = jbpmService
+									.getEmpByBeginSjPosi(taskAssgineeDto);
+							if (empids.size() != 0) {
+								for (Map<String, Object> map : empids) {
+									if(this.taskAssgineeDto.getTaskAssingee() != null){
+										String taskAssingee = String.valueOf(this.taskAssgineeDto.getTaskAssingee());
+										//获取上一节点提交人id
+										
+										if(String.valueOf(map.get("empId")).equals(taskAssingee)){
+											empIds.add(String.valueOf(map.get("empId")));
+											empNames.add((String) map.get("empName"));
+										}
+									}else{
+										empIds.add(String.valueOf(map.get("empId")));
+										empNames.add((String) map.get("empName"));
+									}
+								}
+							}
+							taskType="14";
+						}
+						else if("15".equals(tProcessTaskExeConfig.getTaskAssType())){
+							//起草人上级管辖范围指定岗位
+							String taskAssId = tProcessTaskExeConfig.getTaskAssId();
+							this.taskAssgineeDto.setTaskExeAssginee(taskAssId);
+							taskAssgineeDto.setDefinitionId(tProcessTaskExeConfig
+									.getDefinitionId());
+							//
+							List<Map<String, Object>> empids = jbpmService
+									.getEmpByBeginSjGxPosi(taskAssgineeDto);
+							if (empids.size() != 0) {
+								for (Map<String, Object> map : empids) {
+									if(this.taskAssgineeDto.getTaskAssingee() != null){
+										String taskAssingee = String.valueOf(this.taskAssgineeDto.getTaskAssingee());
+										//获取上一节点提交人id
+										
+										if(String.valueOf(map.get("empId")).equals(taskAssingee)){
+											empIds.add(String.valueOf(map.get("empId")));
+											empNames.add((String) map.get("empName"));
+										}
+									}else{
+										empIds.add(String.valueOf(map.get("empId")));
+										empNames.add((String) map.get("empName"));
+									}
+								}
+							}
+							taskType="15";
+						}
 					}
 				} else {
 
@@ -1624,7 +1704,7 @@ public class JbpmDemoAction extends BaseAction {
 			this.taskAssgineeDto.setBusinessKey(tProcessTaskExeConfig.getId());
 			this.taskAssgineeDto.setObjId(tProcessTaskExeConfig.getTaskAssId());
 			this.taskAssgineeDto.setTaskConfigType(tProcessTaskExeConfig.getTaskAssType());
-			if("01".equals(tProcessTaskExeConfig.getTaskAssType())){
+			if("01".equals(tProcessTaskExeConfig.getTaskAssType()) || "13".equals(tProcessTaskExeConfig.getTaskAssType()) || "14".equals(tProcessTaskExeConfig.getTaskAssType()) || "15".equals(tProcessTaskExeConfig.getTaskAssType())){
 				//指定岗位
 				List<Map<String, Object>> objs = jbpmService.getPosition(taskAssgineeDto);
 				if (objs.size() != 0) {
@@ -1674,8 +1754,10 @@ public class JbpmDemoAction extends BaseAction {
 		tProcessTaskExeConfig.setTaskAssType(taskConfigType);
 		tProcessTaskExeConfig.setDefinitionId(taskAssgineeDto.getDefinitionId());
 		tProcessTaskExeConfig.setActivityName(taskAssgineeDto.getTaskName());
-		if ("01".equals(taskConfigType)) {
+		if ("01".equals(taskConfigType) || "13".equals(taskConfigType) || "14".equals(taskConfigType) || "15".equals(taskConfigType)) {
 			// 指定岗位
+			// 起草人本级指定岗位
+			// 起草人上级指定岗位
 			tProcessTaskExeConfig.setTaskAssId(taskAssgineeDto.getObjId());
 		} else if ("02".equals(taskConfigType)) {
 			// 动态机构

@@ -178,4 +178,10 @@ public interface ITProcessTaskExeConfigDAO {
 	void updateByPrimaryKey1(TProcessTaskExeConfig config);
 
 	void insert1(TProcessTaskExeConfig config);
+
+	List<Map<String, Object>> getEmpByBeginBjPosi(Map<String, Object> map);
+
+	List<Map<String, Object>> getEmpByBeginSjPosi(Map<String, Object> map);
+
+	List<Map<String, Object>> getEmpByBeginSjGxPosi(Map<String, Object> map);
 }
