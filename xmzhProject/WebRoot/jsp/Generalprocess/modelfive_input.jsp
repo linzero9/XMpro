@@ -134,7 +134,7 @@
        <tr>
      	<td class="form_label" align="right" style="width:20%;" >风险类型</td>
       	<td colspan="1" style="width:30%">
-        	<d:select id="fxType" dictTypeId="PROCESS_risk" property="modelFive.fxType"></d:select>
+        	<d:select id="fxType" dictTypeId="PROCESS_risk" property="modelFive.fxType"   nullLabel="请选择"></d:select>
       	</td>
      	<td class="form_label" align="right">审批类型</td>
      	<td colspan="1" style="width:30%">

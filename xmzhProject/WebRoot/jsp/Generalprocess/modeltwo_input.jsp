@@ -48,7 +48,7 @@
      	<td class="form_label" align="right" style="width:10%;">处理意见：</td>
      	<td colspan="3">
 	     	<h:textarea  extAttr="class='h80' "    property="modelTwo.opninion_content"  id="opninion_content" validateAttr="maxLength=512;" rows="4"  style="width:90%;" />
-		    <font style="color: red">*</font>
+		
      	</td>
       </tr>
     
