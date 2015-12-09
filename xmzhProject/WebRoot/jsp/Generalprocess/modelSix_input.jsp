@@ -72,7 +72,7 @@
 							
 							   <w:date  id="mortgageTime" submitFormat="yyyy-MM-dd" format="yyyy-MM-dd" allowNull="false" property="modelSix.mortgageTime"/><font style="color: red">*</font>
 							</td>
-					<td class="form_label" align="right" style="width:120px;">收到他项时间</td>
+					<td class="form_label" align="right" style="width:120px;">收到他项/回执时间</td>
 					<td colspan="3">
 							
 							
