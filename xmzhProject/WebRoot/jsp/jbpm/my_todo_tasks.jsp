@@ -26,17 +26,7 @@
 					</td>
 				<td class="form_label" align="right" width="15%">工作事项类型：</td>
 				<td colspan="1" width="30%">
-				<h:select id="businessType" name="taskAssignee.businessType" >
-					<h:option label="未选择" value=""  />
-							<h:option label="信息发布" value="01" />
-							<h:option label="督办管理" value="02" />
-							<h:option label="工作月报" value="03" />
-							<h:option label="会议申请" value="04" />
-							<h:option label="数据申请" value="05" />
-							<h:option label="数据下发" value="06" />
-							<h:option label="设备申请" value="07" />
-							<h:option label="请假流程" value="08" />
-				</h:select>
+					<d:select dictTypeId="ZHPT_BUSINESS_TYPE" id="businessType" property="taskAssignee.businessType" nullLabel="请选择"></d:select>
 				</td>
 					<%-- <td class="form_label" align="right" width="20%">结束时间：</td>
 					<td colspan="1"  width="30%">
