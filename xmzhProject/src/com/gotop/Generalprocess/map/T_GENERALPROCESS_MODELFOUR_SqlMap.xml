@@ -34,6 +34,24 @@
   	delete from T_GENERALPROCESS_MISTAKE t where t.processmodelid_four=$processModelId$
   </delete>
   
+  <select id="queryFourMistakeByFlowId" resultMap="processModelFourMistake_result" parameterClass="java.util.HashMap">
+  	select t.mistakeid,
+       t.flow_id,
+       t.mistake_content,
+       t.punish_bal,
+       t.empid,
+       t.taskname,
+       t.processmodelid_four,
+       t.add_time
+  from T_GENERALPROCESS_MISTAKE t
+ WHERE t.flow_id=#busId#
+ 	<dynamic>
+      <isNotNull prepend="and" property="processModelId" >
+        t.processmodelid_four != #processModelId:VARCHAR#
+      </isNotNull>
+      </dynamic>
+  </select>
+  
   <select id="queryFourMistake" resultMap="processModelFourMistake_result" parameterClass="java.util.HashMap">
   	select t.mistakeid,
        t.flow_id,

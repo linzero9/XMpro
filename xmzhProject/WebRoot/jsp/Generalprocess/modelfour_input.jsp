@@ -47,6 +47,13 @@
 		 
      	</td>
       </tr>
+       <tr id="rowHi">
+      	<td class="form_label" align="right">历史差错情况：</td>
+     	<td colspan="3">
+      	<table border=0 id="hiTable">
+		</table>
+      	</td>
+      </tr>
       <tr id="row1">
       	<td class="form_label" align="right">差错情况：</td>
      	<td colspan="3">
@@ -98,6 +105,61 @@
 				 $("#row1").css("display","none");  
 			 }
 			 
+			 if('${taskAssgineeDto.executionId}'!=""){
+				 var tab,row,td,tdStr,rowId,fId,jeId,atId,pfId,tnId,epId,flId
+		         var tab = $id("hiTable");
+				 var hiAddTime = "hiAddTime";
+				 var hiProFour = "hiProFour";
+				 var hiTaskName = "hiTaskName";
+				 var hiEmpId = "hiEmpId";
+				 var hiFlowId = "hiFlowId";
+				 var hiJees = "hiJees";
+				 var hiFiles = "hiFiles";
+				 
+				 $.ajax({
+				        url: '/Generalprocess/tGeneralprocessModelFourAction_queryFourMistakeByFlowId.action',
+				        async: false,
+				        type: 'post',
+				        data: "taskAssgineeDto.executionId=${taskAssgineeDto.executionId}" + "&modelFour.processModelId=${modelFour.processModelId}",
+				        dataType: 'json',
+				        timeout: 60000,
+				        success: function (files) {
+					        if(files!="" && files !=null){
+					        	$.each(files,function( i,item ){
+									 fId = hiFiles+rowId;
+									 jeId= hiJees+"je"+rowId;
+									 atId= hiAddTime+rowId;
+									 pfId= hiProFour+rowId;
+									 tnId= hiTaskName+rowId;
+									 epId= hiEmpId+rowId;
+									 flId= hiFlowId+rowId;
+					         		 if('${isView}'!=''){
+					         			
+					         		 }else{
+										row =  tab.insertRow();
+										row.id = "fileRow"+rowId;
+										td = row.insertCell();
+										tdStr="节点名称："+item.taskName+"&nbsp&nbsp&nbsp&nbsp&nbsp"
+										tdStr+="<input type=\"hidden\" name=\""+hiAddTime+"\" id=\""+atId+"\" value=\""+item.addTime+"\" >";
+										tdStr+="<input type=\"hidden\" name=\""+hiProFour+"\" id=\""+pfId+"\" value=\""+item.processModelIdFour+"\" >";
+										tdStr+="<input type=\"hidden\" name=\""+hiTaskName+"\" id=\""+tnId+"\" value=\""+item.taskName+"\" >";
+										tdStr+="<input type=\"hidden\" name=\""+hiEmpId+"\" id=\""+epId+"\" value=\""+item.empid+"\" >";
+										tdStr+="<input type=\"hidden\" name=\""+hiFlowId+"\" id=\""+flId+"\" value=\""+item.flowId+"\" >";
+					         			tdStr+="差错内容：<input type=\"text\" name=\""+hiFiles+"\" id=\""+fId+"\" value=\""+item.mistakeContent+"\" size='70' validateAttr=\"allowNull=false\" >";
+									 	tdStr+="扣罚金额：<input type=\"text\" name=\""+hiJees+"\" id=\""+jeId+"\" value=\""+item.punishBal+"\" size='10' validateAttr=\"allowNull=false\" >";
+									 	tdStr+= "<input type=\"button\" onclick=\"delTr('fileRow"+rowId+"');\" name='button"+rowId+"' value=\"删除\" style=\"margin-left:2px;vertical-align:middle;cursor:hand;\"/>";
+									 	td.innerHTML = tdStr;
+										rowId = rowId+1; 
+					         		 }
+					        	});
+					          	
+					        }else{
+					        	 $("#rowHi").css("display","none");  
+					        }    
+				        }
+			    }); 
+			 }
+			 
 			 if('${modelFour.processModelId}'!=""){
 				 var tab,row,td,tdStr,rowId,fId,jeId
 		         var tab = $id("ccTable");
@@ -130,9 +192,9 @@
 										row =  tab1.insertRow();
 										row.id = "fileRow"+rowId;
 										td = row.insertCell();
-					         			tdStr="差错内容：<input type=\"text\" name=\""+fName+"\" id=\""+fId+"\" value=\""+item.mistakeContent+"\" size='70' validateAttr=\"allowNull=false\" readonly=\"true\">";
-									 	tdStr+="扣罚金额：<input type=\"text\" name=\""+jeName+"\" id=\""+jeId+"\" value=\""+item.punishBal+"\" size='10' validateAttr=\"allowNull=false\" readonly=\"true\" >";
-									 	//tdStr+= "<input type=\"button\" onclick=\"delTr('fileRow"+rowId+"');\" name='button"+rowId+"' value=\"删除\" style=\"margin-left:2px;vertical-align:middle;cursor:hand;\"/>";
+					         			tdStr="差错内容：<input type=\"text\" name=\""+fName+"\" id=\""+fId+"\" value=\""+item.mistakeContent+"\" size='70' validateAttr=\"allowNull=false\">";
+									 	tdStr+="扣罚金额：<input type=\"text\" name=\""+jeName+"\" id=\""+jeId+"\" value=\""+item.punishBal+"\" size='10' validateAttr=\"allowNull=false\">";
+									 	tdStr+= "<input type=\"button\" onclick=\"delTr('fileRow"+rowId+"');\" name='button"+rowId+"' value=\"删除\" style=\"margin-left:2px;vertical-align:middle;cursor:hand;\"/>";
 									 	td.innerHTML = tdStr;
 										rowId = rowId+1; 
 					         		 }

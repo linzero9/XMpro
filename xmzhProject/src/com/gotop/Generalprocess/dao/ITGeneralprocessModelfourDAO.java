@@ -20,4 +20,7 @@ public interface ITGeneralprocessModelfourDAO {
 	List<ProcessModelFourMistake> queryFourMistake(HashMap<String, Object> map);
 
 	void deleteModelFourMistake(ProcessModelFour modelFour);
+
+	List<ProcessModelFourMistake> queryFourMistakeByFlowId(
+			HashMap<String, Object> map);
 }

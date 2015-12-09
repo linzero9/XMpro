@@ -52,6 +52,9 @@
      <result name="list1" type="json">
 		   <param name="root">fourMistakes</param>
 	  </result>
+	  <result name="list2" type="json">
+		   <param name="root">otherMistakes</param>
+	  </result>
     </action>
     
     
