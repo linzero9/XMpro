@@ -2,6 +2,7 @@ package com.gotop.Generalprocess.action;
 
 import com.gotop.Generalprocess.annonation.GeneralprocessFieldBean;
 import com.gotop.Generalprocess.model.ProcessModelEight;
+import com.gotop.Generalprocess.model.TApproveOpninionGP;
 import com.gotop.Generalprocess.model.TGeneralprocessMain;
 import com.gotop.Generalprocess.service.ITGeneralprocessMainService;
 import com.gotop.Generalprocess.service.ITGeneralprocessModeleightService;
@@ -10,6 +11,7 @@ import com.gotop.crm.util.BaseAction;
 import com.gotop.crm.util.MUO;
 import com.gotop.jbpm.dto.TaskAssgineeDto;
 import com.gotop.jbpm.service.JbpmService;
+import com.gotop.opinion.service.ITApproveOpninionService;
 import com.gotop.util.Struts2Utils;
 import com.gotop.util.XmlConvert;
 import com.gotop.vo.system.MUOUserSession;
@@ -34,6 +36,20 @@ public class TGeneralprocessModeleightAction extends BaseAction {
 	 * @abatorgenerated
 	 */
 	protected ITGeneralprocessModeleightService tGeneralprocessModeleigthService;
+	
+	
+    private  ITApproveOpninionService tApproveOpninionService;
+    
+    
+
+	public ITApproveOpninionService gettApproveOpninionService() {
+		return tApproveOpninionService;
+	}
+
+	public void settApproveOpninionService(
+			ITApproveOpninionService tApproveOpninionService) {
+		this.tApproveOpninionService = tApproveOpninionService;
+	}
 
 	/**
 	 * 
@@ -206,7 +222,37 @@ public class TGeneralprocessModeleightAction extends BaseAction {
 						+ newModelEight.getProcessModelId();
 				map.remove(rm);
 			}
+			
+			//加入公积金提交时间为上一个节点的 提交时间！（当公积金提交时间为空的时候）
+			
+		  	if(newModelEight==null){
+        		newModelEight= new ProcessModelEight();
+        	}
+			
+			if(newModelEight.getTjgjjsj()==null||newModelEight.getTjgjjsj()==""||newModelEight==null){
+				
 
+				
+		        HashMap hm = new HashMap();
+		        hm.put("resourceFlow", taskAssgineeDto.getExecutionId());
+		        List<TApproveOpninionGP> data = tApproveOpninionService.queryViewListForGP(hm,page);
+		        for (TApproveOpninionGP  Gp : data) {
+		        	
+		      
+		        	
+		        	newModelEight.setTjgjjsj(Gp.getOperaterDate());
+		        	break;
+					
+				}
+		        
+				System.out.println("加入公积金提交时间为上一个节点的 提交时间");
+				
+			}
+			
+			
+			
+			
+			
 			this.setModelEight(newModelEight);
 
 			List<List<GeneralprocessFieldBean>> beans = GeneralprocessUtil

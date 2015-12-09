@@ -54,5 +54,10 @@
     <property name="tGeneralprocessModeleigthService" ref="tGeneralprocessModeleightService" />
     <property name="generalprocessMainService" ref="tGeneralprocessMainService" />
     <property name="jbpmService" ref="jbpmService" />
+    
+       <property name="tApproveOpninionService" ref="tApproveOpninionService" />
+    
+    
+    
   </bean>
   </beans>
