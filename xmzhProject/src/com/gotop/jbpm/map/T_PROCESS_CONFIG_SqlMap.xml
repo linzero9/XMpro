@@ -68,6 +68,11 @@ select t.ID,
        )
    and t.PROCESS_NAME like '%$processName$%'
     and t.state = '01'
+     <dynamic> 
+          <isNotNull prepend="and" property="businessType" >
+        t.BUSINESS_TYPE = #businessType#
+      </isNotNull>
+     </dynamic>
    order by t.ORDER_NO ASC
   </select>
   

@@ -172,9 +172,12 @@ public class TProcessConfigService implements ITProcessConfigService {
 		if(processConfig!=null){
 			if(processConfig.getProcessName()!=null){
 				map.put("processName", processConfig.getProcessName());
+			}else{
+				map.put("processName", "");
 			}
-		}else{
-			map.put("processName", "");
+			if(processConfig.getBusinessType() != null){
+				map.put("businessType", processConfig.getBusinessType());
+			}
 		}
 		return tProcessConfigDAO.queryMyProcessList(map,page);
 	}

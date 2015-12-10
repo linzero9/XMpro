@@ -39,7 +39,8 @@
 					<h:hidden property="page.length" />
 					<h:hidden property="page.count" />
 					<h:hidden property="page.isCount" />
-					<h:hiddendata property="integral" />
+					<h:hiddendata property="processConfig.processName" />
+					<h:hiddendata property="processConfig.businessType" />
 					<table align="center" border="0" width="100%" class="EOS_table">
 						<tr>
 							<th align="center" nowrap="nowrap" width="5%">

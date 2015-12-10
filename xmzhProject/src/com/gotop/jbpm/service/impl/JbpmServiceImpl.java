@@ -948,7 +948,7 @@ public class JbpmServiceImpl implements JbpmService{
 		}
 		ZipOutputStream out = new ZipOutputStream(new FileOutputStream(zipFile));   
 		 File[] file1 = {xmlFile,pngFile};   
-		  byte[] buffer = new byte[1024];   
+		  byte[] buffer = new byte[4096];   
 		  for(int i=0;i<file1.length;i++) {   
 	           FileInputStream fis = new FileInputStream(file1[i]);   
 	           out.putNextEntry(new ZipEntry(file1[i].getName()));   
@@ -958,8 +958,9 @@ public class JbpmServiceImpl implements JbpmService{
 	          }   
 	           out.closeEntry();   
 	           fis.close();   
-	       }   
-	        out.close();   
+	       }
+		   out.flush();
+	       out.close();   
 	        FileInputStream fileInputStream = new FileInputStream(zipFile);
 	        ZipInputStream zipInputStream = new ZipInputStream(fileInputStream);
 		String dpId = repositoryService.createDeployment().addResourcesFromZipInputStream(zipInputStream).deploy();
