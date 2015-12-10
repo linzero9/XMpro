@@ -79,5 +79,11 @@
       </result>
     </action>
     
+    
+    <action class="tGeneralprocessModelsevenAction" method="{1}" name="tGeneralprocessModelSevenAction_*">
+     <result name="toModelSeven">
+        /jsp/Generalprocess/modelseven_input.jsp
+      </result>
+    </action>
     </package>
 </struts>

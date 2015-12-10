@@ -97,7 +97,8 @@
 				--><prop key="hibernate.hbm2ddl.auto">update</prop>
 				<prop key="hibernate.show_sql">true</prop>
 				<prop key="hibernate.jdbc.fetch_size">50</prop>
-				<prop key="hibernate.jdbc.batch_size">25</prop>
+				<prop key="hibernate.jdbc.batch_size">0</prop>
+				<prop key="hibernate.jdbc.use_streams_for_binary">true</prop>
 				<!--<prop key="hibernate.format_sql">true</prop> -->
 			</props>
 		</property>

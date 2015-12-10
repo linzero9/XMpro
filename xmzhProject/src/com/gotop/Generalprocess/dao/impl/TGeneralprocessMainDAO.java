@@ -266,6 +266,11 @@ public class TGeneralprocessMainDAO extends SqlMapClientDao implements ITGeneral
 			//模式六
 			main.setRules("ProcessModelSix");
 		}
+		
+		if("com.gotop.Generalprocess.model.ProcessModelSeven".equals(c.getName())){
+			//模式七
+			main.setRules("ProcessModelSeven");
+		}
 		if("com.gotop.Generalprocess.model.ProcessModelEight".equals(c.getName())){
 			//模式八
 			main.setRules("ProcessModelEight");
@@ -314,6 +319,10 @@ public class TGeneralprocessMainDAO extends SqlMapClientDao implements ITGeneral
 				rules += "," + "ProcessModelSix";
 			}
 			
+			if ("com.gotop.Generalprocess.model.ProcessModelSeven".equals(c.getName())) {
+				// 模式七
+				rules += "," + "ProcessModelSeven";
+			}
 			
 
 			if("com.gotop.Generalprocess.model.ProcessModelEight".equals(c.getName())){

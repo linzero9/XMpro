@@ -60,4 +60,10 @@
     
     
   </bean>
+  
+  <bean class="com.gotop.Generalprocess.action.TGeneralprocessModelsevenAction" id="tGeneralprocessModelsevenaction" name="tGeneralprocessModelsevenAction" singleton="false">
+    <property name="tGeneralprocessModelsevenService" ref="tGeneralprocessModelsevenService" />
+    <property name="generalprocessMainService" ref="tGeneralprocessMainService" />
+    <property name="jbpmService" ref="jbpmService" />
+  </bean>
   </beans>

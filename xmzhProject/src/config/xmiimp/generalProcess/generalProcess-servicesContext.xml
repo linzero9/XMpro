@@ -69,4 +69,11 @@
     <property name="generalprocessService" ref="generalProcessService" />
   </bean>
 
+  
+  <bean class="com.gotop.Generalprocess.service.impl.TGeneralprocessModelsevenService" id="tGeneralprocessModelsevenService">
+    <property name="tGeneralprocessModelsevenDAO" ref="tGeneralprocessModelsevenDAO" />
+    <property name="jbpmService" ref="jbpmService" />
+    <property name="generalprocessMainDAO" ref="generalprocessMainDAO" />
+    <property name="generalprocessService" ref="generalProcessService" />
+  </bean>
   </beans>
