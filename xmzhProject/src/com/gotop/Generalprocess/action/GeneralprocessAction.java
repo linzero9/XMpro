@@ -8,6 +8,7 @@ import java.util.Map;
 
 import net.sf.json.JSONArray;
 import com.gotop.Generalprocess.annonation.GeneralprocessFieldBean;
+import com.gotop.Generalprocess.model.GeneralprocessDto;
 import com.gotop.Generalprocess.model.ProcessModelOne;
 import com.gotop.Generalprocess.model.ProcessModelTwo;
 import com.gotop.Generalprocess.model.TGeneralprocessMain;
@@ -18,13 +19,20 @@ import com.gotop.Generalprocess.service.ITGeneralprocessModeltwoService;
 import com.gotop.Generalprocess.util.GeneralprocessUtil;
 import com.gotop.crm.util.BaseAction;
 import com.gotop.jbpm.dto.TaskAssgineeDto;
+import com.gotop.jbpm.model.TProcessTaskAssignee;
 import com.gotop.jbpm.service.JbpmService;
 import com.gotop.opinion.model.TDefaultOpinion;
 import com.gotop.opinion.service.ITDefaultOpinionService;
 import com.gotop.util.Struts2Utils;
+import com.gotop.util.string.Obj2StrUtils;
 import com.gotop.vo.system.MUOUserSession;
 import com.gotop.vo.tyjg.Omorganization;
 
+/****
+ * 
+ * @author yyx
+ *
+ */
 public class GeneralprocessAction extends BaseAction {
 
 	/**
@@ -65,7 +73,20 @@ public class GeneralprocessAction extends BaseAction {
 	 */
 	private TaskAssgineeDto taskAssgineeDto;
 	
+	private GeneralprocessDto generalprocessDto;
 	private String taskName;
+	
+	/**
+	 * 
+	 * @author yyx
+	 * 信贷通用流程列表
+	 */
+	List<GeneralprocessDto> generalprocessDtos;
+	
+	/**
+	 * isView :1、为只读状态， 默认为空
+	 */
+	private String isView;
 
 	public String getTaskName() {
 		return taskName;
@@ -87,10 +108,6 @@ public class GeneralprocessAction extends BaseAction {
 		return serialVersionUID;
 	}
 
-	/**
-	 * isView :1、为只读状态， 默认为空
-	 */
-	private String isView;
 
 	/**
 	 * 
@@ -213,6 +230,22 @@ public class GeneralprocessAction extends BaseAction {
 
 	public void setModelOne(ProcessModelOne modelOne) {
 		this.modelOne = modelOne;
+	}
+
+	public GeneralprocessDto getGeneralprocessDto() {
+		return generalprocessDto;
+	}
+
+	public void setGeneralprocessDto(GeneralprocessDto generalprocessDto) {
+		this.generalprocessDto = generalprocessDto;
+	}
+
+	public List<GeneralprocessDto> getGeneralprocessDtos() {
+		return generalprocessDtos;
+	}
+
+	public void setGeneralprocessDtos(List<GeneralprocessDto> generalprocessDtos) {
+		this.generalprocessDtos = generalprocessDtos;
 	}
 
 	/**
@@ -508,5 +541,41 @@ public class GeneralprocessAction extends BaseAction {
 		}
 		Struts2Utils.renderText(info);
 	}
+	
+	
+	/**
+     * 信贷流程列表
+     * @throws Exception 
+     */
+    public String queryGeneralprocessList() throws Exception{
+    	//String nameString = String.valueOf(this.getCurrentOnlineUser().getEmpname());
+    	//获取用户empId
+    	//String empId = String.valueOf(this.getCurrentOnlineUser().getEmpid());
+    	//获取角色id数组
+    	//String[] roleIdArray = this.getCurrentOnlineUser().getRoleid();
+    	//获取机构代码
+    	//String orgCode = this.getCurrentOnlineUser().getOrgcode();
+    	//将角色id数组转换成用","分割的字符串
+    	//String roleIds = Obj2StrUtils.join(roleIdArray, String.class, ",");
+    	//角色id、人员id、机构id
+    	//String relationids = "'" + empId + "'" + "," + "'"+ orgCode+"'" + "," + roleIds;
+    	
+    	//获取岗位id数组
+    	//String[] positionIdArray = this.getCurrentOnlineUser().getPositionId();
+    	//将岗位id数组转换成用","分割的字符串
+    	//String positionIds = Obj2StrUtils.join(positionIdArray, String.class, ",");
+    	//角色id、人员id、机构id
+//    	if(roleIds!=null&&!"".equals(roleIds))
+//    		relationids+="," + roleIds ;
+//    	if(positionIds!=null&&!"".equals(positionIds))
+//    		relationids+="," + positionIds;
+    	MUOUserSession muo = getCurrentOnlineUser();
+    	List<GeneralprocessDto> generalprocessDtos=this.generalProcessService.queryGeneralprocessList(muo,generalprocessDto,this.getPage());
+    	this.setGeneralprocessDtos(generalprocessDtos);
+     	//List<TProcessTaskAssignee> tProcessTaskAssignees = this.tProcessTaskAssigneeService.queryMyCompletedTasksList(relationids,empId,taskAssignee,this.getPage());
+    	//this.setProcessTaskAssignees(tProcessTaskAssignees);
+    	return "generalprocess_list";
+    }
 
+    
 }

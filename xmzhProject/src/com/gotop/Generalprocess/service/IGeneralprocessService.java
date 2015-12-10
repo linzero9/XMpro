@@ -1,5 +1,8 @@
 package com.gotop.Generalprocess.service;
 
+import java.util.List;
+
+import com.gotop.Generalprocess.model.GeneralprocessDto;
 import com.gotop.Generalprocess.model.ProcessModel;
 import com.gotop.Generalprocess.model.ProcessModelOne;
 import com.gotop.Generalprocess.model.ProcessModelTwo;
@@ -7,6 +10,7 @@ import com.gotop.jbpm.dto.TaskAssgineeDto;
 import com.gotop.jbpm.model.TProcessBusiness;
 import com.gotop.vo.system.MUOUserSession;
 import com.gotop.vo.tyjg.Omorganization;
+import com.primeton.utils.Page;
 
 public interface IGeneralprocessService {
 	
@@ -42,4 +46,7 @@ public interface IGeneralprocessService {
 	public String isHaveParentOrgId(String orgcode);
 
 	public Omorganization getParentOrgId(String orgcode);
+
+	public List<GeneralprocessDto> queryGeneralprocessList(MUOUserSession muo,
+			GeneralprocessDto generalprocessDto, Page page);
 }

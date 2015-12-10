@@ -1,8 +1,10 @@
 package com.gotop.Generalprocess.service.impl;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 
@@ -10,6 +12,7 @@ import com.gotop.Generalprocess.dao.IGeneralprocessDAO;
 import com.gotop.Generalprocess.dao.ITGeneralprocessMainDAO;
 import com.gotop.Generalprocess.dao.ITGeneralprocessModeloneDAO;
 import com.gotop.Generalprocess.dao.ITGeneralprocessModeltwoDAO;
+import com.gotop.Generalprocess.model.GeneralprocessDto;
 import com.gotop.Generalprocess.model.ProcessModel;
 import com.gotop.Generalprocess.model.ProcessModelOne;
 import com.gotop.Generalprocess.model.ProcessModelTwo;
@@ -22,9 +25,11 @@ import com.gotop.jbpm.model.TProcessBusiness;
 import com.gotop.jbpm.service.ITProcessBusinessService;
 import com.gotop.jbpm.service.JbpmService;
 import com.gotop.opinion.dao.ITApproveOpninionDAO;
+import com.gotop.util.string.Obj2StrUtils;
 import com.gotop.util.time.TimeUtil;
 import com.gotop.vo.system.MUOUserSession;
 import com.gotop.vo.tyjg.Omorganization;
+import com.primeton.utils.Page;
 
 public class GeneralprocessService implements IGeneralprocessService {
 
@@ -515,6 +520,99 @@ public class GeneralprocessService implements IGeneralprocessService {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("orgcode", orgcode);
 		return this.generalProcessDAO.getParentOrgId(map);
+	}
+
+	@SuppressWarnings("unused")
+	@Override
+	public List<GeneralprocessDto> queryGeneralprocessList(MUOUserSession muo,
+			GeneralprocessDto generalprocessDto, Page page) {
+		// TODO Auto-generated method stub
+		Map<String, Object> map = new HashMap<String, Object>();
+		if(generalprocessDto!=null){
+			if(generalprocessDto.getOneCategory()!=null && !"".equals(generalprocessDto.getOneCategory())){
+				String[] oneCategorys=generalprocessDto.getOneCategory().split(", ");
+				String oneCategory="";
+				try {
+					oneCategory = Obj2StrUtils.join(oneCategorys, String.class, ",");
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				map.put("oneCategory",oneCategory);
+			}
+			if(generalprocessDto.getLoanCategory()!=null && !"".equals(generalprocessDto.getLoanCategory())){
+				String[] loanCategorys=generalprocessDto.getLoanCategory().split(", ");
+				String loanCategory="";
+				try {
+					loanCategory = Obj2StrUtils.join(loanCategorys, String.class, ",");
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				map.put("loanCategory",loanCategory);
+			}
+			if(generalprocessDto.getAppTimeStrat()!=null && !"".equals(generalprocessDto.getAppTimeStrat())){
+				map.put("appTimeStrat", generalprocessDto.getAppTimeStrat());
+			}
+			if(generalprocessDto.getAppTimeEnd()!=null && !"".equals(generalprocessDto.getAppTimeEnd())){
+				map.put("appTimeEnd", generalprocessDto.getAppTimeEnd());
+			}
+			if(generalprocessDto.getReporttimeStrat()!=null && !"".equals(generalprocessDto.getReporttimeStrat())){
+				map.put("reporttimeStrat", generalprocessDto.getReporttimeStrat());
+			}
+			if(generalprocessDto.getReporttimeEnd()!=null && !"".equals(generalprocessDto.getReporttimeEnd())){
+				map.put("reporttimeEnd", generalprocessDto.getReporttimeEnd());
+			}
+			if(generalprocessDto.getOrgCodeOne()!=null && !"".equals(generalprocessDto.getOrgCodeOne())){
+				map.put("orgCodeOne", generalprocessDto.getOrgCodeOne());
+			}
+			if(generalprocessDto.getOrgCodeTwo()!=null && !"".equals(generalprocessDto.getOrgCodeTwo())){
+				map.put("orgCodeTwo", generalprocessDto.getOrgCodeTwo());
+			}
+			if(generalprocessDto.getCust_Name()!=null && !"".equals(generalprocessDto.getCust_Name())){
+				map.put("cust_Name", generalprocessDto.getCust_Name());
+			}
+			if(generalprocessDto.getIsEnd()!=null && !"".equals(generalprocessDto.getIsEnd())){
+				map.put("isEnd", generalprocessDto.getIsEnd());
+			}
+			if(generalprocessDto.getCreator()!=null && !"".equals(generalprocessDto.getCreator())){
+				map.put("creator", generalprocessDto.getCreator());
+			}
+			if(generalprocessDto.getFdxdy()!=null && !"".equals(generalprocessDto.getFdxdy())){
+				map.put("fdxdy", generalprocessDto.getFdxdy());
+			}
+			if(generalprocessDto.getDyApp()!=null && !"".equals(generalprocessDto.getDyApp())){
+				map.put("dyApp", generalprocessDto.getDyApp());
+			}
+			if(generalprocessDto.getDeApp()!=null && !"".equals(generalprocessDto.getDeApp())){
+				map.put("deApp", generalprocessDto.getDeApp());
+			}
+			if(generalprocessDto.getDyCheck()!=null && !"".equals(generalprocessDto.getDyCheck())){
+				map.put("dyCheck", generalprocessDto.getDyCheck());
+			}
+			if(generalprocessDto.getDeCheck()!=null && !"".equals(generalprocessDto.getDeCheck())){
+				map.put("deCheck", generalprocessDto.getDeCheck());
+			}
+		}
+		List<GeneralprocessDto> generalprocessDtos=null;
+		String orgcode=muo.getOrgcode();
+		String parentOrgId = this.isHaveParentOrgId(orgcode);
+		Omorganization om = null;
+		if(parentOrgId != null){
+			String empId = String.valueOf(muo.getEmpid());
+			map.put("empId", empId);
+			String[] positionIdArray = muo.getPositionId();
+			if(Arrays.asList(positionIdArray).contains("xdkhjl")){
+				generalprocessDtos=this.generalProcessDAO.myStartGeneralProcessList(map,page);
+			}else{
+				map.put("orgcode", orgcode);
+				generalprocessDtos=this.generalProcessDAO.queryGeneralprocessList(map,page);
+			}  
+			
+		}else{
+			generalprocessDtos=this.generalProcessDAO.queryGeneralprocessList(map,page);
+		}
+		return generalprocessDtos;
 	}
 
 }

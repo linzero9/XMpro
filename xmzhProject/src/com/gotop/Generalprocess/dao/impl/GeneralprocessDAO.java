@@ -2,13 +2,17 @@ package com.gotop.Generalprocess.dao.impl;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 
 import com.gotop.Generalprocess.dao.IGeneralprocessDAO;
+import com.gotop.Generalprocess.model.GeneralprocessDto;
 import com.gotop.euipApply.dao.impl.TApplyEuipDAO;
+import com.gotop.jbpm.model.TProcessTaskAssignee;
 import com.gotop.util.dataSource.SqlMapClientDao;
 import com.gotop.vo.tyjg.Omorganization;
+import com.primeton.utils.Page;
 
 public class GeneralprocessDAO extends SqlMapClientDao implements IGeneralprocessDAO{
 
@@ -35,6 +39,21 @@ public class GeneralprocessDAO extends SqlMapClientDao implements IGeneralproces
 	@Override
 	public Omorganization getParentOrgId(HashMap<String, Object> map) {
 		return (Omorganization) queryForObject("GENERAL_PROCESS_SqlMap.getParentOrgId",map);
+	}
+
+	@Override
+	public List<GeneralprocessDto> queryGeneralprocessList(
+			Map<String, Object> map, Page page) {
+		// TODO Auto-generated method stub
+		List<GeneralprocessDto> list = (List<GeneralprocessDto>)queryForList("GENERAL_PROCESS_SqlMap.queryGeneralprocessList", map,page);
+		return list;
+	}
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Override
+	public List<GeneralprocessDto> myStartGeneralProcessList(Map<String, Object> map,
+			Page page) {
+		List list = queryForList("GENERAL_PROCESS_SqlMap.myStartGeneralProcessList", map,page);
+		return list;
 	}
 
 }
