@@ -14,9 +14,11 @@
 		action="/Generalprocess/generalProcessAction_queryGeneralprocessList.action"
 		method="post" >
 		<h:hidden property="nameString" id="nameString" />
+		<h:hidden property="isExport" id="isExport"/>
 		<w:panel id="panel1" title="流程列表">
 			<table align="center" border="0" width="100%" class="form_table">
 			<tr>
+					
 					<td class="form_label" align="right" width="20%">审批时间：</td>
 					<td colspan="1" width="30%">
 					从
@@ -100,12 +102,14 @@
 				<tr>
 				<td class="form_label" align="right" width="20%">一级分类：</td>
 					<td colspan="1" width="30%">
-					<h:text id="oneCategory" property="generalprocessDto.oneCategory" />
-					<a href="#" onclick="showModalDialog();">选择</a>
+					<h:hidden id="oneCategory" property="generalprocessDto.oneCategory" />
+					<h:text id="oneCategoryTxt" property="generalprocessDto.oneCategoryTxt" readonly="ture"/>
+					<a href="#" onclick="showoneCategory();">选择</a>
 					</td>
 					<td class="form_label" align="right" width="20%">贷种分类：</td>
 					<td colspan="1" width="30%">
-					<h:text id="loanCategory" property="generalprocessDto.loanCategory" />
+					<h:hidden id="loanCategory" property="generalprocessDto.loanCategory" />
+					<h:text id="loanCategoryTxt" property="generalprocessDto.loanCategoryTxt" readonly="ture"/>
 					<a href="#" onclick="showloanCategory();">选择</a>
 					</td>
 				</tr>
@@ -122,12 +126,11 @@
 							key="l_display_per_page"></b:message> <h:text size="2"
 							property="page.length" value="10"
 							validateAttr="minValue=1;maxValue=100;type=integer;isNull=true" />
-						<input type="hidden" name="page.begin" value="0"> <input
-						type="hidden" name="page.isCount" value="true"> <input
-						id="querys" type="submit" value="查 询" class="button"> <input
-						type="button" value="清 空" class="button" onclick="clears();">
-						<input id="downexl" type="button" class="button" value="导出列表"
-						onclick="downExl();"></td>
+						<input type="hidden" name="page.begin" value="0"> 
+						<input type="hidden" name="page.isCount" value="true"> 
+						<input id="querys" type="submit" value="查 询" class="button" onclick="search();"> 
+						<input type="button" value="清 空" class="button" onclick="clears();">
+						<input id="downexl" type="submit" class="button" value="导出列表" onclick="downExl();"></td>
 				</tr>
 			</table>
 		</w:panel>
@@ -152,6 +155,10 @@
 				<h:hiddendata property="generalprocessDto.deApp" />
 				<h:hiddendata property="generalprocessDto.dyCheck" />
 				<h:hiddendata property="generalprocessDto.deCheck" />
+				<h:hiddendata property="generalprocessDto.oneCategory" />
+				<h:hiddendata property="generalprocessDto.oneCategoryTxt" />
+				<h:hiddendata property="generalprocessDto.loanCategory" />
+				<h:hiddendata property="generalprocessDto.loanCategoryTxt" />
 				<h:hidden property="page.begin" />
 				<h:hidden property="page.length" />
 				<h:hidden property="page.count" />
@@ -424,24 +431,13 @@
 		function callBack() {
 		}
 
+		function search(){
+			$("#isExport").val("");
+			alert($('#isExport').val());
+			}
 		function downExl() {
-			var url = "/jbpm/tProcessTaskAssigneeAction_downexl.action?";
-			var assingeeName = $("#assingeeName").val();
-			var orgName = $("#orgName").val();
-			var businessType = $("#businessType").val();
-			var startTime1 = $("#d1_input").val().replaceAll("-", "");
-			var endTime1 = $("#d2_input").val().replaceAll("-", "");
-			var startTime2 = $("#d3_input").val().replaceAll("-", "");
-			var endTime2 = $("#d4_input").val().replaceAll("-", "");
-			url = url + "generalprocessDto.preTaskAssingeeName="
-					+ encodeURI(assingeeName) + "&generalprocessDto.preTaskOrgName="
-					+ encodeURI(orgName) + "&generalprocessDto.startTime="
-					+ startTime1 + "&generalprocessDto.startTimeAfter=" + endTime1
-					+ "&generalprocessDto.endTime=" + startTime2
-					+ "&generalprocessDto.endTimeAfter=" + endTime2
-					+ "&generalprocessDto.businessType=" + businessType;
-			window.location.href = url;
-
+			$("#isExport").val("1");
+			alert($('#isExport').val());
 		}
 		//选择	受理支行	二级选项
 		function open_newyw_tree_fun2(){
@@ -504,8 +500,24 @@
 			}
 		function showloanCategory() {
 			strUrl ="/jsp/Generalprocess/showloanCategory.jsp";
-			showModalCenter(strUrl,peArgument,showloanCategory_callback1,600,430,objName); 
+			showModalCenter(strUrl,'',showloanCategory_callback1 ,800,430,'贷种选择'); 
 		} 
+		function showloanCategory_callback1(args){
+			var array;
+			array = args.split(":");
+			 document.getElementById("loanCategory").value = array[0];
+			 document.getElementById("loanCategoryTxt").value = array[1];
+			}
+		function showoneCategory() {
+			strUrl ="/jsp/Generalprocess/showoneCategory.jsp";
+			showModalCenter(strUrl,'',showoneCategory_callback1 ,800,430,'一级分类选择'); 
+		} 
+		function showoneCategory_callback1(args){
+			var array;
+			array = args.split(":");
+			 document.getElementById("oneCategory").value = array[0];
+			 document.getElementById("oneCategoryTxt").value = array[1];
+			}
 	</script>
 </body>
 </html>

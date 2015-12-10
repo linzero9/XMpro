@@ -12,6 +12,9 @@
       <result name="generalprocess_list">
         /jsp/Generalprocess/generalprocess_list.jsp
       </result>
+      <result name="generalprocess_export">
+        /jsp/Generalprocess/generalprocess_export.jsp
+      </result>
     </action>
     
     <action class="tGeneralprocessMainAction" method="{1}" name="tGeneralprocessMainAction_*">

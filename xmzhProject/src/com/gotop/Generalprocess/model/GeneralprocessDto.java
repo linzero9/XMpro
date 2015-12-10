@@ -114,11 +114,13 @@ public class GeneralprocessDto{
 	 * 一级分类
 	 */
 	private String  oneCategory;
+	private String  oneCategoryTxt;
 		
 	/**
 	 * 贷种分类
 	 */
 	private String   loanCategory;
+	private String   loanCategoryTxt;
 	
 	/**
 	 * 主调信贷员
@@ -316,6 +318,22 @@ public class GeneralprocessDto{
 
 	public void setLoanCategory(String loanCategory) {
 		this.loanCategory = loanCategory;
+	}
+
+	public String getOneCategoryTxt() {
+		return oneCategoryTxt;
+	}
+
+	public void setOneCategoryTxt(String oneCategoryTxt) {
+		this.oneCategoryTxt = oneCategoryTxt;
+	}
+
+	public String getLoanCategoryTxt() {
+		return loanCategoryTxt;
+	}
+
+	public void setLoanCategoryTxt(String loanCategoryTxt) {
+		this.loanCategoryTxt = loanCategoryTxt;
 	}
 
 	public String getCreator() {

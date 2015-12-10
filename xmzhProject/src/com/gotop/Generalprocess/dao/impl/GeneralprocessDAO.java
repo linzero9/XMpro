@@ -41,11 +41,18 @@ public class GeneralprocessDAO extends SqlMapClientDao implements IGeneralproces
 		return (Omorganization) queryForObject("GENERAL_PROCESS_SqlMap.getParentOrgId",map);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<GeneralprocessDto> queryGeneralprocessList(
 			Map<String, Object> map, Page page) {
 		// TODO Auto-generated method stub
-		List<GeneralprocessDto> list = (List<GeneralprocessDto>)queryForList("GENERAL_PROCESS_SqlMap.queryGeneralprocessList", map,page);
+		List<GeneralprocessDto> list=null;
+		if(page!=null){
+			list = (List<GeneralprocessDto>)queryForList("GENERAL_PROCESS_SqlMap.queryGeneralprocessList", map,page);
+		}
+		else {
+			list = (List<GeneralprocessDto>)queryForList("GENERAL_PROCESS_SqlMap.queryGeneralprocessList", map);
+		}
 		return list;
 	}
 	@SuppressWarnings({ "unchecked", "rawtypes" })

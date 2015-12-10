@@ -87,6 +87,14 @@ public class GeneralprocessAction extends BaseAction {
 	 * isView :1、为只读状态， 默认为空
 	 */
 	private String isView;
+	
+	
+	/**
+	 * isView :1为导出， 默认为空
+	 */
+	private String isExport;
+	
+	
 
 	public String getTaskName() {
 		return taskName;
@@ -188,6 +196,14 @@ public class GeneralprocessAction extends BaseAction {
 
 	public void setIsView(String isView) {
 		this.isView = isView;
+	}
+
+	public String getIsExport() {
+		return isExport;
+	}
+
+	public void setIsExport(String isExport) {
+		this.isExport = isExport;
 	}
 
 	public IGeneralprocessService getGeneralProcessService() {
@@ -548,34 +564,16 @@ public class GeneralprocessAction extends BaseAction {
      * @throws Exception 
      */
     public String queryGeneralprocessList() throws Exception{
-    	//String nameString = String.valueOf(this.getCurrentOnlineUser().getEmpname());
-    	//获取用户empId
-    	//String empId = String.valueOf(this.getCurrentOnlineUser().getEmpid());
-    	//获取角色id数组
-    	//String[] roleIdArray = this.getCurrentOnlineUser().getRoleid();
-    	//获取机构代码
-    	//String orgCode = this.getCurrentOnlineUser().getOrgcode();
-    	//将角色id数组转换成用","分割的字符串
-    	//String roleIds = Obj2StrUtils.join(roleIdArray, String.class, ",");
-    	//角色id、人员id、机构id
-    	//String relationids = "'" + empId + "'" + "," + "'"+ orgCode+"'" + "," + roleIds;
     	
-    	//获取岗位id数组
-    	//String[] positionIdArray = this.getCurrentOnlineUser().getPositionId();
-    	//将岗位id数组转换成用","分割的字符串
-    	//String positionIds = Obj2StrUtils.join(positionIdArray, String.class, ",");
-    	//角色id、人员id、机构id
-//    	if(roleIds!=null&&!"".equals(roleIds))
-//    		relationids+="," + roleIds ;
-//    	if(positionIds!=null&&!"".equals(positionIds))
-//    		relationids+="," + positionIds;
     	MUOUserSession muo = getCurrentOnlineUser();
-    	List<GeneralprocessDto> generalprocessDtos=this.generalProcessService.queryGeneralprocessList(muo,generalprocessDto,this.getPage());
-    	this.setGeneralprocessDtos(generalprocessDtos);
-     	//List<TProcessTaskAssignee> tProcessTaskAssignees = this.tProcessTaskAssigneeService.queryMyCompletedTasksList(relationids,empId,taskAssignee,this.getPage());
-    	//this.setProcessTaskAssignees(tProcessTaskAssignees);
-    	return "generalprocess_list";
+    	if("1".equals(this.getIsExport())){
+    		List<GeneralprocessDto> generalprocessDtos=this.generalProcessService.queryGeneralprocessList(muo,generalprocessDto,null);
+    		this.setGeneralprocessDtos(generalprocessDtos);
+    		return "generalprocess_export";
+    	}else{
+    		List<GeneralprocessDto> generalprocessDtos=this.generalProcessService.queryGeneralprocessList(muo,generalprocessDto,this.getPage());
+    		this.setGeneralprocessDtos(generalprocessDtos);
+    		return "generalprocess_list";
+    	}
     }
-
-    
 }

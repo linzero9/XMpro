@@ -36,12 +36,12 @@
 		</w:panel>
 	</h:form> --%>
 	<DIV class="divList">
-			<w:panel id="panel" width="100%" title="贷种分类">
+			<w:panel id="panel" width="100%" title="查询结果">
 				<viewlist id="e2c61865-3b56-470d-bd42-fff792fb9493">
 					<table>
 						<tr>
 						<td>
-							<d:checkbox perrow="3" id="oneCategory"    name="generalprocessDto.oneCategory" dictTypeId="PROCESS_credit_type" property="generalprocessDto.oneCategory"  seperator=","  />
+							<d:checkbox perrow="3" id="oneCategory"    name="generalprocessDto.oneCategory" dictTypeId="PROCESS_onecategory" property="generalprocessDto.oneCategory"  seperator=","  />
 						</td>
 						</tr>
 						<tr>
