@@ -111,6 +111,22 @@ public class ProcessModelOne extends ProcessModel  implements  Serializable {
 	
 	
 	
+	@GeneralprocessField(name="处理意见",type="text",hidden=false)
+	private String    hanldOption;
+	
+	
+	
+	
+	
+	public String getHanldOption() {
+		return hanldOption;
+	}
+	public void setHanldOption(String hanldOption) {
+		this.hanldOption = hanldOption;
+	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 	public String getCreatorName() {
 		return creatorName;
 	}

@@ -3,6 +3,8 @@ package com.gotop.Generalprocess.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import com.gotop.Generalprocess.annonation.GeneralprocessField;
+
 public class TGeneralprocessModelone implements Serializable {
     /**
      * null .
@@ -501,8 +503,20 @@ public class TGeneralprocessModelone implements Serializable {
     public String getLastUpName() {
         return lastUpName;
     }
+    
+	@GeneralprocessField(name="处理意见",type="text",hidden=false)
+	private String    hanldOption;
+	
 
-    /**
+    public String getHanldOption() {
+		return hanldOption;
+	}
+
+	public void setHanldOption(String hanldOption) {
+		this.hanldOption = hanldOption;
+	}
+
+	/**
      * null .
      * @abatorgenerated
      */

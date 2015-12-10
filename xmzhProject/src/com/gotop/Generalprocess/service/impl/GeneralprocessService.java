@@ -196,7 +196,7 @@ public class GeneralprocessService implements IGeneralprocessService {
 			// 插入模式一的表单信息
 			this.generalprocessModeloneDAO.addModelOne(modelOne);
 			
-			modelOne.setOpinion(modelOne.getContent());
+			modelOne.setOpinion(modelOne.getHanldOption());
 			// 保存流程的信息
 
 			// 构建流程业务关系信息

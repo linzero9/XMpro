@@ -159,6 +159,15 @@
 	     	<h:textarea property="modelOne.content" id="content"  extAttr="class='h80' "  validateAttr="maxLength=512;allowNull=ture" rows="4"  style="width:90%;" />
      	</td>
       </tr>
+      
+            <tr>
+     	<td class="form_label" align="right">处理意见：</td>
+     	<td colspan="3">
+	     	<h:textarea property="modelOne.hanldOption" id="hanldOption"  extAttr="class='h80' "  validateAttr="maxLength=512;allowNull=ture" rows="4"  style="width:90%;" />
+     	</td>
+      </tr>
+      
+      
       <tr class="form_bottom">
         <td colspan="4">
         
