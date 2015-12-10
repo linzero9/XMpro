@@ -40,6 +40,7 @@ import org.dom4j.io.XMLWriter;
 import org.dom4j.tree.DefaultElement;
 import org.jbpm.api.ExecutionService;
 import org.jbpm.api.ManagementService;
+import org.jbpm.api.NewDeployment;
 import org.jbpm.api.ProcessDefinition;
 import org.jbpm.api.ProcessEngine;
 import org.jbpm.api.ProcessInstance;
@@ -105,6 +106,8 @@ public class JbpmServiceImpl implements JbpmService{
     protected ITProcessBusinessDAO tProcessBusinessDAO;
 
     private IDictEntryDao dictEntryDao;
+
+	private NewDeployment createDeployment;
     
 	public IDictEntryDao getDictEntryDao() {
 		return dictEntryDao;
@@ -185,8 +188,10 @@ public class JbpmServiceImpl implements JbpmService{
 	public ProcessDefinition deployProcess(String filePath) throws FileNotFoundException {
 		FileInputStream fis = new FileInputStream(filePath); 
 		ZipInputStream zis = new ZipInputStream(fis);  
-		
-		String deploymentId = repositoryService.createDeployment().addResourcesFromZipInputStream(zis).deploy();
+		NewDeployment n = repositoryService.createDeployment();
+		n = n.addResourcesFromZipInputStream(zis);
+		String deploymentId = n.deploy();
+		//String deploymentId = repositoryService.createDeployment().addResourcesFromZipInputStream(zis).deploy();
 		ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery().deploymentId(deploymentId).uniqueResult();
 		return processDefinition;
 	}
@@ -948,7 +953,7 @@ public class JbpmServiceImpl implements JbpmService{
 		}
 		ZipOutputStream out = new ZipOutputStream(new FileOutputStream(zipFile));   
 		 File[] file1 = {xmlFile,pngFile};   
-		  byte[] buffer = new byte[4096];   
+		  byte[] buffer = new byte[1024*1024];   
 		  for(int i=0;i<file1.length;i++) {   
 	           FileInputStream fis = new FileInputStream(file1[i]);   
 	           out.putNextEntry(new ZipEntry(file1[i].getName()));   
@@ -956,14 +961,16 @@ public class JbpmServiceImpl implements JbpmService{
 	          while((len = fis.read(buffer))>0) {   
 	           out.write(buffer,0,len);    
 	          }   
-	           out.closeEntry();   
-	           fis.close();   
+	           fis.close();
 	       }
 		   out.flush();
 	       out.close();   
-	        FileInputStream fileInputStream = new FileInputStream(zipFile);
-	        ZipInputStream zipInputStream = new ZipInputStream(fileInputStream);
-		String dpId = repositoryService.createDeployment().addResourcesFromZipInputStream(zipInputStream).deploy();
+	       FileInputStream fileInputStream = new FileInputStream(zipFile);
+	       ZipInputStream zipInputStream = new ZipInputStream(fileInputStream);
+	       NewDeployment createDeployment1 = repositoryService.createDeployment();
+	       createDeployment1 = createDeployment1.addResourcesFromZipInputStream(zipInputStream);
+	       String dpId = createDeployment1.deploy();
+		//String dpId = repositoryService.createDeployment().addResourcesFromZipInputStream(zipInputStream).deploy();
 		ProcessDefinition newPd = repositoryService.createProcessDefinitionQuery().deploymentId(dpId).uniqueResult();
 		return newPd;
 	}
