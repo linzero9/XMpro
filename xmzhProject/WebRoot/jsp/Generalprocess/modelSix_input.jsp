@@ -15,7 +15,7 @@
 </head>
 <body>
 	<h:form name="form1" id="form1" action="" method="post"
-		enctype="multipart/form-data" onsubmit="return checkForm(this);">
+		enctype="multipart/form-data" >
 		<div id="content">
 			<h:hidden id="createor" />
 			<h:hidden id="executionId" property="taskAssgineeDto.executionId" />
@@ -59,7 +59,7 @@
 				
 				<td class="form_label" align="right" style="width:120px;">客户姓名</td>
 					<td colspan="3"><h:text id="custName"
-							property="modelSix.custName"   validateAttr="allowNull=false"/>		<font style="color: red">*</font></td>
+							property="modelSix.custName"  />		<font id="custName_msg"  style="color: red">*</font></td>
 				</tr>
 				
 				
@@ -70,13 +70,13 @@
 				
 							
 							
-							   <w:date  id="mortgageTime" submitFormat="yyyy-MM-dd" format="yyyy-MM-dd" allowNull="false" property="modelSix.mortgageTime"/><font style="color: red">*</font>
+							   <w:date  id="mortgageTime" submitFormat="yyyy-MM-dd" format="yyyy-MM-dd"  property="modelSix.mortgageTime"/><font  id="mortgageTime_msg" style="color: red">*</font>
 							</td>
 					<td class="form_label" align="right" style="width:120px;">收到他项/回执时间</td>
 					<td colspan="3">
 							
 							
-														   <w:date  id="receiveTime" submitFormat="yyyy-MM-dd" format="yyyy-MM-dd" allowNull="false" property="modelSix.receiveTime"/><font style="color: red">*</font>
+														   <w:date  id="receiveTime" submitFormat="yyyy-MM-dd" format="yyyy-MM-dd"  property="modelSix.receiveTime"/><font   id="receiveTime_msg"  style="color: red">*</font>
 							
 							
 							
@@ -154,27 +154,30 @@
 	</h:form>
 </body>
 <script type="text/javascript">
+
+$(function(){
+
+
+	 $("#processingOpinion").text("");
+
+
+
+	if($("#custName").val()==""||$("#custName").val()==null){
+	
+		}else{
+			$("#custName").attr("readonly",true);
+			}
+
+	if('${isView}'!=''){
+		$("#save1").hide();
+		$("#smit").hide();
+	}
+
+
+	
+});
 	show('${taskAssgineeDto.fxJson}');
-	$(document)
-			.ready(
-					function() {
 
-						 $("#processingOpinion").text("");
-
-
-
-						if($("#custName").val()==""||$("#custName").val()==null){
-						
-							}else{
-								$("#custName").attr("readonly",true);
-								}
-
-						if('${isView}'!=''){
-							$("#save1").hide();
-							$("#smit").hide();
-						}
-
-							});
 
 	/**
 	 * 查询流程列表
@@ -191,19 +194,53 @@
 		$("#btnType").val(value);
 		if (value != "1") {
 			if (checkForm($id("form1"))) {
+			
+
+				var flag={"mortgageTime":true,"custName":true,"receiveTime":true};
+		
+
+	    	     var mortgageTime= $("#mortgageTime_input").val();
+	    	     var custName= $("#custName").val();
+	    	     var receiveTime= $("#receiveTime_input").val();
+
+	    	     if(mortgageTime==null||mortgageTime==""||mortgageTime==undefined){
+		    	     $("#mortgageTime_msg").text("该项为必输！");
+		    	  
+		    	     flag.mortgageTime=false;
+		   
+		    	     }
+	    	 
+	    	     if(custName==null||custName==""||custName==undefined){
+		    	     $("#custName_msg").text("该项为必输！");
+		    	     
+
+		    	     flag.custName=false;
+		    	     } 
+	    	     if(receiveTime==null||receiveTime==""||receiveTime==undefined){
+		    	     $("#receiveTime_msg").text("该项为必输！");
+		    	     flag.receiveTime=false;
+		    	     }
+
+
+	    	     if( flag.mortgageTime==true&&flag.custName==true&&   flag.receiveTime==true){
+		    	     
+		    	     
+	    	     
+
+				
 				var strUrl = "/jbpm/jbpmDemoAction_toNextTaskConfig.action?taskAssgineeDto.executionId="
 						+ $id("executionId").value
 						+ "&taskAssgineeDto.definitionId=${taskAssgineeDto.definitionId}";
-				strUrl+="&taskAssgineeDto.beginOrg="+$id("beginOrg").value+"&taskAssgineeDto.beginAssingee="+$id("beginAssingee").value
-	    				
+				strUrl+="&taskAssgineeDto.beginOrg="+$id("beginOrg").value+"&taskAssgineeDto.beginAssingee="+$id("beginAssingee").value;
+
+
+				
 				showModalCenter(strUrl, null, taskAssigneeCallBack, 700, 400,
 						'节点选择');
-			}
+	    	     };
+			};
 		} else {
 
-    	    $("#mortgageTime_input").attr("validateattr","type=calendar;allowNull=true");
-    		$("#custName").attr("validateattr","allowNull=true");
-    		$("#receiveTime_input").attr("validateattr","type=calendar;allowNull=true");
 
 			
 			var _form = $id("form1");
