@@ -46,20 +46,20 @@
         		 ${taskName }
         </td>
       </tr>
-        <td class="form_label" align="right" style="width:120px;">
+        <td    id= class="form_label" align="right" style="width:120px;">
                                                     提交公积金中心时间：
         </td>
         <td colspan="1">
         <div id="inputTime">
-	         <w:date  id="tjgjjsj" submitFormat="yyyy-MM-dd" format="yyyy-MM-dd" allowNull="false" property="modelEight.tjgjjsj" allowInput="false"/>  <font style="color: red">*</font>
+	         <w:date  id="tjgjjsj" submitFormat="yyyy-MM-dd" format="yyyy-MM-dd"  property="modelEight.tjgjjsj" allowInput="false"/>  <font   id="tjgjjsj_msg"   style="color: red">*</font>
          </div>  
         </td>
-        <td class="form_label" align="right" style="width:120px;">
+        <td    class="form_label" align="right" style="width:120px;">
                                                     公积金中心审批时间：
         </td>
         <td colspan="1">
         <div id="inputTime">
-	         <w:date  id="gjjzxspsj" submitFormat="yyyy-MM-dd" format="yyyy-MM-dd" allowNull="false" property="modelEight.gjjzxspsj" allowInput="false"/>  <font style="color: red">*</font>
+	         <w:date  id="gjjzxspsj" submitFormat="yyyy-MM-dd" format="yyyy-MM-dd" property="modelEight.gjjzxspsj" allowInput="false"/>  <font    id="gjjzxspsj_msg" style="color: red">*</font>
          </div>
         </td>
       </tr>
@@ -159,6 +159,37 @@
 		function doSave(value){   		
     		$("#btnType").val(value);
     		if(value!="1"){
+
+
+    			var flag={"tjgjjsj":true,"gjjzxspsj":true};
+    			
+
+	    	     var tjgjjsj= $("#tjgjjsj_input").val();
+	    	    
+	    	     var gjjzxspsj= $("#gjjzxspsj_input").val();
+
+	    	     if(tjgjjsj==null||tjgjjsj==""||tjgjjsj==undefined){
+		    	     $("#tjgjjsj_msg").text("该项为必输！");
+		    	  
+		    	     flag.tjgjjsj=false;
+		   
+		    	     }
+	    	 
+	    	     if(gjjzxspsj==null||gjjzxspsj==""||gjjzxspsj==undefined){
+		    	     $("#gjjzxspsj_msg").text("该项为必输！");
+		    	     
+
+		    	     flag.gjjzxspsj=false;
+		    	     } 
+
+
+	    	     if( flag.tjgjjsj==true&&flag.gjjzxspsj==true){
+		    	     
+		    	     
+
+	    	     
+
+        		
     			//提交
     			if(checkForm($id("form1"))){
     			var strUrl = "/jbpm/jbpmDemoAction_toNextTaskConfig.action?taskAssgineeDto.executionId="+$id("executionId").value+"&taskAssgineeDto.definitionId=${taskAssgineeDto.definitionId}";
@@ -166,12 +197,13 @@
 	    		
         		showModalCenter(strUrl, null, taskAssigneeCallBack, 700, 400, '节点选择');
     			}
+
+    			}
     		}else{
 
+
+
         		
-     
-        	    $("#tjgjjsj_input").attr("validateattr","type=calendar;allowNull=true");
-        		$("#gjjzxspsj_input").attr("validateattr","type=calendar;allowNull=true");
         		
       
     			//保存
