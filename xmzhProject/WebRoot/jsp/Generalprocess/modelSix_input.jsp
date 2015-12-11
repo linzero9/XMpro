@@ -52,19 +52,26 @@
 				
 				<tr>
 	
-				
-				<td class="form_label" align="right" style="width:20%;" >客户姓名</td>
-					<td colspan="3"><h:text id="custName"
-							property="modelSix.custName"  />		<font id="custName_msg"  style="color: red">*</font></td>
-				
-				
-								<td class="form_label" align="right" style="width:20%;" >是否风险额度重检：
+			
+					
+				<td class="form_label" align="right" style="width:20%;" >客户姓名
+				</td>
+					<td colspan="1"><h:text id="custName"
+							property="modelSix.custName"  />		<font id="custName_msg"  style="color: red">*</font>
 					</td>
-					<td>
-							
-							
-							<d:select  id="risk"  dictTypeId="PROCESS_QuotaCheck" property="modelSix.risk"  nullLabel="请选择"></d:select>
-							</td>
+							<td class="form_label" align="right" style="width:20%;" >
+							是否抵押：
+					</td>
+					<td  colspan="3">
+					<div id="ismortgage">
+						<label><input name="Fruit" type="radio" value="1"    />是</label> 
+                        <label><input name="Fruit" type="radio" value="2"  checked/>否 </label> 
+                        </div>
+					</td>
+					
+				
+				
+					
 				</tr>
 				
 				
@@ -114,7 +121,13 @@
 							
 							<d:select  id="supportCategory"  dictTypeId="PROCESS_pay" property="modelSix.supportCategory"   nullLabel="请选择"></d:select>
 							
-							
+										</td>
+							<td class="form_label" align="right" style="width:20%;" >
+							是否风险额度重检：
+					</td>
+					<td  colspan="3">
+							<d:select  id="risk"  dictTypeId="PROCESS_QuotaCheck" property="modelSix.risk"  nullLabel="请选择"></d:select>
+					</td>
 		
 				</tr>
 				
@@ -208,6 +221,10 @@ $(function(){
 	    	     var custName= $("#custName").val();
 	    	     var receiveTime= $("#receiveTime_input").val();
 
+
+	    	     if($("#ismortgage input[type='radio']:checked").val()==1){
+		    
+
 	    	     if(mortgageTime==null||mortgageTime==""||mortgageTime==undefined){
 		    	     $("#mortgageTime_msg").text("该项为必输！");
 		    	  
@@ -226,6 +243,11 @@ $(function(){
 		    	     flag.receiveTime=false;
 		    	     }
 
+	    	//     alert($("#ismortgage input[type='radio']:checked").val());
+
+	    	  
+	    	     
+	    	     }
 
 	    	     if( flag.mortgageTime==true&&flag.custName==true&&   flag.receiveTime==true){
 		    	     
