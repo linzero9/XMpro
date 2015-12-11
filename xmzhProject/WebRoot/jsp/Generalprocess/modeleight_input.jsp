@@ -51,7 +51,8 @@
         </td>
         <td colspan="1">
         <div id="inputTime">
-	         <w:date  id="tjgjjsj" submitFormat="yyyy-MM-dd" format="yyyy-MM-dd"  property="modelEight.tjgjjsj" allowInput="false"/>  <font   id="tjgjjsj_msg"   style="color: red">*</font>
+	                  <h:text property="modelEight.tjgjjsj" id="tjgjjsj"  style="width:130px;" />	
+	         <font   id="tjgjjsj_msg"   style="color: red">*</font>
          </div>  
         </td>
         <td    class="form_label" align="right" style="width:120px;">
@@ -164,7 +165,7 @@
     			var flag={"tjgjjsj":true,"gjjzxspsj":true};
     			
 
-	    	     var tjgjjsj= $("#tjgjjsj_input").val();
+	    	     var tjgjjsj= $("#tjgjjsj").val();
 	    	    
 	    	     var gjjzxspsj= $("#gjjzxspsj_input").val();
 
