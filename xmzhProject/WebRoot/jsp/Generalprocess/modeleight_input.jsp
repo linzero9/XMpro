@@ -51,7 +51,7 @@
         </td>
         <td colspan="1">
         <div id="inputTime">
-	                  <h:text property="modelEight.tjgjjsj" id="tjgjjsj"  style="width:130px;" />	
+	                  <h:text property="modelEight.tjgjjsj" id="tjgjjsj"  style="width:130px;"   readonly="true" />	
 	         <font   id="tjgjjsj_msg"   style="color: red">*</font>
          </div>  
         </td>
