@@ -51,20 +51,25 @@
 				
 				
 				<tr>
-					<td class="form_label" align="right" style="width:120px;">是否风险额度重检：</td>
+	
+				
+				<td class="form_label" align="right" style="width:20%;" >客户姓名</td>
+					<td colspan="3"><h:text id="custName"
+							property="modelSix.custName"  />		<font id="custName_msg"  style="color: red">*</font></td>
+				
+				
+								<td class="form_label" align="right" style="width:20%;" >是否风险额度重检：
+					</td>
 					<td>
 							
 							
-							<d:select  id="risk"  dictTypeId="PROCESS_QuotaCheck" property="modelSix.risk"  nullLabel="请选择"></d:select></td>
-				
-				<td class="form_label" align="right" style="width:120px;">客户姓名</td>
-					<td colspan="3"><h:text id="custName"
-							property="modelSix.custName"  />		<font id="custName_msg"  style="color: red">*</font></td>
+							<d:select  id="risk"  dictTypeId="PROCESS_QuotaCheck" property="modelSix.risk"  nullLabel="请选择"></d:select>
+							</td>
 				</tr>
 				
 				
 				<tr>
-					<td class="form_label" align="right" style="width:120px;">抵押送件时间</td>
+					<td class="form_label" align="right"   style="width:20%;" >抵押送件时间</td>
 					<td colspan="1">
 					
 				
@@ -72,7 +77,7 @@
 							
 							   <w:date  id="mortgageTime" submitFormat="yyyy-MM-dd" format="yyyy-MM-dd"  property="modelSix.mortgageTime"/><font  id="mortgageTime_msg" style="color: red">*</font>
 							</td>
-					<td class="form_label" align="right" style="width:120px;">收到他项/回执时间</td>
+					<td class="form_label" align="right" style="width:20%;" >收到他项/回执时间</td>
 					<td colspan="3">
 							
 							
@@ -83,7 +88,7 @@
 							</td>
 				</tr>
 				<tr>
-					<td class="form_label" align="right" style="width:120px;">
+					<td class="form_label" align="right" style="width:20%;" >
 						公积金中心申请时间：</td>
 					<td colspan="1">
 					
@@ -91,7 +96,7 @@
 							
 							
 <w:date  id="applicationTime" submitFormat="yyyy-MM-dd" format="yyyy-MM-dd" property="modelSix.applicationTime"/></td>
-					<td class="form_label" align="right" style="width:120px;">
+					<td class="form_label" align="right"  style="width:20%;" >
 						公积金中心下达放款指标时间：</td>
 					<td colspan="1">
 					
@@ -103,7 +108,7 @@
 							</td>
 				</tr>
 				<tr>
-					<td class="form_label" align="right" style="width:120px;">
+					<td class="form_label" align="right" style="width:20%;" >
 						支用类别：</td>
 					<td colspan="1">
 							
