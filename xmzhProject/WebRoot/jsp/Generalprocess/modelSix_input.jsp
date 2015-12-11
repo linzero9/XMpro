@@ -247,7 +247,15 @@ $(function(){
 
 	    	  
 	    	     
-	    	     }
+	    	     }else{
+	        	     if(custName==null||custName==""||custName==undefined){
+			    	     $("#custName_msg").text("该项为必输！");
+			    	     
+
+			    	     flag.custName=false;
+			    	     } 
+		    	     
+		    	     }
 
 	    	     if( flag.mortgageTime==true&&flag.custName==true&&   flag.receiveTime==true){
 		    	     

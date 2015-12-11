@@ -102,7 +102,7 @@
                                                  申请金额：
         </td>
         <td colspan="1">
-         <h:text property="modelOne.apply_bal" id="apply_bal" validateAttr="allowNull=false;type=float" style="width:130px;" /><font style="color: red">*</font>	元
+         <h:text property="modelOne.apply_bal" id="apply_bal" validateAttr="allowNull=false;type=float" style="width:130px;" />元<font style="color: red">*</font>	
         </td>
         <td class="form_label" align="right" style="width:120px;">
                                                    申请币别：

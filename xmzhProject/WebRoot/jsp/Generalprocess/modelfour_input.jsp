@@ -146,7 +146,7 @@
 										tdStr+="<input type=\"hidden\" name=\""+hiEmpId+"\" id=\""+epId+"\" value=\""+item.empid+"\" >";
 										tdStr+="<input type=\"hidden\" name=\""+hiFlowId+"\" id=\""+flId+"\" value=\""+item.flowId+"\" >";
 					         			tdStr+="差错内容：<input type=\"text\" name=\""+hiFiles+"\" id=\""+fId+"\" value=\""+item.mistakeContent+"\" size='70' validateAttr=\"allowNull=false\" >";
-									 	tdStr+="扣罚金额：<input type=\"text\" name=\""+hiJees+"\" id=\""+jeId+"\" value=\""+item.punishBal+"\" size='10' validateAttr=\"allowNull=false\" >";
+									 	tdStr+="扣罚金额：<input type=\"text\" name=\""+hiJees+"\" id=\""+jeId+"\" value=\""+item.punishBal+"\" size='10' validateAttr=\"allowNull=false\" >元";
 									 	tdStr+= "<input type=\"button\" onclick=\"delTr('fileRow"+rowId+"');\" name='button"+rowId+"' value=\"删除\" style=\"margin-left:2px;vertical-align:middle;cursor:hand;\"/>";
 									 	td.innerHTML = tdStr;
 										rowId = rowId+1; 
@@ -184,7 +184,7 @@
 										row.id = "fileRow"+rowId;
 										td = row.insertCell();
 					         			tdStr="差错内容：<input type=\"text\" value=\""+item.mistakeContent+"\" size='70' validateAttr=\"allowNull=false\" readonly=\"true\" >";
-									 	tdStr+="扣罚金额：<input type=\"text\" value=\""+item.punishBal+"\" size='10' validateAttr=\"allowNull=false\" readonly=\"true\">";
+									 	tdStr+="扣罚金额：<input type=\"text\" value=\""+item.punishBal+"\" size='10' validateAttr=\"allowNull=false\" readonly=\"true\">元";
 									 	tdStr+="添加时间：<input type=\"text\" value=\""+item.addTime+"\" size='10' validateAttr=\"allowNull=false\" readonly=\"true\">";
 									 	td.innerHTML = tdStr;
 										 rowId = rowId+1; 
@@ -193,7 +193,7 @@
 										row.id = "fileRow"+rowId;
 										td = row.insertCell();
 					         			tdStr="差错内容：<input type=\"text\" name=\""+fName+"\" id=\""+fId+"\" value=\""+item.mistakeContent+"\" size='70' validateAttr=\"allowNull=false\">";
-									 	tdStr+="扣罚金额：<input type=\"text\" name=\""+jeName+"\" id=\""+jeId+"\" value=\""+item.punishBal+"\" size='10' validateAttr=\"allowNull=false\">";
+									 	tdStr+="扣罚金额：<input type=\"text\" name=\""+jeName+"\" id=\""+jeId+"\" value=\""+item.punishBal+"\" size='10' validateAttr=\"allowNull=false\">元";
 									 	tdStr+= "<input type=\"button\" onclick=\"delTr('fileRow"+rowId+"');\" name='button"+rowId+"' value=\"删除\" style=\"margin-left:2px;vertical-align:middle;cursor:hand;\"/>";
 									 	td.innerHTML = tdStr;
 										rowId = rowId+1; 
@@ -278,7 +278,7 @@
 			 row.id = "fileRow"+rowId;
 			 td = row.insertCell(); 
 			 	tdStr="差错内容：<input type=\"text\" name=\""+fName+"\" id=\""+fId+"\" size='70' validateAttr=\"allowNull=false\">";
-			 	tdStr+="扣罚金额：<input type=\"text\" name=\""+jeName+"\" id=\""+jeId+"\" size='10' validateAttr=\"allowNull=false\">";
+			 	tdStr+="扣罚金额：<input type=\"text\" name=\""+jeName+"\" id=\""+jeId+"\" size='10' validateAttr=\"allowNull=false\">元";
 			    tdStr+= "<input type=\"button\" onclick=\"delTr('fileRow"+rowId+"');\" name='button"+rowId+"' value=\"删除\" style=\"margin-left:2px;vertical-align:middle;cursor:hand;\"/>";
 			    td.innerHTML = tdStr;
 			    rowId = rowId+1;    
