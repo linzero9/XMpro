@@ -158,4 +158,9 @@ public interface ITProcessConfigDAO {
 	
 	
 	public List<TProcessConfig> queryProcessDefinitionId(String businessType)throws Exception;
+
+	String isHaveProcessName(Map<String, Object> map);
+
+	List<TProcessConfig> queryMyProcessListForGp(Map<String, Object> map,
+			Page page);
 }

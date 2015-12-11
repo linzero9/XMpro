@@ -211,7 +211,23 @@ function openNewEmpTreeCallBack(arg){//回调方法
  	 		alert("请上传zip格式的流程部署文件！");
 			 return ;
 		 }
- 		ajaxsubmitO(); 
+ 		
+ 		var processName = $id("processName").value;
+ 		$.ajax({
+			 url: "/jbpm/tProcessConfigAction_isHaveProcessName.action",
+		      async: false,
+		      type: 'post',
+		      data: "processConfig.processName="+processName,
+		      timeout: 60000,
+		      dataType:"text",
+		      success: function (data) {
+		    	  if (data.indexOf("true") >= 0) {
+		    		  alert("该流程名称的流程已经存在,如果要发布此流程，请修改流程名称!");
+		    	  }else if (data.indexOf("false") >= 0){
+		    		  ajaxsubmitO();
+		    	  }
+		      }
+		});
 	}
 
 	function ajaxsubmitO() {

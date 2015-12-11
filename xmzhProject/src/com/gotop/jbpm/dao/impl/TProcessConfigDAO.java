@@ -265,5 +265,17 @@ public class TProcessConfigDAO extends SqlMapClientDao implements ITProcessConfi
 		return tProcess;
 	}
 
+	@Override
+	public String isHaveProcessName(Map<String, Object> map) {
+		return (String) this.queryForObject("T_PROCESS_CONFIG_SqlMap.isHaveProcessName", map);
+	}
+
+	@Override
+	public List<TProcessConfig> queryMyProcessListForGp(
+			Map<String, Object> map, Page page) {
+		 List<TProcessConfig> tProcessConfigs = this.queryForList("T_PROCESS_CONFIG_SqlMap.queryMyProcessListForGp", map,page);
+	     return tProcessConfigs;
+	}
+
 	
 }

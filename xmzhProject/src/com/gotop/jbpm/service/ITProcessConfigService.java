@@ -97,4 +97,10 @@ public interface ITProcessConfigService {
 	TProcessConfig getProcessConfigByDefinitionId(String definitionId);
 	
 	public List<TProcessConfig> queryProcessDefinitionId(String businessType)throws Exception;
+
+	String isHaveProcessName(TProcessConfig processConfig);
+
+	List<TProcessConfig> queryMyProcessListForGp(String relationids,
+			String orgId, TProcessConfig processConfig, Page page);
+
 }

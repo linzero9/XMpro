@@ -9,6 +9,7 @@ import com.gotop.jbpm.model.TProcessConfigPerson;
 import com.gotop.jbpm.service.ITProcessConfigPersonService;
 import com.gotop.jbpm.service.ITProcessConfigService;
 import com.gotop.jbpm.service.JbpmService;
+import com.gotop.util.Struts2Utils;
 import com.gotop.util.XmlConvert;
 import com.gotop.util.string.Obj2StrUtils;
 import com.primeton.utils.AjaxParam;
@@ -257,8 +258,57 @@ public class TProcessConfigAction extends BaseAction {
 		this.configs = configs;
 	}
 
+	/**
+	 * 判断系统中是否存在名字相同的流程
+	 * 名字相同的流程部署时会造成部署不成功
+	 * 增加这个方法是在部署流程时限制用户不可以部署流程名称一样的多个流程
+	 */
+	public void isHaveProcessName(){
+		String info = "";
+		info = this.tProcessConfigService.isHaveProcessName(processConfig);
+		if(!"0".equals(info)){
+			info = "true";
+		}else if ("0".equals(info)){
+			info = "false";
+		}
+		Struts2Utils.renderText(info);
+	}
 	
-    
-    
+	   /**
+     * 我的流程列表展示
+     * @return
+     * @throws Exception 
+     */
+    public String queryMyProcessListForGp() throws Exception{
+    	//获取用户empId
+    	String empId = String.valueOf(this.getCurrentOnlineUser().getEmpid());
+    	//获取角色id数组
+    	String[] roleIdArray = this.getCurrentOnlineUser().getRoleid();
+    	//获取机构代码
+    	String orgId = String.valueOf(this.getCurrentOnlineUser().getOrgid());
+    	
+    	//将角色id数组转换成用","分割的字符串
+    	String roleIds = Obj2StrUtils.join(roleIdArray, String.class, ",");
+    	
+    	//20140901
+    	//String positionId = this.getCurrentOnlineUser().getPositionId();
+    	//获取岗位id数组
+    	String[] positionIdArray = this.getCurrentOnlineUser().getPositionId();
+    	//将岗位id数组转换成用","分割的字符串
+    	String positionIds = Obj2StrUtils.join(positionIdArray, String.class, ",");
+    	//角色id、人员id、机构id
+    	String relationids = "'" + empId + "'" + "," + "'"+ orgId+"'" ;
+    	if(roleIds!=null&&!"".equals(roleIds))
+    		relationids+="," + roleIds ;
+    	if(positionIds!=null&&!"".equals(positionIds))
+    		relationids+="," + positionIds;
+    	
+    	if(processConfig == null){
+    		processConfig = new TProcessConfig();
+    	}
+    	processConfig.setBusinessType("88");
+    	processConfigs = tProcessConfigService.queryMyProcessListForGp(relationids,orgId,processConfig,this.getPage());
+    	return "my_process_list";
+    }
     
 }

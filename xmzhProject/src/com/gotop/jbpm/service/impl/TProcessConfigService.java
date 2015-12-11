@@ -210,4 +210,41 @@ public class TProcessConfigService implements ITProcessConfigService {
 		return tProcessConfigDAO.queryProcessDefinitionId(businessType);
 	}
 
+	@Override
+	public String isHaveProcessName(TProcessConfig processConfig) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		if(processConfig != null){
+			if(processConfig.getProcessName() != null){
+				map.put("processName", processConfig.getProcessName());
+			}
+		}
+		return tProcessConfigDAO.isHaveProcessName(map);
+	}
+
+	@Override
+	public List<TProcessConfig> queryMyProcessListForGp(String relationids,
+			String orgId, TProcessConfig processConfig, Page page) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("oracleStart", page.getBegin());
+		map.put("oracleEnd", page.getBegin()+page.getLength());
+
+		if(relationids!=null&&!"".equals(relationids)){
+			map.put("relationids", relationids);
+		}
+		if(orgId!=null&&!"".equals(orgId)){
+			map.put("orgid", orgId);
+		}
+		if(processConfig!=null){
+			if(processConfig.getProcessName()!=null){
+				map.put("processName", processConfig.getProcessName());
+			}else{
+				map.put("processName", "");
+			}
+			if(processConfig.getBusinessType() != null){
+				map.put("businessType", processConfig.getBusinessType());
+			}
+		}
+		return tProcessConfigDAO.queryMyProcessListForGp(map,page);
+	}
+
 }

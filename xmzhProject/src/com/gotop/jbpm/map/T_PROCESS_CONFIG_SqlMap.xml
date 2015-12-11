@@ -43,6 +43,38 @@
       <result column="ORDER_NO" property="orderNo" jdbcType="VARCHAR" />
   </resultMap>
   
+  <select id="queryMyProcessListForGp" resultMap="abatorgenerated_TProcessConfigResult"  resultClass="java.util.HashMap">
+  with tmp as(select orgid from om_organization a start with orgid ='$orgid$' connect by PRIOR parentorgid=orgid)
+select t.ID,
+       t.DEFINITION_ID,
+       t.PROCESS_NAME,
+       t.USER_ID,
+       t.UPLOAD_ORG,
+       t.UPLOAD_TIME,
+       t.STATE,
+       t.ROLE_ORG_PERSON,
+       t.BUSINESS_TYPE,
+       t.ORDER_NO
+  from T_PROCESS_CONFIG t, 
+  T_PROCESS_CONFIG_PERSON t2
+ where t.ID = t2.PROCESS_CONFIG_ID
+   and ( t2.RELATION_ID in
+       ($relationids$)
+       or exists (select orgid from tmp where orgid=t2.relation_id)
+       )
+   and t.PROCESS_NAME like '%$processName$%'
+    and t.state = '01'
+     <dynamic> 
+          <isNotNull prepend="and" property="businessType" >
+        t.BUSINESS_TYPE = #businessType#
+      </isNotNull>
+     </dynamic>
+   order by t.ORDER_NO ASC
+  </select>
+  
+  <select id="isHaveProcessName" resultClass="String" parameterClass="java.util.HashMap">
+  	select count(1) as a from t_process_config t where t.process_name=#processName#
+  </select>
   <!-- 我的流程 -->
  <select id="queryMyProcessList"  resultMap="abatorgenerated_TProcessConfigResult"  resultClass="java.util.HashMap">
  <!--    select t.ID, t.DEFINITION_ID,t.PROCESS_NAME, t.USER_ID, t.UPLOAD_ORG, t.UPLOAD_TIME, t.STATE, t.ROLE_ORG_PERSON,t.BUSINESS_TYPE
