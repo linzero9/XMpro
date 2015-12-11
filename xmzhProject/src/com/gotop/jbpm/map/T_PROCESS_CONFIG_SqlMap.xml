@@ -68,6 +68,7 @@ select t.ID,
        )
    and t.PROCESS_NAME like '%$processName$%'
     and t.state = '01'
+    and t.BUSINESS_TYPE !='88'
      <dynamic> 
           <isNotNull prepend="and" property="businessType" >
         t.BUSINESS_TYPE = #businessType#
