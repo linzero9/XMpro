@@ -26,4 +26,5 @@ public interface IGeneralprocessDAO {
 	public List<GeneralprocessDto> myStartGeneralProcessList(
 			Map<String, Object> map, Page page);
 
+
 }

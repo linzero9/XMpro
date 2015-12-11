@@ -36,6 +36,7 @@
        <result column="beginEmpname" property="beginEmpname" jdbcType="VARCHAR" />
        <result column="beginOrgname" property="beginOrgname" jdbcType="VARCHAR" />
   </resultMap>
+  
   	<!-- 根据员工号查询出其所属机构名称 -->
   	<select id="queryOrgName" resultClass="java.util.HashMap" parameterClass="String">
   		select b.orgname from om_emporg a,om_organization b where a.empid in($empIds$) and b.orgid = a.orgid

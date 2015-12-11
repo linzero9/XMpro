@@ -1,7 +1,6 @@
 package com.gotop.Generalprocess.action;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,12 +18,10 @@ import com.gotop.Generalprocess.service.ITGeneralprocessModeltwoService;
 import com.gotop.Generalprocess.util.GeneralprocessUtil;
 import com.gotop.crm.util.BaseAction;
 import com.gotop.jbpm.dto.TaskAssgineeDto;
-import com.gotop.jbpm.model.TProcessTaskAssignee;
 import com.gotop.jbpm.service.JbpmService;
 import com.gotop.opinion.model.TDefaultOpinion;
 import com.gotop.opinion.service.ITDefaultOpinionService;
 import com.gotop.util.Struts2Utils;
-import com.gotop.util.string.Obj2StrUtils;
 import com.gotop.vo.system.MUOUserSession;
 import com.gotop.vo.tyjg.Omorganization;
 

@@ -768,12 +768,12 @@ public class JbpmServiceImpl implements JbpmService{
 		//将xml文件输出到指定位置
 		 String address="";
 		 String detailinfo = null;
-    	 DictEntry dict=new DictEntry();
-    	dict.setDicttypeid("ZHPT_JBPM_XML_FILE");
-    	 Properties props=System.getProperties();
-	    System.out.println(props.getProperty("os.name"));
-    	 List<DictEntry> list1=dictEntryDao.queryDictEntryList(dict);
-    	 if(list1==null||list1.size()<1){
+    	 //DictEntry dict=new DictEntry();
+    	 //dict.setDicttypeid("ZHPT_JBPM_XML_FILE");
+    	 //Properties props=System.getProperties();
+	     //System.out.println(props.getProperty("os.name"));
+    	 //List<DictEntry> list1=dictEntryDao.queryDictEntryList(dict);
+    	 /*if(list1==null||list1.size()<1){
     		 address=ServletActionContext.getServletContext().getRealPath("/uploadfile");
     	 }
     	 else {
@@ -781,7 +781,9 @@ public class JbpmServiceImpl implements JbpmService{
     	    	if(props.getProperty("os.name").indexOf("Windows")>=0){
     	    		address="D:"+address;
     	    	}
-    	 }  
+    	 }  */
+		 String xmlPath = SpringPropertyResourceReader.getProperty("jbpm_file"); 
+		 address=xmlPath;
 		InputStream inStream = null;
 		BufferedInputStream in = null;
 		String filePath = null;
@@ -811,8 +813,11 @@ public class JbpmServiceImpl implements JbpmService{
 									if(!file.isDirectory()){
 										file.mkdir();
 									}
-								File file2 = new File(address+"/jbpmOut.jpdl.xml");
-									file2.createNewFile();
+								//File file2 = new File(address+"/jbpmOut.jpdl.xml");
+									File file2 = new File(address);
+									if(!file2.isFile()){
+										file2.createNewFile();
+									}
 									OutputStream fout=new FileOutputStream(file2);
 									//下面将BLOB数据写入文件
 									byte[]b=new byte[1024];
@@ -921,7 +926,9 @@ public class JbpmServiceImpl implements JbpmService{
 	@Override
 	public String getPngPath() throws Exception {
 		 String address="";
-    	 DictEntry dict=new DictEntry();
+		 String xmlPath = SpringPropertyResourceReader.getProperty("jbpm_png_file"); 
+		 address= xmlPath;
+    	/* DictEntry dict=new DictEntry();
     	 dict.setDicttypeid("ZHPT_JBPM_XML_FILE");
     	 Properties props=System.getProperties();
 	    System.out.println(props.getProperty("os.name"));
@@ -935,7 +942,7 @@ public class JbpmServiceImpl implements JbpmService{
     	    	if(props.getProperty("os.name").indexOf("Windows")>=0){
     	    		address="D:"+address;
     	    	}
-    	 } 
+    	 } */
     	 return address;
 	}
 
@@ -1207,10 +1214,15 @@ public class JbpmServiceImpl implements JbpmService{
             	 }
             	 if(j.getJSONObject("props") != null){
             		 JSONObject propsJson = j.getJSONObject("props");
-            		 if(propsJson.getJSONObject("desc") != null && !"".equals(propsJson.getJSONObject("desc").getString("value"))){
-            			 //拼接desc描述内容
-            			 str += " desc=\"" +propsJson.getJSONObject("desc").getString("value") + "\"";
+            		 if(propsJson.has("desc")){
+            			 if(propsJson.getJSONObject("desc") != null){
+                			 if(!"".equals(propsJson.getJSONObject("desc").getString("value"))){
+                    			 //拼接desc描述内容
+                    			 str += " desc=\"" +propsJson.getJSONObject("desc").getString("value") + "\"";
+                    		 } 
+                		 }
             		 }
+            		 
             		 if(propsJson.getJSONObject("form") != null){
             			 if(!"".equals(propsJson.getJSONObject("form").getString("value"))){
             				//拼接form表单内容

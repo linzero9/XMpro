@@ -207,7 +207,6 @@ function openNewEmpTreeCallBack(arg){//回调方法
 					if (data.indexOf("success") >= 0) {
 						alert("修改成功!");
 						unMaskTop();
-						window.parent.location.reload();
 						window.close();
 					} else if (data.indexOf("fails") >= 0) {
 						alert("修改失败!");

@@ -49,4 +49,5 @@ public interface IGeneralprocessService {
 
 	public List<GeneralprocessDto> queryGeneralprocessList(MUOUserSession muo,
 			GeneralprocessDto generalprocessDto, Page page);
+
 }

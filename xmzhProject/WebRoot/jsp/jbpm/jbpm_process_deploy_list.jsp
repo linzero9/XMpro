@@ -69,6 +69,7 @@
 								<td align="center" nowrap="nowrap" width="5%">
 								<w:rowRadio>
 										<h:param name='processName' iterateId='id1' property='processName' />
+										<h:param name='businessType' iterateId='id1' property='businessType' />
 										<h:param name='definitionId' iterateId='id1' property='definitionId' />
 										<h:param name='state' iterateId='id1' property='state' />
 									</w:rowRadio>
@@ -96,11 +97,6 @@
 									onclick="deployProcess();" />
 							<l:greaterThan property="page.count" targetValue="0" compareType="number" >
 								&nbsp; &nbsp;
-								<input type="button" class="button" value="新增流程配置"
-									onclick="addProcessConfig();" />
-							</l:greaterThan>
-							<l:greaterThan property="page.count" targetValue="0" compareType="number" >
-								&nbsp; &nbsp;
 								<input type="button" class="button" value="修改流程"
 									onclick="updateProcess();" />
 							</l:greaterThan>
@@ -124,6 +120,16 @@
 								&nbsp; &nbsp;
 								<input type="button" class="button" value="查看流程图"
 									onclick="viewProcess();" />
+							</l:greaterThan>
+							<l:greaterThan property="page.count" targetValue="0" compareType="number" >
+								&nbsp; &nbsp;
+								<input type="button" class="button" value="新增信贷流程配置"
+									onclick="addProcessConfig();" />
+							</l:greaterThan>
+							<l:greaterThan property="page.count" targetValue="0" compareType="number" >
+								&nbsp; &nbsp;
+								<input type="button" class="button" value="信贷流程图配置"
+									onclick="toGpImpConfig();"/>
 							</l:greaterThan>
 							</div>
 							<div class="h4">
@@ -157,6 +163,33 @@
 		</DIV>
 		<script type="text/javascript">
 
+		//新增信贷流程配置
+ 		function addProcessConfig(){
+	  		var strUrl = "/jbpm/jbpmCommonConfigAction_toAddProcessConfig.action";
+		  	showModalCenter(strUrl, null, null, 700, 300, '新增信贷流程配置');	
+ 		}
+		
+		//信贷流程图配置
+		function toGpImpConfig(){
+			var gop = $id("group1");
+	  		var len = gop.getSelectLength();
+	  		if(len == 0){
+	  			alert("请选择一条流程信息");
+	  			return;
+	  		}else{
+	  			var rows=gop.getSelectRow();
+		  		var businessType=rows.getParam("businessType");
+		  		var definitionId=rows.getParam("definitionId");
+		  		if("88" == businessType){
+		  			var strUrl = "/jbpm/jbpmDemoAction_toGpProcessImgConfig.action?taskAssgineeDto.definitionId="+definitionId;
+			  		parent.window.frames["mainFrame"].location.href = encodeURI(strUrl);
+		  		}else{
+		  			alert('该流程不是信贷流程,如需修改流程图,请点击【流程图配置】');
+		  		}
+	  		}
+			
+		}
+		
 		//发布流程
 		function deployProcess(){
 			var gop = $id("group1");
@@ -220,8 +253,14 @@
 	  		}else{
 	  			var rows=gop.getSelectRow();
 		  		var definitionId=rows.getParam("definitionId");
-		  		var strUrl = "/jbpm/jbpmDemoAction_toProcessImgConfig.action?taskAssgineeDto.definitionId="+definitionId;
-		  		parent.window.frames["mainFrame"].location.href = encodeURI(strUrl);	
+		  		var businessType=rows.getParam("businessType");
+		  		if("88" == businessType){
+		  			alert('该流程是信贷流程,如需修改流程图,请点击【信贷流程图配置】');
+		  		}else{
+		  			var strUrl = "/jbpm/jbpmDemoAction_toProcessImgConfig.action?taskAssgineeDto.definitionId="+definitionId;
+			  		parent.window.frames["mainFrame"].location.href = encodeURI(strUrl);	
+		  		}
+		  		
 		  	}
 		} 
 		
@@ -240,11 +279,7 @@
 			  	}
 		  	}
  		
- 		//新增流程配置
- 		function addProcessConfig(){
-	  		var strUrl = "/jbpm/jbpmCommonConfigAction_toAddProcessConfig.action";
-		  	showModalCenter(strUrl, null, null, 700, 300, '新增流程配置');	
- 		}
+ 		
 		 
 		</script>
 	</body>

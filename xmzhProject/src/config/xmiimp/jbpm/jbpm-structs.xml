@@ -87,6 +87,10 @@
       /jsp/jbpm/jbpm_online_design_upt.jsp
       </result>
       
+       <result name="jbpm_online_gp_design_upt">
+      /jsp/jbpm/jbpm_common_config_upt.jsp
+      </result>
+      
     </action>
     
     <action class="tProcessConfigAction" method="{1}" name="tProcessConfigAction_*">

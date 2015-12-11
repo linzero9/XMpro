@@ -84,37 +84,37 @@ public class JbpmDemoAction extends BaseAction {
 	protected ITApplyLeaveService applyLeaveService;
 
 	protected ITFileResourceTableService fileResourceTableService;
-	
+
 	protected ITProcessTaskExeConfigService processTaskExeConfigService;
 
 	protected ITProcessBusinessService processBusinessService;
-	
+
 	private JbpmDemoService jbpmDemoService;
 
 	private JbpmService jbpmService;
 
 	private ITProcessTaskAssigneeService processTaskAssigneeService;
-	
+
 	private String taskUrl;
 
 	private String nameSpace;
-	
+
 	private String data;
-	
+
 	private String isRecordSubmit;
 
 	/**
 	 * 流程上传文件
 	 */
 	private File upload;
-	
+
 	/**
 	 * 模板上传文件
 	 */
 	private File uploadTemplate;
-	
+
 	private String uploadFileName;
-	
+
 	private String uploadTemplateFileName;
 
 	private TProcessConfig processConfig;
@@ -152,7 +152,7 @@ public class JbpmDemoAction extends BaseAction {
 	private String orgname;
 
 	private TaskAssgineeDto taskAssgineeDto;
-	
+
 	private List<TaskAssgineeDto> taskAssgineeDtos;
 
 	private TApplyLeave leave;
@@ -162,12 +162,12 @@ public class JbpmDemoAction extends BaseAction {
 	private List<ActivityImpl> activityImplList;
 
 	private String pname;
-	
+
 	/**
 	 * 节点执行对象主键
 	 */
 	private Long taskExeConfigId;
-	
+
 	public Long getTaskExeConfigId() {
 		return taskExeConfigId;
 	}
@@ -561,64 +561,67 @@ public class JbpmDemoAction extends BaseAction {
 	}
 
 	public String deployProcess() throws Exception {
-		String info ="success";
+		String info = "success";
 		try {
 			String urlstr = fileResourceTableService.getFileUpload(upload,
 					uploadFileName);
-			
+
 			TFileResourceTable tFileResourceTable = new TFileResourceTable();
 			tFileResourceTable.setFilePath(urlstr);
 			tFileResourceTable.setFileName(uploadFileName);
 			tFileResourceTable.setResourceType("10");
 			String fileId = fileResourceTableService.insert(tFileResourceTable);
-			
+
 			TProcessConfig tProcessConfig = new TProcessConfig();
-			
+
 			TFileResourceTable templateFile = new TFileResourceTable();
-			if(uploadTemplate != null && uploadTemplateFileName != null){
-				//模板文件
-				String urlstrTemplate = fileResourceTableService.getFileUpload(uploadTemplate,
-						uploadTemplateFileName);
+			if (uploadTemplate != null && uploadTemplateFileName != null) {
+				// 模板文件
+				String urlstrTemplate = fileResourceTableService.getFileUpload(
+						uploadTemplate, uploadTemplateFileName);
 				templateFile.setFilePath(urlstrTemplate);
 				templateFile.setFileName(uploadTemplateFileName);
 				fileResourceTableService.insert(templateFile);
-				tProcessConfig.setFileIds(String.valueOf(templateFile.getFileId()));
-			}else{
+				tProcessConfig.setFileIds(String.valueOf(templateFile
+						.getFileId()));
+			} else {
 				tProcessConfig.setFileIds("");
 			}
-		
-		/*	TFileResourceTable tFileResourceTable2 = fileResourceTableService
-					.getFileResource(fileId);*/
+
+			/*
+			 * TFileResourceTable tFileResourceTable2 = fileResourceTableService
+			 * .getFileResource(fileId);
+			 */
 
 			// 根据路径加载配置文件
 			// 部署流程
 			ProcessDefinition processDefinition = jbpmService
 					.deployProcess(tFileResourceTable.getFilePath());
 
-	
 			tProcessConfig.setDefinitionId(processDefinition.getId());
 			tProcessConfig.setRoleOrgPerson(this.processDeployDto
 					.getDeployType());
 			tProcessConfig.setProcessName(this.processDeployDto
 					.getProcessName());
-			tProcessConfig.setBusinessType(this.processDeployDto.getBusinessType());
+			tProcessConfig.setBusinessType(this.processDeployDto
+					.getBusinessType());
 			tProcessConfig.setOrderNo(this.processDeployDto.getOrderNo());
 			// 流程状态-可用
 			tProcessConfig.setState(this.processDeployDto.getProcessState());
 			tProcessConfig.setUploadOrg(this.getCurrentOnlineUser().getOrgid());
-			//流程上传时间
-			tProcessConfig.setUploadTime(TimeUtil.today()+TimeUtil.now());
-			
+			// 流程上传时间
+			tProcessConfig.setUploadTime(TimeUtil.today() + TimeUtil.now());
+
 			tProcessConfig.setUserId(this.getCurrentOnlineUser().getEmpid());
 
-			//记录配置文件id
-			//tProcessConfig.setFileIds(String.valueOf(templateFile.getFileId()));
-			
+			// 记录配置文件id
+			// tProcessConfig.setFileIds(String.valueOf(templateFile.getFileId()));
+
 			Long tProcessConfigId = this.processConfigService
 					.insert(tProcessConfig);
 			tFileResourceTable.setResourceId(tProcessConfigId);
 			this.fileResourceTableService.update(tFileResourceTable);
-			
+
 			// 保存流程配置与流程发布人员配置
 			if (this.processDeployDto.getDeployRange() != null) {
 				String[] empIdArray = this.processDeployDto.getDeployRange()
@@ -632,13 +635,13 @@ public class JbpmDemoAction extends BaseAction {
 				}
 			}
 		} catch (Exception e) {
-				info="fails";
-				log.error("[发布消息失败！]", e);
-				throw e;
-			}finally{	
-			}
-			Struts2Utils.renderText(info);
-			return null;
+			info = "fails";
+			log.error("[发布消息失败！]", e);
+			throw e;
+		} finally {
+		}
+		Struts2Utils.renderText(info);
+		return null;
 		// return "jbpm_process_deploy_list";
 	}
 
@@ -714,7 +717,7 @@ public class JbpmDemoAction extends BaseAction {
 					.findProcessInstanceById(execution.getProcessInstance()
 							.getId());
 			activityNames = processInstance.findActiveActivityNames();
-			
+
 			activityCoordinates = repositoryService.getActivityCoordinates(
 					processInstance.getProcessDefinitionId(), activityNames
 							.iterator().next());
@@ -726,57 +729,38 @@ public class JbpmDemoAction extends BaseAction {
 
 	/**
 	 * 我的流程列表-跳转到查看流程图的页面
-	 * @throws Exception 
+	 * 
+	 * @throws Exception
 	 */
 	public String viewProcess() throws Exception {
 		this.setDefinitionId(definitionId);
 		return "jbpm_process_view";
-	/*	RepositoryService repositoryService = jbpmDemoService
-				.getRepositoryService();
-		ProcessDefinition processDefinition = repositoryService
-				.createProcessDefinitionQuery()
-				.processDefinitionId(definitionId).uniqueResult();
-		jbpmService.getFilePath(processDefinition.getDeploymentId(), "xml");
-		InputStream inputStream = repositoryService.getResourceAsStream(
-				processDefinition.getDeploymentId(),
-				processDefinition.getImageResourceName());
-		PrintWriter pw = null;
-		if (inputStream == null) {
-			try {
-				pw = this.getResponse().getWriter();
-				pw.write("error");
-			} catch (IOException e) {
-				e.printStackTrace();
-			} finally {
-				pw.close();
-			}
-		} else {
-			byte[] b = new byte[1024];
-			int len = -1;
-			ServletOutputStream sos = null;
-			try {
-				sos = this.getResponse().getOutputStream();
-				while ((len = inputStream.read(b, 0, 1024)) != -1) {
-					sos.write(b, 0, len);
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			} finally {
-				if (sos != null) {
-					try {
-						sos.close();
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-
-			}
-		}*/
+		/*
+		 * RepositoryService repositoryService = jbpmDemoService
+		 * .getRepositoryService(); ProcessDefinition processDefinition =
+		 * repositoryService .createProcessDefinitionQuery()
+		 * .processDefinitionId(definitionId).uniqueResult();
+		 * jbpmService.getFilePath(processDefinition.getDeploymentId(), "xml");
+		 * InputStream inputStream = repositoryService.getResourceAsStream(
+		 * processDefinition.getDeploymentId(),
+		 * processDefinition.getImageResourceName()); PrintWriter pw = null; if
+		 * (inputStream == null) { try { pw = this.getResponse().getWriter();
+		 * pw.write("error"); } catch (IOException e) { e.printStackTrace(); }
+		 * finally { pw.close(); } } else { byte[] b = new byte[1024]; int len =
+		 * -1; ServletOutputStream sos = null; try { sos =
+		 * this.getResponse().getOutputStream(); while ((len =
+		 * inputStream.read(b, 0, 1024)) != -1) { sos.write(b, 0, len); } }
+		 * catch (IOException e) { e.printStackTrace(); } finally { if (sos !=
+		 * null) { try { sos.close(); } catch (IOException e) { // TODO
+		 * Auto-generated catch block e.printStackTrace(); } }
+		 * 
+		 * } }
+		 */
 	}
-	
+
 	/**
 	 * 查看流程图
+	 * 
 	 * @throws Exception
 	 */
 	public void view() throws Exception {
@@ -921,8 +905,7 @@ public class JbpmDemoAction extends BaseAction {
 	}
 
 	/**
-	 * 我的流程列表-发起流程
-	 * 发起流程时同时发起实例
+	 * 我的流程列表-发起流程 发起流程时同时发起实例
 	 * 
 	 * @return
 	 * @throws IOException
@@ -991,35 +974,41 @@ public class JbpmDemoAction extends BaseAction {
 	 * @throws Exception
 	 */
 	public String handle() throws Exception {
-		
-	
+
 		String taskId = this.taskAssgineeDto.getNextTaskId();
 
 		Task task = jbpmDemoService.getTaskById(taskId);
 		taskAssgineeDto.setTaskName(task.getActivityName());
-	//	String name	=task.getActivityName();
-		
-		
+		// String name =task.getActivityName();
+
 		this.setTaskAssgineeDto(taskAssgineeDto);
 		taskUrl = task.getFormResourceName();
 		nameSpace = taskUrl.substring(0, taskUrl.indexOf("/", 1));
 		String taskUrl1 = taskUrl.substring(nameSpace.length(),
 				taskUrl.length());
-		
-		ProcessInstance instance = jbpmService.getExecutionService().createProcessInstanceQuery().processInstanceId(taskAssgineeDto.getExecutionId()).uniqueResult();
-		TProcessTaskExeConfig tProcessTaskExeConfig = this.processTaskExeConfigService.getTaskExeConfig(instance.getProcessDefinitionId(),task.getName());
-		taskAssgineeDto.setTaskConfigType(tProcessTaskExeConfig.getTaskAssType());
-		//20140906
-		//taskAssgineeDto.setTaskName(null);
+
+		ProcessInstance instance = jbpmService.getExecutionService()
+				.createProcessInstanceQuery()
+				.processInstanceId(taskAssgineeDto.getExecutionId())
+				.uniqueResult();
+		TProcessTaskExeConfig tProcessTaskExeConfig = this.processTaskExeConfigService
+				.getTaskExeConfig(instance.getProcessDefinitionId(),
+						task.getName());
+		taskAssgineeDto.setTaskConfigType(tProcessTaskExeConfig
+				.getTaskAssType());
+		// 20140906
+		// taskAssgineeDto.setTaskName(null);
 		String ss = getTaskUrlBuffer(taskAssgineeDto);
 		this.setNameSpace(nameSpace);
 		/**
 		 * 20140904督办窗口
 		 */
-		String positionId = Obj2StrUtils.join(this.getCurrentOnlineUser().getPositionId(), String.class, ",");
+		String positionId = Obj2StrUtils.join(this.getCurrentOnlineUser()
+				.getPositionId(), String.class, ",");
 		Long a = this.getCurrentOnlineUser().getEmpid();
-		if(!this.getCurrentOnlineUser().getEmpid().equals(taskAssgineeDto.getPreTaskAssingee()))
-			this.setTaskUrl(taskUrl1 + ss+"&supFlag=1");
+		if (!this.getCurrentOnlineUser().getEmpid()
+				.equals(taskAssgineeDto.getPreTaskAssingee()))
+			this.setTaskUrl(taskUrl1 + ss + "&supFlag=1");
 		else
 			this.setTaskUrl(taskUrl1 + ss);
 		return "success";
@@ -1036,9 +1025,9 @@ public class JbpmDemoAction extends BaseAction {
 			throws UnsupportedEncodingException {
 		StringBuffer buffer = new StringBuffer(1000);
 		buffer.append("?");
-		
+
 		if (taskAssgineeDto != null) {
-			if(taskAssgineeDto.getDefinitionId()!=null){
+			if (taskAssgineeDto.getDefinitionId() != null) {
 				buffer.append("taskAssgineeDto.definitionId=");
 				buffer.append(taskAssgineeDto.getDefinitionId());
 				buffer.append("&");
@@ -1053,13 +1042,13 @@ public class JbpmDemoAction extends BaseAction {
 				buffer.append(taskAssgineeDto.getBusinessType());
 				buffer.append("&");
 			}
-			
+
 			if (taskAssgineeDto.getStartFlag() != null) {
 				buffer.append("taskAssgineeDto.startFlag=");
 				buffer.append(taskAssgineeDto.getStartFlag());
 				buffer.append("&");
 			}
-			
+
 			if (taskAssgineeDto.getExecutionId() != null) {
 				buffer.append("taskAssgineeDto.executionId=");
 				buffer.append(taskAssgineeDto.getExecutionId());
@@ -1097,62 +1086,62 @@ public class JbpmDemoAction extends BaseAction {
 			}
 			if (taskAssgineeDto.getTaskName() != null) {
 				buffer.append("taskAssgineeDto.taskName=");
-			
-				
-				
-				buffer.append(java.net.URLEncoder.encode(taskAssgineeDto.getTaskName(), "utf-8"));
+
+				buffer.append(java.net.URLEncoder.encode(
+						taskAssgineeDto.getTaskName(), "utf-8"));
 				buffer.append("&");
 			}
-			if (taskAssgineeDto.getProcessTaskAssigneeId()!= null) {
+			if (taskAssgineeDto.getProcessTaskAssigneeId() != null) {
 				buffer.append("taskAssgineeDto.processTaskAssigneeId=");
 				buffer.append(taskAssgineeDto.getProcessTaskAssigneeId());
 				buffer.append("&");
 			}
-			if (taskAssgineeDto.getParentId()!= null) {
+			if (taskAssgineeDto.getParentId() != null) {
 				buffer.append("taskAssgineeDto.parentId=");
 				buffer.append(taskAssgineeDto.getParentId());
 				buffer.append("&");
 			}
-			if (taskAssgineeDto.getIsChild()!= null) {
+			if (taskAssgineeDto.getIsChild() != null) {
 				buffer.append("taskAssgineeDto.isChild=");
 				buffer.append(taskAssgineeDto.getIsChild());
 				buffer.append("&");
 			}
-			if (taskAssgineeDto.getIsC()!= null) {
+			if (taskAssgineeDto.getIsC() != null) {
 				buffer.append("taskAssgineeDto.isC=");
 				buffer.append(taskAssgineeDto.getIsC());
 				buffer.append("&");
 			}
-			if (taskAssgineeDto.getTemplateFileIds()!= null) {
+			if (taskAssgineeDto.getTemplateFileIds() != null) {
 				buffer.append("taskAssgineeDto.templateFileIds=");
 				buffer.append(taskAssgineeDto.getTemplateFileIds());
 				buffer.append("&");
 			}
-			if (taskAssgineeDto.getProcessName()!= null) {
+			if (taskAssgineeDto.getProcessName() != null) {
 				buffer.append("taskAssgineeDto.processName=");
-				//中文参数传递给业务时进行转码
-				buffer.append(java.net.URLEncoder.encode(taskAssgineeDto.getProcessName(), "utf-8"));
+				// 中文参数传递给业务时进行转码
+				buffer.append(java.net.URLEncoder.encode(
+						taskAssgineeDto.getProcessName(), "utf-8"));
 				buffer.append("&");
 			}
-			
-			if (taskAssgineeDto.getBusinessTitle()!= null) {
+
+			if (taskAssgineeDto.getBusinessTitle() != null) {
 				buffer.append("taskAssgineeDto.businessTitle=");
-				
-				buffer.append(java.net.URLEncoder.encode(taskAssgineeDto.getBusinessTitle(), "utf-8"));
+
+				buffer.append(java.net.URLEncoder.encode(
+						taskAssgineeDto.getBusinessTitle(), "utf-8"));
 				buffer.append("&");
 			}
-			
-			
-			
-			if (taskAssgineeDto.getTaskConfigType()!= null) {
+
+			if (taskAssgineeDto.getTaskConfigType() != null) {
 				buffer.append("taskAssgineeDto.taskConfigType=");
 				buffer.append(taskAssgineeDto.getTaskConfigType());
 				buffer.append("&");
 			}
-			if(taskAssgineeDto.getActivityName()!= null){
+			if (taskAssgineeDto.getActivityName() != null) {
 				buffer.append("taskAssgineeDto.activityName=");
-				//中文参数传递给业务时进行转码
-				buffer.append(java.net.URLEncoder.encode(taskAssgineeDto.getActivityName(), "utf-8"));
+				// 中文参数传递给业务时进行转码
+				buffer.append(java.net.URLEncoder.encode(
+						taskAssgineeDto.getActivityName(), "utf-8"));
 				buffer.append("&");
 			}
 		}
@@ -1166,7 +1155,9 @@ public class JbpmDemoAction extends BaseAction {
 		this.setTaskAssgineeDto(taskAssgineeDto);
 		return "task_person_assigner";
 	}
+
 	String rolenameString;
+
 	public String getRolenameString() {
 		return rolenameString;
 	}
@@ -1176,16 +1167,17 @@ public class JbpmDemoAction extends BaseAction {
 	}
 
 	public String toNextTaskConfig2() {
-		MUOUserSession muo=getCurrentOnlineUser();	
-		for(int i=0;i<this.getCurrentOnlineUser().getPosiName().length;i++){
-			if(this.getCurrentOnlineUser().getPosiName()[i].equals("行领导")){
-				rolenameString=this.getCurrentOnlineUser().getPosiName()[i];
+		MUOUserSession muo = getCurrentOnlineUser();
+		for (int i = 0; i < this.getCurrentOnlineUser().getPosiName().length; i++) {
+			if (this.getCurrentOnlineUser().getPosiName()[i].equals("行领导")) {
+				rolenameString = this.getCurrentOnlineUser().getPosiName()[i];
 				break;
 			}
-			rolenameString="no";
+			rolenameString = "no";
 		}
-		//rolenameString =  this.getCurrentOnlineUser().getPosiName()[0];		
-		activityList = this.jbpmDemoService.getNextTaskList2(taskAssgineeDto,rolenameString);
+		// rolenameString = this.getCurrentOnlineUser().getPosiName()[0];
+		activityList = this.jbpmDemoService.getNextTaskList2(taskAssgineeDto,
+				rolenameString);
 		this.setActivityList(activityList);
 		this.setTaskAssgineeDto(taskAssgineeDto);
 		return "task_person_assigner";
@@ -1193,6 +1185,7 @@ public class JbpmDemoAction extends BaseAction {
 
 	/**
 	 * 节点人员选择
+	 * 
 	 * @return
 	 * @throws IOException
 	 */
@@ -1202,34 +1195,37 @@ public class JbpmDemoAction extends BaseAction {
 				taskAssgineeDto.getTargetName(), "utf-8");
 		String beforeName = java.net.URLDecoder.decode(
 				taskAssgineeDto.getBeforeName(), "utf-8");
-		//获取流程定义id
+		// 获取流程定义id
 		String processDefinitionId = null;
-		 if(taskAssgineeDto.getExecutionId() != null && !"".equals(taskAssgineeDto.getExecutionId())){
-			 ProcessInstance processInstance = executionService
-						.createProcessInstanceQuery()
-						.processInstanceId(this.taskAssgineeDto.getExecutionId())
-						.uniqueResult();
-				
-				this.taskAssgineeDto.setDefinitionId(processInstance
-						.getProcessDefinitionId());
-				processDefinitionId = processInstance.getProcessDefinitionId();
-		 }else{
-			 if(taskAssgineeDto.getDefinitionId()!=null && !"".equals(taskAssgineeDto.getDefinitionId())){
-				 processDefinitionId = taskAssgineeDto.getDefinitionId();
-			 }
-		 }
+		if (taskAssgineeDto.getExecutionId() != null
+				&& !"".equals(taskAssgineeDto.getExecutionId())) {
+			ProcessInstance processInstance = executionService
+					.createProcessInstanceQuery()
+					.processInstanceId(this.taskAssgineeDto.getExecutionId())
+					.uniqueResult();
+
+			this.taskAssgineeDto.setDefinitionId(processInstance
+					.getProcessDefinitionId());
+			processDefinitionId = processInstance.getProcessDefinitionId();
+		} else {
+			if (taskAssgineeDto.getDefinitionId() != null
+					&& !"".equals(taskAssgineeDto.getDefinitionId())) {
+				processDefinitionId = taskAssgineeDto.getDefinitionId();
+			}
+		}
 		this.taskAssgineeDto.setTargetName(targetName);
 		this.taskAssgineeDto.setBeforeName(beforeName);
-	
+
 		ProcessDefinitionImpl processDefinitionImpl = (ProcessDefinitionImpl) jbpmService
 				.getRepositoryService().createProcessDefinitionQuery()
 				.processDefinitionId(processDefinitionId).uniqueResult();
-		List<ActivityImpl> list = (List<ActivityImpl>) processDefinitionImpl.getActivities();
-		
+		List<ActivityImpl> list = (List<ActivityImpl>) processDefinitionImpl
+				.getActivities();
+
 		String isEnd = null;
 		for (ActivityImpl activityImpl : list) {
-			if(targetName.equals(activityImpl.getName())){
-				if("end".equals(activityImpl.getType())){
+			if (targetName.equals(activityImpl.getName())) {
+				if ("end".equals(activityImpl.getType())) {
 					isEnd = "end";
 				}
 			}
@@ -1237,63 +1233,70 @@ public class JbpmDemoAction extends BaseAction {
 		List<TProcessTaskExeConfig> tProcessTaskExeConfigs = null;
 		tProcessTaskExeConfigs = jbpmService
 				.getNextTaskAssigneeConfigs2(this.taskAssgineeDto);
-		if(tProcessTaskExeConfigs.size() == 0){
+		if (tProcessTaskExeConfigs.size() == 0) {
 			tProcessTaskExeConfigs = jbpmService
 					.getNextTaskAssigneeConfigs(this.taskAssgineeDto);
 		}
-		//获取当前节点的执行对象
-		//判断当前节点是否记录提交人
-		TProcessTaskExeConfig preTaskExe = processTaskExeConfigService.getTaskExeConfig(processDefinitionId, beforeName);
-		if(preTaskExe != null){
-			if("1".equals(preTaskExe.getIsRecordSubmit())){
-				//是
+		// 获取当前节点的执行对象
+		// 判断当前节点是否记录提交人
+		TProcessTaskExeConfig preTaskExe = processTaskExeConfigService
+				.getTaskExeConfig(processDefinitionId, beforeName);
+		if (preTaskExe != null) {
+			if ("1".equals(preTaskExe.getIsRecordSubmit())) {
+				// 是
 				this.setTaskExeConfigId(preTaskExe.getId());
-			}else{
+			} else {
 				this.setTaskExeConfigId(0l);
 			}
-		}else{
+		} else {
 			this.setTaskExeConfigId(0l);
 		}
-		
-		//判断目标节点是否记录提交人
-		TProcessTaskExeConfig nextTaskExe = processTaskExeConfigService.getTaskExeConfig(processDefinitionId, targetName);
+
+		// 判断目标节点是否记录提交人
+		TProcessTaskExeConfig nextTaskExe = processTaskExeConfigService
+				.getTaskExeConfig(processDefinitionId, targetName);
 		List<TProcessTaskAssignee> processTaskAssignees = null;
-		
+
 		List<String> empIds = new ArrayList<String>();
 		List<String> empNames = new ArrayList<String>();
 		String taskType = null;
-		String dynamicOrgIds="";
+		String dynamicOrgIds = "";
 		boolean flag = false;
-		if(nextTaskExe != null){
-			if("1".equals(nextTaskExe.getIsRecordSubmit())){
-				//是
-				//判断是否重新选择
-				if(taskAssgineeDto.getReSelectFlag() != null && "1".equals(taskAssgineeDto.getReSelectFlag())){
-					//是
-					
-				}else{
-					//否
-					//根据nextTaskExe主键找到提交人id
-					processTaskAssignees = processTaskAssigneeService.selectByTaskExeConfigId(nextTaskExe.getId(),taskAssgineeDto.getExecutionId());
-					if(processTaskAssignees.size() != 0){
-						taskAssgineeDto.setObjId(processTaskAssignees.get(0).getPreTaskAssingee());
-						List<Map<String, Object>> objs = jbpmService.getEmp1(taskAssgineeDto);
+		if (nextTaskExe != null) {
+			if ("1".equals(nextTaskExe.getIsRecordSubmit())) {
+				// 是
+				// 判断是否重新选择
+				if (taskAssgineeDto.getReSelectFlag() != null
+						&& "1".equals(taskAssgineeDto.getReSelectFlag())) {
+					// 是
+
+				} else {
+					// 否
+					// 根据nextTaskExe主键找到提交人id
+					processTaskAssignees = processTaskAssigneeService
+							.selectByTaskExeConfigId(nextTaskExe.getId(),
+									taskAssgineeDto.getExecutionId());
+					if (processTaskAssignees.size() != 0) {
+						taskAssgineeDto.setObjId(processTaskAssignees.get(0)
+								.getPreTaskAssingee());
+						List<Map<String, Object>> objs = jbpmService
+								.getEmp1(taskAssgineeDto);
 						if (objs.size() != 0) {
 							for (Map<String, Object> map : objs) {
 								empIds.add(String.valueOf(map.get("objId")));
 								empNames.add((String) map.get("objName"));
 							}
 						}
-						taskType="11";
+						taskType = "11";
 						flag = true;
 					}
 				}
-				
+
 			}
 		}
-		
-		if(flag == false){
-			if(!"end".equals(isEnd)){
+
+		if (flag == false) {
+			if (!"end".equals(isEnd)) {
 				// 根据节点执行配置的类型区分
 				if (tProcessTaskExeConfigs.size() != 0) {
 					for (TProcessTaskExeConfig tProcessTaskExeConfig : tProcessTaskExeConfigs) {
@@ -1301,7 +1304,8 @@ public class JbpmDemoAction extends BaseAction {
 							// 动态机构(主办和辅办)
 							dynamicOrgIds = this.taskAssgineeDto
 									.getDynamicOrgIds();
-							String[] dynamicOrgIdArray = dynamicOrgIds.split(",");
+							String[] dynamicOrgIdArray = dynamicOrgIds
+									.split(",");
 							if (dynamicOrgIdArray.length != 0) {
 								for (String dynamicOrgId : dynamicOrgIdArray) {
 									this.taskAssgineeDto
@@ -1311,21 +1315,24 @@ public class JbpmDemoAction extends BaseAction {
 											.getEmpOrgByPosition(taskAssgineeDto);
 									if (empids.size() != 0) {
 										for (Map<String, Object> map : empids) {
-											empIds.add(String.valueOf(map.get("empId")));
-											empNames.add((String) map.get("empName"));
+											empIds.add(String.valueOf(map
+													.get("empId")));
+											empNames.add((String) map
+													.get("empName"));
 										}
 									}
 								}
 
 							}
-							taskType="02";
-						} 
+							taskType = "02";
+						}
 						if ("07".equals(tProcessTaskExeConfig.getTaskAssType())) {
-							
+
 							// 主要负责人(主办和辅办)
 							dynamicOrgIds = this.taskAssgineeDto
 									.getDynamicOrgIds();
-							String[] dynamicOrgIdArray = dynamicOrgIds.split(",");
+							String[] dynamicOrgIdArray = dynamicOrgIds
+									.split(",");
 							if (dynamicOrgIdArray.length != 0) {
 								for (String dynamicOrgId : dynamicOrgIdArray) {
 									this.taskAssgineeDto
@@ -1335,21 +1342,24 @@ public class JbpmDemoAction extends BaseAction {
 											.getEmpOrgByMain(taskAssgineeDto);
 									if (empids.size() != 0) {
 										for (Map<String, Object> map : empids) {
-											empIds.add(String.valueOf(map.get("empId")));
-											empNames.add((String) map.get("empName"));
+											empIds.add(String.valueOf(map
+													.get("empId")));
+											empNames.add((String) map
+													.get("empName"));
 										}
 									}
 								}
 
 							}
-							taskType="07";
-						}  
+							taskType = "07";
+						}
 						if ("08".equals(tProcessTaskExeConfig.getTaskAssType())) {
-							//回退时主要负责人可选显示部门
+							// 回退时主要负责人可选显示部门
 							// 主要负责人(主办和辅办)
 							dynamicOrgIds = this.taskAssgineeDto
 									.getDynamicOrgIds();
-							String[] dynamicOrgIdArray = dynamicOrgIds.split(",");
+							String[] dynamicOrgIdArray = dynamicOrgIds
+									.split(",");
 							if (dynamicOrgIdArray.length != 0) {
 								for (String dynamicOrgId : dynamicOrgIdArray) {
 									this.taskAssgineeDto
@@ -1359,22 +1369,27 @@ public class JbpmDemoAction extends BaseAction {
 											.getEmpOrgByMain(taskAssgineeDto);
 									if (empids.size() != 0) {
 										for (Map<String, Object> map : empids) {
-											empIds.add(String.valueOf(map.get("empId")));
-											empNames.add((String) map.get("empName"));
+											empIds.add(String.valueOf(map
+													.get("empId")));
+											empNames.add((String) map
+													.get("empName"));
 										}
 									}
 								}
 
 							}
-							taskType="08";
-						}if ("09".equals(tProcessTaskExeConfig.getTaskAssType())) {
-							//部门会签
-							//页面用户选择机构和主要负责人
-							taskType="09";
-						}else if ("03".equals(tProcessTaskExeConfig.getTaskAssType())) {
+							taskType = "08";
+						}
+						if ("09".equals(tProcessTaskExeConfig.getTaskAssType())) {
+							// 部门会签
+							// 页面用户选择机构和主要负责人
+							taskType = "09";
+						} else if ("03".equals(tProcessTaskExeConfig
+								.getTaskAssType())) {
 							// 指定部门（部门领导）
 							// 获取人员id
-							String taskAssId = tProcessTaskExeConfig.getTaskAssId();
+							String taskAssId = tProcessTaskExeConfig
+									.getTaskAssId();
 							this.taskAssgineeDto.setTaskExeAssginee(taskAssId);
 							// 查找对应人员
 							List<Map<String, Object>> empids = jbpmService
@@ -1385,11 +1400,13 @@ public class JbpmDemoAction extends BaseAction {
 									empNames.add((String) map.get("empName"));
 								}
 							}
-							taskType="03";
-						} else if ("10".equals(tProcessTaskExeConfig.getTaskAssType())) {
+							taskType = "03";
+						} else if ("10".equals(tProcessTaskExeConfig
+								.getTaskAssType())) {
 							// 指定部门的所有人
 							// 获取人员id
-							String taskAssId = tProcessTaskExeConfig.getTaskAssId();
+							String taskAssId = tProcessTaskExeConfig
+									.getTaskAssId();
 							this.taskAssgineeDto.setTaskExeAssginee(taskAssId);
 							// 查找对应人员
 							List<Map<String, Object>> empids = jbpmService
@@ -1400,35 +1417,46 @@ public class JbpmDemoAction extends BaseAction {
 									empNames.add((String) map.get("empName"));
 								}
 							}
-							taskType="10";
-						} else if ("01".equals(tProcessTaskExeConfig.getTaskAssType())) {
+							taskType = "10";
+						} else if ("01".equals(tProcessTaskExeConfig
+								.getTaskAssType())) {
 							// 指定岗位(分行领导，行领导)
 							// 获取岗位id
-							String taskAssId = tProcessTaskExeConfig.getTaskAssId();
+							String taskAssId = tProcessTaskExeConfig
+									.getTaskAssId();
 							this.taskAssgineeDto.setTaskExeAssginee(taskAssId);
 							// 查找对应岗位和起草人机构的
 							List<Map<String, Object>> empids = jbpmService
 									.getEmpPosition(taskAssgineeDto);
 							if (empids.size() != 0) {
 								for (Map<String, Object> map : empids) {
-									if(this.taskAssgineeDto.getTaskAssingee() != null){
-										String taskAssingee = String.valueOf(this.taskAssgineeDto.getTaskAssingee());
-										//获取上一节点提交人id
-										
-										if(String.valueOf(map.get("empId")).equals(taskAssingee)){
-											empIds.add(String.valueOf(map.get("empId")));
-											empNames.add((String) map.get("empName"));
+									if (this.taskAssgineeDto.getTaskAssingee() != null) {
+										String taskAssingee = String
+												.valueOf(this.taskAssgineeDto
+														.getTaskAssingee());
+										// 获取上一节点提交人id
+
+										if (String.valueOf(map.get("empId"))
+												.equals(taskAssingee)) {
+											empIds.add(String.valueOf(map
+													.get("empId")));
+											empNames.add((String) map
+													.get("empName"));
 										}
-									}else{
-										empIds.add(String.valueOf(map.get("empId")));
-										empNames.add((String) map.get("empName"));
+									} else {
+										empIds.add(String.valueOf(map
+												.get("empId")));
+										empNames.add((String) map
+												.get("empName"));
 									}
 								}
 							}
-							taskType="01";
-						} else if ("04".equals(tProcessTaskExeConfig.getTaskAssType())) {
+							taskType = "01";
+						} else if ("04".equals(tProcessTaskExeConfig
+								.getTaskAssType())) {
 							// 起草人所属机构的部门领导
-							String taskAssId = tProcessTaskExeConfig.getTaskAssId();
+							String taskAssId = tProcessTaskExeConfig
+									.getTaskAssId();
 							this.taskAssgineeDto.setTaskExeAssginee(taskAssId);
 							// 查找对应岗位和起草人机构的
 							List<Map<String, Object>> empids = jbpmService
@@ -1439,10 +1467,12 @@ public class JbpmDemoAction extends BaseAction {
 									empNames.add((String) map.get("empName"));
 								}
 							}
-							taskType="04";
-						} else if ("12".equals(tProcessTaskExeConfig.getTaskAssType())) {
+							taskType = "04";
+						} else if ("12".equals(tProcessTaskExeConfig
+								.getTaskAssType())) {
 							// 起草人所属机构的部门领导
-							String taskAssId = tProcessTaskExeConfig.getTaskAssId();
+							String taskAssId = tProcessTaskExeConfig
+									.getTaskAssId();
 							this.taskAssgineeDto.setTaskExeAssginee(taskAssId);
 							// 查找对应岗位和起草人机构的
 							List<Map<String, Object>> empids = jbpmService
@@ -1453,16 +1483,18 @@ public class JbpmDemoAction extends BaseAction {
 									empNames.add((String) map.get("empName"));
 								}
 							}
-							taskType="12";
-						}
-						else if ("05".equals(tProcessTaskExeConfig.getTaskAssType())) {
+							taskType = "12";
+						} else if ("05".equals(tProcessTaskExeConfig
+								.getTaskAssType())) {
 							// 起草人
-							// String taskAssId = tProcessTaskExeConfig.getTaskAssId();
+							// String taskAssId =
+							// tProcessTaskExeConfig.getTaskAssId();
 							// this.taskAssgineeDto.setTaskExeAssginee(taskAssId);
 							// 查找对应人员
 							// if(tProcessTaskExeConfig.getTaskAssId().equals(String.valueOf(taskAssgineeDto.getBeginAssingee()))){
-							taskAssgineeDto.setDefinitionId(tProcessTaskExeConfig
-									.getDefinitionId());
+							taskAssgineeDto
+									.setDefinitionId(tProcessTaskExeConfig
+											.getDefinitionId());
 							List<Map<String, Object>> empids = jbpmService
 									.getEmp(taskAssgineeDto);
 							if (empids.size() != 0) {
@@ -1471,100 +1503,129 @@ public class JbpmDemoAction extends BaseAction {
 									empNames.add((String) map.get("empName"));
 								}
 							}
-					//		 }
-							taskType="05";
+							// }
+							taskType = "05";
 						}
-						/*else if("06".equals(tProcessTaskExeConfig.getTaskAssType())){
-							taskType="06";
-							//最后节点
-						}*/
-						else if("13".equals(tProcessTaskExeConfig.getTaskAssType())){
-							//起草人本级指定岗位
-							String taskAssId = tProcessTaskExeConfig.getTaskAssId();
+						/*
+						 * else
+						 * if("06".equals(tProcessTaskExeConfig.getTaskAssType
+						 * ())){ taskType="06"; //最后节点 }
+						 */
+						else if ("13".equals(tProcessTaskExeConfig
+								.getTaskAssType())) {
+							// 起草人本级指定岗位
+							String taskAssId = tProcessTaskExeConfig
+									.getTaskAssId();
 							this.taskAssgineeDto.setTaskExeAssginee(taskAssId);
-							taskAssgineeDto.setDefinitionId(tProcessTaskExeConfig
-									.getDefinitionId());
+							taskAssgineeDto
+									.setDefinitionId(tProcessTaskExeConfig
+											.getDefinitionId());
 							//
 							List<Map<String, Object>> empids = jbpmService
 									.getEmpByBeginBjPosi(taskAssgineeDto);
 							if (empids.size() != 0) {
 								for (Map<String, Object> map : empids) {
-									if(this.taskAssgineeDto.getTaskAssingee() != null){
-										String taskAssingee = String.valueOf(this.taskAssgineeDto.getTaskAssingee());
-										//获取上一节点提交人id
-										
-										if(String.valueOf(map.get("empId")).equals(taskAssingee)){
-											empIds.add(String.valueOf(map.get("empId")));
-											empNames.add((String) map.get("empName"));
+									if (this.taskAssgineeDto.getTaskAssingee() != null) {
+										String taskAssingee = String
+												.valueOf(this.taskAssgineeDto
+														.getTaskAssingee());
+										// 获取上一节点提交人id
+
+										if (String.valueOf(map.get("empId"))
+												.equals(taskAssingee)) {
+											empIds.add(String.valueOf(map
+													.get("empId")));
+											empNames.add((String) map
+													.get("empName"));
 										}
-									}else{
-										empIds.add(String.valueOf(map.get("empId")));
-										empNames.add((String) map.get("empName"));
+									} else {
+										empIds.add(String.valueOf(map
+												.get("empId")));
+										empNames.add((String) map
+												.get("empName"));
 									}
 								}
 							}
-							taskType="13";
-						}
-						else if("14".equals(tProcessTaskExeConfig.getTaskAssType())){
-							//起草人上级指定岗位
-							String taskAssId = tProcessTaskExeConfig.getTaskAssId();
+							taskType = "13";
+						} else if ("14".equals(tProcessTaskExeConfig
+								.getTaskAssType())) {
+							// 起草人上级指定岗位
+							String taskAssId = tProcessTaskExeConfig
+									.getTaskAssId();
 							this.taskAssgineeDto.setTaskExeAssginee(taskAssId);
-							taskAssgineeDto.setDefinitionId(tProcessTaskExeConfig
-									.getDefinitionId());
+							taskAssgineeDto
+									.setDefinitionId(tProcessTaskExeConfig
+											.getDefinitionId());
 							//
 							List<Map<String, Object>> empids = jbpmService
 									.getEmpByBeginSjPosi(taskAssgineeDto);
 							if (empids.size() != 0) {
 								for (Map<String, Object> map : empids) {
-									if(this.taskAssgineeDto.getTaskAssingee() != null){
-										String taskAssingee = String.valueOf(this.taskAssgineeDto.getTaskAssingee());
-										//获取上一节点提交人id
-										
-										if(String.valueOf(map.get("empId")).equals(taskAssingee)){
-											empIds.add(String.valueOf(map.get("empId")));
-											empNames.add((String) map.get("empName"));
+									if (this.taskAssgineeDto.getTaskAssingee() != null) {
+										String taskAssingee = String
+												.valueOf(this.taskAssgineeDto
+														.getTaskAssingee());
+										// 获取上一节点提交人id
+
+										if (String.valueOf(map.get("empId"))
+												.equals(taskAssingee)) {
+											empIds.add(String.valueOf(map
+													.get("empId")));
+											empNames.add((String) map
+													.get("empName"));
 										}
-									}else{
-										empIds.add(String.valueOf(map.get("empId")));
-										empNames.add((String) map.get("empName"));
+									} else {
+										empIds.add(String.valueOf(map
+												.get("empId")));
+										empNames.add((String) map
+												.get("empName"));
 									}
 								}
 							}
-							taskType="14";
-						}
-						else if("15".equals(tProcessTaskExeConfig.getTaskAssType())){
-							//起草人上级管辖范围指定岗位
-							String taskAssId = tProcessTaskExeConfig.getTaskAssId();
+							taskType = "14";
+						} else if ("15".equals(tProcessTaskExeConfig
+								.getTaskAssType())) {
+							// 起草人上级管辖范围指定岗位
+							String taskAssId = tProcessTaskExeConfig
+									.getTaskAssId();
 							this.taskAssgineeDto.setTaskExeAssginee(taskAssId);
-							taskAssgineeDto.setDefinitionId(tProcessTaskExeConfig
-									.getDefinitionId());
+							taskAssgineeDto
+									.setDefinitionId(tProcessTaskExeConfig
+											.getDefinitionId());
 							//
 							List<Map<String, Object>> empids = jbpmService
 									.getEmpByBeginSjGxPosi(taskAssgineeDto);
 							if (empids.size() != 0) {
 								for (Map<String, Object> map : empids) {
-									if(this.taskAssgineeDto.getTaskAssingee() != null){
-										String taskAssingee = String.valueOf(this.taskAssgineeDto.getTaskAssingee());
-										//获取上一节点提交人id
-										
-										if(String.valueOf(map.get("empId")).equals(taskAssingee)){
-											empIds.add(String.valueOf(map.get("empId")));
-											empNames.add((String) map.get("empName"));
+									if (this.taskAssgineeDto.getTaskAssingee() != null) {
+										String taskAssingee = String
+												.valueOf(this.taskAssgineeDto
+														.getTaskAssingee());
+										// 获取上一节点提交人id
+
+										if (String.valueOf(map.get("empId"))
+												.equals(taskAssingee)) {
+											empIds.add(String.valueOf(map
+													.get("empId")));
+											empNames.add((String) map
+													.get("empName"));
 										}
-									}else{
-										empIds.add(String.valueOf(map.get("empId")));
-										empNames.add((String) map.get("empName"));
+									} else {
+										empIds.add(String.valueOf(map
+												.get("empId")));
+										empNames.add((String) map
+												.get("empName"));
 									}
 								}
 							}
-							taskType="15";
+							taskType = "15";
 						}
 					}
 				} else {
 
 				}
-			}else{
-				
+			} else {
+
 			}
 		}
 		StringBuffer buffer = new StringBuffer();
@@ -1619,8 +1680,9 @@ public class JbpmDemoAction extends BaseAction {
 
 	/**
 	 * 流程管理-流程节点配置列表
+	 * 
 	 * @return
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public String toProcessTaskConfig() throws Exception {
 		String definitionId = this.taskAssgineeDto.getDefinitionId();
@@ -1635,52 +1697,64 @@ public class JbpmDemoAction extends BaseAction {
 			ActivityImpl activityImpl = (ActivityImpl) list.get(i);
 			String type = activityImpl.getType();
 			if (type.equals("task")) {
-	/*			TaskActivity taskActivity = (TaskActivity) activityImpl
-						.getActivityBehaviour();*/
+				/*
+				 * TaskActivity taskActivity = (TaskActivity) activityImpl
+				 * .getActivityBehaviour();
+				 */
 				TaskAssgineeDto assgineeDto = new TaskAssgineeDto();
-				TProcessTaskExeConfig tProcessTaskExeConfig = this.processTaskExeConfigService.getTaskExeConfig(definitionId,activityImpl.getName());
-				if(tProcessTaskExeConfig == null){
+				TProcessTaskExeConfig tProcessTaskExeConfig = this.processTaskExeConfigService
+						.getTaskExeConfig(definitionId, activityImpl.getName());
+				if (tProcessTaskExeConfig == null) {
 					assgineeDto.setDefinitionId(definitionId);
 					assgineeDto.setTaskName(activityImpl.getName());
-					
-				}else{
+
+				} else {
 					assgineeDto.setDefinitionId(definitionId);
 					assgineeDto.setTaskName(activityImpl.getName());
-					taskAssgineeDto.setObjId(tProcessTaskExeConfig.getTaskAssId());
-					if("01".equals(tProcessTaskExeConfig.getTaskAssType())){
-						//指定岗位
-						List<Map<String, Object>> objs = jbpmService.getPosition(taskAssgineeDto);
+					taskAssgineeDto.setObjId(tProcessTaskExeConfig
+							.getTaskAssId());
+					if ("01".equals(tProcessTaskExeConfig.getTaskAssType())) {
+						// 指定岗位
+						List<Map<String, Object>> objs = jbpmService
+								.getPosition(taskAssgineeDto);
 						if (objs.size() != 0) {
 							for (Map<String, Object> map : objs) {
-								assgineeDto.setObjName((String) map.get("objName"));
+								assgineeDto.setObjName((String) map
+										.get("objName"));
 							}
 						}
-					}else if("03".equals(tProcessTaskExeConfig.getTaskAssType())){
-						//指定部门
-						List<Map<String, Object>> objs = jbpmService.getOrg(taskAssgineeDto);
+					} else if ("03".equals(tProcessTaskExeConfig
+							.getTaskAssType())) {
+						// 指定部门
+						List<Map<String, Object>> objs = jbpmService
+								.getOrg(taskAssgineeDto);
 						if (objs.size() != 0) {
 							for (Map<String, Object> map : objs) {
-								assgineeDto.setObjName((String) map.get("objName"));
+								assgineeDto.setObjName((String) map
+										.get("objName"));
 							}
 						}
-					}else {
-						assgineeDto.setObjName(this.jbpmService.getDictEntry("ZHPT_TASK_CONFIG_TYPE",tProcessTaskExeConfig.getTaskAssType()).getDictname());
+					} else {
+						assgineeDto.setObjName(this.jbpmService.getDictEntry(
+								"ZHPT_TASK_CONFIG_TYPE",
+								tProcessTaskExeConfig.getTaskAssType())
+								.getDictname());
 					}
-					
+
 				}
 				activityList.add(assgineeDto);
-				//activityList.add(activityImpl);
+				// activityList.add(activityImpl);
 			}
 			/*
 			 * if(type.equals("start")){ StartActivity activityBehaviour =
 			 * (StartActivity)activityImpl.getActivityBehaviour();
 			 * activityList.add(activityImpl); }
 			 */
-/*		if (type.equals("end")) {
-				EndActivity activityBehaviour = (EndActivity) activityImpl
-						.getActivityBehaviour();
-				activityList.add(activityImpl);
-			}*/
+			/*
+			 * if (type.equals("end")) { EndActivity activityBehaviour =
+			 * (EndActivity) activityImpl .getActivityBehaviour();
+			 * activityList.add(activityImpl); }
+			 */
 		}
 
 		this.setTaskAssgineeDtos(activityList);
@@ -1692,32 +1766,43 @@ public class JbpmDemoAction extends BaseAction {
 		String taskName = taskAssgineeDto.getTaskName();
 		this.taskAssgineeDto.setDefinitionId(definitionId);
 		this.taskAssgineeDto.setTaskName(taskName);
-		//查询数据库判断是否有
-		TProcessTaskExeConfig tProcessTaskExeConfig = this.processTaskExeConfigService.getTaskExeConfig(definitionId,taskName);
-		if(tProcessTaskExeConfig != null){
-			if(tProcessTaskExeConfig.getIsRecordSubmit() == null){
+		// 查询数据库判断是否有
+		TProcessTaskExeConfig tProcessTaskExeConfig = this.processTaskExeConfigService
+				.getTaskExeConfig(definitionId, taskName);
+		if (tProcessTaskExeConfig != null) {
+			if (tProcessTaskExeConfig.getIsRecordSubmit() == null) {
 				this.setIsRecordSubmit("");
-			}else{
-				this.setIsRecordSubmit(tProcessTaskExeConfig.getIsRecordSubmit());
+			} else {
+				this.setIsRecordSubmit(tProcessTaskExeConfig
+						.getIsRecordSubmit());
 			}
-			
+
 			this.taskAssgineeDto.setBusinessKey(tProcessTaskExeConfig.getId());
 			this.taskAssgineeDto.setObjId(tProcessTaskExeConfig.getTaskAssId());
-			this.taskAssgineeDto.setTaskConfigType(tProcessTaskExeConfig.getTaskAssType());
-			if("01".equals(tProcessTaskExeConfig.getTaskAssType()) || "13".equals(tProcessTaskExeConfig.getTaskAssType()) || "14".equals(tProcessTaskExeConfig.getTaskAssType()) || "15".equals(tProcessTaskExeConfig.getTaskAssType())){
-				//指定岗位
-				List<Map<String, Object>> objs = jbpmService.getPosition(taskAssgineeDto);
+			this.taskAssgineeDto.setTaskConfigType(tProcessTaskExeConfig
+					.getTaskAssType());
+			if ("01".equals(tProcessTaskExeConfig.getTaskAssType())
+					|| "13".equals(tProcessTaskExeConfig.getTaskAssType())
+					|| "14".equals(tProcessTaskExeConfig.getTaskAssType())
+					|| "15".equals(tProcessTaskExeConfig.getTaskAssType())) {
+				// 指定岗位
+				List<Map<String, Object>> objs = jbpmService
+						.getPosition(taskAssgineeDto);
 				if (objs.size() != 0) {
 					for (Map<String, Object> map : objs) {
-						this.taskAssgineeDto.setObjName((String) map.get("objName"));
+						this.taskAssgineeDto.setObjName((String) map
+								.get("objName"));
 					}
 				}
-			}else if("03".equals(tProcessTaskExeConfig.getTaskAssType()) || "10".equals(tProcessTaskExeConfig.getTaskAssType())){
-				//指定部门
-				List<Map<String, Object>> objs = jbpmService.getOrg(taskAssgineeDto);
+			} else if ("03".equals(tProcessTaskExeConfig.getTaskAssType())
+					|| "10".equals(tProcessTaskExeConfig.getTaskAssType())) {
+				// 指定部门
+				List<Map<String, Object>> objs = jbpmService
+						.getOrg(taskAssgineeDto);
 				if (objs.size() != 0) {
 					for (Map<String, Object> map : objs) {
-						this.taskAssgineeDto.setObjName((String) map.get("objName"));
+						this.taskAssgineeDto.setObjName((String) map
+								.get("objName"));
 					}
 				}
 			}
@@ -1728,33 +1813,38 @@ public class JbpmDemoAction extends BaseAction {
 
 	/**
 	 * 流程管理-流程节点配置保存
+	 * 
 	 * @return
 	 * @throws Exception
 	 */
 	public String saveTaskConfig() throws Exception {
-		String info ="success";
+		String info = "success";
 		TProcessTaskExeConfig tProcessTaskExeConfig = null;
 		String taskConfigType = taskAssgineeDto.getTaskConfigType();
-		if(taskAssgineeDto.getBusinessKey() != null){
-			tProcessTaskExeConfig = processTaskExeConfigService.getProcessTaskExeConfigById(this.taskAssgineeDto.getBusinessKey());
+		if (taskAssgineeDto.getBusinessKey() != null) {
+			tProcessTaskExeConfig = processTaskExeConfigService
+					.getProcessTaskExeConfigById(this.taskAssgineeDto
+							.getBusinessKey());
 			tProcessTaskExeConfig.setTaskAssId(null);
-		}else{
+		} else {
 			tProcessTaskExeConfig = new TProcessTaskExeConfig();
 		}
-		if(isRecordSubmit == null){
+		if (isRecordSubmit == null) {
 			tProcessTaskExeConfig.setIsRecordSubmit("");
-		}else{
+		} else {
 			tProcessTaskExeConfig.setIsRecordSubmit(isRecordSubmit);
 		}
-		
-		if("05".equals(taskConfigType)){
-			//起草人 -通用流程-默认记录提交人
+
+		if ("05".equals(taskConfigType)) {
+			// 起草人 -通用流程-默认记录提交人
 			tProcessTaskExeConfig.setIsRecordSubmit("1");
 		}
 		tProcessTaskExeConfig.setTaskAssType(taskConfigType);
-		tProcessTaskExeConfig.setDefinitionId(taskAssgineeDto.getDefinitionId());
+		tProcessTaskExeConfig
+				.setDefinitionId(taskAssgineeDto.getDefinitionId());
 		tProcessTaskExeConfig.setActivityName(taskAssgineeDto.getTaskName());
-		if ("01".equals(taskConfigType) || "13".equals(taskConfigType) || "14".equals(taskConfigType) || "15".equals(taskConfigType)) {
+		if ("01".equals(taskConfigType) || "13".equals(taskConfigType)
+				|| "14".equals(taskConfigType) || "15".equals(taskConfigType)) {
 			// 指定岗位
 			// 起草人本级指定岗位
 			// 起草人上级指定岗位
@@ -1764,204 +1854,221 @@ public class JbpmDemoAction extends BaseAction {
 		} else if ("03".equals(taskConfigType)) {
 			// 指定部门领导
 			tProcessTaskExeConfig.setTaskAssId(taskAssgineeDto.getObjId());
-		}  else if ("10".equals(taskConfigType)) {
+		} else if ("10".equals(taskConfigType)) {
 			// 指定部门所有人
 			tProcessTaskExeConfig.setTaskAssId(taskAssgineeDto.getObjId());
 		} else if ("04".equals(taskConfigType)) {
 			// 起草人所属机构领导
 			tProcessTaskExeConfig.setTaskAssId("3");
-		} 
-		else if ("12".equals(taskConfigType)) {
+		} else if ("12".equals(taskConfigType)) {
 			// 起草部门上一级机构负责人
 			tProcessTaskExeConfig.setTaskAssId("4");
-		}else if ("05".equals(taskConfigType)) {
+		} else if ("05".equals(taskConfigType)) {
 			// 起草人
-		}
-		else if ("09".equals(taskConfigType)) {
+		} else if ("09".equals(taskConfigType)) {
 			// 部门会签
 		}
 		try {
-			if(taskAssgineeDto.getBusinessKey() != null){
+			if (taskAssgineeDto.getBusinessKey() != null) {
 				this.processTaskExeConfigService.update(tProcessTaskExeConfig);
-			}else{
+			} else {
 				this.processTaskExeConfigService.insert(tProcessTaskExeConfig);
 			}
 		} catch (Exception e) {
-			info="fails";
+			info = "fails";
 			log.error("[流程节点配置保存失败！]", e);
 			throw e;
-		}finally{	
+		} finally {
 		}
 		Struts2Utils.renderText(info);
 		return null;
 	}
-	
+
 	/**
 	 * 我的已办-查看详情
+	 * 
 	 * @return
 	 * @throws UnsupportedEncodingException
 	 */
-	public String viewBussinessDetail() throws UnsupportedEncodingException{
-		
+	public String viewBussinessDetail() throws UnsupportedEncodingException {
+
 		taskAssgineeDto.setStartFlag("detial");
 		this.setTaskAssgineeDto(taskAssgineeDto);
 		taskUrl = this.jbpmDemoService.getFormName(taskAssgineeDto);
 		nameSpace = taskUrl.substring(0, taskUrl.indexOf("/", 1));
 		String taskUrl1 = taskUrl.substring(nameSpace.length(),
 				taskUrl.length());
-		//20140904 修复了因为redirectAction传递中文乱码导致业务接收不到isView的值
+		// 20140904 修复了因为redirectAction传递中文乱码导致业务接收不到isView的值
 		taskAssgineeDto.setTaskName(null);
-		String ss = getTaskUrlBuffer(taskAssgineeDto)+"&isView=1";
+		String ss = getTaskUrlBuffer(taskAssgineeDto) + "&isView=1";
 		this.setTaskUrl(taskUrl1 + ss);
 		this.setNameSpace(nameSpace);
 		return "success";
 	}
-	
+
 	/**
 	 * 我的已办-删除
+	 * 
 	 * @return
 	 * @throws UnsupportedEncodingException
 	 */
-	public void delete(){		
-		String info ="success";
-    	try {
-    		this.setTaskAssgineeDto(taskAssgineeDto);
-    		
-//    		ExecutionImpl executionImpl = (ExecutionImpl)executionService.findExecutionById(taskAssgineeDto.getExecutionId());
-// 			activityImpl = executionImpl.getActivity();
-// 			definitionId = executionImpl.getProcessDefinitionId();
- 			
-    		System.out.println(taskAssgineeDto.getTaskId());
-    		Task task = jbpmDemoService.getTaskById(taskAssgineeDto.getPreTaskId());
-    		TaskService taskService = jbpmDemoService.getTaskService();
-    		taskService.deleteTaskCascade(taskAssgineeDto.getPreTaskId());
+	public void delete() {
+		String info = "success";
+		try {
+			this.setTaskAssgineeDto(taskAssgineeDto);
 
- //   		task.setState(ask.STATE_OPEN);
- //           taskService.saveTask(task);
-    	} catch (Exception e) {
-			info="fails";
+			// ExecutionImpl executionImpl =
+			// (ExecutionImpl)executionService.findExecutionById(taskAssgineeDto.getExecutionId());
+			// activityImpl = executionImpl.getActivity();
+			// definitionId = executionImpl.getProcessDefinitionId();
+
+			System.out.println(taskAssgineeDto.getTaskId());
+			Task task = jbpmDemoService.getTaskById(taskAssgineeDto
+					.getPreTaskId());
+			TaskService taskService = jbpmDemoService.getTaskService();
+			taskService.deleteTaskCascade(taskAssgineeDto.getPreTaskId());
+
+			// task.setState(ask.STATE_OPEN);
+			// taskService.saveTask(task);
+		} catch (Exception e) {
+			info = "fails";
 			log.error("[删除设备信息失败！]", e);
-//			throw e;
-		}finally{	
+			// throw e;
+		} finally {
 		}
 		Struts2Utils.renderText(info);
 	}
 
 	/**
-	 * 我的流程-发起
-	 * 不启动流程实例，获取流程节点action，跳转到业务表单页面
+	 * 我的流程-发起 不启动流程实例，获取流程节点action，跳转到业务表单页面
+	 * 
 	 * @return
-	 * @throws UnsupportedEncodingException 
+	 * @throws UnsupportedEncodingException
 	 */
 	public String startProcess() throws UnsupportedEncodingException {
-		
-		String  taskName="";
-		//获取流程定义的实现对象
+
+		String taskName = "";
+		// 获取流程定义的实现对象
 		ProcessDefinitionImpl processDefinitionImpl = (ProcessDefinitionImpl) jbpmService
 				.getRepositoryService().createProcessDefinitionQuery()
-				.processDefinitionId(this.taskAssgineeDto.getDefinitionId()).uniqueResult();
-		List<ActivityImpl> list = (List<ActivityImpl>) processDefinitionImpl.getActivities();
+				.processDefinitionId(this.taskAssgineeDto.getDefinitionId())
+				.uniqueResult();
+		List<ActivityImpl> list = (List<ActivityImpl>) processDefinitionImpl
+				.getActivities();
 		TaskActivity taskActivity = null;
 		for (ActivityImpl activityImpl : list) {
 			String type = activityImpl.getType();
 			if (type.equals("start")) {
-				TransitionImpl transitionImpl = activityImpl.getDefaultOutgoingTransition();
+				TransitionImpl transitionImpl = activityImpl
+						.getDefaultOutgoingTransition();
 				ActivityImpl activityImpl1 = transitionImpl.getDestination();
-				taskActivity = (TaskActivity)activityImpl1.getActivityBehaviour();
-				
-				taskName=	activityImpl1.getName();
+				taskActivity = (TaskActivity) activityImpl1
+						.getActivityBehaviour();
+
+				taskName = activityImpl1.getName();
 				break;
 			}
 		}
-		String taskUrl = taskActivity.getTaskDefinition()
-				.getFormResourceName();
-		//this.taskAssgineeDto.setDefinitionId(processDefinitionImpl.getId());
+		String taskUrl = taskActivity.getTaskDefinition().getFormResourceName();
+		// this.taskAssgineeDto.setDefinitionId(processDefinitionImpl.getId());
 		nameSpace = taskUrl.substring(0, taskUrl.indexOf("/", 1));
 		String taskUrl1 = taskUrl.substring(nameSpace.length(),
 				taskUrl.length());
-		TProcessConfig config = this.processConfigService.getProcessConfigByDefinitionId(this.taskAssgineeDto.getDefinitionId());
-		if(config != null){
+		TProcessConfig config = this.processConfigService
+				.getProcessConfigByDefinitionId(this.taskAssgineeDto
+						.getDefinitionId());
+		if (config != null) {
 			this.taskAssgineeDto.setTemplateFileIds(config.getFileIds());
 		}
-		
-		
+
 		this.taskAssgineeDto.setStartFlag("start");
-	
+
 		taskAssgineeDto.setTaskName(taskName);
 		String ss = getTaskUrlBuffer(taskAssgineeDto);
-		this.setTaskUrl(taskUrl1+ss);
+		this.setTaskUrl(taskUrl1 + ss);
 		this.setNameSpace(nameSpace);
-		
+
 		return "success";
 
 	}
-	
+
 	/**
 	 * 我的草稿-删除草稿
-	 * @throws Exception 
+	 * 
+	 * @throws Exception
 	 */
-	public String deleteDraft() throws Exception{
+	public String deleteDraft() throws Exception {
 		String executionId = this.taskAssgineeDto.getExecutionId();
-		TProcessBusiness processBusiness = jbpmService.findProcessBusiness(taskAssgineeDto);
-		String info ="success";
+		TProcessBusiness processBusiness = jbpmService
+				.findProcessBusiness(taskAssgineeDto);
+		String info = "success";
 		try {
-			if(processBusiness != null){
-				//调用服务拼接删除sql
-				//删除业务数据
+			if (processBusiness != null) {
+				// 调用服务拼接删除sql
+				// 删除业务数据
 				jbpmService.deleteBusiness(processBusiness);
-				//删除附件
-				TProcessBusiness processBusinessFile = jbpmService.findProcessBusinessFile(processBusiness);
-				if(processBusinessFile != null){
+				// 删除附件
+				TProcessBusiness processBusinessFile = jbpmService
+						.findProcessBusinessFile(processBusiness);
+				if (processBusinessFile != null) {
 					File file = new File(processBusinessFile.getFilePath());
-					if(file.isFile()){
+					if (file.isFile()) {
 						file.delete();
 					}
 					jbpmService.deleteBusinessFile(processBusinessFile);
 				}
 				processBusinessService.delete(processBusiness);
-				//级联删除流程实例
+				// 级联删除流程实例
 				jbpmService.deleteProcessInstancCascadeeById(executionId);
 			}
 		} catch (Exception e) {
-			info="fails";
+			info = "fails";
 			log.error("[删除草稿失败！]", e);
 			throw e;
-		}finally{	
+		} finally {
 		}
 		Struts2Utils.renderText(info);
 		return null;
 	}
-	
+
 	public String toTaskConfigUpt() throws IOException {
 		String definitionId = taskAssgineeDto.getDefinitionId();
 		String taskName = taskAssgineeDto.getTaskName();
 		this.taskAssgineeDto.setDefinitionId(definitionId);
 		this.taskAssgineeDto.setTaskName(taskName);
-		//查询数据库判断是否有
-		TProcessTaskExeConfig tProcessTaskExeConfig = this.processTaskExeConfigService.getTaskExeConfig(definitionId,taskName);
-		if(tProcessTaskExeConfig != null){
-			if(tProcessTaskExeConfig.getIsRecordSubmit() == null){
+		// 查询数据库判断是否有
+		TProcessTaskExeConfig tProcessTaskExeConfig = this.processTaskExeConfigService
+				.getTaskExeConfig(definitionId, taskName);
+		if (tProcessTaskExeConfig != null) {
+			if (tProcessTaskExeConfig.getIsRecordSubmit() == null) {
 				this.setIsRecordSubmit("");
-			}else{
-				this.setIsRecordSubmit(tProcessTaskExeConfig.getIsRecordSubmit());
+			} else {
+				this.setIsRecordSubmit(tProcessTaskExeConfig
+						.getIsRecordSubmit());
 			}
 			this.taskAssgineeDto.setBusinessKey(tProcessTaskExeConfig.getId());
 			this.taskAssgineeDto.setObjId(tProcessTaskExeConfig.getTaskAssId());
-			this.taskAssgineeDto.setTaskConfigType(tProcessTaskExeConfig.getTaskAssType());
-			if("01".equals(tProcessTaskExeConfig.getTaskAssType())){
-				//指定岗位
-				List<Map<String, Object>> objs = jbpmService.getPosition(taskAssgineeDto);
+			this.taskAssgineeDto.setTaskConfigType(tProcessTaskExeConfig
+					.getTaskAssType());
+			if ("01".equals(tProcessTaskExeConfig.getTaskAssType())) {
+				// 指定岗位
+				List<Map<String, Object>> objs = jbpmService
+						.getPosition(taskAssgineeDto);
 				if (objs.size() != 0) {
 					for (Map<String, Object> map : objs) {
-						this.taskAssgineeDto.setObjName((String) map.get("objName"));
+						this.taskAssgineeDto.setObjName((String) map
+								.get("objName"));
 					}
 				}
-			}else if("03".equals(tProcessTaskExeConfig.getTaskAssType()) || "10".equals(tProcessTaskExeConfig.getTaskAssType())){
-				//指定部门
-				List<Map<String, Object>> objs = jbpmService.getOrg(taskAssgineeDto);
+			} else if ("03".equals(tProcessTaskExeConfig.getTaskAssType())
+					|| "10".equals(tProcessTaskExeConfig.getTaskAssType())) {
+				// 指定部门
+				List<Map<String, Object>> objs = jbpmService
+						.getOrg(taskAssgineeDto);
 				if (objs.size() != 0) {
 					for (Map<String, Object> map : objs) {
-						this.taskAssgineeDto.setObjName((String) map.get("objName"));
+						this.taskAssgineeDto.setObjName((String) map
+								.get("objName"));
 					}
 				}
 			}
@@ -1969,359 +2076,390 @@ public class JbpmDemoAction extends BaseAction {
 		this.setTaskAssgineeDto(taskAssgineeDto);
 		return "process_task_config_upt";
 	}
-	
+
 	/**
 	 * 跳转到复制流程的界面
+	 * 
 	 * @return
 	 */
-	public String toCopyProcessConfig(){
-		//获取流程定义id
+	public String toCopyProcessConfig() {
+		// 获取流程定义id
 		String definitionId = taskAssgineeDto.getDefinitionId();
-		TProcessConfig processConfig = this.processConfigService.getProcessConfigByDefinitionId(definitionId);
+		TProcessConfig processConfig = this.processConfigService
+				.getProcessConfigByDefinitionId(definitionId);
 		processDeployDto = new ProcessDeployDto();
 		processDeployDto.setId(processConfig.getId());
-		processDeployDto.setBusinessType(processConfig.getBusinessType());//业务类型
-		processDeployDto.setDeployType(processConfig.getRoleOrgPerson());//发布类型
-		processDeployDto.setOrderNo(processConfig.getOrderNo());//序号
-		processDeployDto.setProcessDefinitionId(processConfig.getDefinitionId());//流程定义id
-		processDeployDto.setProcessName(processConfig.getProcessName());//流程名称
-		processDeployDto.setProcessState(processConfig.getState()); //流程状态
+		processDeployDto.setBusinessType(processConfig.getBusinessType());// 业务类型
+		processDeployDto.setDeployType(processConfig.getRoleOrgPerson());// 发布类型
+		processDeployDto.setOrderNo(processConfig.getOrderNo());// 序号
+		processDeployDto
+				.setProcessDefinitionId(processConfig.getDefinitionId());// 流程定义id
+		processDeployDto.setProcessName(processConfig.getProcessName());// 流程名称
+		processDeployDto.setProcessState(processConfig.getState()); // 流程状态
 		String deployRange = "";
 		String objName = "";
-		List<TProcessConfigPerson> processConfigPersons = this.processConfigPersonService.getProcessConfigPersons(processConfig.getId());
-		if(processConfigPersons.size()>0){
+		List<TProcessConfigPerson> processConfigPersons = this.processConfigPersonService
+				.getProcessConfigPersons(processConfig.getId());
+		if (processConfigPersons.size() > 0) {
 			for (TProcessConfigPerson tProcessConfigPerson : processConfigPersons) {
-				deployRange+=tProcessConfigPerson.getRelationId()+",";	
+				deployRange += tProcessConfigPerson.getRelationId() + ",";
 				taskAssgineeDto = new TaskAssgineeDto();
 				taskAssgineeDto.setObjId(tProcessConfigPerson.getRelationId());
-				if("02".equals(processConfig.getRoleOrgPerson())){
-					//人员
-					List<Map<String, Object>> objs = jbpmService.getEmp1(taskAssgineeDto);
+				if ("02".equals(processConfig.getRoleOrgPerson())) {
+					// 人员
+					List<Map<String, Object>> objs = jbpmService
+							.getEmp1(taskAssgineeDto);
 					if (objs.size() != 0) {
 						for (Map<String, Object> map : objs) {
-							objName+=(String) map.get("objName")+",";
+							objName += (String) map.get("objName") + ",";
 						}
 					}
-				}else if("03".equals(processConfig.getRoleOrgPerson())){
-					//机构
-					List<Map<String, Object>> objs = jbpmService.getOrg(taskAssgineeDto);
+				} else if ("03".equals(processConfig.getRoleOrgPerson())) {
+					// 机构
+					List<Map<String, Object>> objs = jbpmService
+							.getOrg(taskAssgineeDto);
 					if (objs.size() != 0) {
 						for (Map<String, Object> map : objs) {
-							objName+=(String) map.get("objName")+",";
+							objName += (String) map.get("objName") + ",";
 						}
 					}
-				}else if("04".equals(processConfig.getRoleOrgPerson())){
-					//岗位
-					List<Map<String, Object>> objs = jbpmService.getPosition(taskAssgineeDto);
+				} else if ("04".equals(processConfig.getRoleOrgPerson())) {
+					// 岗位
+					List<Map<String, Object>> objs = jbpmService
+							.getPosition(taskAssgineeDto);
 					if (objs.size() != 0) {
 						for (Map<String, Object> map : objs) {
-							objName+=(String) map.get("objName")+",";
+							objName += (String) map.get("objName") + ",";
 						}
 					}
 				}
 			}
 		}
-		processDeployDto.setDeployRange(deployRange.substring(0, deployRange.length()-1));
-		processDeployDto.setObjName(objName.substring(0, objName.length()-1));
+		processDeployDto.setDeployRange(deployRange.substring(0,
+				deployRange.length() - 1));
+		processDeployDto.setObjName(objName.substring(0, objName.length() - 1));
 		return "jbpm_process_deploy_copy";
 	}
-	
+
 	/**
 	 * 执行复制流程
+	 * 
 	 * @return
 	 * @throws Exception
 	 */
-	public String deployUptProcess() throws Exception{
-		String info ="success";
+	public String deployUptProcess() throws Exception {
+		String info = "success";
 		String newPdId = "";
 		try {
-		//旧流程修改为隐藏
-		TProcessConfig config = this.processConfigService.getProcessConfigByDefinitionId(this.processDeployDto.getProcessDefinitionId());
-		//config.setProcessUserState("2");
-		//config.setState("03");
-		//this.processConfigService.update(config);
-		
-		//发布新流程
-		ProcessDefinition definition = this.jbpmService.getRepositoryService().createProcessDefinitionQuery().processDefinitionId(this.processDeployDto.getProcessDefinitionId()).uniqueResult();
-		
-		String deploymentId = definition.getDeploymentId();
+			// 旧流程修改为隐藏
+			TProcessConfig config = this.processConfigService
+					.getProcessConfigByDefinitionId(this.processDeployDto
+							.getProcessDefinitionId());
+			// config.setProcessUserState("2");
+			// config.setState("03");
+			// this.processConfigService.update(config);
 
-		String xmlPath = this.jbpmService.getFilePath(deploymentId,"xml");
-		String pngPath = this.jbpmService.getPngPath();
-		 File file=new File(pngPath);
-			if(!file.isDirectory()){
+			// 发布新流程
+			ProcessDefinition definition = this.jbpmService
+					.getRepositoryService()
+					.createProcessDefinitionQuery()
+					.processDefinitionId(
+							this.processDeployDto.getProcessDefinitionId())
+					.uniqueResult();
+
+			String deploymentId = definition.getDeploymentId();
+
+			String xmlPath = this.jbpmService.getFilePath(deploymentId, "xml");
+			String pngPath = this.jbpmService.getPngPath();
+			File file = new File(pngPath);
+			if (!file.isDirectory()) {
 				file.mkdir();
 			}
-			File file2 = new File(pngPath+"/jbpmOut.png");
+			File file2 = new File(pngPath + "/jbpmOut.png");
 			file2.createNewFile();
-			//生成流程图片
+			// 生成流程图片
 			JpdlModel jpdlModel;
 			try {
-				  jpdlModel = new JpdlModel (xmlPath);
-				  ImageIO.write(new JpdlModelDrawer().draw(jpdlModel), "png", file2);  
+				jpdlModel = new JpdlModel(xmlPath);
+				ImageIO.write(new JpdlModelDrawer().draw(jpdlModel), "png",
+						file2);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		String pngPath2 = file2.getPath();
-		File xmlFile = new File(xmlPath);
-		File pngFile = new File(pngPath2);
-		
-		ProcessDefinition definition2 = this.jbpmService.deployProcess(xmlFile,pngFile);
-		
-		TProcessConfig tProcessConfig = new TProcessConfig();
-		
-		if(uploadTemplate != null && uploadTemplateFileName != null){
-			//模板文件
-			String urlstrTemplate = fileResourceTableService.getFileUpload(uploadTemplate,
-					uploadTemplateFileName);
-			
-			TFileResourceTable templateFile = new TFileResourceTable();
-			templateFile.setFilePath(urlstrTemplate);
-			templateFile.setFileName(uploadTemplateFileName);
-			fileResourceTableService.insert(templateFile);
-			tProcessConfig.setFileIds(String.valueOf(templateFile.getFileId()));
-		}else{
-			tProcessConfig.setFileIds("");
-		}
-		
-		
-		
-		
-		// 根据路径加载配置文件
-		// 部署流程
-	
-		tProcessConfig.setDefinitionId(definition2.getId());
-		tProcessConfig.setRoleOrgPerson(this.processDeployDto
-				.getDeployType());
-		tProcessConfig.setProcessName(this.processDeployDto
-				.getProcessName());
-		tProcessConfig.setBusinessType(this.processDeployDto.getBusinessType());
-		tProcessConfig.setOrderNo(this.processDeployDto.getOrderNo());
-		// 流程状态-可用
-		tProcessConfig.setState(this.processDeployDto.getProcessState());
-		tProcessConfig.setUploadOrg(this.getCurrentOnlineUser().getOrgid());
-		tProcessConfig.setUserId(this.getCurrentOnlineUser().getEmpid());
-		
-		//流程上传时间
-		tProcessConfig.setUploadTime(TimeUtil.today()+TimeUtil.now());
-		
-		//tProcessConfig.setFileIds(String.valueOf(templateFile.getFileId()));
-		
-		Long tProcessConfigId = this.processConfigService
-				.insert(tProcessConfig);
-		
-		// 保存流程配置与流程发布人员配置
-		if (this.processDeployDto.getDeployRange() != null) {
-			String[] empIdArray = this.processDeployDto.getDeployRange()
-					.split(",");
-			for (String empId : empIdArray) {
-				TProcessConfigPerson tProcessConfigPerson = new TProcessConfigPerson();
-				tProcessConfigPerson.setProcessConfigId(tProcessConfigId);
-				tProcessConfigPerson.setRelationId(String.valueOf(empId));
-				this.processConfigPersonService
-						.insert(tProcessConfigPerson);
+			String pngPath2 = file2.getPath();
+			File xmlFile = new File(xmlPath);
+			File pngFile = new File(pngPath2);
+
+			ProcessDefinition definition2 = this.jbpmService.deployProcess(
+					xmlFile, pngFile);
+
+			TProcessConfig tProcessConfig = new TProcessConfig();
+
+			if (uploadTemplate != null && uploadTemplateFileName != null) {
+				// 模板文件
+				String urlstrTemplate = fileResourceTableService.getFileUpload(
+						uploadTemplate, uploadTemplateFileName);
+
+				TFileResourceTable templateFile = new TFileResourceTable();
+				templateFile.setFilePath(urlstrTemplate);
+				templateFile.setFileName(uploadTemplateFileName);
+				fileResourceTableService.insert(templateFile);
+				tProcessConfig.setFileIds(String.valueOf(templateFile
+						.getFileId()));
+			} else {
+				tProcessConfig.setFileIds("");
 			}
-		}
-		newPdId= definition2.getId();
-		info=info+","+newPdId;
+
+			// 根据路径加载配置文件
+			// 部署流程
+
+			tProcessConfig.setDefinitionId(definition2.getId());
+			tProcessConfig.setRoleOrgPerson(this.processDeployDto
+					.getDeployType());
+			tProcessConfig.setProcessName(this.processDeployDto
+					.getProcessName());
+			tProcessConfig.setBusinessType(this.processDeployDto
+					.getBusinessType());
+			tProcessConfig.setOrderNo(this.processDeployDto.getOrderNo());
+			// 流程状态-可用
+			tProcessConfig.setState(this.processDeployDto.getProcessState());
+			tProcessConfig.setUploadOrg(this.getCurrentOnlineUser().getOrgid());
+			tProcessConfig.setUserId(this.getCurrentOnlineUser().getEmpid());
+
+			// 流程上传时间
+			tProcessConfig.setUploadTime(TimeUtil.today() + TimeUtil.now());
+
+			// tProcessConfig.setFileIds(String.valueOf(templateFile.getFileId()));
+
+			Long tProcessConfigId = this.processConfigService
+					.insert(tProcessConfig);
+
+			// 保存流程配置与流程发布人员配置
+			if (this.processDeployDto.getDeployRange() != null) {
+				String[] empIdArray = this.processDeployDto.getDeployRange()
+						.split(",");
+				for (String empId : empIdArray) {
+					TProcessConfigPerson tProcessConfigPerson = new TProcessConfigPerson();
+					tProcessConfigPerson.setProcessConfigId(tProcessConfigId);
+					tProcessConfigPerson.setRelationId(String.valueOf(empId));
+					this.processConfigPersonService
+							.insert(tProcessConfigPerson);
+				}
+			}
+			newPdId = definition2.getId();
+			info = info + "," + newPdId;
 		} catch (Exception e) {
-			info="fails";
+			info = "fails";
 			log.error("[复制流程失败！]", e);
 			throw e;
-		}finally{	
+		} finally {
 		}
 		Struts2Utils.renderText(info);
 		return null;
-		
+
 	}
-	
-	public String updateTaskConfig() throws Exception{
-		String info ="success";
+
+	public String updateTaskConfig() throws Exception {
+		String info = "success";
 		try {
-		String taskName = taskAssgineeDto.getTaskName();
-		String[] taskNames = taskName.split(",");
-		String oldTaskName = taskNames[0];
-		String newTaskName = taskNames[1];
-		newTaskName=newTaskName.trim();
-		ProcessDefinitionImpl processDefinitionImpl = (ProcessDefinitionImpl) jbpmService
-				.getRepositoryService().createProcessDefinitionQuery()
-				.processDefinitionId(this.taskAssgineeDto.getDefinitionId()).uniqueResult();
-		//修改流程节点和流程图
-		jbpmService.toTaskConfig3(processDefinitionImpl.getDeploymentId(),oldTaskName,newTaskName);
-		
-		String ss = jbpmService.getFilePath(processDefinitionImpl.getDeploymentId(), "xml");
-		System.out.println(ss);
-		//修改节点执行对象信息
-		
-		TProcessTaskExeConfig tProcessTaskExeConfig = null;
-		tProcessTaskExeConfig = processTaskExeConfigService.getTaskExeConfig(this.taskAssgineeDto.getDefinitionId(),oldTaskName);
-		
-		String taskConfigType = taskAssgineeDto.getTaskConfigType();
-		if(tProcessTaskExeConfig != null){
-			tProcessTaskExeConfig.setTaskAssId(null);
-		}else{
-			tProcessTaskExeConfig = new TProcessTaskExeConfig();
-		}
-		if(isRecordSubmit == null){
-			tProcessTaskExeConfig.setIsRecordSubmit("");
-		}else{
-			tProcessTaskExeConfig.setIsRecordSubmit(isRecordSubmit);
-		}
-		if("05".equals(taskConfigType)){
-			//起草人 -通用流程-默认记录提交人
-			tProcessTaskExeConfig.setIsRecordSubmit("1");
-		}
-		tProcessTaskExeConfig.setTaskAssType(taskConfigType);
-		tProcessTaskExeConfig.setDefinitionId(taskAssgineeDto.getDefinitionId());
-		tProcessTaskExeConfig.setActivityName(newTaskName);
-		if ("01".equals(taskConfigType)) {
-			// 指定岗位
-			tProcessTaskExeConfig.setTaskAssId(taskAssgineeDto.getObjId());
-		} else if ("02".equals(taskConfigType)) {
-			// 动态机构
-		} else if ("03".equals(taskConfigType)) {
-			// 指定部门领导
-			tProcessTaskExeConfig.setTaskAssId(taskAssgineeDto.getObjId());
-		}else if ("10".equals(taskConfigType)) {
-			// 指定部门所有人
-			tProcessTaskExeConfig.setTaskAssId(taskAssgineeDto.getObjId());
-		}  else if ("04".equals(taskConfigType)) {
-			// 起草人所属机构领导
-			tProcessTaskExeConfig.setTaskAssId("3");
-		} 
-		else if ("12".equals(taskConfigType)) {
-			//  起草部门上一级机构负责人
-			tProcessTaskExeConfig.setTaskAssId("4");
-		}
-		else if ("05".equals(taskConfigType)) {
-			// 起草人
-		}
-			if(taskAssgineeDto.getBusinessKey() != null){
+			String taskName = taskAssgineeDto.getTaskName();
+			String[] taskNames = taskName.split(",");
+			String oldTaskName = taskNames[0];
+			String newTaskName = taskNames[1];
+			newTaskName = newTaskName.trim();
+			ProcessDefinitionImpl processDefinitionImpl = (ProcessDefinitionImpl) jbpmService
+					.getRepositoryService()
+					.createProcessDefinitionQuery()
+					.processDefinitionId(this.taskAssgineeDto.getDefinitionId())
+					.uniqueResult();
+			// 修改流程节点和流程图
+			jbpmService.toTaskConfig3(processDefinitionImpl.getDeploymentId(),
+					oldTaskName, newTaskName);
+
+			String ss = jbpmService.getFilePath(
+					processDefinitionImpl.getDeploymentId(), "xml");
+			System.out.println(ss);
+			// 修改节点执行对象信息
+
+			TProcessTaskExeConfig tProcessTaskExeConfig = null;
+			tProcessTaskExeConfig = processTaskExeConfigService
+					.getTaskExeConfig(this.taskAssgineeDto.getDefinitionId(),
+							oldTaskName);
+
+			String taskConfigType = taskAssgineeDto.getTaskConfigType();
+			if (tProcessTaskExeConfig != null) {
+				tProcessTaskExeConfig.setTaskAssId(null);
+			} else {
+				tProcessTaskExeConfig = new TProcessTaskExeConfig();
+			}
+			if (isRecordSubmit == null) {
+				tProcessTaskExeConfig.setIsRecordSubmit("");
+			} else {
+				tProcessTaskExeConfig.setIsRecordSubmit(isRecordSubmit);
+			}
+			if ("05".equals(taskConfigType)) {
+				// 起草人 -通用流程-默认记录提交人
+				tProcessTaskExeConfig.setIsRecordSubmit("1");
+			}
+			tProcessTaskExeConfig.setTaskAssType(taskConfigType);
+			tProcessTaskExeConfig.setDefinitionId(taskAssgineeDto
+					.getDefinitionId());
+			tProcessTaskExeConfig.setActivityName(newTaskName);
+			if ("01".equals(taskConfigType)) {
+				// 指定岗位
+				tProcessTaskExeConfig.setTaskAssId(taskAssgineeDto.getObjId());
+			} else if ("02".equals(taskConfigType)) {
+				// 动态机构
+			} else if ("03".equals(taskConfigType)) {
+				// 指定部门领导
+				tProcessTaskExeConfig.setTaskAssId(taskAssgineeDto.getObjId());
+			} else if ("10".equals(taskConfigType)) {
+				// 指定部门所有人
+				tProcessTaskExeConfig.setTaskAssId(taskAssgineeDto.getObjId());
+			} else if ("04".equals(taskConfigType)) {
+				// 起草人所属机构领导
+				tProcessTaskExeConfig.setTaskAssId("3");
+			} else if ("12".equals(taskConfigType)) {
+				// 起草部门上一级机构负责人
+				tProcessTaskExeConfig.setTaskAssId("4");
+			} else if ("05".equals(taskConfigType)) {
+				// 起草人
+			}
+			if (taskAssgineeDto.getBusinessKey() != null) {
 				this.processTaskExeConfigService.update(tProcessTaskExeConfig);
-			}else{
+			} else {
 				this.processTaskExeConfigService.insert(tProcessTaskExeConfig);
 			}
 		} catch (Exception e) {
-			info="fails";
+			info = "fails";
 			log.error("[流程节点配置保存失败！]", e);
 			throw e;
-		}finally{	
+		} finally {
 		}
 		Struts2Utils.renderText(info);
 		return null;
 	}
-	
+
 	/**
 	 * 跳转到修改流程的界面
+	 * 
 	 * @return
 	 */
-	public String toUpdateProcessConfig(){
-		//获取流程定义id
+	public String toUpdateProcessConfig() {
+		// 获取流程定义id
 		String definitionId = taskAssgineeDto.getDefinitionId();
-		TProcessConfig processConfig = this.processConfigService.getProcessConfigByDefinitionId(definitionId);
+		TProcessConfig processConfig = this.processConfigService
+				.getProcessConfigByDefinitionId(definitionId);
 		processDeployDto = new ProcessDeployDto();
 		processDeployDto.setId(processConfig.getId());
-		processDeployDto.setBusinessType(processConfig.getBusinessType());//业务类型
-		processDeployDto.setDeployType(processConfig.getRoleOrgPerson());//发布类型
-		processDeployDto.setOrderNo(processConfig.getOrderNo());//序号
-		processDeployDto.setProcessDefinitionId(processConfig.getDefinitionId());//流程定义id
-		processDeployDto.setProcessName(processConfig.getProcessName());//流程名称
-		processDeployDto.setProcessState(processConfig.getState()); //流程状态
+		processDeployDto.setBusinessType(processConfig.getBusinessType());// 业务类型
+		processDeployDto.setDeployType(processConfig.getRoleOrgPerson());// 发布类型
+		processDeployDto.setOrderNo(processConfig.getOrderNo());// 序号
+		processDeployDto
+				.setProcessDefinitionId(processConfig.getDefinitionId());// 流程定义id
+		processDeployDto.setProcessName(processConfig.getProcessName());// 流程名称
+		processDeployDto.setProcessState(processConfig.getState()); // 流程状态
 		String deployRange = "";
 		String objName = "";
-		List<TProcessConfigPerson> processConfigPersons = this.processConfigPersonService.getProcessConfigPersons(processConfig.getId());
-		if(processConfigPersons.size()>0){
+		List<TProcessConfigPerson> processConfigPersons = this.processConfigPersonService
+				.getProcessConfigPersons(processConfig.getId());
+		if (processConfigPersons.size() > 0) {
 			for (TProcessConfigPerson tProcessConfigPerson : processConfigPersons) {
-				deployRange+=tProcessConfigPerson.getRelationId()+",";	
+				deployRange += tProcessConfigPerson.getRelationId() + ",";
 				taskAssgineeDto = new TaskAssgineeDto();
 				taskAssgineeDto.setObjId(tProcessConfigPerson.getRelationId());
-				if("02".equals(processConfig.getRoleOrgPerson())){
-					//人员
-					List<Map<String, Object>> objs = jbpmService.getEmp1(taskAssgineeDto);
+				if ("02".equals(processConfig.getRoleOrgPerson())) {
+					// 人员
+					List<Map<String, Object>> objs = jbpmService
+							.getEmp1(taskAssgineeDto);
 					if (objs.size() != 0) {
 						for (Map<String, Object> map : objs) {
-							objName+=(String) map.get("objName")+",";
+							objName += (String) map.get("objName") + ",";
 						}
 					}
-				}else if("03".equals(processConfig.getRoleOrgPerson())){
-					//机构
-					List<Map<String, Object>> objs = jbpmService.getOrg(taskAssgineeDto);
+				} else if ("03".equals(processConfig.getRoleOrgPerson())) {
+					// 机构
+					List<Map<String, Object>> objs = jbpmService
+							.getOrg(taskAssgineeDto);
 					if (objs.size() != 0) {
 						for (Map<String, Object> map : objs) {
-							objName+=(String) map.get("objName")+",";
+							objName += (String) map.get("objName") + ",";
 						}
 					}
-				}else if("04".equals(processConfig.getRoleOrgPerson())){
-					//岗位
-					List<Map<String, Object>> objs = jbpmService.getPosition(taskAssgineeDto);
+				} else if ("04".equals(processConfig.getRoleOrgPerson())) {
+					// 岗位
+					List<Map<String, Object>> objs = jbpmService
+							.getPosition(taskAssgineeDto);
 					if (objs.size() != 0) {
 						for (Map<String, Object> map : objs) {
-							objName+=(String) map.get("objName")+",";
+							objName += (String) map.get("objName") + ",";
 						}
 					}
 				}
 			}
 		}
-		processDeployDto.setDeployRange(deployRange.substring(0, deployRange.length()-1));
-		processDeployDto.setObjName(objName.substring(0, objName.length()-1));
+		processDeployDto.setDeployRange(deployRange.substring(0,
+				deployRange.length() - 1));
+		processDeployDto.setObjName(objName.substring(0, objName.length() - 1));
 		return "jbpm_process_deploy_upt";
 	}
-	
+
 	/**
-	 * 执行修改流程
-	 * 备注
-	 * 对选择的流程的名称、排序、发布人员类型、发布状态、范围、模板附件进行修改
+	 * 执行修改流程 备注 对选择的流程的名称、排序、发布人员类型、发布状态、范围、模板附件进行修改
+	 * 
 	 * @return
 	 * @throws Exception
 	 */
-	public String uptateProcess() throws Exception{
-		String info ="success";
+	public String uptateProcess() throws Exception {
+		String info = "success";
 		try {
-			TProcessConfig config = this.processConfigService.getProcessConfigByDefinitionId(this.processDeployDto.getProcessDefinitionId());
-			//业务类型、定义id不变
-			//config.setBusinessType(this.processDeployDto.getBusinessType());
-			//流程状态
+			TProcessConfig config = this.processConfigService
+					.getProcessConfigByDefinitionId(this.processDeployDto
+							.getProcessDefinitionId());
+			// 业务类型、定义id不变
+			// config.setBusinessType(this.processDeployDto.getBusinessType());
+			// 流程状态
 			config.setState(this.processDeployDto.getProcessState());
-			//流程名称
-			config.setProcessName(this.processDeployDto
-					.getProcessName());
-			//排序序号
+			// 流程名称
+			config.setProcessName(this.processDeployDto.getProcessName());
+			// 排序序号
 			config.setOrderNo(this.processDeployDto.getOrderNo());
-			//修改上传人员机构
+			// 修改上传人员机构
 			config.setUploadOrg(this.getCurrentOnlineUser().getOrgid());
-			//修改上传人员id
+			// 修改上传人员id
 			config.setUserId(this.getCurrentOnlineUser().getEmpid());
-			//修改流程时间
-			config.setUploadTime(TimeUtil.today()+TimeUtil.now());
-			//修改流程发布人员类型
-			config.setRoleOrgPerson(this.processDeployDto
-					.getDeployType());
-			
+			// 修改流程时间
+			config.setUploadTime(TimeUtil.today() + TimeUtil.now());
+			// 修改流程发布人员类型
+			config.setRoleOrgPerson(this.processDeployDto.getDeployType());
+
 			TFileResourceTable templateFile = new TFileResourceTable();
-			if(uploadTemplate != null && uploadTemplateFileName != null){
-				//模板文件
-				String urlstrTemplate = fileResourceTableService.getFileUpload(uploadTemplate,
-						uploadTemplateFileName);
+			if (uploadTemplate != null && uploadTemplateFileName != null) {
+				// 模板文件
+				String urlstrTemplate = fileResourceTableService.getFileUpload(
+						uploadTemplate, uploadTemplateFileName);
 				templateFile.setFilePath(urlstrTemplate);
 				templateFile.setFileName(uploadTemplateFileName);
 				fileResourceTableService.insert(templateFile);
 				config.setFileIds(String.valueOf(templateFile.getFileId()));
-			}else{
+			} else {
 				config.setFileIds("");
 			}
-			
-			this.processConfigService.update(config);
-			
-			Long tProcessConfigId  = config.getId();
 
-			//删除之前TProcessConfigPerson的信息
-			List<TProcessConfigPerson> tProcessConfigPersons = this.processConfigPersonService.getProcessConfigPersons(tProcessConfigId);
-			if(tProcessConfigPersons.size() != 0){
+			this.processConfigService.update(config);
+
+			Long tProcessConfigId = config.getId();
+
+			// 删除之前TProcessConfigPerson的信息
+			List<TProcessConfigPerson> tProcessConfigPersons = this.processConfigPersonService
+					.getProcessConfigPersons(tProcessConfigId);
+			if (tProcessConfigPersons.size() != 0) {
 				for (TProcessConfigPerson tProcessConfigPerson : tProcessConfigPersons) {
-					this.processConfigPersonService.delete(tProcessConfigPerson);
+					this.processConfigPersonService
+							.delete(tProcessConfigPerson);
 				}
 			}
-			
+
 			// 重新保存流程配置与流程发布人员配置
 			if (this.processDeployDto.getDeployRange() != null) {
 				String[] empIdArray = this.processDeployDto.getDeployRange()
@@ -2334,68 +2472,73 @@ public class JbpmDemoAction extends BaseAction {
 							.insert(tProcessConfigPerson);
 				}
 			}
-			} catch (Exception e) {
-				info="fails";
-				log.error("[修改流程失败！]", e);
-				throw e;
-			}finally{	
-			}
-			Struts2Utils.renderText(info);
-			return null;
+		} catch (Exception e) {
+			info = "fails";
+			log.error("[修改流程失败！]", e);
+			throw e;
+		} finally {
+		}
+		Struts2Utils.renderText(info);
+		return null;
 	}
-	
+
 	/**
 	 * 删除流程
+	 * 
 	 * @throws Exception
 	 */
-	public String deleteProcess() throws Exception{
-		String info ="success";
+	public String deleteProcess() throws Exception {
+		String info = "success";
 		try {
 			jbpmService.deleteProcessInstanceById(executionId);
 		} catch (Exception e) {
-			info="fails";
+			info = "fails";
 			log.error("[删除流程失败！]", e);
 			throw e;
 		}
 		Struts2Utils.renderText(info);
 		return null;
 	}
-	
-	public String toTaskOtherNameConfig(){
+
+	public String toTaskOtherNameConfig() {
 		return "process_task_name_config";
 	}
-	
-	public void queryTaskNameConfig() throws Exception{
+
+	public void queryTaskNameConfig() throws Exception {
 		HashMap<String, String> hm = XmlConvert.getParamsAjax();
 		activityList = this.jbpmService.getTaskNameConfigList(hm);
-       String xmlStr = XmlConvert.getXmlListBean(page,activityList);
-        MUO.write(xmlStr);
+		String xmlStr = XmlConvert.getXmlListBean(page, activityList);
+		MUO.write(xmlStr);
 	}
-	
-	public String saveTaskNameConfig() throws Exception{
+
+	public String saveTaskNameConfig() throws Exception {
 		HashMap hm = XmlConvert.updateDatacell();
 		HashMap hm1 = XmlConvert.getParamsAjax();
 		String definitionId = (String) hm1.get("taskAssgineeDto.definitionId");
-		List<ActivityDto> updateList = (List<ActivityDto>)hm.get("updateEntities");
-		processTaskExeConfigService.saveTaskNameConfig(definitionId,updateList);
+		List<ActivityDto> updateList = (List<ActivityDto>) hm
+				.get("updateEntities");
+		processTaskExeConfigService
+				.saveTaskNameConfig(definitionId, updateList);
 		return null;
 	}
-	
+
 	/**
 	 * 调整到jbpm在线编辑页面
+	 * 
 	 * @return
 	 */
-	public String toJbpmOnlineDesign(){
+	public String toJbpmOnlineDesign() {
 		return "jbpm_online_design";
 	}
-	
+
 	/**
 	 * 根据在线编辑器保存生成xml和png，更新流程xml和png
+	 * 
 	 * @return
 	 * @throws Exception
 	 */
 	public String makeAndUpdateJbpm() throws Exception {
-		String info ="success";
+		String info = "success";
 		String newPdId = "";
 		BufferedWriter buffWri = null;
 		String str = null;
@@ -2411,17 +2554,17 @@ public class JbpmDemoAction extends BaseAction {
 			buffWri = new BufferedWriter(write);
 			// 将data数据转换成符合jbpm的JsonObject
 			if (data != null) {
-				str = jbpmService.makeJbpmJsonByData(data,pname);
+				str = jbpmService.makeJbpmJsonByData(data, pname);
 			}
 			// jbpm文件的开头
 			buffWri.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
 			buffWri.newLine();
-			//buffWri.write("<process name=\"\" xmlns=\"http://jbpm.org/4.4/jpdl\">");
+			// buffWri.write("<process name=\"\" xmlns=\"http://jbpm.org/4.4/jpdl\">");
 			buffWri.newLine();
 			// jbpm文件的结尾
 			buffWri.write(str);
 			buffWri.newLine();
-			//buffWri.write("</process>");
+			// buffWri.write("</process>");
 			buffWri.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -2436,33 +2579,36 @@ public class JbpmDemoAction extends BaseAction {
 			}
 		}
 		String pngPath = this.jbpmService.getPngPath();
-		 File file=new File(pngPath);
-			if(!file.isDirectory()){
-				file.mkdir();
-			}
-			File file2 = new File(pngPath+"/jbpmOut.png");
+		File file = new File(pngPath);
+		if (!file.isDirectory()) {
+			file.mkdir();
+		}
+		// File file2 = new File(pngPath+"/jbpmOut.png");
+		File file2 = new File(pngPath);
+		if (!file2.isFile()) {
 			file2.createNewFile();
-			//生成流程图片
-			JpdlModel jpdlModel;
-			try {
-				  jpdlModel = new JpdlModel (xmlPath);
-				  ImageIO.write(new JpdlModelDrawer().draw(jpdlModel), "png", file2);  
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			String pngPath2 = file2.getPath();
-			File xmlFile = new File(xmlPath);
-			File pngFile = new File(pngPath2);
-			
-			//更新流程xml和png
-			jbpmService.updateProcessXmlPng(deploymentId,xmlFile,pngFile);
-			
-			newPdId= definitionId;
-			info=info+","+newPdId;
-			Struts2Utils.renderText(info);
+		}
+		// 生成流程图片
+		JpdlModel jpdlModel;
+		try {
+			jpdlModel = new JpdlModel(xmlPath);
+			ImageIO.write(new JpdlModelDrawer().draw(jpdlModel), "png", file2);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		String pngPath2 = file2.getPath();
+		File xmlFile = new File(xmlPath);
+		File pngFile = new File(pngPath2);
+
+		// 更新流程xml和png
+		jbpmService.updateProcessXmlPng(deploymentId, xmlFile, pngFile);
+
+		newPdId = definitionId;
+		info = info + "," + newPdId;
+		Struts2Utils.renderText(info);
 		return null;
 	}
-	
+
 	/**
 	 * 根据选择的流程跳转到流程图可配置页面
 	 * 
@@ -2470,29 +2616,29 @@ public class JbpmDemoAction extends BaseAction {
 	 * @throws Exception
 	 */
 	public String toProcessImgConfig() throws Exception {
-		//获得流程定义对象
+		// 获得流程定义对象
 		ProcessDefinitionImpl processDefinitionImpl = (ProcessDefinitionImpl) jbpmService
 				.getRepositoryService().createProcessDefinitionQuery()
 				.processDefinitionId(this.taskAssgineeDto.getDefinitionId())
 				.uniqueResult();
-		//获取部署id
+		// 获取部署id
 		String deploymentId = processDefinitionImpl.getDeploymentId();
 		this.deploymentId = deploymentId;
 		this.definitionId = processDefinitionImpl.getId();
-		//从数据库读取对应的xml文件并输出
+		// 从数据库读取对应的xml文件并输出
 		String xmlPath = this.jbpmService.getFilePath(deploymentId, "xml");
 		File xmlFile = new File(xmlPath);
 		SAXReader sr = new SAXReader();
 		Document doc = sr.read(xmlFile);
-		//获取根节点
+		// 获取根节点
 		Element el_root = doc.getRootElement();
 		List<Attribute> elAttributes = el_root.attributes();
 		for (Attribute attribute : elAttributes) {
-			if("name".equals(attribute.getName())){
+			if ("name".equals(attribute.getName())) {
 				pname = attribute.getValue();
 			}
 		}
-		JSONObject obj = jbpmService.getJbpmJson(xmlFile,pname);
+		JSONObject obj = jbpmService.getJbpmJson(xmlFile, pname);
 		System.out.println(obj);
 		this.setData(obj.toString());
 		this.setPname(pname);
@@ -2500,5 +2646,37 @@ public class JbpmDemoAction extends BaseAction {
 		this.setDefinitionId(definitionId);
 		return "jbpm_online_design_upt";
 	}
-	 
+
+	public String toGpProcessImgConfig() throws Exception {
+		// 获得流程定义对象
+		ProcessDefinitionImpl processDefinitionImpl = (ProcessDefinitionImpl) jbpmService
+				.getRepositoryService().createProcessDefinitionQuery()
+				.processDefinitionId(this.taskAssgineeDto.getDefinitionId())
+				.uniqueResult();
+		// 获取部署id
+		String deploymentId = processDefinitionImpl.getDeploymentId();
+		this.deploymentId = deploymentId;
+		this.definitionId = processDefinitionImpl.getId();
+		// 从数据库读取对应的xml文件并输出
+		String xmlPath = this.jbpmService.getFilePath(deploymentId, "xml");
+		File xmlFile = new File(xmlPath);
+		SAXReader sr = new SAXReader();
+		Document doc = sr.read(xmlFile);
+		// 获取根节点
+		Element el_root = doc.getRootElement();
+		List<Attribute> elAttributes = el_root.attributes();
+		for (Attribute attribute : elAttributes) {
+			if ("name".equals(attribute.getName())) {
+				pname = attribute.getValue();
+			}
+		}
+		JSONObject obj = jbpmService.getJbpmJson(xmlFile, pname);
+		System.out.println(obj);
+		this.setData(obj.toString());
+		this.setPname(pname);
+		this.setDeploymentId(deploymentId);
+		this.setDefinitionId(definitionId);
+		return "jbpm_online_gp_design_upt";
+	}
+
 }
