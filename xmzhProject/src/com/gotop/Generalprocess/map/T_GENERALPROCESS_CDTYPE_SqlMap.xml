@@ -15,14 +15,23 @@
     <!--通过查询实体,查询满足条件的记录-->
     select distinct  FIRST_CLASS
     from T_GENERALPROCESS_CDTYPE
-    where PROCESS_NAME='$processName$'
+    where 1=1
+    <isNotNull prepend="and" property="processName" >
+	    trim(PROCESS_NAME)=trim('$processName$')
+    </isNotNull>
   </select>
   
   <select id="querycreditType" resultMap="creditTypeResult" parameterClass="java.util.HashMap" >
     <!--通过查询实体,查询满足条件的记录-->
     select distinct CREDIT_TYPE
     from T_GENERALPROCESS_CDTYPE
-    where FIRST_CLASS= #firstClass#
+    where 1=1
+    <isNotNull prepend="and" property="firstClass" >
+	    trim(FIRST_CLASS)=trim(#firstClass#)
+    </isNotNull>
+    <isNotNull prepend="and" property="processName" >
+	    trim(PROCESS_NAME)=trim('$processName$')
+    </isNotNull>
   </select>
   
 </sqlMap>

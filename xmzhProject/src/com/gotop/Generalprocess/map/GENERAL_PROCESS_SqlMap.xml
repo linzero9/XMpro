@@ -55,7 +55,7 @@
  where a.orgid =
        (select t.parentorgid from om_organization t where t.orgcode = #orgcode#)
   	</select>
-  	<select id="queryGeneralprocessList" resultMap="TGeneralProcess_HashMapResult" parameterClass="java.util.HashMap">
+  	<!-- <select id="queryGeneralprocessList" resultMap="TGeneralProcess_HashMapResult" parameterClass="java.util.HashMap">
   		select t11.*
   from (select v.begin_empid,
                v.begin_orgid,
@@ -177,7 +177,61 @@
            	v2.sc2='$deCheck$'
       		</isNotNull>
  order by END_ desc
-  	</select>
+  	</select> -->
+  	 <select id="queryGeneralprocessList" resultMap="TGeneralProcess_HashMapResult" parameterClass="java.util.HashMap">
+  		SELECT T11.*,v2.begin_empid,
+               v2.begin_orgid,
+               v2.cust_name,
+               v2.currency,
+               v2.apply_bal,
+               v2.onecategory,
+               v2.loancategory,
+               v2.orgname as beginEmpname,
+               v2.empname as beginOrgname FROM 
+               (select *
+  from (select T1.ID,
+               T1.EXECUTION_ID,
+               T1.TASK_ID,
+               T1.PRE_TASK_ID,
+               T1.PRE_TASK_ASSINGEE,
+               T1.PRE_TASK_ORG,
+               T1.PRE_TASK_TIME,
+               T1.NEXT_TASK_ID,
+               T1.BUSINESS_KEY,
+               T3.EMPNAME AS preTaskAssingeeName,
+               T10.NEXT_ORG_NAME AS preTaskOrgName,
+               t6.process_name AS processName,
+               t9.business_title,
+               t6.business_type,
+               t8.activity_name_ AS activityName,
+               t1.NEXT_ACTIVITY_NAME as currentActivityName,
+               to_char(T8.START_, 'yyyymmddhh24miss') AS startTime,
+               to_char(T8.END_, 'yyyymmddhh24miss') AS endTime,
+               t1.NEXT_ASSINGEE_NAME as currentAssingee,
+               T8.END_,
+               row_number() over(partition by t1.execution_id order by t1.id desc) rn
+          from JBPM4_HIST_PROCINST     t5,
+               T_PROCESS_CONFIG        t6,
+               T_PROCESS_BUSINESS      t9,
+               T_PROCESS_TASK_ASSIGNEE t1,
+               JBPM4_HIST_TASK         t7,
+               om_employee             t3,
+               JBPM4_HIST_ACTINST      t8,
+               T_APPROVE_OPNINION_GP t10
+         where t5.procdefid_ = t6.definition_id
+           and t9.execution_id = t5.id_
+           and t1.execution_id = t9.execution_id
+           and t7.execution_ = t1.execution_id
+           and t3.empid = t1.pre_task_assingee
+           AND T9.BUSINESS_TYPE=88
+           and t8.htask_ = t1.pre_task_id
+           and t10.node_id=t1.next_task_id
+           )
+ where rn = 1
+) T11,V_APP_CONDITION V1,V_GENERALPROCESS_XD V2
+ WHERE T11.EXECUTION_ID=V1.execution_id(+)
+ AND T11.EXECUTION_ID=V2.flow_id(+)  order by END_ desc
+  	</select> 
   	
   	<!-- 客户经理查询到自己发起的流程 -->
   	<select id="myStartGeneralProcessList" resultMap="TGeneralProcess_HashMapResult" parameterClass="java.util.HashMap">

@@ -407,7 +407,6 @@
 				var currentActivityName = rows.getParam("currentActivityName");
 				var preTaskId = rows.getParam("preTaskId");
 				var processName = rows.getParam("processName");
-				alert(processName);
 				var businessType = rows.getParam("businessType");
 				var activityName = rows.getParam("activityName");
 
@@ -433,11 +432,9 @@
 
 		function search(){
 			$("#isExport").val("");
-			alert($('#isExport').val());
 			}
 		function downExl() {
 			$("#isExport").val("1");
-			alert($('#isExport').val());
 		}
 		//选择	受理支行	二级选项
 		function open_newyw_tree_fun2(){
@@ -503,21 +500,25 @@
 			showModalCenter(strUrl,'',showloanCategory_callback1 ,800,430,'贷种选择'); 
 		} 
 		function showloanCategory_callback1(args){
+			if(args!=''){
 			var array;
 			array = args.split(":");
 			 document.getElementById("loanCategory").value = array[0];
 			 document.getElementById("loanCategoryTxt").value = array[1];
 			}
+		}
 		function showoneCategory() {
 			strUrl ="/jsp/Generalprocess/showoneCategory.jsp";
 			showModalCenter(strUrl,'',showoneCategory_callback1 ,800,430,'一级分类选择'); 
 		} 
 		function showoneCategory_callback1(args){
+			if(args!=''){
 			var array;
 			array = args.split(":");
 			 document.getElementById("oneCategory").value = array[0];
 			 document.getElementById("oneCategoryTxt").value = array[1];
 			}
+		}
 	</script>
 </body>
 </html>

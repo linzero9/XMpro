@@ -32,7 +32,9 @@ public class TGeneralprocessCdtypeDAO extends SqlMapClientDao implements ITGener
 			TGeneralprocessCdtype cdtype,Page page) {
 		// TODO Auto-generated method stub
 		HashMap<String, Object> map = new HashMap<String, Object>();
+		if(cdtype!=null){
 		map.put("processName", cdtype.getProcessName());
+		}
 		List<TGeneralprocessCdtype> list = (List<TGeneralprocessCdtype>) queryForList("T_GENERALPROCESS_CDTYPE_SqlMap.queryCdtypes", map);
         return list;
 	}
@@ -43,7 +45,10 @@ public class TGeneralprocessCdtypeDAO extends SqlMapClientDao implements ITGener
 			TGeneralprocessCdtype cdtype) {
 		// TODO Auto-generated method stub
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("firstClass", cdtype.getFirstClass());
+		if(cdtype!=null){
+			map.put("firstClass", cdtype.getFirstClass());
+			map.put("processName", cdtype.getProcessName());
+		}
 		List<TGeneralprocessCdtype> list = (List<TGeneralprocessCdtype>)queryForList("T_GENERALPROCESS_CDTYPE_SqlMap.querycreditType", map);
         return list;
 	}

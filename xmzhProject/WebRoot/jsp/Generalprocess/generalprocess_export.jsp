@@ -9,7 +9,7 @@
 	//设置Excel的名称;	
 	String date = TimeUtil.today()+TimeUtil.now();
 	response.setHeader("Content-Disposition",
-			"attachment; filename=\""+date+"流程列表.xls\"");
+			"attachment; filename=\""+date+".xls\"");
 	out.flush();
 %>
 <table width="98%" border="1" cellspacing="1" cellpadding="1">

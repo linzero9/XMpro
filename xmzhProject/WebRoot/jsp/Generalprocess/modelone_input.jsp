@@ -253,7 +253,7 @@
 		 $("#creator").val('${sessionScope.login_user.empid}');
 	 }
 
-	 setOneSelect('${taskAssgineeDto.processName}')
+	 setOneSelect('${taskAssgineeDto.processName}');
 	 
 	 if('${modelOne.oneCategory}'!=""){
 		 var oneCategory='${modelOne.oneCategory}';
@@ -389,7 +389,7 @@ function initPlanCell20(){
 		    	}
 			}
 
-		function open_yjfl_fun(){
+		/* function open_yjfl_fun(){
 			var strUrl ="";
 			var objName="";
 			var peArgument = [];
@@ -404,7 +404,7 @@ function initPlanCell20(){
 					x.options.length=0;  
 					setselect(arg);
 				} 
-			}
+			} */
 		function changeloanCategory(){
 			$("#loanCategory").val($('#loanCategorys option:selected').val());
 			}	
@@ -417,9 +417,10 @@ function initPlanCell20(){
 			}	
 		function setLcselect(arg){
 			$("#loanCategorys").html("");
+			var processName='${taskAssgineeDto.processName}';
 			var selecthtml=$("#loanCategorys").html();
 			 $.ajax({
-			        url: "/Generalprocess/tGeneralprocessCdtypeAction_querycreditType.action?cdtype.firstClass="+encodeURI(arg),
+			        url: "/Generalprocess/tGeneralprocessCdtypeAction_querycreditType.action?cdtype.firstClass="+encodeURI(arg)+"&cdtype.processName="+processName,
 			        async: false,
 			        type: 'post',
 			        data: "",
