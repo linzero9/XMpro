@@ -496,7 +496,8 @@
 		    	}
 			}
 		function showloanCategory() {
-			strUrl ="/jsp/Generalprocess/showloanCategory.jsp";
+			var loanCategory=document.getElementById("loanCategory").value;
+			strUrl ="/Generalprocess/tGeneralprocessCdtypeAction_loanCategoryDic.action?cdtypeJson="+loanCategory,
 			showModalCenter(strUrl,'',showloanCategory_callback1 ,800,430,'贷种选择'); 
 		} 
 		function showloanCategory_callback1(args){
@@ -508,7 +509,8 @@
 			}
 		}
 		function showoneCategory() {
-			strUrl ="/jsp/Generalprocess/showoneCategory.jsp";
+			var oneCategory=document.getElementById("oneCategory").value;
+			strUrl ="/Generalprocess/tGeneralprocessCdtypeAction_oneCategoryDic.action?cdtypeJson="+oneCategory,
 			showModalCenter(strUrl,'',showoneCategory_callback1 ,800,430,'一级分类选择'); 
 		} 
 		function showoneCategory_callback1(args){

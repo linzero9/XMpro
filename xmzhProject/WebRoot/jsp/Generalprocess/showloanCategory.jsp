@@ -39,6 +39,7 @@
 			<w:panel id="panel" width="100%" title="贷种分类">
 				<viewlist id="e2c61865-3b56-470d-bd42-fff792fb9493">
 					<table>
+					<h:hidden id="cdtypeJson" property="cdtypeJson" name="cdtypeJson"/>
 						<tr>
 						<td>
 							<d:checkbox perrow="3" id="oneCategory"    name="generalprocessDto.oneCategory" dictTypeId="PROCESS_credit_type" property="generalprocessDto.oneCategory"  seperator=","  />
@@ -58,18 +59,30 @@
 		</DIV>
   </body>
   <script type="text/javascript">
+
+  $(function() {
+		//当页面加载完成的时候，自动调用该方法
+		window.onload = function() {
+			//获得所要回显的值，此处为：100,1001,200,1400
+			var checkeds = $id("cdtypeJson").value;
+			//拆分为字符串数组
+			var checkArray = checkeds.split(", ");
+			//获得所有的复选框对象
+			var checkBoxAll = $("input[name='generalprocessDto.oneCategory']");
+			for ( var i = 0; i < checkArray.length; i++) {
+				//获取所有复选框对象的value属性，然后，用checkArray[i]和他们匹配，如果有，则说明他应被选中
+				$.each(checkBoxAll, function(j, checkbox) {
+					//获取复选框的value属性
+					var checkValue = $(checkbox).val();
+					if (checkArray[i] == checkValue) {
+						$(checkbox).attr("checked", true);
+					}
+				})
+			}
+		};
+	});
   function returnValue(){
-	  /* var gop = $id("group1");
-		var len = gop.getSelectLength();
-		if(len == 0){
-			alert("请选择一条流程信息");
-			return;
-		}else{
-			var rows=gop.getSelectRow();
-	  		var firstClass=rows.getParam("firstClass");
-	  		window.returnValue=firstClass;
-	  		window.close();
-		} */
+		
 		var oneCategory="";
 		var oneCategoryTxt="";
         var  plugInLength  =  $("input[name='generalprocessDto.oneCategory']:checkbox:checked").length;

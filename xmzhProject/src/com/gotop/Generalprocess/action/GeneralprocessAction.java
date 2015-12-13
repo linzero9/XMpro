@@ -564,13 +564,23 @@ public class GeneralprocessAction extends BaseAction {
     	
     	MUOUserSession muo = getCurrentOnlineUser();
     	if("1".equals(this.getIsExport())){
-    		List<GeneralprocessDto> generalprocessDtos=this.generalProcessService.queryGeneralprocessList(muo,generalprocessDto,null);
-    		this.setGeneralprocessDtos(generalprocessDtos);
-    		return "generalprocess_export";
+    		try {
+    			List<GeneralprocessDto> generalprocessDtos=this.generalProcessService.queryGeneralprocessList(muo,generalprocessDto,null);
+        		this.setGeneralprocessDtos(generalprocessDtos);
+        		return "generalprocess_export";
+			} catch (Exception e) {
+				return e.toString();
+			}
+    		
     	}else{
-    		List<GeneralprocessDto> generalprocessDtos=this.generalProcessService.queryGeneralprocessList(muo,generalprocessDto,this.getPage());
-    		this.setGeneralprocessDtos(generalprocessDtos);
-    		return "generalprocess_list";
+    		try {
+    			List<GeneralprocessDto> generalprocessDtos=this.generalProcessService.queryGeneralprocessList(muo,generalprocessDto,this.getPage());
+        		this.setGeneralprocessDtos(generalprocessDtos);
+        		return "generalprocess_list";
+			} catch (Exception e) {
+				return e.toString();
+			}
+    		
     	}
     }
 }

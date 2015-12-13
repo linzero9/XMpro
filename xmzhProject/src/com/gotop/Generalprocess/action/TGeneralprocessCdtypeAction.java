@@ -63,6 +63,21 @@ public class TGeneralprocessCdtypeAction extends BaseAction {
         this.setCdtypes(cdtypes);
         return "fslist";
     }
+    /**
+     * viewDataList说明.
+     * @abatorgenerated
+     */
+    public String oneCategoryDic() throws Exception {
+    	return "oneCategoryDic";
+    }
+    /**
+     * viewDataList说明.
+     * @abatorgenerated
+     */
+    public String loanCategoryDic() throws Exception {
+    	System.out.println(cdtypeJson);
+    	return "loanCategoryDic";
+    }
     
 
 	/**

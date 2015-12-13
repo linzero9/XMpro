@@ -450,7 +450,6 @@ select T1.ID,
            and t7.execution_ = t1.execution_id
            and t3.empid = t1.pre_task_assingee
            and t8.htask_ = t1.pre_task_id
-             AND
         <isNotNull prepend="and" property="empId" >
              T7.ASSIGNEE_= $empId$
       </isNotNull>

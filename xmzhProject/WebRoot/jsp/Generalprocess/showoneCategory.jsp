@@ -1,8 +1,10 @@
-<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
+<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@include file="/common/common.jsp"%>
 <%@include file="/common/skins/skin0/component.jsp"%>
-<%@page import="java.util.*"%>
-<h:css href="/css/style1/style-custom.css"/>
+<h:css href="/css/style1/style-custom.css" />
+<script src="<%=request.getContextPath() %>/common/gotop/jquery.min.js"></script>
+<script type="text/javascript" src="/js/commonUtil.js"></script>
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -39,6 +41,7 @@
 			<w:panel id="panel" width="100%" title="查询结果">
 				<viewlist id="e2c61865-3b56-470d-bd42-fff792fb9493">
 					<table>
+						 <h:hidden id="cdtypeJson" property="cdtypeJson" name="cdtypeJson"/>
 						<tr>
 						<td>
 							<d:checkbox perrow="3" id="oneCategory"    name="generalprocessDto.oneCategory" dictTypeId="PROCESS_onecategory" property="generalprocessDto.oneCategory"  seperator=","  />
@@ -58,38 +61,56 @@
 		</DIV>
   </body>
   <script type="text/javascript">
-  function returnValue(){
-	  /* var gop = $id("group1");
-		var len = gop.getSelectLength();
-		if(len == 0){
-			alert("请选择一条流程信息");
-			return;
-		}else{
-			var rows=gop.getSelectRow();
-	  		var firstClass=rows.getParam("firstClass");
-	  		window.returnValue=firstClass;
-	  		window.close();
-		} */
-		var oneCategory="";
-		var oneCategoryTxt="";
-        var  plugInLength  =  $("input[name='generalprocessDto.oneCategory']:checkbox:checked").length;
-        $("input[name='generalprocessDto.oneCategory']:checkbox:checked").each(function(i,value){ 
-            if($(this).attr("checked")){
-                if((i+1)==plugInLength){
-                	oneCategory += $(this).val();
-                }else{
-                	oneCategory += $(this).val()+", ";
-            	}
-                if((i+1)==plugInLength){
-                	oneCategoryTxt += $(this).next('label').text();
-                }else{ 
-                	oneCategoryTxt += $(this).next('label').text()+", ";
-            	}
-            }
-        });
-        var rvalue=oneCategory+":"+oneCategoryTxt;
-        window.returnValue=rvalue;
-  		window.close();
-	  }
-  </script>
+  
+			$(function() {
+				//当页面加载完成的时候，自动调用该方法
+				window.onload = function() {
+					//获得所要回显的值，此处为：100,1001,200,1400
+					var checkeds = $id("cdtypeJson").value;
+					//拆分为字符串数组
+					var checkArray = checkeds.split(", ");
+					//获得所有的复选框对象
+					var checkBoxAll = $("input[name='generalprocessDto.oneCategory']");
+					for ( var i = 0; i < checkArray.length; i++) {
+						//获取所有复选框对象的value属性，然后，用checkArray[i]和他们匹配，如果有，则说明他应被选中
+						$.each(checkBoxAll, function(j, checkbox) {
+							//获取复选框的value属性
+							var checkValue = $(checkbox).val();
+							if (checkArray[i] == checkValue) {
+								$(checkbox).attr("checked", true);
+							}
+						})
+					}
+				};
+			});
+			function returnValue() {
+				
+				var oneCategory = "";
+				var oneCategoryTxt = "";
+				var plugInLength = $("input[name='generalprocessDto.oneCategory']:checkbox:checked").length;
+				$(
+						"input[name='generalprocessDto.oneCategory']:checkbox:checked")
+						.each(
+								function(i, value) {
+									if ($(this).attr("checked")) {
+										if ((i + 1) == plugInLength) {
+											oneCategory += $(this).val();
+										} else {
+											oneCategory += $(this).val() + ", ";
+										}
+										if ((i + 1) == plugInLength) {
+											oneCategoryTxt += $(this).next(
+													'label').text();
+										} else {
+											oneCategoryTxt += $(this).next(
+													'label').text()
+													+ ", ";
+										}
+									}
+								});
+				var rvalue = oneCategory + ":" + oneCategoryTxt;
+				window.returnValue = rvalue;
+				window.close();
+			}
+		</script>
 </html>
