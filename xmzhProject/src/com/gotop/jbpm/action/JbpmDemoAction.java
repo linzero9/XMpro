@@ -2579,10 +2579,10 @@ public class JbpmDemoAction extends BaseAction {
 			}
 		}
 		String pngPath = this.jbpmService.getPngPath();
-		File file = new File(pngPath);
+	/*	File file = new File(pngPath);
 		if (!file.isDirectory()) {
 			file.mkdir();
-		}
+		}*/
 		// File file2 = new File(pngPath+"/jbpmOut.png");
 		File file2 = new File(pngPath);
 		if (!file2.isFile()) {

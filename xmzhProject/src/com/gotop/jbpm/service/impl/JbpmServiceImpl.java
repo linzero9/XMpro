@@ -809,10 +809,10 @@ public class JbpmServiceImpl implements JbpmService{
 								 in = new BufferedInputStream(blobValue.getBinaryStream());
 								 inStream = blobValue.getBinaryStream();  
 								 	//输出到文件
-									File file=new File(address);
-									if(!file.isDirectory()){
-										file.mkdir();
-									}
+//									File file=new File(address);
+//									if(!file.isDirectory()){
+//										file.mkdir();
+//									}
 								//File file2 = new File(address+"/jbpmOut.jpdl.xml");
 									File file2 = new File(address);
 									if(!file2.isFile()){
