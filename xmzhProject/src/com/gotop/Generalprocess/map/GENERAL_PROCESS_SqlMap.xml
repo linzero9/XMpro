@@ -35,6 +35,7 @@
        <result column="LOANCATEGORY" property="loanCategory" jdbcType="VARCHAR" />
        <result column="beginEmpname" property="beginEmpname" jdbcType="VARCHAR" />
        <result column="beginOrgname" property="beginOrgname" jdbcType="VARCHAR" />
+       <result column="SUPPORT_CATEGORY" property="supportCategory" jdbcType="VARCHAR" />
   </resultMap>
   
   	<!-- 根据员工号查询出其所属机构名称 -->
@@ -64,6 +65,7 @@
                v.apply_bal,
                v.onecategory,
                v.loancategory,
+               v.support_category,
                 T10.NEXT_ORG_NAME AS preTaskOrgName,
                v.orgname as beginEmpname,
                v.empname as beginOrgname FROM 
@@ -159,6 +161,9 @@
       		</isNotNull>
            <isNotNull prepend="and" property="fdxdy" >
            	v.fdxdy='$fdxdy$'
+      		</isNotNull>
+           <isNotNull prepend="and" property="supportCategory" >
+           v.support_category='$supportCategory$'
       		</isNotNull>
            <isNotNull prepend="and" property="oneCategory" >
            	 v.onecategory in(select dic.dictname from eos_dict_entry dic where dic.dicttypeid='PROCESS_onecategory' 

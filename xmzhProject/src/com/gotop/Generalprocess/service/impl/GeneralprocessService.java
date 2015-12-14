@@ -554,6 +554,9 @@ public class GeneralprocessService implements IGeneralprocessService {
 			if(generalprocessDto.getAppTimeStrat()!=null && !"".equals(generalprocessDto.getAppTimeStrat())){
 				map.put("appTimeStrat", generalprocessDto.getAppTimeStrat());
 			}
+			if(generalprocessDto.getSupportCategory()!=null && !"".equals(generalprocessDto.getSupportCategory())){
+				map.put("supportCategory", generalprocessDto.getSupportCategory());
+			}
 			if(generalprocessDto.getAppTimeEnd()!=null && !"".equals(generalprocessDto.getAppTimeEnd())){
 				map.put("appTimeEnd", generalprocessDto.getAppTimeEnd());
 			}

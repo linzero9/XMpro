@@ -22,7 +22,7 @@
 					<td class="form_label" align="right" width="20%">审批时间：</td>
 					<td colspan="1" width="30%">
 					从
-					<w:date format="yyyy-MM-dd" submitFormat="yyyy-MM-dd" id="d1" name="generalprocessDto.appTimeStrat" 
+					<w:date  format="yyyy-MM-dd" submitFormat="yyyy-MM-dd" id="d1" name="generalprocessDto.appTimeStrat" 
 					property="generalprocessDto.appTimeStrat" /> 
 					到
 					<w:date format="yyyy-MM-dd" submitFormat="yyyy-MM-dd" id="d2" name="generalprocessDto.appTimeEnd" 
@@ -113,6 +113,15 @@
 					<a href="#" onclick="showloanCategory();">选择</a>
 					</td>
 				</tr>
+				<tr>
+					<td class="form_label" align="right" style="width:20%;" >
+						支用类别：</td>
+					<td colspan="1">
+							
+							<d:select  id="supportCategory"  dictTypeId="PROCESS_pay" property="generalprocessDto.supportCategory"   nullLabel="请选择"></d:select>
+							
+										</td>
+				</tr>
 				<%-- <tr>
 					<td colspan="4" class="form_label" align="center" nowrap="nowrap" width="100%">贷种分类</td>
 					</tr>
@@ -135,7 +144,7 @@
 			</table>
 		</w:panel>
 	</h:form>
-	<DIV class="divList" style="height: 400px">
+	<DIV class="divList" style="height: 380px">
 		<w:panel id="panel" width="100%" title="查询结果">
 			<viewlist id="e2c61865-3b56-470d-bd42-fff792fb9493"> <h:form
 				name="page_form"
@@ -159,6 +168,7 @@
 				<h:hiddendata property="generalprocessDto.oneCategoryTxt" />
 				<h:hiddendata property="generalprocessDto.loanCategory" />
 				<h:hiddendata property="generalprocessDto.loanCategoryTxt" />
+				<h:hiddendata property="generalprocessDto.supportCategory" />
 				<h:hidden property="page.begin" />
 				<h:hidden property="page.length" />
 				<h:hidden property="page.count" />
@@ -175,6 +185,7 @@
 						<th nowrap="nowrap">贷种分类</th>
 						<th nowrap="nowrap">币种</th>
 						<th nowrap="nowrap">申请/支用金额（万元）</th>
+						<th nowrap="nowrap">支用类别</th>
 						<th nowrap="nowrap">当前节点名称</th>
 						<th nowrap="nowrap">当前节点办理人</th>
 						<th nowrap="nowrap">当前处理人机构</th>
@@ -235,6 +246,9 @@
 								</td>
 								<td nowrap="nowrap">
 								<b:write iterateId="id1" property="apply_bal" />
+								</td>
+								<td nowrap="nowrap">
+								<d:write dictTypeId="PROCESS_pay" property="supportCategory" iterateId="id1"/>
 								</td>
 								<td nowrap="nowrap"><b:write iterateId="id1" property="currentActivityName" /></td>
 								<td nowrap="nowrap"><b:write iterateId="id1" property="currentAssingee" /></td>
@@ -521,6 +535,29 @@
 			 document.getElementById("oneCategory").value = array[0];
 			 document.getElementById("oneCategoryTxt").value = array[1];
 			}
+		}
+		function clears(){
+			$id("d1").value="";
+			$id("d2").value="";
+			$id("d3").value="";
+			$id("d4").value="";
+			$id("orgNameOne").value="";
+			$id("orgidOne").value="";
+			$id("orgCodeOne").value="";
+			$id("orgNameTwo").value="";
+			$id("orgidTwo").value="";
+			$id("orgCodeTwo").value="";
+			$id("cust_Name").value="";
+			$id("isEnd").value="";
+			$id("creator").value="";
+			$id("fdxdy").value="";
+			$id("dyApp").value="";
+			$id("deApp").value="";
+			$id("dyCheck").value="";
+			$id("deCheck").value="";
+			$id("oneCategory").value="";
+			$id("loanCategory").value="";
+			$id("supportCategory").value="";
 		}
 	</script>
 </body>

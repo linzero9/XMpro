@@ -166,6 +166,8 @@ public class GeneralprocessDto{
     
     
     private String currentAssingeeOrgname;
+    
+    private String  supportCategory;
     /*****end******/
     /****页面查询字段 ****/
     
@@ -518,6 +520,14 @@ public class GeneralprocessDto{
 
 	public void setCurrentAssingeeOrgname(String currentAssingeeOrgname) {
 		this.currentAssingeeOrgname = currentAssingeeOrgname;
+	}
+
+	public String getSupportCategory() {
+		return supportCategory;
+	}
+
+	public void setSupportCategory(String supportCategory) {
+		this.supportCategory = supportCategory;
 	}
     
     
