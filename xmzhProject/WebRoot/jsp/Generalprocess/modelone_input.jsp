@@ -420,7 +420,7 @@ function initPlanCell20(){
 			var processName='${taskAssgineeDto.processName}';
 			var selecthtml=$("#loanCategorys").html();
 			 $.ajax({
-			        url: "/Generalprocess/tGeneralprocessCdtypeAction_querycreditType.action?cdtype.firstClass="+encodeURI(arg)+"&cdtype.processName="+processName,
+			        url: "/Generalprocess/tGeneralprocessCdtypeAction_querycreditType.action?cdtype.firstClass="+encodeURI(arg)+"&cdtype.processName="+encodeURI(processName),
 			        async: false,
 			        type: 'post',
 			        data: "",
