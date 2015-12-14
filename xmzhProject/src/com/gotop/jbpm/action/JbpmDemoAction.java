@@ -1707,7 +1707,6 @@ public class JbpmDemoAction extends BaseAction {
 				if (tProcessTaskExeConfig == null) {
 					assgineeDto.setDefinitionId(definitionId);
 					assgineeDto.setTaskName(activityImpl.getName());
-
 				} else {
 					assgineeDto.setDefinitionId(definitionId);
 					assgineeDto.setTaskName(activityImpl.getName());
