@@ -2171,11 +2171,12 @@ public class JbpmDemoAction extends BaseAction {
 
 			String xmlPath = this.jbpmService.getFilePath(deploymentId, "xml");
 			String pngPath = this.jbpmService.getPngPath();
-			File file = new File(pngPath);
+			/*File file = new File(pngPath);
 			if (!file.isDirectory()) {
 				file.mkdir();
-			}
-			File file2 = new File(pngPath + "/jbpmOut.png");
+			}*/
+			//File file2 = new File(pngPath + "/jbpmOut.png");
+			File file2 = new File(pngPath);
 			file2.createNewFile();
 			// 生成流程图片
 			JpdlModel jpdlModel;
