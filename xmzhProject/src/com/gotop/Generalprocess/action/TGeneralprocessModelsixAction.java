@@ -38,6 +38,21 @@ public class TGeneralprocessModelsixAction extends BaseAction {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	
+	
+	
+	private  List<String>  supportCategory;
+	
+	
+	public List<String> getSupportCategory() {
+		return supportCategory;
+	}
+
+
+	public void setSupportCategory(List<String> supportCategory) {
+		this.supportCategory = supportCategory;
+	}
 
 	/**
 	 * 模式对象
@@ -175,6 +190,27 @@ public class TGeneralprocessModelsixAction extends BaseAction {
     				
     			}
     			
+    			// 
+    			//页面的支用类型！  显示的东西  更具 T_GENERALPROCESS_SIXCONFIG 的配置信息读取！
+    			String seachName=  taskAssgineeDto.getProcessName();
+    			
+    			if(seachName==null||"".equals(seachName)){
+    				//如果传入的参数为空  那么就不要去查询了 因为查询出来的会是全部
+    				supportCategory=null;
+    			}else{
+    				
+    				supportCategory = generalprocessMainService.querySupportCategory(seachName);
+
+    				
+    			}
+    			
+    			
+    	
+    			
+    			
+    			
+    			
+    			
     			
     		
     			
@@ -191,10 +227,6 @@ public class TGeneralprocessModelsixAction extends BaseAction {
     
     
       public  void  handleModelSix() throws Exception{
-    	  
-    	  System.out.println("222");
-    	  
-    	  
 
   		String info ="success";
       	MUOUserSession muo = getCurrentOnlineUser();

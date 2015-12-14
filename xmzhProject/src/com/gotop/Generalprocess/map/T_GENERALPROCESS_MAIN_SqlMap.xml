@@ -31,6 +31,40 @@
     <result column="BEGIN_ORGID" property="beginOrgId" jdbcType="DECIMAL" />
   </resultMap>
   
+  
+  
+  <resultMap id="wujiajunhashmap" class="java.util.HashMap" >
+    <!--HashMap方式返回全表-->
+    <result column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="PROCESSNAME" property="processname" jdbcType="VARCHAR" />
+    <result column="DICNAME" property="dicname" jdbcType="VARCHAR" />
+        <result column="DICKID_ID" property="dickid_id" jdbcType="VARCHAR" />
+                <result column="DICTNAME" property="dictname" jdbcType="VARCHAR" />
+
+  </resultMap>
+  
+      <select id="querySupportCategory" resultMap="wujiajunhashmap" parameterClass="java.util.HashMap" >
+    <!--通过主键查询一条数据-->
+    
+    
+SELECT   *  FROM (
+
+SELECT  t1.*,t2.dictname FROM  T_GENERALPROCESS_SIXCONFIG t1  LEFT  JOIN  (
+
+
+SELECT *
+  FROM EOS_DICT_ENTRY T
+ WHERE T.DICTTYPEID = 'PROCESS_pay') T2 ON T1.DICKID_ID = T2.DICTID
+ 
+
+) yy   WHERE 1=1 AND  yy.processname=#processname:VARCHAR#
+    
+    
+
+  </select>
+  
+  
+  
   <!-- 根据流程实例id获取模式主表对象 -->
   <select id="queryMainByBusinessId" parameterClass="java.util.HashMap" resultMap="resultMain">
    select MAINID, TEMPLATE_ID, RULES, NAME, IDS,BUSINESS_ID,BEGIN_EMPID,BEGIN_ORGID
@@ -63,6 +97,13 @@
     from T_GENERALPROCESS_MAIN
     where MAINID = #mainid:DECIMAL#
   </select>
+  
+
+  
+  
+  
+  
+  
   <select id="abatorgenerated_selectByExample" resultMap="abatorgenerated_TGeneralprocessMainResult" parameterClass="com.gotop.Generalprocess.model.TGeneralprocessMainExample" >
     <!--通过查询实体,查询满足条件的记录-->
     select MAINID, TEMPLATE_ID, RULES, NAME, BUSINESS_ID

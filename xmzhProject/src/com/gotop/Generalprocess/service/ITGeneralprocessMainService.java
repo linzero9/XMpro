@@ -85,4 +85,6 @@ public interface ITGeneralprocessMainService {
      * @return
      */
     TGeneralprocessMain queryMainByBusinessId(String businessId);
+    
+    List<String> querySupportCategory(String dicname);
 }

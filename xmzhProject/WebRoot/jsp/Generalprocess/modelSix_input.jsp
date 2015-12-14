@@ -2,6 +2,9 @@
 <%@include file="/common/common.jsp"%>
 <%@include file="/common/skins/skin0/component.jsp"%>
 <%@page import="java.util.*"%>
+
+
+
 <h:css href="/css/style1/style-custom.css" />
 <html>
 <head>
@@ -119,7 +122,29 @@
 						支用类别：</td>
 					<td colspan="1">
 							
-							<d:select  id="supportCategory"  dictTypeId="PROCESS_pay" property="modelSix.supportCategory"   nullLabel="请选择"></d:select>
+						
+						
+						<select  id="supportCategory"   name="modelSix.supportCategory">
+						
+			
+						
+									<l:iterate id="cate" property="supportCategory">
+							
+							
+										<option value="${cate.dickid_id }">
+										
+										${ cate.dictname}
+																				
+										</option>
+							
+							
+							</l:iterate>
+						
+						
+						
+						</select>
+						
+				
 							
 										</td>
 							<td class="form_label" align="right" style="width:20%;" >

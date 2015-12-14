@@ -12,6 +12,9 @@ import java.util.HashMap;
 import java.util.List;
 
 public interface ITGeneralprocessMainDAO {
+	
+    List<String> querySupportCategory(String dicname);
+	
     /**
      * 插入一条新数据.
      * @abatorgenerated

@@ -341,4 +341,15 @@ public class TGeneralprocessMainDAO extends SqlMapClientDao implements ITGeneral
 		main.setIds(ids);
 		getSqlMapClientTemplate().update("T_GENERALPROCESS_MAIN_SqlMap.uptGeneralProcessMain", main);
 	}
+
+	@Override
+	public List<String> querySupportCategory(String dicname) {
+		// TODO Auto-generated method stub
+		
+		Map<String , String> param = new HashMap<String, String>();
+		param.put("processname", dicname);
+		
+		
+		return (List<String>)queryForList("T_GENERALPROCESS_MAIN_SqlMap.querySupportCategory", param);
+	}
 }

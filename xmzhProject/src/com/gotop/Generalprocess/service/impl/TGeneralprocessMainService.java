@@ -161,4 +161,10 @@ public class TGeneralprocessMainService implements ITGeneralprocessMainService {
 	public TGeneralprocessMain queryMainByBusinessId(String businessId) {
 		return this.tGeneralprocessMainDAO.queryMainByBusinessId(businessId);
 	}
+
+	@Override
+	public List<String> querySupportCategory(String dicname) {
+		// TODO Auto-generated method stub
+		return this.tGeneralprocessMainDAO.querySupportCategory(dicname);
+	}
 }
