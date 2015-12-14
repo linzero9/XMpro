@@ -174,7 +174,7 @@
            	v.fdxdy='$fdxdy$'
       		</isNotNull>
            <isNotNull prepend="and" property="supportCategory" >
-           v.support_category='$supportCategory$'
+           v.support_category in($supportCategory$)
       		</isNotNull>
            <isNotNull prepend="and" property="oneCategory" >
            	 v.onecategory in(select dic.dictname from eos_dict_entry dic where dic.dicttypeid='PROCESS_onecategory' 

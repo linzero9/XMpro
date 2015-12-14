@@ -561,7 +561,15 @@ public class GeneralprocessService implements IGeneralprocessService {
 				map.put("appTimeStrat", generalprocessDto.getAppTimeStrat());
 			}
 			if(generalprocessDto.getSupportCategory()!=null && !"".equals(generalprocessDto.getSupportCategory())){
-				map.put("supportCategory", generalprocessDto.getSupportCategory());
+				String[] supportCategorys=generalprocessDto.getSupportCategory().split(", ");
+				String supportCategory="";
+				try {
+					supportCategory = Obj2StrUtils.join(supportCategorys, String.class, ",");
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				map.put("supportCategory",supportCategory);
 			}
 			if(generalprocessDto.getAppTimeEnd()!=null && !"".equals(generalprocessDto.getAppTimeEnd())){
 				map.put("appTimeEnd", generalprocessDto.getAppTimeEnd());

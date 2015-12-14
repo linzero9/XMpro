@@ -127,9 +127,8 @@
 					<td class="form_label" align="right" style="width:20%;" >
 						支用类别：</td>
 					<td colspan="1">
-							
-							<d:select  id="supportCategory"  dictTypeId="PROCESS_pay" property="generalprocessDto.supportCategory"   nullLabel="请选择"></d:select>
-										</td>
+							<d:checkbox perrow="12" id="supportCategory"  name="generalprocessDto.supportCategory" dictTypeId="PROCESS_pay" property="generalprocessDto.supportCategory"   seperator=", " />
+					</td>
 				</tr>
 				<%-- <tr>
 					<td colspan="4" class="form_label" align="center" nowrap="nowrap" width="100%">贷种分类</td>

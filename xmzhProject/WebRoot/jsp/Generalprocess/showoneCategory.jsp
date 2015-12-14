@@ -50,6 +50,8 @@
 						<tr>
 						<td align="center">
 						<input type="button" class="button" value="选择" onclick="returnValue();"/>
+						<input type="button" class="button" value="全选" onclick="chooseall();"/>
+						<input type="button" class="button" value="清空" onclick="clearall();"/>
 						</td>
 						</tr>
 					</table>
@@ -112,5 +114,15 @@
 				window.returnValue = rvalue;
 				window.close();
 			}
+			  function chooseall(){
+				  $("input[name='generalprocessDto.oneCategory']:checkbox").each(function(){ 
+			          $(this).attr("checked",true);
+			      });	
+				  }
+			  function clearall(){
+				  $("input[name='generalprocessDto.oneCategory']:checkbox").each(function(){ 
+			          $(this).attr("checked",false);
+			      });	
+				  }
 		</script>
 </html>
