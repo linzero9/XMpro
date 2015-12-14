@@ -173,8 +173,8 @@
 						 <th nowrap="nowrap">客户名称</th>
 						<th nowrap="nowrap">一级分类</th>
 						<th nowrap="nowrap">贷种分类</th>
-						<th nowrap="nowrap">申请金额（万元）</th>
 						<th nowrap="nowrap">币种</th>
+						<th nowrap="nowrap">申请/支用金额（万元）</th>
 						<th nowrap="nowrap">当前节点名称</th>
 						<th nowrap="nowrap">当前节点办理人</th>
 						<th nowrap="nowrap">当前处理人机构</th>
@@ -229,11 +229,12 @@
 								<td nowrap="nowrap"><b:write iterateId="id1" property="cust_Name" /></td>
 								<td nowrap="nowrap"><b:write iterateId="id1" property="oneCategory" /></td>
 								<td nowrap="nowrap"><b:write iterateId="id1" property="loanCategory" /></td>
-								<td nowrap="nowrap">
-								<b:write iterateId="id1" property="apply_bal" />
-								</td>
+								
 								<td nowrap="nowrap">
 								<d:write dictTypeId="PROCESS_MONEY" property="currency" iterateId="id1"/>
+								</td>
+								<td nowrap="nowrap">
+								<b:write iterateId="id1" property="apply_bal" />
 								</td>
 								<td nowrap="nowrap"><b:write iterateId="id1" property="currentActivityName" /></td>
 								<td nowrap="nowrap"><b:write iterateId="id1" property="currentAssingee" /></td>

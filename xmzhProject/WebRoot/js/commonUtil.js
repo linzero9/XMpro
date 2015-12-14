@@ -668,7 +668,7 @@ WEB.turnMainFrame=function(){
 						        	$.each(files,function( i,item ){
 						        		var addtimestr=item.addTime;
 						        		var addtime=addtimestr.substring(0,4)+"-"+addtimestr.substring(4,6)+"-"+addtimestr.substring(6,8)+"  "+addtimestr.substring(8,10)+":"+addtimestr.substring(10,12) +":"+addtimestr.substring(12,14);
-						        		mistake=mistake+"<tr><td>"+item.mistakeContent+"</td><td>"+item.punishBal+"</td><td>"+addtime+"</td></tr>";
+						        		mistake=mistake+"<tr><td>"+item.mistakeContent+"</td><td>"+item.punishBal+"元</td><td>"+addtime+"</td></tr>";
 						        	});
 						        	$("#mistake"+misTakeType).html(mistake);
 						        }  
