@@ -308,7 +308,7 @@ public class TProcessConfigAction extends BaseAction {
     	}
     	processConfig.setBusinessType("88");
     	processConfigs = tProcessConfigService.queryMyProcessListForGp(relationids,orgId,processConfig,this.getPage());
-    	return "my_process_list";
+    	return "my_process_gp_list";
     }
     
 }

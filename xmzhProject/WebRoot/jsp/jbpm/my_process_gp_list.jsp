@@ -10,7 +10,8 @@
 		<title>我的流程</title>
 	</head>
 	<body topmargin="0" leftmargin="0">
-	<h:form name="appQuery"	action="/jbpm/tProcessConfigAction_queryMyProcessList.action" method="post">
+	<h:form name="appQuery"	action="/jbpm/tProcessConfigAction_queryMyProcessListForGp.action" method="post">
+	<h:hidden id="businessType" property="processConfig.businessType" />
 		<w:panel id="panel1" title="我的流程">
 			<table align="center" border="0" width="100%" class="form_table">
 				<tr>
@@ -34,12 +35,13 @@
 			<w:panel id="panel" width="100%" title="查询结果">
 				<viewlist id="e2c61865-3b56-470d-bd42-fff792fb9493">
 				<h:form name="page_form"
-					action="/jbpm/tProcessConfigAction_queryMyProcessList.action" method="post">
+					action="/jbpm/tProcessConfigAction_queryMyProcessListForGp.action" method="post">
 					<h:hidden property="page.begin" />
 					<h:hidden property="page.length" />
 					<h:hidden property="page.count" />
 					<h:hidden property="page.isCount" />
 					<h:hiddendata property="processConfig.processName" />
+					<h:hiddendata property="processConfig.businessType" />
 					<table align="center" border="0" width="100%" class="EOS_table">
 						<tr>
 							<th align="center" nowrap="nowrap" width="5%">

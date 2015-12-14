@@ -99,6 +99,10 @@
         /jsp/jbpm/my_process_list.jsp
       </result>
       
+       <result name="my_process_gp_list">
+        /jsp/jbpm/my_process_gp_list.jsp
+      </result>
+      
         <result name="definitions" type="json">
 		   <param name="root">configs</param>
 	  </result>
