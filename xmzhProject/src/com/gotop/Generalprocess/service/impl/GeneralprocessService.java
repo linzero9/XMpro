@@ -601,20 +601,18 @@ public class GeneralprocessService implements IGeneralprocessService {
 		String orgcode=muo.getOrgcode();
 		String parentOrgId = this.isHaveParentOrgId(orgcode);
 		Omorganization om = null;
-		if(parentOrgId != null){
-			String empId = String.valueOf(muo.getEmpid());
+		String empId = String.valueOf(muo.getEmpid());
+		String[] positionIdArray = muo.getPositionId();
+		if(Arrays.asList(positionIdArray).contains("xdkhjl")){
 			map.put("empId", empId);
-			String[] positionIdArray = muo.getPositionId();
-			if(Arrays.asList(positionIdArray).contains("xdkhjl")){
-				generalprocessDtos=this.generalProcessDAO.myStartGeneralProcessList(map,page);
-			}else{
-				map.put("orgcode", orgcode);
-				generalprocessDtos=this.generalProcessDAO.queryGeneralprocessList(map,page);
-			}  
-			
-		}else{
+			generalprocessDtos=this.generalProcessDAO.myStartGeneralProcessList(map,page);
+		}else if(parentOrgId != null){
+		map.put("orgcode", orgcode);
+		generalprocessDtos=this.generalProcessDAO.queryGeneralprocessList(map,page);
+		}else {
 			generalprocessDtos=this.generalProcessDAO.queryGeneralprocessList(map,page);
 		}
+		
 		return generalprocessDtos;
 	}
 

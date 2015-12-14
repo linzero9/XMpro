@@ -62,7 +62,7 @@
                v.begin_orgid,
                v.cust_name,
                v.currency,
-               v.apply_bal,
+               v.apply_bal/10000 as apply_bal,
                v.onecategory,
                v.loancategory,
                v.support_category,
@@ -154,10 +154,10 @@
       		</isNotNull>
            <isNotNull prepend="and" property="isEnd" >
            	<isEqual property="isEnd" compareValue="0">
-           	    t1.NEXT_ACTIVITY_NAME!='结束'
+           	    t11.currentActivityName!='结束'
            	</isEqual>
            	<isEqual property="isEnd" compareValue="1">
-           	    t1.NEXT_ACTIVITY_NAME='结束'
+           	    t11.currentActivityName='结束'
            	</isEqual>
       		</isNotNull>
            <isNotNull prepend="and" property="creator" >

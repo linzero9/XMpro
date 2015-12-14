@@ -59,11 +59,8 @@
 					</td>
 					<td class="form_label" align="right">流程状态：</td>
 						<td colspan="1">
-							<select id="isEnd" name="generalprocessDto.isEnd" style="width:80px;">
-							<option value="">请选择</option>
-							<option value="0">审批中</option>
-							<option value="1">结束</option>
-							</select>
+						<d:select  id="isEnd"  dictTypeId="PROCESS_IsEnd" nullLabel="请选择" property="generalprocessDto.isEnd"></d:select>
+					
 						</td>
 				</tr>
 				
