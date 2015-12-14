@@ -177,7 +177,7 @@
 	     	<h:textarea property="modelOne.hanldOption" id="hanldOption"  extAttr="class='h80' "  validateAttr="maxLength=512;allowNull=ture" rows="4"  style="width:90%;" />
      	</td>
       </tr>
-      
+      <%@include file="/jsp/util/default_gp_opinionUtil.jsp" %>
       
       <tr class="form_bottom">
         <td colspan="4">

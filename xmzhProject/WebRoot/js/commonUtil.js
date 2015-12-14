@@ -501,6 +501,12 @@ WEB.turnMainFrame=function(){
 		}
 	}
 	
+	function showDefault_gp(){
+		if($("#default_op").text()!=null && "null"!=$("#default_op").text()){
+			$("#hanldOption").val($("#default_op").find('option:selected').text());
+		}
+	}
+	
 	function adddefault(){
 		var strUrl = "/opinion/tDefaultOpinionAction_queryViewList.action";
 		showModalCenter(strUrl,null,callbackUtil,800,450,'默认意见列表');

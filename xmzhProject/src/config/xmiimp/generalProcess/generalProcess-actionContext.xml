@@ -65,5 +65,6 @@
     <property name="tGeneralprocessModelsevenService" ref="tGeneralprocessModelsevenService" />
     <property name="generalprocessMainService" ref="tGeneralprocessMainService" />
     <property name="jbpmService" ref="jbpmService" />
+     <property name="tDefaultOpinionService" ref="tDefaultOpinionService" />
   </bean>
   </beans>

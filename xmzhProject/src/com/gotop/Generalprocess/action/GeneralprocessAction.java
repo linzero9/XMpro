@@ -62,7 +62,6 @@ public class GeneralprocessAction extends BaseAction {
 	 */
 	private List<TDefaultOpinion> defaultOps;
 	
-
 	/**
 	 * 
 	 * @author wsd

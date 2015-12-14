@@ -15,6 +15,8 @@ import com.gotop.Generalprocess.util.GeneralprocessUtil;
 import com.gotop.crm.util.BaseAction;
 import com.gotop.jbpm.dto.TaskAssgineeDto;
 import com.gotop.jbpm.service.JbpmService;
+import com.gotop.opinion.model.TDefaultOpinion;
+import com.gotop.opinion.service.ITDefaultOpinionService;
 import com.gotop.util.Struts2Utils;
 import com.gotop.vo.system.MUOUserSession;
 
@@ -24,6 +26,10 @@ public class TGeneralprocessModelsevenAction extends BaseAction {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	private List<TDefaultOpinion> defaultOps;
+	
+	private ITDefaultOpinionService tDefaultOpinionService;
+	
 	/**
 	 * 
 	 * @author wsd
@@ -52,6 +58,23 @@ public class TGeneralprocessModelsevenAction extends BaseAction {
 	 * @abatorgenerated
 	 */
 	protected ITGeneralprocessModelsevenService tGeneralprocessModelsevenService;
+
+	public List<TDefaultOpinion> getDefaultOps() {
+		return defaultOps;
+	}
+
+	public void setDefaultOps(List<TDefaultOpinion> defaultOps) {
+		this.defaultOps = defaultOps;
+	}
+
+	public ITDefaultOpinionService gettDefaultOpinionService() {
+		return tDefaultOpinionService;
+	}
+
+	public void settDefaultOpinionService(
+			ITDefaultOpinionService tDefaultOpinionService) {
+		this.tDefaultOpinionService = tDefaultOpinionService;
+	}
 
 	public ProcessModelSeven getModelSeven() {
 		return modelSeven;
@@ -206,9 +229,19 @@ public class TGeneralprocessModelsevenAction extends BaseAction {
 
 		String fxJson = JSONArray.fromObject(beans).toString();
 		taskAssgineeDto.setFxJson(fxJson);
+		queryDefault(); 
 		return "toModelSeven";
 	}
 
+	public void queryDefault() {
+		try {
+			defaultOps = tDefaultOpinionService.queryDefaultOpsForshow(this
+					.getCurrentOnlineUser().getEmpid());
+		} catch (Exception e) {
+			log.error("[获取默认意见失败]", e);
+			e.printStackTrace();
+		}
+	}
 	/**
 	 * 处理模式七节点,结束节点
 	 * 
