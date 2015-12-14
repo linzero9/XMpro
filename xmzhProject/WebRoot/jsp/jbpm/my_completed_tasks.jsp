@@ -125,6 +125,8 @@
 								class="<l:output oddOutput="EOS_table_row_o" evenOutput='EOS_table_row' />">
 								<td align="center" nowrap="nowrap"><w:rowRadio>
 										<h:param name='id' iterateId='id1' property='id' />
+										<h:param name='processName' iterateId='id1'
+											property='processName' />
 										<h:param name='executionId' iterateId='id1'
 											property='executionId' />
 										<h:param name='activityName' iterateId='id1'
@@ -350,6 +352,9 @@
 				var businessType = rows.getParam("businessType");
 				var activityName = rows.getParam("activityName");
 
+				var processName = rows.getParam("processName");
+				
+				
 				var strUrl = "/jbpm/jbpmDemoAction_viewBussinessDetail.action?isView="
 						+ 1
 						+ "&taskAssgineeDto.executionId="
@@ -359,7 +364,8 @@
 						+ "&taskAssgineeDto.preTaskId="
 						+ preTaskId
 						+ "&taskAssgineeDto.businessType=" + businessType
-						+ "&taskAssgineeDto.activityName=" + activityName;
+						+ "&taskAssgineeDto.activityName=" + activityName
+						+ "&taskAssgineeDto.processName=" + processName;
 				/**
 				 * 2014.9.1 改为弹出框
 				 **/
