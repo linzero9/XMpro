@@ -86,6 +86,10 @@
          <h:text property="modelOne.yxry" id="yxry" validateAttr="allowNull=ture" style="width:130px;" />	
         </td>
       	</tr>
+      	
+      
+      
+      	
        <tr>
      	<td class="form_label" align="right" style="width:120px;">客户姓名：</td>
      	<td>
@@ -97,6 +101,28 @@
 	     	 <h:text property="modelOne.coOrganization" id="coOrganization" validateAttr="allowNull=ture" style="width:130px;" />
      	</td>
       </tr>
+      
+      
+      <tr>
+      <td class="form_label" align="right" style="width:120px;">
+                                                   抵押物权属人名称：
+        </td>
+        <td colspan="1">
+
+          <h:text property="modelOne.dywx_Name" id="dywx_Name" validateAttr="allowNull=ture" style="width:130px;" />	
+
+        </td>
+        
+        <td class="form_label" align="right" style="width:120px;">
+                                                    调查时间：
+        </td>
+        <td colspan="1">
+        <div id="inputTime"> 
+	         <w:date  id="survey_Time" submitFormat="yyyy-MM-dd" format="yyyy-MM-dd" allowNull="false" property="modelOne.survey_Time"/>    <font style="color: red">*</font>	
+         </div>
+        </td>
+      </tr>
+      
        <tr>
         <td class="form_label" align="right" style="width:120px;">
                                                  申请金额：
@@ -133,25 +159,10 @@
          <font style="color: red">*</font>	
         </td>
       </tr>
-      <tr>
-      <td class="form_label" align="right" style="width:120px;">
-                                                   抵押物权属人名称：
-        </td>
-        <td colspan="1">
-
-          <h:text property="modelOne.dywx_Name" id="dywx_Name" validateAttr="allowNull=ture" style="width:130px;" />	
-
-        </td>
-        
-        <td class="form_label" align="right" style="width:120px;">
-                                                    调查时间：
-        </td>
-        <td colspan="1">
-        <div id="inputTime"> 
-	         <w:date  id="survey_Time" submitFormat="yyyy-MM-dd" format="yyyy-MM-dd" allowNull="false" property="modelOne.survey_Time"/>    <font style="color: red">*</font>	
-         </div>
-        </td>
-      </tr>
+      
+      
+      
+      
      
       <tr>
      	<td class="form_label" align="right">超限说明：</td>

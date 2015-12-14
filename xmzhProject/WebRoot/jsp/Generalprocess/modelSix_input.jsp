@@ -63,7 +63,7 @@
 							property="modelSix.custName"  />		<font id="custName_msg"  style="color: red">*</font>
 					</td>
 							<td class="form_label" align="right" style="width:20%;" >
-							是否抵押：
+							是否抵押
 					</td>
 					<td  colspan="3">
 					<div id="ismortgage">
@@ -99,7 +99,7 @@
 				</tr>
 				<tr>
 					<td class="form_label" align="right" style="width:20%;" >
-						公积金中心申请时间：</td>
+						公积金中心申请时间</td>
 					<td colspan="1">
 					
 					
@@ -107,7 +107,7 @@
 							
 <w:date  id="applicationTime" submitFormat="yyyy-MM-dd" format="yyyy-MM-dd" property="modelSix.applicationTime"/></td>
 					<td class="form_label" align="right"  style="width:20%;" >
-						公积金中心下达放款指标时间：</td>
+						公积金中心下达放款指标时间</td>
 					<td colspan="1">
 					
 			
@@ -119,7 +119,7 @@
 				</tr>
 				<tr>
 					<td class="form_label" align="right" style="width:20%;" >
-						支用类别：</td>
+						支用类别</td>
 					<td colspan="1">
 							
 						
@@ -148,7 +148,7 @@
 							
 										</td>
 							<td class="form_label" align="right" style="width:20%;" >
-							是否风险额度重检：
+							是否风险额度重检
 					</td>
 					<td  colspan="3">
 							<d:select  id="risk"  dictTypeId="PROCESS_QuotaCheck" property="modelSix.risk"  nullLabel="请选择"></d:select>
@@ -171,7 +171,7 @@
 
 
 				<tr>
-					<td class="form_label" align="right">处理意见：</td>
+					<td class="form_label" align="right">处理意见</td>
 					<td colspan="3"><h:textarea
 							property="modelSix.processingOpinion" id="processingOpinion"
 							extAttr="class='h80' "
@@ -186,7 +186,7 @@
 						onclick="doflowpic();" class="button" id="flowpic" /></td>
 				</tr>
 				<tr id="row2">
-					<td class="form_label" align="right">流 程 列 表：</td>
+					<td class="form_label" align="right">流 程 列 表</td>
 					<td colspan="3"><%@include
 							file="/jsp/util/opinionUtil_generalProcess.jsp"%>
 					</td>

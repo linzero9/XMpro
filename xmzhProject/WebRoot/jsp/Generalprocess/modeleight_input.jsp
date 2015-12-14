@@ -46,8 +46,8 @@
         		 ${taskName }
         </td>
       </tr>
-        <td    id= class="form_label" align="right" style="width:120px;">
-                                                    提交公积金中心时间：
+        <td    id= class="form_label" align="right" style="width:20%;">
+                                                    提交公积金中心时间
         </td>
         <td colspan="1">
         <div id="inputTime">
@@ -55,8 +55,8 @@
 	         <font   id="tjgjjsj_msg"   style="color: red">*</font>
          </div>  
         </td>
-        <td    class="form_label" align="right" style="width:120px;">
-                                                    公积金中心审批时间：
+        <td    class="form_label" align="right"   style="width:20%;">
+                                                    公积金中心审批时间
         </td>
         <td colspan="1">
         <div id="inputTime">
@@ -65,7 +65,7 @@
         </td>
       </tr>
       <tr>
-     	<td class="form_label" align="right" style="width:10%;">处理意见：</td>
+     	<td class="form_label" align="right" style="width:10%;">处理意见</td>
      	<td colspan="3">
 	     	<h:textarea  extAttr="class='h80' "  property="modelEight.opninion_content"  id="opninion_content" validateAttr="maxLength=512;" rows="4"  style="width:90%;" />
 		 
@@ -80,7 +80,7 @@
          </td>
       </tr>
      <tr id="row2">
-     <td class="form_label" align="right">流 程 列 表：</td>
+     <td class="form_label" align="right">流 程 列 表</td>
      <td colspan="3">
      <%@include file="/jsp/util/opinionUtil_generalProcess.jsp"%>
 	</td>
