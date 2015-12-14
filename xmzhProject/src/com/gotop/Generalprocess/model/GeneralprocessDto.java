@@ -198,6 +198,10 @@ public class GeneralprocessDto{
      * 当前节点名称
      */
     private String currentActivityName;
+    /**
+     * 流程名称
+     */
+    private String processName;
     
     /**
      * 当前处理人机构
@@ -550,6 +554,14 @@ public class GeneralprocessDto{
 
 	public void setMinoperaterDateEnd(String minoperaterDateEnd) {
 		this.minoperaterDateEnd = minoperaterDateEnd;
+	}
+
+	public String getProcessName() {
+		return processName;
+	}
+
+	public void setProcessName(String processName) {
+		this.processName = processName;
 	}
     
     

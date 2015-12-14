@@ -120,6 +120,11 @@
 					<w:date format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="minoperaterDateEnd" name="generalprocessDto.minoperaterDateEnd" 
 					property="generalprocessDto.minoperaterDateEnd" /></td> --%>
 					<td class="form_label" align="right" style="width:20%;" >
+						流程名称：</td>
+					<td colspan="1">
+						<h:text id="processName" property="generalprocessDto.processName"/>
+					</td>
+					<td class="form_label" align="right" style="width:20%;" >
 						支用类别：</td>
 					<td colspan="1">
 							
@@ -173,6 +178,7 @@
 				<h:hiddendata property="generalprocessDto.loanCategory" />
 				<h:hiddendata property="generalprocessDto.loanCategoryTxt" />
 				<h:hiddendata property="generalprocessDto.supportCategory" />
+				<h:hiddendata property="generalprocessDto.processName" />
 				<%-- <h:hiddendata property="generalprocessDto.minoperaterDateEnd" />
 				<h:hiddendata property="generalprocessDto.minoperaterDateStrat" /> --%>
 				<h:hidden property="page.begin" />
