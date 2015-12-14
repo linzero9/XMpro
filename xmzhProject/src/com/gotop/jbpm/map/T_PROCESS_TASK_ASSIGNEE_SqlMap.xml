@@ -451,7 +451,8 @@ select T1.ID,
            and t3.empid = t1.pre_task_assingee
            and t8.htask_ = t1.pre_task_id
         <isNotNull prepend="and" property="empId" >
-             T7.ASSIGNEE_= $empId$
+           <![CDATA[ and T7.ASSIGNEE_= $empId$
+           ]]>
       </isNotNull>
        <isNotNull prepend="and" property="preTaskAssingeeName" >
           T3.EMPNAME LIKE '%$preTaskAssingeeName$%'
@@ -594,7 +595,6 @@ FROM T_PROCESS_TASK_ASSIGNEE        T1,
             AND T1.PRE_TASK_ID=T8.HTASK_
               AND T7.DBID_=T8.HTASK_
               AND T1.EXECUTION_ID=T9.EXECUTION_ID
-             AND
       <!--  <isNotNull prepend="and" property="relationids" >
              T2.TASK_ASSIGNEE_ID IN ($relationids$)
       </isNotNull> -->
