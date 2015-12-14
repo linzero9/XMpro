@@ -212,6 +212,26 @@ public class ProcessModelFive extends ProcessModel  implements  Serializable{
      */
 	@GeneralprocessField(name="评级结论",type="text")
     private String pjJl;
+	
+	@GeneralprocessField(name="处理意见",type="text")
+	private  String optionNew;
+	
+	
+	
+	
+	
+
+	public String getOptionNew() {
+		return optionNew;
+	}
+
+	public void setOptionNew(String optionNew) {
+		this.optionNew = optionNew;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 
 	public String getAppWay() {
 		return appWay;

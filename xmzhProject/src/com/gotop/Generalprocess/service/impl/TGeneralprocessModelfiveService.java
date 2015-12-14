@@ -125,7 +125,7 @@ public class TGeneralprocessModelfiveService implements
 			this.tGeneralprocessModelfiveDAO.addModelFive(modelFive);
 		}
 
-		modelFive.setOpinion("");
+		modelFive.setOpinion(modelFive.getOptionNew());
 
 		// 获取流程实例id
 		if(taskAssgineeDto != null){

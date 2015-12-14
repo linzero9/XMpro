@@ -34,13 +34,14 @@
     <result column="YW_ED" property="ywEd" jdbcType="VARCHAR" />
     <result column="FLOW_ID" property="flowId" jdbcType="VARCHAR" />
     <result column="TASKNAME" property="taskName" jdbcType="VARCHAR" />
+        <result column="OPTION_NEW" property="optionNew" jdbcType="VARCHAR" />
   </resultMap>
   
   <select id="queryModelFive" parameterClass="java.util.HashMap" resultMap="processModelFive_Result">
   	select PROCESSMODELID, APP_WAY, POL_NO, MEETING_COUNT, VOTE_NO, APP_TIME, CON_MATTER,
       SX_APP_TIME, YQ_APP_TIME, DY_APP, DE_APP, HY_ZR_NAME, HY_WY_ONE, HY_WY_TWO, DS_MS_ONE,
       DS_MS_TWO, SH_ADDR, FX_TYPE, SP_TYPE, YBJ_NUM, HY_SY_JL, PJ_JL, FX_BB, FX_ED, SX_BB, SX_ED,
-      YW_BB, YW_ED, FLOW_ID, TASKNAME
+      YW_BB, YW_ED, FLOW_ID, TASKNAME,OPTION_NEW
     from T_GENERALPROCESS_MODELFIVE
      where 1=1
     <dynamic>
@@ -57,7 +58,7 @@
   select PROCESSMODELID, APP_WAY, POL_NO, MEETING_COUNT, VOTE_NO, APP_TIME, CON_MATTER,
       SX_APP_TIME, YQ_APP_TIME, DY_APP, DE_APP, HY_ZR_NAME, HY_WY_ONE, HY_WY_TWO, DS_MS_ONE,
       DS_MS_TWO, SH_ADDR, FX_TYPE, SP_TYPE, YBJ_NUM, HY_SY_JL, PJ_JL, FX_BB, FX_ED, SX_BB, SX_ED,
-      YW_BB, YW_ED, FLOW_ID, TASKNAME
+      YW_BB, YW_ED, FLOW_ID, TASKNAME,OPTION_NEW
     from T_GENERALPROCESS_MODELFIVE
     where PROCESSMODELID = #processModelId#
   </select>
@@ -69,14 +70,14 @@
    insert into T_GENERALPROCESS_MODELFIVE (PROCESSMODELID, APP_WAY, POL_NO, MEETING_COUNT, VOTE_NO,
       APP_TIME, CON_MATTER, SX_APP_TIME, YQ_APP_TIME, DY_APP, DE_APP, HY_ZR_NAME, HY_WY_ONE,
       HY_WY_TWO, DS_MS_ONE, DS_MS_TWO, SH_ADDR, FX_TYPE, SP_TYPE, YBJ_NUM, HY_SY_JL, PJ_JL, FX_BB,
-      FX_ED, SX_BB, SX_ED, YW_BB, YW_ED, FLOW_ID, TASKNAME)
+      FX_ED, SX_BB, SX_ED, YW_BB, YW_ED, FLOW_ID, TASKNAME,OPTION_NEW)
     values (#processModelId:DECIMAL:-9999#, #appWay:VARCHAR#, #polNo:VARCHAR#,
       #meetingCount:VARCHAR#, #voteNo:VARCHAR#, #appTime:VARCHAR#, #conMatter:VARCHAR#,
       #sxAppTime:VARCHAR#, #yqAppTime:VARCHAR#, #dyApp:VARCHAR#, #deApp:VARCHAR#,
       #hyZrName:VARCHAR#, #hyWyOne:VARCHAR#, #hyWyTwo:VARCHAR#, #dsMsOne:VARCHAR#,
       #dsMsTwo:VARCHAR#, #shAddr:VARCHAR#, #fxType:VARCHAR#, #spType:VARCHAR#, #ybjNum:VARCHAR#,
       #hySyJl:VARCHAR#, #pjJl:VARCHAR#, #fxBb:VARCHAR#, #fxEd:VARCHAR#, #sxBb:VARCHAR#,
-      #sxEd:VARCHAR#, #ywBb:VARCHAR#, #ywEd:VARCHAR#, #flowId:VARCHAR#, #taskName:VARCHAR#)
+      #sxEd:VARCHAR#, #ywBb:VARCHAR#, #ywEd:VARCHAR#, #flowId:VARCHAR#, #taskName:VARCHAR#,#optionNew:VARCHAR#)
   </insert>
   
   <update id="uptModelFive" parameterClass="com.gotop.Generalprocess.model.ProcessModelFive">
@@ -109,7 +110,8 @@
       YW_BB = #ywBb:VARCHAR#,
       YW_ED = #ywEd:VARCHAR#,
       FLOW_ID = #flowId:VARCHAR#,
-      TASKNAME = #taskName:VARCHAR#
+      TASKNAME = #taskName:VARCHAR#,
+      OPTION_NEW=#optionNew:VARCHAR#
     where PROCESSMODELID = #processModelId:DECIMAL#
   </update>
   
