@@ -106,11 +106,11 @@
 		  		var name = rows.getParam("taskName");
 		  		var isUpdate = $id("isUpdate").value;
 		  		 var strUrl = "";
-		  		if(isUpdate == "isUpdate"){
-		  			// strUrl = "/jbpm/jbpmDemoAction_toTaskConfigUpt.action?taskAssgineeDto.definitionId="+definitionId + "&taskAssgineeDto.taskName=" + name + "&taskAssgineeDto.isUpdate=" + isUpdate;
-				}else{
+		  	/* 	if(isUpdate == "isUpdate"){
+		  			 strUrl = "/jbpm/jbpmDemoAction_toTaskConfigUpt.action?taskAssgineeDto.definitionId="+definitionId + "&taskAssgineeDto.taskName=" + name + "&taskAssgineeDto.isUpdate=" + isUpdate;
+				}else{ */
 					 strUrl = "/jbpm/jbpmDemoAction_toTaskOtherNameConfig.action?taskAssgineeDto.definitionId="+definitionId + "&taskAssgineeDto.taskName=" + name +"&date="+new Date();
-				}
+				//}
 		  		strUrl = encodeURI(strUrl);
 		  		showModalCenter(strUrl, null,  null, 800, 300, '流程节点别名配置'); 
 			  	}
