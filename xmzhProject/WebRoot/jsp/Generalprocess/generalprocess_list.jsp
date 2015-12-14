@@ -103,13 +103,13 @@
 				<td class="form_label" align="right" width="20%">一级分类：</td>
 					<td colspan="1" width="30%">
 					<h:hidden id="oneCategory" property="generalprocessDto.oneCategory" />
-					<h:text id="oneCategoryTxt" property="generalprocessDto.oneCategoryTxt" readonly="ture"/>
+					<h:text id="oneCategoryTxt" property="generalprocessDto.oneCategoryTxt" readonly="true"/>
 					<a href="#" onclick="showoneCategory();">选择</a>
 					</td>
 					<td class="form_label" align="right" width="20%">贷种分类：</td>
 					<td colspan="1" width="30%">
 					<h:hidden id="loanCategory" property="generalprocessDto.loanCategory" />
-					<h:text id="loanCategoryTxt" property="generalprocessDto.loanCategoryTxt" readonly="ture"/>
+					<h:text id="loanCategoryTxt" property="generalprocessDto.loanCategoryTxt" readonly="true"/>
 					<a href="#" onclick="showloanCategory();">选择</a>
 					</td>
 				</tr>
