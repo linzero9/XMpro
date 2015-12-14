@@ -14,7 +14,7 @@ public class ProcessModelThree extends ProcessModel implements Serializable {
 	@GeneralprocessField(name="流程业务id",type="text",hidden=false)
 	private String flow_id;//流程的id
 	
-	@GeneralprocessField(name="意见内容",type="text")
+	@GeneralprocessField(name="处理意见",type="text")
 	private String opninion_content;
 	
 	@GeneralprocessField(name="是否加急",type="dic",dicname="ZHPT_ISURGENT")

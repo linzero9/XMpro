@@ -111,7 +111,7 @@ public class ProcessModelOne extends ProcessModel  implements  Serializable {
 	
 	
 	
-	@GeneralprocessField(name="处理意见",type="text",hidden=false)
+	@GeneralprocessField(name="处理意见",type="text")
 	private String    hanldOption;
 	
 	
