@@ -26,32 +26,7 @@
 							tools : {
 								save : {
 									onclick : function(data) {
-										console.log(data);
-										/* var dj;
-										try  {
-											dj = eval("("+data+")");
-											var s = dj.states;
-											var flag = true;
-											for(var key in s){
-												var type = s[key].type;
-												if("task" == type){
-													var text = s[key].text.text;
-													if(text == ''){
-														flag=false;
-														break;
-													}
-												}
-											}
-											
-											if(flag == false){
-												alert("流程图存在节点名称没有配置的情况,请配置对应节点的名称!");
-											}
-											
-										}catch(exception) {
-										    alert(exception);
-										} */
-										 
-										 
+										
 										 maskTop();
 										$.ajax({
 										      url: "/jbpm/jbpmCommonConfigAction_makeJbpm.action",
