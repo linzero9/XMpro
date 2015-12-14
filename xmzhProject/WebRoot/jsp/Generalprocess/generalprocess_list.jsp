@@ -534,9 +534,13 @@
 		}
 		function clears(){
 			$("#appTimeStrat_input").val("");
+			$("#appTimeStrat_hidden").val("");
 			$("#appTimeEnd_input").val("");
+			$("#appTimeEnd_hidden").val("");
 			$("#reporttimeStrat_input").val("");
+			$("#reporttimeStrat_hidden").val("");
 			$("#reporttimeEnd_input").val("");
+			$("#reporttimeEnd_hidden").val("");
 			$id("orgNameOne").value="";
 			$id("orgidOne").value="";
 			$id("orgCodeOne").value="";
