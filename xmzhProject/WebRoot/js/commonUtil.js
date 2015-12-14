@@ -581,6 +581,15 @@ WEB.turnMainFrame=function(){
 							        	   }
 				   					showpanelhtml=showpanelhtml+'<tr><td class="form_label" align="right" style="width:20%;">'+item.name+ '</td><td style="width:30%;">'+value1+'</td>';
 				   					index=index+1;
+					   				} else if (item.type=='money'){
+					   				 var value1;
+						        	   if(item.value==''||item.value==null||item.value==undefined){
+							        	   value1="";
+							        	   }else{
+								        	   value1=item.value;
+								        	   }
+					   					showpanelhtml=showpanelhtml+'<tr><td class="form_label" align="right" style="width:20%;">'+item.name+ '</td><td style="width:30%;">'+value1+'元</td>';
+					   					index=index+1;
 					   				}
 				           }else{
 				        	   if(item.type=='text'){
@@ -625,9 +634,18 @@ WEB.turnMainFrame=function(){
 								        	   }else{
 									        	   value1=item.value;
 									        	   }
-					   					showpanelhtml=showpanelhtml+'<tr><td class="form_label" align="right" style="width:20%;">'+item.name+ '</td><td style="width:30%;">'+value1+'</td></tr>ipconfig';
+					   					showpanelhtml=showpanelhtml+'<td class="form_label" align="right" style="width:20%;">'+item.name+ '</td><td style="width:30%;">'+value1+'</td></tr>';
 					   					index=index+1;
-						   				}
+						   				}else if (item.type=='money'){
+							   				 var value1;
+								        	   if(item.value==''||item.value==null||item.value==undefined){
+									        	   value1="";
+									        	   }else{
+										        	   value1=item.value;
+										        	   }
+							   					showpanelhtml=showpanelhtml+'<td class="form_label" align="right" style="width:20%;">'+item.name+ '</td><td style="width:30%;">'+value1+'元</td></tr>';
+							   					index=index+1;
+							   				}
 					           }
 		        	   }
 		           });
