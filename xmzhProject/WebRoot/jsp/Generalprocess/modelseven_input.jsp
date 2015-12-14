@@ -43,7 +43,7 @@
         </td>
       </tr>
       <tr>
-     	<td class="form_label" align="right" style="width:10%;">处理意见：</td>
+     	<td class="form_label" align="right" style="width:10%;">审批意见</td>
      	<td colspan="3">
 	     	<d:select id="handleOpn" property="modelSeven.handleOpn" dictTypeId="PROCESS_opn"  nullLabel="请选择"></d:select>
      	</td>
@@ -59,6 +59,14 @@
         	<h:text id="spJe" property="modelSeven.spJe"/>元
         </td>
       </tr>
+      <tr>
+					<td class="form_label" align="right">处理意见</td>
+					<td colspan="3"><h:textarea
+							property="modelSeven.optionNews" id="optionNews"
+							extAttr="class='h80' "
+							validateAttr="maxLength=512;allowNull=ture" rows="4"
+							style="width:90%;" /></td>
+				</tr>
     
       <tr class="form_bottom">
         <td colspan="4">
@@ -66,6 +74,11 @@
           <input type="button" value="查看流程" onclick="doflowpic();" class="button" id="flowpic" />
          </td>
       </tr>
+      
+      
+      	
+      
+      
      <tr id="row2">
      <td class="form_label" align="right">流 程 列 表：</td>
      <td colspan="3">

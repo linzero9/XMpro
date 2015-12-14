@@ -114,7 +114,7 @@ public class TGeneralprocessModelsevenService implements ITGeneralprocessModelse
 			this.tGeneralprocessModelsevenDAO.addModelSeven(modelSeven);
 		}
 
-		modelSeven.setOpinion("");
+		modelSeven.setOpinion(modelSeven.getOptionNews());
 		
 		if(taskAssgineeDto != null){
 		String executionId = taskAssgineeDto.getExecutionId();

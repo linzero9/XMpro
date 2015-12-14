@@ -17,7 +17,7 @@ public class ProcessModelSeven extends ProcessModel implements Serializable{
      * 处理意见,01-同意,02-有条件同意,03-退回,04-拒绝 .
      * @abatorgenerated
      */
-	@GeneralprocessField(name="处理意见",type="dic",dicname="PROCESS_opn")
+	@GeneralprocessField(name="审批意见",type="dic",dicname="PROCESS_opn")
     private String handleOpn;
 
     /**
@@ -33,8 +33,26 @@ public class ProcessModelSeven extends ProcessModel implements Serializable{
      */
     @GeneralprocessField(name="审批金额",type="money")
     private String spJe;
+    
+    
+    
+    
+    
+    @GeneralprocessField(name="处理意见",type="text")
+    private String optionNews;
+    
+    
+    
 
-    /**
+    public String getOptionNews() {
+		return optionNews;
+	}
+
+	public void setOptionNews(String optionNews) {
+		this.optionNews = optionNews;
+	}
+
+	/**
      * 流程实例id .
      * @abatorgenerated
      */

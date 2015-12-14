@@ -9,6 +9,7 @@
     <result column="HANDLE_OPN" property="handleOpn" jdbcType="VARCHAR" />
     <result column="SP_BB" property="spBb" jdbcType="VARCHAR" />
     <result column="SP_JE" property="spJe" jdbcType="VARCHAR" />
+        <result column="OPTION_NEW" property="optionNews" jdbcType="VARCHAR" />
   </resultMap>
   
    <update id="uptModelSeven" parameterClass="com.gotop.Generalprocess.model.ProcessModelSeven" >
@@ -17,13 +18,14 @@
     set 
       HANDLE_OPN = #handleOpn:VARCHAR#,
       SP_BB=#spBb:VARCHAR#,
-      SP_JE=#spJe:VARCHAR#
+      SP_JE=#spJe:VARCHAR#,
+      OPTION_NEW=#optionNews:VARCHAR#
     where PROCESSMODELID = #processModelId:DECIMAL#
   </update>
   
   <!--通过条件查询数据-->
    <select id="queryModelSeven" resultMap="processModelSeven_result" parameterClass="java.util.HashMap">
-    select PROCESSMODELID, FLOW_ID, TASKNAME,HANDLE_OPN,SP_BB,SP_JE
+    select PROCESSMODELID, FLOW_ID, TASKNAME,HANDLE_OPN,SP_BB,SP_JE,OPTION_NEW
     from T_GENERALPROCESS_MODELSEVEN
     where 1=1
     <dynamic>
@@ -38,7 +40,7 @@
   
    <!--通过主键查询一条数据-->
   <select id="queryModelSevenById" resultMap="processModelSeven_result" parameterClass="java.util.HashMap">
-    select PROCESSMODELID, FLOW_ID, TASKNAME,HANDLE_OPN,SP_BB,SP_JE
+    select PROCESSMODELID, FLOW_ID, TASKNAME,HANDLE_OPN,SP_BB,SP_JE,OPTION_NEW
     from T_GENERALPROCESS_MODELSEVEN
     where PROCESSMODELID = #processModelId#
   </select>
@@ -47,8 +49,8 @@
   	<selectKey resultClass="long" keyProperty="processModelId">
 		SELECT SEQ_T_GENERALPROCESS_MODELSEV.NEXTVAL AS VALUE FROM DUAL
 	</selectKey>
-  		 insert into T_GENERALPROCESS_MODELSEVEN (PROCESSMODELID, FLOW_ID, TASKNAME, HANDLE_OPN, SP_BB,SP_JE)
-   		 values (#processModelId:DECIMAL:-9999#, #flowId:VARCHAR#, #taskName:VARCHAR#,#handleOpn:VARCHAR#, #spBb:VARCHAR#, #spJe:VARCHAR#)
+  		 insert into T_GENERALPROCESS_MODELSEVEN (PROCESSMODELID, FLOW_ID, TASKNAME, HANDLE_OPN, SP_BB,SP_JE,OPTION_NEW)
+   		 values (#processModelId:DECIMAL:-9999#, #flowId:VARCHAR#, #taskName:VARCHAR#,#handleOpn:VARCHAR#, #spBb:VARCHAR#, #spJe:VARCHAR#,#optionNews:VARCHAR#)
   </insert>
   
 </sqlMap>
