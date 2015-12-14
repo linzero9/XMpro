@@ -193,8 +193,8 @@ function openNewEmpTreeCallBack(arg){//回调方法
  		if(!checkForm(frm)){
 			 return ;
 		 }
- 		
- 		var processName = $id("processName").value;
+ 		ajaxsubmitO();
+ 	/* 	var processName = $id("processName").value;
  		$.ajax({
 			 url: "/jbpm/tProcessConfigAction_isHaveProcessName.action",
 		      async: false,
@@ -206,10 +206,10 @@ function openNewEmpTreeCallBack(arg){//回调方法
 		    	  if (data.indexOf("true") >= 0) {
 		    		  alert("该流程名称的流程已经存在,如果要发布此流程，请修改流程名称!");
 		    	  }else if (data.indexOf("false") >= 0){
-		    		  ajaxsubmitO();
+		    		  
 		    	  }
 		      }
-		});
+		}); */
 	}
 
 	function ajaxsubmitO() {
