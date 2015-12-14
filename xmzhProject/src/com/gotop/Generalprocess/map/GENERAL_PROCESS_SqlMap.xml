@@ -196,6 +196,9 @@
            <isNotNull prepend="and" property="deCheck" >
            	v2.sc2='$deCheck$'
       		</isNotNull>
+           <isNotNull prepend="and" property="processName" >
+           t11.processName like '%'||'$processName$'||'%'
+      		</isNotNull>
           <!--  <isNotNull prepend="and" property="minoperaterDateEnd" >
                <![CDATA[
             	 	t10.minoperater_date<='$minoperaterDateEnd$'

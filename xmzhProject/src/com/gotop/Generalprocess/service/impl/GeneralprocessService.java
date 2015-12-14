@@ -602,6 +602,9 @@ public class GeneralprocessService implements IGeneralprocessService {
 			if(generalprocessDto.getDeCheck()!=null && !"".equals(generalprocessDto.getDeCheck())){
 				map.put("deCheck", generalprocessDto.getDeCheck());
 			}
+			if(generalprocessDto.getProcessName()!=null && !"".equals(generalprocessDto.getProcessName())){
+				map.put("processName", generalprocessDto.getProcessName());
+			}
 		}
 		List<GeneralprocessDto> generalprocessDtos=null;
 		String orgcode=muo.getOrgcode();
