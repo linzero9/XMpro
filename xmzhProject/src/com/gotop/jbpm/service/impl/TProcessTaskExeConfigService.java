@@ -201,8 +201,14 @@ public class TProcessTaskExeConfigService implements ITProcessTaskExeConfigServi
 					}
 					//config.setBeforeName(activityDto.getBeforeName());
 					
-				}else{
-					
+				}if(judgeTaskNameConfig(definitionId, activityDto.getBeforeName(), activityDto.getDestinationName()).size() == 0){
+					TProcessTaskExeConfig config = new TProcessTaskExeConfig();
+						config.setBeforeName(activityDto.getBeforeName());
+						config.setDefinitionId(activityDto.getDefinitionId());
+						config.setActShowFlag(activityDto.getActShowName());
+						config.setActShowName(activityDto.getActShowName());
+						config.setActivityName(activityDto.getDestinationName());
+						this.tProcessTaskExeConfigDAO.insert1(config);
 				}
 			}
 			
