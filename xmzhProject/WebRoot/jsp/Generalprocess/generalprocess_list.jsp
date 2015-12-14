@@ -22,10 +22,10 @@
 					<td class="form_label" align="right" width="20%">审批时间：</td>
 					<td colspan="1" width="30%">
 					从
-					<w:date  format="yyyy-MM-dd" submitFormat="yyyy-MM-dd" id="d1" name="generalprocessDto.appTimeStrat" 
+					<w:date  format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="d1" name="generalprocessDto.appTimeStrat" 
 					property="generalprocessDto.appTimeStrat" /> 
 					到
-					<w:date format="yyyy-MM-dd" submitFormat="yyyy-MM-dd" id="d2" name="generalprocessDto.appTimeEnd" 
+					<w:date format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="d2" name="generalprocessDto.appTimeEnd" 
 					property="generalprocessDto.appTimeEnd" /></td>
 					<td class="form_label" align="right" width="20%">上报时间：</td>
 					<td colspan="1" width="30%">
@@ -119,7 +119,6 @@
 					<td colspan="1">
 							
 							<d:select  id="supportCategory"  dictTypeId="PROCESS_pay" property="generalprocessDto.supportCategory"   nullLabel="请选择"></d:select>
-							
 										</td>
 				</tr>
 				<%-- <tr>

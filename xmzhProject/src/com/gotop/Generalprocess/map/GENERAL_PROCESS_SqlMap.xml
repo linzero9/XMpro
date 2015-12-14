@@ -121,12 +121,16 @@
       		</isNotNull>
            <isNotNull prepend="and" property="appTimeStrat" >
            	<![CDATA[
-            	v.app_time>='$appTimeStrat$'
+           		T11.EXECUTION_ID in(select t12.flow_id from T_APPROVE_OPNINION_GP t12 where 
+           		t12.operator_type='提交发起合同预审' 
+           		and t12.operater_date>='$appTimeStrat$')
                ]]>
       		</isNotNull>
            <isNotNull prepend="and" property="appTimeEnd" >
            	<![CDATA[
-            	v.app_time<='$appTimeEnd$'
+            	T11.EXECUTION_ID in(select t12.flow_id from T_APPROVE_OPNINION_GP t12 where 
+           		t12.operator_type='提交发起合同预审' 
+           		and t12.operater_date<='$appTimeEnd$')
                ]]>
       		</isNotNull>
            <isNotNull prepend="and" property="reporttimeStrat" >
