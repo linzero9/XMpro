@@ -495,6 +495,37 @@ WEB.turnMainFrame=function(){
 		}
 	}
 	
+	function savedefault_gp(){
+		var opinion = $("#hanldOption").val();
+		var recId = $("#recId").val();
+		if(recId=='undefined' || recId == undefined){
+			recId = "";
+		}
+		if(opinion!=""){
+			$.ajax({
+		        url: '/opinion/tDefaultOpinionAction_saveOrUpdate.action',
+		        async: false,
+		        type: 'post',
+		        data: "opinion="+opinion+"&recId="+recId,
+		        dataType: 'json',
+		        timeout: 60000,
+		        success: function (data) {
+		        	if(data.indexOf("success")>=0){
+						  	alert("当前意见已保存!");
+						  	adddefault();
+					  		//reload();
+					  	//WEB.turnMainFrame();20140905改
+					  	}else if(data.indexOf("fails")>=0){
+						  	alert("操作失败!");
+					  	}else{	 
+					  	    alert("操作失败!"); 
+					  	}
+		        }
+	      });
+		}else{
+			alert('请先填写意见');
+		}
+	}
 	function showDefault(){
 		if($("#default_op").text()!=null && "null"!=$("#default_op").text()){
 			$("#opinion").val($("#default_op").find('option:selected').text());

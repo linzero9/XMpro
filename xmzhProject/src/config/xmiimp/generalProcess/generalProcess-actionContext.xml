@@ -24,6 +24,7 @@
     <property name="generalprocessModeloneService" ref="generalprocessModeloneService" />
   	<property name="generalprocessMainService" ref="tGeneralprocessMainService" />
   	 <property name="jbpmService" ref="jbpmService" />
+  	 <property name="tDefaultOpinionService" ref="tDefaultOpinionService" />
   </bean>
   
   <bean class="com.gotop.Generalprocess.action.TGeneralprocessCdtypeAction" id="tGeneralprocessCdtypeaction" name="tGeneralprocessCdtypeAction" singleton="false">
@@ -34,6 +35,7 @@
     <property name="tGeneralprocessModelfourService" ref="tGeneralprocessModelfourService" />
     <property name="generalprocessMainService" ref="tGeneralprocessMainService" />
     <property name="jbpmService" ref="jbpmService" />
+    <property name="tDefaultOpinionService" ref="tDefaultOpinionService" />
   </bean>
   
   
@@ -42,19 +44,21 @@
     <property name="tGeneralprocessModelsixService" ref="tGeneralprocessModelsixService" />
         <property name="generalprocessMainService" ref="tGeneralprocessMainService" />
             <property name="jbpmService" ref="jbpmService" />
+            <property name="tDefaultOpinionService" ref="tDefaultOpinionService" />
   </bean>
   
   <bean class="com.gotop.Generalprocess.action.TGeneralprocessModelfiveAction" id="tGeneralprocessModelfiveaction" name="tGeneralprocessModelfiveAction" singleton="false">
     <property name="tGeneralprocessModelfiveService" ref="tGeneralprocessModelfiveService" />
     <property name="generalprocessMainService" ref="tGeneralprocessMainService" />
     <property name="jbpmService" ref="jbpmService" />
+    <property name="tDefaultOpinionService" ref="tDefaultOpinionService" />
   </bean>
   
   <bean class="com.gotop.Generalprocess.action.TGeneralprocessModeleightAction" id="tGeneralprocessModeleightaction" name="tGeneralprocessModeleightAction" singleton="false">
     <property name="tGeneralprocessModeleigthService" ref="tGeneralprocessModeleightService" />
     <property name="generalprocessMainService" ref="tGeneralprocessMainService" />
     <property name="jbpmService" ref="jbpmService" />
-    
+    <property name="tDefaultOpinionService" ref="tDefaultOpinionService" />
        <property name="tApproveOpninionService" ref="tApproveOpninionService" />
     
     

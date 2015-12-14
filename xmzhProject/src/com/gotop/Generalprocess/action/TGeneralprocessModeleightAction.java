@@ -11,7 +11,9 @@ import com.gotop.crm.util.BaseAction;
 import com.gotop.crm.util.MUO;
 import com.gotop.jbpm.dto.TaskAssgineeDto;
 import com.gotop.jbpm.service.JbpmService;
+import com.gotop.opinion.model.TDefaultOpinion;
 import com.gotop.opinion.service.ITApproveOpninionService;
+import com.gotop.opinion.service.ITDefaultOpinionService;
 import com.gotop.util.Struts2Utils;
 import com.gotop.util.XmlConvert;
 import com.gotop.vo.system.MUOUserSession;
@@ -73,10 +75,31 @@ public class TGeneralprocessModeleightAction extends BaseAction {
 	 */
 	private ITGeneralprocessMainService generalprocessMainService;
 	
+	private List<TDefaultOpinion> defaultOps;
+	
+	private ITDefaultOpinionService tDefaultOpinionService;
+	
 	/**
 	 * isView :1、为只读状态， 默认为空
 	 */
 	private String isView;
+
+	public List<TDefaultOpinion> getDefaultOps() {
+		return defaultOps;
+	}
+
+	public void setDefaultOps(List<TDefaultOpinion> defaultOps) {
+		this.defaultOps = defaultOps;
+	}
+
+	public ITDefaultOpinionService gettDefaultOpinionService() {
+		return tDefaultOpinionService;
+	}
+
+	public void settDefaultOpinionService(
+			ITDefaultOpinionService tDefaultOpinionService) {
+		this.tDefaultOpinionService = tDefaultOpinionService;
+	}
 
 	public String getIsView() {
 		return isView;
@@ -260,7 +283,7 @@ public class TGeneralprocessModeleightAction extends BaseAction {
 
 			String fxJson = JSONArray.fromObject(beans).toString();
 			taskAssgineeDto.setFxJson(fxJson);
-
+			queryDefault(); 
 		} catch (Exception e) {
 			log.error("查询模式八表单信息失败", e);
 		}
@@ -268,6 +291,16 @@ public class TGeneralprocessModeleightAction extends BaseAction {
 		return "toModelEight";
 	}
 
+	public void queryDefault() {
+		try {
+			defaultOps = tDefaultOpinionService.queryDefaultOpsForshow(this
+					.getCurrentOnlineUser().getEmpid());
+		} catch (Exception e) {
+			log.error("[获取默认意见失败]", e);
+			e.printStackTrace();
+		}
+	}
+	
 	/**
 	 * 
 	 * @author yyx

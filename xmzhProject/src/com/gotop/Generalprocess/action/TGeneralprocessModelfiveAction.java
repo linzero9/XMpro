@@ -17,6 +17,8 @@ import com.gotop.Generalprocess.util.GeneralprocessUtil;
 import com.gotop.crm.util.BaseAction;
 import com.gotop.jbpm.dto.TaskAssgineeDto;
 import com.gotop.jbpm.service.JbpmService;
+import com.gotop.opinion.model.TDefaultOpinion;
+import com.gotop.opinion.service.ITDefaultOpinionService;
 import com.gotop.util.Struts2Utils;
 import com.gotop.vo.system.MUOUserSession;
 
@@ -61,6 +63,27 @@ public class TGeneralprocessModelfiveAction extends BaseAction {
 	 * jbpm服务
 	 */
 	private JbpmService jbpmService;
+	
+	private List<TDefaultOpinion> defaultOps;
+	
+	private ITDefaultOpinionService tDefaultOpinionService;
+	
+	public List<TDefaultOpinion> getDefaultOps() {
+		return defaultOps;
+	}
+
+	public void setDefaultOps(List<TDefaultOpinion> defaultOps) {
+		this.defaultOps = defaultOps;
+	}
+
+	public ITDefaultOpinionService gettDefaultOpinionService() {
+		return tDefaultOpinionService;
+	}
+
+	public void settDefaultOpinionService(
+			ITDefaultOpinionService tDefaultOpinionService) {
+		this.tDefaultOpinionService = tDefaultOpinionService;
+	}
 
 	public String getIsView() {
 		return isView;
@@ -229,9 +252,19 @@ public class TGeneralprocessModelfiveAction extends BaseAction {
 
 		String fxJson = JSONArray.fromObject(beans).toString();
 		taskAssgineeDto.setFxJson(fxJson);
+		queryDefault(); 
 		return "toModelFive";
 	}
 
+	public void queryDefault() {
+		try {
+			defaultOps = tDefaultOpinionService.queryDefaultOpsForshow(this
+					.getCurrentOnlineUser().getEmpid());
+		} catch (Exception e) {
+			log.error("[获取默认意见失败]", e);
+			e.printStackTrace();
+		}
+	}
 	/**
 	 * 
 	 * @author wsd

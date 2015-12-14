@@ -11,7 +11,7 @@
      			<h:option iterateId="defaultOps"  labelField="opinion" valueField="recId" />
      		</l:iterate>
      	</h:select>
-		<input type="button" class="button" value="保存意见" onclick="savedefault();" /><!-- &nbsp;&nbsp;
+		<input type="button" class="button" value="保存意见" onclick="savedefault_gp();" /><!-- &nbsp;&nbsp;
      	<input type="button" class="button" value="添加意见" onclick="adddefault();" /> -->
      	</td>
      	</tr>

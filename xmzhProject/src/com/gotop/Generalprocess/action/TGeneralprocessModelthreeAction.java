@@ -30,6 +30,7 @@ public class TGeneralprocessModelthreeAction extends BaseAction {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	
 	/**
 	 * 
 	 * @author wsd
@@ -279,11 +280,21 @@ public class TGeneralprocessModelthreeAction extends BaseAction {
 
 			String fxJson = JSONArray.fromObject(beans).toString();
 			taskAssgineeDto.setFxJson(fxJson);
-
+			queryDefault(); 
 		} catch (Exception e) {
 			log.error("查询模式三表单信息失败", e);
 		}
 		return "toModelthree";
+	}
+	
+	public void queryDefault() {
+		try {
+			defaultOps = tDefaultOpinionService.queryDefaultOpsForshow(this
+					.getCurrentOnlineUser().getEmpid());
+		} catch (Exception e) {
+			log.error("[获取默认意见失败]", e);
+			e.printStackTrace();
+		}
 	}
 
 	/**
