@@ -111,6 +111,14 @@
 					</td>
 				</tr>
 				<tr>
+					<%-- <td class="form_label" align="right" width="20%">发起时间：</td>
+					<td colspan="1" width="30%">
+					从
+					<w:date  format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="minoperaterDateStrat" name="generalprocessDto.minoperaterDateStrat" 
+					property="generalprocessDto.minoperaterDateStrat" /> 
+					到
+					<w:date format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="minoperaterDateEnd" name="generalprocessDto.minoperaterDateEnd" 
+					property="generalprocessDto.minoperaterDateEnd" /></td> --%>
 					<td class="form_label" align="right" style="width:20%;" >
 						支用类别：</td>
 					<td colspan="1">
@@ -165,6 +173,8 @@
 				<h:hiddendata property="generalprocessDto.loanCategory" />
 				<h:hiddendata property="generalprocessDto.loanCategoryTxt" />
 				<h:hiddendata property="generalprocessDto.supportCategory" />
+				<%-- <h:hiddendata property="generalprocessDto.minoperaterDateEnd" />
+				<h:hiddendata property="generalprocessDto.minoperaterDateStrat" /> --%>
 				<h:hidden property="page.begin" />
 				<h:hidden property="page.length" />
 				<h:hidden property="page.count" />
@@ -541,6 +551,10 @@
 			$("#reporttimeStrat_hidden").val("");
 			$("#reporttimeEnd_input").val("");
 			$("#reporttimeEnd_hidden").val("");
+/* 			$("#minoperaterDateStrat_input").val("");
+			$("#minoperaterDateStrat_hidden").val("");
+			$("#minoperaterDateEnd_input").val("");
+			$("#minoperaterDateEnd_hidden").val(""); */
 			$id("orgNameOne").value="";
 			$id("orgidOne").value="";
 			$id("orgCodeOne").value="";

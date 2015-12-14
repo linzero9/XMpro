@@ -110,7 +110,14 @@
       		</isNotNull>
            )
  where rn = 1
-) T11,V_APP_CONDITION V2,V_GENERALPROCESS_XD V,T_APPROVE_OPNINION_GP t10
+) T11,V_APP_CONDITION V2,V_GENERALPROCESS_XD V,<!--  (select minoperater_date,o1.flow_id,o1.operator_type,o1.operater_date,o1.next_org_name,o1.node_id
+  from t_approve_opninion_gp o1,
+      (select o.flow_id, min(o.operater_date) as minoperater_date
+         T_APPROVE_OPNINION_GP t10
+          from T_APPROVE_OPNINION_GP o
+         group by o.flow_id) o2
+         where o1.flow_id=o2.flow_id) t10 -->
+         T_APPROVE_OPNINION_GP t10
  WHERE T11.EXECUTION_ID=V2.execution_id(+)
  AND T11.EXECUTION_ID=V.flow_id(+) 
  and t10.flow_id=T11.EXECUTION_ID
@@ -189,6 +196,16 @@
            <isNotNull prepend="and" property="deCheck" >
            	v2.sc2='$deCheck$'
       		</isNotNull>
+          <!--  <isNotNull prepend="and" property="minoperaterDateEnd" >
+               <![CDATA[
+            	 	t10.minoperater_date<='$minoperaterDateEnd$'
+               ]]>
+      		</isNotNull>
+           <isNotNull prepend="and" property="minoperaterDateStrat" >
+           	<![CDATA[
+            	 	t10.minoperater_date>='$minoperaterDateStrat$'
+               ]]>
+      		</isNotNull> -->
   and (t10.node_id=t11.next_task_id or t10.operator_type='结束' )
   order by END_ desc
   	</select> 

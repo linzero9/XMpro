@@ -91,6 +91,12 @@ public class GeneralprocessDto{
 	private String orgCodeOne;
 	
 	/**
+	 * 流程发起时间
+	 */
+	private String minoperaterDateStrat;
+	private String minoperaterDateEnd;
+	
+	/**
 	 * 受理支行（二级选项）
 	*/
 	private String orgCodeTwo;
@@ -528,6 +534,22 @@ public class GeneralprocessDto{
 
 	public void setSupportCategory(String supportCategory) {
 		this.supportCategory = supportCategory;
+	}
+
+	public String getMinoperaterDateStrat() {
+		return minoperaterDateStrat;
+	}
+
+	public void setMinoperaterDateStrat(String minoperaterDateStrat) {
+		this.minoperaterDateStrat = minoperaterDateStrat;
+	}
+
+	public String getMinoperaterDateEnd() {
+		return minoperaterDateEnd;
+	}
+
+	public void setMinoperaterDateEnd(String minoperaterDateEnd) {
+		this.minoperaterDateEnd = minoperaterDateEnd;
 	}
     
     

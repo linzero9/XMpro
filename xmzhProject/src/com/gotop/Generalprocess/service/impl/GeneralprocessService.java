@@ -551,6 +551,12 @@ public class GeneralprocessService implements IGeneralprocessService {
 				}
 				map.put("loanCategory",loanCategory);
 			}
+			if(generalprocessDto.getMinoperaterDateStrat()!=null && !"".equals(generalprocessDto.getMinoperaterDateStrat())){
+				map.put("minoperaterDateStrat", generalprocessDto.getMinoperaterDateStrat());
+			}
+			if(generalprocessDto.getMinoperaterDateEnd()!=null && !"".equals(generalprocessDto.getMinoperaterDateEnd())){
+				map.put("minoperaterDateEnd", generalprocessDto.getMinoperaterDateEnd());
+			}
 			if(generalprocessDto.getAppTimeStrat()!=null && !"".equals(generalprocessDto.getAppTimeStrat())){
 				map.put("appTimeStrat", generalprocessDto.getAppTimeStrat());
 			}
@@ -602,10 +608,10 @@ public class GeneralprocessService implements IGeneralprocessService {
 		String parentOrgId = this.isHaveParentOrgId(orgcode);
 		Omorganization om = null;
 		String empId = String.valueOf(muo.getEmpid());
-		String[] positionIdArray = muo.getPositionId();
+		String[] positionIdArray = muo.getPosiCode();
 		if(Arrays.asList(positionIdArray).contains("xdkhjl")){
 			map.put("empId", empId);
-			generalprocessDtos=this.generalProcessDAO.myStartGeneralProcessList(map,page);
+			generalprocessDtos=this.generalProcessDAO.queryGeneralprocessList(map,page);
 		}else if(parentOrgId != null){
 		map.put("orgcode", orgcode);
 		generalprocessDtos=this.generalProcessDAO.queryGeneralprocessList(map,page);

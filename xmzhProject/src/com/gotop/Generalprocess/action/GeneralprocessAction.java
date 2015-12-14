@@ -61,6 +61,7 @@ public class GeneralprocessAction extends BaseAction {
 	 * 
 	 */
 	private List<TDefaultOpinion> defaultOps;
+	
 
 	/**
 	 * 
@@ -384,7 +385,7 @@ public class GeneralprocessAction extends BaseAction {
 		} catch (Exception e) {
 			log.error("查询模式一表单信息失败", e);
 		}
-		// queryDefault();
+		queryDefault(); 
 		return "toModelOne";
 	}
 
@@ -485,6 +486,7 @@ public class GeneralprocessAction extends BaseAction {
 
 		String fxJson = JSONArray.fromObject(beans).toString();
 		taskAssgineeDto.setFxJson(fxJson);
+		queryDefault();
 		return "toModelTwo";
 	}
 
