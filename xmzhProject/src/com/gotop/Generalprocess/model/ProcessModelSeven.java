@@ -31,7 +31,7 @@ public class ProcessModelSeven extends ProcessModel implements Serializable{
      * 审批金额 .
      * @abatorgenerated
      */
-    @GeneralprocessField(name="审批金额",type="text")
+    @GeneralprocessField(name="审批金额",type="money")
     private String spJe;
 
     /**

@@ -175,7 +175,7 @@ public class ProcessModelFive extends ProcessModel  implements  Serializable{
      * 风险额度,单位万元 .
      * @abatorgenerated
      */
-	@GeneralprocessField(name="风险额度",type="text")
+	@GeneralprocessField(name="风险额度",type="money")
     private String fxEd;
 
     /**
@@ -189,7 +189,7 @@ public class ProcessModelFive extends ProcessModel  implements  Serializable{
      * 授信额度,单位万元 .
      * @abatorgenerated
      */
-	@GeneralprocessField(name="授信额度",type="text")
+	@GeneralprocessField(name="授信额度",type="money")
     private String sxEd;
 
     /**
@@ -203,7 +203,7 @@ public class ProcessModelFive extends ProcessModel  implements  Serializable{
      * 业务额度,单位万元 .
      * @abatorgenerated
      */
-	@GeneralprocessField(name="业务额度",type="text")
+	@GeneralprocessField(name="业务额度",type="money")
     private String ywEd;
 	
 	 /**

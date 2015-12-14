@@ -74,7 +74,7 @@ public class ProcessModelSix  extends ProcessModel  implements  Serializable {
      * 支用金额 .
      * @abatorgenerated
      */
-	@GeneralprocessField(name="支用金额",type="text")
+	@GeneralprocessField(name="支用金额",type="money")
     private String supportMoney;
 	
 	
