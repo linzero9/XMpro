@@ -556,6 +556,8 @@
 			$id("deCheck").value="";
 			$id("oneCategory").value="";
 			$id("loanCategory").value="";
+			$id("oneCategoryTxt").value="";
+			$id("loanCategoryTxt").value="";
 			$id("supportCategory").value="";
 		}
 	</script>
