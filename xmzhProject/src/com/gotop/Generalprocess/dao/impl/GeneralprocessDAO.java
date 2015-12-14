@@ -52,7 +52,7 @@ public class GeneralprocessDAO extends SqlMapClientDao implements IGeneralproces
 			//list = (List<GeneralprocessDto>)queryForList("GENERAL_PROCESS_SqlMap.myStartGeneralProcessList", map,page);
 		}
 		else {
-			list = (List<GeneralprocessDto>)queryForList("GENERAL_PROCESS_SqlMap.myStartGeneralProcessList", map);
+			list = (List<GeneralprocessDto>)queryForList("GENERAL_PROCESS_SqlMap.queryGeneralprocessList", map);
 		}
 		return list;
 	}
