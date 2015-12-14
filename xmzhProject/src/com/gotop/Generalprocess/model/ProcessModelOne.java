@@ -63,6 +63,15 @@ public class ProcessModelOne extends ProcessModel  implements  Serializable {
 	@GeneralprocessField(name="营销人员",type="text")
 	private String  yxry;
 	
+	
+	
+	@GeneralprocessField(name="客户名称",type="text")
+	private String   cust_Name;
+	@GeneralprocessField(name="抵押物权属人姓名",type="text")
+	private String   dywx_Name;
+	
+	
+	
 	@GeneralprocessField(name="申请币别",type="dic",dicname="PROCESS_MONEY")
 	private String  currency;
 	
@@ -75,8 +84,7 @@ public class ProcessModelOne extends ProcessModel  implements  Serializable {
 	@GeneralprocessField(name="贷种分类",type="text")
 	private String   loanCategory;
 	
-	@GeneralprocessField(name="抵押物权属人姓名",type="text")
-	private String   dywx_Name;
+
 	
 	@GeneralprocessField(name="合作机构",type="text")
 	private String   coOrganization;
@@ -87,8 +95,7 @@ public class ProcessModelOne extends ProcessModel  implements  Serializable {
 	@GeneralprocessField(name="超限说明",type="text")
 	private String  content;
 	
-	@GeneralprocessField(name="客户名称",type="text")
-	private String   cust_Name;
+
 	
 	
 	@GeneralprocessField(name="创建日期",type="text",hidden=false)
