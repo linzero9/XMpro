@@ -22,18 +22,18 @@
 					<td class="form_label" align="right" width="20%">审批时间：</td>
 					<td colspan="1" width="30%">
 					从
-					<w:date  format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="d1" name="generalprocessDto.appTimeStrat" 
+					<w:date  format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="appTimeStrat" name="generalprocessDto.appTimeStrat" 
 					property="generalprocessDto.appTimeStrat" /> 
 					到
-					<w:date format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="d2" name="generalprocessDto.appTimeEnd" 
+					<w:date format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="appTimeEnd" name="generalprocessDto.appTimeEnd" 
 					property="generalprocessDto.appTimeEnd" /></td>
 					<td class="form_label" align="right" width="20%">上报时间：</td>
 					<td colspan="1" width="30%">
 					从
-					<w:date format="yyyy-MM-dd" submitFormat="yyyy-MM-dd" id="d3" name="generalprocessDto.reporttimeStrat" 
+					<w:date format="yyyy-MM-dd" submitFormat="yyyy-MM-dd" id="reporttimeStrat" name="generalprocessDto.reporttimeStrat" 
 					property="generalprocessDto.reporttimeStrat" /> 
 					到
-					<w:date format="yyyy-MM-dd" submitFormat="yyyy-MM-dd" id="d4" name="generalprocessDto.reporttimeEnd" 
+					<w:date format="yyyy-MM-dd" submitFormat="yyyy-MM-dd" id="reporttimeEnd" name="generalprocessDto.reporttimeEnd" 
 					property="generalprocessDto.reporttimeEnd" />
 					</td>
 				</tr>
@@ -536,10 +536,10 @@
 			}
 		}
 		function clears(){
-			$id("d1").value="";
-			$id("d2").value="";
-			$id("d3").value="";
-			$id("d4").value="";
+			$("#appTimeStrat_input").val("");
+			$("#appTimeEnd_input").val("");
+			$("#reporttimeStrat_input").val("");
+			$("#reporttimeEnd_input").val("");
 			$id("orgNameOne").value="";
 			$id("orgidOne").value="";
 			$id("orgCodeOne").value="";
