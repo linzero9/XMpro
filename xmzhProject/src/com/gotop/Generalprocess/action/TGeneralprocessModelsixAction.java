@@ -208,15 +208,7 @@ public class TGeneralprocessModelsixAction extends BaseAction {
     				
     			}
     			
-    			
-    	
-    			
-    			
-    			
-    			
-    			
-    			
-    		
+
     			
     			List<List<GeneralprocessFieldBean>> beans = GeneralprocessUtil.returnAllObj(map);
     			
@@ -239,6 +231,8 @@ public class TGeneralprocessModelsixAction extends BaseAction {
     
     
       public  void  handleModelSix() throws Exception{
+    	  
+    	  
 
   		String info ="success";
       	MUOUserSession muo = getCurrentOnlineUser();

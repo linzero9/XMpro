@@ -44,6 +44,10 @@
 
 			<h:hidden id="beginAssingee" name="taskAssgineeDto.beginAssingee" property="taskAssgineeDto.beginAssingee"/>
 			<h:hidden id="beginOrg" name="taskAssgineeDto.beginOrg" property="taskAssgineeDto.beginOrg"/>
+			
+			<h:hidden id="yesOrNotRisk" name="modelSix.yesOrNotRisk" property="taskAssgineeDto.beginOrg"/>
+			
+			
 		
 			<table align="center" border="0" width="100%" class="form_table">
 				<tr>
@@ -285,7 +289,13 @@ $(function(){
 
 	    	     if( flag.mortgageTime==true&&flag.custName==true&&   flag.receiveTime==true){
 		    	     
-		    	     
+		    	    //把是否抵押    放入到隐藏域中 传到后台
+		    	    
+		    	    var  yesOrNotRisk = $("#ismortgage input[type='radio']:checked").val();
+
+		    	    
+		    	    
+		    	    $("#yesOrNotRisk").val(yesOrNotRisk);
 	    	     
 
 				

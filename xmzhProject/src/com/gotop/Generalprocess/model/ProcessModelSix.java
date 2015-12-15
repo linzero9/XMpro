@@ -117,6 +117,13 @@ public class ProcessModelSix  extends ProcessModel  implements  Serializable {
 	
 	
 	
+	
+	@GeneralprocessField(name="是否风险额度重检",type="text")
+	private  String yesOrNotRisk;
+	
+	
+	
+	
 
 	
 	
@@ -125,6 +132,14 @@ public class ProcessModelSix  extends ProcessModel  implements  Serializable {
 	
 	
 	
+
+	public String getYesOrNotRisk() {
+		return yesOrNotRisk;
+	}
+
+	public void setYesOrNotRisk(String yesOrNotRisk) {
+		this.yesOrNotRisk = yesOrNotRisk;
+	}
 
 	public String getCustName() {
 		return custName;
