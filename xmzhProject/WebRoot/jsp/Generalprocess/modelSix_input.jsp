@@ -120,13 +120,13 @@
 							</td>
 				</tr>
 				<tr id='notmodelOne'>
-					<td class="form_label" align="right" style="width:120px;">
+					<td class="form_label" align="right" style="width:20%;">
 			                                                 一级分类：
 			        </td>
 			        <td>
 			        	<h:text  id="oneCategory1"  readonly="true"  property=""/>
 			        </td>
-					<td class="form_label" align="right" style="width:120px;">
+					<td class="form_label" align="right" style="width:20%;">
 			                                                 贷种分类：
 			        </td>
 			        <td>
@@ -134,7 +134,7 @@
 			        </td>
 			        </tr>
 				<tr id='havemodelOne'>
-			        <td class="form_label" align="right" style="width:120px;">
+			        <td class="form_label" align="right" style="width:20%;">
 			                                                 一级分类：
 			        </td>
 			        <td colspan="1">
@@ -143,7 +143,7 @@
 			        <%--  <h:hidden id="oneCategory2" /> --%>
 			         <font style="color: red">*</font>	
 			        </td>
-			        <td class="form_label" align="right" style="width:120px;">
+			        <td class="form_label" align="right" style="width:20%;">
 			                                                   贷种分类：
 			        </td>
 			        <td colspan="1">
