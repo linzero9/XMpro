@@ -174,6 +174,7 @@ public class GeneralprocessDto{
     private String currentAssingeeOrgname;
     
     private String  supportCategory;
+    private String  supportCategoryTxt;
     /*****end******/
     /****页面查询字段 ****/
     
@@ -538,6 +539,14 @@ public class GeneralprocessDto{
 
 	public void setSupportCategory(String supportCategory) {
 		this.supportCategory = supportCategory;
+	}
+
+	public String getSupportCategoryTxt() {
+		return supportCategoryTxt;
+	}
+
+	public void setSupportCategoryTxt(String supportCategoryTxt) {
+		this.supportCategoryTxt = supportCategoryTxt;
 	}
 
 	public String getMinoperaterDateStrat() {
