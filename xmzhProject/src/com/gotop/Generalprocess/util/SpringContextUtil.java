@@ -5,7 +5,10 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
 	
-	
+	/**
+	 * @author WUJIAJUN
+	 * @desc  用于获取上下文的bean
+	 */
 	
 	public class SpringContextUtil implements ApplicationContextAware {  
 		  

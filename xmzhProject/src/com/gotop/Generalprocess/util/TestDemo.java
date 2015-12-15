@@ -1,6 +1,11 @@
 package com.gotop.Generalprocess.util;
 
 import java.util.ArrayList;
+
+/**
+ * @author wujiajun
+ * @desc  test
+ */
 import java.util.List;
 import java.util.Map;
 
