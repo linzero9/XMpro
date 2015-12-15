@@ -78,6 +78,14 @@ public class TGeneralprocessCdtypeAction extends BaseAction {
     	System.out.println(cdtypeJson);
     	return "loanCategoryDic";
     }
+    /**
+     * viewDataList说明.
+     * @abatorgenerated
+     */
+    public String supportCategoryDic() throws Exception {
+    	System.out.println(cdtypeJson);
+    	return "supportCategoryDic";
+    }
     
 
 	/**

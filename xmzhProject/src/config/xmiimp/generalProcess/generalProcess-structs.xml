@@ -46,6 +46,9 @@
       <result name="loanCategoryDic">
         /jsp/Generalprocess/showloanCategory.jsp
 	</result>
+      <result name="supportCategoryDic">
+        /jsp/Generalprocess/supportCategory.jsp
+	</result>
 	 <result name="ctlist" type="json">
 		   <param name="root">cdtypes</param>
 	  </result>

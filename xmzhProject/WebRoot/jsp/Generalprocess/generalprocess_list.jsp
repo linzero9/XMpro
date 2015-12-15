@@ -126,9 +126,13 @@
 					</td>
 					<td class="form_label" align="right" style="width:20%;" >
 						支用类别：</td>
-					<td colspan="1">
-							<d:checkbox perrow="12" id="supportCategory"  name="generalprocessDto.supportCategory" dictTypeId="PROCESS_pay" property="generalprocessDto.supportCategory"   seperator=", " />
-					</td>
+						<td colspan="1" width="30%">
+						<h:hidden id="supportCategory" property="generalprocessDto.supportCategory" />
+						<h:text id="supportCategoryTxt" property="generalprocessDto.supportCategoryTxt" readonly="true"/>
+						<a href="#" onclick="showsupportCategory();">选择</a>
+						</td>
+							<%-- <d:checkbox perrow="12" id="supportCategory"  name="generalprocessDto.supportCategory" dictTypeId="PROCESS_pay" property="generalprocessDto.supportCategory"   seperator=", " />
+					</td> --%>
 				</tr>
 				<%-- <tr>
 					<td colspan="4" class="form_label" align="center" nowrap="nowrap" width="100%">贷种分类</td>
@@ -177,6 +181,7 @@
 				<h:hiddendata property="generalprocessDto.loanCategory" />
 				<h:hiddendata property="generalprocessDto.loanCategoryTxt" />
 				<h:hiddendata property="generalprocessDto.supportCategory" />
+				<h:hiddendata property="generalprocessDto.supportCategoryTxt" />
 				<h:hiddendata property="generalprocessDto.processName" />
 				<%-- <h:hiddendata property="generalprocessDto.minoperaterDateEnd" />
 				<h:hiddendata property="generalprocessDto.minoperaterDateStrat" /> --%>
@@ -547,6 +552,19 @@
 			 document.getElementById("oneCategoryTxt").value = array[1];
 			}
 		}
+		function showsupportCategory() {
+			var supportCategory=document.getElementById("supportCategory").value;
+			strUrl ="/Generalprocess/tGeneralprocessCdtypeAction_supportCategoryDic.action?cdtypeJson="+supportCategory,
+			showModalCenter(strUrl,'',showsupportCategory_callback1 ,800,430,'支用类型'); 
+		} 
+		function showsupportCategory_callback1(args){
+			if(args!=''){
+			var array;
+			array = args.split(":");
+			 document.getElementById("supportCategory").value = array[0];
+			 document.getElementById("supportCategoryTxt").value = array[1];
+			}
+		}
 		function clears(){
 			$("#appTimeStrat_input").val("");
 			$("#appTimeStrat_hidden").val("");
@@ -579,6 +597,7 @@
 			$id("oneCategoryTxt").value="";
 			$id("loanCategoryTxt").value="";
 			$id("supportCategory").value="";
+			$id("supportCategoryTxt").value="";
 		}
 	</script>
 </body>
