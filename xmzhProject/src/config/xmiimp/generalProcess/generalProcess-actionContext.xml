@@ -43,6 +43,7 @@
     <bean class="com.gotop.Generalprocess.action.TGeneralprocessModelsixAction" id="tGeneralprocessModelsixaction" name="tGeneralprocessModelsixAction" singleton="false">
     <property name="tGeneralprocessModelsixService" ref="tGeneralprocessModelsixService" />
         <property name="generalprocessMainService" ref="tGeneralprocessMainService" />
+         <property name="generalprocessModeloneService" ref="generalprocessModeloneService" />
             <property name="jbpmService" ref="jbpmService" />
             <property name="tDefaultOpinionService" ref="tDefaultOpinionService" />
   </bean>

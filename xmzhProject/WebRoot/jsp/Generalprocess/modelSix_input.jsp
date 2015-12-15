@@ -30,6 +30,7 @@
 			<h:hidden id="templateFileIds"
 				property="taskAssgineeDto.templateFileIds" />
 			<h:hidden id="isC" name="isC" property="taskAssgineeDto/isC" />
+			<h:hidden id="isStrat" name="isStrat" property="isStrat" />
 			
 				<h:hidden id="startFlag" name="taskAssgineeDto.startFlag" property="taskAssgineeDto.startFlag" />
 			<h:hidden id="btnType" name="taskAssgineeDto.btnType" />
@@ -44,11 +45,8 @@
 
 			<h:hidden id="beginAssingee" name="taskAssgineeDto.beginAssingee" property="taskAssgineeDto.beginAssingee"/>
 			<h:hidden id="beginOrg" name="taskAssgineeDto.beginOrg" property="taskAssgineeDto.beginOrg"/>
-			
-			<h:hidden id="yesOrNotRisk" name="modelSix.yesOrNotRisk" property="taskAssgineeDto.beginOrg"/>
-			
-			
-		
+		 	<h:hidden property="modelSix.loanCategory" name="modelSix.loanCategory" id="loanCategory" />
+		 	<h:hidden property="modelSix.oneCategory" name="modelSix.oneCategory" id="oneCategory" />
 			<table align="center" border="0" width="100%" class="form_table">
 				<tr>
 					<td colspan="4"
@@ -121,6 +119,42 @@
 							
 							</td>
 				</tr>
+				<tr id='notmodelOne'>
+					<td class="form_label" align="right" style="width:120px;">
+			                                                 一级分类：
+			        </td>
+			        <td>
+			        	<h:text  id="oneCategory1"  readonly="true"/>
+			        </td>
+					<td class="form_label" align="right" style="width:120px;">
+			                                                 贷种分类：
+			        </td>
+			        <td>
+			        	<h:text  id="loanCategory1"  readonly="true"/>
+			        </td>
+			        </tr>
+				<tr id='havemodelOne'>
+			        <td class="form_label" align="right" style="width:120px;">
+			                                                 一级分类：
+			        </td>
+			        <td colspan="1">
+			        <select id="oneCategorys" onchange="changeoneCategory()"     >
+			         </select> 
+			        <%--  <h:hidden id="oneCategory2" /> --%>
+			         <font style="color: red">*</font>	
+			        </td>
+			        <td class="form_label" align="right" style="width:120px;">
+			                                                   贷种分类：
+			        </td>
+			        <td colspan="1">
+			         <%-- <h:text property="modelOne.loanCategory" id="loanCategory" validateAttr="allowNull=false" style="width:130px;" /> --%>
+			         <select    id="loanCategorys" onchange="changeloanCategory()" >
+			         </select> 
+			        <%-- <h:hidden id="loanCategory2" /> --%>
+			         <font style="color: red">*</font>	
+			        </td>
+			      	</tr>
+				
 				<tr>
 					<td class="form_label" align="right" style="width:20%;" >
 						支用类别</td>
@@ -220,7 +254,18 @@ $(function(){
 		$("#save1").hide();
 		$("#smit").hide();
 	}
-
+	if('${isStrat}'==0){
+		$("#notmodelOne").hide();
+		setOneSelect('${taskAssgineeDto.processName}');
+		 if('${modelSix.oneCategory}'!=""){
+			 $("#oneCategory").val('${modelSix.oneCategory}');
+			 var oneCategory='${modelSix.oneCategory}';
+			 setLcselect(oneCategory);
+		 }
+		}else{
+			$("#havemodelOne").hide();
+			$("#oneCategory1").val('${modelSix.oneCategory}');
+			}
 
 	
 });
@@ -240,6 +285,10 @@ $(function(){
 	//value 为2 	提交
 	function doSave(value) {
 		$("#btnType").val(value);
+		if('${isStrat}'!=0){
+			$("#oneCategory").val($("#oneCategory1").val);
+			$("#loanCategory").val($("#loanCategory1").val);
+			}
 		if (value != "1") {
 			if (checkForm($id("form1"))) {
 			
@@ -289,13 +338,7 @@ $(function(){
 
 	    	     if( flag.mortgageTime==true&&flag.custName==true&&   flag.receiveTime==true){
 		    	     
-		    	    //把是否抵押    放入到隐藏域中 传到后台
-		    	    
-		    	    var  yesOrNotRisk = $("#ismortgage input[type='radio']:checked").val();
-
-		    	    
-		    	    
-		    	    $("#yesOrNotRisk").val(yesOrNotRisk);
+		    	     
 	    	     
 
 				
@@ -368,6 +411,79 @@ $(function(){
 		$("#form1").ajaxSubmit(options);
 	}
 
+	function changeloanCategory(){
+		$("#loanCategory").val($('#loanCategorys option:selected').val());
+		}	
+	function changeoneCategory(){
+		$("#oneCategory").val($('#oneCategorys option:selected').val());
+		 setLcselect($("#oneCategory").val());
+		}	
+	function setLcselect(arg){
+		$("#loanCategorys").html("");
+		var processName='${taskAssgineeDto.processName}';
+		var selecthtml=$("#loanCategorys").html();
+		 $.ajax({
+		        url: "/Generalprocess/tGeneralprocessCdtypeAction_querycreditType.action?cdtype.firstClass="+encodeURI(arg)+"&cdtype.processName="+encodeURI(processName),
+		        async: false,
+		        type: 'post',
+		        data: "",
+		        dataType: 'json',
+		        success: function (json) {
+		        	if(json==""){
+		        	}else {
+		        		$.each(json,function(key,value){
+			        		selecthtml= selecthtml+"<option value="+value.creditType+">"+value.creditType+"</option>";
+			        		});
+		        	}
+			        }
+	    });	
+		    $("#loanCategorys").html(selecthtml);
+		    if($id("loanCategory").value==''){
+		    	$("#loanCategory").val($('#loanCategorys option:selected').val());
+			    }else{
+			    	var all_options = document.getElementById("loanCategorys").options;
+					for (i=0; i<all_options.length; i++){
+						if (all_options[i].value ==$id("loanCategory").value ) // 根据option标签的ID来进行判断 测试的代码这里是两个等号
+						{
+							all_options[i].selected = true;
+						}
+					}
+			    }
+	}
 
+	function setOneSelect(arg){
+		$("#oneCategorys").html("");
+		var selecthtml=$("#oneCategorys").html();
+		 $.ajax({
+		        url: "/Generalprocess/tGeneralprocessCdtypeAction_queryViewList.action?cdtype.processName="+encodeURI(arg),
+		        async: false,
+		        type: 'post',
+		        data: "",
+		        dataType: 'json',
+		        success: function (json) {
+		        	if(json==""){
+		        	}else {
+		        		$.each(json,function(key,value){
+			        		selecthtml= selecthtml+"<option value="+value.firstClass+">"+value.firstClass+"</option>";
+			        		});
+		        	}
+			        }
+	    });	
+		    $("#oneCategorys").html(selecthtml);
+		    if($id("oneCategory").value==''){
+		    	$("#oneCategory").val($('#oneCategorys option:selected').val());
+		    	 setLcselect($("#oneCategory").val());
+			    }else{
+			    	var all_options = document.getElementById("oneCategorys").options;
+					for (i=0; i<all_options.length; i++){
+						if (all_options[i].value ==$id("oneCategory").value ) // 根据option标签的ID来进行判断 测试的代码这里是两个等号
+						{
+							all_options[i].selected = true;
+						}
+					}
+					$("#oneCategory").val($('#oneCategorys option:selected').val());
+					 setLcselect($("#oneCategory").val());
+			    }
+	}
 </script>
 </html>

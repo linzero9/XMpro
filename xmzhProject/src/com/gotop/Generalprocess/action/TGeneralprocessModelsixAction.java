@@ -11,9 +11,12 @@ import net.sf.json.JSONArray;
 
 import com.gotop.Generalprocess.annonation.GeneralprocessFieldBean;
 import com.gotop.Generalprocess.model.ProcessModelFour;
+import com.gotop.Generalprocess.model.ProcessModelOne;
 import com.gotop.Generalprocess.model.ProcessModelSix;
 import com.gotop.Generalprocess.model.TGeneralprocessMain;
+import com.gotop.Generalprocess.service.ITGeneralprocessCdtypeService;
 import com.gotop.Generalprocess.service.ITGeneralprocessMainService;
+import com.gotop.Generalprocess.service.ITGeneralprocessModeloneService;
 import com.gotop.Generalprocess.service.ITGeneralprocessModelsixService;
 import com.gotop.Generalprocess.util.GeneralprocessUtil;
 import com.gotop.crm.util.BaseAction;
@@ -45,7 +48,8 @@ public class TGeneralprocessModelsixAction extends BaseAction {
 	
 	
 	private  List<String>  supportCategory;
-	
+
+	private  String isStrat;
 	
 	public List<String> getSupportCategory() {
 		return supportCategory;
@@ -55,6 +59,7 @@ public class TGeneralprocessModelsixAction extends BaseAction {
 	public void setSupportCategory(List<String> supportCategory) {
 		this.supportCategory = supportCategory;
 	}
+
 
 	/**
 	 * 模式对象
@@ -73,6 +78,11 @@ public class TGeneralprocessModelsixAction extends BaseAction {
 	 * jbpm服务
 	 */
 	private JbpmService jbpmService;
+	
+	/**
+	 * 模式一服务
+	 */
+	private ITGeneralprocessModeloneService generalprocessModeloneService;
 	
 	
 	/**
@@ -111,7 +121,30 @@ public class TGeneralprocessModelsixAction extends BaseAction {
     	
     			String businessId = taskAssgineeDto.getExecutionId();
     			
+    			if(businessId!=null){
+    				
+    				ProcessModelOne modelOne =new ProcessModelOne();
+    				modelOne.setFlow_Id(taskAssgineeDto.getExecutionId());
+    				ProcessModelOne modelOne1=generalprocessModeloneService.queryModelOne(modelOne);
+    				
+    				//是否有经过模式一 0：没有经过 		 1：有经过
+    				isStrat="0";
+    				if(modelOne1!=null)
+    				{
+    					modelSix.setOneCategory(modelOne1.getOneCategory());
+    					modelSix.setLoanCategory(modelOne1.getLoanCategory());
+    					isStrat="1";
+    				}
+    				
+    			}
+    			//获取模式一的一级分类以及贷种分类
     			taskName= taskAssgineeDto.getTaskName();
+    			
+    			
+    			//one   oooo
+    			
+    			
+    			//null
     			
     			//获取流程配置主表对象
     			TGeneralprocessMain main = this.generalprocessMainService.queryMainByBusinessId(businessId);
@@ -193,7 +226,6 @@ public class TGeneralprocessModelsixAction extends BaseAction {
     				modelSix.setCustName(taskAssgineeDto.getBusinessTitle().split("-")[1]);
     				
     			}
-    			
     			// 
     			//页面的支用类型！  显示的东西  更具 T_GENERALPROCESS_SIXCONFIG 的配置信息读取！
     			String seachName=  taskAssgineeDto.getProcessName();
@@ -208,7 +240,15 @@ public class TGeneralprocessModelsixAction extends BaseAction {
     				
     			}
     			
-
+    			
+    	
+    			
+    			
+    			
+    			
+    			
+    			
+    		
     			
     			List<List<GeneralprocessFieldBean>> beans = GeneralprocessUtil.returnAllObj(map);
     			
@@ -231,8 +271,6 @@ public class TGeneralprocessModelsixAction extends BaseAction {
     
     
       public  void  handleModelSix() throws Exception{
-    	  
-    	  
 
   		String info ="success";
       	MUOUserSession muo = getCurrentOnlineUser();
@@ -355,6 +393,28 @@ public class TGeneralprocessModelsixAction extends BaseAction {
 			ITDefaultOpinionService tDefaultOpinionService) {
 		this.tDefaultOpinionService = tDefaultOpinionService;
 	}
+
+
+	public ITGeneralprocessModeloneService getGeneralprocessModeloneService() {
+		return generalprocessModeloneService;
+	}
+
+
+	public void setGeneralprocessModeloneService(
+			ITGeneralprocessModeloneService generalprocessModeloneService) {
+		this.generalprocessModeloneService = generalprocessModeloneService;
+	}
+
+
+	public String getIsStrat() {
+		return isStrat;
+	}
+
+
+	public void setIsStrat(String isStrat) {
+		this.isStrat = isStrat;
+	}
+
     
     
     
