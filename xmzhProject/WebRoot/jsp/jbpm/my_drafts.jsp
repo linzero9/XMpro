@@ -70,6 +70,7 @@
 										<h:param name='executionId' iterateId='id1' property='executionId' />
 										<h:param name='taskId' iterateId='id1' property='taskId' />
 										<h:param name='businessType' iterateId='id1' property='businessType' />
+										<h:param name='processName' iterateId='id1' property='processName' />
 									</w:rowRadio>
 								</td>
 								<td nowrap="nowrap"> 
@@ -144,11 +145,13 @@
 		  		var executionId = rows.getParam("executionId");
 		  		var taskId = rows.getParam("taskId");
 		  		var businessType = rows.getParam("businessType");
+		  		var processName = rows.getParam("processName");
 		  		var strUrl = "/jbpm/jbpmDemoAction_handle.action?"+"&taskAssgineeDto.executionId=" + executionId +"&taskAssgineeDto.nextTaskId=" + taskId +"&taskAssgineeDto.businessType=" + businessType+"&taskAssgineeDto.preTaskAssingee="+'${sessionScope.login_user.empid}';
 		  		/* parent.window.frames["mainFrame"].location.href = encodeURI(strUrl); */	
 		  		/**
 				* 2014.9.1 改为弹出框
 				**/
+				strUrl+="&taskAssgineeDto.processName="+processName;
 		  		showModalCenter(encodeURI(strUrl), null, callBack, clientX*0.8, clientY*0.65, '草稿信息');
 			}
 			}
