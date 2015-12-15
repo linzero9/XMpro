@@ -121,23 +121,7 @@ public class TGeneralprocessModelsixAction extends BaseAction {
     	
     			String businessId = taskAssgineeDto.getExecutionId();
     			
-    			if(businessId!=null){
-    				
-    				ProcessModelOne modelOne =new ProcessModelOne();
-    				modelOne.setFlow_Id(taskAssgineeDto.getExecutionId());
-    				ProcessModelOne modelOne1=generalprocessModeloneService.queryModelOne(modelOne);
-    				
-    				//是否有经过模式一 0：没有经过 		 1：有经过
-    				isStrat="0";
-    				if(modelOne1!=null)
-    				{
-    					modelSix.setOneCategory(modelOne1.getOneCategory());
-    					modelSix.setLoanCategory(modelOne1.getLoanCategory());
-    					isStrat="1";
-    				}
-    				
-    			}
-    			//获取模式一的一级分类以及贷种分类
+    			
     			taskName= taskAssgineeDto.getTaskName();
     			
     			
@@ -220,6 +204,23 @@ public class TGeneralprocessModelsixAction extends BaseAction {
     			if(modelSix==null){
     				modelSix= new ProcessModelSix();
     			}
+    			if(businessId!=null){
+    				
+    				ProcessModelOne modelOne =new ProcessModelOne();
+    				modelOne.setFlow_Id(taskAssgineeDto.getExecutionId());
+    				ProcessModelOne modelOne1=generalprocessModeloneService.queryModelOne(modelOne);
+    				
+    				//是否有经过模式一 0：没有经过 		 1：有经过
+    				isStrat="0";
+    				if(modelOne1!=null)
+    				{
+    					modelSix.setOneCategory(modelOne1.getOneCategory());
+    					modelSix.setLoanCategory(modelOne1.getLoanCategory());
+    					isStrat="1";
+    				}
+    				
+    			}
+    			//获取模式一的一级分类以及贷种分类
     			
     			if((!"start".equals(taskAssgineeDto.getStartFlag()))&&(!"detial".equals(taskAssgineeDto.getStartFlag()))&&(taskAssgineeDto.getBusinessTitle()!=null)){
     				//不是第一次  才能set  custname

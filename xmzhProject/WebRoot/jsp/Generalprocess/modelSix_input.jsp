@@ -124,7 +124,7 @@
 			                                                 一级分类：
 			        </td>
 			        <td>
-			        	<h:text  id="oneCategory1"  readonly="true"/>
+			        	<h:text  id="oneCategory1"  readonly="true"  property=""/>
 			        </td>
 					<td class="form_label" align="right" style="width:120px;">
 			                                                 贷种分类：
@@ -265,6 +265,7 @@ $(function(){
 		}else{
 			$("#havemodelOne").hide();
 			$("#oneCategory1").val('${modelSix.oneCategory}');
+			$("#loanCategory1").val('${modelSix.loanCategory}');
 			}
 
 	
@@ -286,8 +287,8 @@ $(function(){
 	function doSave(value) {
 		$("#btnType").val(value);
 		if('${isStrat}'!=0){
-			$("#oneCategory").val($("#oneCategory1").val);
-			$("#loanCategory").val($("#loanCategory1").val);
+			$("#oneCategory").val($("#oneCategory1").val());
+			$("#loanCategory").val($("#loanCategory1").val());
 			}
 		if (value != "1") {
 			if (checkForm($id("form1"))) {
