@@ -101,8 +101,8 @@
       RISK = #risk:VARCHAR#,
       PROCESSING_OPINION = #processingOpinion:VARCHAR#,
       CUST_NAME=#custName:VARCHAR#,
-      SUPPORT_MONEYTYPE=#supportMoneyType:VARCHAR#
-      ONECATEGORY=#oneCategory:VARCHAR#
+      SUPPORT_MONEYTYPE=#supportMoneyType:VARCHAR#,
+      ONECATEGORY=#oneCategory:VARCHAR#,
       LOANCATEGORY=#loanCategory:VARCHAR#,
       YESORNOTRISK=#yesOrNotRisk:VARCHAR#
       
