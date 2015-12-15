@@ -73,18 +73,18 @@
 					</td>
 				</tr>
 				<tr>
-					<td class="form_label" align="right" width="20%">第一审查人：</td>
+					<td class="form_label" align="right" width="20%">第一审批人：</td>
 					<td colspan="1" width="30%"><h:text id="dyApp" property="generalprocessDto.dyApp" />
 					</td>
-					<td class="form_label" align="right" width="20%">第二审查人：</td>
+					<td class="form_label" align="right" width="20%">第二审批人：</td>
 					<td colspan="1" width="30%"><h:text id="deApp" property="generalprocessDto.deApp" />
 					</td>
 				</tr>
 				<tr>
-					<td class="form_label" align="right" width="20%">第一审批人：</td>
+					<td class="form_label" align="right" width="20%">第一审查人：</td>
 					<td colspan="1" width="30%"><h:text id="dyCheck" property="generalprocessDto.dyCheck" />
 					</td>
-					<td class="form_label" align="right" width="20%">第二审批人：</td>
+					<td class="form_label" align="right" width="20%">第二审查人：</td>
 					<td colspan="1" width="30%"><h:text id="deCheck" property="generalprocessDto.deCheck" />
 					</td>
 				</tr>
