@@ -181,14 +181,14 @@
 					<tr>
 						<td colspan="23" class="command_sort_area">
 							<div class="h3">
-
+<!--
 								<l:greaterThan property="page.count" targetValue="0"
 									compareType="number">
 								&nbsp; &nbsp;
 							<input type="button" class="button" value="回退"
 										onclick="handleTask();" />
 								</l:greaterThan>
-
+  -->
 								<l:greaterThan property="page.count" targetValue="0"
 									compareType="number">
 								&nbsp; &nbsp;
