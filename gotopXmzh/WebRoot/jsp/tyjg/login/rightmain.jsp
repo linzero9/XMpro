@@ -196,7 +196,7 @@
 								var tr="<table><tr id=tr>"; 
 								var td="";
 								td=td+"<td nowrap='nowrap' class='tc  h22 lh25 overh pl10 pr10 lineD_b'>"+dataObj[idx].processName+"</td>";
-								td=td+"<td nowrap='nowrap' class='tl  h22   lh25 overh pl10 pr10 lineD_b'><a href='javascript:void(0)' class='f1' onclick=\"javascript:viewBussinessDetail('"+dataObj[idx].processName+"','"+dataObj[idx].businessKey+"','"+dataObj[idx].nextTaskId+"','"+dataObj[idx].executionId+"','"+dataObj[idx].businessType+"','"+dataObj[idx].preTaskAssingee+"','"+dataObj[idx].assignee+"','"+dataObj[idx].processTaskAssigneeId+"','"+dataObj[idx].parentId+"','"+dataObj[idx].isChild+"')\"><div class='w400 slh'><nobr>"+dataObj[idx].businessTitle+"</nobr></div></a></td>";
+								td=td+"<td nowrap='nowrap' class='tl  h22   lh25 overh pl10 pr10 lineD_b'><a href='javascript:void(0)' class='f1' onclick=\"javascript:viewBussinessDetail('"+dataObj[idx].processName+"','"+dataObj[idx].businessKey+"','"+dataObj[idx].nextTaskId+"','"+dataObj[idx].executionId+"','"+dataObj[idx].businessType+"','"+dataObj[idx].preTaskAssingee+"','"+dataObj[idx].assignee+"','"+dataObj[idx].processTaskAssigneeId+"','"+dataObj[idx].parentId+"','"+dataObj[idx].isChild+"','"+dataObj[idx].businessTitle+"')\"><div class='w400 slh'><nobr>"+dataObj[idx].businessTitle+"</nobr></div></a></td>";
 								td=td+"<td nowrap='nowrap' class='tc  h22    lh25 overh pl10 pr10 lineD_b'>"+dataObj[idx].preTaskOrgName+"</td>";
 								td=td+"<td nowrap='nowrap' class='tc  h22    lh25 overh pl10 pr10 lineD_b'>"+dataObj[idx].preTaskAssingeeName+"</td>";
 								td=td+"<td nowrap='nowrap' class='tc  h22    lh25 overh pl10 pr10 lineD_b'>"+dataObj[idx].preTaskTime+"</td>";
@@ -245,7 +245,7 @@
 					 	$.each(dataObj,function(idx,item){
 								var tr="<table><tr id=tr>"; 
 								var td="";
-								td=td+"<td nowrap='nowrap' class='tl  h22   lh25 overh pl10 pr10 lineD_b'><a href='javascript:void(0)' class='f1' onclick=\"javascript:viewBussinessDetail('"+dataObj[idx].businessKey+"','"+dataObj[idx].nextTaskId+"','"+dataObj[idx].executionId+"','"+dataObj[idx].businessType+"','','"+dataObj[idx].assignee+"','"+dataObj[idx].processTaskAssigneeId+"','"+dataObj[idx].parentId+"','"+dataObj[idx].isChild+"')\"><div class='w200 slh'><nobr>"+dataObj[idx].businessTitle+"</nobr></div></a></td>";
+								td=td+"<td nowrap='nowrap' class='tl  h22   lh25 overh pl10 pr10 lineD_b'><a href='javascript:void(0)' class='f1' onclick=\"javascript:viewBussinessDetail('"+dataObj[idx].businessKey+"','"+dataObj[idx].nextTaskId+"','"+dataObj[idx].executionId+"','"+dataObj[idx].businessType+"','','"+dataObj[idx].assignee+"','"+dataObj[idx].processTaskAssigneeId+"','"+dataObj[idx].parentId+"','"+dataObj[idx].isChild+"','"+dataObj[idx].businessTitle+"')\"><div class='w200 slh'><nobr>"+dataObj[idx].businessTitle+"</nobr></div></a></td>";
 								td=td+"<td nowrap='nowrap' class='tc  h22    lh25 overh pl10 pr10 lineD_b'>"+dataObj[idx].preTaskTime+"</td>";
 								td=td+"</tr>";								
 								td=td+"</table>";
@@ -324,12 +324,12 @@
   /**
 	* 2014.9.1 改为弹出框'<b:write iterateId="ids" property="processTaskAssigneeId"/>'
 	**/
-  function viewBussinessDetail(processName,businessKey,nextTaskId,executionId,businessType,preTaskAssingee,assignee,processTaskAssigneeId,parentId,isChild){
+  function viewBussinessDetail(processName,businessKey,nextTaskId,executionId,businessType,preTaskAssingee,assignee,processTaskAssigneeId,parentId,isChild,businessTitle){
 	  var strUrl = "";
 	  if(businessKey == 'null'){
-		  strUrl = "/jbpm/jbpmDemoAction_handle.action?taskAssgineeDto.processName="+processName+"&taskAssgineeDto.nextTaskId="+nextTaskId+"&taskAssgineeDto.executionId="+executionId+"&taskAssgineeDto.businessType="+businessType+"&taskAssgineeDto.taskAssingee="+preTaskAssingee+"&taskAssgineeDto.preTaskAssingee="+assignee+"&taskAssgineeDto.processTaskAssigneeId="+processTaskAssigneeId+"&taskAssgineeDto.parentId="+parentId+"&taskAssgineeDto.isChild="+isChild;
+		  strUrl = "/jbpm/jbpmDemoAction_handle.action?taskAssgineeDto.businessTitle="+businessTitle+"&taskAssgineeDto.processName="+processName+"&taskAssgineeDto.nextTaskId="+nextTaskId+"&taskAssgineeDto.executionId="+executionId+"&taskAssgineeDto.businessType="+businessType+"&taskAssgineeDto.taskAssingee="+preTaskAssingee+"&taskAssgineeDto.preTaskAssingee="+assignee+"&taskAssgineeDto.processTaskAssigneeId="+processTaskAssigneeId+"&taskAssgineeDto.parentId="+parentId+"&taskAssgineeDto.isChild="+isChild;
 	  }else{
-		  strUrl = "/jbpm/jbpmDemoAction_handle.action?taskAssgineeDto.businessKey="+businessKey+"&taskAssgineeDto.processName="+processName+"&taskAssgineeDto.nextTaskId="+nextTaskId+"&taskAssgineeDto.executionId="+executionId+"&taskAssgineeDto.businessType="+businessType+"&taskAssgineeDto.taskAssingee="+preTaskAssingee+"&taskAssgineeDto.preTaskAssingee="+assignee+"&taskAssgineeDto.processTaskAssigneeId="+processTaskAssigneeId+"&taskAssgineeDto.parentId="+parentId+"&taskAssgineeDto.isChild="+isChild;
+		  strUrl = "/jbpm/jbpmDemoAction_handle.action?taskAssgineeDto.businessTitle="+businessTitle+"&taskAssgineeDto.businessKey="+businessKey+"&taskAssgineeDto.processName="+processName+"&taskAssgineeDto.nextTaskId="+nextTaskId+"&taskAssgineeDto.executionId="+executionId+"&taskAssgineeDto.businessType="+businessType+"&taskAssgineeDto.taskAssingee="+preTaskAssingee+"&taskAssgineeDto.preTaskAssingee="+assignee+"&taskAssgineeDto.processTaskAssigneeId="+processTaskAssigneeId+"&taskAssgineeDto.parentId="+parentId+"&taskAssgineeDto.isChild="+isChild;
 	  }
 	  showModalCenter(encodeURI(strUrl), null, callBack, clientX*0.8, clientY*0.65, '详情');
 	  }

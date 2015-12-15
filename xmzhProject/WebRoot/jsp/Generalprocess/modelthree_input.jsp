@@ -160,6 +160,12 @@
 	     	<h:textarea property="modelOne.content" id="content"  extAttr="class='h80' "  validateAttr="maxLength=512;" rows="4"  style="width:90%;" />
      	</td>
       </tr>
+      <tr>
+     	<td class="form_label" align="right">处理意见：</td>
+     	<td colspan="3">
+	     	<h:textarea property="modelOne.hanldOption" id="hanldOption1"  extAttr="class='h80' "  validateAttr="maxLength=512;allowNull=ture" rows="4"  style="width:90%;" />
+     	</td>
+      </tr>
     </table>
 	<table align="center" border="0" width="100%" class="form_table" >
        <tr>
@@ -184,7 +190,7 @@
       <tr>
      	<td class="form_label" align="right" style="width:10%;">处理意见：</td>
      	<td colspan="3">
-	     	<h:textarea  extAttr="class='h80' "  id="hanldOption" property="modelThree.opninion_content"  id="hanldOption" validateAttr="maxLength=512;" rows="4"  style="width:90%;" />
+	     	<h:textarea  extAttr="class='h80' "  id="hanldOption" property="modelThree.opninion_content"  validateAttr="maxLength=512;" rows="4"  style="width:90%;" />
      	</td>
       </tr>
     <%@include file="/jsp/util/default_gp_opinionUtil.jsp" %>
