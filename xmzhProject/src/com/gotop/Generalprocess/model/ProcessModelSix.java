@@ -77,7 +77,19 @@ public class ProcessModelSix  extends ProcessModel  implements  Serializable {
 	@GeneralprocessField(name="支用金额",type="money")
     private String supportMoney;
 	
+	 /**
+     * 一级分类.
+     * @author yyx
+     */
+	@GeneralprocessField(name="一级分类",type="text")
+	private String  oneCategory;
 	
+	 /**
+     * 贷种分类 .
+     * @author yyx
+     */
+	@GeneralprocessField(name="贷种分类",type="text")
+	private String   loanCategory;
 	
     /**
      * 支用类别 .
@@ -187,6 +199,22 @@ public class ProcessModelSix  extends ProcessModel  implements  Serializable {
 
 	public void setIssuedTime(String issuedTime) {
 		this.issuedTime = issuedTime;
+	}
+
+	public String getOneCategory() {
+		return oneCategory;
+	}
+
+	public void setOneCategory(String oneCategory) {
+		this.oneCategory = oneCategory;
+	}
+
+	public String getLoanCategory() {
+		return loanCategory;
+	}
+
+	public void setLoanCategory(String loanCategory) {
+		this.loanCategory = loanCategory;
 	}
 
 	public String getSupportCategory() {
