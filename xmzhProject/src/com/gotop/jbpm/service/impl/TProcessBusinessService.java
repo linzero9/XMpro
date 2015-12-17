@@ -13,6 +13,10 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
+/**
+ * @author gotop
+ *
+ */
 public class TProcessBusinessService implements ITProcessBusinessService {
     /**
      * 
@@ -158,6 +162,8 @@ public class TProcessBusinessService implements ITProcessBusinessService {
         return list;
     }
 
+   
+	
 	@Override
 	public TProcessBusiness queryProcessBusiness(String executionId,
 			Long processModelId) {

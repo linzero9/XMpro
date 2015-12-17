@@ -322,4 +322,9 @@ public interface JbpmService {
 	public List<Map<String, Object>> getEmpByBeginSjGxPosi(
 			TaskAssgineeDto taskAssgineeDto);
 
+	public List<TProcessBusiness> findProcessBusinesList(
+			TaskAssgineeDto taskAssgineeDto);
+
+	public void deleteBusinessByFlowId(TProcessBusiness tProcessBusiness);
+
 }

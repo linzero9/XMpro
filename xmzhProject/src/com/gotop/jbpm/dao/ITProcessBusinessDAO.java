@@ -162,4 +162,8 @@ public interface ITProcessBusinessDAO {
 
 	TProcessBusiness queryProcessBusiness(HashMap<String, Object> map);
 
+	List<TProcessBusiness> findProcessBusinessList(Map<String, Object> map);
+
+	void deleteBusinessByFlowId(Map<String, Object> map);
+
 }

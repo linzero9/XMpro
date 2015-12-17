@@ -1998,27 +1998,56 @@ public class JbpmDemoAction extends BaseAction {
 	 */
 	public String deleteDraft() throws Exception {
 		String executionId = this.taskAssgineeDto.getExecutionId();
-		TProcessBusiness processBusiness = jbpmService
-				.findProcessBusiness(taskAssgineeDto);
+		List<TProcessBusiness>  processBusinesseList=null;
+		
+		processBusinesseList=jbpmService
+				.findProcessBusinesList(taskAssgineeDto);
+		
+		/*TProcessBusiness processBusiness = jbpmService
+				.findProcessBusiness(taskAssgineeDto); */
 		String info = "success";
 		try {
-			if (processBusiness != null) {
-				// 调用服务拼接删除sql
-				// 删除业务数据
-				jbpmService.deleteBusiness(processBusiness);
-				// 删除附件
-				TProcessBusiness processBusinessFile = jbpmService
-						.findProcessBusinessFile(processBusiness);
-				if (processBusinessFile != null) {
-					File file = new File(processBusinessFile.getFilePath());
-					if (file.isFile()) {
-						file.delete();
+			if(processBusinesseList!=null){
+				TProcessBusiness processBusiness=processBusinesseList.get(0);
+				if(processBusinesseList.size()>1){
+					// 调用服务拼接删除sql
+					// 删除业务数据
+					for (int i = 0; i < processBusinesseList.size(); i++) {
+						jbpmService.deleteBusinessByFlowId(processBusinesseList.get(i));
 					}
-					jbpmService.deleteBusinessFile(processBusinessFile);
+					/*// 删除附件
+					TProcessBusiness processBusinessFile = jbpmService
+							.findProcessBusinessFile(processBusiness);
+					if (processBusinessFile != null) {
+						File file = new File(processBusinessFile.getFilePath());
+						if (file.isFile()) {
+							file.delete();
+						}
+						jbpmService.deleteBusinessFile(processBusinessFile);
+					}*/
+					processBusinessService.delete(processBusiness);
+					// 级联删除流程实例
+					jbpmService.deleteProcessInstancCascadeeById(executionId);
+					
+				}else{
+					// 调用服务拼接删除sql
+					// 删除业务数据
+					jbpmService.deleteBusiness(processBusiness);
+					// 删除附件
+					TProcessBusiness processBusinessFile = jbpmService
+							.findProcessBusinessFile(processBusiness);
+					if (processBusinessFile != null) {
+						File file = new File(processBusinessFile.getFilePath());
+						if (file.isFile()) {
+							file.delete();
+						}
+						jbpmService.deleteBusinessFile(processBusinessFile);
+					}
+					processBusinessService.delete(processBusiness);
+					// 级联删除流程实例
+					jbpmService.deleteProcessInstancCascadeeById(executionId);
+					
 				}
-				processBusinessService.delete(processBusiness);
-				// 级联删除流程实例
-				jbpmService.deleteProcessInstancCascadeeById(executionId);
 			}
 		} catch (Exception e) {
 			info = "fails";

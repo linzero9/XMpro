@@ -1590,4 +1590,24 @@ public class JbpmServiceImpl implements JbpmService{
 		map.put("posiId", taskAssgineeDto.getTaskExeAssginee());
 		return this.tProcessTaskExeConfigDAO.getEmpByBeginSjGxPosi(map);
 	}
+
+	@Override
+	public List<TProcessBusiness> findProcessBusinesList(
+			TaskAssgineeDto taskAssgineeDto) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("executionId", taskAssgineeDto.getExecutionId());
+		return this.tProcessBusinessDAO.findProcessBusinessList(map);
+
+	}
+
+	@Override
+	public void deleteBusinessByFlowId(TProcessBusiness tProcessBusiness) {
+		// TODO Auto-generated method stub
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("businessTable", tProcessBusiness.getBusinessTable());
+		map.put("businessColumn", tProcessBusiness.getBusinessColumn());
+		map.put("executionId", tProcessBusiness.getExecutionId());
+		this.tProcessBusinessDAO.deleteBusinessByFlowId(map);
+	
+	}
 }

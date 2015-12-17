@@ -308,4 +308,18 @@ public class TProcessBusinessDAO extends SqlMapClientDao implements ITProcessBus
 		return (TProcessBusiness) queryForObject("T_PROCESS_BUSINESS_SqlMap.queryProcessBusiness", map);
 	}
 
+	@Override
+	public List<TProcessBusiness> findProcessBusinessList(
+			Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		List<TProcessBusiness> list = queryForList("T_PROCESS_BUSINESS_SqlMap.findProcessBusiness", map);
+		return list;
+	}
+
+	@Override
+	public void deleteBusinessByFlowId(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		delete("T_PROCESS_BUSINESS_SqlMap.deleteBusinessByFlowId", map);
+	}
+
 }

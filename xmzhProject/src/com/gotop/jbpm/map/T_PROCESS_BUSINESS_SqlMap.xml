@@ -83,6 +83,11 @@
        delete from $businessTable$
     where $businessColumn$ = $businessKey$
   </delete>
+  <!-- 通过流程实例ID进行删除业务数据 -->
+  <delete id="deleteBusinessByFlowId" parameterClass="java.util.HashMap" >
+       delete from $businessTable$
+    where $businessColumn$ = '$executionId$'
+  </delete>
   
   <!-- 删除业务-查找业务附件 -->
  <select id="findProcessBusinessFile" resultMap="tProcessBusinessFile_HashMapResult"  resultClass="com.gotop.jbpm.model.TProcessBusiness">
