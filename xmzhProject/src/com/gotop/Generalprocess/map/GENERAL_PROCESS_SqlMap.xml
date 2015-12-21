@@ -209,7 +209,7 @@
             	 	t10.minoperater_date>='$minoperaterDateStrat$'
                ]]>
       		</isNotNull> -->
-  and (t10.node_id=t11.next_task_id or t10.operator_type='结束' )
+  and (t10.node_id=t11.next_task_id or t10.node_id is null )
   order by END_ desc
   	</select> 
   	

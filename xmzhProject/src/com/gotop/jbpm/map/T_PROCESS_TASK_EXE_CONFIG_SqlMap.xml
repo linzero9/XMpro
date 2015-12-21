@@ -438,6 +438,29 @@ and t3.orgid='$orgId$'
     </dynamic>
     where ID = #id:DECIMAL#
   </update>
+  <update id="abatorgenerated_updateByDfidAndaName" parameterClass="com.gotop.jbpm.model.TProcessTaskExeConfig" >
+    <!--通过通过实例ID更新部分字段，部分字段说明：：当字段为null时不更新，当字段值为''空值是更新为空值-->
+    update T_PROCESS_TASK_EXE_CONFIG
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="definitionId" >
+        DEFINITION_ID = #definitionId:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="activityName" >
+        ACTIVITY_NAME = #activityName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="taskAssId" >
+        TASK_ASS_ID = #taskAssId:DECIMAL:-9999#
+      </isNotNull>
+      <isNotNull prepend="," property="taskAssType" >
+        TASK_ASS_TYPE = #taskAssType:VARCHAR#
+      </isNotNull>
+       <isNotNull prepend="," property="isRecordSubmit" >
+        IS_RECORD_SUBMIT = #isRecordSubmit:VARCHAR#
+      </isNotNull>
+    </dynamic>
+    where  DEFINITION_ID = #definitionId:VARCHAR# 
+    AND ACTIVITY_NAME = #activityName:VARCHAR#
+  </update>
   <select id="abatorgenerated_countByExample" parameterClass="com.gotop.jbpm.model.TProcessTaskExeConfigExample" resultClass="java.lang.Integer" >
     <!--通过查询实例，统计总数-->
     select count(*) from T_PROCESS_TASK_EXE_CONFIG

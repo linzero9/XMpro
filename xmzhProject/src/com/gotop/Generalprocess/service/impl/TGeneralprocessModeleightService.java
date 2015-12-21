@@ -161,10 +161,11 @@ public class TGeneralprocessModeleightService implements ITGeneralprocessModelei
 		jbpmService.saceTaskAssignee(newDto);
 
 		String submitType = "";
+		submitType = taskAssgineeDto.getTransitionName();
 		/**
 		 * submitType  操作类型
 		 */
-		if("结束".equals(taskAssgineeDto.getTargetName())){
+/*		if("结束".equals(taskAssgineeDto.getTargetName())){
 			//结束
 			submitType="08";
 		}else if("退回".equals(taskAssgineeDto.getTransitionName())){
@@ -173,7 +174,7 @@ public class TGeneralprocessModeleightService implements ITGeneralprocessModelei
 		}else{
 			//通过
 			submitType="01";
-		}
+		}*/
 		
 		this.generalprocessService.insertApproveOpninion(modelEight, muo, nextTaskId,
 				submitType, taskAssgineeDto);

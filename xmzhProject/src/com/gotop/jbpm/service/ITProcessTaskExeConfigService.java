@@ -86,4 +86,11 @@ public interface ITProcessTaskExeConfigService {
 
 	void saveTaskNameConfig(String definitionId, List<ActivityDto> updateList);
 
+	/**
+	 * @author yyx
+	 * @param tProcessTaskExeConfig
+	 * @creattime 2015-12-21上午12:00:18
+	 */
+	void updatebyDfidAndaName(TProcessTaskExeConfig tProcessTaskExeConfig);
+
 }

@@ -557,9 +557,12 @@ public class GeneralprocessAction extends BaseAction {
 	}
 	
 	
-	/**
-     * 信贷流程列表
-     * @throws Exception 
+
+    /**
+     * @author yyx
+     * @return 
+     * @throws Exception
+     * @creattime 2015-12-17下午5:29:45
      */
     public String queryGeneralprocessList() throws Exception{
     	

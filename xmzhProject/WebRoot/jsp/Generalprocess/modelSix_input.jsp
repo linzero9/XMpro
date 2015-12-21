@@ -68,11 +68,15 @@
 							是否抵押
 					</td>
 					<td  colspan="3">
-					<div id="ismortgage">
-						<label><input name="Fruit" type="radio" value="1"    />是</label> 
-                        <label><input name="Fruit" type="radio" value="2"  checked/>否 </label> 
+					<div id="ismortgage" >
+						<label><input name="Fruit" type="radio" value="1" />是</label> 
+                        <label><input name="Fruit" type="radio" value="2" />否 </label> 
                         </div>
+                        <h:hidden name="modelSix.yesOrNotRisk" property="modelSix.yesOrNotRisk" id="yesOrNotRisk"/>
+                       <%--  <d:radio dictTypeId="PROCESS_sixyesnot" name="modelSix.yesOrNotRisk" property="modelSix.yesOrNotRisk" id="ismortgage" /> --%>
 					</td>
+					
+					
 					
 				
 				
@@ -267,7 +271,12 @@ $(function(){
 			$("#oneCategory1").val('${modelSix.oneCategory}');
 			$("#loanCategory1").val('${modelSix.loanCategory}');
 			}
-
+	var ismortgage='${modelSix.yesOrNotRisk}';
+	if(ismortgage==null||ismortgage==""||ismortgage=="2"){
+		$("#ismortgage input[type='radio']").get(1).checked = true;
+		}else{
+			$("#ismortgage input[type='radio']").get(0).checked = true;
+			}
 	
 });
 	show('${taskAssgineeDto.fxJson}');
@@ -286,6 +295,7 @@ $(function(){
 	//value 为2 	提交
 	function doSave(value) {
 		$("#btnType").val(value);
+		$("#yesOrNotRisk").val($("#ismortgage input[type='radio']:checked").val());
 		if('${isStrat}'!=0){
 			$("#oneCategory").val($("#oneCategory1").val());
 			$("#loanCategory").val($("#loanCategory1").val());

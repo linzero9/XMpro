@@ -1869,7 +1869,7 @@ public class JbpmDemoAction extends BaseAction {
 		}
 		try {
 			if (taskAssgineeDto.getBusinessKey() != null) {
-				this.processTaskExeConfigService.update(tProcessTaskExeConfig);
+				this.processTaskExeConfigService.updatebyDfidAndaName(tProcessTaskExeConfig);
 			} else {
 				this.processTaskExeConfigService.insert(tProcessTaskExeConfig);
 			}
@@ -2009,7 +2009,8 @@ public class JbpmDemoAction extends BaseAction {
 		try {
 			if(processBusinesseList!=null){
 				TProcessBusiness processBusiness=processBusinesseList.get(0);
-				if(processBusinesseList.size()>1){
+				if(processBusinesseList.size()>1){//判断业务配置表中是配置一个表还是多个表
+					//业务配置多个表（即通用流程类型需要通过流程实例ID分别对这几个表进行删除）
 					// 调用服务拼接删除sql
 					// 删除业务数据
 					for (int i = 0; i < processBusinesseList.size(); i++) {

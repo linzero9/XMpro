@@ -227,4 +227,14 @@ public class TProcessTaskExeConfigService implements ITProcessTaskExeConfigServi
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see com.gotop.jbpm.service.ITProcessTaskExeConfigService#updatebyDfidAndaName(com.gotop.jbpm.model.TProcessTaskExeConfig)
+	 */
+	@Override
+	public void updatebyDfidAndaName(TProcessTaskExeConfig tProcessTaskExeConfig) {
+		// TODO Auto-generated method stub
+        this.tProcessTaskExeConfigDAO.updateByByDfidAndaName(tProcessTaskExeConfig);
+
+	}
+
 }

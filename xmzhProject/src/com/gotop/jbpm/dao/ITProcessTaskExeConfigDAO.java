@@ -184,4 +184,12 @@ public interface ITProcessTaskExeConfigDAO {
 	List<Map<String, Object>> getEmpByBeginSjPosi(Map<String, Object> map);
 
 	List<Map<String, Object>> getEmpByBeginSjGxPosi(Map<String, Object> map);
+
+	/**
+	 * @author yyx
+	 * @param tProcessTaskExeConfig
+	 * @return 
+	 * @creattime 2015-12-21上午12:01:39
+	 */
+	int updateByByDfidAndaName(TProcessTaskExeConfig tProcessTaskExeConfig);
 }

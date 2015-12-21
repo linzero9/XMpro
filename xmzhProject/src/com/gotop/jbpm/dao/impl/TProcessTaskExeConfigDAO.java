@@ -360,4 +360,15 @@ public class TProcessTaskExeConfigDAO extends SqlMapClientDao implements ITProce
 		List list = queryForList("T_PROCESS_TASK_EXE_CONFIG_SqlMap.getEmpByBeginSjGxPosi", map);
         return list;
 	}
+
+	/* (non-Javadoc)
+	 * @see com.gotop.jbpm.dao.ITProcessTaskExeConfigDAO#updateByByDfidAndaName(com.gotop.jbpm.model.TProcessTaskExeConfig)
+	 */
+	@Override
+	public int updateByByDfidAndaName(
+			TProcessTaskExeConfig tProcessTaskExeConfig) {
+		// TODO Auto-generated method stub
+		 int rows = getSqlMapClientTemplate().update("T_PROCESS_TASK_EXE_CONFIG_SqlMap.abatorgenerated_updateByDfidAndaName", tProcessTaskExeConfig);
+	        return rows;
+	}
 }
