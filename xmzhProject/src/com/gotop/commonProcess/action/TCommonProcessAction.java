@@ -32,7 +32,7 @@ import org.apache.struts2.ServletActionContext;
 
 public class TCommonProcessAction extends BaseAction {
     /**
-     * 通过spring注入的Service对象.
+     * 通过spring注入的Service对象.   test
      * @abatorgenerated
      */
     protected ITCommonProcessService tCommonProcessService;
