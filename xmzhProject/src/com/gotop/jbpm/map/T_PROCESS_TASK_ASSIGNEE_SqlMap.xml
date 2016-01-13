@@ -225,7 +225,10 @@ order by t2.create_ desc
        <isNotNull prepend="and" property="relationids" >
            	T2.TASK_ASSIGNEE_ID IN ($relationids$)
       </isNotNull>
-       <isNotNull prepend="and" property="preTaskAssingeeName" >
+       <isNotNull prepend="and" property="businessTitle" >
+          T8.BUSINESS_TITLE LIKE '%$businessTitle$%'
+      </isNotNull>
+      <isNotNull prepend="and" property="preTaskAssingeeName" >
           T3.EMPNAME LIKE '%$preTaskAssingeeName$%'
       </isNotNull>
        <isNotNull prepend="and" property="preTaskOrgName" >

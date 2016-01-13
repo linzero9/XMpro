@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 public class TProcessTaskAssigneeService implements ITProcessTaskAssigneeService {
@@ -187,6 +188,9 @@ public class TProcessTaskAssigneeService implements ITProcessTaskAssigneeService
 			}
 			if(taskAssignee.getBusinessType()!=null && !"".equals(taskAssignee.getBusinessType())){
 				map.put("businessType", taskAssignee.getBusinessType());
+			}
+			if( StringUtils.isNotBlank(taskAssignee.getBusinessTitle()) ){
+				map.put("businessTitle", taskAssignee.getBusinessTitle());
 			}
 		}
 		

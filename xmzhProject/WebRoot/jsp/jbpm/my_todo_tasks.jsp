@@ -34,6 +34,12 @@
 					到<w:date format="yyyy-MM-dd" submitFormat="yyyyMMdd" name="taskAssignee.preTaskTimeEndAfter" property="taskAssignee.preTaskTimeEndAfter" />
 					</td> --%>
 				</tr>
+				<tr>
+					<td class="form_label" align="right" width="20%">标题：</td>
+					<td width="30%">
+						<h:text id="taskAssignee.businessTitle" property="taskAssignee.businessTitle" />
+					</td>
+				</tr>
 				<tr class="form_bottom">
 						<td colspan="4" class="form_bottom">
 						    <b:message key="l_display_per_page"></b:message>
@@ -56,6 +62,7 @@
 				  <h:hiddendata property="taskAssignee.preTaskTimeStart"/>
 				   <h:hiddendata property="taskAssignee.preTaskTimeEnd"/>
 				    <h:hiddendata property="taskAssignee.businessType"/>
+				    <h:hiddendata property="taskAssignee.businessTitle"/>
             <h:hidden property="page.begin"/>
 		    <h:hidden property="page.length"/>
 		    <h:hidden property="page.count"/>
