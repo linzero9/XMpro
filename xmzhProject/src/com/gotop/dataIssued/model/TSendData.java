@@ -132,11 +132,24 @@ public class TSendData implements Serializable {
 	 */
 	private String sendName;
 	
+	
+	/*
+	 * 下发人员id
+	 */
+	private Long sendId;
+	
 	private String beginTime;
 	private String closeTime;
 	
-	
 
+
+	public Long getSendId() {
+		return sendId;
+	}
+
+	public void setSendId(Long sendId) {
+		this.sendId = sendId;
+	}
 
 	public String getSendName() {
 		return sendName;

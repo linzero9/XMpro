@@ -431,6 +431,15 @@ public class TSendDataAction extends BaseAction {
 			if(positionId.indexOf("'XXKJBR'")>-1)
 				sendData.setUserId(null);
 			sendDataList = sendDataService.queryIssuedByEmpId(this.getPage(),sendData);
+			
+			Long sendId;
+			for( TSendData e : sendDataList ){
+				sendId = e.getSendId();
+				if( !muo.getEmpid().equals(sendId) ){//非数据下发人
+					e.setUsername(muo.getEmpname());
+				}
+			}
+			
 		} catch (Exception e) {
 			log.error("[获取失败]", e);
 			throw e;

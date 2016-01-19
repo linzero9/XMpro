@@ -63,6 +63,7 @@
     <result column="IsDES" jdbcType="VARCHAR" property="isDes" />
     <result column="DESTIME" jdbcType="VARCHAR" property="desTime" />
     <result column="SENDNAME" jdbcType="VARCHAR" property="sendName" />
+    <result column="SENDID" jdbcType="DECIMAL" property="sendId" />
   </resultMap>
   
   <resultMap class="java.util.HashMap" id="abatorgenerated_TSendData_HashMapResult">
@@ -191,7 +192,7 @@
   	select DISTINCT s.DS_ID, s.S_EMP_ID, s.ORG_ID, s.FLOW_ID, s.DATA_SOURCE, s.DA_PRO, s.DATA_TYPE, s.RV_TYPE, s.DS_TITLE, s.DS_EXPL,
       s.TIME_LIMIT, s.CREATE_DATE, s.CREATE_TIME, s.DATA_USER,s.username USERNAME,
       r.DES_ID desId,r.isdes,r.orgname userOrg,r.des_date,r.emp_id userid,r.des_date destime,
-      l.empname SENDNAME
+      l.empname SENDNAME, l.empid SENDID 
     from T_SEND_DATA s,T_RANGE_USER r, om_employee e
    		, (select * from om_employee) l
     where 
