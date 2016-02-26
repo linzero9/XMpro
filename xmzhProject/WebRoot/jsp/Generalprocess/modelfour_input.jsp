@@ -162,6 +162,7 @@
 			 
 			 if('${modelFour.processModelId}'!=""){
 				 var tab,row,td,tdStr,rowId,fId,jeId
+				 rowId=0;
 		         var tab = $id("ccTable");
 				 var tab1 = $id("tabtest");
 				 var fName = "files";
@@ -193,6 +194,7 @@
 										row.id = "fileRow"+rowId;
 										td = row.insertCell();
 					         			tdStr="差错内容：<input type=\"text\" name=\""+fName+"\" id=\""+fId+"\" value=\""+item.mistakeContent+"\" size='70' validateAttr=\"allowNull=false\">";
+					         			tdStr+=row.id;
 									 	tdStr+="扣罚金额：<input type=\"text\" name=\""+jeName+"\" id=\""+jeId+"\" value=\""+item.punishBal+"\" size='10' validateAttr=\"allowNull=false\">元";
 									 	tdStr+= "<input type=\"button\" onclick=\"delTr('fileRow"+rowId+"');\" name='button"+rowId+"' value=\"删除\" style=\"margin-left:2px;vertical-align:middle;cursor:hand;\"/>";
 									 	td.innerHTML = tdStr;
