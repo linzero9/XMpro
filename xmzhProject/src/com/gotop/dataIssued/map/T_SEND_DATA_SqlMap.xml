@@ -64,6 +64,7 @@
     <result column="DESTIME" jdbcType="VARCHAR" property="desTime" />
     <result column="SENDNAME" jdbcType="VARCHAR" property="sendName" />
     <result column="SENDID" jdbcType="DECIMAL" property="sendId" />
+        <result column="EMPNAME" jdbcType="DECIMAL" property="empName" />
   </resultMap>
   
   <resultMap class="java.util.HashMap" id="abatorgenerated_TSendData_HashMapResult">
@@ -189,19 +190,20 @@
   </update>
   
   <select id="queryIssuedByEmpId" resultMap="Download_TSendDataResult" parameterClass="java.util.HashMap">
+  
+  SELECT  *  FROM  (
   	select DISTINCT s.DS_ID, s.S_EMP_ID, s.ORG_ID, s.FLOW_ID, s.DATA_SOURCE, s.DA_PRO, s.DATA_TYPE, s.RV_TYPE, s.DS_TITLE, s.DS_EXPL,
       s.TIME_LIMIT, s.CREATE_DATE, s.CREATE_TIME, s.DATA_USER,s.username USERNAME,
       r.DES_ID desId,r.isdes,r.orgname userOrg,r.des_date,r.emp_id userid,r.des_date destime,
-      l.empname SENDNAME, l.empid SENDID 
+      l.empname SENDNAME, l.empid SENDID , e.empname
     from T_SEND_DATA s,T_RANGE_USER r, om_employee e
    		, (select * from om_employee) l
     where 
      l.empid(+)=s.s_emp_id and
     s.DS_ID = r.RESOURCE_ID and r.RESOURCE_TYPE = '02' and 
    e.empid = r.emp_id
-   <isNotNull prepend="and" property="empid">
-    	r.EMP_ID = #empid#
-    </isNotNull>
+
+
     <isNotNull property="userOrg">
         <isNotEmpty prepend="and" property="userOrg">
     		r.orgname like '%$userOrg$%'
@@ -236,8 +238,18 @@
     	<isNotEmpty prepend="and" property="closeTime">
     		<![CDATA[s.CREATE_DATE <=#closeTime#]]>
     	</isNotEmpty>
-    </isNotNull>
-     order by r.isdes asc
+    </isNotNull>) WHERE     1=1
+    
+   <isNotNull prepend="and" property="empid">
+    	SENDID = #empid#
+    </isNotNull>  
+    
+       <isNotNull prepend="OR" property="empid">
+    	USERID = #empid#
+    </isNotNull>  
+    
+    
+     order by ds_Title ,ISDES asc
   </select>
   
   <select id="selectDesname" resultClass="java.util.HashMap">

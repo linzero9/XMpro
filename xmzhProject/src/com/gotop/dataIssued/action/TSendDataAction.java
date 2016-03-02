@@ -429,7 +429,8 @@ public class TSendDataAction extends BaseAction {
 		try {
 			String positionId  = Obj2StrUtils.join(muo.getPosiCode(), String.class, ",");
 			if(positionId.indexOf("'XXKJBR'")>-1)
-				sendData.setUserId(null);
+			{
+				sendData.setUserId(null);}
 			sendDataList = sendDataService.queryIssuedByEmpId(this.getPage(),sendData);
 			
 			Long sendId;
@@ -440,11 +441,13 @@ public class TSendDataAction extends BaseAction {
 				}
 			}
 			
+			
 		} catch (Exception e) {
 			log.error("[获取失败]", e);
 			throw e;
 		}
 		return "queryIssued";
+		
 	}
 	
 	public String downexl() throws Exception{

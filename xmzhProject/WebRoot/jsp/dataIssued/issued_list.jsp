@@ -111,7 +111,7 @@
 			  </td>
 			  <td style="text-align: center;width: 10%">
 			    <div style="padding:0px;overflow:hidden" nowrap>
-			    	<nobr><b:write iterateId="issued" property="username"/></nobr>
+			    	<nobr><b:write iterateId="issued" property="empName"/></nobr>
 			    </div>
 			  </td>
 			  <td style="text-align: center;width: 10%">
