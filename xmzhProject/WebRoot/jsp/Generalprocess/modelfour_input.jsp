@@ -81,7 +81,7 @@
      <tr id="row2">
      <td class="form_label" align="right">流 程 列 表：</td>
      <td colspan="3">
-     <%@include file="/jsp/util/opinionUtil_generalProcess.jsp"%>
+		     <%@include file="/jsp/util/opinionUtil_generalProcess.jsp"%>
 	</td>
      </tr>
     </table>
@@ -107,6 +107,7 @@
 			 
 			 if('${taskAssgineeDto.executionId}'!=""){
 				 var tab,row,td,tdStr,rowId,fId,jeId,atId,pfId,tnId,epId,flId
+				 rowId=0;
 		         var tab = $id("hiTable");
 				 var hiAddTime = "hiAddTime";
 				 var hiProFour = "hiProFour";
@@ -162,7 +163,7 @@
 			 
 			 if('${modelFour.processModelId}'!=""){
 				 var tab,row,td,tdStr,rowId,fId,jeId
-				 rowId=0;
+			 rowId=0;
 		         var tab = $id("ccTable");
 				 var tab1 = $id("tabtest");
 				 var fName = "files";

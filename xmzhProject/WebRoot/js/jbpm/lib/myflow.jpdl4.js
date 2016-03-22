@@ -95,9 +95,9 @@ $.extend(true,myflow.config.tools.states,{
 				img : {src : '/js/jbpm/img/48/task_empty.png',width :48, height:48},
 				props : {
 					text: {name:'text', label: '显示',value:'',editor: function(){return new myflow.editors.textEditor();}},
-					/*assignee: {name:'assignee', label: '', value:''},*/
-					form: {name:'form', label : '表单',value:'',editor: function(){return new myflow.editors.inputEditor();}}
-					/*desc: {name:'desc', label : '', value:''}*/
+					form: {name:'form', label : '表单',value:'',editor: function(){return new myflow.editors.inputEditor();}},
+					assignee: {name:'assignee', label: '', value:''},
+					desc: {name:'desc', label : '', value:''}
 				}},
 			    task1: {showType: 'text',type : 'task',
 				name : {text:'<<task>>'},
