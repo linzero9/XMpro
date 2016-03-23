@@ -1833,11 +1833,12 @@ public class JbpmDemoAction extends BaseAction {
 		} else {
 			tProcessTaskExeConfig.setIsRecordSubmit(isRecordSubmit);
 		}
-
+/*
 		if ("05".equals(taskConfigType)) {
 			// 起草人 -通用流程-默认记录提交人
 			tProcessTaskExeConfig.setIsRecordSubmit("1");
 		}
+		*/
 		tProcessTaskExeConfig.setTaskAssType(taskConfigType);
 		tProcessTaskExeConfig
 				.setDefinitionId(taskAssgineeDto.getDefinitionId());

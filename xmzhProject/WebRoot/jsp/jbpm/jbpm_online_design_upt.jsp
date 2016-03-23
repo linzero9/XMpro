@@ -5,7 +5,7 @@
 <script type="text/javascript" src="/js/jbpm/lib/jquery-ui-1.8.4.custom/js/jquery-1.4.2.min.js"></script>
 <script type="text/javascript" src="/js/jbpm/lib/jquery-ui-1.8.4.custom/js/jquery-ui-1.8.4.custom.min.js"></script>
 <script type="text/javascript" src="/js/jbpm/lib/myflow.js"></script>
-<script type="text/javascript" src="/js/jbpm/lib/myflow.jpdl4.js"></script>
+<script type="text/javascript" src="/js/jbpm/lib/myflow.jpdl4.nomal.js"></script>
 <script type="text/javascript" src="/js/jbpm/lib/myflow.editors.js"></script>
 <script type="text/javascript">
 	$(function() {
