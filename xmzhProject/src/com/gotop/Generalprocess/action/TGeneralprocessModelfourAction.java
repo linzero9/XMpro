@@ -66,6 +66,8 @@ public class TGeneralprocessModelfourAction extends BaseAction {
 	 */
 	private String hiTaskName;
 	
+
+	
 	/**
 	 * 历史模式四主键
 	 */
@@ -90,6 +92,26 @@ public class TGeneralprocessModelfourAction extends BaseAction {
 	 * 扣罚金额
 	 */
 	private String jees;
+	
+	/**
+	 * 差错的历史时间
+	 * */
+	private String timees;
+	
+	
+	
+
+	public String getTimees() {
+		return timees;
+	}
+
+	public void setTimees(String timees) {
+		this.timees = timees;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 
 	/**
 	 * 模式四对象
@@ -435,6 +457,9 @@ public class TGeneralprocessModelfourAction extends BaseAction {
 			map.put("hiFiles", hiFiles);
 			map.put("files", files);
 			map.put("jees", jees);
+			map.put("timees", timees);
+			
+			
 			try {
 				this.tGeneralprocessModelfourService.handleModelFour(muo,
 						modelFour, map, taskAssgineeDto);

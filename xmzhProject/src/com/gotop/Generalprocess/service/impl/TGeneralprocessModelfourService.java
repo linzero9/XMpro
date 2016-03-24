@@ -12,6 +12,8 @@ import com.gotop.jbpm.service.JbpmService;
 import com.gotop.util.time.TimeUtil;
 import com.gotop.vo.system.MUOUserSession;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -99,7 +101,7 @@ public class TGeneralprocessModelfourService implements ITGeneralprocessModelfou
 
 	@Override
 	public void handleModelFour(MUOUserSession muo, ProcessModelFour modelFour,Map<String, Object> map,
-			TaskAssgineeDto taskAssgineeDto) {
+			TaskAssgineeDto taskAssgineeDto)  {
 		String taskId = taskAssgineeDto.getNextTaskId();
 		String taskName = jbpmService.getTaskNameById(taskId);
 		modelFour.setTaskName(taskName);
@@ -111,6 +113,7 @@ public class TGeneralprocessModelfourService implements ITGeneralprocessModelfou
 		String[] hiFlowIdAr = null;
 		String[] hiJeesAr = null;
 		String[] hiFilesAr = null;
+	
 		
 		String hiAddTime = null;
 		String hiProFour = null;
@@ -119,6 +122,9 @@ public class TGeneralprocessModelfourService implements ITGeneralprocessModelfou
 		String hiFlowId = null;
 		String hiJees = null;
 		String hiFiles = null;
+		
+		
+
 		
 		if(map.get("hiAddTime") != null){
 			hiAddTime = (String) map.get("hiAddTime");
@@ -162,6 +168,8 @@ public class TGeneralprocessModelfourService implements ITGeneralprocessModelfou
 			hiFilesAr = hiFiles.split(",");
 		}
 		
+
+		
 		if(hiProFourAr !=null){
 		if(hiProFourAr.length !=0 && hiProFourAr != null){
 			for (int i = 0; i < hiProFourAr.length; i++) {
@@ -191,6 +199,10 @@ public class TGeneralprocessModelfourService implements ITGeneralprocessModelfou
 		String[] jeArray = null;
 		String files = null;
 		String jees = null;
+		
+		String[] timeesArray =null;
+		String timees = null;
+		
 		if(map.get("files") != null){
 			files = (String) map.get("files");
 			files=files.replace(" ", "");
@@ -199,6 +211,24 @@ public class TGeneralprocessModelfourService implements ITGeneralprocessModelfou
 			jees = (String) map.get("jees");
 			jees=jees.replace(" ", "");
 		}
+		
+		
+		/**
+		 * 
+		 */
+		
+		if(map.get("timees") != null){
+			timees = (String) map.get("timees");
+			timees=timees.replace(" ", "");
+		}
+		
+		
+		if(timees != null && !"".equals(timees)){
+			timeesArray = timees.split(",");
+		}
+		
+		
+		
 		if(files != null && !"".equals(files)){
 			fileArray = files.split(",");
 		}
@@ -219,6 +249,11 @@ public class TGeneralprocessModelfourService implements ITGeneralprocessModelfou
 		if(fileArray !=null && jeArray != null){
 			if(fileArray.length !=0 && jeArray.length !=0){
 				for (int i = 0; i < fileArray.length; i++) {
+					
+				//	SimpleDateFormat  sim = new SimpleDateFormat("yyyyMMddHHmmss");
+				//	Date timeee =sim.parse(timeesArray[i]);
+					
+					
 					ProcessModelFourMistake mistake =new ProcessModelFourMistake();
 					mistake.setEmpid(String.valueOf(muo.getEmpid()));
 					mistake.setFlowId(modelFour.getFlowId());
@@ -226,9 +261,22 @@ public class TGeneralprocessModelfourService implements ITGeneralprocessModelfou
 					mistake.setMistakeContent(fileArray[i]);
 					mistake.setPunishBal(jeArray[i]);
 					mistake.setProcessModelIdFour(String.valueOf(modelFour.getProcessModelId()));
-					String currDate = TimeUtil.getCntDtStr(new Date(),
-							"yyyyMMddHHmmss");
-					mistake.setAddTime(currDate);
+					//String currDate = TimeUtil.getCntDtStr(timeee,
+					//		"yyyyMMddHHmmss");
+					              
+					if (timeesArray == null) {
+
+						mistake.setAddTime(TimeUtil.getCntDtStr(new Date(),
+								"yyyyMMddHHmmss"));
+					} else {
+
+						if (timeesArray.length == i) {
+							mistake.setAddTime(TimeUtil.getCntDtStr(new Date(),
+									"yyyyMMddHHmmss"));
+						} else {
+							mistake.setAddTime(timeesArray[i]);
+						}
+					              }
 					this.tGeneralprocessModelfourDAO.addModelFourMistake(mistake);
 				}
 			}
