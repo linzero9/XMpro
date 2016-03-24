@@ -300,7 +300,9 @@ public class DeviceManagementAction  extends BaseAction    {
     	String info ="success";
     	try {
     		MUOUserSession muoUserSession = getCurrentOnlineUser();
-    		device.setDeviceState("0"); //新增设备时默认设状态为可用（即为0）
+    		
+    		String state=device.getDeviceState();
+    		device.setDeviceState(state); //新增设备时默认设状态为可用（即为0）
     		device.setIpAdress(device.getIpAdress().trim());
     		device.setProductionMachineName(device.getProductionMachineName().trim());
     		device.setCpuCode(device.getCpuCode().trim());
