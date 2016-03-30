@@ -122,9 +122,18 @@ public class ProcessModelOne extends ProcessModel  implements  Serializable {
 	private String    hanldOption;
 	
 	
+	@GeneralprocessField(name="是否老顾客",type="dic",dicname="ZHPT_LGK")
+	private String  old_Cust;
 	
 	
 	
+	
+	public String getOld_Cust() {
+		return old_Cust;
+	}
+	public void setOld_Cust(String old_Cust) {
+		this.old_Cust = old_Cust;
+	}
 	public String getHanldOption() {
 		return hanldOption;
 	}

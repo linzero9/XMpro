@@ -101,7 +101,17 @@
 	     	 <h:text property="modelOne.coOrganization" id="coOrganization" validateAttr="allowNull=ture" style="width:130px;" />
      	</td>
       </tr>
+      <tr>
+           	<td class="form_label" align="right" style="width:120px;">是否老顾客：</td>
+     	<td colspan="1">
+			<h:select  id="old_Cust"  property="modelOne.old_Cust">
+			     <h:option label="=未选择=" value=""/>
+			     <h:option label="是" value="y"/>
+			     <h:option label="否" value="n"/>
+			</h:select> 
+		</td>
       
+      </tr>
       
       <tr>
       <td class="form_label" align="right" style="width:120px;">
@@ -160,7 +170,17 @@
         </td>
       </tr>
       
-      
+           <tr id="fujian">
+     	<td class="form_label" align="right">附件：</td>
+     	<td colspan="3">
+				<input type="button" onclick="addFile('tabtest','files');return false;" value="新增附件" 
+					style="margin-left:2px;vertical-align:middle;cursor:hand;"/>
+				<font style="color: red">(说明：最多上传5个附件)</font>
+				<br/>
+				<table border=0 id="tabtest">
+				</table>
+     	</td>
+     </tr>
       
       
      
@@ -199,6 +219,32 @@
     </h:form>
   </body>
  <script type="text/javascript">
+
+	var rowId = 0;
+	function addFile(tabid,varName){
+	    var tab,row,td,fName,fId,tdStr;
+	    var zs=$("#tabtest tbody tr").length;
+	    tab = $id(tabid);
+	    if (zs>=5){
+	    	alert("新增附件不能超过5个");
+	    	return false;
+	    }
+	    fName = varName;
+	    fId = varName+rowId;
+	    row =  tab.insertRow();
+	    row.id = "fileRow"+rowId;
+	    td = row.insertCell(); 
+	    
+	    tdStr="<input type=\"file\" name=\""+fName+"\" id=\""+fId+"\" onchange=\"CheckUpLoadFile(this,2);\" size='70' class=smallInput validateAttr=\"allowNull=false\">";
+	    tdStr += "<input type=\"button\" onclick=\"delTr('fileRow"+rowId+"');\" name='button"+rowId+"' value=\"删除\" style=\"margin-left:2px;vertical-align:middle;cursor:hand;\"/>";
+	    td.innerHTML = tdStr;
+	    rowId = rowId+1;    
+	}
+	function delTr(id){
+		$("#"+id).remove();
+	}
+
+ 
  show('${taskAssgineeDto.fxJson}');
  $(document).ready(function(){
 	 //获取当前登录者的上级机构code

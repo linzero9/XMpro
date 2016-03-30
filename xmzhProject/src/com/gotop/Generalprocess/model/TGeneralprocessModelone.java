@@ -143,8 +143,23 @@ public class TGeneralprocessModelone implements Serializable {
      * @abatorgenerated
      */
     private String lastUpName;
-
+    
     /**
+     * null .
+     * @abatorgenerated
+     */
+    private String oldCust;
+    
+
+    public String getOldCust() {
+		return oldCust;
+	}
+
+	public void setOldCust(String oldCust) {
+		this.oldCust = oldCust;
+	}
+
+	/**
      * null .
      * @abatorgenerated
      */

@@ -28,6 +28,7 @@
     <result column="LAST_UP_NAME" property="lastUpName" jdbcType="VARCHAR" />
     
      <result column="HANLDOPTION" property="hanldOption" jdbcType="VARCHAR" />
+     <result column="OLD_CUST" property="oldCust" jdbcType="VARCHAR" />
     
     
   </resultMap>
@@ -57,6 +58,7 @@
     <result column="LAST_UP_TIME" property="lastUpTime" jdbcType="VARCHAR" />
     <result column="LAST_UP_NAME" property="lastUpName" jdbcType="VARCHAR" />
          <result column="HANLDOPTION" property="hanldOption" jdbcType="VARCHAR" />
+    <result column="OLD_CUST" property="oldCust" jdbcType="VARCHAR" />     
   </resultMap>
 
   <resultMap id="processModelOne_result" class="com.gotop.Generalprocess.model.ProcessModelOne" >
@@ -88,6 +90,7 @@
     	<result column="LAST_UP_NAME" property="last_up_name" jdbcType="VARCHAR" />
     	<result column="TASKNAME" property="taskName" jdbcType="VARCHAR" />
     	     <result column="HANLDOPTION" property="hanldOption" jdbcType="VARCHAR" />
+        <result column="OLD_CUST" property="old_Cust" jdbcType="VARCHAR" nullValue="  "/>
 	</resultMap>
 	
 	<!-- 更新模式一 -->
@@ -146,7 +149,8 @@
        		T.LAST_UP_TIME,
        		T.LAST_UP_NAME,
        		T.TASKNAME,
-       		      T.HANLDOPTION
+       		      T.HANLDOPTION,
+       		 T.OLD_CUST     
   		FROM T_GENERALPROCESS_MODELONE T,
   		OM_ORGANIZATION O1,
   		OM_ORGANIZATION O2,
@@ -195,7 +199,8 @@
        		T.LAST_UP_TIME,
        		T.LAST_UP_NAME,
        		T.TASKNAME,
-       		T.HANLDOPTION
+       		T.HANLDOPTION,
+       		T.OLD_CUST
   		FROM T_GENERALPROCESS_MODELONE T,
   		OM_ORGANIZATION O1,
   		OM_ORGANIZATION O2,
@@ -215,13 +220,13 @@
   		insert into T_GENERALPROCESS_MODELONE (PROCESSMODELID, FLOW_ID, ORGCODEONE, ORGCODETWO,
       CREATOR, FDXDY, YXZG, YXRY, CURRENCY, APPLY_BAL, ONECATEGORY, LOANCATEGORY, DYWX_NAME,
       COORGANIZATION, SURVEY_TIME, CONTENT, CUST_NAME, CREATE_DATE, CREATE_TIME, CREATE_NAME,
-      LAST_UP_DATE, LAST_UP_TIME, LAST_UP_NAME,TASKNAME, HANLDOPTION)
+      LAST_UP_DATE, LAST_UP_TIME, LAST_UP_NAME,TASKNAME, HANLDOPTION,OLD_CUST)
     values (#processModelId:DECIMAL:-9999#, #flow_Id:DECIMAL:-9999#, #orgCodeOne:VARCHAR#,
       #orgCodeTwo:VARCHAR#, #creator:VARCHAR#, #fdxdy:VARCHAR#, #yxzg:VARCHAR#, #yxry:VARCHAR#,
       #currency:VARCHAR#, #apply_bal:VARCHAR#, #oneCategory:VARCHAR#, #loanCategory:VARCHAR#,
       #dywx_Name:VARCHAR#, #coOrganization:VARCHAR#, #survey_Time:VARCHAR#, #content:VARCHAR#,
       #cust_Name:VARCHAR#, #create_Date:VARCHAR#, #create_time:VARCHAR#, #create_name:VARCHAR#,
-      #last_up_date:VARCHAR#, #last_up_time:VARCHAR#, #last_up_name:VARCHAR#,#taskName:VARCHAR#,#hanldOption:VARCHAR#)
+      #last_up_date:VARCHAR#, #last_up_time:VARCHAR#, #last_up_name:VARCHAR#,#taskName:VARCHAR#,#hanldOption:VARCHAR#,#old_Cust:VARCHAR#)
   	</insert>
   
   
@@ -233,7 +238,7 @@
     <!--通过主键查询一条数据-->
     select PROCESSMODELONEID, FLOW_ID, ORGCODEONE, ORGCODETWO, CREATOR, FDXDY, YXZG, YXRY, CURRENCY,
       APPLY_BAL, ONECATEGORY, LOANCATEGORY, DYWX_NAME, COORGANIZATION, SURVEY_TIME, CONTENT,
-      CUST_NAME, CREATE_DATE, CREATE_TIME, CREATE_NAME, LAST_UP_DATE, LAST_UP_TIME, LAST_UP_NAME,HANLDOPTION
+      CUST_NAME, CREATE_DATE, CREATE_TIME, CREATE_NAME, LAST_UP_DATE, LAST_UP_TIME, LAST_UP_NAME,HANLDOPTION,OLD_CUST
     from T_GENERALPROCESS_MODELONE
     where PROCESSMODELONEID = #processmodeloneid:DECIMAL#
   </select>
@@ -242,7 +247,7 @@
     <!--通过查询实体,查询满足条件的记录-->
     select PROCESSMODELONEID, FLOW_ID, ORGCODEONE, ORGCODETWO, CREATOR, FDXDY, YXZG, YXRY, CURRENCY,
       APPLY_BAL, ONECATEGORY, LOANCATEGORY, DYWX_NAME, COORGANIZATION, SURVEY_TIME, CONTENT,
-      CUST_NAME, CREATE_DATE, CREATE_TIME, CREATE_NAME, LAST_UP_DATE, LAST_UP_TIME, LAST_UP_NAME,HANLDOPTION
+      CUST_NAME, CREATE_DATE, CREATE_TIME, CREATE_NAME, LAST_UP_DATE, LAST_UP_TIME, LAST_UP_NAME,HANLDOPTION,OLD_CUST
     from T_GENERALPROCESS_MODELONE
     <isParameterPresent >
       <include refid="COMMON.abatorgenerated_Example_Where_Clause" />
@@ -255,7 +260,7 @@
     <!--根据Bean数据模板查询条件查询所有记录，可查询分页数据-->
     select PROCESSMODELONEID, FLOW_ID, ORGCODEONE, ORGCODETWO, CREATOR, FDXDY, YXZG, YXRY, CURRENCY,
       APPLY_BAL, ONECATEGORY, LOANCATEGORY, DYWX_NAME, COORGANIZATION, SURVEY_TIME, CONTENT,
-      CUST_NAME, CREATE_DATE, CREATE_TIME, CREATE_NAME, LAST_UP_DATE, LAST_UP_TIME, LAST_UP_NAME,HANLDOPTION
+      CUST_NAME, CREATE_DATE, CREATE_TIME, CREATE_NAME, LAST_UP_DATE, LAST_UP_TIME, LAST_UP_NAME,HANLDOPTION,OLD_CUST
     from T_GENERALPROCESS_MODELONE where <![CDATA[ rownum<2 ]]>
     <dynamic >
       <isNotNull prepend="and" property="processmodeloneid" >
@@ -327,13 +332,16 @@
       <isNotNull prepend="and" property="lastUpName" >
         LAST_UP_NAME = #lastUpName:VARCHAR#
       </isNotNull>
+              <isNotNull prepend="and" property="oldCust" >
+        OLD_CUST = #oldCust:VARCHAR#
+      </isNotNull>
     </dynamic>
   </select>
   <select id="abatorgenerated_queryEntitiesByTemplate" resultMap="abatorgenerated_TGeneralprocessModeloneResult" parameterClass="com.gotop.Generalprocess.model.TGeneralprocessModelone" >
     <!--根据Bean数据模板查询条件查询所有记录，可查询分页数据-->
     select PROCESSMODELONEID, FLOW_ID, ORGCODEONE, ORGCODETWO, CREATOR, FDXDY, YXZG, YXRY, CURRENCY,
       APPLY_BAL, ONECATEGORY, LOANCATEGORY, DYWX_NAME, COORGANIZATION, SURVEY_TIME, CONTENT,
-      CUST_NAME, CREATE_DATE, CREATE_TIME, CREATE_NAME, LAST_UP_DATE, LAST_UP_TIME, LAST_UP_NAME,HANLDOPTION
+      CUST_NAME, CREATE_DATE, CREATE_TIME, CREATE_NAME, LAST_UP_DATE, LAST_UP_TIME, LAST_UP_NAME,HANLDOPTION,OLD_CUST
     from T_GENERALPROCESS_MODELONE
     <dynamic prepend="where" >
       <isNotNull prepend="and" property="processmodeloneid" >
@@ -404,6 +412,9 @@
       </isNotNull>
       <isNotNull prepend="and" property="lastUpName" >
         LAST_UP_NAME = #lastUpName:VARCHAR#
+      </isNotNull>
+        <isNotNull prepend="and" property="oldCust" >
+       OLD_CUST = #oldCust:VARCHAR#
       </isNotNull>
     </dynamic>
   </select>
@@ -494,6 +505,9 @@
       <isNotEmpty prepend="and" property="lastUpName" >
         LAST_UP_NAME = #lastUpName:VARCHAR#
       </isNotEmpty>
+              <isNotEmpty prepend="and" property="oldCust" >
+        OLD_CUST = #oldCust:VARCHAR#
+      </isNotEmpty>
     </dynamic>
   </delete>
   <insert id="abatorgenerated_insert" parameterClass="com.gotop.Generalprocess.model.TGeneralprocessModelone" >
@@ -501,13 +515,13 @@
     insert into T_GENERALPROCESS_MODELONE (PROCESSMODELONEID, FLOW_ID, ORGCODEONE, ORGCODETWO,
       CREATOR, FDXDY, YXZG, YXRY, CURRENCY, APPLY_BAL, ONECATEGORY, LOANCATEGORY, DYWX_NAME,
       COORGANIZATION, SURVEY_TIME, CONTENT, CUST_NAME, CREATE_DATE, CREATE_TIME, CREATE_NAME,
-      LAST_UP_DATE, LAST_UP_TIME, LAST_UP_NAME)
+      LAST_UP_DATE, LAST_UP_TIME, LAST_UP_NAME,OLD_CUST)
     values (#processmodeloneid:DECIMAL:-9999#, #flowId:DECIMAL:-9999#, #orgcodeone:VARCHAR#,
       #orgcodetwo:VARCHAR#, #creator:VARCHAR#, #fdxdy:VARCHAR#, #yxzg:VARCHAR#, #yxry:VARCHAR#,
       #currency:VARCHAR#, #applyBal:VARCHAR#, #onecategory:VARCHAR#, #loancategory:VARCHAR#,
       #dywxName:VARCHAR#, #coorganization:VARCHAR#, #surveyTime:VARCHAR#, #content:VARCHAR#,
       #custName:VARCHAR#, #createDate:VARCHAR#, #createTime:VARCHAR#, #createName:VARCHAR#,
-      #lastUpDate:VARCHAR#, #lastUpTime:VARCHAR#, #lastUpName:VARCHAR#)
+      #lastUpDate:VARCHAR#, #lastUpTime:VARCHAR#, #lastUpName:VARCHAR#,#oldCust:VARCHAR#)
   </insert>
   <update id="abatorgenerated_updateByPrimaryKey" parameterClass="com.gotop.Generalprocess.model.TGeneralprocessModelone" >
     <!--通过主键更新一条全部字段内容-->
@@ -533,7 +547,8 @@
       CREATE_NAME = #createName:VARCHAR#,
       LAST_UP_DATE = #lastUpDate:VARCHAR#,
       LAST_UP_TIME = #lastUpTime:VARCHAR#,
-      LAST_UP_NAME = #lastUpName:VARCHAR#
+      LAST_UP_NAME = #lastUpName:VARCHAR#,
+      OLD_CUST = #oldCust:VARCHAR#
     where PROCESSMODELONEID = #processmodeloneid:DECIMAL#
   </update>
   <update id="abatorgenerated_updateByPrimaryKeySelective" parameterClass="com.gotop.Generalprocess.model.TGeneralprocessModelone" >
@@ -605,6 +620,9 @@
       </isNotNull>
       <isNotNull prepend="," property="lastUpName" >
         LAST_UP_NAME = #lastUpName:VARCHAR#
+      </isNotNull>
+       <isNotNull prepend="and" property="oldCust" >
+        OLD_CUST = #oldCust:VARCHAR#
       </isNotNull>
     </dynamic>
     where PROCESSMODELONEID = #processmodeloneid:DECIMAL#
@@ -687,6 +705,9 @@
       <isNotNull prepend="and" property="lastUpName" >
         LAST_UP_NAME = #lastUpName:VARCHAR#
       </isNotNull>
+       <isNotNull prepend="and" property="oldCust" >
+        OLD_CUST = #oldCust:VARCHAR#
+      </isNotNull>
     </dynamic>
   </select>
   <update id="abatorgenerated_updateByExampleSelective" >
@@ -762,6 +783,9 @@
       <isNotNull prepend="," property="record.lastUpName" >
         LAST_UP_NAME = #record.lastUpName:VARCHAR#
       </isNotNull>
+       <isNotNull prepend="," property="record.oldCust" >
+        OLD_CUST= #record.oldCust:VARCHAR#
+      </isNotNull>
     </dynamic>
     <isParameterPresent >
       <include refid="COMMON.abatorgenerated_Example_Where_Clause" />
@@ -792,7 +816,8 @@
       CREATE_NAME = #record.createName:VARCHAR#,
       LAST_UP_DATE = #record.lastUpDate:VARCHAR#,
       LAST_UP_TIME = #record.lastUpTime:VARCHAR#,
-      LAST_UP_NAME = #record.lastUpName:VARCHAR#
+      LAST_UP_NAME = #record.lastUpName:VARCHAR#,
+      OLD_CUST = #record.oldCust:VARCHAR#
     <isParameterPresent >
       <include refid="COMMON.abatorgenerated_Example_Where_Clause" />
     </isParameterPresent>
@@ -870,6 +895,12 @@
       <isNotEmpty prepend="," property="record.lastUpName" >
         LAST_UP_NAME = #record.lastUpName:VARCHAR#
       </isNotEmpty>
+            <isNotEmpty prepend="," property="record.lastUpName" >
+        LAST_UP_NAME = #record.lastUpName:VARCHAR#
+      </isNotEmpty>
+       <isNotEmpty prepend="and" property="oldCust" >
+        OLD_CUST = #oldCust:VARCHAR#
+      </isNotEmpty>
     </dynamic>
     <dynamic prepend="where" >
       <isNotEmpty prepend="and" property="template.processmodeloneid" >
@@ -941,13 +972,19 @@
       <isNotEmpty prepend="and" property="template.lastUpName" >
         LAST_UP_NAME = #template.lastUpName:VARCHAR#
       </isNotEmpty>
+      <isNotEmpty prepend="and" property="template.oldCust" >
+        OLD_CUST = #template.oldCust:VARCHAR#
+      </isNotEmpty>
+        <isNotEmpty prepend="and" property="oldCust" >
+        OLD_CUST = #oldCust:VARCHAR#
+      </isNotEmpty>
     </dynamic>
   </update>
   <select id="abatorgenerated_selectByMapAndPage" resultMap="abatorgenerated_TGeneralprocessModelone_HashMapResult" parameterClass="java.util.HashMap" >
     <!--通过Map方式的动态条件，查询分页数据-->
     select PROCESSMODELONEID, FLOW_ID, ORGCODEONE, ORGCODETWO, CREATOR, FDXDY, YXZG, YXRY, CURRENCY,
       APPLY_BAL, ONECATEGORY, LOANCATEGORY, DYWX_NAME, COORGANIZATION, SURVEY_TIME, CONTENT,
-      CUST_NAME, CREATE_DATE, CREATE_TIME, CREATE_NAME, LAST_UP_DATE, LAST_UP_TIME, LAST_UP_NAME
+      CUST_NAME, CREATE_DATE, CREATE_TIME, CREATE_NAME, LAST_UP_DATE, LAST_UP_TIME, LAST_UP_NAME,OLD_CUST
     from T_GENERALPROCESS_MODELONE
     <dynamic prepend="where" >
       <isNotNull prepend="and" property="processmodeloneid" >
@@ -1019,13 +1056,16 @@
       <isNotNull prepend="and" property="lastUpName" >
         LAST_UP_NAME = #lastUpName:VARCHAR#
       </isNotNull>
+      <isNotNull prepend="and" property="oldCust" >
+        OLD_CUST = #oldCust:VARCHAR#
+      </isNotNull>
     </dynamic>
   </select>
   <select id="abatorgenerated_selectByExampleAndPage" resultMap="abatorgenerated_TGeneralprocessModeloneResult" parameterClass="com.gotop.Generalprocess.model.TGeneralprocessModeloneExample" >
     <!--通过Bean方式的动态条件，查询分页数据-->
     select PROCESSMODELONEID, FLOW_ID, ORGCODEONE, ORGCODETWO, CREATOR, FDXDY, YXZG, YXRY, CURRENCY,
       APPLY_BAL, ONECATEGORY, LOANCATEGORY, DYWX_NAME, COORGANIZATION, SURVEY_TIME, CONTENT,
-      CUST_NAME, CREATE_DATE, CREATE_TIME, CREATE_NAME, LAST_UP_DATE, LAST_UP_TIME, LAST_UP_NAME
+      CUST_NAME, CREATE_DATE, CREATE_TIME, CREATE_NAME, LAST_UP_DATE, LAST_UP_TIME, LAST_UP_NAME,OLD_CUST
     from T_GENERALPROCESS_MODELONE
     <isParameterPresent >
       <include refid="COMMON.abatorgenerated_Example_Where_Clause" />
