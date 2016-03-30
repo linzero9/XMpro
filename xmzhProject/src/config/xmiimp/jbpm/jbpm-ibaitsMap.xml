@@ -17,4 +17,6 @@
     <sqlMap resource="com/gotop/jbpm/map/T_PROCESS_BUSINESS_SqlMap.xml" />
     
     <sqlMap resource="com/gotop/jbpm/map/T_PROCESS_BUSINESS_CONFIG_SqlMap.xml" />
+    
+    <sqlMap resource="com/gotop/jbpm/map/XD_PROCESS_SqlMap.xml" />
     </sqlMapConfig>

@@ -199,5 +199,11 @@
       	</result>
       </action>
       
+      <action class="xdProcessAction" method="{1}" name="xdProcessAction_*">
+      	<result name="xd_mytodo_list">
+     		/jsp/jbpm/xd_mytodo_list.jsp
+      	</result>
+      </action>
+      
     </package>
 </struts>

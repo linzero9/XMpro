@@ -58,4 +58,8 @@
 	<bean class="com.gotop.jbpm.action.TProcessBusinessConfigAction" id="tProcessBusinessConfigaction" name="tProcessBusinessConfigAction" singleton="false">
     <property name="tProcessBusinessConfigService" ref="tProcessBusinessConfigService" />
   </bean>
+  
+  <bean class="com.gotop.jbpm.action.XdProcessAction" id="xdProcessAction" name="xdProcessAction" singleton="false">
+    <property name="xdProcessService" ref="xdProcessService" />
+  </bean>
 	</beans>

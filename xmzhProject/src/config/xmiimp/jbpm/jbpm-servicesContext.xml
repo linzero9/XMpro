@@ -74,4 +74,8 @@
   <bean class="com.gotop.jbpm.service.impl.TProcessBusinessConfigService" id="tProcessBusinessConfigService">
     <property name="tProcessBusinessConfigDAO" ref="tProcessBusinessConfigDAO" />
   </bean>
+  
+  <bean class="com.gotop.jbpm.service.impl.XdProcessService" id="xdProcessService">
+    <property name="xdProcessDAO" ref="xdProcessDAO" />
+  </bean>
   </beans>
