@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>
-      岗位查询列表
+      人员信息查询列表
     </title>
     <meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -26,40 +26,41 @@
   <body style="margin: 0px;">
   
   
-  	<e:datasource name="omPosition" type="bean" path="com.gotop.vo.tyjg.OmPosition"/>
+  	<e:datasource name="omInformation" type="bean" path="com.gotop.peopleManagement.model.OmInformation"/>
   	<queryform id="8cf82903-39b3-4dd6-9c1e-ffaff96fa1af">
-		<h:form name="form1" action="/positionmanagement/positionAction_queryPositionList.action"
+		<h:form name="form1" action="/peopleManagement/omInformationAction_queryOmInformationList.action"
 			checkType="blur" target="_self" method="post" onsubmit="return checkForm(this);">
 			<w:panel id="panel1" width="100%" title="查询条件" expand="true">
 			<table align="center" border="0" width="100%" class="form_table">
 					<tr>
+						<td class="form_label" align="right">人员姓名：</td>
+						<td colspan="1">
+							<h:text id="empName" property="omInformation.empName" style="width:148px;" />
+						</td>
+						<td class="form_label"  align="right">人员工号：</td>
+						<td colspan="1">
+							<h:text id="empCode" property="omInformation.empCode" style="width:148px;" />
+						</td>
+					</tr>
+					
+					<tr>
+						<td class="form_label" align="right">机构名称：</td>
+						<td colspan="1">
+							<h:text id="orgName" property="omInformation.orgName" style="width:148px;" />
+						</td>
+						<td class="form_label"  align="right">业务角色：</td>
+						<td colspan="1">
+							<h:text id="roleName" property="omInformation.roleName" style="width:148px;" />
+						</td>
+					</tr>
+					
+					<tr>
 						<td class="form_label" align="right">岗位名称：</td>
 						<td colspan="1">
-							<h:text id="posiname" property="omPosition.posiName" style="width:148px;" />
-						</td>
-						<td class="form_label"  align="right">岗位代码：</td>
-						<td colspan="1">
-							<h:text id="posicode" property="omPosition.posiCode" style="width:148px;" />
+							<h:text id="posiName" property="omInformation.posiName" style="width:148px;" />
 						</td>
 					</tr>
-					<tr>
-						<td class="form_label"  align="right">
-							岗位属性：
-						</td>
-						<td>
-							<d:select id="posisort" dictTypeId="ABF_ROLETYPEFIELD" property="omPosition.posiSort" 
-								style="width:148px;" nullLabel="请选择">
-							</d:select>
-						</td>
-						<td class="form_label"  align="right">
-							岗位层级：
-						</td>
-						<td>
-							<d:select id="posilevel" dictTypeId="ABF_ORGDEGREE" nullLabel="请选择" 
-								property="omPosition.posiLevel" style="width:148px;">
-							</d:select>
-						</td>
-					</tr>
+					
 					<tr class="form_bottom">
 						<td colspan="4" class="form_bottom">
 						    <b:message key="l_display_per_page"></b:message>
@@ -73,8 +74,8 @@
 			</w:panel>
 		</h:form>
 	</queryform>
-	 <h:form name="data_form" action="/positionmanagement/positionAction_queryPositionList.action" method="post">
-            <h:hiddendata property="omPosition"/>
+	 <h:form name="data_form" action="/peopleManagement/omInformationAction_queryOmInformationList.action" method="post">
+            <h:hiddendata property="omInformation"/>
             <h:hidden property="page.begin"/>
 		    <h:hidden property="page.length"/>
 		    <h:hidden property="page.count"/>
@@ -100,19 +101,20 @@
 	             -->
 	               <th>
 	            	人员姓名
-	            </th>            
+	            </th> 
+	            <th>   
+	              	性别
+	            </th>           
 	            <th>   
 	              	人员工号
 	            </th>
 	            <th>
-	            	所属部门
+	            	所属单位
 	            </th>            
 	            <th>   
 	              	人员状态
 	            </th>
-	            <th>   
-	              	性别
-	            </th>
+	            
 	            <th>   
 	              	手机号
 	            </th>
@@ -120,14 +122,19 @@
           <w:checkGroup id="group1">
           <l:iterate property="omInformationList" id="id1">
               <tr class="<l:output evenOutput='EOS_table_row' oddOutput='EOS_table_row_o'  />">
-                <td align="center">
+               <td align="center">
                     <w:rowCheckbox>
-                        <h:param name='empId' iterateId='id1' property='empId'/>
+                        <h:param name='empid' iterateId='id1' property='empid'/>
+                         <h:param name='orgid' iterateId='id1' property='orgid'/>
+                          <h:param name='userid' iterateId='id1' property='userid'/>
                     </w:rowCheckbox>
                 </td> 
                             
                 <td>  
                   <b:write iterateId="id1" property="empName"/>
+                </td>
+                  <td>
+                	<d:write iterateId="id1"  property="gender" dictTypeId="ABF_GENDER"/>
                 </td>
                 <td>  
                   <b:write iterateId="id1" property="empCode"/>
@@ -136,13 +143,8 @@
                 	<b:write iterateId="id1"  property="orgName"/>
                 </td>
                 <td>
-                	<d:write iterateId="id1"  property="posiSort" dictTypeId="ABF_EMPSTATUS"/> 
+                	<d:write iterateId="id1"  property="empStatus" dictTypeId="ABF_EMPSTATUS"/> 
                 </td>
-                 
-                <td>
-                	<d:write iterateId="id1"  property="gender" dictTypeId="ABF_GENDER"/>
-                </td>
-                
                  <td>
                 	<b:write iterateId="id1" property="mobileNo"/>
                 </td>
@@ -152,13 +154,11 @@
             <tr>
               <td colspan="7" class="command_sort_area">
               	<div class="h3">
-	                <input type="button" class="button" style='margin-top:2' value='<b:message key="l_add"/>' onclick="addRecord();" >
+	              
 	                <l:greaterThan property="page.count" targetValue="0" compareType="number" >
-	                   <input type="button" class="button" value='<b:message key="l_update"/>' onclick="updateRecord();"  id="updateButton">
+	                   <input type="button" class="button" value="人员维护" onclick="updateRecord();"  id="updateButton">
 	                </l:greaterThan>
-	                <l:greaterThan property="page.count" targetValue="0" compareType="number">
-	                   <input type="button" class="button" value='<b:message key="l_delete"/>' onclick="deleteRecord();" id="deleteButton">
-	                </l:greaterThan>
+	                
                 </div>
                 
                 
@@ -189,36 +189,36 @@
             </table>
           </h:form> 
         <script type="text/javascript">
-        		//增加岗位
-		        function addRecord(){
-		        	var strUrl = "/jsp/tyjg/positionmanagement/add_or_updat_eposition.jsp?_ts=" +new Date();
-		        	showModalCenter(strUrl, null, callBack, 550, 190, '<b:message key="positionManager_l_title_addPosition"/>');  
-		        }
-		        //修改
+        	
+		        
+		        //人员维护
 		        function updateRecord(){
 		        	var gop = $id("group1");
 			  		var len = gop.getSelectLength();
 			  		if(len == 0){
-			  			alert("至少选择一个岗位信息");
+			  			alert("至少选择一位人员信息");
 			  			return;
 			  		} else if(len > 1){
-			  			alert("只能选择一个岗位信息进行修改");
+			  			alert("只能选择一位人员信息进行修改");
 			  			return;
 			  		}else{
 			  			var rows = gop.getSelectRows();
-	  					var positionid = rows[0].getParam("positionid");
-			        	var strUrl = "/positionmanagement/positionAction_querySinglePosition.action?omPosition.positionId="+positionid+"&_ts=" +new Date();
-			        	showModalCenter(strUrl, null, callBack, 550, 190, '修改岗位信息');  
+	  					var userid = rows[0].getParam("userid");
+	  					var orgId = rows[0].getParam("orgid");
+	  					var empid = rows[0].getParam("empid");
+			        	var strUrl = "/empMngr/queryEmpBaseAndFjxx_empMngr.action?empid="+empid+"&orgId="+orgId+"&userid="+userid+"&execType=update"+"&_ts=" +new Date();
+			        	showModalCenter(strUrl, null, callBack, 850, 500, '人员维护信息');  
 		        	}
 		        }
 		        function callBack(){
 		        	$id("querys").click();
 		        }
 		        function clears(){
-					$id("posiname").value="";
-					$id("posicode").value="";
-					$id("posilevel").value="";
-					$id("posisort").value="";
+					$id("orgName").value="";
+					$id("empName").value="";
+					$id("empCode").value="";
+					$id("roleName").value="";
+					$id("posiName").value="";
 				}
 				function allItem(){
 					var group =$id("group1");
@@ -228,36 +228,9 @@
 						group.disSelectAll();
 					}
 				}
-				function deleteRecord(){
-					var gop = $id("group1");
-			  		var len = gop.getSelectLength();
-			  		if(len == 0){
-			  			alert("至少选择一个岗位信息");
-			  			return;
-			  		}else{
-			  			if(confirm("删除岗位会同时删除人员岗位信息，是否确定要删除岗位信息？")){
-				  			var rows = gop.getSelectRows();
-		  					var params = null;
-		  					for(var i = 0; i <len; i++){
-		  						if(i == 0){
-		  							params = rows[i].getParam("positionid");
-		  						}else{
-		  							params += "," + rows[i].getParam("positionid");
-		  						}
-		  					}
-		  					var myAjax = new Ajax("/positionmanagement/positionAction_deleteBeathPosition.action");
-		  					myAjax.addParam("positionids",params);
-		  					myAjax.submit();
-		  					var rtun = myAjax.getValue("root/data/rtun");
-		  					if(rtun == "success"){
-		  						alert("岗位删除成功！");
-		  						callBack();
-		  					}else{
-		  						alert("岗位删除失败！");
-		  					}
-			        	}
-		        	}
-				}
+
+				
+			
         </script>
   </body>
 </html>

@@ -36,19 +36,19 @@ public class OmInformationService implements IOmInformationService{
 		Map<String, Object> map = new HashMap<String, Object>();
 		if (omInformation != null) {
 			if (omInformation.getOrgName() !=null&&!"".equals(omInformation.getOrgName())) {
-				map.put("orgName", omInformation.getOrgName());
+				map.put("orgName", omInformation.getOrgName().trim());
 			}
 			if (omInformation.getEmpName() != null&&!"".equals(omInformation.getEmpName())) {
-				map.put("empName", omInformation.getEmpName());
+				map.put("empName", omInformation.getEmpName().trim());
 			}
 			if (omInformation.getEmpCode()!=null&&!"".equals(omInformation.getEmpCode())) {
-				map.put("empCode", omInformation.getEmpCode());
+				map.put("empCode", omInformation.getEmpCode().trim());
 			}
 			if (omInformation.getPosiName()!=null&&!"".equals(omInformation.getPosiName())) {
-				map.put("posiName", omInformation.getPosiName());
+				map.put("posiName", omInformation.getPosiName().trim());
 			}
 			if (omInformation.getRoleName()!=null&&!"".equals(omInformation.getRoleName())) {
-				map.put("roleName", omInformation.getRoleName());
+				map.put("roleName", omInformation.getRoleName().trim());
 			}
 		}
 		

@@ -18,7 +18,7 @@
 	
 	<!-- 查询人员信息 -->
 	<select id="queryOmInformationList" parameterClass="java.util.HashMap" resultMap="OmInformation">
-		select Y.EMPID,Y.ORGID,Y.USERID,ORGNAME,EMPNAME,EMPCODE,ROLENAME,POSINAME,EMPSTATUS,GENDER,MOBILENO
+		select Y.EMPID,Y.ORGID,Y.USERID,ORGNAME,EMPNAME,Y.EMPCODE,ROLENAME,POSINAME,EMPSTATUS,GENDER,MOBILENO
   from OM_EMPORG      A,
        OM_POSITION    P,
        OM_EMPPOSITION  N,
@@ -40,16 +40,16 @@
         G.ORGNAME LIKE '%'||#orgName:VARCHAR#||'%'
       </isNotNull>
       <isNotNull prepend="and" property="empName" >
-        Y.EMPNAME LIKE '%'||#empName:VARCHAR#||'%"
+        Y.EMPNAME = #empName:VARCHAR#
       </isNotNull>
       <isNotNull prepend="and" property="empCode" >
-        Y.EMPCODE = #empCode#
+        Y.EMPCODE =#empCode:VARCHAR#
       </isNotNull>
       <isNotNull prepend="and" property="roleName" >
-         R.ROLENAME LIKE '%'||#empName:VARCHAR#||'%"
+         R.ROLENAME LIKE '%'||#roleName:VARCHAR#||'%'
       </isNotNull>
       <isNotNull prepend="and" property="posiName" >
-        P.POSINAME LIKE '%'||#empName:VARCHAR#||'%"
+        P.POSINAME LIKE '%'||#posiName:VARCHAR#||'%'
       </isNotNull>
      
 	</select>
