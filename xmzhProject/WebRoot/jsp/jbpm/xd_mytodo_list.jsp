@@ -3,30 +3,35 @@
 <%@include file="/common/skins/skin0/component.jsp"%>
 <h:css href="/css/style1/style-custom.css" />
 <script src="<%=request.getContextPath() %>/common/gotop/jquery.min.js"></script>
+
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<title>信贷流程待办列表</title>
 	</head>
 	<body topmargin="0" leftmargin="0">
-	<h:form name="appQuery"	action="/jbpm/tProcessTaskAssigneeAction_queryMyToDoTasksList.action" method="post">
+	<h:form name="appQuery"	action="/jbpm/xdProcessAction_queryXdMyToDoList.action" method="post">
 		<w:panel id="panel1" title="信贷流程待办列表">
 			<table align="center" border="0" width="100%" class="form_table">
 				
 				<tr>
 					<td class="form_label" align="right" >客户名称：</td>
 					<td >
-						<h:text id="taskAssignee.businessTitle" property="taskAssignee.businessTitle" />
+						<h:text id="custName" property="xdProcessTaskAssignee.custName" />
 					</td>
 					
 					<td class="form_label" align="right" >一级分类：</td>
 					<td >
-						<h:text id="taskAssignee.businessTitle" property="taskAssignee.businessTitle" />
+			     		<h:hidden id="oneCategoryId" property="xdProcessTaskAssignee.oneCategoryId" />  
+						<h:text id="oneCategory" property="xdProcessTaskAssignee.oneCategory" readonly="true"/>
+						<a href="#" onclick="showoneCategory();">选择</a>
 					</td>
 					
 					<td class="form_label" align="right" >贷种分类：</td>
 					<td >
-						<h:text id="taskAssignee.businessTitle" property="taskAssignee.businessTitle" />
+						<h:hidden id="loanCategoryId" property="xdProcessTaskAssignee.loanCategoryId" />
+						<h:text id="loanCategory" property="xdProcessTaskAssignee.loanCategory" readonly="true"/>
+						<a href="#" onclick="showloanCategory();">选择</a>
 					</td>
 				</tr>
 				<tr class="form_bottom">
@@ -45,14 +50,16 @@
 			<w:panel id="panel" width="100%" title="查询结果">
 				<viewlist id="e2c61865-3b56-470d-bd42-fff792fb9493">
 				<h:form name="page_form"
-					action="/jbpm/tProcessTaskAssigneeAction_queryMyToDoTasksList.action" method="post">
-				 <h:hiddendata property="taskAssignee.preTaskAssingeeName"/>
+					action="/jbpm/xdProcessAction_queryXdMyToDoList.action" method="post">
+			 <h:hiddendata property="xdProcessTaskAssignee"/>  
 
             <h:hidden property="page.begin"/>
 		    <h:hidden property="page.length"/>
 		    <h:hidden property="page.count"/>
 		    <h:hidden property="page.isCount"/>
+		    
 					<table align="center" border="0" width="100%" class="EOS_table">
+		    
 						<tr>
 							<th align="center" nowrap="nowrap">
 								<b:message key="l_select"></b:message>
@@ -85,29 +92,42 @@
 							
 						</tr>
 						<w:radioGroup id="group1">
-                           <l:iterate property="processTaskAssignees" id="id1">
+                           <l:iterate property="xdProcessTaskAssignees" id="id1">
 							<tr class="<l:output evenOutput='EOS_table_row' oddOutput='EOS_table_row_o'  />">
 								<td align="center" nowrap="nowrap">
 									<w:rowRadio>
 										<h:param name='id' iterateId='id1' property='id' />
-									
-
+										<h:param name='executionId' iterateId='id1' property='executionId' />
+										<h:param name='nextTaskId' iterateId='id1' property='nextTaskId' />
+										<h:param name='preTaskId' iterateId='id1' property='preTaskId' />
+										<h:param name='preTaskAssingee' iterateId='id1' property='preTaskAssingee' />
+										<h:param name='preTaskOrg' iterateId='id1' property='preTaskOrg' />
+										<h:param name='preTaskTime' iterateId='id1' property='preTaskTime' />
+										<h:param name='businessKey' iterateId='id1' property='businessKey' />
+										<h:param name='businessType' iterateId='id1' property='businessType' />
+										<h:param name='processTaskAssigneeId' iterateId='id1' property='processTaskAssigneeId' />
+										<h:param name='parentId' iterateId='id1' property='parentId' />
+										<h:param name='isChild' iterateId='id1' property='isChild' />
+										<h:param name='assignee' iterateId='id1' property='assignee' />
+										<h:param name='processName' iterateId='id1' property='processName' />
+										<h:param name='businessTitle' iterateId='id1' property='businessTitle' />
+										
 									</w:rowRadio>
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1"    property="businessTitle" />
+									<b:write iterateId="id1"    property="processName" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="processName" />
+									<b:write iterateId="id1" property="custName" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="processName" />
+									<b:write iterateId="id1" property="oneCategory" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="processName" />
+									<b:write iterateId="id1" property="loanCategory" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="processName" />
+									<b:write iterateId="id1" property="reportCnt" />
 								</td>
 									<td nowrap="nowrap">
 									<b:write iterateId="id1" property="preTaskAssingeeName" />
@@ -182,12 +202,7 @@
 		  		var parentId = rows.getParam("parentId");
 		  		var isChild = rows.getParam("isChild");
 		  		var assignee = rows.getParam("assignee");
-
 		  		var businessTitle = rows.getParam("businessTitle");
-		  	
-		  		
-		  		
-
 		  		var processName = rows.getParam("processName");
 
 	            var strUrl = "/jbpm/jbpmDemoAction_handle.action?taskAssgineeDto.businessKey="+businessKey + "&taskAssgineeDto.nextTaskId=" + nextTaskId + "&taskAssgineeDto.executionId=" + executionId + "&taskAssgineeDto.businessType=" + businessType + "&taskAssgineeDto.taskAssingee=" + preTaskAssingee+"&taskAssgineeDto.processTaskAssigneeId="+processTaskAssigneeId+"&taskAssgineeDto.parentId="+parentId+"&taskAssgineeDto.isChild="+isChild+"&taskAssgineeDto.preTaskAssingee="+assignee+"&taskAssgineeDto.businessTitle="+businessTitle;
@@ -218,6 +233,35 @@
 		  		showModalCenter(strUrl, null, null, clientX*0.9, clientY*0.9, '当前流程进度'); 
 			  	}
 		  	}
+
+	  	function showoneCategory() {
+			var oneCategory=document.getElementById("oneCategory").value;
+			strUrl ="/Generalprocess/tGeneralprocessCdtypeAction_oneCategoryDic.action?cdtypeJson="+oneCategory,
+			showModalCenter(strUrl,'',showoneCategory_callback1 ,800,430,'一级分类选择'); 
+		} 
+		function showoneCategory_callback1(args){
+			if(args!=''){
+			var array;
+			array = args.split(":");
+			 document.getElementById("oneCategoryId").value = array[0];
+			 document.getElementById("oneCategory").value = array[1];
+			}
+		}	
+
+		function showloanCategory() {
+			var loanCategoryId=document.getElementById("loanCategoryId").value;
+			strUrl ="/Generalprocess/tGeneralprocessCdtypeAction_loanCategoryDic.action?cdtypeJson="+loanCategoryId,
+			showModalCenter(strUrl,'',showloanCategory_callback1 ,800,500,'贷种选择'); 
+		} 
+		function showloanCategory_callback1(args){
+			if(args!=''){
+			var array;
+			array = args.split(":");
+			 document.getElementById("loanCategoryId").value = array[0];
+			 document.getElementById("loanCategory").value = array[1];
+			}
+		}
 		</script>
+		
 	</body>
 </html>
