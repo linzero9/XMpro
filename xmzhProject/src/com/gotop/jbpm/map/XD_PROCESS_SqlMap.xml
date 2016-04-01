@@ -30,6 +30,16 @@
           
   </resultMap>
   
+ <resultMap id="abatorgenerated_XdProcess_HashMapResult2" class="java.util.HashMap" >
+    <!--HashMap方式返回全表-->
+    <result column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="DEFINITION_ID" property="definitionId" jdbcType="VARCHAR" />
+    <result column="PROCESS_NAME" property="processName" jdbcType="VARCHAR" />
+    <result column="BUSINESS_TYPE" property="businessType" jdbcType="VARCHAR" />
+    <result column="STATE" property="state" jdbcType="VARCHAR" />
+    <result column="UPLOAD_TIME" property="uploadTime" jdbcType="VARCHAR" />
+ </resultMap>
+  
   <!--查询信贷流程 待办事项列表-->
   <select id="queryXdMyTodoList" resultMap="abatorgenerated_XdProcess_HashMapResult" parameterClass="java.util.HashMap" >
   select T13.* from
@@ -111,4 +121,18 @@
       		order by T13.REPORTCNT desc, T13.REPORTTIME asc
   </select>
   
+   <select id="queryXdProcessList" resultMap="abatorgenerated_XdProcess_HashMapResult2" parameterClass="java.util.HashMap" >
+   select t.ID,
+       t.DEFINITION_ID,
+       t.PROCESS_NAME,
+       t.BUSINESS_TYPE,
+       t.STATE,
+       t.UPLOAD_TIME
+  from T_PROCESS_CONFIG t
+ where t.BUSINESS_TYPE = 88
+ <isNotNull prepend="and" property="processName" >
+  t.PROCESS_NAME like '%'||'$processName$'||'%'
+ </isNotNull>
+  order by t.ORDER_NO ASC
+   </select>
 </sqlMap>

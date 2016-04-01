@@ -11,7 +11,7 @@
 	</head>
 	<body topmargin="0" leftmargin="0">
 	<h:form name="appQuery"	action="/jbpm/xdProcessAction_queryXdMyToDoList.action" method="post">
-		<w:panel id="panel1" title="信贷流程待办列表">
+		<w:panel id="panel1" title="查询条件">
 			<table align="center" border="0" width="100%" class="form_table">
 				
 				<tr>
@@ -47,7 +47,7 @@
 		</w:panel>
 	</h:form>
 	<DIV class="divList">
-			<w:panel id="panel" width="100%" title="查询结果">
+			<w:panel id="panel" width="100%" title="信贷流程待办列表">
 				<viewlist id="e2c61865-3b56-470d-bd42-fff792fb9493">
 				<h:form name="page_form"
 					action="/jbpm/xdProcessAction_queryXdMyToDoList.action" method="post">

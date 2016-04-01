@@ -201,7 +201,13 @@
       
       <action class="xdProcessAction" method="{1}" name="xdProcessAction_*">
       	<result name="xd_mytodo_list">
-     		/jsp/jbpm/xd_mytodo_list.jsp
+     		/jsp/jbpm/xd_process/xd_mytodo_list.jsp
+      	</result>
+      	<result name="xd_process_list">
+     		/jsp/jbpm/xd_process/xd_process_list.jsp
+      	</result>
+      	<result name="select_para_manage">
+     		/jsp/jbpm/xd_process/select_para_manage.jsp
       	</result>
       </action>
       

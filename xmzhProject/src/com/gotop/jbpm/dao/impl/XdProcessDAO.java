@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 
 import com.gotop.deviceManagement.dao.impl.DeviceManDetailDAO;
 import com.gotop.jbpm.dao.IXdProcessDAO;
+import com.gotop.jbpm.model.XdProcessBean;
 import com.gotop.jbpm.model.XdProcessTaskAssignee;
 import com.gotop.util.dataSource.SqlMapClientDao;
 import com.primeton.utils.Page;
@@ -26,6 +27,13 @@ public class XdProcessDAO  extends SqlMapClientDao  implements IXdProcessDAO{
 		
 		List<XdProcessTaskAssignee> xdProcessTaskAssignees = this.queryForList("XD_PROCESS_SqlMap.queryXdMyTodoList", map, page);
 		return xdProcessTaskAssignees;
+	}
+
+	@Override
+	public List<XdProcessBean> queryXdProcessList(Map<String, Object> map,
+			Page page) {
+		List<XdProcessBean> xdProcessBeans = this.queryForList("XD_PROCESS_SqlMap.queryXdProcessList", map, page);
+		return xdProcessBeans;
 	}
 
 	
