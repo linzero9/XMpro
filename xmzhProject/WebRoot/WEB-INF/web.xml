@@ -42,7 +42,7 @@
 	</context-param>
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/serviceContext.xml,classpath*:ibatisContext.xml,classpath*:config/*/*Context.xml,classpath*:config/*/*/*Context.xml</param-value>
+		<param-value>/WEB-INF/serviceContext.xml,classpath*:ibatisContext.xml,classpath*:config/*/*Context.xml,classpath*:config/*/*/*Context.xml,classpath*:Scheduler/*</param-value>
 	</context-param>
 	<listener>
 		<listener-class>
