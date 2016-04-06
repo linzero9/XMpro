@@ -10,6 +10,7 @@
   	<property name="jbpmService" ref="jbpmService" />
   	<property name="tProcessBusinessService" ref="tProcessBusinessService" />
   	<property name="generalprocessModeltwoService" ref="tGeneralprocessModeltwoService" />
+  	<property name="tModelFileService" ref="tModelFileService" />
   </bean>
 
   
