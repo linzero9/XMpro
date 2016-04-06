@@ -316,26 +316,6 @@
 		        }
 	    }); 
 
-/* 		 $.ajax({
-		        url: '/file/tFileResourceTableAction_queryFileList.action',
-		        async: false,
-		        type: 'post',
-		        data: "resourceType=01&resourceId=${376}&fileType=0",
-		        dataType: 'json',
-		        timeout: 60000,
-		        success: function (files) {
-			        if(files!=null){
-			         	$.each(files,function( i,item ){
-				         	if('${isView}'!='')
-			    	        	$("#tag1").fileDown({filename:item.fileName,filevalue:item.fileId});
-				         	else
-				         		$("#tag1").fileDown({filename:item.fileName,filevalue:item.fileId,remove:1});
-			          		});	
-			        }
-		        }
-	    }); */
-		    
-		 
 		  //判断
 		  WEB.doDisabledAttr('${isView}','${modelOne.creator}','${sessionScope.login_user.empid}',"opinion");  
 		  WEB.doConditionDisplay('${modelOne.creator}','${sessionScope.login_user.empid}',"row3,dopiRow","none");//隐藏意见
