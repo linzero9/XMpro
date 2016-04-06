@@ -215,6 +215,9 @@
       	<result name="add_loanCategory">
      		/jsp/jbpm/xd_process/add_loanCategory.jsp
       	</result>
+      	<result name="oneCategoryDic">
+     		/jsp/jbpm/xd_process/showoneCategory_radio.jsp
+      	</result>
       </action>
       
     </package>

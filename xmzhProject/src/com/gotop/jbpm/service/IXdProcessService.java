@@ -28,6 +28,10 @@ public interface IXdProcessService {
 
 	List<XdCdtypeBean> checkOneCategory(XdCdtypeBean xdCdtypeBean);
 
-	void insertOneCategory(XdCdtypeBean xdCdtypeBean);
+	void insert(XdCdtypeBean xdCdtypeBean);
+
+	void delete(XdCdtypeBean xdCdtypeBean);
+
+	List<XdCdtypeBean> checkLoanCategory(XdCdtypeBean xdCdtypeBean);
 	
 }

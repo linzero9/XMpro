@@ -64,8 +64,8 @@ public class XdProcessService implements IXdProcessService {
 			if(xdCdtypeBean.getProcessName() != null &&  !"".equals(xdCdtypeBean.getProcessName())){
 				map.put("processName",  xdCdtypeBean.getProcessName());
 			}
-			if(xdCdtypeBean.getOneCategory()!= null &&  !"".equals(xdCdtypeBean.getOneCategory())){
-				map.put("oneCategory",  xdCdtypeBean.getOneCategory());
+			if(xdCdtypeBean.getOneCategoryId()!= null &&  !"".equals(xdCdtypeBean.getOneCategoryId())){
+				map.put("oneCategoryId",  xdCdtypeBean.getOneCategoryId());
 			}
 		}
 		List list = xdProcessDAO.queryOneCategoryList(map,page);
@@ -101,9 +101,30 @@ public class XdProcessService implements IXdProcessService {
 		return list;
 	}
 	@Override
-	public void insertOneCategory(XdCdtypeBean xdCdtypeBean) {
-		xdProcessDAO.insertOneCategory(xdCdtypeBean);
+	public void insert(XdCdtypeBean xdCdtypeBean) {
+		xdProcessDAO.insert(xdCdtypeBean);
 		
+	}
+	@Override
+	public void delete(XdCdtypeBean xdCdtypeBean) {
+		xdProcessDAO.delete(xdCdtypeBean);
+	}
+	@Override
+	public List<XdCdtypeBean> checkLoanCategory(XdCdtypeBean xdCdtypeBean) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		if(xdCdtypeBean != null){
+			if(xdCdtypeBean.getProcessName() != null &&  !"".equals(xdCdtypeBean.getProcessName())){
+				map.put("processName",  xdCdtypeBean.getProcessName());
+			}
+			if(xdCdtypeBean.getOneCategory()!= null &&  !"".equals(xdCdtypeBean.getOneCategory())){
+				map.put("oneCategory",  xdCdtypeBean.getOneCategory());
+			}
+			if(xdCdtypeBean.getOneCategory()!= null &&  !"".equals(xdCdtypeBean.getOneCategory())){
+				map.put("loanCategory",  xdCdtypeBean.getLoanCategory());
+			}
+		}
+		List list = xdProcessDAO.checkLoanCategory(map);
+		return list;
 	}
 
 	

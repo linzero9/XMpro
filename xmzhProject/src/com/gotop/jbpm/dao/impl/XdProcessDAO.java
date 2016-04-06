@@ -51,14 +51,27 @@ public class XdProcessDAO  extends SqlMapClientDao  implements IXdProcessDAO{
 
 	@Override
 	public List checkOneCategory(Map<String, Object> map) {
-		List list = queryForList("XD_PROCESS_SqlMap.queryOneCategoryList", map);
+		List list = queryForList("XD_PROCESS_SqlMap.queryOneCategoryList2", map);
 		return list;
 	}
 
 	@Override
-	public void insertOneCategory(XdCdtypeBean xdCdtypeBean) {
-		getSqlMapClientTemplate().insert("XD_PROCESS_SqlMap.insertOneCategory", xdCdtypeBean);
+	public void insert(XdCdtypeBean xdCdtypeBean) {
+		getSqlMapClientTemplate().insert("XD_PROCESS_SqlMap.insert", xdCdtypeBean);
 		
+	}
+
+
+	@Override
+	public int delete(XdCdtypeBean xdCdtypeBean) {
+		int rows = getSqlMapClientTemplate().delete("XD_PROCESS_SqlMap.delete", xdCdtypeBean);
+        return rows;
+	}
+
+	@Override
+	public List checkLoanCategory(Map<String, Object> map) {
+		List list = queryForList("XD_PROCESS_SqlMap.queryLoanCategoryList", map);
+		return list;
 	}
 
 	

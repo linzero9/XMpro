@@ -13,6 +13,17 @@ public class XdCdtypeBean implements Serializable {
 	private String loanCategory;
 	
 	private String limit_time;
+	
+	private String oneCategoryId;
+	
+
+	public String getOneCategoryId() {
+		return oneCategoryId;
+	}
+
+	public void setOneCategoryId(String oneCategoryId) {
+		this.oneCategoryId = oneCategoryId;
+	}
 
 	public Long getCdtypeid() {
 		return cdtypeid;

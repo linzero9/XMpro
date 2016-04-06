@@ -185,6 +185,15 @@
 		</DIV>
 		<script type="text/javascript">
 
+		//清空
+		function clears(){
+			$id("custName").value="";
+			$id("oneCategory").value="";
+			$id("oneCategoryId").value="";
+			$id("loanCategory").value="";
+			$id("loanCategoryId").value="";
+		}
+		
 		function handleTask(){
 			var gop = $id("group1");
 	  		var len = gop.getSelectLength();
@@ -235,8 +244,8 @@
 		  	}
 
 	  	function showoneCategory() {
-			var oneCategory=document.getElementById("oneCategory").value;
-			strUrl ="/Generalprocess/tGeneralprocessCdtypeAction_oneCategoryDic.action?cdtypeJson="+oneCategory,
+			var oneCategoryId=document.getElementById("oneCategoryId").value;
+			strUrl ="/Generalprocess/tGeneralprocessCdtypeAction_oneCategoryDic.action?cdtypeJson="+oneCategoryId,
 			showModalCenter(strUrl,'',showoneCategory_callback1 ,800,430,'一级分类选择'); 
 		} 
 		function showoneCategory_callback1(args){

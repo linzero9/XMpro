@@ -152,8 +152,22 @@
 		 <isNotNull prepend="and" property="processName" >
 		   t.process_name='$processName$'
 		 </isNotNull>
+		  <isNotNull prepend="and" property="oneCategoryId" >
+		   t.first_class  in(select dic.dictname from eos_dict_entry dic where dic.dicttypeid='PROCESS_onecategory' 
+           	 and dic.dictid in($oneCategoryId$))
+		 </isNotNull>
+  </dynamic>
+  order by t.first_class ASC
+   </select>
+   
+    <select id="queryOneCategoryList2" resultMap="abatorgenerated_XdProcess_HashMapResult3" parameterClass="java.util.HashMap" >
+    select distinct (first_class) as ONECATEGORY  from T_GENERALPROCESS_CDTYPE t 
+     <dynamic prepend="where" >
+		 <isNotNull prepend="and" property="processName" >
+		   t.process_name='$processName$'
+		 </isNotNull>
 		  <isNotNull prepend="and" property="oneCategory" >
-		   t.first_class='$oneCategory$'
+		   t.first_class  = '$oneCategory$'
 		 </isNotNull>
   </dynamic>
   order by t.first_class ASC
@@ -168,15 +182,29 @@
 		  <isNotNull prepend="and" property="oneCategory" >
 		   t.first_class='$oneCategory$'
 		 </isNotNull>
+		 <isNotNull prepend="and" property="loanCategory" >
+		   t.credit_type='$loanCategory$'
+		 </isNotNull>
   </dynamic>
   order by t.credit_type ASC
    </select>
    
-   <insert id="insertOneCategory" parameterClass="com.gotop.jbpm.model.XdCdtypeBean" >
+   <insert id="insert" parameterClass="com.gotop.jbpm.model.XdCdtypeBean" >
        <selectKey resultClass="long" keyProperty="cdtypeid">
 		SELECT T_GENERALPROCESS_CDTYPE_SEQ.NEXTVAL AS VALUE FROM DUAL
 		</selectKey>
     insert into T_GENERALPROCESS_CDTYPE(CDTYPEID, PROCESS_NAME, FIRST_CLASS, CREDIT_TYPE, LIMIT_TIME)
     values (#cdtypeid:DECIMAL:-9999#,  #processName:VARCHAR#,  #oneCategory:VARCHAR#,  #loanCategory:VARCHAR#, #limit_time:VARCHAR#)
   </insert>
+  
+  <delete id="delete" parameterClass="com.gotop.jbpm.model.XdCdtypeBean" >
+    delete from T_GENERALPROCESS_CDTYPE t
+    where t.PROCESS_NAME = #processName:VARCHAR# 
+   		<isNotNull prepend="and" property="oneCategory" >
+		   t.FIRST_CLASS=#oneCategory:VARCHAR#
+		 </isNotNull>
+		  <isNotNull prepend="and" property="loanCategory" >
+		   t.CREDIT_TYPE=#loanCategory:VARCHAR#
+		 </isNotNull>
+  </delete>
 </sqlMap>

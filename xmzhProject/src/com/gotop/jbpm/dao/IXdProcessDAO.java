@@ -20,5 +20,9 @@ public interface IXdProcessDAO {
 
 	List checkOneCategory(Map<String, Object> map);
 
-	void insertOneCategory(XdCdtypeBean xdCdtypeBean);
+	void insert(XdCdtypeBean xdCdtypeBean);
+
+	int delete(XdCdtypeBean xdCdtypeBean);
+
+	List checkLoanCategory(Map<String, Object> map);
 }

@@ -35,7 +35,9 @@ public class XdProcessAction   extends BaseAction {
 	private List<XdCdtypeBean> xdCdtypeBeans2;
 	
 	protected IXdProcessService xdProcessService;
-
+	
+    private  String cdtypeJson;
+    
 public Page page2;
       
     public Page getPage2() {
@@ -54,6 +56,12 @@ public Page page2;
 		this.page2 = page2;
 	}
 	
+	public String getCdtypeJson() {
+		return cdtypeJson;
+	}
+	public void setCdtypeJson(String cdtypeJson) {
+		this.cdtypeJson = cdtypeJson;
+	}
 	public XdProcessTaskAssignee getXdProcessTaskAssignee() {
 		return xdProcessTaskAssignee;
 	}
@@ -180,6 +188,14 @@ public Page page2;
 	}
 	
 	
+	/**
+	 * 跳转到 添加贷种分类 页面
+	 * @return
+	 */
+	public String toAddLoanCategory(){
+		return "add_loanCategory";
+	}
+	
 	
 	/**
 	 * 添加 一级分类
@@ -189,7 +205,59 @@ public Page page2;
 	public void addOneCategory() throws Exception{
 		String info ="success";
     	try {
-    		this.xdProcessService.insertOneCategory(xdCdtypeBean);
+    		String loanCategory_str = xdCdtypeBean.getLoanCategory();
+    		String[] valueArra = loanCategory_str.split(", ");
+			for(int i=0; i<valueArra.length; i++){
+				xdCdtypeBean.setLoanCategory(valueArra[i]);
+				this.xdProcessService.insert(xdCdtypeBean);
+			}
+    	} catch (Exception e) {
+			info="fails";
+			log.error("[保存设备信息失败！]", e);
+			throw e;
+		}finally{	
+		}
+		Struts2Utils.renderText(info);
+	}
+
+	/**
+	 * 删除 一级分类
+	 * @return
+	 * @throws Exception 
+	 */
+	public void delOneCategory() throws Exception{
+		String info ="success";
+    	try {
+    		String oneCategory_str = xdCdtypeBean.getOneCategory();
+    		String[] valueArra = oneCategory_str.split(",");
+			for(int i=0; i<valueArra.length; i++){
+				xdCdtypeBean.setOneCategory(valueArra[i]);
+				this.xdProcessService.delete(xdCdtypeBean);
+			}
+    	} catch (Exception e) {
+			info="fails";
+			log.error("[保存设备信息失败！]", e);
+			throw e;
+		}finally{	
+		}
+		Struts2Utils.renderText(info);
+	}
+	
+	
+	/**
+	 * 添加 贷种分类
+	 * @return
+	 * @throws Exception 
+	 */
+	public void addLoanCategory() throws Exception{
+		String info ="success";
+    	try {
+    		String loanCategory_str = xdCdtypeBean.getLoanCategory();
+    		String[] valueArra = loanCategory_str.split(", ");
+			for(int i=0; i<valueArra.length; i++){
+				xdCdtypeBean.setLoanCategory(valueArra[i]);
+				this.xdProcessService.insert(xdCdtypeBean);
+			}
     	} catch (Exception e) {
 			info="fails";
 			log.error("[保存设备信息失败！]", e);
@@ -200,32 +268,77 @@ public Page page2;
 	}
 	
 	/**
-	 * 跳转到 添加贷种分类 页面
+	 * 删除 贷种分类
 	 * @return
+	 * @throws Exception 
 	 */
-	public String toAddLoanCategory(){
-		return "add_loanCategory";
+	public void delLoanCategory() throws Exception{
+		String info ="success";
+    	try {
+    		String loanCategory_str = xdCdtypeBean.getLoanCategory();
+    		String[] valueArra = loanCategory_str.split(",");
+			for(int i=0; i<valueArra.length; i++){
+				xdCdtypeBean.setLoanCategory(valueArra[i]);
+				this.xdProcessService.delete(xdCdtypeBean);
+			}
+    	} catch (Exception e) {
+			info="fails";
+			log.error("[保存设备信息失败！]", e);
+			throw e;
+		}finally{	
+		}
+		Struts2Utils.renderText(info);
 	}
 	
 	/**
-	 * 添加 贷种分类
-	 * @return
+	 * 校验 一级分类 是否已经存在
 	 */
-	public String addLoanCategory(){
-		return "add_loanCategory";
-	}
-	
 	public void checkOneCategory(){
 		String info ="";
 		
 		xdCdtypeBeans = xdProcessService.checkOneCategory(xdCdtypeBean);
-		if(xdProcessBeans==null){
+		if(xdCdtypeBeans.size() == 0){
 			info ="success";
 		}else{
 			info="fails";
 		}
 		Struts2Utils.renderText(info);
 	}
+	
+	/**
+	 * 校验 贷款分类 是否已经存在
+	 */
+	public void checkLoanCategory(){
+		String info ="";
+		String err_info="";
+		
+		String loanCategory_str = xdCdtypeBean.getLoanCategory();
+		String[] valueArra = loanCategory_str.split(", ");
+		for(int i=0; i<valueArra.length; i++){
+			xdCdtypeBean.setLoanCategory(valueArra[i]);
+			xdCdtypeBeans = xdProcessService.checkLoanCategory(xdCdtypeBean);
+			if(xdCdtypeBeans.size() >0){
+				if("".equals(err_info)){
+					err_info = err_info+xdCdtypeBean.getLoanCategory();
+				}else{
+					err_info = err_info+","+xdCdtypeBean.getLoanCategory();
+				}
+			}
+		}
+		if("".equals(err_info)){
+			info ="success";
+			Struts2Utils.renderText(info);
+		}else{
+			info="fails";
+			Struts2Utils.renderText(err_info);
+		}
+		
+	}
+	
+	 public String oneCategoryDic() throws Exception {
+	    	System.out.println(cdtypeJson);
+	    	return "oneCategoryDic";
+	    }
 	
 	/**
 	 * 查询 已经发起的信贷流程

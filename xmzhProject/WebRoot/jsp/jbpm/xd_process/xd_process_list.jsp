@@ -130,8 +130,8 @@
 	  			alert("请选择一条流程信息");
 	  			return;
 	  		}else{
-	  			var rows=gop.getSelectRow();
-		  		var processName=rows.getParam("processName");
+	  			var row=gop.getSelectRow();
+		  		var processName=row.getParam("processName");
 	  			var strUrl = "/jbpm/xdProcessAction_toSelectParaManage.action?xdCdtypeBean.processName="+processName;
 	  			//showModalCenter(strUrl, null, callBackFunc, 700, 550, '选择参数维护');  
 		  		parent.window.frames["mainFrame"].location.href = encodeURI(strUrl);	//新弹出一个IE窗口
