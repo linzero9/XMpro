@@ -9,7 +9,7 @@
 <link rel="stylesheet" type="text/css" href="/css/fileDown.css">
 <script type="text/javascript" src="/common/gotop/jquery.min.js"></script>
 <script type="text/javascript" src="/js/jquery.form.js"></script>
-<script type="text/javascript" src="/js/fileDown.js"></script>
+<script type="text/javascript" src="/js/modeFileDown.js"></script>
 <script type="text/javascript" src="/js/commonUtil.js"></script>
 <title>受理调查</title>
 </head>
@@ -169,7 +169,12 @@
          <font style="color: red">*</font>	
         </td>
       </tr>
-      
+            <tr id="row1">
+      <td class="form_label" align="right">附件下载：</td>
+      <td colspan="3">
+      <div id="tag"></div>
+      </td>
+      </tr>
            <tr id="fujian">
      	<td class="form_label" align="right">附件：</td>
      	<td colspan="3">
@@ -289,6 +294,48 @@
 	 if('${modelOne.processModelId}'!=""){
 		 if('${modelOne.creator}'!='${sessionScope.login_user.empid}')
 		 $("#save1").css("display","none"); 	
+
+ 		 $.ajax({
+		        url: '/modeFile/tModelFileAction_selectFiletest.action',
+		        async: false,
+		        type: 'post',
+		        data: "executionId=${taskAssgineeDto.executionId}&modeId=${modelOne.processModelId}&modeType=mod1",
+		        dataType: 'json',
+		        timeout: 60000,
+		        success: function (files) {
+			        if(files!=""){
+			         	$.each(files,function( i,item ){
+				         	if('${isView}'!='')
+			    	        	$("#tag").fileDown({filename:item.fileName,filevalue:item.fileId});
+				         	else 
+				         		$("#tag").fileDown({filename:item.fileName,filevalue:item.fileId,remove:1});
+			          		});	
+			        } else{    
+			        	$("#row1").css("display","none");  
+			        } 
+		        }
+	    }); 
+
+/* 		 $.ajax({
+		        url: '/file/tFileResourceTableAction_queryFileList.action',
+		        async: false,
+		        type: 'post',
+		        data: "resourceType=01&resourceId=${376}&fileType=0",
+		        dataType: 'json',
+		        timeout: 60000,
+		        success: function (files) {
+			        if(files!=null){
+			         	$.each(files,function( i,item ){
+				         	if('${isView}'!='')
+			    	        	$("#tag1").fileDown({filename:item.fileName,filevalue:item.fileId});
+				         	else
+				         		$("#tag1").fileDown({filename:item.fileName,filevalue:item.fileId,remove:1});
+			          		});	
+			        }
+		        }
+	    }); */
+		    
+		 
 		  //判断
 		  WEB.doDisabledAttr('${isView}','${modelOne.creator}','${sessionScope.login_user.empid}',"opinion");  
 		  WEB.doConditionDisplay('${modelOne.creator}','${sessionScope.login_user.empid}',"row3,dopiRow","none");//隐藏意见

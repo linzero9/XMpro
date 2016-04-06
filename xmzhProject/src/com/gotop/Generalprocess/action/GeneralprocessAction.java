@@ -1,5 +1,6 @@
 package com.gotop.Generalprocess.action;
 
+import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -500,9 +501,9 @@ public class GeneralprocessAction extends BaseAction {
 	public void handleModelOne() throws Exception {
 		String info = "success";
 		MUOUserSession muo = getCurrentOnlineUser();
+		modeType="mod1";
 		try {
-			this.generalProcessService.handleModelOne(muo, modelOne,
-					taskAssgineeDto);
+			this.generalProcessService.handleModelOne(muo, modelOne, taskAssgineeDto, files, filesFileName, modeId, modeType);
 		} catch (Exception e) {
 			info = "fails";
 			log.error("[提交模式一表单失败！]", e);
@@ -587,4 +588,62 @@ public class GeneralprocessAction extends BaseAction {
     		
     	}
     }
+    
+    //文件操作
+	private File[] files;
+	private String[] filesFileName;
+	private String modeId;
+    private String executionId; 
+	private  String modeType;
+    private String fileId;
+
+
+	public String getFileId() {
+		return fileId;
+	}
+
+	public void setFileId(String fileId) {
+		this.fileId = fileId;
+	}
+
+	public File[] getFiles() {
+		return files;
+	}
+
+	public void setFiles(File[] files) {
+		this.files = files;
+	}
+
+	public String[] getFilesFileName() {
+		return filesFileName;
+	}
+
+	public void setFilesFileName(String[] filesFileName) {
+		this.filesFileName = filesFileName;
+	}
+
+	public String getModeId() {
+		return modeId;
+	}
+
+	public void setModeId(String modeId) {
+		this.modeId = modeId;
+	}
+
+	public String getExecutionId() {
+		return executionId;
+	}
+
+	public void setExecutionId(String executionId) {
+		this.executionId = executionId;
+	}
+
+	public String getModeType() {
+		return modeType;
+	}
+
+	public void setModeType(String modeType) {
+		this.modeType = modeType;
+	}
+	
 }
