@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd" >
+<struts >
+  <package name="modeFile" namespace="/modeFile" extends="default" >
+    <action name="tModelFileAction_*" class="tModelFileAction" method="{1}" >
+      <result name="viewlist" >
+        /jsp/modeFile/tModelFileDatacell.jsp
+      </result>
+                  <result name="testfile">
+        /jsp/modeFile2/MyJsp.jsp
+      </result>
+          <result name="list1" type="json">
+		   <param name="root">modelFiles</param>
+	  </result>  
+    </action>
+  </package>
+</struts>
