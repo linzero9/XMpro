@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 
 import com.gotop.deviceManagement.dao.impl.DeviceManDetailDAO;
 import com.gotop.jbpm.dao.IXdProcessDAO;
+import com.gotop.jbpm.model.XdCdtypeBean;
 import com.gotop.jbpm.model.XdProcessBean;
 import com.gotop.jbpm.model.XdProcessTaskAssignee;
 import com.gotop.util.dataSource.SqlMapClientDao;
@@ -34,6 +35,30 @@ public class XdProcessDAO  extends SqlMapClientDao  implements IXdProcessDAO{
 			Page page) {
 		List<XdProcessBean> xdProcessBeans = this.queryForList("XD_PROCESS_SqlMap.queryXdProcessList", map, page);
 		return xdProcessBeans;
+	}
+
+	@Override
+	public List queryOneCategoryList(Map<String, Object> map, Page page) {
+		List list = queryForList("XD_PROCESS_SqlMap.queryOneCategoryList", map, page);
+		return list;
+	}
+
+	@Override
+	public List queryLoanCategoryList(Map<String, Object> map, Page page) {
+		List list = queryForList("XD_PROCESS_SqlMap.queryLoanCategoryList", map, page);
+		return list;
+	}
+
+	@Override
+	public List checkOneCategory(Map<String, Object> map) {
+		List list = queryForList("XD_PROCESS_SqlMap.queryOneCategoryList", map);
+		return list;
+	}
+
+	@Override
+	public void insertOneCategory(XdCdtypeBean xdCdtypeBean) {
+		getSqlMapClientTemplate().insert("XD_PROCESS_SqlMap.insertOneCategory", xdCdtypeBean);
+		
 	}
 
 	

@@ -209,6 +209,12 @@
       	<result name="select_para_manage">
      		/jsp/jbpm/xd_process/select_para_manage.jsp
       	</result>
+      	<result name="add_oneCategory">
+     		/jsp/jbpm/xd_process/add_oneCategory.jsp
+      	</result>
+      	<result name="add_loanCategory">
+     		/jsp/jbpm/xd_process/add_loanCategory.jsp
+      	</result>
       </action>
       
     </package>

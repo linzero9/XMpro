@@ -63,6 +63,7 @@
 								<td align="center" nowrap="nowrap" width="5%">
 								<w:rowRadio>
 										<h:param name='definitionId' iterateId='id1' property='definitionId' />
+										<h:param name='processName' iterateId='id1' property='processName' />
 									</w:rowRadio>
 								</td>
 								<td nowrap="nowrap"> 
@@ -130,10 +131,10 @@
 	  			return;
 	  		}else{
 	  			var rows=gop.getSelectRow();
-		  		var definitionId=rows.getParam("definitionId");
-	  			var strUrl = "/jbpm/xdProcessAction_toSelectParaManage.action?xdProcessBean.definitionId="+definitionId;
-	  			showModalCenter(strUrl, null, callBackFunc, 700, 550, '一级分类/贷级分类两级联动维护');  
-		  		//parent.window.frames["mainFrame"].location.href = encodeURI(strUrl);	//新弹出一个IE窗口
+		  		var processName=rows.getParam("processName");
+	  			var strUrl = "/jbpm/xdProcessAction_toSelectParaManage.action?xdCdtypeBean.processName="+processName;
+	  			//showModalCenter(strUrl, null, callBackFunc, 700, 550, '选择参数维护');  
+		  		parent.window.frames["mainFrame"].location.href = encodeURI(strUrl);	//新弹出一个IE窗口
 		  	}
 		 }
 
