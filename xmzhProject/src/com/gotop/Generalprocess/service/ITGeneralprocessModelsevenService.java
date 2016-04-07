@@ -1,5 +1,7 @@
 package com.gotop.Generalprocess.service;
 
+import java.io.File;
+
 import com.gotop.Generalprocess.dao.ITGeneralprocessModelsevenDAO;
 import com.gotop.Generalprocess.model.ProcessModelSeven;
 import com.gotop.jbpm.dto.TaskAssgineeDto;
@@ -20,7 +22,7 @@ public interface ITGeneralprocessModelsevenService {
 
     ProcessModelSeven queryModelSeven(ProcessModelSeven modelSeven);
     
-    void handleModelSeven(MUOUserSession muo, ProcessModelSeven modelSeven,TaskAssgineeDto taskAssgineeDto);
+    void handleModelSeven(MUOUserSession muo, ProcessModelSeven modelSeven,TaskAssgineeDto taskAssgineeDto,File[] files,String[] filesFileName )throws Exception;
     
     
 }

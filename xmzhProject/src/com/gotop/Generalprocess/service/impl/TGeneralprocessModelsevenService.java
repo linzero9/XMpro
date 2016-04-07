@@ -1,7 +1,13 @@
 package com.gotop.Generalprocess.service.impl;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Properties;
+import java.util.UUID;
 
+import com.eos.server.dict.DictManager;
 import com.gotop.Generalprocess.dao.ITGeneralprocessMainDAO;
 import com.gotop.Generalprocess.dao.ITGeneralprocessModelsevenDAO;
 import com.gotop.Generalprocess.model.ProcessModelFive;
@@ -11,9 +17,14 @@ import com.gotop.Generalprocess.service.IGeneralprocessService;
 import com.gotop.Generalprocess.service.ITGeneralprocessModelsevenService;
 import com.gotop.jbpm.dto.TaskAssgineeDto;
 import com.gotop.jbpm.service.JbpmService;
+import com.gotop.modeFile.model.TModelFile;
+import com.gotop.modeFile.service.ITModelFileService;
+import com.gotop.util.FileUploadUtil;
 import com.gotop.vo.system.MUOUserSession;
 
 import org.apache.log4j.Logger;
+import org.apache.struts2.ServletActionContext;
+import org.springframework.util.FileCopyUtils;
 
 public class TGeneralprocessModelsevenService implements ITGeneralprocessModelsevenService {
     /**
@@ -30,6 +41,22 @@ public class TGeneralprocessModelsevenService implements ITGeneralprocessModelse
 	private ITGeneralprocessMainDAO generalprocessMainDAO;
 	
 	protected IGeneralprocessService generalprocessService;
+	
+	
+	/**
+	 * 附件上传
+	 */
+   private  ITModelFileService tModelFileService;
+    
+    
+    public ITModelFileService gettModelFileService() {
+		return tModelFileService;
+	}
+
+	public void settModelFileService(ITModelFileService tModelFileService) {
+		this.tModelFileService = tModelFileService;
+	}
+	
 	
     /**
      * 通过spring注入的DAO对象.
@@ -97,9 +124,11 @@ public class TGeneralprocessModelsevenService implements ITGeneralprocessModelse
 
 	@Override
 	public void handleModelSeven(MUOUserSession muo,
-			ProcessModelSeven modelSeven, TaskAssgineeDto taskAssgineeDto) {
+			ProcessModelSeven modelSeven, TaskAssgineeDto taskAssgineeDto,File[] files,String[] filesFileName )throws Exception {
 		String taskId = taskAssgineeDto.getNextTaskId();
 		String taskName = jbpmService.getTaskNameById(taskId);
+		TaskAssgineeDto newDto =null;
+		
 		modelSeven.setTaskName(taskName);
 		modelSeven.setFlowId(taskAssgineeDto.getExecutionId());
 		
@@ -165,7 +194,7 @@ public class TGeneralprocessModelsevenService implements ITGeneralprocessModelse
 				// 当前节点执行人
 				taskAssgineeDto.setTaskExeAssginee(String.valueOf(muo.getEmpid()));
 
-				TaskAssgineeDto newDto = this.generalprocessService
+				 newDto = this.generalprocessService
 						.makeTaskAssgineeDto(null, muo, taskAssgineeDto);
 
 				jbpmService.saceTaskAssignee(newDto);
@@ -175,6 +204,42 @@ public class TGeneralprocessModelsevenService implements ITGeneralprocessModelse
 				this.generalprocessService.insertApproveOpninion(modelSeven, muo,
 						nextTaskId, submitType, taskAssgineeDto);
 			}
+	        //////////////////////////////////////////////附件上传////////////////////////////////////////////////////
+				if(files!=null){
+					TModelFile	obj=new TModelFile();
+		 	    	 String suffixStr = null;
+		 	    	 String address="";
+
+		 	    	 address=DictManager.getDictName("ZHPT_FILE_PATH","01");
+		 	    	Properties props=System.getProperties();
+		 	    	System.out.println(props.getProperty("os.name"));
+		 	    	if(address==null||"".equals(address))
+		 			     address=ServletActionContext.getServletContext().getRealPath("/uploadfile");
+		 	    	else {
+		 	    	    	if(props.getProperty("os.name").indexOf("Windows")>=0)
+		 	    		    	address="f:"+address;
+		 	    	 }  
+		 	    		 SimpleDateFormat sdf=new SimpleDateFormat("yyy-MM-dd");
+		 	    		 String fileDate=sdf.format(new Date());//时间
+		     	
+		 		       	 for(int i=0;i<filesFileName.length;i++){
+		 		    		 String uuid = UUID.randomUUID().toString();//UUID
+		 		       		 suffixStr = filesFileName[i].substring(filesFileName[i].indexOf("."), filesFileName[i].length());//获取后缀名      		 
+		 		       		   obj.setExecutionId(newDto.getExecutionId());
+		 			       		obj.setModeId(String.valueOf(modelSeven.getProcessModelId()));
+		 			       		obj.setModeType("mod7");
+		 			       		byte[] content = FileCopyUtils.copyToByteArray(files[i]);
+								obj.setModeFiles(content);
+				       			       		
+		 		       		  obj.setFileName(filesFileName[i]);
+		 		       		  obj.setFilePath(address+File.separator+fileDate+File.separator+uuid+suffixStr); 	       		
+		 		    		  FileUploadUtil.uploadFile(uuid, fileDate, address, filesFileName[i], files[i], suffixStr);
+
+								tModelFileService.insert(obj);
+				
+		 		       	 }
+				}
+			
 		}
 	}
 

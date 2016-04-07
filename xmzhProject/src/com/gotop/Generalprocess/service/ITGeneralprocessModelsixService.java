@@ -1,5 +1,6 @@
 package com.gotop.Generalprocess.service;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,7 +30,7 @@ public interface ITGeneralprocessModelsixService {
      
      ProcessModelSix queryModelSixByFlowIdAndTaskName(ProcessModelSix six);
      
-     void handleModelSix(MUOUserSession muo,ProcessModelSix six,TaskAssgineeDto taskAssgineeDto,String ... otherParam );
+     void handleModelSix(MUOUserSession muo,ProcessModelSix six,TaskAssgineeDto taskAssgineeDto,File[] files,String[] filesFileName,String ... otherParam ) throws Exception;
      
 	
 	

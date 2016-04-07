@@ -16,6 +16,7 @@ import com.gotop.opinion.service.ITDefaultOpinionService;
 import com.gotop.util.Struts2Utils;
 import com.gotop.vo.system.MUOUserSession;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -312,8 +313,7 @@ public class TGeneralprocessModelthreeAction extends BaseAction {
 		} else {
 			MUOUserSession muo = getCurrentOnlineUser();
 			try {
-				this.generalprocessModelthreeService.handleModelThree(muo,
-						modelThree, modelOne,taskAssgineeDto);
+				this.generalprocessModelthreeService.handleModelThree(muo, modelThree, modelOne, taskAssgineeDto, files, filesFileName);
 			} catch (Exception e) {
 				info = "fails";
 				log.error("[提交模式一表单失败！]", e);
@@ -323,4 +323,34 @@ public class TGeneralprocessModelthreeAction extends BaseAction {
 		Struts2Utils.renderText(info);
 
 	}
+	
+    //文件操作
+	private File[] files;
+	private String[] filesFileName;
+    private String fileId;
+    
+	public String getFileId() {
+		return fileId;
+	}
+
+	public void setFileId(String fileId) {
+		this.fileId = fileId;
+	}
+
+	public File[] getFiles() {
+		return files;
+	}
+
+	public void setFiles(File[] files) {
+		this.files = files;
+	}
+
+	public String[] getFilesFileName() {
+		return filesFileName;
+	}
+
+	public void setFilesFileName(String[] filesFileName) {
+		this.filesFileName = filesFileName;
+	}
+	
 }

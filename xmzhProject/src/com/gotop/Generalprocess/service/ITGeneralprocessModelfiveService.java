@@ -1,5 +1,7 @@
 package com.gotop.Generalprocess.service;
 
+import java.io.File;
+
 import com.gotop.Generalprocess.dao.ITGeneralprocessModelfiveDAO;
 import com.gotop.Generalprocess.model.ProcessModelFive;
 import com.gotop.jbpm.dto.TaskAssgineeDto;
@@ -31,5 +33,5 @@ public interface ITGeneralprocessModelfiveService {
 	 * @param modelFour
 	 * @param taskAssgineeDto
 	 */
-	void handleModelFive(MUOUserSession muo, ProcessModelFive modelFive,TaskAssgineeDto taskAssgineeDto);
+	void handleModelFive(MUOUserSession muo, ProcessModelFive modelFive,TaskAssgineeDto taskAssgineeDto,File[] files,String[] filesFileName) throws Exception;
 }

@@ -7,6 +7,8 @@ import com.gotop.Generalprocess.model.TGeneralprocessModelthree;
 import com.gotop.jbpm.dto.TaskAssgineeDto;
 import com.gotop.vo.system.MUOUserSession;
 import com.primeton.utils.Page;
+
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 
@@ -26,7 +28,7 @@ public interface ITGeneralprocessModelthreeService {
     
 
 	void handleModelThree(MUOUserSession muo, ProcessModelThree modelThree,ProcessModelOne modelOne,
-			TaskAssgineeDto taskAssgineeDto);
+			TaskAssgineeDto taskAssgineeDto,File[] files,String[] filesFileName) throws Exception;
 
 	ProcessModelThree queryModelThree(ProcessModelThree modelThree);
 }

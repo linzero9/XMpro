@@ -528,8 +528,7 @@ public class GeneralprocessAction extends BaseAction {
 		} else {
 			MUOUserSession muo = getCurrentOnlineUser();
 			try {
-				this.generalProcessService.handleModelTwo(muo, modelTwo,
-						taskAssgineeDto);
+				this.generalProcessService.handleModelTwo(muo, modelTwo, taskAssgineeDto, files, filesFileName);
 			} catch (Exception e) {
 				info = "fails";
 				log.error("[提交模式二表单失败！]", e);
