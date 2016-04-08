@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="T_MODEL_FILE_SqlMap" >
+  <resultMap id="abatorgenerated_TModelFileResult" class="com.gotop.modeFile.model.TModelFile" >
+    <!--Bean方式返回全表-->
+    <result column="FILE_ID" property="fileId" jdbcType="DECIMAL" />
+    <result column="EXECUTION_ID" property="executionId" jdbcType="VARCHAR" />
+    <result column="MODE_ID" property="modeId" jdbcType="VARCHAR" />
+    <result column="MODE_TYPE" property="modeType" jdbcType="VARCHAR" />
+    <result column="FILE_PATH" property="filePath" jdbcType="VARCHAR" />
+    <result column="FILE_NAME" property="fileName" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="abatorgenerated_TModelFile_HashMapResult" class="java.util.HashMap" >
+    <!--HashMap方式返回全表-->
+    <result column="FILE_ID" property="fileId" jdbcType="DECIMAL" />
+    <result column="EXECUTION_ID" property="executionId" jdbcType="VARCHAR" />
+    <result column="MODE_ID" property="modeId" jdbcType="VARCHAR" />
+    <result column="MODE_TYPE" property="modeType" jdbcType="VARCHAR" />
+    <result column="FILE_PATH" property="filePath" jdbcType="VARCHAR" />
+    <result column="FILE_NAME" property="fileName" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+
+  <insert id="abatorgenerated_insert" parameterClass="com.gotop.modeFile.model.TModelFile" >
+       <selectKey resultClass="java.math.BigDecimal" keyProperty="fileId">
+			SELECT seq_modelfile_id .NEXTVAL AS VALUE FROM DUAL
+		</selectKey>
+    insert into T_MODEL_FILE (FILE_ID, EXECUTION_ID, MODE_ID, MODE_TYPE, FILE_PATH, FILE_NAME,
+      MODE_FILES)
+    values (#fileId:DECIMAL:-9999#, #executionId:VARCHAR#, #modeId:VARCHAR#, #modeType:VARCHAR#,
+      #filePath:VARCHAR#, #fileName:VARCHAR#, #modeFiles:BLOB#)
+  </insert>
+  
+  <select id="abatorgenerated_iselect" resultMap="abatorgenerated_TModelFileResult"  parameterClass="java.util.HashMap">
+  
+  select *
+    from T_MODEL_FILE
+    where EXECUTION_ID =#executionId#  and MODE_ID  = #modeId# and  MODE_TYPE = #modeType#
+  
+  </select>
+  
+  
+    <select id="abatorgenerated_selectByPrimaryKey" resultMap="abatorgenerated_TModelFileResult" >
+    <!--通过主键查询一条数据-->
+  select * from T_MODEL_FILE 
+    where FILE_ID = #fileId#
+  </select>
+  <delete id="delete_file_from_filename" parameterClass="com.gotop.modeFile.model.TModelFile" >
+    <!--通过主键删除一条记录-->
+    delete from T_MODEL_FILE
+     where FILE_ID = #fileId#
+  </delete>
+
+</sqlMap>

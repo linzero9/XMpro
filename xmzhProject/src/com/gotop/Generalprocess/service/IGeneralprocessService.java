@@ -1,5 +1,7 @@
 package com.gotop.Generalprocess.service;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import com.gotop.Generalprocess.model.GeneralprocessDto;
@@ -25,7 +27,7 @@ public interface IGeneralprocessService {
 	 * @param taskAssgineeDto
 	 */
 	public void handleModelOne(MUOUserSession muo, ProcessModelOne modelOne,
-			TaskAssgineeDto taskAssgineeDto);
+			TaskAssgineeDto taskAssgineeDto,File[] files,String[] filesFileName,String modeId,String modeType) throws Exception ;
 
 	/**
 	 * 新增模式二表单内容,完成模式二节点
@@ -34,7 +36,7 @@ public interface IGeneralprocessService {
 	 * @param taskAssgineeDto
 	 */
 	public void handleModelTwo(MUOUserSession muo, ProcessModelTwo modelTwo,
-			TaskAssgineeDto taskAssgineeDto);
+			TaskAssgineeDto taskAssgineeDto,File[] files,String[] filesFileName) throws Exception  ;
 	
 	
 	public void insertApproveOpninion(ProcessModel processModel,

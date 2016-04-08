@@ -9,7 +9,7 @@
 <link rel="stylesheet" type="text/css" href="/css/fileDown.css">
 <script type="text/javascript" src="/common/gotop/jquery.min.js"></script>
 <script type="text/javascript" src="/js/jquery.form.js"></script>
-<script type="text/javascript" src="/js/fileDown.js"></script>
+<script type="text/javascript" src="/js/modeFileDown.js"></script>
 <script type="text/javascript" src="/js/commonUtil.js"></script>
 <title>模式八</title>
 </head>
@@ -64,6 +64,24 @@
          </div>
         </td>
       </tr>
+      
+         <tr id="row1">
+        <td class="form_label" align="right">附件下载：</td>
+        <td colspan="3">
+        <div id="tag"></div>
+      </td>
+      </tr>
+           <tr id="fujian">
+     	<td class="form_label" align="right">附件：</td>
+     	<td colspan="3">
+				<input type="button" onclick="addFile('tabtest','files');return false;" value="新增附件" 
+					style="margin-left:2px;vertical-align:middle;cursor:hand;"/>
+				<font style="color: red">(说明：最多上传5个附件)</font>
+				<br/>
+				<table border=0 id="tabtest">
+				</table>
+     	</td>
+     </tr>
       <tr>
      	<td class="form_label" align="right" style="width:10%;">处理意见</td>
      	<td colspan="3">
@@ -97,32 +115,28 @@
 
 
 			 
-			 if('${euip.epId}'!=""){
+			 if('${modelEight.processModelId}'!=""){
 				 $("#save1").css("display","none"); 
 				 $.ajax({
-				        url: '/file/tFileResourceTableAction_queryFileList.action',
+				        url: '/modeFile/tModelFileAction_selectFiletest.action',
 				        async: false,
 				        type: 'post',
-				        data: "resourceType=${taskAssgineeDto.businessType}&resourceId=${euip.epId}",
+				        data: "executionId=${taskAssgineeDto.executionId}&modeId=${modelEight.processModelId}&modeType=mod8",
 				        dataType: 'json',
 				        timeout: 60000,
 				        success: function (files) {
 					        if(files!=""){
 					         	$.each(files,function( i,item ){
-					         		if('${sessionScope.login_user.empid}'!=item.creator)
+						         	if('${isView}'!='')
 					    	        	$("#tag").fileDown({filename:item.fileName,filevalue:item.fileId});
-						         	else
-						         		 if('${isView}'!=''){
-						         			$("#tag").fileDown({filename:item.fileName,filevalue:item.fileId});
-							         	}else{
-							         		$("#tag").fileDown({filename:item.fileName,filevalue:item.fileId,remove:1});
-								         }
+						         	else 
+						         		$("#tag").fileDown({filename:item.fileName,filevalue:item.fileId,remove:1});
 					          		});	
-					        }else{
-					        	 $("#row1").css("display","none");  
-					        }
+					        } else{    
+					        	$("#row1").css("display","none");  
+					        } 
 				        }
-			    });	
+			 });
 				 $("#beginOrg").val("${euip.orgid}");	
 
 				 if('${taskAssgineeDto.isC}'){

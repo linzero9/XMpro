@@ -9,7 +9,7 @@
 <link rel="stylesheet" type="text/css" href="/css/fileDown.css">
 <script type="text/javascript" src="/common/gotop/jquery.min.js"></script>
 <script type="text/javascript" src="/js/jquery.form.js"></script>
-<script type="text/javascript" src="/js/fileDown.js"></script>
+<script type="text/javascript" src="/js/modeFileDown.js"></script>
 <script type="text/javascript" src="/js/commonUtil.js"></script>
 </head>
   <body>
@@ -160,6 +160,24 @@
       	</td>
       </tr>
       
+      <tr id="row1">
+        <td class="form_label" align="right">附件下载：</td>
+        <td colspan="3">
+        <div id="tag"></div>
+      </td>
+      </tr>
+           <tr id="fujian">
+     	<td class="form_label" align="right">附件：</td>
+     	<td colspan="3">
+				<input type="button" onclick="addFile('tabtest','files');return false;" value="新增附件" 
+					style="margin-left:2px;vertical-align:middle;cursor:hand;"/>
+				<font style="color: red">(说明：最多上传5个附件)</font>
+				<br/>
+				<table border=0 id="tabtest">
+				</table>
+     	</td>
+     </tr>
+      
       <tr>
      	<td class="form_label" align="right" style="width:20%;" >风险币别</td>
       	<td colspan="1" style="width:30%">
@@ -225,6 +243,28 @@
  		 show('${taskAssgineeDto.fxJson}');
 
 		 $(document).ready(function(){
+
+			 $("#save1").css("display","none"); 
+			 $.ajax({
+			        url: '/modeFile/tModelFileAction_selectFiletest.action',
+			        async: false,
+			        type: 'post',
+			        data: "executionId=${taskAssgineeDto.executionId}&modeId=${modelFive.processModelId}&modeType=mod5",
+			        dataType: 'json',
+			        timeout: 60000,
+			        success: function (files) {
+				        if(files!=""){
+				         	$.each(files,function( i,item ){
+					         	if('${isView}'!='')
+				    	        	$("#tag").fileDown({filename:item.fileName,filevalue:item.fileId});
+					         	else 
+					         		$("#tag").fileDown({filename:item.fileName,filevalue:item.fileId,remove:1});
+				          		});	
+				        } else{    
+				        	$("#row1").css("display","none");  
+				        } 
+			        }
+		    });
 			
 			 //查看详情界面
 			 if('${isView}'!=''){
@@ -318,6 +358,30 @@
 		 function delTr(id){
 			$("#"+id).remove();
 		}
+			var rowId = 0;
+			function addFile(tabid,varName){
+			    var tab,row,td,fName,fId,tdStr;
+			    var zs=$("#tabtest tbody tr").length;
+			    tab = $id(tabid);
+			    if (zs>=5){
+			    	alert("新增附件不能超过5个");
+			    	return false;
+			    }
+			    fName = varName;
+			    fId = varName+rowId;
+			    row =  tab.insertRow();
+			    row.id = "fileRow"+rowId;
+			    td = row.insertCell(); 
+			    
+			    tdStr="<input type=\"file\" name=\""+fName+"\" id=\""+fId+"\" onchange=\"CheckUpLoadFile(this,2);\" size='70' class=smallInput validateAttr=\"allowNull=false\">";
+			    tdStr += "<input type=\"button\" onclick=\"delTr('fileRow"+rowId+"');\" name='button"+rowId+"' value=\"删除\" style=\"margin-left:2px;vertical-align:middle;cursor:hand;\"/>";
+			    td.innerHTML = tdStr;
+			    rowId = rowId+1;    
+			}
+			
+			function delTr(id){
+				$("#"+id).remove();
+			}
 				
  </script>
 </html>

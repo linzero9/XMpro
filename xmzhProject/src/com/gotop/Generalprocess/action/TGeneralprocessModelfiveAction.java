@@ -1,5 +1,6 @@
 package com.gotop.Generalprocess.action;
 
+import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -281,7 +282,7 @@ public class TGeneralprocessModelfiveAction extends BaseAction {
 		}else{
 			MUOUserSession muo = getCurrentOnlineUser();
 			try {
-				this.tGeneralprocessModelfiveService.handleModelFive(muo,modelFive,taskAssgineeDto);
+				this.tGeneralprocessModelfiveService.handleModelFive(muo, modelFive, taskAssgineeDto, files, filesFileName);
 			} catch (Exception e) {
 				info="fails";
 				log.error("[提交模式五表单失败！]", e);
@@ -291,5 +292,32 @@ public class TGeneralprocessModelfiveAction extends BaseAction {
     	
 		Struts2Utils.renderText(info);
 	}
+    //文件操作
+	private File[] files;
+	private String[] filesFileName;
+    private String fileId;
+    
+	public String getFileId() {
+		return fileId;
+	}
 
+	public void setFileId(String fileId) {
+		this.fileId = fileId;
+	}
+
+	public File[] getFiles() {
+		return files;
+	}
+
+	public void setFiles(File[] files) {
+		this.files = files;
+	}
+
+	public String[] getFilesFileName() {
+		return filesFileName;
+	}
+
+	public void setFilesFileName(String[] filesFileName) {
+		this.filesFileName = filesFileName;
+	}
 }

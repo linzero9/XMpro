@@ -1,5 +1,6 @@
 package com.gotop.Generalprocess.service.impl;
 
+import com.eos.server.dict.DictManager;
 import com.gotop.Generalprocess.dao.ITGeneralprocessMainDAO;
 import com.gotop.Generalprocess.dao.ITGeneralprocessModeloneDAO;
 import com.gotop.Generalprocess.dao.ITGeneralprocessModelthreeDAO;
@@ -10,11 +11,23 @@ import com.gotop.Generalprocess.service.IGeneralprocessService;
 import com.gotop.Generalprocess.service.ITGeneralprocessModelthreeService;
 import com.gotop.jbpm.dto.TaskAssgineeDto;
 import com.gotop.jbpm.service.JbpmService;
+import com.gotop.modeFile.model.TModelFile;
+import com.gotop.modeFile.service.ITModelFileService;
+import com.gotop.util.FileUploadUtil;
 import com.gotop.util.time.TimeUtil;
 import com.gotop.vo.system.MUOUserSession;
+
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Properties;
+import java.util.UUID;
+
 import org.apache.log4j.Logger;
+import org.apache.struts2.ServletActionContext;
+import org.springframework.util.FileCopyUtils;
 
 public class TGeneralprocessModelthreeService implements ITGeneralprocessModelthreeService {
     /**
@@ -28,7 +41,22 @@ public class TGeneralprocessModelthreeService implements ITGeneralprocessModelth
     
     protected ITGeneralprocessMainDAO generalprocessMainDAO;
     
-    /**
+	/**
+	 * 附件上传
+	 */
+   private  ITModelFileService tModelFileService;
+    
+    
+    public ITModelFileService gettModelFileService() {
+		return tModelFileService;
+	}
+
+	public void settModelFileService(ITModelFileService tModelFileService) {
+		this.tModelFileService = tModelFileService;
+	}
+
+
+	/**
      * 模式一DAO
      */
     protected ITGeneralprocessModeloneDAO generalprocessModeloneDAO;
@@ -94,11 +122,12 @@ public class TGeneralprocessModelthreeService implements ITGeneralprocessModelth
 
 	@Override
 	public void handleModelThree(MUOUserSession muo,
-			ProcessModelThree modelThree,ProcessModelOne modelOne, TaskAssgineeDto taskAssgineeDto) {
+			ProcessModelThree modelThree,ProcessModelOne modelOne, TaskAssgineeDto taskAssgineeDto,File[] files,String[] filesFileName) throws Exception {
 		String taskId = taskAssgineeDto.getNextTaskId();
 		String taskName = jbpmService.getTaskNameById(taskId);
 		modelThree.setTaskName(taskName);
 		modelThree.setFlow_id(taskAssgineeDto.getExecutionId());
+		
 		
 		//更新模式一
 		
@@ -201,6 +230,44 @@ public class TGeneralprocessModelthreeService implements ITGeneralprocessModelth
 		
 		this.generalprocessService.insertApproveOpninion(modelThree, muo, nextTaskId,
 				submitType, taskAssgineeDto);
+		
+		
+        //////////////////////////////////////////////附件上传////////////////////////////////////////////////////
+			if(files!=null){
+				TModelFile	obj=new TModelFile();
+	 	    	 String suffixStr = null;
+	 	    	 String address="";
+
+	 	    	 address=DictManager.getDictName("ZHPT_FILE_PATH","01");
+	 	    	Properties props=System.getProperties();
+	 	    	System.out.println(props.getProperty("os.name"));
+	 	    	if(address==null||"".equals(address))
+	 			     address=ServletActionContext.getServletContext().getRealPath("/uploadfile");
+	 	    	else {
+	 	    	    	if(props.getProperty("os.name").indexOf("Windows")>=0)
+	 	    		    	address="f:"+address;
+	 	    	 }  
+	 	    		 SimpleDateFormat sdf=new SimpleDateFormat("yyy-MM-dd");
+	 	    		 String fileDate=sdf.format(new Date());//时间
+	     	
+	 		       	 for(int i=0;i<filesFileName.length;i++){
+	 		    		 String uuid = UUID.randomUUID().toString();//UUID
+	 		       		 suffixStr = filesFileName[i].substring(filesFileName[i].indexOf("."), filesFileName[i].length());//获取后缀名      		 
+	 			       		obj.setExecutionId(newDto.getExecutionId());
+	 			       		obj.setModeId(String.valueOf(modelThree.getProcessModelId()));
+	 			       		obj.setModeType("mod3");
+	 			       		byte[] content = FileCopyUtils.copyToByteArray(files[i]);
+							obj.setModeFiles(content);
+			       			       		
+	 		       		  obj.setFileName(filesFileName[i]);
+	 		       		  obj.setFilePath(address+File.separator+fileDate+File.separator+uuid+suffixStr); 	       		
+	 		    		  FileUploadUtil.uploadFile(uuid, fileDate, address, filesFileName[i], files[i], suffixStr);
+
+							tModelFileService.insert(obj);
+			
+	 		       	 }
+			}
+		
 		
 	}
 

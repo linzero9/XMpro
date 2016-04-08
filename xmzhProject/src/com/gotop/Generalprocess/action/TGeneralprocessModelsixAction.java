@@ -1,6 +1,7 @@
 package com.gotop.Generalprocess.action;
 
 
+import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -276,10 +277,10 @@ public class TGeneralprocessModelsixAction extends BaseAction {
   		String info ="success";
       	MUOUserSession muo = getCurrentOnlineUser();
   		try {
-  			this.tGeneralprocessModelsixService.handleModelSix(muo,modelSix,taskAssgineeDto,"test1","test2");
+  			this.tGeneralprocessModelsixService.handleModelSix(muo,modelSix,taskAssgineeDto,files,filesFileName,"test1","test2");
   		} catch (Exception e) {
   			info="fails";
-  			log.error("[提交模式四表单失败！]", e);
+  			log.error("[提交模式六表单失败！]", e);
   			throw e;
   		}
   		Struts2Utils.renderText(info);
@@ -418,7 +419,62 @@ public class TGeneralprocessModelsixAction extends BaseAction {
 
     
     
-    
+    //文件操作
+	private File[] files;
+	private String[] filesFileName;
+	private String modeId;
+    private String executionId; 
+	private  String modeType;
+    private String fileId;
+
+
+	public String getFileId() {
+		return fileId;
+	}
+
+	public void setFileId(String fileId) {
+		this.fileId = fileId;
+	}
+
+	public File[] getFiles() {
+		return files;
+	}
+
+	public void setFiles(File[] files) {
+		this.files = files;
+	}
+
+	public String[] getFilesFileName() {
+		return filesFileName;
+	}
+
+	public void setFilesFileName(String[] filesFileName) {
+		this.filesFileName = filesFileName;
+	}
+
+	public String getModeId() {
+		return modeId;
+	}
+
+	public void setModeId(String modeId) {
+		this.modeId = modeId;
+	}
+
+	public String getExecutionId() {
+		return executionId;
+	}
+
+	public void setExecutionId(String executionId) {
+		this.executionId = executionId;
+	}
+
+	public String getModeType() {
+		return modeType;
+	}
+
+	public void setModeType(String modeType) {
+		this.modeType = modeType;
+	}
     
     
     

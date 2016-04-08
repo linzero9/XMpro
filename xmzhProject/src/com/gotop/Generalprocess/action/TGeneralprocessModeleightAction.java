@@ -20,6 +20,8 @@ import com.gotop.vo.system.MUOUserSession;
 import com.primeton.utils.AjaxParam;
 import com.primeton.utils.Page;
 import com.primeton.utils.pageCondExpand;
+
+import java.io.File;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -316,8 +318,7 @@ public class TGeneralprocessModeleightAction extends BaseAction {
 		} else {
 			MUOUserSession muo = getCurrentOnlineUser();
 			try {
-				this.tGeneralprocessModeleigthService.handleModelEight(muo,
-						modelEight, taskAssgineeDto);
+				this.tGeneralprocessModeleigthService.handleModelEight(muo, modelEight, taskAssgineeDto, files, filesFileName);
 			} catch (Exception e) {
 				info = "fails";
 				log.error("[提交模式八表单失败！]", e);
@@ -327,4 +328,61 @@ public class TGeneralprocessModeleightAction extends BaseAction {
 		Struts2Utils.renderText(info);
 
 	}
+    //文件操作
+	private File[] files;
+	private String[] filesFileName;
+	private String modeId;
+    private String executionId; 
+	private  String modeType;
+    private String fileId;
+
+
+	public String getFileId() {
+		return fileId;
+	}
+
+	public void setFileId(String fileId) {
+		this.fileId = fileId;
+	}
+
+	public File[] getFiles() {
+		return files;
+	}
+
+	public void setFiles(File[] files) {
+		this.files = files;
+	}
+
+	public String[] getFilesFileName() {
+		return filesFileName;
+	}
+
+	public void setFilesFileName(String[] filesFileName) {
+		this.filesFileName = filesFileName;
+	}
+
+	public String getModeId() {
+		return modeId;
+	}
+
+	public void setModeId(String modeId) {
+		this.modeId = modeId;
+	}
+
+	public String getExecutionId() {
+		return executionId;
+	}
+
+	public void setExecutionId(String executionId) {
+		this.executionId = executionId;
+	}
+
+	public String getModeType() {
+		return modeType;
+	}
+
+	public void setModeType(String modeType) {
+		this.modeType = modeType;
+	}
+	
 }
