@@ -45,7 +45,7 @@
 								<b:message key="l_select"></b:message>
 							</th>
 							<th nowrap="nowrap">
-								流程名称
+								信贷流程名称
 							</th>
 							<th nowrap="nowrap">
 								业务类型

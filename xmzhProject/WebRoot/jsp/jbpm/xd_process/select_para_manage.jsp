@@ -17,8 +17,14 @@
 				<h:form name="query_formx" id="query_formx"
 				action="/jbpm/xdProcessAction_toSelectParaManage.action"  target="_self" method="post" >
 				
-				<h:hidden id="processName" property="xdCdtypeBean.processName"/>				
 				<table align="center" border="0" width="100%" class="form_table">
+				<tr>
+						<td class="form_label" align="right">信贷流程名称：</td>
+						<td colspan="1">
+						<h:hidden id="processName" property="xdCdtypeBean.processName"/>		
+							<b:write property="xdCdtypeBean.processName" />
+						</td>
+					</tr>
 					<tr>
 						<td class="form_label" align="right">一级分类：</td>
 						<td colspan="1">
