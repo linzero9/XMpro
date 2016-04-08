@@ -120,6 +120,34 @@ public class XdProcessTaskAssignee implements Serializable {
      * 上报时间
      */
     private String reportTime;
+    
+    /*
+     * 申请金额
+     */
+    private String apply_bal;
+    
+    /*
+     * 合作机构
+     */
+    private String coorganization;
+    
+    
+
+	public String getApply_bal() {
+		return apply_bal;
+	}
+
+	public void setApply_bal(String apply_bal) {
+		this.apply_bal = apply_bal;
+	}
+
+	public String getCoorganization() {
+		return coorganization;
+	}
+
+	public void setCoorganization(String coorganization) {
+		this.coorganization = coorganization;
+	}
 
 	public Long getId() {
 		return id;

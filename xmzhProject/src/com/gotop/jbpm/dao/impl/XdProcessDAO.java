@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 
 import com.gotop.deviceManagement.dao.impl.DeviceManDetailDAO;
 import com.gotop.jbpm.dao.IXdProcessDAO;
+import com.gotop.jbpm.model.WaterInfo;
 import com.gotop.jbpm.model.XdCdtypeBean;
 import com.gotop.jbpm.model.XdProcessBean;
 import com.gotop.jbpm.model.XdProcessTaskAssignee;
@@ -74,5 +75,29 @@ public class XdProcessDAO  extends SqlMapClientDao  implements IXdProcessDAO{
 		return list;
 	}
 
-	
+	@Override
+	public List<XdProcessTaskAssignee> queryXdStartProcessList(
+			Map<String, Object> map, Page page) {
+		
+		List<XdProcessTaskAssignee> xdProcessTaskAssignees = this.queryForList("XD_PROCESS_SqlMap.queryXdStartProcessList", map, page);
+		return xdProcessTaskAssignees;
+	}
+
+	@Override
+	public int uptModelOneInfo(XdProcessTaskAssignee xdProcessTaskAssignee) {
+		int count = getSqlMapClientTemplate().update("XD_PROCESS_SqlMap.uptModelOneInfo", xdProcessTaskAssignee);
+		return count;
+	}
+
+	@Override
+	public void insertWater(WaterInfo waterInfo) {
+		getSqlMapClientTemplate().insert("XD_PROCESS_SqlMap.insertWater", waterInfo);
+		
+	}
+
+	@Override
+	public List<WaterInfo> queryLoanUptWater(Map<String, Object> map, Page page) {
+		List list = queryForList("XD_PROCESS_SqlMap.queryLoanUptWater", map, page);
+		return list;
+	}
 }

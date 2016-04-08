@@ -203,6 +203,7 @@
       	<result name="xd_mytodo_list">
      		/jsp/jbpm/xd_process/xd_mytodo_list.jsp
       	</result>
+      	
       	<result name="xd_process_list">
      		/jsp/jbpm/xd_process/xd_process_list.jsp
       	</result>
@@ -218,6 +219,17 @@
       	<result name="oneCategoryDic">
      		/jsp/jbpm/xd_process/showoneCategory_radio.jsp
       	</result>
+      	
+      	<result name="xd_startprocess_list">
+     		/jsp/jbpm/xd_process/xd_startprocess_list.jsp
+      	</result>
+      	<result name="upt_loan_info">
+     		/jsp/jbpm/xd_process/upt_loan_info.jsp
+      	</result>
+      	<result name="query_loanUptWater">
+     		/jsp/jbpm/xd_process/query_loanUptWater.jsp
+      	</result>
+      	
       </action>
       
     </package>

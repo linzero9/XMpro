@@ -3,11 +3,13 @@ package com.gotop.jbpm.action;
 import java.util.List;
 
 import com.gotop.crm.util.BaseAction;
+import com.gotop.jbpm.model.WaterInfo;
 import com.gotop.jbpm.model.XdCdtypeBean;
 import com.gotop.jbpm.model.XdProcessBean;
 import com.gotop.jbpm.model.XdProcessTaskAssignee;
 import com.gotop.jbpm.service.IXdProcessService;
 import com.gotop.util.Struts2Utils;
+import com.gotop.util.string.Obj2StrUtils;
 import com.primeton.utils.Page;
 import com.primeton.utils.pageCondExpand;
 
@@ -38,7 +40,11 @@ public class XdProcessAction   extends BaseAction {
 	
     private  String cdtypeJson;
     
-public Page page2;
+    private WaterInfo waterInfo;
+    
+    private List<WaterInfo> waterInfos;
+    
+    public Page page2;
       
     public Page getPage2() {
     	if(page2==null){
@@ -56,6 +62,19 @@ public Page page2;
 		this.page2 = page2;
 	}
 	
+	public WaterInfo getWaterInfo() {
+		return waterInfo;
+	}
+	public void setWaterInfo(WaterInfo waterInfo) {
+		this.waterInfo = waterInfo;
+	}
+	
+	public List<WaterInfo> getWaterInfos() {
+		return waterInfos;
+	}
+	public void setWaterInfos(List<WaterInfo> waterInfos) {
+		this.waterInfos = waterInfos;
+	}
 	public String getCdtypeJson() {
 		return cdtypeJson;
 	}
@@ -131,9 +150,36 @@ public Page page2;
 	/**
 	 * 查询信贷的待办事项
 	 * @return
+	 * @throws Exception 
 	 */
-	public String queryXdMyToDoList(){
-		List<XdProcessTaskAssignee> xdProcessTaskAssignees = this.xdProcessService.queryXdMyToDoList(xdProcessTaskAssignee,this.getPage());
+	public String queryXdMyToDoList() throws Exception{
+		//获取用户empId
+    	String empId = String.valueOf(this.getCurrentOnlineUser().getEmpid());
+    	
+    	//获取机构代码
+    	String orgCode = this.getCurrentOnlineUser().getOrgcode();
+    	
+    	//人员id、机构id
+    	String relationids = "'" + empId + "'" + "," + "'"+ orgCode+"'" ;
+    	
+    	//获取角色id数组
+    	String[] roleIdArray = this.getCurrentOnlineUser().getRoleid();
+    	//将角色id数组转换成用","分割的字符串
+    	String roleIds = Obj2StrUtils.join(roleIdArray, String.class, ",");
+    	
+    	//获取岗位id数组
+    	String[] positionIdArray = this.getCurrentOnlineUser().getPositionId();
+    	//将岗位id数组转换成用","分割的字符串
+    	String positionIds = Obj2StrUtils.join(positionIdArray, String.class, ",");
+    	
+    	//人员id、机构id、角色id
+    	if(roleIds!=null&&!"".equals(roleIds))
+    		relationids+="," + roleIds ;
+    	//人员id、机构id、角色id、岗位id
+    	if(positionIds!=null&&!"".equals(positionIds))
+    		relationids+="," + positionIds;
+    	
+		List<XdProcessTaskAssignee> xdProcessTaskAssignees = this.xdProcessService.queryXdMyToDoList(relationids,xdProcessTaskAssignee,this.getPage());
 		this.setXdProcessTaskAssignees(xdProcessTaskAssignees);
 
 		return "xd_mytodo_list";
@@ -343,16 +389,86 @@ public Page page2;
 	/**
 	 * 查询 已经发起的信贷流程
 	 * @return
+	 * @throws Exception 
 	 */
-	public String queryXdStartProcessList(){
-		return "";
+	public String queryXdStartProcessList() throws Exception{
+		//获取用户empId
+    	String empId = String.valueOf(this.getCurrentOnlineUser().getEmpid());
+    	
+    	//获取机构代码
+    	String orgCode = this.getCurrentOnlineUser().getOrgcode();
+    	
+    	//人员id、机构id
+    	String relationids = "'" + empId + "'" + "," + "'"+ orgCode+"'" ;
+    	
+    	//获取角色id数组
+    	String[] roleIdArray = this.getCurrentOnlineUser().getRoleid();
+    	//将角色id数组转换成用","分割的字符串
+    	String roleIds = Obj2StrUtils.join(roleIdArray, String.class, ",");
+    	
+    	//获取岗位id数组
+    	String[] positionIdArray = this.getCurrentOnlineUser().getPositionId();
+    	//将岗位id数组转换成用","分割的字符串
+    	String positionIds = Obj2StrUtils.join(positionIdArray, String.class, ",");
+    	
+    	//人员id、机构id、角色id
+    	if(roleIds!=null&&!"".equals(roleIds))
+    		relationids+="," + roleIds ;
+    	//人员id、机构id、角色id、岗位id
+    	if(positionIds!=null&&!"".equals(positionIds))
+    		relationids+="," + positionIds;
+    	
+		List<XdProcessTaskAssignee> xdProcessTaskAssignees = this.xdProcessService.queryXdStartProcessList(relationids,xdProcessTaskAssignee,this.getPage());
+		this.setXdProcessTaskAssignees(xdProcessTaskAssignees);
+		return "xd_startprocess_list";
 	}
 	
 	/**
-	 * 
+	 * 返回到 贷款修改页面
 	 * @return
 	 */
-	public String loanInfoUpdate(){
-		return "";
+	public String toUptLoanInfo(){
+		return "upt_loan_info";
+	}
+	
+	/**
+	 * 保存 贷款修改信息
+	 * @return
+	 * @throws Exception 
+	 */
+	public void saveUptInfo() throws Exception{
+		String info ="success";
+    	try {
+				int count = this.xdProcessService.uptModelOneInfo(xdProcessTaskAssignee);
+				if(count > 0){
+					if(waterInfo==null){
+						waterInfo = new WaterInfo();
+					}
+					waterInfo.setFlow_id(xdProcessTaskAssignee.getExecutionId());
+					waterInfo.setProcessName(xdProcessTaskAssignee.getProcessName());
+					waterInfo.setCustName(xdProcessTaskAssignee.getCustName());
+					waterInfo.setApply_bal(xdProcessTaskAssignee.getApply_bal());
+					waterInfo.setOneCategory(xdProcessTaskAssignee.getOneCategory());
+					waterInfo.setLoanCategory(xdProcessTaskAssignee.getLoanCategory());
+					waterInfo.setCoorganization(xdProcessTaskAssignee.getCoorganization());
+					waterInfo.setUptEmpid(this.getCurrentOnlineUser().getEmpid());
+					waterInfo.setUptOrgcode(this.getCurrentOnlineUser().getOrgcode());
+					
+					this.xdProcessService.insertWater(waterInfo);
+				}
+    	} catch (Exception e) {
+			info="fails";
+			log.error("[保存设备信息失败！]", e);
+			throw e;
+		}finally{	
+		}
+		Struts2Utils.renderText(info);
+	}
+
+	public String queryLoanUptWater(){
+		List<WaterInfo> waterInfos = this.xdProcessService.queryLoanUptWater(waterInfo,this.getPage());
+		this.setWaterInfos(waterInfos);
+		return "query_loanUptWater";
+		
 	}
 }

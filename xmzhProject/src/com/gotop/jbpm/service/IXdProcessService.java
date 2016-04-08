@@ -3,6 +3,7 @@ package com.gotop.jbpm.service;
 import java.util.List;
 
 import com.gotop.jbpm.dao.IXdProcessDAO;
+import com.gotop.jbpm.model.WaterInfo;
 import com.gotop.jbpm.model.XdCdtypeBean;
 import com.gotop.jbpm.model.XdProcessBean;
 import com.gotop.jbpm.model.XdProcessTaskAssignee;
@@ -15,7 +16,7 @@ public interface IXdProcessService {
 	void setXdProcessDAO(IXdProcessDAO xdProcessDAO);
 	
 	List<XdProcessTaskAssignee> queryXdMyToDoList(
-			XdProcessTaskAssignee xdProcessTaskAssignee, Page page);
+			String relationids, XdProcessTaskAssignee xdProcessTaskAssignee, Page page);
 
 	List<XdProcessBean> queryXdProcessList(XdProcessBean xdProcessBean,
 			Page page);
@@ -33,5 +34,14 @@ public interface IXdProcessService {
 	void delete(XdCdtypeBean xdCdtypeBean);
 
 	List<XdCdtypeBean> checkLoanCategory(XdCdtypeBean xdCdtypeBean);
+
+	List<XdProcessTaskAssignee> queryXdStartProcessList(
+			String relationids, XdProcessTaskAssignee xdProcessTaskAssignee, Page page);
+
+	int uptModelOneInfo(XdProcessTaskAssignee xdProcessTaskAssignee);
+
+	void insertWater(WaterInfo waterInfo);
+
+	List<WaterInfo> queryLoanUptWater(WaterInfo waterInfo, Page page);
 	
 }

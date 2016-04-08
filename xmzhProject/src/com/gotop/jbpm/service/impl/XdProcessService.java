@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 
 import com.gotop.jbpm.dao.IXdProcessDAO;
+import com.gotop.jbpm.model.WaterInfo;
 import com.gotop.jbpm.model.XdCdtypeBean;
 import com.gotop.jbpm.model.XdProcessBean;
 import com.gotop.jbpm.model.XdProcessTaskAssignee;
@@ -26,9 +27,14 @@ public class XdProcessService implements IXdProcessService {
 		this.xdProcessDAO = xdProcessDAO;
 	}
 	@Override
-	public List<XdProcessTaskAssignee> queryXdMyToDoList(
+	public List<XdProcessTaskAssignee> queryXdMyToDoList(String relationids,
 			XdProcessTaskAssignee xdProcessTaskAssignee, Page page) {
 		Map<String, Object> map = new HashMap<String, Object>();
+		
+		if(relationids!=null&&!"".equals(relationids)){
+			map.put("relationids", relationids);
+		}
+		
 		if(xdProcessTaskAssignee != null){
 			if(xdProcessTaskAssignee.getCustName() != null && !"".equals(xdProcessTaskAssignee.getCustName())){
 				map.put("custName", xdProcessTaskAssignee.getCustName());
@@ -126,6 +132,51 @@ public class XdProcessService implements IXdProcessService {
 		List list = xdProcessDAO.checkLoanCategory(map);
 		return list;
 	}
+	@Override
+	public List<XdProcessTaskAssignee> queryXdStartProcessList(String relationids,
+			XdProcessTaskAssignee xdProcessTaskAssignee, Page page) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		if(relationids!=null&&!"".equals(relationids)){
+			map.put("relationids", relationids);
+		}
+		
+		if(xdProcessTaskAssignee != null){
+			if(xdProcessTaskAssignee.getCustName() != null && !"".equals(xdProcessTaskAssignee.getCustName())){
+				map.put("custName", xdProcessTaskAssignee.getCustName());
+			}
+			if(xdProcessTaskAssignee.getOneCategory() != null && !"".equals(xdProcessTaskAssignee.getOneCategory())){
+				map.put("oneCategoryId", xdProcessTaskAssignee.getOneCategoryId());
+			}
+			if(xdProcessTaskAssignee.getLoanCategory() != null && !"".equals(xdProcessTaskAssignee.getLoanCategory())){
+				map.put("loanCategoryId", xdProcessTaskAssignee.getLoanCategoryId());
+			}
+		}
+		List<XdProcessTaskAssignee> xdProcessTaskAssignees = this.xdProcessDAO.queryXdStartProcessList(map, page);
+		return xdProcessTaskAssignees;
+	}
+	@Override
+	public int uptModelOneInfo(XdProcessTaskAssignee xdProcessTaskAssignee) {
+		int count = this.xdProcessDAO.uptModelOneInfo(xdProcessTaskAssignee);
+		return count;
+	}
+	@Override
+	public void insertWater(WaterInfo waterInfo) {
+		 this.xdProcessDAO.insertWater(waterInfo);
+	}
+	@Override
+	public List<WaterInfo> queryLoanUptWater(WaterInfo waterInfo, Page page) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		if(waterInfo != null){
+			if(waterInfo.getFlow_id() != null &&  !"".equals(waterInfo.getFlow_id())){
+				map.put("flow_id",  waterInfo.getFlow_id());
+			}
+		}
+		List<WaterInfo> waterInfos = this.xdProcessDAO.queryLoanUptWater(map, page);
+		return waterInfos;
+	}
+	
 
 	
 }

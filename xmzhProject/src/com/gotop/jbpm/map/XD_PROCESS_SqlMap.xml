@@ -49,6 +49,34 @@
     <!--HashMap方式返回全表-->
      <result column="LOANCATEGORY" property="loanCategory" jdbcType="VARCHAR" />
  </resultMap>
+ 
+ <resultMap id="abatorgenerated_XdProcess_HashMapResult5" class="java.util.HashMap" >
+    <!--HashMap方式返回全表-->
+    <result column="EXECUTION_ID" property="executionId" jdbcType="VARCHAR" />
+     <result column="processName" property="processName" jdbcType="VARCHAR" />
+     <result column="CUST_NAME" property="custName" jdbcType="VARCHAR" />
+     <result column="ONECATEGORY" property="oneCategory" jdbcType="VARCHAR" />
+     <result column="LOANCATEGORY" property="loanCategory" jdbcType="VARCHAR" />
+     <result column="APPLY_BAL" property="apply_bal" jdbcType="VARCHAR" />
+     <result column="COORGANIZATION" property="coorganization" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="abatorgenerated_WaterInfo_HashMapResult" class="java.util.HashMap" >
+    <!--HashMap方式返回全表-->
+    <result column="WATER_ID" property="waterId" jdbcType="DECIMAL" />
+    <result column="FLOW_ID" property="flow_id" jdbcType="VARCHAR" />
+     <result column="PROCESS_NAME" property="processName" jdbcType="VARCHAR" />
+     <result column="CUST_NAME" property="custName" jdbcType="VARCHAR" />
+     <result column="APPLY_BAL" property="apply_bal" jdbcType="VARCHAR" />
+     <result column="ONECATEGORY" property="oneCategory" jdbcType="VARCHAR" />
+     <result column="LOANCATEGORY" property="loanCategory" jdbcType="VARCHAR" />
+     <result column="COORGANIZATION" property="coorganization" jdbcType="VARCHAR" />
+      <result column="UPT_EMPID" property="uptEmpid" jdbcType="DECIMAL" />
+     <result column="UPT_ORGCODE" property="uptOrgcode" jdbcType="VARCHAR" />
+     <result column="UPT_TIME" property="uptTime" jdbcType="VARCHAR" />
+      <result column="UPT_EMPNAME" property="uptEmpname" jdbcType="VARCHAR" />
+     <result column="UPT_ORGNAME" property="uptOrgname" jdbcType="VARCHAR" />
+  </resultMap>
   
   <!--查询信贷流程 待办事项列表-->
   <select id="queryXdMyTodoList" resultMap="abatorgenerated_XdProcess_HashMapResult" parameterClass="java.util.HashMap" >
@@ -97,19 +125,9 @@
                    AND T1.Business_Type = a.dictid
                    AND a.dicttypeid = b.dicttypeid
                    AND b.dicttypeid = 'ZHPT_BUSINESS_TYPE'
-                   AND T2.TASK_ASSIGNEE_ID IN
-                       ('1',
-                        '35008816',
-                        'SENIORADM',
-                        'COMMONUSER',
-                        'SYSADMIN',
-                        'DATAADM',
-                        'DEVICEADM',
-                        'SENIORADM',
-                        'COMMONUSER',
-                        'SYSADMIN',
-                        'DATAADM',
-                        'DEVICEADM')
+                     <isNotNull prepend="and" property="relationids" >
+           				T2.TASK_ASSIGNEE_ID IN ($relationids$)
+      				</isNotNull>
                    and T8.business_type = '88') T9
           left join T_GENERALPROCESS_MODELONE T10
             on T9.EXECUTION_ID = T10.FLOW_ID) T11
@@ -207,4 +225,115 @@
 		   t.CREDIT_TYPE=#loanCategory:VARCHAR#
 		 </isNotNull>
   </delete>
+  
+   <!--查询已经发起的信贷流程 列表，其结果与待办信贷流程相同-->
+  <select id="queryXdStartProcessList" resultMap="abatorgenerated_XdProcess_HashMapResult5" parameterClass="java.util.HashMap" >
+ select T11.EXECUTION_ID,
+       T11.processName,
+       T11.CUST_NAME,
+       T11.ONECATEGORY,
+       T11.LOANCATEGORY,
+       T11.APPLY_BAL,
+       T11.COORGANIZATION
+  from (select T9.*,               
+               T10.CUST_NAME,
+               T10.ONECATEGORY,
+               T10.LOANCATEGORY,
+               T10.APPLY_BAL,
+               T10.COORGANIZATION
+          from (SELECT T1.ID,
+                       T7.EXECUTION_ID_ as EXECUTION_ID,
+                       t2.task_assignee_id as assignee,
+                       T1.TASK_ID,
+                       T1.PRE_TASK_ID,
+                       T1.PRE_TASK_ASSINGEE,
+                       T1.PRE_TASK_ORG,
+                       to_char(TO_DATE(T1.PRE_TASK_TIME,
+                                       'yyyy/MM/dd hh24:mi:ss'),
+                               'yyyy-mm-dd hh24:mi:ss') AS PRE_TASK_TIME,
+                       T1.NEXT_TASK_ID,
+                       T1.BUSINESS_KEY,
+                       T3.EMPNAME AS preTaskAssingeeName,
+                       T4.ORGNAME AS preTaskOrgName,
+                       T6.PROCESS_NAME AS processName,
+                       T6.BUSINESS_TYPE AS BUSINESS_TYPE,
+                       T2.PROCESS_TASK_ASSIGNEE_ID,
+                       T2.PARENT_ID,
+                       T2.ISCHILD,
+                       T8.business_title as BUSINESS_TITLE,
+                       a.dictname AS BUSINESS_NAME
+                  FROM T_PROCESS_TASK_ASSIGNEE        T1,
+                       T_PROCESS_TASK_ASSIGNEE_PERSON T2,
+                       OM_EMPLOYEE                    T3,
+                       OM_ORGANIZATION                T4,
+                       JBPM4_EXECUTION                T5,
+                       T_PROCESS_CONFIG               T6,
+                       JBPM4_TASK                     T7,
+                       T_PROCESS_BUSINESS             T8,
+                       eos_dict_entry                 a,
+                       eos_dict_type                  b
+                 where T1.ID = T2.PROCESS_TASK_ASSIGNEE_ID
+                   AND T1.PRE_TASK_ASSINGEE = T3.EMPID
+                   AND T1.PRE_TASK_ORG = T4.ORGID
+                   AND T5.PROCDEFID_ = T6.DEFINITION_ID
+                   AND T5.ID_ = T7.EXECUTION_ID_
+                   AND T2.TASK_ID = T7.DBID_
+                   AND T7.STATE_ = 'open'
+                   AND T1.EXECUTION_ID = T8.EXECUTION_ID
+                   AND T1.Business_Type = a.dictid
+                   AND a.dicttypeid = b.dicttypeid
+                   AND b.dicttypeid = 'ZHPT_BUSINESS_TYPE'
+                   AND T2.TASK_ASSIGNEE_ID IN ($relationids$)                       
+                   and T8.business_type = '88') T9
+          left join T_GENERALPROCESS_MODELONE T10
+            on T9.EXECUTION_ID = T10.FLOW_ID) T11
+    <dynamic prepend="where" >
+   <isNotNull prepend="and" property="custName" >
+           T11.CUST_NAME like '%'||'$custName$'||'%'
+      		</isNotNull>
+      		<isNotNull prepend="and" property="oneCategoryId" >
+           	T11.oneCategory in(select dic.dictname from eos_dict_entry dic where dic.dicttypeid='PROCESS_onecategory' 
+           	 and dic.dictid in($oneCategoryId$))
+      		</isNotNull>
+      		 <isNotNull prepend="and" property="loanCategoryId" >
+           	 T11.loanCategory in(select dic.dictname from eos_dict_entry dic where dic.dicttypeid='PROCESS_credit_type' 
+           	 and dic.dictid in($loanCategoryId$))
+      		</isNotNull>
+      		</dynamic>
+      		 order by T11.PRE_TASK_TIME desc
+  </select>
+  
+  <!--修改 模式一 的内容-->
+  <update id="uptModelOneInfo" parameterClass="com.gotop.jbpm.model.XdProcessTaskAssignee" >
+    update T_GENERALPROCESS_MODELONE 
+	set CUST_NAME= #custName:VARCHAR#,
+	APPLY_BAL= #apply_bal:VARCHAR#,
+	ONECATEGORY =  #oneCategory:VARCHAR#,
+	LOANCATEGORY = #loanCategory:VARCHAR#,
+	COORGANIZATION = #coorganization:VARCHAR#
+	where  FLOW_ID = #executionId:VARCHAR#
+  </update>
+  
+   <!--插入 贷款 信息修改 流水表-->
+  <insert id="insertWater" parameterClass="com.gotop.jbpm.model.WaterInfo" >
+       <selectKey resultClass="long" keyProperty="waterId">
+		SELECT t_loanInfoUpdate_water_seq.NEXTVAL AS VALUE FROM DUAL
+		</selectKey>
+   insert into t_loan_info_update_water(WATER_ID,FLOW_ID,PROCESS_NAME,CUST_NAME,APPLY_BAL,
+ONECATEGORY,LOANCATEGORY,COORGANIZATION,UPT_EMPID,UPT_ORGCODE,UPT_TIME)
+values(#waterId:DECIMAL:-9999#,  #flow_id:VARCHAR#,  #processName:VARCHAR#,  #custName:VARCHAR#, #apply_bal:VARCHAR#
+,  #oneCategory:VARCHAR#,  #loanCategory:VARCHAR#, #coorganization:VARCHAR#,  #uptEmpid:DECIMAL:-9999#, #uptOrgcode:VARCHAR#, sysdate)
+  </insert>
+  
+   <!--查询 贷款 信息(模式一)修改 流水 记录-->
+  <select id="queryLoanUptWater" resultMap="abatorgenerated_WaterInfo_HashMapResult" parameterClass="java.util.HashMap" >
+ select t1.WATER_ID, t1.FLOW_ID, t1.PROCESS_NAME, t1.CUST_NAME, t1.APPLY_BAL, t1.ONECATEGORY, 
+  t1.LOANCATEGORY, t1.COORGANIZATION, t1.UPT_EMPID, t1.UPT_ORGCODE, t2.empname as UPT_EMPNAME , 
+  t3.orgname as UPT_ORGNAME, to_char(t1.UPT_TIME,'yyyy-MM-dd hh24:mm:ss') as UPT_TIME
+from t_loan_info_update_water t1,om_employee t2, om_organization t3
+where t1.upt_empid = t2.empid
+and t1.upt_orgcode = t3.orgcode
+and t1.flow_id = '$flow_id$'
+order by  t1.UPT_TIME desc
+  </select>
 </sqlMap>
