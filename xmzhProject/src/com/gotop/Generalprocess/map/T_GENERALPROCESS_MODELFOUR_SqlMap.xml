@@ -74,6 +74,14 @@
     values (#mistakeId:DECIMAL:-9999#,#flowId:VARCHAR#,#mistakeContent:VARCHAR#,#punishBal:VARCHAR#,#empid:VARCHAR#,#taskName:VARCHAR#,#processModelIdFour:VARCHAR#,#addTime:VARCHAR#)
   </insert>
   
+  <insert id="saveMistakeInfo" parameterClass="java.util.HashMap">
+  <selectKey resultClass="long" keyProperty="mistakeId">
+			SELECT SEQ_GENERALPROCESS_MISTAKE.NEXTVAL AS VALUE FROM DUAL
+   </selectKey>
+  	insert into T_GENERALPROCESS_MISTAKE (MISTAKEID, FLOW_ID, MISTAKE_CONTENT, PUNISH_BAL,EMPID,TASKNAME,PROCESSMODELID_FOUR,ADD_TIME)
+    values (#mistakeId:DECIMAL:-9999#,#flowId:VARCHAR#,#mistakeContent:VARCHAR#,#punishBal:VARCHAR#,#empid:VARCHAR#,#taskName:VARCHAR#,#processModelIdFour:VARCHAR#,#addTime:VARCHAR#)
+  </insert>
+  
    <select id="queryModelFourById" resultMap="processModelFour_result1" parameterClass="java.util.HashMap">
    SELECT T.PROCESSMODELID,T.FLOW_ID,T.OPNINION_CONTENT,T.TASKNAME,
    T.PROCESSMODELID as MISTAKETYPE

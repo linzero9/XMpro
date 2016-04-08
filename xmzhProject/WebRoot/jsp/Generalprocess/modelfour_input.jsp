@@ -208,6 +208,7 @@
 					         		//	tdStr+=row.id;
 									 	tdStr+="扣罚金额：<input type=\"text\" name=\""+jeName+"\" id=\""+jeId+"\" value=\""+item.punishBal+"\" size='10' validateAttr=\"allowNull=false\">元";
 									 	tdStr+= "<input type=\"button\" onclick=\"delTr('fileRow"+rowId+"');\" name='button"+rowId+"' value=\"删除\" style=\"margin-left:2px;vertical-align:middle;cursor:hand;\"/>";
+									 	tdStr+= "<input type=\"button\" onclick=\"saveMistake('fileRow"+rowId+"');\" name='button"+rowId+"' value=\"保存\" style=\"margin-left:2px;vertical-align:middle;cursor:hand;\"/>";
 									 	td.innerHTML = tdStr;
 										rowId = rowId+1; 
 					         		 }
@@ -287,6 +288,34 @@
 			 jeName = varJeName;
 			 timeName=vartimeName;
 
+
+			   var ididi= $("#tabtest  tr:last").attr("id");
+
+
+
+	             if(ididi!=undefined){
+
+	          
+
+	                 
+
+	             var ids= ididi.split("fileRow");
+
+	             rowId= ids[1];
+
+	            
+
+
+
+	             rowId=parseInt(rowId)+1;
+
+	             
+
+	             }
+
+
+
+
 			 
 			 fId = varName+rowId;
 			 jeId= varName+"je"+rowId;
@@ -302,13 +331,48 @@
 			 	tdStr="差错内容：<textarea   rows=\"3\" style=\"width:60%\"  name=\""+fName+"\" id=\""+fId+"\" size='70' validateAttr=\"allowNull=false\"></textarea>";
 			 	tdStr+="扣罚金额：<input type=\"text\" name=\""+jeName+"\" id=\""+jeId+"\" size='10' validateAttr=\"allowNull=false\">元";
 			    tdStr+= "<input type=\"button\" onclick=\"delTr('fileRow"+rowId+"');\" name='button"+rowId+"' value=\"删除\" style=\"margin-left:2px;vertical-align:middle;cursor:hand;\"/>";
-			    td.innerHTML = tdStr;
+			    tdStr+= "<input type=\"button\" onclick=\"saveMistake('fileRow"+rowId+"');\" name='button"+rowId+"' value=\"保存\" style=\"margin-left:2px;vertical-align:middle;cursor:hand;\"/>";
+
+				    td.innerHTML = tdStr;
 			    rowId = rowId+1;    
 		 }
 		 
 		 function delTr(id){
 			$("#"+id).remove();
 		}
+			function saveMistake(id){
+
+
+				var money = $("#" + id + "   input").val();
+				var time = $("#" + id + "   textarea[name='timees']").val();
+
+				var files = $("#" + id + "   textarea[name='files']").val();
+
+				
+				
+			
+				$.ajax({//获得当前
+					        url: '/Generalprocess/tGeneralprocessModelFourAction_saveMistakeInfo.action',
+					        async:false,
+					        type: 'post',
+					        data: "modelFour.taskName=${modelFour.taskName}"+"&modelFour.processModelId=${modelFour.processModelId}"+"&taskAssgineeDto.nextTaskId=${taskAssgineeDto.nextTaskId}"+"&taskAssgineeDto.executionId=${taskAssgineeDto.executionId}"+"&misTakeId="+id+"&jees="+money+"&time="+time+"&files="+files,
+					        dataType:"text",
+					        timeout: 60000,
+					        	 success: function (data) {
+							    	  if (data.indexOf("success") >= 0) {
+							    		  alert("保存成功");
+							    		  
+									} else if (data.indexOf("fails") >= 0) {
+										alert("保存失败!");
+									} else {
+										alert("操作失败!");
+									}
+											  	
+							      }
+					        
+				    });	
+			
+			 }
 				
  </script>
 </html>

@@ -4,6 +4,7 @@ import com.gotop.Generalprocess.model.ProcessModelFour;
 import com.gotop.Generalprocess.model.ProcessModelFourMistake;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public interface ITGeneralprocessModelfourDAO {
 
@@ -23,4 +24,6 @@ public interface ITGeneralprocessModelfourDAO {
 
 	List<ProcessModelFourMistake> queryFourMistakeByFlowId(
 			HashMap<String, Object> map);
+
+	void saveMistakeInfo(Map<String, Object> map);
 }

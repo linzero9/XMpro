@@ -356,6 +356,38 @@ public class TGeneralprocessModelfourService implements ITGeneralprocessModelfou
 		this.generalprocessService.insertApproveOpninion(modelFour, muo, nextTaskId,
 				submitType, taskAssgineeDto);
 	}
+	
+	
+	@Override
+	public void saveMistakeInfo(MUOUserSession muo, ProcessModelFour modelFour,
+			Map<String, Object> map,TaskAssgineeDto taskAssgineeDto,String misTakeId) {
+		
+		String taskId = taskAssgineeDto.getNextTaskId();
+		String taskName = jbpmService.getTaskNameById(taskId);
+		modelFour.setTaskName(taskName);
+		modelFour.setFlowId(taskAssgineeDto.getExecutionId());
+	
+		
+		
+			map.put("taskName", taskName);
+		
+		
+			map.put("flowId", modelFour.getFlowId());
+		
+		
+			map.put("empid", String.valueOf(muo.getEmpid()));
+		
+		
+			map.put("processModelIdFour", modelFour.getProcessModelId());
+		
+		
+		
+		
+		this.tGeneralprocessModelfourDAO.saveMistakeInfo(map);
+		
+	}
+	
+	
 
 	@Override
 	public List<ProcessModelFourMistake> queryFourMistake(
@@ -381,5 +413,9 @@ public class TGeneralprocessModelfourService implements ITGeneralprocessModelfou
 		}
 		return this.tGeneralprocessModelfourDAO.queryFourMistakeByFlowId(map);
 	}
+
+
+
+
 	
 }

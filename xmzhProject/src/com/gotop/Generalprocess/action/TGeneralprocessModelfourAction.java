@@ -1,5 +1,15 @@
 package com.gotop.Generalprocess.action;
 
+import java.lang.reflect.InvocationTargetException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
+import net.sf.json.JSONArray;
+
 import com.gotop.Generalprocess.annonation.GeneralprocessFieldBean;
 import com.gotop.Generalprocess.model.ProcessModelFour;
 import com.gotop.Generalprocess.model.ProcessModelFourMistake;
@@ -14,15 +24,6 @@ import com.gotop.opinion.model.TDefaultOpinion;
 import com.gotop.opinion.service.ITDefaultOpinionService;
 import com.gotop.util.Struts2Utils;
 import com.gotop.vo.system.MUOUserSession;
-
-import java.lang.reflect.InvocationTargetException;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
-
-import net.sf.json.JSONArray;
 
 /**
  * 模式四控制器
@@ -41,6 +42,16 @@ public class TGeneralprocessModelfourAction extends BaseAction {
 
 	private List<ProcessModelFourMistake> otherMistakes;
 	
+	/**
+	 * 差错内容id
+	 */
+	private String misTakeId; 
+	/**
+	 * 保存时间
+	 */
+	public String time;
+
+
 	/**
 	 * 历史差错内容
 	 */
@@ -98,9 +109,21 @@ public class TGeneralprocessModelfourAction extends BaseAction {
 	 * */
 	private String timees;
 	
-	
-	
+	public String getTime() {
+		return time;
+	}
 
+	public void setTime(String time) {
+		this.time = time;
+	}
+	
+	public String getMisTakeId() {
+		return misTakeId;
+	}
+
+	public void setMisTakeId(String misTakeId) {
+		this.misTakeId = misTakeId;
+	}
 	public String getTimees() {
 		return timees;
 	}
@@ -469,6 +492,32 @@ public class TGeneralprocessModelfourAction extends BaseAction {
 				throw e;
 			}
 		}
+		Struts2Utils.renderText(info);
+	}
+	/**
+	 * 保存单条错误内容
+	 * @return
+	 */
+	
+	public void saveMistakeInfo(){
+		String info = "success";
+		MUOUserSession muo = getCurrentOnlineUser();
+		Map< String, Object> map = new LinkedHashMap<String, Object>();
+		map.put("mistakeContent", files);
+		map.put("punishBal", jees);
+		Date date=new Date();
+	    SimpleDateFormat matter=new SimpleDateFormat("yyyyMMddHHmmss");
+		String addTime = matter.format(date);
+		map.put("addTime", addTime);
+		
+		try {
+			this.tGeneralprocessModelfourService.saveMistakeInfo(muo,modelFour,map,taskAssgineeDto,misTakeId);
+			
+		} catch (Exception e) {
+			info="fails";
+			log.error("[保存错误内容失败！]", e);
+		}
+		
 		Struts2Utils.renderText(info);
 	}
 

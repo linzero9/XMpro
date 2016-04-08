@@ -6,6 +6,8 @@ import com.gotop.Generalprocess.model.ProcessModelFourMistake;
 import com.gotop.util.dataSource.SqlMapClientDao;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.log4j.Logger;
 
 public class TGeneralprocessModelfourDAO extends SqlMapClientDao implements ITGeneralprocessModelfourDAO {
@@ -51,6 +53,13 @@ public class TGeneralprocessModelfourDAO extends SqlMapClientDao implements ITGe
 	public void addModelFourMistake(ProcessModelFourMistake mistake) {
 		getSqlMapClientTemplate().insert("T_GENERALPROCESS_MODELFOUR_SqlMap.addModelFourMistake", mistake);
 	}
+	
+	@Override
+	public void saveMistakeInfo(Map<String, Object> map) {
+		// TODO 自动生成的方法存根
+		
+		getSqlMapClientTemplate().insert("T_GENERALPROCESS_MODELFOUR_SqlMap.saveMistakeInfo", map);
+	}
 
 	@Override
 	public List<ProcessModelFourMistake> queryFourMistake(
@@ -68,4 +77,6 @@ public class TGeneralprocessModelfourDAO extends SqlMapClientDao implements ITGe
 			HashMap<String, Object> map) {
 		return queryForList("T_GENERALPROCESS_MODELFOUR_SqlMap.queryFourMistakeByFlowId", map);
 	}
+
+	
 }

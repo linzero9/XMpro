@@ -41,5 +41,15 @@ public interface ITGeneralprocessModelfourService {
 
 	List<ProcessModelFourMistake> queryFourMistakeByFlowId(String busId,
 			ProcessModelFour modelFour);
+/**
+ * 保存单个错误内容
+ * @param muo
+ * @param modelFour
+ * @param map
+ * @param taskAssgineeDto 
+ * @param misTakeId 
+ */
+	void saveMistakeInfo(MUOUserSession muo, ProcessModelFour modelFour,
+			Map<String, Object> map, TaskAssgineeDto taskAssgineeDto, String misTakeId);
 
 }
