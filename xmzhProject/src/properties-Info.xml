@@ -20,6 +20,7 @@
         	<list>
         	<value>classpath:ModelInfo.properties</value>
         	<value>classpath:jbpmfile.properties</value>
+        	       	<value>classpath:time.properties</value>
         	</list>
         </property>  
     </bean>  

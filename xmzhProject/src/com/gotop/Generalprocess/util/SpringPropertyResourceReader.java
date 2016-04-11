@@ -1,6 +1,12 @@
 package com.gotop.Generalprocess.util;  
 import java.lang.reflect.Method;  
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Properties;  
+import java.util.Set;
+
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;  
 import org.springframework.beans.factory.config.PropertyResourceConfigurer;  
 import org.springframework.context.ApplicationContext;  
@@ -66,6 +72,52 @@ public class SpringPropertyResourceReader {
     }  
       
     public static String getProperty(String propertyName){  
+    	
+   
         return properties.getProperty(propertyName);  
+        
+        
     }  
+    
+    
+    
+    
+    public static     	 Map<String, String>  getAllPro(){  
+    	
+    	Set<Object> tset= properties.keySet();
+    	List<String> model= new ArrayList<String>();
+
+    	for (Object	 object : tset) {
+    		
+    		String a= (String) object;
+    		
+    		if(a.split("-")[0].equals("模式")){
+    			
+    			
+    			model.add(a);
+    		}
+    		
+			
+		}
+    	
+    	
+    	
+    	
+    	
+   	 Map<String, String> result  =  new  HashMap<String, String>();
+	 
+	 
+   	 for (String string : model) {
+   		String value =  SpringPropertyResourceReader.getProperty(string);
+   		result.put(string, value);
+   	}
+   	 
+    	
+    	
+    	   
+        return result;
+        
+        
+    }  
+    
 }  
