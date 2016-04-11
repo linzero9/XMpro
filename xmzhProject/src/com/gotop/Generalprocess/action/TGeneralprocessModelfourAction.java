@@ -42,10 +42,7 @@ public class TGeneralprocessModelfourAction extends BaseAction {
 
 	private List<ProcessModelFourMistake> otherMistakes;
 	
-	/**
-	 * 差错内容id
-	 */
-	private String misTakeId; 
+	
 	/**
 	 * 保存时间
 	 */
@@ -117,13 +114,7 @@ public class TGeneralprocessModelfourAction extends BaseAction {
 		this.time = time;
 	}
 	
-	public String getMisTakeId() {
-		return misTakeId;
-	}
-
-	public void setMisTakeId(String misTakeId) {
-		this.misTakeId = misTakeId;
-	}
+	
 	public String getTimees() {
 		return timees;
 	}
@@ -511,7 +502,7 @@ public class TGeneralprocessModelfourAction extends BaseAction {
 		map.put("addTime", addTime);
 		
 		try {
-			this.tGeneralprocessModelfourService.saveMistakeInfo(muo,modelFour,map,taskAssgineeDto,misTakeId);
+			this.tGeneralprocessModelfourService.saveMistakeInfo(muo,modelFour,map,taskAssgineeDto);
 			
 		} catch (Exception e) {
 			info="fails";

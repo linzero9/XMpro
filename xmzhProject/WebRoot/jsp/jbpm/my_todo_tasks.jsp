@@ -220,9 +220,9 @@
 		  		/**
 				* 2014.9.1 改为弹出框
 				**/
-		  		//showModalCenter(encodeURI(strUrl), null, callBack, clientX*0.9, clientY*0.9, '待办详情');
-		  		 window.open(encodeURI(strUrl),""
-	,"height=400px, width=600px, menubar=yes, scrollbars=yes, toolbar=yes, status=yes, location=no,resizable=yes");  
+		  		showModalCenter(encodeURI(strUrl), null, callBack, clientX*0.9, clientY*0.9, '待办详情');
+		  		/*  window.open(encodeURI(strUrl),""
+	,"height=400px, width=600px, menubar=yes, scrollbars=yes, toolbar=yes, status=yes, location=no,resizable=yes");   */
 			}
 		}
 		function callBack(){

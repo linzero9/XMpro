@@ -24,6 +24,11 @@ public class ProcessModelFour extends ProcessModel  implements  Serializable{
      */
 	@GeneralprocessField(name="处理意见",type="text")
     private String opninionContent;
+
+
+	@GeneralprocessField(name="整改情况",type="text")
+	private String rectification;
+	
 	
 	@GeneralprocessField(name="差错情况",type="misTakeType")
 	private String misTakeType;
@@ -36,6 +41,14 @@ public class ProcessModelFour extends ProcessModel  implements  Serializable{
 		this.misTakeType = misTakeType;
 	}
 
+	public String getRectification() {
+		return rectification;
+	}
+
+	public void setRectification(String rectification) {
+		this.rectification = rectification;
+	}
+	
 	public String getFlowId() {
 		return flowId;
 	}

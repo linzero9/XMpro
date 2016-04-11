@@ -46,7 +46,8 @@
 	     	<h:textarea  extAttr="class='h80' "  name="modelFour.opninionContent" property="modelFour.opninionContent"  id="hanldOption" validateAttr="maxLength=512;" rows="4"  style="width:90%;" />
 		 
      	</td>
-      </tr>
+    
+      
        <tr id="rowHi">
       	<td class="form_label" align="right">历史差错情况：</td>
      	<td colspan="3">
@@ -72,6 +73,15 @@
      	</td>
      </tr>
     <%@include file="/jsp/util/default_gp_opinionUtil.jsp" %>
+      </tr>
+      
+        <tr>
+     	<td class="form_label" align="right" style="width:10%;">整改情况：</td>
+     	<td colspan="3">
+	     	<h:textarea  extAttr="class='h80' "  name="modelFour.rectification" property="modelFour.rectification"  id="hanldOption" validateAttr="maxLength=512;" rows="4"  style="width:90%;" />
+		 
+     	</td>
+      </tr>
       <tr class="form_bottom">
         <td colspan="4">
           <input type="button" value="提交" onclick="doSave(2);" class="button" id="save3" />

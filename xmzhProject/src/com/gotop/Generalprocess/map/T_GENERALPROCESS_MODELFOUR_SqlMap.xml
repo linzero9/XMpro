@@ -6,11 +6,13 @@
     <result column="PROCESSMODELID" property="processModelId" jdbcType="DECIMAL" />
     <result column="FLOW_ID" property="flowId" jdbcType="VARCHAR" />
     <result column="OPNINION_CONTENT" property="opninionContent" jdbcType="VARCHAR" />
+    <result column="RECTIFICATION" property="rectification" jdbcType="VARCHAR" />
     <result column="TASKNAME" property="taskName" jdbcType="VARCHAR" />
   </resultMap>
   
   <resultMap id="processModelFour_result1" class="com.gotop.Generalprocess.model.ProcessModelFour" >
     <!--Bean方式返回全表-->
+     <result column="RECTIFICATION" property="rectification" jdbcType="VARCHAR" />
     <result column="PROCESSMODELID" property="processModelId" jdbcType="DECIMAL" />
     <result column="FLOW_ID" property="flowId" jdbcType="VARCHAR" />
     <result column="OPNINION_CONTENT" property="opninionContent" jdbcType="VARCHAR" />
@@ -83,7 +85,7 @@
   </insert>
   
    <select id="queryModelFourById" resultMap="processModelFour_result1" parameterClass="java.util.HashMap">
-   SELECT T.PROCESSMODELID,T.FLOW_ID,T.OPNINION_CONTENT,T.TASKNAME,
+   SELECT T.PROCESSMODELID,T.FLOW_ID,T.OPNINION_CONTENT,T.TASKNAME,T.RECTIFICATION,
    T.PROCESSMODELID as MISTAKETYPE
    FROM T_GENERALPROCESS_MODELFOUR T
     where T.PROCESSMODELID = #processModelId#
@@ -92,7 +94,8 @@
   <update id="uptModelFour" parameterClass="com.gotop.Generalprocess.model.ProcessModelFour">
    update T_GENERALPROCESS_MODELFOUR
     set 
-      OPNINION_CONTENT = #opninionContent:VARCHAR#
+      OPNINION_CONTENT = #opninionContent:VARCHAR#,
+      RECTIFICATION=#rectification:VARCHAR#
     where PROCESSMODELID = #processModelId:DECIMAL#
   </update>
   
@@ -100,14 +103,14 @@
    <selectKey resultClass="long" keyProperty="processModelId">
 			SELECT SEQ_T_GENERALPROCESS_MODELFOUR.NEXTVAL AS VALUE FROM DUAL
    </selectKey>
-  	insert into T_GENERALPROCESS_MODELFOUR (PROCESSMODELID, FLOW_ID, OPNINION_CONTENT, TASKNAME)
+  	insert into T_GENERALPROCESS_MODELFOUR (PROCESSMODELID, FLOW_ID, OPNINION_CONTENT, TASKNAME,RECTIFICATION)
     values (#processModelId:DECIMAL:-9999#, #flowId:VARCHAR#, #opninionContent:VARCHAR#,
-      #taskName:VARCHAR#)
+      #taskName:VARCHAR#,#rectification:VARCHAR#)
   </insert>
   
    <!--通过条件查询数据-->
    <select id="queryModelFour" resultMap="processModelFour_result" parameterClass="java.util.HashMap">
-   SELECT T.PROCESSMODELID,T.FLOW_ID,T.OPNINION_CONTENT,T.TASKNAME FROM T_GENERALPROCESS_MODELFOUR T
+   SELECT T.PROCESSMODELID,T.FLOW_ID,T.OPNINION_CONTENT,T.TASKNAME,T.RECTIFICATION FROM T_GENERALPROCESS_MODELFOUR T
     where 1=1
     <dynamic>
       <isNotNull prepend="and" property="flow_id" >

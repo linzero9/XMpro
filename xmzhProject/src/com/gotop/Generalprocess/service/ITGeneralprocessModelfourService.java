@@ -47,9 +47,8 @@ public interface ITGeneralprocessModelfourService {
  * @param modelFour
  * @param map
  * @param taskAssgineeDto 
- * @param misTakeId 
  */
 	void saveMistakeInfo(MUOUserSession muo, ProcessModelFour modelFour,
-			Map<String, Object> map, TaskAssgineeDto taskAssgineeDto, String misTakeId);
+			Map<String, Object> map, TaskAssgineeDto taskAssgineeDto);
 
 }
