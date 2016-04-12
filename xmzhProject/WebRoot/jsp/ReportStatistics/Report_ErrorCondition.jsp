@@ -28,7 +28,7 @@
 					<td colspan="1" width="30%"><h:text id="cust_Name" property="ErrorConditionDto.cust_Name" />
 					</td>
 					
-					<td class="form_label" align="right" >差错环节：</td>
+					<td class="form_label" align="right"  width="20%">差错环节：</td>
 					<td >
 			     		<h:hidden id="ErrorlinkId" property="xdProcessTaskAssignee.ErrorlinkId" />  <!--  xdProcessTaskAssignee是dao名称 -->
 						<h:text id="Errorlink" property="xdProcessTaskAssignee.Errorlink" readonly="true"/>

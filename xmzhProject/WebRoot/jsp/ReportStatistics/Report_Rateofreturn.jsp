@@ -1,231 +1,276 @@
-<%@ page language="java" import="java.util.*,java.sql.*" pageEncoding="utf-8"%>
-<%@page language="java" import="com.hotel.DAO.*,com.hotel.model.*"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>
+<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
+<%@include file="/common/common.jsp"%>
+<%@include file="/common/skins/skin0/component.jsp"%>
+<h:css href="/css/style1/style-custom.css" />
+<script src="<%=request.getContextPath() %>/common/gotop/jquery.min.js"></script>
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
-  <head>
-    <base href="<%=basePath%>">
-    
-    <title>退单率统计表</title>
-    
-	<meta http-equiv="pragma" content="no-cache">
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">    
-	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-	<meta http-equiv="description" content="This is my page">
-	<link rel="stylesheet" href="css/style.css" type="text/css"></link>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>退单率统计列表</title>
+	</head>
+	<body topmargin="0" leftmargin="0">
+	<h:form name="appQuery"	action="/jbpm/xdProcessAction_queryXdStartProcessList.action" method="post">
+		<w:panel id="panel1" title="查询条件">
+			<table align="center" border="0" width="100%" class="form_table">
+				
+				<tr>
+                                        <td class="form_label" align="right" width="20%">审批时间：</td>
+					<td colspan="1" width="30%">
+					从
+					<w:date  format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="appTimeStrat" name="RateofreturnDto.appTimeStrat" 
+					property="RateofreturnDto.appTimeStrat" /> 
+					到
+					<w:date format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="appTimeEnd" name="RateofreturnDto.appTimeEnd" 
+					property="RateofreturnDto.appTimeEnd" /></td>
 
+					
+					
+					<td class="form_label" align="right" >一级分类：</td>
+					<td >
+			     		<h:hidden id="oneCategoryId" property="xdProcessTaskAssignee.oneCategoryId" />  
+						<h:text id="oneCategory" property="xdProcessTaskAssignee.oneCategory" readonly="true"/>
+						<a href="#" onclick="showoneCategory();">选择</a>
+					</td>
+					
+					<td class="form_label" align="right" >贷种分类：</td>
+					<td >
+						<h:hidden id="loanCategoryId" property="xdProcessTaskAssignee.loanCategoryId" />
+						<h:text id="loanCategory" property="xdProcessTaskAssignee.loanCategory" readonly="true"/>
+						<a href="#" onclick="showloanCategory();">选择</a>
+					</td>
+				</tr>
+				<tr class="form_bottom">
+						<td colspan="6" class="form_bottom">
+						    <b:message key="l_display_per_page"></b:message>
+					        <h:text size="2" property="page.length" value="10" validateAttr="minValue=1;maxValue=100;type=integer;isNull=true" />
+					        <input type="hidden" name="page.begin" value="0">
+					        <input type="hidden" name="page.isCount" value="true">
+							<input id="querys" type="submit" value="查 询" class="button" onclick="search();">
+							<input type="button" value="清 空" class="button" onclick="clears();">
+                                                        <input id="downexl" type="submit" class="button" value="导出列表" onclick="downExl();"></td>
+					</tr>			
+			</table>
+		</w:panel>
+	</h:form>
+	<DIV class="divList">
+			<w:panel id="panel" width="100%" title="退单率统计列表">
+				<viewlist id="e2c61865-3b56-470d-bd42-fff792fb9493">
+				<h:form name="page_form"
+					action="/jbpm/xdProcessAction_queryXdStartProcessList.action" method="post">
+			 <h:hiddendata property="xdProcessTaskAssignee"/>  
 
-  </head>
-  
-  <body>
-		<header>
-			<h1>信贷二期系统</h1>
-		</header>
-		<article>
-		 <aside style="width:97%; height:410px;">
-			   <div>
-			   <h2>退单率统计表</h2>
-			   <form name="form1"  method="post">
-			    <tr>
-			   <td align="right" bgcolor="#EEF7FF" style="width: 5%">报表:
-			   </td>
-			  
-                            <td align="left" bgcolor="#EEF7FF" width="15%">
-                            
-                            <select   name="ym" size="1" id="ym" style="width:120px;" onchange="window.location.href=this.options[selectedIndex].value">  
-<option>请选择</option>  
-<option   value="http://localhost:8088/jsp/ReportStatistics/Report_ErrorCondition.jsp" target="_blank">差错情况统计表</option>    
-<option   value="http://localhost:8088/jsp/ReportStatistics/Report_DealApproval.jsp"   target="_self">受理审批台账</option>  
-<option   value="http://localhost:8088/jsp/ReportStatistics/Report_Jobworkload.jsp"   target="_self">岗位工作量统计表</option>  
-<option   value="http://localhost:8088/jsp/ReportStatistics/Report_Rateofreturn.jsp"   target="_self">退单率统计表</option> 
-<option   value="http://localhost:8088/jsp/ReportStatistics/Report_Refusalrate.jsp"   target="_self">拒贷率统计表</option> 
-<option   value="http://localhost:8088/jsp/ReportStatistics/Report_CooperateInstitution.jsp"   target="_self">合作机构业务发展台账</option> 
-<option   value="http://localhost:8088/jsp/ReportStatistics/Report_OverrunCondition.jsp"   target="_self">超限情况统计表</option> 
-</select>   
-
-                       
-                               
-                            </td>
-			   <td align="right" bgcolor="#EEF7FF" style="width: 5%">审批日期:
-			   </td>
-			  <td align="left" bgcolor="#EEF7FF" width="35%" class="style1" colspan="3">
-                                <input name="TextBox1" type="date"  id="TextBox1"  style="width:130px;"  />
-                            </td>
-			  
-			   
-			   <td align="right" bgcolor="#EEF7FF" style="width: 5%">至
-			   </td>
-			   <td align="left" bgcolor="#EEF7FF" width="35%" class="style1" colspan="3">
-                                <input name="TextBox2" type="date"  id="TextBox2"  style="width:130px;" />
-                            </td>
-            
-			   
-			   
-			 
-		
-			   
-			   <td align="right" bgcolor="#EEF7FF" style="width: 5%">
-                               一级分类
-                            </td>
-                            <td align="left" bgcolor="#EEF7FF" width="15%">
-                                <select name="yjfl" size="1" id="yjfl" style="width:120px;"  required>
-                                    <option value="" selected="selected">请选择</option>
-                                    <option value="0">一手房</option>
-                                    <option value="1">二手房</option>
-                                    <option value="2">车贷</option>
-                                    <option value="3">公积金组合贷</option>
-                                    <option value="4">存单质押贷</option>
-                                    <option value="5">再就业小额担保贷款</option>
-                                    <option value="6">小额</option>
-                                    <option value="7">综消、信用贷、留学贷</option>
-                                   <option value="8">小额支用</option>
-                                   <option value="9">综消、信用贷支用</option>
-                                   <option value="10">个商（500万元以下）</option>
-                                   <option value="11">个商（500万元以上（含））</option>
-                                   <option value="12">经营性车辆</option>
-                                   <option value="13">快捷贷</option>
-                                   <option value="14">个商支用</option>
-                                   <option value="15">一般风险小企业（含快捷贷）</option>
-                                   <option value="16">低风险小企业</option>
-                                   <option value="17">担保公司准入</option>
-                                   <option value="18">小企业业务变更</option>
-                                   <option value="19">票据承兑</option>
-                                   <option value="20">小企业单笔支用审批</option>
-                                   <option value="21">风险额度重检</option>
-                                   <option value="22">E捷贷</option>
-                                   <option value="23">一手房项目准入</option>
-                                   <option value="24">供应链金融业务（非同一核心企业）</option>
-                                   <option value="25">供应链金融业务（同一核心企业）</option>
-                                   <option value="26">综合授信、项目融资、非低风险贸易融资</option>
-                                   <option value="27">集团授信</option>
-                                   <option value="28">票据大管家池融资业务</option>
-                                   <option value="29">商票贴现</option>
-                                   <option value="30">同业授信</option>
-                                   <option value="31">公司业务变更</option>
-                                   <option value="32">低风险公司授信业务</option>
-                                   <option value="33">供应链金融业务（非同一核心企业）</option>
-                                   <option value="34">供应链金融业务（同一核心企业）</option>
-                                   <option value="35">供应链金融业务项下单笔支用</option>
-                                   <option value="36">综合授信、项目融资、非低风险贸易融资</option>
-                                    <option value="37">综合授信项下单笔支用</option>
-                                     <option value="38">集团授信</option>
-                                     
-                                    
-                                </select>
-                             
-                            </td>*
-                            <td align="right" bgcolor="#EEF7FF" style="width: 5%">
-                               贷种分类
-                            </td>
-                            <td align="left" bgcolor="#EEF7FF" width="15%">
-                                <select name="dzfl" size="1" id="dzfl" style="width:120px;"  required>
-                                    <option value="" selected="selected">请选择</option>
-                                    <option value="0">个人一手住房贷款、个人一手商业用房贷款</option>
-                                    <option value="1">个人二手住房贷款、个人二手商业用房贷款</option>
-                                    <option value="2">个人汽车消费贷款</option>
-                                    <option value="3">一手住房公积金委托贷款、二手住房公积金委托贷款</option>
-                                    <option value="4">存单质押贷</option>
-                                    <option value="5">再就业小额担保贷款</option>
-                                    <option value="6">小额循环贷、家庭农场（专业大户）贷款</option>
-                                    <option value="7">个人综合消费贷款、个人信用消费贷款、留学贷款</option>
-                                   <option value="8">小额循环贷、家庭农场（专业大户）贷款</option>
-                                   <option value="9">个人综合消费贷款、个人信用消费贷款</option>
-                                   <option value="10">个商（500万元以下）</option>
-                                   <option value="11">个商（500万元以上（含））</option>
-                                   <option value="12">个商经营性车辆</option>
-                                   <option value="13">个商快捷贷</option>
-                                   <option value="14">个商支用</option>
-                                   <option value="15">小企业快捷贷、小企业法人按揭贷款、小企业经营性车辆贷款</option>
-                                   <option value="16">小企业流动资金贷款</option>
-                                   <option value="17">其他小企业贷款</option>
-                                   <option value="18">小企业快捷贷、小企业法人按揭贷款、小企业经营性车辆贷款</option>
-                                   <option value="19">小企业流动资金贷款</option>
-                                   <option value="20">担保公司准入</option>
-                                   <option value="21">小企业快捷贷、小企业法人按揭贷款、小企业经营性车辆贷款、小企业流动资金贷款</option>
-                                   <option value="22">非全额担保票据承兑</option>
-                                   <option value="23">小企业单笔支用</option>
-                                   <option value="24">风险额度重检</option>
-                                   <option value="25">个商E捷贷</option>
-                                   <option value="26">一手房项目准入</option>
-                                   <option value="27">供应链金融业务（非同一核心企业）</option>
-                                   <option value="28">供应链金融业务（同一核心企业）</option>
-                                   <option value="29">国际业务综合额度</option>
-                                   <option value="30">公司业务单一客户综合授信额度、项目贷款、银团贷款</option>
-                                   <option value="31">公司业务集团客户综合授信额度</option>
-                                   <option value="32">全额担保票据承兑</option>
-                                   <option value="33">票据大管家池融资业务</option>
-                                   <option value="34">商票贴现</option>
-                                   <option value="35">同业授信</option>
-                                   <option value="36">公司业务变更</option>
-                                   <option value="37">国际业务低风险业务、公司业务低风险业务</option>
-                                   <option value="38">供应链金融业务（非同一核心企业）</option>
-                                   <option value="39">供应链金融业务（同一核心企业）</option>
-                                   <option value="40">供应链金融业务项下单笔支用</option>
-                                   <option value="41">国际业务综合额度</option>
-                                   <option value="42">公司业务单一客户综合授信额度、项目贷款、银团贷款</option>
-                                    <option value="43">国际业务综合额度项下单笔、公司业务综合授信额度项下单笔</option>
-                                     <option value="44">公司业务集团客户综合授信额度</option>
-                                      <option value="45">公司业务变更</option>
-                                   
-                                </select>
-                            </td>*
-                             <td>
-                    <input id="searchButton" class="inputButton" type="submit"  onclick="test();" 
-    value=" 查 询 " />
-                    <input type="submit" value="导出EXCEL" id="btndc"/>
-                 </td>
-                            </tr>
-			   
-			   </form>
-			   
-			   <table border="1" class="datalist">
-			   	<thead>
-			   		<tr>
-			   			
-			   			<td>贷种</td>
-			   			<td>区支行</td>
-			   			<td>二级支行</td>
-			   			<td>本月审批通过笔数</td>
-			   			<td>其中1次退单率</td>
-			   			<td>其中2次退单率</td>
-			   			<td>其中3次退单率</td>
-			   			<td>其中4次退单率</td>
-			   			
-			   		</tr>
-			   	</thead>
-			   
-			   </table>
-			   </div>
-			
-		    </aside>
-		</article>
-		
-		<footer><h3>版权所有&copy;</h3></footer>
+            <h:hidden property="page.begin"/>
+		    <h:hidden property="page.length"/>
+		    <h:hidden property="page.count"/>
+		    <h:hidden property="page.isCount"/>
+		    
+					<table align="center" border="0" width="100%" class="EOS_table">
+		    
+						<tr>
+							<th align="center" nowrap="nowrap">
+								<b:message key="l_select"></b:message>
+							</th>
+							
+							<th nowrap="nowrap">
+								贷种
+							</th>
+							<th nowrap="nowrap">
+								区支行
+							</th>
+							<th nowrap="nowrap">
+								二级支行
+							</th>
+							<th nowrap="nowrap">
+								本月审批通过笔数
+							</th>
+							<th nowrap="nowrap">
+								其中1次退单率
+					       </th>
+					       <th nowrap="nowrap">
+								其中2次退单率
+							</th>
+                                                  <th nowrap="nowrap">
+								其中3次退单率
+							</th>
+                                                  <th nowrap="nowrap">
+								其中4次退单率
+							</th>
+						</tr>
+						<w:radioGroup id="group1">
+                           <l:iterate property="xdProcessTaskAssignees" id="id1">
+							<tr class="<l:output evenOutput='EOS_table_row' oddOutput='EOS_table_row_o'  />">
+								<td align="center" nowrap="nowrap">
+									<w:rowRadio>
+										<h:param name='executionId' iterateId='id1' property='executionId' />
+										<h:param name='processName' iterateId='id1' property='processName' />
+										<h:param name='custName' iterateId='id1' property='custName' />
+										<h:param name='apply_bal' iterateId='id1' property='apply_bal' />
+										<h:param name='oneCategory' iterateId='id1' property='oneCategory' />
+										<h:param name='loanCategory' iterateId='id1' property='loanCategory' />
+										<h:param name='coorganization' iterateId='id1' property='coorganization' />
+									</w:rowRadio>
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1"    property="processName" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="custName" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="apply_bal" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="oneCategory" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="loanCategory" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="coorganization" />
+								</td>
+							</tr>
+						</l:iterate>
+						</w:radioGroup>
+							<tr>
+              <td colspan="23" class="command_sort_area">
+              	<div class="h3"> 
+              	<l:greaterThan property="page.count" targetValue="0" compareType="number" >
+								&nbsp; &nbsp;
+									<input type="button" class="button" value="修改退单率信息" onclick="upt_loan_info();"/>
+								</l:greaterThan>
+							
+							<l:greaterThan property="page.count" targetValue="0" compareType="number" >
+								&nbsp; &nbsp;
+							<input type="button" class="button" value="查看修改明细" onclick="queryLoanUptWater();"/>
+								</l:greaterThan>
+								</div>
+							
+                <div class="h4">
+	                <l:equal property="page.isCount" targetValue="true" >
+	                  <b:message key="l_total"></b:message>
+	                  <b:write property="page.count" />
+	                  <b:message key="l_recordNO."></b:message>
+	                  <b:write property="page.currentPage" />
+	                  <b:message key="l_page"></b:message>
+	                  <b:write property="page.totalPage" />
+	                  <b:message key="l_page"></b:message>
+	                </l:equal>
+	                <l:equal property="page.isCount" targetValue="false" >
+	                  <b:message key="l_NO."></b:message>
+	                  <b:write property="page.currentPage" />
+	                  <b:message key="l_page"></b:message>
+	                </l:equal>
+	                <input type="button" class="button" onclick="firstPage('page', '', null, null, 'page_form');" value='<b:message key="l_firstPage"></b:message>'  <l:equal property="page.isFirst"  targetValue="true">disabled</l:equal> >
+	                <input type="button" class="button" onclick="prevPage('page', '', null, null, 'page_form');" value='<b:message key="l_upPage"></b:message>' <l:equal property="page.isFirst"  targetValue="true">disabled</l:equal> >
+	                <input type="button" class="button" onclick="nextPage('page', '', null, null, 'page_form');" value='<b:message key="l_nextPage"></b:message>' <l:equal property="page.isLast"  targetValue="true">disabled</l:equal> >
+	                <l:equal property="page.isCount" targetValue="true">
+	                  <input type="button" class="button" onclick="lastPage('page', '', null, null, 'page_form');" value='<b:message key="l_lastPage"></b:message>' <l:equal property="page.isLast"  targetValue="true">disabled</l:equal> >
+	                </l:equal>
+              </div>
+              </td>
+            </tr>
+					</table>
+				</h:form>
+				</viewlist>
+			</w:panel>		
+		</DIV>
 		<script type="text/javascript">
-		function test(){
-		var frm =$name("form");
-		var aa=$id("dzfl").value;
-		var bb=$id("yjfl").value;
-		if(aa == null && aa=="")
-		{
-			alert('guhg');
-			return false;
-			}
-			frm.submit();
+
+		//清空
+		function clears(){
+			$id("custName").value="";
+			$id("oneCategory").value="";
+			$id("oneCategoryId").value="";
+			$id("loanCategory").value="";
+			$id("loanCategoryId").value="";
 		}
-		if(bb == null && bb=="")
-		{
-			alert('guhg');
-			return false;
+                function search(){
+			$("#isExport").val("");
 			}
-			frm.submit();
+                function downExl() {
+			$("#isExport").val("1");
+		}
+		
+		function upt_loan_info(){
+			var gop = $id("group1");
+	  		var len = gop.getSelectLength();
+	  		if(len == 0){
+	  			alert("请选择一条流程信息");
+	  			return;
+	  		}else{
+	  			var row=gop.getSelectRow();
+		  		var executionId = row.getParam("executionId");
+		  		var processName = row.getParam("processName");
+		  		var custName = row.getParam("custName");
+		  		var apply_bal = row.getParam("apply_bal");
+		  		var oneCategory = row.getParam("oneCategory");
+		  		var loanCategory = row.getParam("loanCategory");
+		  		var coorganization = row.getParam("coorganization");
+
+	            var strUrl = "/jbpm/xdProcessAction_toUptLoanInfo.action?xdProcessTaskAssignee.executionId="+executionId+"&xdProcessTaskAssignee.processName="+processName;
+	            strUrl = strUrl+"&xdProcessTaskAssignee.custName="+custName
+	            +"&xdProcessTaskAssignee.apply_bal="+apply_bal
+	            +"&xdProcessTaskAssignee.oneCategory="+oneCategory
+	            +"&xdProcessTaskAssignee.loanCategory="+loanCategory
+	            +"&xdProcessTaskAssignee.coorganization="+coorganization;
+	            
+				  showModalCenter(encodeURI(strUrl), null,callBack, 500, 300, '修改退单率信息');
+				  
+				  /* 	var url="/jbpm/xdProcessAction_toAddOneCategory.action?xdCdtypeBean.processName="+encodeURI(processName);
+		  		parent.window.frames["mainFrame"].location.href = encodeURI(strUrl); 
+		  		
+		  		showModalCenter(encodeURI(strUrl), null, callBack, clientX*0.9, clientY*0.9, ''修改退单率信息');*/	
+			}
+		}
+		function callBack(){
+			var frm = $name("page_form");
+            frm.submit();
+			//  location.reload(); //就算页面直接关闭，也会重新加载页面
+			}
+
+	  	function queryLoanUptWater(){
+	  		var gop = $id("group1");
+	  		var len = gop.getSelectLength();
+	  		if(len == 0){
+	  			alert("请选择一条流程信息");
+	  			return;
+	  		}else{
+	  			var rows=gop.getSelectRow();
+		  		var executionId = rows.getParam("executionId");
+		  		var strUrl = "/jbpm/xdProcessAction_queryLoanUptWater.action?waterInfo.flow_id="+executionId;
+		  		showModalCenter(strUrl,'',null ,1200,500,'退单率修改流水明细');
+			  	}
+		  	}
+
+	  	function showoneCategory() {
+			var oneCategoryId=document.getElementById("oneCategoryId").value;
+			strUrl ="/Generalprocess/tGeneralprocessCdtypeAction_oneCategoryDic.action?cdtypeJson="+oneCategoryId,
+			showModalCenter(strUrl,'',showoneCategory_callback1 ,800,430,'一级分类选择'); 
+		} 
+		function showoneCategory_callback1(args){
+			if(args!=''){
+			var array;
+			array = args.split(":");
+			 document.getElementById("oneCategoryId").value = array[0];
+			 document.getElementById("oneCategory").value = array[1];
+			}
+		}	
+
+		function showloanCategory() {
+			var loanCategoryId=document.getElementById("loanCategoryId").value;
+			strUrl ="/Generalprocess/tGeneralprocessCdtypeAction_loanCategoryDic.action?cdtypeJson="+loanCategoryId,
+			showModalCenter(strUrl,'',showloanCategory_callback1 ,800,500,'贷种选择'); 
+		} 
+		function showloanCategory_callback1(args){
+			if(args!=''){
+			var array;
+			array = args.split(":");
+			 document.getElementById("loanCategoryId").value = array[0];
+			 document.getElementById("loanCategory").value = array[1];
+			}
 		}
 		</script>
+		
 	</body>
 </html>

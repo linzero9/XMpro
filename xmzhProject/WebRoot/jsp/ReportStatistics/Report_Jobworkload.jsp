@@ -1,317 +1,257 @@
-<%@ page language="java" import="java.util.*,java.sql.*" pageEncoding="utf-8"%>
-<%@page language="java" import="com.hotel.DAO.*,com.hotel.model.*"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>
+<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
+<%@include file="/common/common.jsp"%>
+<%@include file="/common/skins/skin0/component.jsp"%>
+<h:css href="/css/style1/style-custom.css" />
+<script src="<%=request.getContextPath() %>/common/gotop/jquery.min.js"></script>
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
-  <head>
-    <base href="<%=basePath%>">
-    
-    <title>岗位工作量统计表</title>
-    
-	<meta http-equiv="pragma" content="no-cache">
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">    
-	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-	<meta http-equiv="description" content="This is my page">
-	<link rel="stylesheet" href="css/style.css" type="text/css"></link>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>岗位工作量统计列表</title>
+	</head>
+	<body topmargin="0" leftmargin="0">
+	<h:form name="appQuery"	action="/jbpm/xdProcessAction_queryXdStartProcessList.action" method="post">
+		<w:panel id="panel1" title="查询条件">
+			<table align="center" border="0" width="100%" class="form_table">
+				
+				<tr>
+                                        <td class="form_label" align="right" width="20%">报单日期：</td>
+					<td colspan="1" width="30%">
+					从
+					<w:date  format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="appTimeStrat" name="JobworkloadDto.appTimeStrat" 
+					property="JobworkloadDto.appTimeStrat" /> 
+					到
+					<w:date format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="appTimeEnd" name="JobworkloadDto.appTimeEnd" 
+					property="JobworkloadDto.appTimeEnd" /></td>
 
+					
+					
+					<td class="form_label" align="right" >流程节点：</td>
+					<td >
+			     		<h:hidden id="ProcessrodeId" property="xdProcessTaskAssignee.ProcessrodeId" />  
+						<h:text id="Processrode" property="xdProcessTaskAssignee.Processrode" readonly="true"/>
+						<a href="#" onclick="showProcessrode();">选择</a>
+					</td>
+					
+					
+				</tr>
+				<tr class="form_bottom">
+						<td colspan="6" class="form_bottom">
+						    <b:message key="l_display_per_page"></b:message>
+					        <h:text size="2" property="page.length" value="10" validateAttr="minValue=1;maxValue=100;type=integer;isNull=true" />
+					        <input type="hidden" name="page.begin" value="0">
+					        <input type="hidden" name="page.isCount" value="true">
+							<input id="querys" type="submit" value="查 询" class="button" onclick="search();">
+							<input type="button" value="清 空" class="button" onclick="clears();">
+                                                        <input id="downexl" type="submit" class="button" value="导出列表" onclick="downExl();"></td>
+					</tr>			
+			</table>
+		</w:panel>
+	</h:form>
+	<DIV class="divList">
+			<w:panel id="panel" width="100%" title="岗位工作量统计列表">
+				<viewlist id="e2c61865-3b56-470d-bd42-fff792fb9493">
+				<h:form name="page_form"
+					action="/jbpm/xdProcessAction_queryXdStartProcessList.action" method="post">
+			 <h:hiddendata property="xdProcessTaskAssignee"/>  
 
-  </head>
-  
-   
-  <script> 
-function aa(obj,td_name) 
-{ 
- 
- 
-     var select_value=document.getElementById("where"); 
-     var td_value = document.getElementById(td_name); 
-     if(obj.checked == true){ 
-   td_value.className='c1'; //选中时颜色 
-          if(select_value.value.length>0){ 
-               
-               select_value.value+="," + td_value.innerText; 
- 
-  
-          }else{ 
- 
- 
-               select_value.value+=td_value.innerText; 
- 
-          } 
-     }else{ 
-td_value.className='c0'; //取消时颜色 
-               if(select_value.value.indexOf("," + td_value.innerText + ",") != -1){ 
-                         select_value.value = select_value.value.replace("," + 
- 
-td_value.innerText,'');   
-               }else if(select_value.value.indexOf("," + td_value.innerText) != -1){ 
-                         select_value.value = select_value.value.replace("," + 
- 
-td_value.innerText,''); 
-               }else if(select_value.value.indexOf(td_value.innerText + ",") != -1){ 
-                    select_value.value = select_value.value.replace(td_value.innerText + ",",''); 
-               }else if(select_value.value.indexOf(td_value.innerText) != -1){ 
-                    select_value.value = select_value.value.replace(td_value.innerText,''); 
-               } 
-     } 
- 
-} 
-function bb(){ 
-     var obj = document.getElementById("ds"); 
-     if(obj.style.display==""){ 
-          obj.style.display="block"; 
-     }else if(obj.style.display=="none"){ 
-          obj.style.display="block"; 
-     }else if(obj.style.display=="block"){ 
-          obj.style.display="none"; 
-     } 
-     
-     } 
-     
-     function inDaohang(divname,obj){ 
-     var f = false; 
-     while(obj.parentNode){ 
-          if(obj.name==divname){ 
-               return true; 
-          } 
-          obj = obj.parentNode; 
-     } 
-     return false; 
-} 
-function closeDaohang(e,divname,aname){ 
-     if(e.id!=aname && e.id!='where' && e.id.indexOf("td") ==-1&& e.id.indexOf("check") ==-1) 
-     if(!inDaohang(divname,e)){ 
-          var a = document.getElementsByName(divname); 
-          for(var i=0;i<a.length;i++){ 
-               a[i].style.display='none'; 
-          } 
- 
-     } 
- 
-} 
-     
-</script> 
-<style type="text/css">
-.c1{
- background-Color:#dddddd;
-//bgColor:#dddddd;
-}
-.c0{
- background-Color:#ffffff;
-//bgColor:#dddddd;
-}
- 
+            <h:hidden property="page.begin"/>
+		    <h:hidden property="page.length"/>
+		    <h:hidden property="page.count"/>
+		    <h:hidden property="page.isCount"/>
+		    
+					<table align="center" border="0" width="100%" class="EOS_table">
+		    
+						<tr>
+							<th align="center" nowrap="nowrap">
+								<b:message key="l_select"></b:message>
+							</th>
+							
+							<th nowrap="nowrap">
+								时间
+							</th>
+							<th nowrap="nowrap">
+								一级分类
+							</th>
+							<th nowrap="nowrap">
+								贷种分类
+							</th>
+							<th nowrap="nowrap">
+								辅调信贷员
+							</th>
+							<th nowrap="nowrap">
+								流程岗位
+					       </th>
+					       <th nowrap="nowrap">
+								人员姓名
+							</th>
+                                                  <th nowrap="nowrap">
+								业务数量
+							</th>
+                                                  
+						</tr>
+						<w:radioGroup id="group1">
+                           <l:iterate property="xdProcessTaskAssignees" id="id1">
+							<tr class="<l:output evenOutput='EOS_table_row' oddOutput='EOS_table_row_o'  />">
+								<td align="center" nowrap="nowrap">
+									<w:rowRadio>
+										<h:param name='executionId' iterateId='id1' property='executionId' />
+										<h:param name='processName' iterateId='id1' property='processName' />
+										<h:param name='custName' iterateId='id1' property='custName' />
+										<h:param name='apply_bal' iterateId='id1' property='apply_bal' />
+										<h:param name='oneCategory' iterateId='id1' property='oneCategory' />
+										<h:param name='loanCategory' iterateId='id1' property='loanCategory' />
+										<h:param name='coorganization' iterateId='id1' property='coorganization' />
+									</w:rowRadio>
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1"    property="processName" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="custName" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="apply_bal" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="oneCategory" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="loanCategory" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="coorganization" />
+								</td>
+							</tr>
+						</l:iterate>
+						</w:radioGroup>
+							<tr>
+              <td colspan="23" class="command_sort_area">
+              	<div class="h3"> 
+              	<l:greaterThan property="page.count" targetValue="0" compareType="number" >
+								&nbsp; &nbsp;
+									<input type="button" class="button" value="修改岗位工作量信息" onclick="upt_loan_info();"/>
+								</l:greaterThan>
+							
+							<l:greaterThan property="page.count" targetValue="0" compareType="number" >
+								&nbsp; &nbsp;
+							<input type="button" class="button" value="查看修改明细" onclick="queryLoanUptWater();"/>
+								</l:greaterThan>
+								</div>
+							
+                <div class="h4">
+	                <l:equal property="page.isCount" targetValue="true" >
+	                  <b:message key="l_total"></b:message>
+	                  <b:write property="page.count" />
+	                  <b:message key="l_recordNO."></b:message>
+	                  <b:write property="page.currentPage" />
+	                  <b:message key="l_page"></b:message>
+	                  <b:write property="page.totalPage" />
+	                  <b:message key="l_page"></b:message>
+	                </l:equal>
+	                <l:equal property="page.isCount" targetValue="false" >
+	                  <b:message key="l_NO."></b:message>
+	                  <b:write property="page.currentPage" />
+	                  <b:message key="l_page"></b:message>
+	                </l:equal>
+	                <input type="button" class="button" onclick="firstPage('page', '', null, null, 'page_form');" value='<b:message key="l_firstPage"></b:message>'  <l:equal property="page.isFirst"  targetValue="true">disabled</l:equal> >
+	                <input type="button" class="button" onclick="prevPage('page', '', null, null, 'page_form');" value='<b:message key="l_upPage"></b:message>' <l:equal property="page.isFirst"  targetValue="true">disabled</l:equal> >
+	                <input type="button" class="button" onclick="nextPage('page', '', null, null, 'page_form');" value='<b:message key="l_nextPage"></b:message>' <l:equal property="page.isLast"  targetValue="true">disabled</l:equal> >
+	                <l:equal property="page.isCount" targetValue="true">
+	                  <input type="button" class="button" onclick="lastPage('page', '', null, null, 'page_form');" value='<b:message key="l_lastPage"></b:message>' <l:equal property="page.isLast"  targetValue="true">disabled</l:equal> >
+	                </l:equal>
+              </div>
+              </td>
+            </tr>
+					</table>
+				</h:form>
+				</viewlist>
+			</w:panel>		
+		</DIV>
+		<script type="text/javascript">
 
-.menu{ 
-    display:none; 
-} 
-input.blur{ 
-     border:1px solid #99BBE8; 
-     background:#FFFFFF; 
-     height:18px; 
-} 
-.tableborder{ 
-border:solid 1px #CCCCCC; 
-border-collapse:collapse; 
-font-size:12px; 
- 
-} 
-</style> 
-  
-  
-  <body>
-		<header>
-			<h1>信贷二期系统</h1>
-		</header>
-		<article>
-		 <aside style="width:97%; height:410px;">
-			   <div>
-			   <h2>岗位工作量统计表</h2>
-			   
-			   
-			    <tr>
-			   <td align="right" bgcolor="#EEF7FF" style="width: 5%">报表:
-			   </td>
-			  
-                            <td align="left" bgcolor="#EEF7FF" width="15%">
-                            
-                            <select   name="ym" size="1" id="ym" style="width:120px;" onchange="window.location.href=this.options[selectedIndex].value">  
-<option>请选择</option>  
-<option   value="http://localhost:8088/jsp/ReportStatistics/Report_ErrorCondition.jsp" target="_blank">差错情况统计表</option>    
-<option   value="http://localhost:8088/jsp/ReportStatistics/Report_DealApproval.jsp"   target="_self">受理审批台账</option>  
-<option   value="http://localhost:8088/jsp/ReportStatistics/Report_Jobworkload.jsp"   target="_self">岗位工作量统计表</option>  
-<option   value="http://localhost:8088/jsp/ReportStatistics/Report_Rateofreturn.jsp"   target="_self">退单率统计表</option> 
-<option   value="http://localhost:8088/jsp/ReportStatistics/Report_Refusalrate.jsp"   target="_self">拒贷率统计表</option> 
-<option   value="http://localhost:8088/jsp/ReportStatistics/Report_CooperateInstitution.jsp"   target="_self">合作机构业务发展台账</option> 
-<option   value="http://localhost:8088/jsp/ReportStatistics/Report_OverrunCondition.jsp"   target="_self">超限情况统计表</option> 
-</select>    
-
-                            
-                               
-                            </td>
-			   <td align="right" bgcolor="#EEF7FF" style="width: 5%">报单日期:
-			   </td>
-			  <td align="left" bgcolor="#EEF7FF" width="35%" class="style1" colspan="3">
-                                <input name="TextBox1" type="date"  id="TextBox1"  style="width:130px;"  />
-                            </td>
-			  
-			   
-			   <td align="right" bgcolor="#EEF7FF" style="width: 5%">至
-			   </td>
-			   <td align="left" bgcolor="#EEF7FF" width="35%" class="style1" colspan="3">
-                                <input name="TextBox2" type="date"  id="TextBox2"  style="width:130px;" />
-                            </td>
-            
-			   
-			   
-			 
-			    
-			   
-			   <td align="right" bgcolor="#EEF7FF" style="width: 5%">
-                               流程节点：
-                            </td>
-                            <td align="left" bgcolor="#EEF7FF" width="15%">
-                           
-
-
-       
-               
-                    <input type="text" id="where" name="where" style="width:100px" onclick="bb()" 
- 
-onblur="this.className='blur'" onfocus="this.className='focus'" class="blur" readonly> 
-             
-   </td>
-
-
-   <div id="ds" style="display:none;padding:0px 0px 0px 0px; margin:0;"> 
-          <table border="0" cellpadding="0" cellspacing="0" class="tableborder"> 
-                    <tr><td id="td1"><input type="Checkbox" id="check1" name="idol02" value="1" 
- 
-onclick="aa(this,'td1')">受理调查</td><td id="td15"><input type="Checkbox" id="check15" name="idol02" value="15" 
- 
-onclick="aa(this,'td15')">合同审核（作业监督岗）</td></tr> 
-                    <tr><td id="td2"><input type="Checkbox" id="check2" name="idol02" value="2" 
- 
-onclick="aa(this,'td2')">技术审查</td><td id="td16"><input type="Checkbox" id="check16" name="idol02" value="16" 
- 
-onclick="aa(this,'td16')">合同审核（前台综合岗）</td></tr> 
-                    <tr><td id="td3"><input type="Checkbox" id="check3" name="idol02" value="3" 
- 
-onclick="aa(this,'td3')">收单派单</td><td id="td17"><input type="Checkbox" id="check17" name="idol02" value="17" 
- 
-onclick="aa(this,'td17')">办理抵押、发起支用</td>   </tr> 
-
-                    <tr><td id="td4"><input type="Checkbox" id="check4" name="idol02" value="4" 
- 
-onclick="aa(this,'td4')">审查一</td><td id="td18"><input type="Checkbox" id="check18" name="idol02" value="18" 
- 
-onclick="aa(this,'td18')">额度生效、支用审核</td>  </tr> 
-
- <tr><td id="td5"><input type="Checkbox" id="check5" name="idol02" value="5" 
- 
-onclick="aa(this,'td5')">审查二</td><td id="td19"><input type="Checkbox" id="check19" name="idol02" value="19" 
- 
-onclick="aa(this,'td19)">额度生效、支用审批</td> </tr> 
-
- <tr><td id="td6"><input type="Checkbox" id="check6" name="idol02" value="6" 
- 
-onclick="aa(this,'td6')">审批安排</td><td id="td20"><input type="Checkbox" id="check20" name="idol02" value="20" 
- 
-onclick="aa(this,'td20')">支用审核</td> </tr> 
-
- <tr><td id="td7"><input type="Checkbox" id="check7" name="idol02" value="7" 
- 
-onclick="aa(this,'td7')">审批一</td><td id="td21"><input type="Checkbox" id="check21" name="idol02" value="21" 
- 
-onclick="aa(this,'td21')">支用派单</td></tr>  
-
- <tr><td id="td8"><input type="Checkbox" id="check8" name="idol02" value="8" 
- 
-onclick="aa(this,'td8')">审批二</td><td id="td22"><input type="Checkbox" id="check22" name="idol02" value="22" 
- 
-onclick="aa(this,'td22')">支用审批</td></tr>  
-
- <tr><td id="td9"><input type="Checkbox" id="check39" name="idol02" value="9" 
- 
-onclick="aa(this,'td9')">会议审批</td><td id="td23"><input type="Checkbox" id="check23" name="idol02" value="23" 
- 
-onclick="aa(this,'td23')">出具支用审批意见</td></tr>  
-
- <tr><td id="td10"><input type="Checkbox" id="check10" name="idol02" value="10" 
- 
-onclick="aa(this,'td10')">出具决策意见</td><td id="td24"><input type="Checkbox" id="check24" name="idol02" value="24" 
- 
-onclick="aa(this,'td24')">发起单笔合同</td></tr>  
-
- <tr><td id="td11"><input type="Checkbox" id="check11" name="idol02" value="11" 
- 
-onclick="aa(this,'td11')">审批结束</td><td id="td25"><input type="Checkbox" id="check25" name="idol02" value="25" 
- 
-onclick="aa(this,'td25')">单笔合同审核</td>  </tr>
-
- <tr><td id="td12"><input type="Checkbox" id="check12" name="idol02" value="12" 
- 
-onclick="aa(this,'td12')">发起合同预审</td><td id="td26"><input type="Checkbox" id="check26" name="idol02" value="26" 
- 
-onclick="aa(this,'td26')">放款审核</td>  </tr>
-
- <tr><td id="td13"><input type="Checkbox" id="check13" name="idol02" value="13" 
- 
-onclick="aa(this,'td13')">发起合同审核</td><td id="td27"><input type="Checkbox" id="check27" name="idol02" value="27" 
- 
-onclick="aa(this,'td27')">放款操作</td>  </tr>
-
- <tr><td id="td14"><input type="Checkbox" id="check14" name="idol02" value="14" 
- 
-onclick="aa(this,'td14')">合同审核（信贷业务主管岗）</td><td id="td28"><input type="Checkbox" id="check28" name="idol02" value="28" 
- 
-onclick="aa(this,'td28')">公积金中心审批</td>  </tr>
-     </table> 
-          </div> 
-        
-
-                             <td>
-                    <input id="searchButton" class="inputButton" type="button"  
-    value=" 查 询 " />
-                    <input type="submit" value="导出EXCEL" id="btndc"/>
-                 </td>
-                            
-                                
-                          
-                            
-                            </tr>
-			   
-			   
-			   
-			   
-			   
-			   
-			   
-			   <table border="1" class="datalist">
-			   	<thead>
-			   		<tr>
-			   			<td>时间</td>
-			   			<td>一级分类</td>
-			   			<td>贷种分类</td>
-			   			<td>辅调信贷员</td>
-			   			<td>流程岗位</td>
-			   			<td>人员姓名</td>
-			   			<td>业务数量</td>
-			   			
-			   		</tr>
-			   	</thead>
-			   
-			   </table>
-			   </div>
-		    </aside>
-		</article>
+		//清空
+		function clears(){
+			$id("custName").value="";
+			$id("oneCategory").value="";
+			$id("oneCategoryId").value="";
+			$id("loanCategory").value="";
+			$id("loanCategoryId").value="";
+		}
+                function search(){
+			$("#isExport").val("");
+			}
+                function downExl() {
+			$("#isExport").val("1");
+		}
 		
-		<footer><h3>版权所有&copy;</h3></footer>
+		function upt_loan_info(){
+			var gop = $id("group1");
+	  		var len = gop.getSelectLength();
+	  		if(len == 0){
+	  			alert("请选择一条流程信息");
+	  			return;
+	  		}else{
+	  			var row=gop.getSelectRow();
+		  		var executionId = row.getParam("executionId");
+		  		var processName = row.getParam("processName");
+		  		var custName = row.getParam("custName");
+		  		var apply_bal = row.getParam("apply_bal");
+		  		var oneCategory = row.getParam("oneCategory");
+		  		var loanCategory = row.getParam("loanCategory");
+		  		var coorganization = row.getParam("coorganization");
+
+	            var strUrl = "/jbpm/xdProcessAction_toUptLoanInfo.action?xdProcessTaskAssignee.executionId="+executionId+"&xdProcessTaskAssignee.processName="+processName;
+	            strUrl = strUrl+"&xdProcessTaskAssignee.custName="+custName
+	            +"&xdProcessTaskAssignee.apply_bal="+apply_bal
+	            +"&xdProcessTaskAssignee.oneCategory="+oneCategory
+	            +"&xdProcessTaskAssignee.loanCategory="+loanCategory
+	            +"&xdProcessTaskAssignee.coorganization="+coorganization;
+	            
+				  showModalCenter(encodeURI(strUrl), null,callBack, 500, 300, '修改岗位工作量信息');
+				  
+				  /* 	var url="/jbpm/xdProcessAction_toAddOneCategory.action?xdCdtypeBean.processName="+encodeURI(processName);
+		  		parent.window.frames["mainFrame"].location.href = encodeURI(strUrl); 
+		  		
+		  		showModalCenter(encodeURI(strUrl), null, callBack, clientX*0.9, clientY*0.9, ''修改岗位工作量信息');*/	
+			}
+		}
+		function callBack(){
+			var frm = $name("page_form");
+            frm.submit();
+			//  location.reload(); //就算页面直接关闭，也会重新加载页面
+			}
+
+	  	function queryLoanUptWater(){
+	  		var gop = $id("group1");
+	  		var len = gop.getSelectLength();
+	  		if(len == 0){
+	  			alert("请选择一条流程信息");
+	  			return;
+	  		}else{
+	  			var rows=gop.getSelectRow();
+		  		var executionId = rows.getParam("executionId");
+		  		var strUrl = "/jbpm/xdProcessAction_queryLoanUptWater.action?waterInfo.flow_id="+executionId;
+		  		showModalCenter(strUrl,'',null ,1200,500,'岗位工作量修改流水明细');
+			  	}
+		  	}
+
+	  	function showProcessrode() {
+			var ProcessrodeId=document.getElementById("ProcessrodeId").value;
+			strUrl ="/Generalprocess/tGeneralprocessCdtypeAction_ProcessrodeDic.action?cdtypeJson="+ProcessrodeId,
+			showModalCenter(strUrl,'',showProcessrode_callback1 ,800,430,'流程节点选择'); 
+		} 
+		function showProcessrode_callback1(args){
+			if(args!=''){
+			var array;
+			array = args.split(":");
+			 document.getElementById("ProcessrodeId").value = array[0];
+			 document.getElementById("Processrode").value = array[1];
+			}
+		}	
+
+		
+		</script>
+		
 	</body>
 </html>
