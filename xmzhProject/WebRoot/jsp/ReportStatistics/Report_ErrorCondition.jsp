@@ -15,7 +15,7 @@
 			<table align="center" border="0" width="100%" class="form_table">
 				
 				<tr>
-                                        <td class="form_label" align="right" width="20%">报单日期：</td>
+                                        <td class="form_label" align="right" width="10%">报单日期：</td>
 					<td colspan="1" width="30%">
 					从
 					<w:date  format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="repTimeStrat" name="ErrorConditionDto.repTimeStrat" 
@@ -24,11 +24,11 @@
 					<w:date format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="repTimeEnd" name="ErrorConditionDto.repTimeEnd" 
 					property="ErrorConditionDto.appTimeEnd" /></td>
 
-					<td class="form_label" align="right" width="20%">客户姓名：</td>
-					<td colspan="1" width="30%"><h:text id="cust_Name" property="ErrorConditionDto.cust_Name" />
+					<td class="form_label" align="right" width="10%">客户姓名：</td>
+					<td colspan="1" width="25%"><h:text id="cust_Name" property="ErrorConditionDto.cust_Name" />
 					</td>
 					
-					<td class="form_label" align="right" width="20%">差错环节：</td>
+					<td class="form_label" align="right" width="10%">差错环节：</td>
 					<td >
 			     		<h:hidden id="ErrorlinkId" property="xdProcessTaskAssignee.ErrorlinkId" />  <!--//xdProcessTaskAssignee是dao名称 -->
 						<h:text id="Errorlink" property="xdProcessTaskAssignee.Errorlink" readonly="true"/>

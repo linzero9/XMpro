@@ -18,11 +18,11 @@
                                         <td class="form_label" align="right" width="20%">上报日期：</td>
 					<td colspan="1" width="30%">
 					从
-					<w:date  format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="appTimeStrat" name="DealApprovalDto.appTimeStrat" 
-					property="DealApprovalDto.appTimeStrat" /> 
+					<w:date  format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="repTimeStrat" name="DealApprovalDto.repTimeStrat" 
+					property="DealApprovalDto.repTimeStrat" /> 
 					到
-					<w:date format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="appTimeEnd" name="DealApprovalDto.appTimeEnd" 
-					property="DealApprovalDto.appTimeEnd" /></td>
+					<w:date format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="repTimeEnd" name="DealApprovalDto.repTimeEnd" 
+					property="DealApprovalDto.repTimeEnd" /></td>
 
 					<td class="form_label" align="right" width="20%">审批日期：</td>
 					<td colspan="1" width="30%">
@@ -64,10 +64,10 @@
 
 		    
 						<tr>
-							<th align="center" nowrap="nowrap">
+							<th align="center" nowrap="nowrap"  rowspan="2">
 								<b:message key="l_select"></b:message>
 							</th>
-                                                        <th nowrap="nowrap">
+                                                        <th nowrap="nowrap" rowspan="2">
 								机构名称
 							</th>
 
