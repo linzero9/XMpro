@@ -230,6 +230,13 @@
      		/jsp/jbpm/xd_process/query_loanUptWater.jsp
       	</result>
       	
+      	<result name="nodeWorkTime_manage">
+     		/jsp/jbpm/xd_process/nodeWorkTime_manage.jsp
+      	</result>
+      	<result name="to_nodeSelect">
+     		/jsp/jbpm/xd_process/to_nodeSelect.jsp
+      	</result>
+      	
       </action>
       
     </package>

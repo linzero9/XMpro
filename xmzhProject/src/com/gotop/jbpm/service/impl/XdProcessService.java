@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 
 import com.gotop.jbpm.dao.IXdProcessDAO;
 import com.gotop.jbpm.model.WaterInfo;
+import com.gotop.jbpm.model.WorkTimeBean;
 import com.gotop.jbpm.model.XdCdtypeBean;
 import com.gotop.jbpm.model.XdProcessBean;
 import com.gotop.jbpm.model.XdProcessTaskAssignee;
@@ -175,6 +176,25 @@ public class XdProcessService implements IXdProcessService {
 		}
 		List<WaterInfo> waterInfos = this.xdProcessDAO.queryLoanUptWater(map, page);
 		return waterInfos;
+	}
+	@Override
+	public List<WorkTimeBean> queryWorkTime(WorkTimeBean workTimeBean) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		if(workTimeBean != null){
+			if(workTimeBean.getModel_tableName()!= null &&  !"".equals(workTimeBean.getModel_tableName())){
+				map.put("model_tableName",  workTimeBean.getModel_tableName());
+			}
+		}
+		List<WorkTimeBean> workTimeBeans = this.xdProcessDAO.queryWorkTime(map);
+		return workTimeBeans;
+	}
+	@Override
+	public void insertWorkTime(WorkTimeBean workTimeBean) {
+		 this.xdProcessDAO.insertWorkTime(workTimeBean);
+	}
+	@Override
+	public void updateWorkTime(WorkTimeBean workTimeBean) {
+		 this.xdProcessDAO.updateWorkTime(workTimeBean);
 	}
 	
 

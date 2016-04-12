@@ -88,36 +88,23 @@ public class SpringPropertyResourceReader {
     	List<String> model= new ArrayList<String>();
 
     	for (Object	 object : tset) {
-    		
     		String a= (String) object;
-    		
-    		if(a.split("-")[0].equals("模式")){
-    			
+    		if(a.split("-")[0].startsWith("模式")){
     			
     			model.add(a);
     		}
     		
-			
 		}
     	
-    	
-    	
-    	
-    	
-   	 Map<String, String> result  =  new  HashMap<String, String>();
-	 
+
+   	 Map<String, String> results  =  new  HashMap<String, String>();
 	 
    	 for (String string : model) {
    		String value =  SpringPropertyResourceReader.getProperty(string);
-   		result.put(string, value);
+   		results.put(string, value);
    	}
    	 
-    	
-    	
-    	   
-        return result;
-        
-        
+        return results;    
     }  
     
 }  

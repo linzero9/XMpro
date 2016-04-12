@@ -59,7 +59,7 @@
 			<tr>
 				<td class="form_label" align="right" width="15%">合作机构：</td>
 				<td colspan="1" width="30%"> 
-					<h:text property="xdProcessTaskAssignee.coorganization" id="coOrganization" validateAttr="allowNull=ture" style="width:130px;" />
+					<h:text property="xdProcessTaskAssignee.coorganization" id="coOrganization"  style="width:130px;" />
 				</td>
 			</tr>
 			

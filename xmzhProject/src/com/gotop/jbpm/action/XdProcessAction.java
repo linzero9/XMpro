@@ -1,9 +1,17 @@
 package com.gotop.jbpm.action;
 
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
 
+import com.gotop.Generalprocess.util.SpringPropertyResourceReader;
 import com.gotop.crm.util.BaseAction;
 import com.gotop.jbpm.model.WaterInfo;
+import com.gotop.jbpm.model.WorkTimeBean;
 import com.gotop.jbpm.model.XdCdtypeBean;
 import com.gotop.jbpm.model.XdProcessBean;
 import com.gotop.jbpm.model.XdProcessTaskAssignee;
@@ -29,7 +37,11 @@ public class XdProcessAction   extends BaseAction {
     private XdCdtypeBean xdCdtypeBean;
     
     private XdCdtypeBean xdCdtypeBean2;
-	
+    
+    private WorkTimeBean workTimeBean;
+    
+    private List<WorkTimeBean> workTimeBeans;
+    
 	private List<XdProcessBean> xdProcessBeans;
 	
 	private List<XdCdtypeBean> xdCdtypeBeans;
@@ -43,6 +55,8 @@ public class XdProcessAction   extends BaseAction {
     private WaterInfo waterInfo;
     
     private List<WaterInfo> waterInfos;
+    
+    private Map<String, String> models ;
     
     public Page page2;
       
@@ -62,6 +76,12 @@ public class XdProcessAction   extends BaseAction {
 		this.page2 = page2;
 	}
 	
+	public Map<String, String> getModels() {
+		return models;
+	}
+	public void setModels(Map<String, String> models) {
+		this.models = models;
+	}
 	public WaterInfo getWaterInfo() {
 		return waterInfo;
 	}
@@ -147,6 +167,21 @@ public class XdProcessAction   extends BaseAction {
 	public void setXdCdtypeBeans2(List<XdCdtypeBean> xdCdtypeBeans2) {
 		this.xdCdtypeBeans2 = xdCdtypeBeans2;
 	}
+	
+	public WorkTimeBean getWorkTimeBean() {
+		return workTimeBean;
+	}
+	public void setWorkTimeBean(WorkTimeBean workTimeBean) {
+		this.workTimeBean = workTimeBean;
+	}		
+	public List<WorkTimeBean> getWorkTimeBeans() {
+		return workTimeBeans;
+	}
+	public void setWorkTimeBeans(List<WorkTimeBean> workTimeBeans) {
+		this.workTimeBeans = workTimeBeans;
+	}
+	
+	
 	/**
 	 * 查询信贷的待办事项
 	 * @return
@@ -465,10 +500,77 @@ public class XdProcessAction   extends BaseAction {
 		Struts2Utils.renderText(info);
 	}
 
+	/**
+	 * 查询贷款修改流水
+	 * @return
+	 */
 	public String queryLoanUptWater(){
 		List<WaterInfo> waterInfos = this.xdProcessService.queryLoanUptWater(waterInfo,this.getPage());
 		this.setWaterInfos(waterInfos);
 		return "query_loanUptWater";
 		
 	}
+	
+	
+	
+	/**
+	 * 节点工时维护
+	 * @return
+	 */
+	public String nodeWorkTimeManage(){
+		return "nodeWorkTime_manage";
+	}
+	
+	/**
+	 * 跳转到节点选择界面
+	 * @return
+	 */
+	public String toNodeSelect(){
+		 models = new HashMap<String, String>();
+		 // models = new TreeMap<String, String>();   //TreeMap默认按key升序排列 
+
+		models = SpringPropertyResourceReader.getAllPro();
+		
+//		 Set set = models.entrySet();  
+//		  
+//		 Map.Entry[] entries = (Map.Entry[]) set.toArray(new Map.Entry[set.size()]);  
+//		Arrays.sort(entries, new Comparator() {  
+//            public int compare(Object arg0, Object arg1) {  
+//                Object key1 = ((Map.Entry) arg0).getKey();  
+//                Object key2 = ((Map.Entry) arg1).getKey();  
+//                return ((Comparable) key1).compareTo(key2);  
+//            }  
+//  
+//        });  
+		this.setModels(models);
+		return "to_nodeSelect";
+	}
+	
+	/**
+	 * 保存 节点模式 工作时长
+	 * @throws Exception 
+	 */
+	public void saveNodeWorkTime() throws Exception{
+		String info ="success";
+		try {
+			workTimeBean.setOp_empid(this.getCurrentOnlineUser().getEmpid());
+			workTimeBean.setOp_orgcode(this.getCurrentOnlineUser().getOrgcode());
+			
+			workTimeBeans = xdProcessService.queryWorkTime(workTimeBean);
+			if(workTimeBeans.size() == 0){
+				xdProcessService.insertWorkTime(workTimeBean);
+			}else{
+				xdProcessService.updateWorkTime(workTimeBean);
+			}
+			
+		} catch (Exception e) {
+			info="fails";
+			log.error("[保存设备信息失败！]", e);
+			throw e;
+		}finally{	
+			Struts2Utils.renderText(info);
+		}
+	}
+
+	
 }

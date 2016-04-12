@@ -78,6 +78,16 @@
      <result column="UPT_ORGNAME" property="uptOrgname" jdbcType="VARCHAR" />
   </resultMap>
   
+    <resultMap id="abatorgenerated_WorkTime_HashMapResult" class="java.util.HashMap" >
+    <!--HashMap方式返回全表-->
+    <result column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="MODEL_TABLENAME" property="model_tableName" jdbcType="VARCHAR" />
+     <result column="WORKTIME" property="workTime" jdbcType="DOUBLE" />
+     <result column="OP_EMPID" property="op_empid" jdbcType="DECIMAL" />
+     <result column="OP_ORGCODE" property="op_orgcode" jdbcType="VARCHAR" />
+     <result column="OP_TIME" property="op_time" jdbcType="VARCHAR" />
+  </resultMap>
+  
   <!--查询信贷流程 待办事项列表-->
   <select id="queryXdMyTodoList" resultMap="abatorgenerated_XdProcess_HashMapResult" parameterClass="java.util.HashMap" >
   select T13.* from
@@ -317,9 +327,9 @@
    <!--插入 贷款 信息修改 流水表-->
   <insert id="insertWater" parameterClass="com.gotop.jbpm.model.WaterInfo" >
        <selectKey resultClass="long" keyProperty="waterId">
-		SELECT t_loanInfoUpdate_water_seq.NEXTVAL AS VALUE FROM DUAL
+		SELECT t_model_loanUpdateWater_seq.NEXTVAL AS VALUE FROM DUAL
 		</selectKey>
-   insert into t_loan_info_update_water(WATER_ID,FLOW_ID,PROCESS_NAME,CUST_NAME,APPLY_BAL,
+   insert into t_model_loanUpdateWater(WATER_ID,FLOW_ID,PROCESS_NAME,CUST_NAME,APPLY_BAL,
 ONECATEGORY,LOANCATEGORY,COORGANIZATION,UPT_EMPID,UPT_ORGCODE,UPT_TIME)
 values(#waterId:DECIMAL:-9999#,  #flow_id:VARCHAR#,  #processName:VARCHAR#,  #custName:VARCHAR#, #apply_bal:VARCHAR#
 ,  #oneCategory:VARCHAR#,  #loanCategory:VARCHAR#, #coorganization:VARCHAR#,  #uptEmpid:DECIMAL:-9999#, #uptOrgcode:VARCHAR#, sysdate)
@@ -330,10 +340,35 @@ values(#waterId:DECIMAL:-9999#,  #flow_id:VARCHAR#,  #processName:VARCHAR#,  #cu
  select t1.WATER_ID, t1.FLOW_ID, t1.PROCESS_NAME, t1.CUST_NAME, t1.APPLY_BAL, t1.ONECATEGORY, 
   t1.LOANCATEGORY, t1.COORGANIZATION, t1.UPT_EMPID, t1.UPT_ORGCODE, t2.empname as UPT_EMPNAME , 
   t3.orgname as UPT_ORGNAME, to_char(t1.UPT_TIME,'yyyy-MM-dd hh24:mm:ss') as UPT_TIME
-from t_loan_info_update_water t1,om_employee t2, om_organization t3
+from t_model_loanUpdateWater t1,om_employee t2, om_organization t3
 where t1.upt_empid = t2.empid
 and t1.upt_orgcode = t3.orgcode
 and t1.flow_id = '$flow_id$'
 order by  t1.UPT_TIME desc
   </select>
+  
+   <!--查询 节点模式工时维护表-->
+  <select id="queryWorkTime" resultMap="abatorgenerated_WorkTime_HashMapResult" parameterClass="java.util.HashMap" >
+  select * from t_model_workTime where MODEL_TABLENAME = '$model_tableName$'
+   </select>
+   
+   <!--插入 节点模式工时维护表-->
+  <insert id="insertWorkTime" parameterClass="com.gotop.jbpm.model.WorkTimeBean" >
+       <selectKey resultClass="long" keyProperty="id">
+		SELECT t_model_workTime_seq.NEXTVAL AS VALUE FROM DUAL
+		</selectKey>
+   insert into t_model_workTime(ID,MODEL_TABLENAME,WORKTIME,OP_EMPID,OP_ORGCODE,OP_TIME)
+values(#id:DECIMAL:-9999#,  #model_tableName:VARCHAR#,  #workTime:DOUBLE#,  #op_empid:DECIMAL:-9999#, #op_orgcode:VARCHAR#,  sysdate)
+  </insert>
+  
+  <!--修改 节点模式工时维护表-->
+  <update id="updateWorkTime" parameterClass="com.gotop.jbpm.model.WorkTimeBean" >
+    update t_model_workTime 
+	set WORKTIME= #workTime:DOUBLE#,
+	OP_EMPID= #op_empid:DECIMAL:-9999#,
+	OP_ORGCODE =  #op_orgcode:VARCHAR#,
+	OP_TIME = sysdate
+	where  MODEL_TABLENAME = #model_tableName:VARCHAR#
+  </update>
+  
 </sqlMap>

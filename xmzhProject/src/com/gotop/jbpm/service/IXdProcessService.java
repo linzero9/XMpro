@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.gotop.jbpm.dao.IXdProcessDAO;
 import com.gotop.jbpm.model.WaterInfo;
+import com.gotop.jbpm.model.WorkTimeBean;
 import com.gotop.jbpm.model.XdCdtypeBean;
 import com.gotop.jbpm.model.XdProcessBean;
 import com.gotop.jbpm.model.XdProcessTaskAssignee;
@@ -43,5 +44,11 @@ public interface IXdProcessService {
 	void insertWater(WaterInfo waterInfo);
 
 	List<WaterInfo> queryLoanUptWater(WaterInfo waterInfo, Page page);
+
+	List<WorkTimeBean> queryWorkTime(WorkTimeBean workTimeBean);
+
+	void insertWorkTime(WorkTimeBean workTimeBean);
+
+	void updateWorkTime(WorkTimeBean workTimeBean);
 	
 }
