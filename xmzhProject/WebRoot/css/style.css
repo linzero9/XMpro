@@ -1,0 +1,168 @@
+@CHARSET "UTF-8";
+
+            body{
+				margin: 0;
+				padding: 0;
+			}
+			
+			/*登录界面样式*/
+			#main{
+				height: 930px;
+				background: -webkit-linear-gradient(top,rgb(86,157,235) 0%,rgb(149,193,242) 100%);
+			}
+			#login{
+				width: 350px;
+				height: 200px;
+				position: fixed;
+				margin-top:15%;
+				margin-left: 35%;
+				border-radius: 25px;
+				background:-webkit-linear-gradient(top,rgb(23,104,193) 0%,rgb(86,157,235) 100%); ;
+				box-shadow: 5px 5px 5px 5px rgb(23,104,193);
+				padding-top: 80px;
+				padding-left: 100px;
+				color: white;	
+			}
+			
+			#btn1,#btn2{
+				margin-left: 40px;
+				
+				width: 60px;
+				height:25px ;
+			}
+			
+			
+			
+/*主要界面样式*/			
+		header{	
+				height: 80px;
+				color: white;
+				background:-webkit-linear-gradient(top,rgb(23,104,193) 0%,rgb(86,157,235) 100%); 
+				background:-o-linear-gradient(top,rgb(23,104,193) 0%,rgb(86,157,235) 100%); 
+				background:-moz-linear-gradient(top,rgb(23,104,193) 0%,rgb(86,157,235) 100%); 
+				background:-ms-linear-gradient(top,rgb(23,104,193) 0%,rgb(86,157,235) 100%); ;
+			}
+			h1{
+				line-height: 80px;
+				margin-left: 100px;
+			}		
+			ul li{
+				list-style-type: none;
+				border: 1px solid #ccc;
+				width: 150px;
+				line-height: 35px;
+				text-align: center;
+				margin-top: 10px;
+				
+			}
+			ul{
+				width: 160px;
+			}
+			ul li a{
+				text-decoration: none;
+				color:rgb(100,100,100);
+			}
+			#li1{
+			background:-webkit-linear-gradient(top,rgb(188,188,188) 0%,rgb(219,219,219) 100%);
+			}
+			#li1 a{
+				color: rgb(35,35,35);
+			}
+			
+			section{
+				float: left;
+				width: 8%;
+				height: 100%;
+			}
+			aside{
+				float: right;
+				margin-top: 15px;
+				margin-right: 20px;
+				width: 80%;
+				height: 500px;
+				border: 1px solid #ccc;
+				text-align: center;
+				
+			}	
+			footer{
+				position: fixed;
+				width: 100%;
+				bottom: 0px;
+				text-align: center;
+			}	
+			
+			
+			
+			#AddUser{
+			    float: left;
+				width: 20%;
+				line-height: 35px;
+				margin-top: 30px;
+				
+			}
+			#UpdateUser{
+			    float: left;
+				width: 20%;
+				line-height: 35px;
+				margin-top: 30px;
+			}
+			
+			
+			/*表格中的样式*/
+			.datalist{  
+    border:1px solid #0058a3;   /* 表格边框 */  
+    font-family:Arial;  
+    border-collapse:collapse;   /* 边框重叠 */  
+    background-color:#eaf5ff;   /* 表格背景色 */  
+    font-size:14px;  
+    width:800px;
+    margin:auto;
+    
+}  
+ 
+.datalist thead,th{  
+    border:1px solid #0058a3;   /* 行名称边框 */  
+    background-color:#4bacff;   /* 行名称背景色 */  
+    color:#FFFFFF;              /* 行名称颜色 */  
+    font-weight:bold;  
+    font-family:"微软雅黑";
+    font-size:16px;   
+}  
+.datalist td{  
+    border:1px solid #0058a3;   /* 单元格边框 */  
+    text-align:center;  
+    padding-top:4px; padding-bottom:4px;  
+    padding-left:10px; padding-right:10px;  
+}
+
+
+#btnadd,#cancel,#btnquit{
+	width:70px;
+	height:35px;
+	font-size:16px;
+	color:blue;
+	border:1px solid #ccc;
+	border-radius:5px 5px 5px 5px;
+	background:white;
+}
+
+#btn{
+	width:70px;
+	height:35px;
+	font-size:16px;
+	color:blue;
+	border:1px solid #ccc;
+	border-radius:5px 5px 5px 5px;
+	background:white;
+	position:absolute;
+	margin-top:300px;
+}
+
+select{
+width:50%;}
+.sel{
+	width:100%;
+}
+			
+			
+			
