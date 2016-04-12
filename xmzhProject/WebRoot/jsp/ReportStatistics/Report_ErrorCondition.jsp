@@ -30,7 +30,7 @@
 					
 					<td class="form_label" align="right" >差错环节：</td>
 					<td >
-			     		<h:hidden id="ErrorlinkId" property="xdProcessTaskAssignee.ErrorlinkId" />  //xdProcessTaskAssignee是dao名称
+			     		<h:hidden id="ErrorlinkId" property="xdProcessTaskAssignee.ErrorlinkId" />  <!--  xdProcessTaskAssignee是dao名称 -->
 						<h:text id="Errorlink" property="xdProcessTaskAssignee.Errorlink" readonly="true"/>
 						<a href="#" onclick="showErrorlink();">选择</a>
 					</td>
