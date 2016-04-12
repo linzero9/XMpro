@@ -46,6 +46,7 @@
     <property name="tGeneralprocessModelfourDAO" ref="tGeneralprocessModelfourDAO" />
     <property name="generalprocessMainDAO" ref="generalprocessMainDAO" />
     <property name="generalprocessService" ref="generalProcessService" />
+    <property name="tModelFileService" ref="tModelFileService" />
   </bean>
   
   

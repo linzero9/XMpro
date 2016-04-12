@@ -113,7 +113,7 @@
 		 $(document).ready(function(){
 
 				if('${modelSeven.processModelId}'!=""){
-					$("#save3").css("display","none");
+					
 					 $.ajax({
 					        url: '/modeFile/tModelFileAction_selectFiletest.action',
 					        async: false,
@@ -134,9 +134,7 @@
 						        } 
 					        }
 				 });
-				}else{
-					$("#row1").css("display","none");  
-					}
+				}
 			 //查看详情界面
 			if('${isView}'!=''){
 					$("#save3").hide();

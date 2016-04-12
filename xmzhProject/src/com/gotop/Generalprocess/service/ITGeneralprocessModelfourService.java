@@ -5,6 +5,8 @@ import com.gotop.Generalprocess.model.ProcessModelFour;
 import com.gotop.Generalprocess.model.ProcessModelFourMistake;
 import com.gotop.jbpm.dto.TaskAssgineeDto;
 import com.gotop.vo.system.MUOUserSession;
+
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
@@ -35,7 +37,7 @@ public interface ITGeneralprocessModelfourService {
 	 * @param taskAssgineeDto
 	 */
 	void handleModelFour(MUOUserSession muo, ProcessModelFour modelFour,Map<String, Object> map,
-			TaskAssgineeDto taskAssgineeDto);
+			TaskAssgineeDto taskAssgineeDto,File[] files2,String[] filesFileName )throws Exception;
 
 	List<ProcessModelFourMistake> queryFourMistake(ProcessModelFour modelFour);
 

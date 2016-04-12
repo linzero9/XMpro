@@ -40,6 +40,10 @@ public class TGeneralprocessModelsevenAction extends BaseAction {
 	private TaskAssgineeDto taskAssgineeDto;
 
 	private String taskName;
+	/**
+	 * isView :1、为只读状态， 默认为空
+	 */
+	private String isView;
 
 	private ProcessModelSeven modelSeven;
 
@@ -59,6 +63,14 @@ public class TGeneralprocessModelsevenAction extends BaseAction {
 	 * @abatorgenerated
 	 */
 	protected ITGeneralprocessModelsevenService tGeneralprocessModelsevenService;
+
+	public String getIsView() {
+		return isView;
+	}
+
+	public void setIsView(String isView) {
+		this.isView = isView;
+	}
 
 	public List<TDefaultOpinion> getDefaultOps() {
 		return defaultOps;

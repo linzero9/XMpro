@@ -9,7 +9,7 @@
 <link rel="stylesheet" type="text/css" href="/css/fileDown.css">
 <script type="text/javascript" src="/common/gotop/jquery.min.js"></script>
 <script type="text/javascript" src="/js/jquery.form.js"></script>
-<script type="text/javascript" src="/js/fileDown.js"></script>
+<script type="text/javascript" src="/js/modeFileDown.js"></script>
 <script type="text/javascript" src="/js/commonUtil.js"></script>
 </head>
   <body>
@@ -47,6 +47,24 @@
 		 
      	</td>
     
+       <tr id="row2">
+        <td class="form_label" align="right">附件下载：</td>
+        <td colspan="3">
+        <div id="tag"></div>
+      </td>
+      </tr>
+           <tr id="fujian">
+     	<td class="form_label" align="right">附件：</td>
+     	<td colspan="3">
+				<input type="button" onclick="addFile('tabtest2','files2');return false;" value="新增附件" 
+					style="margin-left:2px;vertical-align:middle;cursor:hand;"/>
+				<font style="color: red">(说明：最多上传5个附件)</font>
+				<br/>
+				<table border=0 id="tabtest2">
+				</table>
+     	</td>
+     </tr>
+      
       
        <tr id="rowHi">
       	<td class="form_label" align="right">历史差错情况：</td>
@@ -105,6 +123,27 @@
 
 			 
 			 $("#opninionContent").text("");
+
+ 			 $.ajax({
+				    url: '/modeFile/tModelFileAction_selectFiletest.action',
+			        async: false,
+			        type: 'post',
+			        data: "executionId=${taskAssgineeDto.executionId}&modeId=${modelFour.processModelId}&modeType=mod4",
+			        dataType: 'json',
+			        timeout: 60000,
+			        success: function (files) {
+				        if(files!=""){
+				         	$.each(files,function( i,item ){
+					         	if('${isView}'!='')
+				    	        	$("#tag").fileDown({filename:item.fileName,filevalue:item.fileId});
+					         	else 
+					         		$("#tag").fileDown({filename:item.fileName,filevalue:item.fileId,remove:1});
+				          		});	
+				        } else{    
+				        	$("#row2").css("display","none");  
+				        } 
+			        }
+		 }); 
 			
 			 //查看详情界面
 			 if('${isView}'!=''){
@@ -156,7 +195,7 @@
 										tdStr+="<input type=\"hidden\" name=\""+hiTaskName+"\" id=\""+tnId+"\" value=\""+item.taskName+"\" >";
 										tdStr+="<input type=\"hidden\" name=\""+hiEmpId+"\" id=\""+epId+"\" value=\""+item.empid+"\" >";
 										tdStr+="<input type=\"hidden\" name=\""+hiFlowId+"\" id=\""+flId+"\" value=\""+item.flowId+"\" >";
-					         			tdStr+="差错内容：<textarea  rows=\"3\"  style=\"width:60%\"  name=\""+hiFiles+"\" id=\""+fId+"\" value=\""+item.mistakeContent+"\" size='70' validateAttr=\"allowNull=false\" >"+item.mistakeContent+"</textarea>";
+					         			tdStr+="差错内容：<textarea  rows=\"3\"  style=\"width:60%\"  name=\""+hiFiles+"\" id=\""+fId+"\" value=\""+item.mistakeContent+"\" size='70' validateAttr=\"allowNull=false\" onkeyup=\"this.value=this.value.replace(/[ ]/g,'')\">"+item.mistakeContent+"</textarea>";
 									 	tdStr+="扣罚金额：<input type=\"text\" name=\""+hiJees+"\" id=\""+jeId+"\" value=\""+item.punishBal+"\" size='10' validateAttr=\"allowNull=false\" >元";
 									 	tdStr+= "<input type=\"button\" onclick=\"delTr('fileRow"+rowId+"');\" name='button"+rowId+"' value=\"删除\" style=\"margin-left:2px;vertical-align:middle;cursor:hand;\"/>";
 									 	td.innerHTML = tdStr;
@@ -214,7 +253,7 @@
 					         			tdStr="<textarea   style=\"display:none\"  style=\"width:60%\"  size='70'                name=\""+timeName+"\"   id=\""+timemask+"\"   validateAttr=\"allowNull=false\" readonly=\"true\" >"+item.addTime+"</textarea>";
 
 										
-					         			tdStr+="差错内容：<textarea   rows=\"3\" style=\"width:60%\"   name=\""+fName+"\" id=\""+fId+"\"    validateAttr=\"allowNull=false\">"+item.mistakeContent+"</textarea>";
+					         			tdStr+="差错内容：<textarea   rows=\"3\" style=\"width:60%\"   name=\""+fName+"\" id=\""+fId+"\"    validateAttr=\"allowNull=false\" onkeyup=\"this.value=this.value.replace(/[ ]/g,'')\">"+item.mistakeContent+"</textarea>";
 					         		//	tdStr+=row.id;
 									 	tdStr+="扣罚金额：<input type=\"text\" name=\""+jeName+"\" id=\""+jeId+"\" value=\""+item.punishBal+"\" size='10' validateAttr=\"allowNull=false\">元";
 									 	tdStr+= "<input type=\"button\" onclick=\"delTr('fileRow"+rowId+"');\" name='button"+rowId+"' value=\"删除\" style=\"margin-left:2px;vertical-align:middle;cursor:hand;\"/>";
@@ -297,56 +336,47 @@
 			 fName = varName;
 			 jeName = varJeName;
 			 timeName=vartimeName;
-
-
 			   var ididi= $("#tabtest  tr:last").attr("id");
-
-
-
 	             if(ididi!=undefined){
-
-	          
-
-	                 
-
 	             var ids= ididi.split("fileRow");
-
 	             rowId= ids[1];
-
-	            
-
-
-
 	             rowId=parseInt(rowId)+1;
-
-	             
-
 	             }
-
-
-
-
-			 
 			 fId = varName+rowId;
-			 jeId= varName+"je"+rowId;
-			 
-			 timemask=vartimeName+rowId;
-			 
+			 jeId= varName+"je"+rowId; 
+			 timemask=vartimeName+rowId; 
 			 row =  tab.insertRow();
 			 row.id = "fileRow"+rowId;
 			 td = row.insertCell(); 
-
-  			tdStr="<textarea    style=\"display:none\"  style=\"width:60%\"  size='70'                name=\""+timeName+"\" id=\""+timemask+"\"   validateAttr=\"allowNull=false\" readonly=\"true\" ></textarea>";
-			 
-			 	tdStr="差错内容：<textarea   rows=\"3\" style=\"width:60%\"  name=\""+fName+"\" id=\""+fId+"\" size='70' validateAttr=\"allowNull=false\"></textarea>";
+  			tdStr="<textarea    style=\"display:none\"  style=\"width:60%\"  size='70'                name=\""+timeName+"\" id=\""+timemask+"\"   validateAttr=\"allowNull=false\" readonly=\"true\" ></textarea>"; 
+			 	tdStr="差错内容：<textarea   rows=\"3\" style=\"width:60%\"  name=\""+fName+"\" id=\""+fId+"\" size='70' validateAttr=\"allowNull=false\" onkeyup=\"this.value=this.value.replace(/[ ]/g,'')\"></textarea>";
 			 	tdStr+="扣罚金额：<input type=\"text\" name=\""+jeName+"\" id=\""+jeId+"\" size='10' validateAttr=\"allowNull=false\">元";
 			    tdStr+= "<input type=\"button\" onclick=\"delTr('fileRow"+rowId+"');\" name='button"+rowId+"' value=\"删除\" style=\"margin-left:2px;vertical-align:middle;cursor:hand;\"/>";
 			    tdStr+= "<input type=\"button\" onclick=\"saveMistake('fileRow"+rowId+"');\" name='button"+rowId+"' value=\"保存\" style=\"margin-left:2px;vertical-align:middle;cursor:hand;\"/>";
-
 				    td.innerHTML = tdStr;
 			    rowId = rowId+1;    
 		 }
-		 
+			var rowId2 = 0;
+			function addFile(tabid,varName){
+			    var tab,row,td,fName,fId,tdStr;
+			    var zs=$("#tabtest tbody tr").length;
+			    tab = $id(tabid);
+			    if (zs>=5){
+			    	alert("新增附件不能超过5个");
+			    	return false;
+			    }
+			    fName = varName;
+			    fId = varName+rowId2;
+			    row =  tab.insertRow();
+			    row.id = "fileRow2"+rowId2;
+			    td = row.insertCell(); 
+			    
+			    tdStr="<input type=\"file\" name=\""+fName+"\" id=\""+fId+"\" onchange=\"CheckUpLoadFile(this,2);\" size='70' class=smallInput validateAttr=\"allowNull=false\">";
+			    tdStr += "<input type=\"button\" onclick=\"delTr('fileRow2"+rowId2+"');\" name='button"+rowId2+"' value=\"删除\" style=\"margin-left:2px;vertical-align:middle;cursor:hand;\"/>";
+			    td.innerHTML = tdStr;
+			    rowId2 = rowId2+1;    
+			}
+
 		 function delTr(id){
 			$("#"+id).remove();
 		}

@@ -1,5 +1,6 @@
 package com.gotop.Generalprocess.service.impl;
 
+import com.eos.server.dict.DictManager;
 import com.gotop.Generalprocess.dao.ITGeneralprocessMainDAO;
 import com.gotop.Generalprocess.dao.ITGeneralprocessModelfourDAO;
 import com.gotop.Generalprocess.model.ProcessModelFour;
@@ -9,17 +10,25 @@ import com.gotop.Generalprocess.service.IGeneralprocessService;
 import com.gotop.Generalprocess.service.ITGeneralprocessModelfourService;
 import com.gotop.jbpm.dto.TaskAssgineeDto;
 import com.gotop.jbpm.service.JbpmService;
+import com.gotop.modeFile.model.TModelFile;
+import com.gotop.modeFile.service.ITModelFileService;
+import com.gotop.util.FileUploadUtil;
 import com.gotop.util.time.TimeUtil;
 import com.gotop.vo.system.MUOUserSession;
 
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
+import java.util.UUID;
 
 import org.apache.log4j.Logger;
+import org.apache.struts2.ServletActionContext;
+import org.springframework.util.FileCopyUtils;
 
 public class TGeneralprocessModelfourService implements ITGeneralprocessModelfourService {
     /**
@@ -36,6 +45,21 @@ public class TGeneralprocessModelfourService implements ITGeneralprocessModelfou
     private ITGeneralprocessMainDAO generalprocessMainDAO;
     
     protected IGeneralprocessService generalprocessService;
+    
+	/**
+	 * 附件上传
+	 */
+   private  ITModelFileService tModelFileService;
+   
+   
+	public ITModelFileService gettModelFileService() {
+		return tModelFileService;
+	}
+
+	public void settModelFileService(ITModelFileService tModelFileService) {
+		this.tModelFileService = tModelFileService;
+	}
+    
     
     /**
      * 通过spring注入的DAO对象.
@@ -101,7 +125,7 @@ public class TGeneralprocessModelfourService implements ITGeneralprocessModelfou
 
 	@Override
 	public void handleModelFour(MUOUserSession muo, ProcessModelFour modelFour,Map<String, Object> map,
-			TaskAssgineeDto taskAssgineeDto)  {
+			TaskAssgineeDto taskAssgineeDto,File[] files2,String[] filesFileName )throws Exception  {
 		String taskId = taskAssgineeDto.getNextTaskId();
 		String taskName = jbpmService.getTaskNameById(taskId);
 		modelFour.setTaskName(taskName);
@@ -205,11 +229,11 @@ public class TGeneralprocessModelfourService implements ITGeneralprocessModelfou
 		
 		if(map.get("files") != null){
 			files = (String) map.get("files");
-			files=files.replace(" ", "");
+			//files=files.replace(" ", "");
 		}
 		if(map.get("jees") != null){
 			jees = (String) map.get("jees");
-			jees=jees.replace(" ", "");
+			//jees=jees.replace(" ", "");
 		}
 		
 		
@@ -230,10 +254,10 @@ public class TGeneralprocessModelfourService implements ITGeneralprocessModelfou
 		
 		
 		if(files != null && !"".equals(files)){
-			fileArray = files.split(",");
+			fileArray = files.split(", ");
 		}
 		if(jees != null && !"".equals(jees)){
-			jeArray = jees.split(",");
+			jeArray = jees.split(", ");
 		}
 		if (modelFour.getProcessModelId() != null
 				&& !"".equals(modelFour.getProcessModelId())){
@@ -355,6 +379,42 @@ public class TGeneralprocessModelfourService implements ITGeneralprocessModelfou
 		
 		this.generalprocessService.insertApproveOpninion(modelFour, muo, nextTaskId,
 				submitType, taskAssgineeDto);
+        //////////////////////////////////////////////附件上传////////////////////////////////////////////////////
+		if(files2!=null){
+			TModelFile	obj=new TModelFile();
+	    	 String suffixStr = null;
+	    	 String address="";
+
+	    	 address=DictManager.getDictName("ZHPT_FILE_PATH","01");
+	    	Properties props=System.getProperties();
+	    	System.out.println(props.getProperty("os.name"));
+	    	if(address==null||"".equals(address))
+			     address=ServletActionContext.getServletContext().getRealPath("/uploadfile");
+	    	else {
+	    	    	if(props.getProperty("os.name").indexOf("Windows")>=0)
+	    		    	address="f:"+address;
+	    	 }  
+	    		 SimpleDateFormat sdf=new SimpleDateFormat("yyy-MM-dd");
+	    		 String fileDate=sdf.format(new Date());//时间
+   	
+		       	 for(int i=0;i<filesFileName.length;i++){
+		    		 String uuid = UUID.randomUUID().toString();//UUID
+		       		 suffixStr = filesFileName[i].substring(filesFileName[i].indexOf("."), filesFileName[i].length());//获取后缀名      		 
+			       		obj.setExecutionId(newDto.getExecutionId());
+			       		obj.setModeId(String.valueOf(modelFour.getProcessModelId()));
+			       		obj.setModeType("mod4");
+			       		byte[] content = FileCopyUtils.copyToByteArray(files2[i]);
+						obj.setModeFiles(content);
+		       			       		
+		       		  obj.setFileName(filesFileName[i]);
+		       		  obj.setFilePath(address+File.separator+fileDate+File.separator+uuid+suffixStr); 	       		
+		    		  FileUploadUtil.uploadFile(uuid, fileDate, address, filesFileName[i], files2[i], suffixStr);
+
+						tModelFileService.insert(obj);
+		
+		       	 }
+		}
+		
 	}
 	
 	
