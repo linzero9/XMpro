@@ -16,7 +16,7 @@
 				
 				<tr>
                                         <td class="form_label" align="right" width="10%">报单日期：</td>
-					<td colspan="1" width="30%">
+					<td colspan="1" width="25%">
 					从
 					<w:date  format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="repTimeStrat" name="ErrorConditionDto.repTimeStrat" 
 					property="ErrorConditionDto.appTimeStrat" /> 

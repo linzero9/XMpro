@@ -16,19 +16,23 @@
 				
 				<tr>
                                          
-                                   <td class="form_label" align="right">报表：</td>
-						<td colspan="1">
-						<d:select  id="isEnd"  dictTypeId="PROCESS_IsEnd" nullLabel="请选择" property="generalprocessDto.isEnd" onchange="window.location.href=this.options[selectedIndex].value">
-                           
-                         
-</d:select>
+                                  
+					<td class="form_label" align="right">报表：</td>
 					
-					
+			  
+                                     <td align="left"  >
                             
-                               
-                            </td>
-					
-					
+                                     <select   name="ym" size="1" id="ym" style="width:120px;" onchange="window.location.href=this.options[selectedIndex].value">  
+                           <option>请选择</option>  
+                           <option   value="http://localhost:8088/jsp/ReportStatistics/Report_ErrorCondition.jsp" target="_blank">差错情况统计表</option>    
+                           <option   value="http://localhost:8088/jsp/ReportStatistics/Report_DealApproval.jsp"   target="_self">受理审批台账</option>  
+                           <option   value="http://localhost:8088/jsp/ReportStatistics/Report_Jobworkload.jsp"   target="_self">岗位工作量统计表</option>  
+                           <option   value="http://localhost:8088/jsp/ReportStatistics/Report_Rateofreturn.jsp"   target="_self">退单率统计表</option> 
+                           <option   value="http://localhost:8088/jsp/ReportStatistics/Report_Refusalrate.jsp"   target="_self">拒贷率统计表</option> 
+                           <option   value="http://localhost:8088/jsp/ReportStatistics/Report_CooperateInstitution.jsp"   target="_self">合作机构业务发展台账</option> 
+                           <option   value="http://localhost:8088/jsp/ReportStatistics/Report_OverrunCondition.jsp"   target="_self">超限情况统计表</option> 
+                           </select> 
+                           </td>
 					
 					
 					
