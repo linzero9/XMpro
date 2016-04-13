@@ -1,6 +1,7 @@
 package com.gotop.Generalprocess.util;  
 import java.lang.reflect.Method;  
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;  
 import org.springframework.context.support.ClassPathXmlApplicationContext;  
 import org.springframework.core.io.support.PropertiesLoaderSupport;  
+
+import com.gotop.jbpm.model.TestComparator;
 
 
 /**
@@ -82,29 +85,51 @@ public class SpringPropertyResourceReader {
     
     
     
-    public static     	 Map<String, String>  getAllPro(){  
+//    public static   Map<String, String>  getAllPro(){  
+//    	
+//    	Set<Object> tset= properties.keySet();
+//    	List<String> model= new ArrayList<String>();
+//
+//    	for (Object	 object : tset) {
+//    		String a= (String) object;
+//    		if(a.split("-")[0].startsWith("模式")){
+//    			
+//    			model.add(a);
+//    		}
+//    		
+//		}
+//
+//   	 Map<String, String> results  =  new  HashMap<String, String>();
+//    	for (String string : model) {
+//       		String value =  SpringPropertyResourceReader.getProperty(string);
+//       		results.put(string, value);
+//       	}
+//       	 
+//            return results;   
+// 
+//    }  
+    
+public static   List<HashMap<String, String>>  getAllPro(){  
     	
     	Set<Object> tset= properties.keySet();
-    	List<String> model= new ArrayList<String>();
-
+    	List<HashMap<String, String>> models= new ArrayList<HashMap<String, String>>();
+    	HashMap<String, String> map = null ;
+    	
     	for (Object	 object : tset) {
-    		String a= (String) object;
-    		if(a.split("-")[0].startsWith("模式")){
-    			
-    			model.add(a);
+    		map  =  new  HashMap<String, String>();
+    		String name = (String) object;
+    		if(name.split("-")[0].startsWith("模式")){
+    			String value =  SpringPropertyResourceReader.getProperty(name);
+    			map.put("model_name", name);
+    			map.put("model_tablename", value);
+    			models.add(map);
     		}
     		
 		}
-    	
 
-   	 Map<String, String> results  =  new  HashMap<String, String>();
-	 
-   	 for (String string : model) {
-   		String value =  SpringPropertyResourceReader.getProperty(string);
-   		results.put(string, value);
-   	}
-   	 
-        return results;    
+    	Collections.sort(models, new TestComparator());
+            return models;   
+            
     }  
     
 }  

@@ -29,12 +29,12 @@
 							<tr class="<l:output evenOutput='EOS_table_row' oddOutput='EOS_table_row_o'  />">
 								<td align="center" nowrap="nowrap">
 									<w:rowRadio>
-										<h:param name='node_key' iterateId='id1' property='key' />
-										<h:param name='node_value' iterateId='id1' property='value' />
+										<h:param name='node_key' iterateId='id1' property='model_name' />
+										<h:param name='node_value' iterateId='id1' property='model_tablename' />
 									</w:rowRadio>
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1"    property="key" />
+									<b:write iterateId="id1"    property="model_name" />
 								</td>
 							</tr>
 						</l:iterate>

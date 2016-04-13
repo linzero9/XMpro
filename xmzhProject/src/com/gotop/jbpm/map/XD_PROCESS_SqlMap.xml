@@ -156,7 +156,7 @@
            	 and dic.dictid in($loanCategoryId$))
       		</isNotNull>
       		</dynamic>
-      		order by T13.REPORTCNT desc, T13.REPORTTIME asc
+      		order by T13.PRE_TASK_TIME desc
   </select>
   
    <select id="queryXdProcessList" resultMap="abatorgenerated_XdProcess_HashMapResult2" parameterClass="java.util.HashMap" >

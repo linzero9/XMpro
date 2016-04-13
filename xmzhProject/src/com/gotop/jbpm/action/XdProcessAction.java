@@ -1,12 +1,7 @@
 package com.gotop.jbpm.action;
 
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
 
 import com.gotop.Generalprocess.util.SpringPropertyResourceReader;
 import com.gotop.crm.util.BaseAction;
@@ -20,6 +15,7 @@ import com.gotop.util.Struts2Utils;
 import com.gotop.util.string.Obj2StrUtils;
 import com.primeton.utils.Page;
 import com.primeton.utils.pageCondExpand;
+import com.primeton.workflow.util.stat.StatItem;
 
 public class XdProcessAction   extends BaseAction {
 
@@ -56,7 +52,7 @@ public class XdProcessAction   extends BaseAction {
     
     private List<WaterInfo> waterInfos;
     
-    private Map<String, String> models ;
+    private List<HashMap<String, String>> models ;
     
     public Page page2;
       
@@ -76,10 +72,13 @@ public class XdProcessAction   extends BaseAction {
 		this.page2 = page2;
 	}
 	
-	public Map<String, String> getModels() {
+
+	
+	
+	public List<HashMap<String, String>> getModels() {
 		return models;
 	}
-	public void setModels(Map<String, String> models) {
+	public void setModels(List<HashMap<String, String>> models) {
 		this.models = models;
 	}
 	public WaterInfo getWaterInfo() {
@@ -526,22 +525,7 @@ public class XdProcessAction   extends BaseAction {
 	 * @return
 	 */
 	public String toNodeSelect(){
-		 models = new HashMap<String, String>();
-		 // models = new TreeMap<String, String>();   //TreeMap默认按key升序排列 
-
-		models = SpringPropertyResourceReader.getAllPro();
-		
-//		 Set set = models.entrySet();  
-//		  
-//		 Map.Entry[] entries = (Map.Entry[]) set.toArray(new Map.Entry[set.size()]);  
-//		Arrays.sort(entries, new Comparator() {  
-//            public int compare(Object arg0, Object arg1) {  
-//                Object key1 = ((Map.Entry) arg0).getKey();  
-//                Object key2 = ((Map.Entry) arg1).getKey();  
-//                return ((Comparable) key1).compareTo(key2);  
-//            }  
-//  
-//        });  
+		 models = SpringPropertyResourceReader.getAllPro();
 		this.setModels(models);
 		return "to_nodeSelect";
 	}
