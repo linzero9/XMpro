@@ -87,7 +87,35 @@ public class TGeneralprocessModelfourAction extends BaseAction {
 	/**
 	 * 差错内容
 	 */
-	private String files;
+	private String[] files;
+	
+	private String sss="";
+	private String sss2;
+
+	
+	public String[] getFiles() {
+		return files;
+	}
+
+	public void setFiles(String[] files) {
+		this.files = files;
+	}
+
+	public String getSss() {
+		return sss;
+	}
+
+	public void setSss(String sss) {
+		this.sss = sss;
+	}
+
+	public String getSss2() {
+		return sss2;
+	}
+
+	public void setSss2(String sss2) {
+		this.sss2 = sss2;
+	}
 
 	/**
 	 * 扣罚金额
@@ -232,13 +260,13 @@ public class TGeneralprocessModelfourAction extends BaseAction {
 		this.fourMistakes = fourMistakes;
 	}
 
-	public String getFiles() {
+/*	public String getFiles() {
 		return files;
 	}
 
 	public void setFiles(String files) {
 		this.files = files;
-	}
+	}*/
 
 	public String getJees() {
 		return jees;
@@ -444,13 +472,21 @@ public class TGeneralprocessModelfourAction extends BaseAction {
 	public void handleModelFour() throws Exception {
 		String info = "success";
 		String nextTaskId = this.taskAssgineeDto.getNextTaskId();
-		if(files!=null){
-			
-		}
-		
 		if ("".equals(nextTaskId) || nextTaskId == null) {
 			info = "noFirst";
 		} else {
+			
+			if(files!=null && !"".equals(files)){
+				for (int i = 0; i < files.length-1; i++) {
+					sss+=files[i]+"| ";
+				}
+				for (int i = 0; i < files.length; i++) {
+					sss2=files[i];
+				}
+				sss+=sss2;
+				//sss=sss.replace("", "");
+			}
+			
 			MUOUserSession muo = getCurrentOnlineUser();
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("hiAddTime", hiAddTime);
@@ -461,7 +497,7 @@ public class TGeneralprocessModelfourAction extends BaseAction {
 			map.put("hiJees", hiJees);
 			map.put("hiFiles", hiFiles);
 			
-			map.put("files", files);
+			map.put("sss", sss);
 			map.put("jees", jees);
 			map.put("timees", timees);
 			

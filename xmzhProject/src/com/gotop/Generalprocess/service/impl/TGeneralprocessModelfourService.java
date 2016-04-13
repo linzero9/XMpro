@@ -226,10 +226,10 @@ public class TGeneralprocessModelfourService implements ITGeneralprocessModelfou
 		
 		String[] timeesArray =null;
 		String timees = null;
-		
-		if(map.get("files") != null){
-			files = (String) map.get("files");
-			//files=files.replace(" ", "");
+		String aa=null;
+		if(map.get("sss") != null){
+			files = (String) map.get("sss");
+			aa=files;
 		}
 		if(map.get("jees") != null){
 			jees = (String) map.get("jees");
@@ -252,9 +252,11 @@ public class TGeneralprocessModelfourService implements ITGeneralprocessModelfou
 		}
 		
 		
-		
+		String[] bb=null;
 		if(files != null && !"".equals(files)){
-			fileArray = files.split(", ");
+			
+			fileArray = files.split("\\| ");
+			bb=fileArray;
 		}
 		if(jees != null && !"".equals(jees)){
 			jeArray = jees.split(", ");
