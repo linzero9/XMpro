@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="T_OMINFORMATION_SqlMap">
+ <resultMap id="OmInformation" class="com.gotop.peopleManagement.model.OmInformation" >
+    <!--Bean方式返回全表-->
+    <result column="EMPID" property="empid" jdbcType="VARCHAR" />
+    <result column="ORGID" property="orgid" jdbcType="VARCHAR" />
+    <result column="USERID" property="userid" jdbcType="VARCHAR" />
+    <result column="ORGNAME" property="orgName" jdbcType="VARCHAR" />
+    <result column="EMPNAME" property="empName" jdbcType="VARCHAR" />
+    <result column="EMPCODE" property="empCode" jdbcType="VARCHAR" />
+    <result column="ROLENAME" property="roleName" jdbcType="VARCHAR" />
+    <result column="POSINAME" property="posiName" jdbcType="VARCHAR" />
+    <result column="EMPSTATUS" property="empStatus" jdbcType="VARCHAR" />
+    <result column="GENDER" property="gender" jdbcType="VARCHAR" />
+    <result column="MOBILENO" property="mobileNo" jdbcType="VARCHAR" />
+  </resultMap>
+	
+	<!-- 查询人员信息 -->
+	<select id="queryOmInformationList" parameterClass="java.util.HashMap" resultMap="OmInformation">
+	select G.NEXT_ORG_NAME,
+       G.NEXT_OPR_NAME,
+       E.LOANCATEGORY,
+       E.FDXDY,
+       E.YXZG,
+       T.MISTAKE_CONTENT,
+       T.PUNISH_BAL,
+       T.TASKNAME,
+       M.REPORTTIME,
+       E.CUST_NAME,
+       P.EMPNAME,
+       T.ADD_TIME
+  FROM T_APPROVE_OPNINION_GP       G,
+       T_GENERALPROCESS_MODELONE   E,
+       T_GENERALPROCESS_MISTAKE    T,
+       OM_EMPLOYEE                 P,
+       T_GENERALPROCESS_MODELTHREE M
+ WHERE P.EMPID = T.EMPID
+   AND G.OPERATOR = P.EMPID
+   AND E.FLOW_ID = T.FLOW_ID;
+      <isNotNull prepend="and" property="orgName" >
+        G.ORGNAME LIKE '%'||#orgName:VARCHAR#||'%'
+      </isNotNull>
+      <isNotNull prepend="and" property="empName" >
+        Y.EMPNAME = #empName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="empCode" >
+        Y.EMPCODE =#empCode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="roleName" >
+         R.ROLENAME LIKE '%'||#roleName:VARCHAR#||'%'
+      </isNotNull>
+      <isNotNull prepend="and" property="posiName" >
+        P.POSINAME LIKE '%'||#posiName:VARCHAR#||'%'
+      </isNotNull>
+     
+	</select>
+	
+</sqlMap>
