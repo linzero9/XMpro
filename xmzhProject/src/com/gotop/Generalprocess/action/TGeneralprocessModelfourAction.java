@@ -14,9 +14,12 @@ import com.gotop.opinion.model.TDefaultOpinion;
 import com.gotop.opinion.service.ITDefaultOpinionService;
 import com.gotop.util.Struts2Utils;
 import com.gotop.vo.system.MUOUserSession;
+import com.sun.org.apache.bcel.internal.generic.NEW;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -512,6 +515,30 @@ public class TGeneralprocessModelfourAction extends BaseAction {
 		}
 		Struts2Utils.renderText(info);
 	}
+	
+	public void saveMistakeInfo() throws Exception{
+		String info = "success";
+		MUOUserSession muo = getCurrentOnlineUser();
+		SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyyMMddHHmmss");
+		String addTime=simpleDateFormat.format(new Date());
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("mistakeContent", files[0]);
+		map.put("punishBal", jees);
+		map.put("addTime", addTime);
+		
+		
+		try {
+			this.tGeneralprocessModelfourService.saveMistakeInfo(muo, modelFour, map, taskAssgineeDto);
+		} catch (Exception e) {
+			info = "fails";
+			log.error("[保存错误失败！]", e);
+			throw e;
+		}
+		Struts2Utils.renderText(info);
+	
+}	
+
+
 
 	/**
 	 * 查询差错列表信息
