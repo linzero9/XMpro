@@ -29,6 +29,7 @@ import com.gotop.Generalprocess.model.TApproveOpninionGP;
 import com.gotop.Generalprocess.model.TGeneralprocessMain;
 import com.gotop.Generalprocess.service.IGeneralprocessService;
 import com.gotop.Generalprocess.service.ITGeneralprocessModeltwoService;
+import com.gotop.Generalprocess.util.SpringPropertyResourceReader;
 import com.gotop.jbpm.dto.TaskAssgineeDto;
 import com.gotop.jbpm.model.TProcessBusiness;
 import com.gotop.jbpm.service.ITProcessBusinessService;
@@ -278,6 +279,9 @@ public class GeneralprocessService implements IGeneralprocessService {
 			nextTaskId = jbpmService.getNextTaskId(taskAssgineeDto
 					.getExecutionId());
 			taskAssgineeDto.setNextTaskId(nextTaskId);
+			TaskAssgineeDto newDto = makeTaskAssgineeDto(null,muo, taskAssgineeDto);
+
+			jbpmService.saceTaskAssignee(newDto);
 			
 			jbpmService.saceTaskAssignee(makeTaskAssgineeDto(pb,
 					muo, taskAssgineeDto));
@@ -310,15 +314,16 @@ public class GeneralprocessService implements IGeneralprocessService {
 				TModelFile	obj=new TModelFile();
 	 	    	 String suffixStr = null;
 	 	    	 String address="";
-
+	 	    	String ioioio=	SpringPropertyResourceReader.getProperty("file_model");
 	 	    	 address=DictManager.getDictName("ZHPT_FILE_PATH","01");
 	 	    	Properties props=System.getProperties();
 	 	    	System.out.println(props.getProperty("os.name"));
-	 	    	if(address==null||"".equals(address))
+	 	    	if(address==null||"".equals(address)){
 	 			     address=ServletActionContext.getServletContext().getRealPath("/uploadfile");
+	 	    	}
 	 	    	else {
 	 	    	    	if(props.getProperty("os.name").indexOf("Windows")>=0)
-	 	    		    	address="f:"+address;
+	 	    		    	address=ioioio+address;
 	 	    	 }  
 	 	    		 SimpleDateFormat sdf=new SimpleDateFormat("yyy-MM-dd");
 	 	    		 String fileDate=sdf.format(new Date());//时间
@@ -326,7 +331,7 @@ public class GeneralprocessService implements IGeneralprocessService {
 	 		       	 for(int i=0;i<filesFileName.length;i++){
 	 		    		 String uuid = UUID.randomUUID().toString();//UUID
 	 		       		 suffixStr = filesFileName[i].substring(filesFileName[i].indexOf("."), filesFileName[i].length());//获取后缀名      		 
-	 			       		obj.setExecutionId(dto1.getExecutionId());
+	 			       		obj.setExecutionId(newDto.getExecutionId());
 	 			       		obj.setModeId(String.valueOf(modelOne.getProcessModelId()));
 	 			       		obj.setModeType(modeType);
 	 			       		byte[] content = FileCopyUtils.copyToByteArray(files[i]);
@@ -444,7 +449,7 @@ public class GeneralprocessService implements IGeneralprocessService {
 				TModelFile	obj=new TModelFile();
 	 	    	 String suffixStr = null;
 	 	    	 String address="";
-
+	 	    	String ioioio=	SpringPropertyResourceReader.getProperty("file_model");
 	 	    	 address=DictManager.getDictName("ZHPT_FILE_PATH","01");
 	 	    	Properties props=System.getProperties();
 	 	    	System.out.println(props.getProperty("os.name"));
@@ -452,7 +457,7 @@ public class GeneralprocessService implements IGeneralprocessService {
 	 			     address=ServletActionContext.getServletContext().getRealPath("/uploadfile");
 	 	    	else {
 	 	    	    	if(props.getProperty("os.name").indexOf("Windows")>=0)
-	 	    		    	address="f:"+address;
+	 	    		    	address=ioioio+address;
 	 	    	 }  
 	 	    		 SimpleDateFormat sdf=new SimpleDateFormat("yyy-MM-dd");
 	 	    		 String fileDate=sdf.format(new Date());//时间

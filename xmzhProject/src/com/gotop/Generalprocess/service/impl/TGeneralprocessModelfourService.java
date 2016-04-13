@@ -8,6 +8,7 @@ import com.gotop.Generalprocess.model.ProcessModelFourMistake;
 import com.gotop.Generalprocess.model.TGeneralprocessMain;
 import com.gotop.Generalprocess.service.IGeneralprocessService;
 import com.gotop.Generalprocess.service.ITGeneralprocessModelfourService;
+import com.gotop.Generalprocess.util.SpringPropertyResourceReader;
 import com.gotop.jbpm.dto.TaskAssgineeDto;
 import com.gotop.jbpm.service.JbpmService;
 import com.gotop.modeFile.model.TModelFile;
@@ -386,7 +387,7 @@ public class TGeneralprocessModelfourService implements ITGeneralprocessModelfou
 			TModelFile	obj=new TModelFile();
 	    	 String suffixStr = null;
 	    	 String address="";
-
+	    	 String ioioio=	SpringPropertyResourceReader.getProperty("file_model");
 	    	 address=DictManager.getDictName("ZHPT_FILE_PATH","01");
 	    	Properties props=System.getProperties();
 	    	System.out.println(props.getProperty("os.name"));
@@ -394,7 +395,7 @@ public class TGeneralprocessModelfourService implements ITGeneralprocessModelfou
 			     address=ServletActionContext.getServletContext().getRealPath("/uploadfile");
 	    	else {
 	    	    	if(props.getProperty("os.name").indexOf("Windows")>=0)
-	    		    	address="f:"+address;
+	    		    	address=ioioio+address;
 	    	 }  
 	    		 SimpleDateFormat sdf=new SimpleDateFormat("yyy-MM-dd");
 	    		 String fileDate=sdf.format(new Date());//时间
