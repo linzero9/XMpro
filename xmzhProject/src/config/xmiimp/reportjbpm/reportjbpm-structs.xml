@@ -8,5 +8,11 @@
       </result>
       
     </action>
+     <action name="reportRefusalrateAction_*" class="reportRefusalrateAction" method="{1}" >
+      <result name="Report_Refusalrate" >
+        /jsp/ReportStatistics/Report_Refusalrate.jsp
+      </result>
+      
+    </action>
   </package>
 </struts>

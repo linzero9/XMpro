@@ -31,7 +31,7 @@ public class ReportRefusalrateAction extends BaseAction {
 		this.reportRefusalrateService = reportRefusalrateService;
 	}
 	/**
-	 * 查询人员信息
+	 * 查询拒贷信息
 	 * @return
 	 */
 	public String queryReportRefusalRate(){

@@ -4,4 +4,7 @@
   <bean id="postWorkloadStatisticsService" class="com.gotop.reportjbpm.service.impl.PostWorkloadStatisticsService" >
     <property name="postWorkloadStatisticsDAO" ref="postWorkloadStatisticsDAO" />
   </bean>
+   <bean id="reportRefusalRateService" class="com.gotop.reportjbpm.service.impl.ReportRefusalRateService" >
+    <property name="reportRefusalrateDao" ref="reportRefusalrateDao" />
+  </bean>
 </beans>

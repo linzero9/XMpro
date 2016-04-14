@@ -6,7 +6,7 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
-import com.gotop.deviceManagement.service.impl.DeviceManagementService;
+
 import com.gotop.reportjbpm.dao.TReportRefusalrateDao;
 import com.gotop.reportjbpm.model.ReportRefusalrate;
 import com.gotop.reportjbpm.service.TReportRefusalrateService;
@@ -29,7 +29,7 @@ public class ReportRefusalRateService implements TReportRefusalrateService{
 
 
 	/**
-	 * 查询人员信息列表
+	 * 查询拒贷信息列表
 	 */
 	@Override
 	public List<ReportRefusalrate> selectReportRefusalRate(ReportRefusalrate reportRefusalrate, Page page) {
