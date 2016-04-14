@@ -129,7 +129,7 @@
 						</w:radioGroup>
 							<tr>
               <td colspan="23" class="command_sort_area">
-              	<div class="h3"> 
+              	<!--  <div class="h3"> 
               	<l:greaterThan property="page.count" targetValue="0" compareType="number" >
 								&nbsp; &nbsp;
 									<input type="button" class="button" value="修改拒贷率信息" onclick="upt_loan_info();"/>
@@ -139,7 +139,7 @@
 								&nbsp; &nbsp;
 							<input type="button" class="button" value="查看修改明细" onclick="queryLoanUptWater();"/>
 								</l:greaterThan>
-								</div>
+								</div>-->
 							
                 <div class="h4">
 	                <l:equal property="page.isCount" targetValue="true" >
@@ -188,7 +188,7 @@
 			$("#isExport").val("1");
 		}
 		
-		function upt_loan_info(){
+		 /*function upt_loan_info(){
 			var gop = $id("group1");
 	  		var len = gop.getSelectLength();
 	  		if(len == 0){
@@ -204,7 +204,7 @@
 		  		var rejection_number = row.getParam("rejection_number");
 		  		var refusalrate = row.getParam("refusalrate");
 
-	            var strUrl = "/jsp/reportRefusalrateAction_toUptLoanInfo.action?reportRefusalrate.executionId="+executionId+"&reportRefusalrate.loan="+loan;
+	            var strUrl = "/ReportStatistics/reportRefusalrateAction_toUptLoanInfo.action?reportRefusalrate.executionId="+executionId+"&reportRefusalrate.loan="+loan;
 	            strUrl = strUrl+"&reportRefusalrate.areasubbranch="+areasubbranch
 	            +"&reportRefusalrate.secondarysubbranch="+secondarysubbranch
 	            +"&reportRefusalrate.EA_number="+EA_number
@@ -216,16 +216,16 @@
 				  /* 	var url="/jbpm/xdProcessAction_toAddOneCategory.action?xdCdtypeBean.processName="+encodeURI(processName);
 		  		parent.window.frames["mainFrame"].location.href = encodeURI(strUrl); 
 		  		
-		  		showModalCenter(encodeURI(strUrl), null, callBack, clientX*0.9, clientY*0.9, ''修改拒贷率信息');*/	
+		  		showModalCenter(encodeURI(strUrl), null, callBack, clientX*0.9, clientY*0.9, ''修改拒贷率信息');
 			}
-		}
+		}*/	
 		function callBack(){
 			var frm = $name("page_form");
             frm.submit();
 			//  location.reload(); //就算页面直接关闭，也会重新加载页面
 			}
 
-	  	function queryLoanUptWater(){
+	   /*	function queryLoanUptWater(){
 	  		var gop = $id("group1");
 	  		var len = gop.getSelectLength();
 	  		if(len == 0){
@@ -237,11 +237,11 @@
 		  		var strUrl = "/ReportStatistics/reportRefusalrateAction_queryLoanUptWater.action?waterInfo.flow_id="+executionId;
 		  		showModalCenter(strUrl,'',null ,1200,500,'拒贷率修改流水明细');
 			  	}
-		  	}
+		  	}*/	
 
 	  	function showoneCategory() {
 			var oneCategoryId=document.getElementById("oneCategoryId").value;
-			strUrl ="/ReportStatistics/ReportRefusalrateAction_oneCategoryDic.action?cdtypeJson="+oneCategoryId,
+			strUrl ="/Generalprocess/tGeneralprocessCdtypeAction_oneCategoryDic.action?cdtypeJson="+oneCategoryId,
 			showModalCenter(strUrl,'',showoneCategory_callback1 ,800,430,'一级分类选择'); 
 		} 
 		function showoneCategory_callback1(args){
@@ -255,7 +255,7 @@
 
 		function showloanCategory() {
 			var loanCategoryId=document.getElementById("loanCategoryId").value;
-			strUrl ="/ReportStatistics/ReportRefusalrateAction_loanCategoryDic.action?cdtypeJson="+loanCategoryId,
+			strUrl ="/Generalprocess/tGeneralprocessCdtypeAction_loanCategoryDic.action?cdtypeJson="+loanCategoryId,
 			showModalCenter(strUrl,'',showloanCategory_callback1 ,800,500,'贷种选择'); 
 		} 
 		function showloanCategory_callback1(args){

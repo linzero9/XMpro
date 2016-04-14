@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
-<sqlMap namespace="T_OMINFORMATION_SqlMap">
+<sqlMap namespace="T_REPORTREFUSALRATE_SqlMap">
  <resultMap id="ReportRefusalrate" class="com.gotop.reportjbpm.model.ReportRefusalrate" >
     <!--Bean方式返回全表-->
     <result column="REPORTTIMESTRAT" property="reporttimeStrat" jdbcType="VARCHAR" />
@@ -16,9 +16,9 @@
     
   </resultMap>
 	
-	<!-- 查询人员信息 -->
+	<!-- 查询拒贷信息 -->
 	<select id="queryReportRefusalRate" parameterClass="java.util.HashMap" resultMap="ReportRefusalrate">
-		select Y.EMPID,Y.ORGID,Y.USERID,ORGNAME,EMPNAME,Y.EMPCODE,ROLENAME,POSINAME,EMPSTATUS,GENDER,MOBILENO
+		select Y.REPORTTIMESTRAT,Y.REPORTTIMEEND,Y.ONECATEGORY,ORGNAME,EMPNAME,Y.LOANCATEGORY,ROLENAME,POSINAME,EMPSTATUS,GENDER,MOBILENO
   from OM_EMPORG      A,
        OM_POSITION    P,
        OM_EMPPOSITION  N,
