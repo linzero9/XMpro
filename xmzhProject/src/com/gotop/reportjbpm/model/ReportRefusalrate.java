@@ -5,8 +5,8 @@ import java.io.Serializable;
 
 public class ReportRefusalrate implements Serializable{
 	
-	private String repTimeStrat;
-	private String repTimeEnd;
+	private String reporttimeStrat;
+	private String reporttimeEnd;
 	private String oneCategory;
 	private String loanCategory;
 	private String loan;
@@ -17,17 +17,17 @@ public class ReportRefusalrate implements Serializable{
 	private String refusalrate;
 	
 	
-	public String getRepTimeStrat() {
-		return repTimeStrat;
+	public String getReportTimeStrat() {
+		return reporttimeStrat;
 	}
-	public void setRepTimeStrat(String repTimeStrat) {
-		this.repTimeStrat = repTimeStrat;
+	public void setReportTimeStrat(String reporttimeStrat) {
+		this.reporttimeStrat = reporttimeStrat;
 	}
-	public String getRepTimeEnd() {
-		return repTimeEnd;
+	public String getReportTimeEnd() {
+		return reporttimeEnd;
 	}
-	public void setRepTimeEnd(String repTimeEnd) {
-		this.repTimeEnd = repTimeEnd;
+	public void setReportTimeEnd(String reporttimeEnd) {
+		this.reporttimeEnd = reporttimeEnd;
 	}
 	public String getOneCategory() {
 		return oneCategory;

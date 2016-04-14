@@ -36,11 +36,11 @@ public class ReportRefusalRateService implements TReportRefusalrateService{
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		if (reportRefusalrate != null) {
-			if (reportRefusalrate.getRepTimeStrat() !=null&&!"".equals(reportRefusalrate.getRepTimeStrat())) {
-				map.put("repTimeStrat", reportRefusalrate.getRepTimeStrat());
+			if (reportRefusalrate.getReportTimeStrat() !=null&&!"".equals(reportRefusalrate.getReportTimeStrat())) {
+				map.put("reporttimeStrat", reportRefusalrate.getReportTimeStrat());
 			}
-			if (reportRefusalrate.getRepTimeEnd() != null&&!"".equals(reportRefusalrate.getRepTimeEnd())) {
-				map.put("repTimeEnd", reportRefusalrate.getRepTimeEnd());
+			if (reportRefusalrate.getReportTimeEnd() != null&&!"".equals(reportRefusalrate.getReportTimeEnd())) {
+				map.put("reporttimeEnd", reportRefusalrate.getReportTimeEnd());
 			}
 		
 			if(reportRefusalrate.getOneCategory()!=null && !"".equals(reportRefusalrate.getOneCategory())){

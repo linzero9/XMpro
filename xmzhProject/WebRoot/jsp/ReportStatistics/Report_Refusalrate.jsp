@@ -10,7 +10,7 @@
 		<title>拒贷率统计列表</title>
 	</head>
 	<body topmargin="0" leftmargin="0">
-	<h:form name="appQuery"	action="ReportStatistics/reportAction_queryReportRefusalRate.action" method="post">
+	<h:form name="appQuery"	action="ReportStatistics/reportRefusalrateAction_queryReportRefusalRate.action" method="post">
 		<w:panel id="panel1" title="查询条件">
 			<table align="center" border="0" width="100%" class="form_table">
 				
@@ -18,25 +18,25 @@
                                         <td class="form_label" align="right" width="20%">报单日期：</td>
 					<td colspan="1" width="30%">
 					从
-					<w:date  format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="repTimeStrat" name="RefusalrateDto.repTimeStrat" 
-					property="RefusalrateDto.repTimeStrat" /> 
+					<w:date  format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="reporttimeStrat" name="reportRefusalrate.reporttimeStrat" 
+					property="reportRefusalrate.reporttimeStrat" /> 
 					到
-					<w:date format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="repTimeEnd" name="RefusalrateDto.repTimeEnd" 
-					property="RefusalrateDto.repTimeEnd" /></td>
+					<w:date format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="reporttimeEnd" name="reportRefusalrate.reporttimeEnd" 
+					property="reportRefusalrate.reporttimeEnd" /></td>
 
 					
 					
 					<td class="form_label" align="right" >一级分类：</td>
 					<td >
-			     		<h:hidden id="oneCategoryId" property="xdProcessTaskAssignee.oneCategoryId" />  
-						<h:text id="oneCategory" property="xdProcessTaskAssignee.oneCategory" readonly="true"/>
+			     		<h:hidden id="oneCategoryId" property="reportRefusalrate.oneCategoryId" />  
+						<h:text id="oneCategory" property="reportRefusalrate.oneCategory" readonly="true"/>
 						<a href="#" onclick="showoneCategory();">选择</a>
 					</td>
 					
 					<td class="form_label" align="right" >贷种分类：</td>
 					<td >
-						<h:hidden id="loanCategoryId" property="xdProcessTaskAssignee.loanCategoryId" />
-						<h:text id="loanCategory" property="xdProcessTaskAssignee.loanCategory" readonly="true"/>
+						<h:hidden id="loanCategoryId" property="reportRefusalrate.loanCategoryId" />
+						<h:text id="loanCategory" property="reportRefusalrate.loanCategory" readonly="true"/>
 						<a href="#" onclick="showloanCategory();">选择</a>
 					</td>
 				</tr>
@@ -57,8 +57,8 @@
 			<w:panel id="panel" width="100%" title="拒贷率统计列表">
 				<viewlist id="e2c61865-3b56-470d-bd42-fff792fb9493">
 				<h:form name="page_form"
-					action="/ReportStatistics/reportAction_queryReportRefusalRate.action" method="post">
-			 <h:hiddendata property="xdProcessTaskAssignee"/>  
+					action="/ReportStatistics/reportRefusalrateAction_queryReportRefusalRate.action" method="post">
+			 <h:hiddendata property="reportRefusalrate"/>  
 
             <h:hidden property="page.begin"/>
 		    <h:hidden property="page.length"/>
@@ -93,7 +93,7 @@
                                                  
 						</tr>
 						<w:radioGroup id="group1">
-                           <l:iterate property="xdProcessTaskAssignees" id="id1">
+                           <l:iterate property="reportRefusalrate" id="id1">
 							<tr class="<l:output evenOutput='EOS_table_row' oddOutput='EOS_table_row_o'  />">
 								<td align="center" nowrap="nowrap">
 									<w:rowRadio>
@@ -174,8 +174,8 @@
 
 		//清空
 		function clears(){
-			$id("appTimeStrat").value="";
-			$id("appTimeEnd").value="";
+			$id("reporttimeStrat").value="";
+			$id("reporttimeEnd").value="";
 			$id("oneCategory").value="";
 			$id("oneCategoryId").value="";
 			$id("loanCategory").value="";
@@ -204,12 +204,12 @@
 		  		var rejection_number = row.getParam("rejection_number");
 		  		var refusalrate = row.getParam("refusalrate");
 
-	            var strUrl = "/jbpm/xdProcessAction_toUptLoanInfo.action?xdProcessTaskAssignee.executionId="+executionId+"&xdProcessTaskAssignee.loan="+loan;
-	            strUrl = strUrl+"&xdProcessTaskAssignee.areasubbranch="+areasubbranch
-	            +"&xdProcessTaskAssignee.secondarysubbranch="+secondarysubbranch
-	            +"&xdProcessTaskAssignee.EA_number="+EA_number
-	            +"&xdProcessTaskAssignee.rejection_number="+rejection_number
-	            +"&xdProcessTaskAssignee.refusalrate="+refusalrate;
+	            var strUrl = "/jsp/reportRefusalrateAction_toUptLoanInfo.action?reportRefusalrate.executionId="+executionId+"&reportRefusalrate.loan="+loan;
+	            strUrl = strUrl+"&reportRefusalrate.areasubbranch="+areasubbranch
+	            +"&reportRefusalrate.secondarysubbranch="+secondarysubbranch
+	            +"&reportRefusalrate.EA_number="+EA_number
+	            +"&reportRefusalrate.rejection_number="+rejection_number
+	            +"&reportRefusalrate.refusalrate="+refusalrate;
 	            
 				  showModalCenter(encodeURI(strUrl), null,callBack, 500, 300, '修改拒贷率信息');
 				  
@@ -234,14 +234,14 @@
 	  		}else{
 	  			var rows=gop.getSelectRow();
 		  		var executionId = rows.getParam("executionId");
-		  		var strUrl = "/jbpm/xdProcessAction_queryLoanUptWater.action?waterInfo.flow_id="+executionId;
+		  		var strUrl = "/ReportStatistics/reportRefusalrateAction_queryLoanUptWater.action?waterInfo.flow_id="+executionId;
 		  		showModalCenter(strUrl,'',null ,1200,500,'拒贷率修改流水明细');
 			  	}
 		  	}
 
 	  	function showoneCategory() {
 			var oneCategoryId=document.getElementById("oneCategoryId").value;
-			strUrl ="/Generalprocess/tGeneralprocessCdtypeAction_oneCategoryDic.action?cdtypeJson="+oneCategoryId,
+			strUrl ="/ReportStatistics/ReportRefusalrateAction_oneCategoryDic.action?cdtypeJson="+oneCategoryId,
 			showModalCenter(strUrl,'',showoneCategory_callback1 ,800,430,'一级分类选择'); 
 		} 
 		function showoneCategory_callback1(args){
@@ -255,7 +255,7 @@
 
 		function showloanCategory() {
 			var loanCategoryId=document.getElementById("loanCategoryId").value;
-			strUrl ="/Generalprocess/tGeneralprocessCdtypeAction_loanCategoryDic.action?cdtypeJson="+loanCategoryId,
+			strUrl ="/ReportStatistics/ReportRefusalrateAction_loanCategoryDic.action?cdtypeJson="+loanCategoryId,
 			showModalCenter(strUrl,'',showloanCategory_callback1 ,800,500,'贷种选择'); 
 		} 
 		function showloanCategory_callback1(args){
