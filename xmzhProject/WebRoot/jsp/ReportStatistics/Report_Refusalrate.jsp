@@ -10,7 +10,7 @@
 		<title>拒贷率统计列表</title>
 	</head>
 	<body topmargin="0" leftmargin="0">
-	<h:form name="appQuery"	action="/jbpm/xdProcessAction_queryXdStartProcessList.action" method="post">
+	<h:form name="appQuery"	action="ReportStatistics/reportAction_queryReportRefusalRate.action" method="post">
 		<w:panel id="panel1" title="查询条件">
 			<table align="center" border="0" width="100%" class="form_table">
 				
@@ -18,11 +18,11 @@
                                         <td class="form_label" align="right" width="20%">报单日期：</td>
 					<td colspan="1" width="30%">
 					从
-					<w:date  format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="appTimeStrat" name="RefusalrateDto.appTimeStrat" 
-					property="RefusalrateDto.appTimeStrat" /> 
+					<w:date  format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="repTimeStrat" name="RefusalrateDto.repTimeStrat" 
+					property="RefusalrateDto.repTimeStrat" /> 
 					到
-					<w:date format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="appTimeEnd" name="RefusalrateDto.appTimeEnd" 
-					property="RefusalrateDto.appTimeEnd" /></td>
+					<w:date format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="repTimeEnd" name="RefusalrateDto.repTimeEnd" 
+					property="RefusalrateDto.repTimeEnd" /></td>
 
 					
 					
@@ -57,7 +57,7 @@
 			<w:panel id="panel" width="100%" title="拒贷率统计列表">
 				<viewlist id="e2c61865-3b56-470d-bd42-fff792fb9493">
 				<h:form name="page_form"
-					action="/jbpm/xdProcessAction_queryXdStartProcessList.action" method="post">
+					action="/ReportStatistics/reportAction_queryReportRefusalRate.action" method="post">
 			 <h:hiddendata property="xdProcessTaskAssignee"/>  
 
             <h:hidden property="page.begin"/>
@@ -98,31 +98,31 @@
 								<td align="center" nowrap="nowrap">
 									<w:rowRadio>
 										<h:param name='executionId' iterateId='id1' property='executionId' />
-										<h:param name='processName' iterateId='id1' property='processName' />
-										<h:param name='custName' iterateId='id1' property='custName' />
-										<h:param name='apply_bal' iterateId='id1' property='apply_bal' />
-										<h:param name='oneCategory' iterateId='id1' property='oneCategory' />
-										<h:param name='loanCategory' iterateId='id1' property='loanCategory' />
-										<h:param name='coorganization' iterateId='id1' property='coorganization' />
+										<h:param name='loan' iterateId='id1' property='loan' />
+										<h:param name='areasubbranch ' iterateId='id1' property='areasubbranch' />
+										<h:param name='secondarysubbranch ' iterateId='id1' property='secondarysubbranch ' />
+										<h:param name='EA_number' iterateId='id1' property='EA_number' />
+										<h:param name='rejection_number' iterateId='id1' property='rejection_number' />
+										<h:param name='refusalrate' iterateId='id1' property='refusalrate'' />
 									</w:rowRadio>
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1"    property="processName" />
+									<b:write iterateId="id1"    property="loan" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="custName" />
+									<b:write iterateId="id1" property="areasubbranch"/>
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="apply_bal" />
+									<b:write iterateId="id1" property="secondarysubbranch" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="oneCategory" />
+									<b:write iterateId="id1" property="EA_number"/>
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="loanCategory" />
+									<b:write iterateId="id1" property="rejection_number" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="coorganization" />
+									<b:write iterateId="id1" property="refusalrate" />
 								</td>
 							</tr>
 						</l:iterate>
@@ -174,7 +174,8 @@
 
 		//清空
 		function clears(){
-			$id("custName").value="";
+			$id("appTimeStrat").value="";
+			$id("appTimeEnd").value="";
 			$id("oneCategory").value="";
 			$id("oneCategoryId").value="";
 			$id("loanCategory").value="";
@@ -196,19 +197,19 @@
 	  		}else{
 	  			var row=gop.getSelectRow();
 		  		var executionId = row.getParam("executionId");
-		  		var processName = row.getParam("processName");
-		  		var custName = row.getParam("custName");
-		  		var apply_bal = row.getParam("apply_bal");
-		  		var oneCategory = row.getParam("oneCategory");
-		  		var loanCategory = row.getParam("loanCategory");
-		  		var coorganization = row.getParam("coorganization");
+		  		var loan = row.getParam("loan");
+		  		var areasubbranch = row.getParam("areasubbranch");
+		  		var secondarysubbranch = row.getParam("secondarysubbranch");
+		  		var EA_number = row.getParam("EA_number");
+		  		var rejection_number = row.getParam("rejection_number");
+		  		var refusalrate = row.getParam("refusalrate");
 
-	            var strUrl = "/jbpm/xdProcessAction_toUptLoanInfo.action?xdProcessTaskAssignee.executionId="+executionId+"&xdProcessTaskAssignee.processName="+processName;
-	            strUrl = strUrl+"&xdProcessTaskAssignee.custName="+custName
-	            +"&xdProcessTaskAssignee.apply_bal="+apply_bal
-	            +"&xdProcessTaskAssignee.oneCategory="+oneCategory
-	            +"&xdProcessTaskAssignee.loanCategory="+loanCategory
-	            +"&xdProcessTaskAssignee.coorganization="+coorganization;
+	            var strUrl = "/jbpm/xdProcessAction_toUptLoanInfo.action?xdProcessTaskAssignee.executionId="+executionId+"&xdProcessTaskAssignee.loan="+loan;
+	            strUrl = strUrl+"&xdProcessTaskAssignee.areasubbranch="+areasubbranch
+	            +"&xdProcessTaskAssignee.secondarysubbranch="+secondarysubbranch
+	            +"&xdProcessTaskAssignee.EA_number="+EA_number
+	            +"&xdProcessTaskAssignee.rejection_number="+rejection_number
+	            +"&xdProcessTaskAssignee.refusalrate="+refusalrate;
 	            
 				  showModalCenter(encodeURI(strUrl), null,callBack, 500, 300, '修改拒贷率信息');
 				  
