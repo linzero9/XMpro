@@ -4,7 +4,15 @@
   <bean name="postWorkloadStatisticsAction" id="postWorkloadStatisticsAction" class="com.gotop.reportjbpm.action.PostWorkloadStatisticsAction" singleton="false" >
     <property name="postWorkloadStatisticsService" ref="postWorkloadStatisticsService" />
   </bean>
+<<<<<<< Updated upstream
    <bean name="reportRefusalrateAction" id="reportRefusalrateAction" class="com.gotop.reportjbpm.action.ReportRefusalrateAction" singleton="false" >
     <property name="reportRefusalRateService" ref="reportRefusalRateService" />
+=======
+  
+  <bean name="errorStatistic" id="errorStatistic" class="com.gotop.reportjbpm.model.ErrorStatistic" singleton="false" ></bean>
+  <bean name="errorStatisticAction" id="errorStatisticAction" class="com.gotop.reportjbpm.action.ErrorStatisticAction" singleton="false" >
+    <property name="errorStatisticService" ref="errorStatisticService" />
+    <property name="errorStatistic" ref="errorStatistic" />
+>>>>>>> Stashed changes
   </bean>
 </beans>

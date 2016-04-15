@@ -10,7 +10,7 @@
 		<title>差错情况统计列表</title>
 	</head>
 	<body topmargin="0" leftmargin="0">
-	<h:form name="appQuery"	action="/ReportStatistics/ReportAction_queryReportErrorCondition.action" method="post">
+	<h:form name="appQuery"	action="/reportjbpm/errorStatisticAction_queryErrorStatistic.action" method="post">
 		<w:panel id="panel1" title="查询条件">
 			<table align="center" border="0" width="100%" class="form_table">
 				
@@ -18,20 +18,20 @@
                                         <td class="form_label" align="right" width="10%">报单日期：</td>
 					<td colspan="1" width="25%">
 					从
-					<w:date  format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="repTimeStrat" name="ErrorConditionDto.repTimeStrat" 
-					property="ErrorConditionDto.appTimeStrat" /> 
+					<w:date  format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="startTime" name="errorStatistic.startTime" 
+					property="errorStatistic.startTime" /> 
 					到
-					<w:date format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="repTimeEnd" name="ErrorConditionDto.repTimeEnd" 
-					property="ErrorConditionDto.appTimeEnd" /></td>
+					<w:date format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="endTime" name="errorStatistic.endTime" 
+					property="errorStatistic.endTime" /></td>
 
 					<td class="form_label" align="right" width="10%">客户姓名：</td>
-					<td colspan="1" width="25%"><h:text id="cust_Name" property="ErrorConditionDto.cust_Name" />
+					<td colspan="1" width="25%"><h:text id="custName" property="errorStatistic.custName" />
 					</td>
 					
 					<td class="form_label" align="right" width="10%">差错环节：</td>
 					<td >
-			     		<h:hidden id="ErrorlinkId" property="xdProcessTaskAssignee.ErrorlinkId" />  <!--//xdProcessTaskAssignee是dao名称 -->
-						<h:text id="Errorlink" property="xdProcessTaskAssignee.Errorlink" readonly="true"/>
+			     		<h:hidden id="ErrorlinkId" property="xdProcessTaskAssignee.ErrorlinkId" />   <!--//xdProcessTaskAssignee是dao名称 -->
+						<h:text id="taskName" property="errorStatistic.taskName" readonly="true"/>
 						<a href="#" onclick="showErrorlink();">选择</a>
 					</td>
 					
@@ -45,7 +45,7 @@
 					        <input type="hidden" name="page.isCount" value="true">
 							<input id="querys" type="submit" value="查 询" class="button" onclick="search();">
 							<input type="button" value="清 空" class="button" onclick="clears();">
-                                                        <input id="downexl" type="submit" class="button" value="导出列表" onclick="downExl();"></td>
+                            <input id="downexl" type="button" class="button" value="导出列表" onclick="excelExport();"></td>
 					</tr>			
 			</table>
 		</w:panel>
@@ -104,7 +104,7 @@
 							</th>
 						</tr>
 						<w:radioGroup id="group1">
-                           <l:iterate property="xdProcessTaskAssignees" id="id1">
+                           <l:iterate property="errorStatisticList" id="id1">
 							<tr class="<l:output evenOutput='EOS_table_row' oddOutput='EOS_table_row_o'  />">
 								<td align="center" nowrap="nowrap">
 									<w:rowRadio>
@@ -123,37 +123,37 @@
 									</w:rowRadio>
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1"    property="InstitutionName" />
+									<b:write iterateId="id1"    property="nextOrgName" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="Loan" />
+									<b:write iterateId="id1" property="loancategory" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="homophony_loanteller" />
+									<b:write iterateId="id1" property="nextOprName" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="AT_loanteller" />
+									<b:write iterateId="id1" property="fdxdy" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="BranchProcessOfficer" />
+									<b:write iterateId="id1" property="yxzg" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="ErrorCondition" />
+									<b:write iterateId="id1" property="mistakeContent" />
 								</td>
 <td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="finedsum" />
+									<b:write iterateId="id1" property="punishBal" />
 								</td>
 <td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="Errornumber" />
+									<b:write iterateId="id1" property="mistakeNumber" />
 								</td>
 <td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="Errorlink" />
+									<b:write iterateId="id1" property="taskName" />
 								</td>
 <td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="proposeWP" />
+									<b:write iterateId="id1" property="empName" />
 								</td>
 <td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="proposeET" />
+									<b:write iterateId="id1" property="addTime" />
 								</td>
 
 							</tr>
@@ -173,13 +173,13 @@
 								</l:greaterThan>
 								</div>
 							
-                <div class="h4">
+              <div class="h4">
 	                <l:equal property="page.isCount" targetValue="true" >
 	                  <b:message key="l_total"></b:message>
 	                  <b:write property="page.count" />
 	                  <b:message key="l_recordNO."></b:message>
 	                  <b:write property="page.currentPage" />
-	                  <b:message key="l_page"></b:message>
+	                  <b:message key="l_page"></b:message>/
 	                  <b:write property="page.totalPage" />
 	                  <b:message key="l_page"></b:message>
 	                </l:equal>
@@ -188,11 +188,11 @@
 	                  <b:write property="page.currentPage" />
 	                  <b:message key="l_page"></b:message>
 	                </l:equal>
-	                <input type="button" class="button" onclick="firstPage('page', '', null, null, 'page_form');" value='<b:message key="l_firstPage"></b:message>'  <l:equal property="page.isFirst"  targetValue="true">disabled</l:equal> >
-	                <input type="button" class="button" onclick="prevPage('page', '', null, null, 'page_form');" value='<b:message key="l_upPage"></b:message>' <l:equal property="page.isFirst"  targetValue="true">disabled</l:equal> >
-	                <input type="button" class="button" onclick="nextPage('page', '', null, null, 'page_form');" value='<b:message key="l_nextPage"></b:message>' <l:equal property="page.isLast"  targetValue="true">disabled</l:equal> >
+	                <input type="button" class="button" onclick="firstPage('page', '', null, null, 'data_form');" value='<b:message key="l_firstPage"></b:message>'  <l:equal property="page.isFirst"  targetValue="true">disabled</l:equal> >
+	                <input type="button" class="button" onclick="prevPage('page', '', null, null, 'data_form');" value='<b:message key="l_upPage"></b:message>' <l:equal property="page.isFirst"  targetValue="true">disabled</l:equal> >
+	                <input type="button" class="button" onclick="nextPage('page', '', null, null, 'data_form');" value='<b:message key="l_nextPage"></b:message>' <l:equal property="page.isLast"  targetValue="true">disabled</l:equal> >
 	                <l:equal property="page.isCount" targetValue="true">
-	                  <input type="button" class="button" onclick="lastPage('page', '', null, null, 'page_form');" value='<b:message key="l_lastPage"></b:message>' <l:equal property="page.isLast"  targetValue="true">disabled</l:equal> >
+	                  <input type="button" class="button" onclick="lastPage('page', '', null, null, 'data_form');" value='<b:message key="l_lastPage"></b:message>' <l:equal property="page.isLast"  targetValue="true">disabled</l:equal> >
 	                </l:equal>
               </div>
               </td>
@@ -207,17 +207,34 @@
 		//清空
 		function clears(){
 			$id("custName").value="";
-			$id("oneCategory").value="";
-			$id("oneCategoryId").value="";
+			$id("startTime").value="";
+			$id("endTime").value="";
 			$id("loanCategory").value="";
 			$id("loanCategoryId").value="";
 		}
                 function search(){
 			$("#isExport").val("");
 			}
-                function downExl() {
-			$("#isExport").val("1");
-		}
+
+    		//导出excel 	
+             function excelExport(){
+    				//报单开始日期
+    				var startTime = $id("startTime").value;
+    				//报单结束日期
+    				var endTime = $id("endTime").value;
+    				//客户名称
+    				var custName = $id("custName").value;
+    				//差错环节
+    				var taskName = $id("taskName").value;
+    				
+    				
+    				var strUrl = "/reportjbpm/errorStatisticAction_queryErrorStatisticForExcel.action?"
+    				+"&errorStatistic.startTime="+startTime
+    				+"&errorStatistic.endTime="+endTime
+    				+"&errorStatistic.custName="+custName
+    				+"&errorStatistic.taskName="+taskName
+    				window.location.href=strUrl;
+    			}
 		
 		function upt_loan_info(){
 			var gop = $id("group1");
@@ -280,19 +297,23 @@ var proposeET = row.getParam("proposeET");
 			  	}
 		  	}
 
+	  	
+
 	  	function showErrorlink() {
-			var ErrorlinkId=document.getElementById("ErrorlinkId").value;
-			strUrl ="/Generalprocess/tGeneralprocessCdtypeAction_ErrorlinkDic.action?cdtypeJson="+ErrorlinkId,
-			showModalCenter(strUrl,'',showErrorlink_callback1 ,800,430,'差错环节选择'); 
+			strUrl ="/reportjbpm/errorStatisticAction_querytaskNameList.action";
+			showModalCenter(strUrl,'',showErrorlink_callback1 ,900,500,'差错环节选择'); 
 		} 
-		function showErrorlink_callback1(args){
-			if(args!=''){
-			var array;
-			array = args.split(":");
-			 document.getElementById("ErrorlinkId").value = array[0];
-			 document.getElementById("Errorlink").value = array[1];
+		function showErrorlink_callback1(returnValue){
+			if(returnValue == ""){
+				//点击右上角关闭时,returnValue为null
+				//不做操作
+				$id("taskName").value="";
+			}else{
+				$id("taskName").value= returnValue[0];
+			
+
 			}
-		}	
+			}
 
 		
 		</script>

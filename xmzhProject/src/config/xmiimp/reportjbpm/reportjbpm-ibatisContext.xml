@@ -4,7 +4,12 @@
   <bean id="postWorkloadStatisticsDAO" class="com.gotop.reportjbpm.dao.impl.PostWorkloadStatisticsDAO" >
     <property name="sqlMapClient" ref="sqlMapClient" />
   </bean>
+<<<<<<< Updated upstream
    <bean id="reportRefusalrateDao" class="com.gotop.reportjbpm.dao.impl.ReportRefusalrateDao" >
+=======
+  
+  <bean id="errorStatisticDao" class="com.gotop.reportjbpm.dao.impl.ErrorStatisticDao" >
+>>>>>>> Stashed changes
     <property name="sqlMapClient" ref="sqlMapClient" />
   </bean>
 </beans>
