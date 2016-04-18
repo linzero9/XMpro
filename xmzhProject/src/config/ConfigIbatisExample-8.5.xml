@@ -3,26 +3,26 @@
 <abatorConfiguration >
   <abatorContext >
   <jdbcConnection driverClass="oracle.jdbc.OracleDriver" 
-    	connectionURL="jdbc:oracle:thin:@192.168.191.1:1521:wujiajun"
-    	userId="xmzhpt" password="xmzhpt" >
+    	connectionURL="jdbc:oracle:thin:@10.214.40.59:1521:khyx"
+    	userId="xmdevelop" password="xmdevelop" >
       <!-- 数据库所用jar包,指定数据库jdbc驱动jar包的绝对路径。 -->
-<classPathEntry location="E:\XMpro\XMpro\gotopXmzh\WebRoot\WEB-INF\lib\ojdbc14.jar" />
+<classPathEntry location="C:\Users\WUJIAJUN\git\XMpro\gotopXmzh\WebRoot\WEB-INF\lib\ojdbc14.jar" />
       <!-- 是否返回数据库注释(表、字段注释) -->
       <property name="remarksReporting" value="true"/>
     </jdbcConnection>
  
-   <javaModelGenerator targetPackage="com.gotop.Generalprocess.model" targetProject="xmzhProject">
+   <javaModelGenerator targetPackage="com.gotop.timeMachine.model" targetProject="xmzhProject">
     </javaModelGenerator>
-    <actionGenerator targetPackage="com.gotop.Generalprocess.action" targetProject="xmzhProject">
+    <actionGenerator targetPackage="com.gotop.timeMachine.action" targetProject="xmzhProject">
     </actionGenerator>
-    <serviceGenerator targetPackage="com.gotop.Generalprocess.service" targetProject="xmzhProject">
+    <serviceGenerator targetPackage="com.gotop.timeMachine.service" targetProject="xmzhProject">
     </serviceGenerator>
-    <sqlMapGenerator targetPackage="com.gotop.Generalprocess.map" targetProject="xmzhProject">
+    <sqlMapGenerator targetPackage="com.gotop.timeMachine.map" targetProject="xmzhProject">
     </sqlMapGenerator>
 
-    <daoGenerator targetPackage="com.gotop.Generalprocess.dao" targetProject="xmzhProject" type="SPRING">
+    <daoGenerator targetPackage="com.gotop.timeMachine.dao" targetProject="xmzhProject" type="SPRING">
     </daoGenerator>    
-    <table  tableName="T_GENERALPROCESS_MODELSEVEN" module="xmiimp.generalProcess">
+    <table  tableName="T_GENERALPROCESS_MODELSEVEN" module="xmiimp.timeMachine">
     </table>    
   </abatorContext>
 </abatorConfiguration>
