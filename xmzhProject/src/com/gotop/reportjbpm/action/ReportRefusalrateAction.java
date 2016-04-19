@@ -9,35 +9,43 @@ import com.gotop.reportjbpm.service.TReportRefusalrateService;
 
 public class ReportRefusalrateAction extends BaseAction {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8547644353737023333L;
 	private ReportRefusalrate reportRefusalrate;
-	private List<ReportRefusalrate> reportRefusalRate = new ArrayList<ReportRefusalrate>();
-	private TReportRefusalrateService reportRefusalrateService;
+	private List<ReportRefusalrate> list = new ArrayList<ReportRefusalrate>();
+	private TReportRefusalrateService reportRefusalRateService;
+
+
 	public ReportRefusalrate getReportRefusalrate() {
 		return reportRefusalrate;
 	}
 	public void setReportRefusalrate(ReportRefusalrate reportRefusalrate) {
 		this.reportRefusalrate = reportRefusalrate;
 	}
-	public List<ReportRefusalrate> getReportRefusalRate() {
-		return reportRefusalRate;
+	public TReportRefusalrateService getReportRefusalRateService() {
+		return reportRefusalRateService;
 	}
-	public void setReportRefusalRate(List<ReportRefusalrate> reportRefusalRate) {
-		this.reportRefusalRate = reportRefusalRate;
+	public void setReportRefusalRateService(
+			TReportRefusalrateService reportRefusalRateService) {
+		this.reportRefusalRateService = reportRefusalRateService;
 	}
-	public TReportRefusalrateService getReportRefusalrateService() {
-		return reportRefusalrateService;
+	public List<ReportRefusalrate> getList() {
+		return list;
 	}
-	public void setReportRefusalrateService(TReportRefusalrateService reportRefusalrateService) {
-		this.reportRefusalrateService = reportRefusalrateService;
+	public void setList(List<ReportRefusalrate> list) {
+		this.list = list;
 	}
+
 	/**
 	 * 查询拒贷信息
 	 * @return
 	 */
 	public String queryReportRefusalRate(){
-		reportRefusalRate=reportRefusalrateService.selectReportRefusalRate(this.getReportRefusalrate(),this.getPage());
-		this.setPage(page);
-		this.setReportRefusalRate(reportRefusalRate);
+		list=reportRefusalRateService.selectReportRefusalRate(reportRefusalrate,this.getPage());
+
+		this.setList(list);
 		return"queryReportRefusalRate";
 	}
 

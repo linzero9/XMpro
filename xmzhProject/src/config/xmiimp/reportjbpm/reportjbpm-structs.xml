@@ -9,7 +9,7 @@
       
     </action>
      <action name="reportRefusalrateAction_*" class="reportRefusalrateAction" method="{1}" >
-      <result name="Report_Refusalrate" >
+      <result name="queryReportRefusalRate" >
         /jsp/ReportStatistics/Report_Refusalrate.jsp
       </result>
       

@@ -8,10 +8,12 @@ public class ReportRefusalrate implements Serializable{
 	private String reporttimeStrat;
 	private String reporttimeEnd;
 	private String oneCategory;
+	private String  oneCategoryTxt;
 	private String loanCategory;
-	private String loan;
-	private String areasubbranch;
-	private String secondarysubbranch;
+	private String   loanCategoryTxt;
+
+	private String orgcodeone;
+	private String orgcodetwo;
 	private String EA_number;
 	private String rejection_number;
 	private String refusalrate;
@@ -41,24 +43,7 @@ public class ReportRefusalrate implements Serializable{
 	public void setLoanCategoryId(String loanCategory) {
 		this.loanCategory = loanCategory;
 	}
-	public String getLoan() {
-		return loan;
-	}
-	public void setLoan(String loan) {
-		this.loan = loan;
-	}
-	public String getAreasubbranch() {
-		return areasubbranch;
-	}
-	public void setAreasubbranch(String areasubbranch) {
-		this.areasubbranch = areasubbranch;
-	}
-	public String getSecondarysubbranch() {
-		return secondarysubbranch;
-	}
-	public void setSecondarysubbranch(String secondarysubbranch) {
-		this.secondarysubbranch = secondarysubbranch;
-	}
+	
 	public String EA_number() {
 		return EA_number;
 	}
@@ -76,6 +61,30 @@ public class ReportRefusalrate implements Serializable{
 	}
 	public void setRefusalrate(String refusalrate) {
 		this.refusalrate = refusalrate;
+	}
+	public String getOneCategoryTxt() {
+		return oneCategoryTxt;
+	}
+	public void setOneCategoryTxt(String oneCategoryTxt) {
+		this.oneCategoryTxt = oneCategoryTxt;
+	}
+	public String getLoanCategoryTxt() {
+		return loanCategoryTxt;
+	}
+	public void setLoanCategoryTxt(String loanCategoryTxt) {
+		this.loanCategoryTxt = loanCategoryTxt;
+	}
+	public String getOrgcodeone() {
+		return orgcodeone;
+	}
+	public void setOrgcodeone(String orgcodeone) {
+		this.orgcodeone = orgcodeone;
+	}
+	public String getOrgcodetwo() {
+		return orgcodetwo;
+	}
+	public void setOrgcodetwo(String orgcodetwo) {
+		this.orgcodetwo = orgcodetwo;
 	}
 	
 	

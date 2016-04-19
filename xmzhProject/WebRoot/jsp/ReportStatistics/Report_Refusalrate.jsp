@@ -10,7 +10,7 @@
 		<title>拒贷率统计列表</title>
 	</head>
 	<body topmargin="0" leftmargin="0">
-	<h:form name="appQuery"	action="ReportStatistics/reportRefusalrateAction_queryReportRefusalRate.action" method="post">
+	<h:form name="appQuery"	action="/reportRefusalrateAction_queryReportRefusalRate.action" method="post">
 		<w:panel id="panel1" title="查询条件">
 			<table align="center" border="0" width="100%" class="form_table">
 				
@@ -93,27 +93,27 @@
                                                  
 						</tr>
 						<w:radioGroup id="group1">
-                           <l:iterate property="reportRefusalrate" id="id1">
+                           <l:iterate property="list" id="id1">
 							<tr class="<l:output evenOutput='EOS_table_row' oddOutput='EOS_table_row_o'  />">
 								<td align="center" nowrap="nowrap">
 									<w:rowRadio>
 										<h:param name='executionId' iterateId='id1' property='executionId' />
-										<h:param name='loan' iterateId='id1' property='loan' />
-										<h:param name='areasubbranch ' iterateId='id1' property='areasubbranch' />
-										<h:param name='secondarysubbranch ' iterateId='id1' property='secondarysubbranch ' />
+										<h:param name='loancategory' iterateId='id1' property='loancategory' />
+										<h:param name='orgcodeone ' iterateId='id1' property='orgcodeone' />
+										<h:param name='orgcodetwo' iterateId='id1' property='orgcodetwo ' />
 										<h:param name='EA_number' iterateId='id1' property='EA_number' />
 										<h:param name='rejection_number' iterateId='id1' property='rejection_number' />
-										<h:param name='refusalrate' iterateId='id1' property='refusalrate'' />
+										<h:param name='refusalrate' iterateId='id1' property='refusalrate'/>
 									</w:rowRadio>
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1"    property="loan" />
+									<b:write iterateId="id1"    property="loancategory" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="areasubbranch"/>
+									<b:write iterateId="id1" property="orgcodeone'"/>
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="secondarysubbranch" />
+									<b:write iterateId="id1" property="orgcodetwo" />
 								</td>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1" property="EA_number"/>
