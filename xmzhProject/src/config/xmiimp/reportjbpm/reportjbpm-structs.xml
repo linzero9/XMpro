@@ -8,12 +8,7 @@
       </result>
       
     </action>
-<<<<<<< Updated upstream
-     <action name="reportRefusalrateAction_*" class="reportRefusalrateAction" method="{1}" >
-      <result name="Report_Refusalrate" >
-        /jsp/ReportStatistics/Report_Refusalrate.jsp
-      </result>
-=======
+
     
     <action name="errorStatisticAction_*" class="errorStatisticAction" method="{1}" >
       <result name="ErrorStatisticList" >
@@ -26,7 +21,7 @@
         /jsp/ReportStatistics/Report_taskNameList.jsp
       </result>
       
->>>>>>> Stashed changes
+
       
     </action>
   </package>
