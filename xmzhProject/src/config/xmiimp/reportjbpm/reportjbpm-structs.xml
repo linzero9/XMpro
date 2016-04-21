@@ -8,10 +8,20 @@
       </result>
       
     </action>
-     <action name="reportRefusalrateAction_*" class="reportRefusalrateAction" method="{1}" >
-      <result name="Report_Refusalrate" >
-        /jsp/ReportStatistics/Report_Refusalrate.jsp
+
+    
+    <action name="errorStatisticAction_*" class="errorStatisticAction" method="{1}" >
+      <result name="ErrorStatisticList" >
+        /jsp/ReportStatistics/Report_ErrorCondition.jsp
       </result>
+      <result name="ErrorStatisticListExcel" >
+        /jsp/ReportStatistics/Report_ErrorCondition_excel.jsp
+      </result>
+      <result name="querytaskNameList" >
+        /jsp/ReportStatistics/Report_taskNameList.jsp
+      </result>
+      
+
       
     </action>
   </package>
