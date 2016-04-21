@@ -158,20 +158,10 @@
 
 							</tr>
 						</l:iterate>
-						</w:radioGroup>
+					</w:radioGroup>
 							<tr>
               <td colspan="23" class="command_sort_area">
-              	<div class="h3"> 
-              	<l:greaterThan property="page.count" targetValue="0" compareType="number" >
-								&nbsp; &nbsp;
-									<input type="button" class="button" value="修改差错情况信息" onclick="upt_loan_info();"/>
-								</l:greaterThan>
-							
-							<l:greaterThan property="page.count" targetValue="0" compareType="number" >
-								&nbsp; &nbsp;
-							<input type="button" class="button" value="查看修改明细" onclick="queryLoanUptWater();"/>
-								</l:greaterThan>
-								</div>
+            
 							
               <div class="h4">
 	                <l:equal property="page.isCount" targetValue="true" >
