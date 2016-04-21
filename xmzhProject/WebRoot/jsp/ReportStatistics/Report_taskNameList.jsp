@@ -55,6 +55,12 @@
 					</w:checkGroup>
 					
 					
+							
+					</table>
+			</w:panel>
+			</DIV>
+			<DIV class="divList"  style="overflow:auto;width:100%; height: 310;">
+						<table align="center" border="0" width="100%" class="EOS_table">
 					<tr class="form_bottom">
 						<td colspan="6" class="form_bottom">
 						 
@@ -62,11 +68,8 @@
                             
                             </td>
 					</tr>	
-					
-							
 					</table>
-			</w:panel>
-					
+				    		
 		</DIV>
   </body>
   <script type="text/javascript">

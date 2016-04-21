@@ -54,8 +54,8 @@
 			<w:panel id="panel" width="100%" title="差错情况统计列表">
 				<viewlist id="e2c61865-3b56-470d-bd42-fff792fb9493">
 				<h:form name="page_form"
-					action="/ReportStatistics/ReportAction_queryReportErrorCondition.action" method="post">
-			 <h:hiddendata property="xdProcessTaskAssignee"/>  
+					action="/reportjbpm/errorStatisticAction_queryErrorStatistic.action" method="post">
+			 <h:hiddendata property="errorStatistic"/>  
 
             <h:hidden property="page.begin"/>
 		    <h:hidden property="page.length"/>
@@ -65,9 +65,9 @@
 					<table align="center" border="0" width="100%" class="EOS_table">
 		    
 						<tr>
-							<th align="center" nowrap="nowrap">
+					<th align="center" nowrap="nowrap">
 								<b:message key="l_select"></b:message>
-							</th>
+							</th> 	
 							
 							<th nowrap="nowrap">
 								机构名称
@@ -103,25 +103,8 @@
 								提出差错时间
 							</th>
 						</tr>
-						<w:radioGroup id="group1">
                            <l:iterate property="errorStatisticList" id="id1">
 							<tr class="<l:output evenOutput='EOS_table_row' oddOutput='EOS_table_row_o'  />">
-								<td align="center" nowrap="nowrap">
-									<w:rowRadio>
-										<h:param name='executionId' iterateId='id1' property='executionId' />
-										<h:param name='InstitutionName' iterateId='id1' property='InstitutionName' />
-										<h:param name='Loan' iterateId='id1' property='Loan' />
-										<h:param name='homophony_loanteller' iterateId='id1' property='homophony_loanteller' />
-										<h:param name='AT_loanteller' iterateId='id1' property='AT_loanteller' />
-										<h:param name='BranchProcessOfficer' iterateId='id1' property='BranchProcessOfficer' />
-										<h:param name='ErrorCondition' iterateId='id1' property='ErrorCondition' />
-<h:param name='finedsum' iterateId='id1' property='finedsum' />
-<h:param name='Errornumber' iterateId='id1' property='Errornumber' />
-<h:param name='Errorlink' iterateId='id1' property='Errorlink' />
-<h:param name='proposeWP' iterateId='id1' property='proposeWP' />
-<h:param name='proposeET' iterateId='id1' property='proposeET' />
-									</w:rowRadio>
-								</td>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1"    property="nextOrgName" />
 								</td>
@@ -158,7 +141,6 @@
 
 							</tr>
 						</l:iterate>
-					</w:radioGroup>
 							<tr>
               <td colspan="23" class="command_sort_area">
             
@@ -178,13 +160,15 @@
 	                  <b:write property="page.currentPage" />
 	                  <b:message key="l_page"></b:message>
 	                </l:equal>
-	                <input type="button" class="button" onclick="firstPage('page', '', null, null, 'data_form');" value='<b:message key="l_firstPage"></b:message>'  <l:equal property="page.isFirst"  targetValue="true">disabled</l:equal> >
-	                <input type="button" class="button" onclick="prevPage('page', '', null, null, 'data_form');" value='<b:message key="l_upPage"></b:message>' <l:equal property="page.isFirst"  targetValue="true">disabled</l:equal> >
-	                <input type="button" class="button" onclick="nextPage('page', '', null, null, 'data_form');" value='<b:message key="l_nextPage"></b:message>' <l:equal property="page.isLast"  targetValue="true">disabled</l:equal> >
+	                <input type="button" class="button" onclick="firstPage('page', '', null, null, 'page_form');" value='<b:message key="l_firstPage"></b:message>'  <l:equal property="page.isFirst"  targetValue="true">disabled</l:equal> >
+	                <input type="button" class="button" onclick="prevPage('page', '', null, null, 'page_form');" value='<b:message key="l_upPage"></b:message>' <l:equal property="page.isFirst"  targetValue="true">disabled</l:equal> >
+	                <input type="button" class="button" onclick="nextPage('page', '', null, null, 'page_form');" value='<b:message key="l_nextPage"></b:message>' <l:equal property="page.isLast"  targetValue="true">disabled</l:equal> >
 	                <l:equal property="page.isCount" targetValue="true">
-	                  <input type="button" class="button" onclick="lastPage('page', '', null, null, 'data_form');" value='<b:message key="l_lastPage"></b:message>' <l:equal property="page.isLast"  targetValue="true">disabled</l:equal> >
+	                  <input type="button" class="button" onclick="lastPage('page', '', null, null, 'page_form');" value='<b:message key="l_lastPage"></b:message>' <l:equal property="page.isLast"  targetValue="true">disabled</l:equal> >
 	                </l:equal>
               </div>
+              
+              
               </td>
             </tr>
 					</table>
