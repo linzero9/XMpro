@@ -63,12 +63,7 @@
 		    <h:hidden property="page.isCount"/>
 		    
 					<table align="center" border="0" width="100%" class="EOS_table">
-		    
-						<tr>
-					<th align="center" nowrap="nowrap">
-								<b:message key="l_select"></b:message>
-							</th> 	
-							
+		 
 							<th nowrap="nowrap">
 								机构名称
 							</th>
