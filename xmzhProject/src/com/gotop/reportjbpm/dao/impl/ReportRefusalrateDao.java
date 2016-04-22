@@ -2,7 +2,7 @@ package com.gotop.reportjbpm.dao.impl;
 
 import java.util.List;
 import java.util.Map;
-
+import java.util.HashMap;
 import org.apache.log4j.Logger;
 
 import com.gotop.reportjbpm.dao.TReportRefusalrateDao;
@@ -25,6 +25,25 @@ public class ReportRefusalrateDao extends SqlMapClientDao implements TReportRefu
 	public List<ReportRefusalrate> selectReportRefusalRate(Map<String, Object> map,
 			Page page) {
 		return queryForList("T_REPORTREFUSALRATE_SqlMap.queryReportRefusalRate", map, page);
+	}
+	@Override
+	public List<ReportRefusalrate> queryReportRefusalrateForExcel(
+			Map<String, Object> map) {
+		return queryForList("T_ERRORSTATISTIC_SqlMap.queryReportRefusalrate",map);
+	}
+	
+	
+	
+	
+	
+	
+	@Override
+	public List<ReportRefusalrate> queryOneCategoryList() {
+		return queryForList("T_REPORTREFUSALRATE_SqlMap.queryOneCategoryList", new HashMap());
+	}
+	@Override
+	public List<ReportRefusalrate> queryLoanCategoryList() {
+		return queryForList("T_REPORTREFUSALRATE_SqlMap.queryOneCategoryList", new HashMap());
 	}
 
 }

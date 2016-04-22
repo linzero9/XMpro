@@ -36,11 +36,51 @@ public class ReportRefusalRateService implements TReportRefusalrateService{
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		if (reportRefusalrate != null) {
-			if (reportRefusalrate.getReportTimeStrat() !=null&&!"".equals(reportRefusalrate.getReportTimeStrat())) {
-				map.put("reporttimeStrat", reportRefusalrate.getReportTimeStrat());
+			if (reportRefusalrate.getStratdate() !=null&&!"".equals(reportRefusalrate.getStratdate())) {
+				map.put("reporttimeStrat", reportRefusalrate.getStratdate());
 			}
-			if (reportRefusalrate.getReportTimeEnd() != null&&!"".equals(reportRefusalrate.getReportTimeEnd())) {
-				map.put("reporttimeEnd", reportRefusalrate.getReportTimeEnd());
+			if (reportRefusalrate.getEnddate() != null&&!"".equals(reportRefusalrate.getEnddate())) {
+				map.put("reporttimeEnd", reportRefusalrate.getEnddate());
+			}
+		
+			if(reportRefusalrate.getOneCategory()!=null && !"".equals(reportRefusalrate.getOneCategory())){
+				String[] oneCategorys=reportRefusalrate.getOneCategory().split(", ");
+				String oneCategory="";
+				try {
+					oneCategory = Obj2StrUtils.join(oneCategorys, String.class, ",");
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				map.put("oneCategory",oneCategory);
+			}
+			if(reportRefusalrate.getLoanCategory()!=null && !"".equals(reportRefusalrate.getLoanCategory())){
+				String[] loanCategorys=reportRefusalrate.getLoanCategoryTxt().split(", ");
+				String loanCategory="";
+				try {
+					loanCategory = Obj2StrUtils.join(loanCategorys, String.class, ",");
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				map.put("loanCategory",loanCategory);
+			}
+			
+		}
+		
+		return reportRefusalrateDao.selectReportRefusalRate(map,page);
+	}
+	
+	@Override
+	public List<ReportRefusalrate> queryReportRefusalrateExcel(ReportRefusalrate reportRefusalrate, Page page) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		if (reportRefusalrate != null) {
+			if (reportRefusalrate.getStratdate() !=null&&!"".equals(reportRefusalrate.getStratdate())) {
+				map.put("reporttimeStrat", reportRefusalrate.getStratdate());
+			}
+			if (reportRefusalrate.getEnddate() != null&&!"".equals(reportRefusalrate.getEnddate())) {
+				map.put("reporttimeEnd", reportRefusalrate.getEnddate());
 			}
 		
 			if(reportRefusalrate.getOneCategory()!=null && !"".equals(reportRefusalrate.getOneCategory())){
@@ -70,5 +110,26 @@ public class ReportRefusalRateService implements TReportRefusalrateService{
 		
 		return reportRefusalrateDao.selectReportRefusalRate(map,page);
 	}
-
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	@Override
+	public List<ReportRefusalrate> queryOneCategoryList() {
+		List<ReportRefusalrate> errorStatistics=reportRefusalrateDao.queryOneCategoryList();
+		return errorStatistics;
+	}
+	@Override
+	public List<ReportRefusalrate> queryLoanCategoryList() {
+		List<ReportRefusalrate> errorStatistics=reportRefusalrateDao.queryLoanCategoryList();
+		return errorStatistics;
+	}
 }

@@ -5,32 +5,21 @@ import java.io.Serializable;
 
 public class ReportRefusalrate implements Serializable{
 	
-	private String reporttimeStrat;
-	private String reporttimeEnd;
+	private String stratdate;
+	private String enddate;
 	private String oneCategory;
 	private String  oneCategoryTxt;
 	private String loanCategory;
 	private String   loanCategoryTxt;
-
-	private String orgcodeone;
-	private String orgcodetwo;
+	
+	private String orgname;
+	private String orgnametwo;
 	private String EA_number;
 	private String rejection_number;
 	private String refusalrate;
 	
 	
-	public String getReportTimeStrat() {
-		return reporttimeStrat;
-	}
-	public void setReportTimeStrat(String reporttimeStrat) {
-		this.reporttimeStrat = reporttimeStrat;
-	}
-	public String getReportTimeEnd() {
-		return reporttimeEnd;
-	}
-	public void setReportTimeEnd(String reporttimeEnd) {
-		this.reporttimeEnd = reporttimeEnd;
-	}
+	
 	public String getOneCategory() {
 		return oneCategory;
 	}
@@ -44,7 +33,7 @@ public class ReportRefusalrate implements Serializable{
 		this.loanCategory = loanCategory;
 	}
 	
-	public String EA_number() {
+	public String getEA_number() {
 		return EA_number;
 	}
 	public void setEA_number(String EA_number) {
@@ -74,18 +63,31 @@ public class ReportRefusalrate implements Serializable{
 	public void setLoanCategoryTxt(String loanCategoryTxt) {
 		this.loanCategoryTxt = loanCategoryTxt;
 	}
-	public String getOrgcodeone() {
-		return orgcodeone;
+	public String getOrgname() {
+		return orgname;
 	}
-	public void setOrgcodeone(String orgcodeone) {
-		this.orgcodeone = orgcodeone;
+	public void setOrgname(String orgname) {
+		this.orgname = orgname;
 	}
-	public String getOrgcodetwo() {
-		return orgcodetwo;
+	public String getOrgnametwo() {
+		return orgnametwo;
 	}
-	public void setOrgcodetwo(String orgcodetwo) {
-		this.orgcodetwo = orgcodetwo;
+	public void setOrgnametwo(String orgnametwo) {
+		this.orgnametwo = orgnametwo;
 	}
+	public String getStratdate() {
+		return stratdate;
+	}
+	public void setStratdate(String stratdate) {
+		this.stratdate = stratdate;
+	}
+	public String getEnddate() {
+		return enddate;
+	}
+	public void setEnddate(String enddate) {
+		this.enddate = enddate;
+	}
+	
 	
 	
 	

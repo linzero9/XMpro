@@ -18,11 +18,11 @@
                                         <td class="form_label" align="right" width="20%">报单日期：</td>
 					<td colspan="1" width="30%">
 					从
-					<w:date  format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="reporttimeStrat" name="reportRefusalrate.reporttimeStrat" 
-					property="reportRefusalrate.reporttimeStrat" /> 
+					<w:date  format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="stratdate" name="reportRefusalrate.stratdate" 
+					property="reportRefusalrate.stratdate" /> 
 					到
-					<w:date format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="reporttimeEnd" name="reportRefusalrate.reporttimeEnd" 
-					property="reportRefusalrate.reporttimeEnd" /></td>
+					<w:date format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="enddate" name="reportRefusalrate.enddate" 
+					property="reportRefusalrate.enddate" /></td>
 
 					
 					
@@ -36,7 +36,7 @@
 					<td class="form_label" align="right" >贷种分类：</td>
 					<td >
 						<h:hidden id="loanCategoryId" property="reportRefusalrate.loanCategoryId" />
-						<h:text id="loanCategory" property="reportRefusalrate.loanCategory" readonly="true"/>
+						<h:text id="loanCategory" property="reportRefusalrate.loanCategoryTxt" readonly="true"/>
 						<a href="#" onclick="showloanCategory();">选择</a>
 					</td>
 				</tr>
@@ -99,21 +99,21 @@
 									<w:rowRadio>
 										<h:param name='executionId' iterateId='id1' property='executionId' />
 										<h:param name='loancategory' iterateId='id1' property='loancategory' />
-										<h:param name='orgcodeone ' iterateId='id1' property='orgcodeone' />
-										<h:param name='orgcodetwo' iterateId='id1' property='orgcodetwo ' />
+										<h:param name='orgname' iterateId='id1' property='orgname' />
+										<h:param name='orgnametwo' iterateId='id1' property='orgnametwo' />
 										<h:param name='EA_number' iterateId='id1' property='EA_number' />
 										<h:param name='rejection_number' iterateId='id1' property='rejection_number' />
 										<h:param name='refusalrate' iterateId='id1' property='refusalrate'/>
 									</w:rowRadio>
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1"    property="loancategory" />
+									<b:write iterateId="id1"    property="loanCategory" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="orgcodeone'"/>
+									<b:write iterateId="id1" property="orgname'"/>
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="orgcodetwo" />
+									<b:write iterateId="id1" property="orgnametwo" />
 								</td>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1" property="EA_number"/>
@@ -174,8 +174,8 @@
 
 		//清空
 		function clears(){
-			$id("reporttimeStrat").value="";
-			$id("reporttimeEnd").value="";
+			$id("stratdate").value="";
+			$id("enddate").value="";
 			$id("oneCategory").value="";
 			$id("oneCategoryId").value="";
 			$id("loanCategory").value="";
@@ -184,9 +184,26 @@
                 function search(){
 			$("#isExport").val("");
 			}
-                function downExl() {
-			$("#isExport").val("1");
-		}
+               
+		//导出excel 	
+             function downExl(){
+    				//报单开始日期
+    				var reporttimeStrat = $id("stratdate").value;
+    				//报单结束日期
+    				var reporttimeEnd = $id("enddate").value;
+    				//一级分类
+    				var oneCategory = $id("oneCategory").value;
+    				//贷种分类
+    				var loanCategory = $id("loanCategory").value;
+    				
+    				
+    				var strUrl = "/reportjbpm/reportRefusalrateAction_queryReportRefusalrateForExcel.action?"
+    				+"&reportRefusalrate.stratdate="+stratdate
+    				+"&reportRefusalrate.enddate="+enddate
+    				+"&reportRefusalrate.oneCategory="+oneCategory
+    				+"&reportRefusalrate.loanCategory="+loanCategory
+    				window.location.href=strUrl;
+    			}
 		
 		 /*function upt_loan_info(){
 			var gop = $id("group1");
