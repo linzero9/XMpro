@@ -11,6 +11,8 @@
   <sqlMap resource="com/gotop/jbpm/map/T_PROCESS_TASK_ASSIGNEE_PERSON_SqlMap.xml" />
   
   <sqlMap resource="com/gotop/jbpm/map/T_PROCESS_TASK_EXE_CONFIG_SqlMap.xml" />
+  
+  <sqlMap resource="com/gotop/jbpm/map/TimeLimitManage_SqlMap.xml" />
 
     
     

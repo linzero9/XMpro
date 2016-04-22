@@ -41,9 +41,9 @@
 					        <h:text size="2" property="page.length" value="10" validateAttr="minValue=1;maxValue=100;type=integer;isNull=true" />
 					        <input type="hidden" name="page.begin" value="0">
 					        <input type="hidden" name="page.isCount" value="true">
-							<input id="querys" type="submit" value="查 询" class="button" onclick="search();">
+							<input id="querys" type="button" value="查 询" class="button" onclick="search();">
 							<input type="button" value="清 空" class="button" onclick="clears();">
-                                                        <input id="downexl" type="submit" class="button" value="导出列表" onclick="downExl();"></td>
+                                                        <input id="downexl" type="button" class="button" value="导出列表" onclick="downExl();"></td>
 					</tr>			
 			</table>
 		</w:panel>
@@ -77,15 +77,12 @@
 								贷种分类
 							</th>
 							<th nowrap="nowrap">
-								辅调信贷员
-							</th>
-							<th nowrap="nowrap">
 								流程岗位
 					       </th>
 					       <th nowrap="nowrap">
 								人员姓名
 							</th>
-                                                  <th nowrap="nowrap">
+                            <th nowrap="nowrap">
 								业务数量
 							</th>
                                                   

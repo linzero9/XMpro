@@ -236,8 +236,35 @@
       	<result name="to_nodeSelect">
      		/jsp/jbpm/xd_process/to_nodeSelect.jsp
       	</result>
-      	
       </action>
       
+      <action class="timeLimitManageAction" method="{1}" name="timeLimitManageAction_*">
+      	<result name="oneAndLoanCategory_list">
+     		/jsp/jbpm/time_limit/oneAndLoanCategory_list.jsp
+      	</result>
+      	<result name="add_oneAndLoanCategory">
+     		/jsp/jbpm/time_limit/add_oneAndLoanCategory.jsp
+      	</result>
+      	<result name="xdProcess_list">
+     		/jsp/jbpm/time_limit/xdProcess_list.jsp
+      	</result>
+      	<result name="timeLimitManage">
+     		/jsp/jbpm/time_limit/timeLimitManage.jsp
+      	</result>
+      	<result name="nodeTimeLimit_list">
+     		/jsp/jbpm/time_limit/nodeTimeLimit_list.jsp
+      	</result>
+      	<result name="setNodeTimeLimit">
+     		/jsp/jbpm/time_limit/setNodeTimeLimit.jsp
+      	</result>
+      	
+      	<result name="oneCategorylist" type="json">
+		   <param name="root">proLoanBeans</param>
+	  </result>
+	 <result name="loanCategorylist" type="json">
+		   <param name="root">proLoanBeans</param>
+	  </result>
+	  
+      	 </action>
     </package>
 </struts>

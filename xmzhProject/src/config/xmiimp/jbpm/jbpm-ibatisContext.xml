@@ -33,4 +33,8 @@
   <bean class="com.gotop.jbpm.dao.impl.XdProcessDAO" id="xdProcessDAO">
     <property name="sqlMapClient" ref="sqlMapClient" />
   </bean>
+  
+  <bean class="com.gotop.jbpm.dao.impl.TimeLimitManageDAO" id="timeLimitManageDAO">
+    <property name="sqlMapClient" ref="sqlMapClient" />
+  </bean>
     </beans>

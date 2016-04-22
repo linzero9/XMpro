@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="TimeLimitManage_SqlMap" >
+
+    <resultMap id="oneAndLoanCategory_HashMapResult" class="java.util.HashMap" >
+    <!--HashMap方式返回全表-->
+    <result column="D_ID" property="d_id" jdbcType="DECIMAL" />
+    <result column="ONECATEGORY_ID" property="oneCategory_id" jdbcType="VARCHAR" />
+     <result column="ONECATEGORY_NAME" property="oneCategory_name" jdbcType="VARCHAR" />
+     <result column="LOANCATEGORY_ID" property="loanCategory_id" jdbcType="VARCHAR" />
+     <result column="LOANCATEGORY_NAME" property="loanCategory_name" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="oneCategory_HashMapResult" class="java.util.HashMap" >
+    <result column="ONECATEGORY_NAME" property="oneCategory_name" jdbcType="VARCHAR" />
+  </resultMap>
+  
+   <resultMap id="loanCategory_HashMapResult" class="java.util.HashMap" >
+    <result column="LOANCATEGORY_NAME" property="loanCategory_name" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="nodeTimeLimitList_HashMapResult" class="com.gotop.jbpm.model.NodeTimeLimitBean" >
+    <result column="E_ID" property="e_id" jdbcType="DECIMAL" />
+    <result column="TASKNAME" property="taskName" jdbcType="VARCHAR" />
+    <result column="TIMELIMIT" property="timeLimit" jdbcType="DOUBLE" />
+    <result column="C_ID" property="c_id" jdbcType="DECIMAL" />
+    <result column="OP_EMPID" property="op_empid" jdbcType="DECIMAL" />
+    <result column="OP_ORGCODE" property="op_orgcode" jdbcType="VARCHAR" />
+    <result column="OP_TIME" property="op_time" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <select id="queryOneAndLoanList" resultMap="oneAndLoanCategory_HashMapResult" parameterClass="java.util.HashMap" >
+  select * from t_model_oneAndLoanCategory
+  <dynamic prepend="where" >
+      		<isNotNull prepend="and" property="oneCategory_id" >
+           	oneCategory_id in ($oneCategory_id$)
+      		</isNotNull>
+      		 <isNotNull prepend="and" property="loanCategory_id" >
+           	 loanCategory_id in ($loanCategory_id$)
+      		</isNotNull>
+      		</dynamic>
+  </select>
+  <select id="checkOneAndLoan" resultMap="oneAndLoanCategory_HashMapResult" parameterClass="java.util.HashMap" >
+  select * from t_model_oneAndLoanCategory
+  <dynamic prepend="where" >
+      		<isNotNull prepend="and" property="oneCategory_name" >
+           	oneCategory_name = '$oneCategory_name$'
+      		</isNotNull>
+      		 <isNotNull prepend="and" property="loanCategory_name" >
+           	 loanCategory_name = '$loanCategory_name$'
+      		</isNotNull>
+      		</dynamic>
+  </select>
+  
+   <insert id="addOneAndLoan" parameterClass="com.gotop.jbpm.model.OneAndLoanBean" >
+       <selectKey resultClass="long" keyProperty="d_id">
+		SELECT t_model_oneAndLoanCategory_seq.NEXTVAL AS VALUE FROM DUAL
+		</selectKey>
+    insert into t_model_oneAndLoanCategory(D_ID, ONECATEGORY_ID, ONECATEGORY_NAME, LOANCATEGORY_ID, LOANCATEGORY_NAME)
+    values (#d_id:DECIMAL:-9999#,  #oneCategory_id:VARCHAR#,  #oneCategory_name:VARCHAR#,  #loanCategory_id:VARCHAR#, #loanCategory_name:VARCHAR#)
+  </insert>
+  
+  <delete id="delOneAndLoan" parameterClass="com.gotop.jbpm.model.OneAndLoanBean" >
+    delete from t_model_oneAndLoanCategory t
+    where t.d_id = #d_id:DECIMAL:-9999# 
+  </delete>
+  
+  <select id="queryOneCategorylist" resultMap="oneCategory_HashMapResult" parameterClass="java.util.HashMap" >
+  select distinct ONECATEGORY_NAME from t_model_oneAndLoanCategory
+  order by ONECATEGORY_NAME
+  </select>
+  
+  <select id="queryLoanCategorylist" resultMap="loanCategory_HashMapResult" parameterClass="java.util.HashMap" >
+  select distinct LOANCATEGORY_NAME from t_model_oneAndLoanCategory
+  <dynamic prepend="where" >
+      		<isNotNull prepend="and" property="oneCategory_name" >
+      		trim(oneCategory_name)=trim('$oneCategory_name$')
+      		</isNotNull>
+      </dynamic>
+      order by LOANCATEGORY_NAME
+  </select>
+  
+  <!-- 插入 流程时限模版表 t_model_proTimeLimitModel -->
+  <insert id="insertProTimeLimitModel"  parameterClass="com.gotop.jbpm.model.ProLoanBean"   >
+       <selectKey resultClass="long" keyProperty="c_id"  >
+		SELECT t_model_proTimeLimitModel_seq.NEXTVAL AS VALUE FROM DUAL
+		</selectKey>
+    insert into t_model_proTimeLimitModel(C_ID, MODELNAME)
+    values (#c_id:DECIMAL:-9999#,  to_char(sysdate,'yyyyMMdd hh24:mi:ss') )
+  </insert>
+  
+  <!-- 插入 流程贷种时限关系表 t_model_proLoanTimeLimit -->
+  <insert id="insertProLoanTimeLimit"  parameterClass="com.gotop.jbpm.model.ProLoanBean"  >
+       <selectKey resultClass="long" keyProperty="b_id" >
+		SELECT t_model_proLoanTimeLimit_seq.NEXTVAL AS VALUE FROM DUAL
+		</selectKey>
+    insert into t_model_proLoanTimeLimit(B_ID, DEFINITION_ID, C_ID, D_ID, OP_EMPID, OP_ORGCODE, OP_TIME )
+    values (#b_id:DECIMAL:-9999#, #definitionId:VARCHAR#, #c_id:DECIMAL:-9999#,
+    ( select D_ID from t_model_oneAndLoanCategory
+ where oneCategory_name = '$oneCategory_name$'
+ and loanCategory_name = '$loanCategory_name$'  )
+     , #op_empid:DECIMAL:-9999#, #op_orgcode:VARCHAR#, sysdate)
+  </insert>
+  
+  <select id="queryNodeTimeLimitList" resultMap="nodeTimeLimitList_HashMapResult" parameterClass="java.util.HashMap" >
+  select * from t_model_nodeTimeLimit
+  where c_id = '$c_id$'
+  and taskName = '$taskName$'
+  </select>
+  
+  <!-- 插入 节点时限关系表 t_model_nodeTimeLimit -->
+  <insert id="insertNodeTimeLimit"  parameterClass="com.gotop.jbpm.model.NodeTimeLimitBean"  >
+       <selectKey resultClass="long" keyProperty="e_id" >
+		SELECT t_model_nodeTimeLimit_seq.NEXTVAL AS VALUE FROM DUAL
+		</selectKey>
+    insert into t_model_nodeTimeLimit(E_ID, TASKNAME, TIMELIMIT, C_ID, OP_EMPID, OP_ORGCODE, OP_TIME )
+    values (#e_id:DECIMAL:-9999#, #taskName:VARCHAR#, #timeLimit:DOUBLE#, #c_id:DECIMAL:-9999#,#op_empid:DECIMAL:-9999#, #op_orgcode:VARCHAR#, sysdate)
+  </insert>
+  
+   <!--修改 节点模式工时维护表-->
+  <update id="updateNodeTimeLimit" parameterClass="com.gotop.jbpm.model.NodeTimeLimitBean" >
+    update t_model_nodeTimeLimit 
+	set TIMELIMIT= #timeLimit:DOUBLE#,
+	OP_EMPID= #op_empid:DECIMAL:-9999#,
+	OP_ORGCODE =  #op_orgcode:VARCHAR#,
+	OP_TIME = sysdate
+	where  E_ID = #e_id:DECIMAL:-9999#
+  </update>
+</sqlMap>
