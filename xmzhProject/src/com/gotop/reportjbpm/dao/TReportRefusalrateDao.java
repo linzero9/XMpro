@@ -9,5 +9,9 @@ import com.primeton.utils.Page;
 public interface TReportRefusalrateDao {
 
 	List<ReportRefusalrate> selectReportRefusalRate(Map<String, Object> map,Page page);
-
+	List<ReportRefusalrate> queryReportRefusalrateForExcel(Map<String, Object> map);
+	
+	
+	List<ReportRefusalrate> queryOneCategoryList();
+	List<ReportRefusalrate> queryLoanCategoryList();
 }

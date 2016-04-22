@@ -10,7 +10,7 @@
 		<title>拒贷率统计列表</title>
 	</head>
 	<body topmargin="0" leftmargin="0">
-	<h:form name="appQuery"	action="ReportStatistics/reportRefusalrateAction_queryReportRefusalRate.action" method="post">
+	<h:form name="appQuery"	action="/reportRefusalrateAction_queryReportRefusalRate.action" method="post">
 		<w:panel id="panel1" title="查询条件">
 			<table align="center" border="0" width="100%" class="form_table">
 				
@@ -18,11 +18,11 @@
                                         <td class="form_label" align="right" width="20%">报单日期：</td>
 					<td colspan="1" width="30%">
 					从
-					<w:date  format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="reporttimeStrat" name="reportRefusalrate.reporttimeStrat" 
-					property="reportRefusalrate.reporttimeStrat" /> 
+					<w:date  format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="stratdate" name="reportRefusalrate.stratdate" 
+					property="reportRefusalrate.stratdate" /> 
 					到
-					<w:date format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="reporttimeEnd" name="reportRefusalrate.reporttimeEnd" 
-					property="reportRefusalrate.reporttimeEnd" /></td>
+					<w:date format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="enddate" name="reportRefusalrate.enddate" 
+					property="reportRefusalrate.enddate" /></td>
 
 					
 					
@@ -36,7 +36,7 @@
 					<td class="form_label" align="right" >贷种分类：</td>
 					<td >
 						<h:hidden id="loanCategoryId" property="reportRefusalrate.loanCategoryId" />
-						<h:text id="loanCategory" property="reportRefusalrate.loanCategory" readonly="true"/>
+						<h:text id="loanCategory" property="reportRefusalrate.loanCategoryTxt" readonly="true"/>
 						<a href="#" onclick="showloanCategory();">选择</a>
 					</td>
 				</tr>
@@ -93,27 +93,27 @@
                                                  
 						</tr>
 						<w:radioGroup id="group1">
-                           <l:iterate property="reportRefusalrate" id="id1">
+                           <l:iterate property="list" id="id1">
 							<tr class="<l:output evenOutput='EOS_table_row' oddOutput='EOS_table_row_o'  />">
 								<td align="center" nowrap="nowrap">
 									<w:rowRadio>
 										<h:param name='executionId' iterateId='id1' property='executionId' />
-										<h:param name='loan' iterateId='id1' property='loan' />
-										<h:param name='areasubbranch ' iterateId='id1' property='areasubbranch' />
-										<h:param name='secondarysubbranch ' iterateId='id1' property='secondarysubbranch ' />
+										<h:param name='loancategory' iterateId='id1' property='loancategory' />
+										<h:param name='orgname' iterateId='id1' property='orgname' />
+										<h:param name='orgnametwo' iterateId='id1' property='orgnametwo' />
 										<h:param name='EA_number' iterateId='id1' property='EA_number' />
 										<h:param name='rejection_number' iterateId='id1' property='rejection_number' />
-										<h:param name='refusalrate' iterateId='id1' property='refusalrate'' />
+										<h:param name='refusalrate' iterateId='id1' property='refusalrate'/>
 									</w:rowRadio>
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1"    property="loan" />
+									<b:write iterateId="id1"    property="loanCategory" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="areasubbranch"/>
+									<b:write iterateId="id1" property="orgname'"/>
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="secondarysubbranch" />
+									<b:write iterateId="id1" property="orgnametwo" />
 								</td>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1" property="EA_number"/>
@@ -174,8 +174,8 @@
 
 		//清空
 		function clears(){
-			$id("reporttimeStrat").value="";
-			$id("reporttimeEnd").value="";
+			$id("stratdate").value="";
+			$id("enddate").value="";
 			$id("oneCategory").value="";
 			$id("oneCategoryId").value="";
 			$id("loanCategory").value="";
@@ -184,9 +184,26 @@
                 function search(){
 			$("#isExport").val("");
 			}
-                function downExl() {
-			$("#isExport").val("1");
-		}
+               
+		//导出excel 	
+             function downExl(){
+    				//报单开始日期
+    				var reporttimeStrat = $id("stratdate").value;
+    				//报单结束日期
+    				var reporttimeEnd = $id("enddate").value;
+    				//一级分类
+    				var oneCategory = $id("oneCategory").value;
+    				//贷种分类
+    				var loanCategory = $id("loanCategory").value;
+    				
+    				
+    				var strUrl = "/reportjbpm/reportRefusalrateAction_queryReportRefusalrateForExcel.action?"
+    				+"&reportRefusalrate.stratdate="+stratdate
+    				+"&reportRefusalrate.enddate="+enddate
+    				+"&reportRefusalrate.oneCategory="+oneCategory
+    				+"&reportRefusalrate.loanCategory="+loanCategory
+    				window.location.href=strUrl;
+    			}
 		
 		 /*function upt_loan_info(){
 			var gop = $id("group1");

@@ -5,10 +5,21 @@
     <property name="postWorkloadStatisticsService" ref="postWorkloadStatisticsService" />
   </bean>
 
-  
   <bean name="errorStatistic" id="errorStatistic" class="com.gotop.reportjbpm.model.ErrorStatistic" singleton="false" ></bean>
   <bean name="errorStatisticAction" id="errorStatisticAction" class="com.gotop.reportjbpm.action.ErrorStatisticAction" singleton="false" >
     <property name="errorStatisticService" ref="errorStatisticService" />
     <property name="errorStatistic" ref="errorStatistic" />
   </bean>
+
+  
+  <bean name="reportRefusalrate" id="reportRefusalrate" class="com.gotop.reportjbpm.model.ReportRefusalrate" singleton="false" ></bean>
+   <bean name="reportRefusalrateAction" id="reportRefusalrateAction" class="com.gotop.reportjbpm.action.ReportRefusalrateAction" singleton="false" >
+    <property name="reportRefusalRateService" ref="reportRefusalRateService" />
+    <property name="reportRefusalrate" ref="reportRefusalrate" />
+
+  </bean>
+  
+  
+  
+  
 </beans>

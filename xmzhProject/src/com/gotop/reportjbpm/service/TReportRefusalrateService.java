@@ -15,4 +15,19 @@ public interface TReportRefusalrateService {
 	
 	List<ReportRefusalrate> selectReportRefusalRate(ReportRefusalrate reportRefusalrate,Page page);
 
+	List<ReportRefusalrate> queryReportRefusalrateExcel(ReportRefusalrate reportRefusalrate, Page page);
+	
+	
+	
+	List<ReportRefusalrate> queryOneCategoryList();
+	List<ReportRefusalrate> queryLoanCategoryList();
+
+
+
+	
+
+
+	
+
+
 }

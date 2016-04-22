@@ -5,30 +5,21 @@ import java.io.Serializable;
 
 public class ReportRefusalrate implements Serializable{
 	
-	private String reporttimeStrat;
-	private String reporttimeEnd;
+	private String stratdate;
+	private String enddate;
 	private String oneCategory;
+	private String  oneCategoryTxt;
 	private String loanCategory;
-	private String loan;
-	private String areasubbranch;
-	private String secondarysubbranch;
+	private String   loanCategoryTxt;
+	
+	private String orgname;
+	private String orgnametwo;
 	private String EA_number;
 	private String rejection_number;
 	private String refusalrate;
 	
 	
-	public String getReportTimeStrat() {
-		return reporttimeStrat;
-	}
-	public void setReportTimeStrat(String reporttimeStrat) {
-		this.reporttimeStrat = reporttimeStrat;
-	}
-	public String getReportTimeEnd() {
-		return reporttimeEnd;
-	}
-	public void setReportTimeEnd(String reporttimeEnd) {
-		this.reporttimeEnd = reporttimeEnd;
-	}
+	
 	public String getOneCategory() {
 		return oneCategory;
 	}
@@ -41,25 +32,8 @@ public class ReportRefusalrate implements Serializable{
 	public void setLoanCategoryId(String loanCategory) {
 		this.loanCategory = loanCategory;
 	}
-	public String getLoan() {
-		return loan;
-	}
-	public void setLoan(String loan) {
-		this.loan = loan;
-	}
-	public String getAreasubbranch() {
-		return areasubbranch;
-	}
-	public void setAreasubbranch(String areasubbranch) {
-		this.areasubbranch = areasubbranch;
-	}
-	public String getSecondarysubbranch() {
-		return secondarysubbranch;
-	}
-	public void setSecondarysubbranch(String secondarysubbranch) {
-		this.secondarysubbranch = secondarysubbranch;
-	}
-	public String EA_number() {
+	
+	public String getEA_number() {
 		return EA_number;
 	}
 	public void setEA_number(String EA_number) {
@@ -77,6 +51,43 @@ public class ReportRefusalrate implements Serializable{
 	public void setRefusalrate(String refusalrate) {
 		this.refusalrate = refusalrate;
 	}
+	public String getOneCategoryTxt() {
+		return oneCategoryTxt;
+	}
+	public void setOneCategoryTxt(String oneCategoryTxt) {
+		this.oneCategoryTxt = oneCategoryTxt;
+	}
+	public String getLoanCategoryTxt() {
+		return loanCategoryTxt;
+	}
+	public void setLoanCategoryTxt(String loanCategoryTxt) {
+		this.loanCategoryTxt = loanCategoryTxt;
+	}
+	public String getOrgname() {
+		return orgname;
+	}
+	public void setOrgname(String orgname) {
+		this.orgname = orgname;
+	}
+	public String getOrgnametwo() {
+		return orgnametwo;
+	}
+	public void setOrgnametwo(String orgnametwo) {
+		this.orgnametwo = orgnametwo;
+	}
+	public String getStratdate() {
+		return stratdate;
+	}
+	public void setStratdate(String stratdate) {
+		this.stratdate = stratdate;
+	}
+	public String getEnddate() {
+		return enddate;
+	}
+	public void setEnddate(String enddate) {
+		this.enddate = enddate;
+	}
+	
 	
 	
 	

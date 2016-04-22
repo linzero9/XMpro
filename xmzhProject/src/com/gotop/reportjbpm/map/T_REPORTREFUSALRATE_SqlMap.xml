@@ -3,58 +3,94 @@
 <sqlMap namespace="T_REPORTREFUSALRATE_SqlMap">
  <resultMap id="ReportRefusalrate" class="com.gotop.reportjbpm.model.ReportRefusalrate" >
     <!--Bean方式返回全表-->
-    <result column="REPORTTIMESTRAT" property="reporttimeStrat" jdbcType="VARCHAR" />
-    <result column="REPORTTIMEEND" property="reporttimeEnd" jdbcType="VARCHAR" />
+    
+    <result column="STARTDATE" property="stratdate" jdbcType="VARCHAR" />
+    <result column="ENDDATE" property="enddate" jdbcType="VARCHAR" />
     <result column="ONECATEGORY" property="oneCategory" jdbcType="VARCHAR" />
+  
     <result column="LOANCATEGORY" property="loanCategory" jdbcType="VARCHAR" />
-    <result column="LOAN" property="loan" jdbcType="VARCHAR" />
-    <result column="AREASUBBRANCH" property="areasubbranch" jdbcType="VARCHAR" />
-    <result column="SECONDARYSUBBRANCH" property="secondarysubbranch" jdbcType="VARCHAR" />
+   <result column="ORGNAME" property="orgname" jdbcType="VARCHAR" />
+   <result column="ORGNAMETWO" property="orgnametwo" jdbcType="VARCHAR" />
     <result column="EA_NUMBER" property="EA_number" jdbcType="VARCHAR" />
     <result column="REJECTION_NUMBER" property="rejection_number" jdbcType="VARCHAR" />
+
     <result column="REFUSALRATE" property="refusalrate" jdbcType="VARCHAR" />
-    
   </resultMap>
+  
+ 
+   
+	
+	
+	
 	
 	<!-- 查询拒贷信息 -->
 	<select id="queryReportRefusalRate" parameterClass="java.util.HashMap" resultMap="ReportRefusalrate">
-		select Y.REPORTTIMESTRAT,Y.REPORTTIMEEND,Y.ONECATEGORY,ORGNAME,EMPNAME,Y.LOANCATEGORY,ROLENAME,POSINAME,EMPSTATUS,GENDER,MOBILENO
-  from OM_EMPORG      A,
-       OM_POSITION    P,
-       OM_EMPPOSITION  N,
-       OM_EMPLOYEE     Y,
-       OM_ORGANIZATION G,
-       AC_ROLE         R,
-       ABF_T_YGFJXXB   B,
-       AC_OPERATOR     O,
-       AC_OPERATORROLE E
- where A.EMPID = Y.EMPID
-   AND A.ORGID = G.ORGID
-   AND Y.USERID = O.USERID
-   AND O.OPERATORID = E.OPERATORID
-   AND E.ROLEID = R.ROLEID
-   AND Y.EMPID = B.EMPID
-   AND N.POSITIONID = P.POSITIONID
-   AND N.EMPID = Y.EMPID
-       <isNotNull prepend="and" property="reporttimeStrat" >
-           	 <![CDATA[
-            	v.reporttime>='$reporttimeStrat$'
-               ]]>
+		SELECT tt.LOANCATEGORY,tt.ORGNAME,tt.ORGNAMETWO,tt.EA_number,gg.rejection_number,(round(gg.rejection_number/(tt.EA_number+gg.rejection_number)*100,2))||'%'  as  refusalrate,tt.STARTDATE, tt.ENDDATE,tt.ONECATEGORY  from 
+(
+SELECT t1.LOANCATEGORY,t1.ONECATEGORY,t2.ORGNAME,t2.STARTDATE,t2.ENDDATE,t3.ORGNAMETWO,count(*) EA_number from
+(select flow_id,ORGCODEONE,ORGCODETWO,LOANCATEGORY,ONECATEGORY from 
+T_GENERALPROCESS_MODELONE ) t1 
+join (SELECT ORGCODE,ORGNAME,STARTDATE,ENDDATE  FROM  OM_ORGANIZATION) t2 on t1.ORGCODEONE=t2.ORGCODE 
+LEFT join (SELECT ORGCODE as ORGCODETWO,ORGNAME as ORGNAMETWO FROM  OM_ORGANIZATION) t3 on t1.ORGCODETWO=t3.ORGCODETWO
+JOIN (select a.execution_ f_id from jbpm4_hist_actinst a where a.transition_ = 'TO 结束' and a.execution_ in(
+select t.flow_id from  T_GENERALPROCESS_MODELTWO t where t.TASKNAME like '发起合同预审%')) t4 on t1.flow_id=t4.f_id
+GROUP BY t1.LOANCATEGORY,t2.ORGNAME,t3.ORGNAMETWO,t1.ONECATEGORY,t2.STARTDATE,t2.ENDDATE
+ORDER BY t1.LOANCATEGORY)tt
+left join
+(
+SELECT t1.LOANCATEGORY,t1.ONECATEGORY,t2.ORGNAME,t2.STARTDATE,t2.ENDDATE,t3.ORGNAMETWO,count(*) rejection_number from
+(select flow_id,ORGCODEONE,ORGCODETWO,LOANCATEGORY,ONECATEGORY from 
+T_GENERALPROCESS_MODELONE ) t1 
+join (SELECT ORGCODE,ORGNAME,STARTDATE,ENDDATE FROM  OM_ORGANIZATION) t2 on t1.ORGCODEONE=t2.ORGCODE 
+LEFT join (SELECT ORGCODE as ORGCODETWO,ORGNAME as ORGNAMETWO FROM  OM_ORGANIZATION) t3 on t1.ORGCODETWO=t3.ORGCODETWO
+JOIN (select a.execution_ f_id from jbpm4_hist_actinst a where a.transition_ != 'TO 结束' and a.execution_ in(
+select t.flow_id from  T_GENERALPROCESS_MODELTWO t where t.TASKNAME like '发起合同预审%')) t4 on t1.flow_id=t4.f_id
+GROUP BY t1.LOANCATEGORY,t2.ORGNAME,t3.ORGNAMETWO,t1.ONECATEGORY,t2.STARTDATE,t2.ENDDATE
+ORDER BY t1.LOANCATEGORY)gg
+on tt.LOANCATEGORY=gg.LOANCATEGORY and tt.ORGNAME=gg.ORGNAME and tt.ORGNAMETWO=gg.ORGNAMETWO
+
+      <isNotNull prepend="and" property="stratdate" >
+        t2.STARTDATE = #stratdate:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="enddate" >
+        t2.ENDDATE =#enddate:VARCHAR#
+      </isNotNull>
+   
+      		<isNotNull prepend="and" property="oneCategoryId" >
+           	tt.oneCategory in(select dic.dictname from eos_dict_entry dic where dic.dicttypeid='PROCESS_onecategory' 
+           	 and dic.dictid in($oneCategoryId$))
       		</isNotNull>
-           <isNotNull prepend="and" property="reporttimeEnd" >
-           	<![CDATA[
-            	v.reporttime<='$reporttimeEnd$'
-               ]]>
+      		 <isNotNull prepend="and" property="loanCategoryId" >
+           	 tt.loanCategory in(select dic.dictname from eos_dict_entry dic where dic.dicttypeid='PROCESS_credit_type' 
+           	 and dic.dictid in($loanCategoryId$))
       		</isNotNull>
-      <isNotNull prepend="and" property="oneCategory" >
-           	 v.onecategory in(select dic.dictname from eos_dict_entry dic where dic.dicttypeid='PROCESS_onecategory' 
-           	 and dic.dictid in($oneCategory$))
-      		</isNotNull>
-      		 <isNotNull prepend="and" property="loanCategory" >
-           	 v.onecategory in(select dic.dictname from eos_dict_entry dic where dic.dicttypeid='PROCESS_credit_type' 
-           	 and dic.dictid in($loanCategory$))
-      		</isNotNull>
-     
+      		
+		
+		
+		
+		
+		
+		
+		
+		
+
+		
+ 
+
+
+
+
+
+  
+  
+  
+   
+    
+      		
+      		
+      		
+      		
 	</select>
+	
 	
 </sqlMap>
