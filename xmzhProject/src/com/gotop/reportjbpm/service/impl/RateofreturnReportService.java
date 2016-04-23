@@ -91,22 +91,45 @@ public class RateofreturnReportService implements IRateofreturnReportService {
 			RateofreturnReport rateofreturnReport) {
 		Map<String, Object> map=new HashMap<String, Object>();
 		
-		if(rateofreturnReport!=null){
-			
-/*			if(!"".equals(rateofreturnReport.getAppTimeStrat())){
-				map.put("appTimeStrat", rateofreturnReport.getAppTimeStrat());
+		   if(!"".equals(rateofreturnReport.getAppTimeStrat())  && rateofreturnReport.getAppTimeStrat()!=null 
+				   && !"".equals(rateofreturnReport.getAppTimeEnd())  && rateofreturnReport.getAppTimeEnd()!=null){
+			   String YYYY=rateofreturnReport.getAppTimeStrat();	
+			   String MM=rateofreturnReport.getAppTimeEnd();
+			   String appTimeEnd="";
+			   if(MM.equals("10") || MM.equals("12") || MM.equals("12") ){
+				    appTimeEnd=YYYY+"-"+MM;
+			   }else
+			   {
+				    appTimeEnd=YYYY+"-0"+MM;
+			   }
+				map.put("appTimeEnd", appTimeEnd);
 			}
-		   if(!"".equals(rateofreturnReport.getAppTimeEnd())){
-				map.put("appTimeEnd", rateofreturnReport.getAppTimeEnd());
-			}*/
+
+			
 			if(!"".equals(rateofreturnReport.getOneCategory())){
-				map.put("oneCategory", rateofreturnReport.getOneCategory());
+				String[] oneCategorys=rateofreturnReport.getOneCategory().split(", ");
+				String oneCategory="";
+				try {
+					oneCategory = Obj2StrUtils.join(oneCategorys, String.class, ",");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				map.put("oneCategory", oneCategory);
 			}
-			if(!"".equals(rateofreturnReport.getLoanCategory()) && rateofreturnReport.getLoanCategory()!=null){
-				 map.put("loanCategory", rateofreturnReport.getLoanCategory());
-			}
+			if(!"".equals(rateofreturnReport.getLoanCategory())){
+				String[] loanCategorys=rateofreturnReport.getLoanCategory().split(", ");
+				String loanCategory="";
+				try {
+					loanCategory = Obj2StrUtils.join(loanCategorys, String.class, ",");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				 map.put("loanCategory",loanCategory);
 			
-		}
+			}
+
+			
+		
 		
 		List list=rateofreturnReportDao.rateofreturnReportListExcel(map);
 		

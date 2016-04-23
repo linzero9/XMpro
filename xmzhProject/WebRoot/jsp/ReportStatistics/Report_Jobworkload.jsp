@@ -10,7 +10,7 @@
 		<title>岗位工作量统计列表</title>
 	</head>
 	<body topmargin="0" leftmargin="0">
-	<h:form name="appQuery"	action="/jbpm/xdProcessAction_queryXdStartProcessList.action" method="post">
+	<h:form name="appQuery"	action="/reportjbpm/jobWorkloadAction_jobWorkloadLists.action" method="post">
 		<w:panel id="panel1" title="查询条件">
 			<table align="center" border="0" width="100%" class="form_table">
 				
@@ -52,7 +52,7 @@
 			<w:panel id="panel" width="100%" title="岗位工作量统计列表">
 				<viewlist id="e2c61865-3b56-470d-bd42-fff792fb9493">
 				<h:form name="page_form"
-					action="/jbpm/xdProcessAction_queryXdStartProcessList.action" method="post">
+					action="/reportjbpm/jobWorkloadAction_jobWorkloadLists.action" method="post">
 			 <h:hiddendata property="xdProcessTaskAssignee"/>  
 
             <h:hidden property="page.begin"/>
@@ -62,11 +62,7 @@
 		    
 					<table align="center" border="0" width="100%" class="EOS_table">
 		    
-						<tr>
-							<th align="center" nowrap="nowrap">
-								<b:message key="l_select"></b:message>
-							</th>
-							
+						<tr>					
 							<th nowrap="nowrap">
 								时间
 							</th>
@@ -90,17 +86,6 @@
 						<w:radioGroup id="group1">
                            <l:iterate property="xdProcessTaskAssignees" id="id1">
 							<tr class="<l:output evenOutput='EOS_table_row' oddOutput='EOS_table_row_o'  />">
-								<td align="center" nowrap="nowrap">
-									<w:rowRadio>
-										<h:param name='executionId' iterateId='id1' property='executionId' />
-										<h:param name='processName' iterateId='id1' property='processName' />
-										<h:param name='custName' iterateId='id1' property='custName' />
-										<h:param name='apply_bal' iterateId='id1' property='apply_bal' />
-										<h:param name='oneCategory' iterateId='id1' property='oneCategory' />
-										<h:param name='loanCategory' iterateId='id1' property='loanCategory' />
-										<h:param name='coorganization' iterateId='id1' property='coorganization' />
-									</w:rowRadio>
-								</td>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1"    property="processName" />
 								</td>
@@ -123,19 +108,7 @@
 						</l:iterate>
 						</w:radioGroup>
 							<tr>
-              <td colspan="23" class="command_sort_area">
-              	<div class="h3"> 
-              	<l:greaterThan property="page.count" targetValue="0" compareType="number" >
-								&nbsp; &nbsp;
-									<input type="button" class="button" value="修改岗位工作量信息" onclick="upt_loan_info();"/>
-								</l:greaterThan>
-							
-							<l:greaterThan property="page.count" targetValue="0" compareType="number" >
-								&nbsp; &nbsp;
-							<input type="button" class="button" value="查看修改明细" onclick="queryLoanUptWater();"/>
-								</l:greaterThan>
-								</div>
-							
+              <td colspan="23" class="command_sort_area">					
                 <div class="h4">
 	                <l:equal property="page.isCount" targetValue="true" >
 	                  <b:message key="l_total"></b:message>

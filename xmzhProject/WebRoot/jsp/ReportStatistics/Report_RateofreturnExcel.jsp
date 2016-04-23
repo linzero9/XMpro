@@ -14,6 +14,7 @@
 %>
 <table width="98%" border="1" cellspacing="1" cellpadding="1">
 		<tr height="34">
+		<th height="34" width="100" align="center" class="form_label">一级分类</th>
 		  <th height="34" width="100" align="center" class="form_label">贷种</th>
 		  <th height="34" width="100" align="center" class="form_label">区支行</th>
 		  <th height="34" width="100" align="center" class="form_label">二级支行</th>
@@ -27,6 +28,9 @@
 			<l:iterate property="list" id="id1">
 			
 			<tr class="<l:output evenOutput='EOS_table_row' />" id="issuedTr">
+			<td style="vnd.ms-excel.numberformat:@">
+			    <b:write iterateId="id1" property="oneCategory"/>
+			  </td>
 			
 			  <td style="vnd.ms-excel.numberformat:@">
 			    <b:write iterateId="id1" property="loanCategory"/>

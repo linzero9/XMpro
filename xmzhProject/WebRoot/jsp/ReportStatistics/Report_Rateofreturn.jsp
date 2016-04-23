@@ -198,10 +198,16 @@
                     return;
 			}
              function downExl() {
-                 
-				var url = "/reportjbpm/rateofreturnReportAction_exportExcel.action?";
+ 				var appTimeStrat = $id("YYYY").value;
+				var appTimeEnd = $id("MM").value;
+				var oneCategory = $id("oneCategory").value;
 				var loanCategory = $id("loanCategory").value;
-	     		url = url+"rateofreturnReport.loanCategory="+loanCategory;
+				
+				var url = "/reportjbpm/rateofreturnReportAction_exportExcel.action?";
+	     		url = url+"rateofreturnReport.appTimeStrat="+appTimeStrat;
+	     		url = url+"&rateofreturnReport.appTimeEnd="+appTimeEnd;
+	     		url = url+"&rateofreturnReport.oneCategory="+oneCategory;
+	     		url = url+"&rateofreturnReport.loanCategory="+loanCategory;
 				window.location.href=url; 
 		}
 		

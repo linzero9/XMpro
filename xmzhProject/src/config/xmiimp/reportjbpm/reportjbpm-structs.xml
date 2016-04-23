@@ -45,7 +45,14 @@
       </result>
     </action>
 	
-    
+      <action name="jobWorkloadAction_*" class="com.gotop.reportjbpm.action.JobWorkloadAction" method="{1}" >
+      <result name="jobWorkloadLists" >
+        /jsp/ReportStatistics/Report_Jobworkload.jsp
+      </result>
+     <result name="jobWorkloadExcel" >
+        /jsp/ReportStatistics/Report_Jobworkload.jsp
+      </result>
+    </action>
     
   </package>
 </struts>
