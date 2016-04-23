@@ -36,7 +36,14 @@
     </action>
     
     
-   
+        <action name="rateofreturnReportAction_*" class="rateofreturnReportAction" method="{1}" >
+      <result name="rateofreturnReportlist" >
+        /jsp/ReportStatistics/Report_Rateofreturn.jsp
+      </result>
+     <result name="exportExcel" >
+        /jsp/ReportStatistics/Report_RateofreturnExcel.jsp
+      </result>
+    </action>
 	
     
     

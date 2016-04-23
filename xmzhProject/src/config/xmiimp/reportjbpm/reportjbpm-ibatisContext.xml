@@ -14,4 +14,8 @@
      <bean id="reportRefusalrateDao" class="com.gotop.reportjbpm.dao.impl.ReportRefusalrateDao" >
     <property name="sqlMapClient" ref="sqlMapClient" />
   </bean>
+  
+       <bean id="rateofreturnReportDao" class="com.gotop.reportjbpm.dao.impl.RateofreturnReportDao" >
+    <property name="sqlMapClient" ref="sqlMapClient" />
+  </bean>
 </beans>

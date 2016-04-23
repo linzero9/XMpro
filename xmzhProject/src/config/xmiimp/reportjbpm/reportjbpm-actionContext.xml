@@ -20,6 +20,8 @@
   </bean>
   
   
-  
+    <bean name="rateofreturnReportAction" id="rateofreturnReportAction" class="com.gotop.reportjbpm.action.RateofreturnReportAction" singleton="false" >
+    <property name="rateofreturnReportService" ref="rateofreturnReportService" />
+  </bean>
   
 </beans>
