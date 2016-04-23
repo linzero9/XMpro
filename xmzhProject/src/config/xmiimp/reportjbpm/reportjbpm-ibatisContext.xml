@@ -10,4 +10,8 @@
 
     <property name="sqlMapClient" ref="sqlMapClient" />
   </bean>
+  
+     <bean id="reportRefusalrateDao" class="com.gotop.reportjbpm.dao.impl.ReportRefusalrateDao" >
+    <property name="sqlMapClient" ref="sqlMapClient" />
+  </bean>
 </beans>

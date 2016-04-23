@@ -10,4 +10,8 @@
     <property name="errorStatisticDao" ref="errorStatisticDao" />
 
   </bean>
+  
+     <bean id="reportRefusalRateService" class="com.gotop.reportjbpm.service.impl.ReportRefusalRateService" >
+    <property name="reportRefusalrateDao" ref="reportRefusalrateDao" />
+  </bean>
 </beans>
