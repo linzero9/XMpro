@@ -10,33 +10,34 @@
 		<title>退单率统计列表</title>
 	</head>
 	<body topmargin="0" leftmargin="0">
-	<h:form name="appQuery"	action="/jbpm/xdProcessAction_queryXdStartProcessList.action" method="post">
+	<h:form name="appQuery"	action="/reportjbpm/rateofreturnReportAction_rateofreturnReportList.action" method="post">
 		<w:panel id="panel1" title="查询条件">
 			<table align="center" border="0" width="100%" class="form_table">
 				
 				<tr>
-                                        <td class="form_label" align="right" width="20%">审批时间：</td>
-					<td colspan="1" width="30%">
-					从
-					<w:date  format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="appTimeStrat" name="RateofreturnDto.appTimeStrat" 
-					property="RateofreturnDto.appTimeStrat" /> 
-					到
-					<w:date format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="appTimeEnd" name="RateofreturnDto.appTimeEnd" 
-					property="RateofreturnDto.appTimeEnd" /></td>
+                    <td class="form_label" align="right" width="20%">审批时间：</td>
+					<td colspan="1" width="30%">					
+
+					<h:select id="YYYY" onchange="YYYYDD(this.value)" property="rateofreturnReport.appTimeStrat"  name="rateofreturnReport.appTimeStrat">
+					     <h:option label="请选择 年" value="" />
+					</h:select>
+					<h:select id="MM" onchange="MMDD(this.value)" property="rateofreturnReport.appTimeEnd"  name="rateofreturnReport.appTimeEnd">
+					     <h:option  label="请选择 月" value="" />
+					</h:select>
 
 					
 					
 					<td class="form_label" align="right" >一级分类：</td>
 					<td >
-			     		<h:hidden id="oneCategoryId" property="xdProcessTaskAssignee.oneCategoryId" />  
-						<h:text id="oneCategory" property="xdProcessTaskAssignee.oneCategory" readonly="true"/>
+			     		<h:hidden id="oneCategoryId" />  
+						<h:text id="oneCategory" property="rateofreturnReport.oneCategory" readonly="true"/>
 						<a href="#" onclick="showoneCategory();">选择</a>
 					</td>
 					
 					<td class="form_label" align="right" >贷种分类：</td>
 					<td >
-						<h:hidden id="loanCategoryId" property="xdProcessTaskAssignee.loanCategoryId" />
-						<h:text id="loanCategory" property="xdProcessTaskAssignee.loanCategory" readonly="true"/>
+						<h:hidden id="loanCategoryId"/>
+						<h:text id="loanCategory" property="rateofreturnReport.loanCategory" readonly="true"/>
 						<a href="#" onclick="showloanCategory();">选择</a>
 					</td>
 				</tr>
@@ -46,9 +47,9 @@
 					        <h:text size="2" property="page.length" value="10" validateAttr="minValue=1;maxValue=100;type=integer;isNull=true" />
 					        <input type="hidden" name="page.begin" value="0">
 					        <input type="hidden" name="page.isCount" value="true">
-							<input id="querys" type="submit" value="查 询" class="button" onclick="search();">
+							<input id="querys" type="button" value="查 询" class="button" onclick="search();">
 							<input type="button" value="清 空" class="button" onclick="clears();">
-                                                        <input id="downexl" type="submit" class="button" value="导出列表" onclick="downExl();"></td>
+                                                        <input id="downexl" type="button" class="button" value="导出列表" onclick="downExl();"></td>
 					</tr>			
 			</table>
 		</w:panel>
@@ -57,8 +58,8 @@
 			<w:panel id="panel" width="100%" title="退单率统计列表">
 				<viewlist id="e2c61865-3b56-470d-bd42-fff792fb9493">
 				<h:form name="page_form"
-					action="/jbpm/xdProcessAction_queryXdStartProcessList.action" method="post">
-			 <h:hiddendata property="xdProcessTaskAssignee"/>  
+					action="/reportjbpm/rateofreturnReportAction_rateofreturnReportList.action" method="post">
+			 <h:hiddendata property="rateofreturnReport"/>  
 
             <h:hidden property="page.begin"/>
 		    <h:hidden property="page.length"/>
@@ -68,10 +69,9 @@
 					<table align="center" border="0" width="100%" class="EOS_table">
 		    
 						<tr>
-							<th align="center" nowrap="nowrap">
-								<b:message key="l_select"></b:message>
+				          <th nowrap="nowrap">
+								一级分类
 							</th>
-							
 							<th nowrap="nowrap">
 								贷种
 							</th>
@@ -90,62 +90,48 @@
 					       <th nowrap="nowrap">
 								其中2次退单率
 							</th>
-                                                  <th nowrap="nowrap">
+                          <th nowrap="nowrap">
 								其中3次退单率
 							</th>
-                                                  <th nowrap="nowrap">
+                           <th nowrap="nowrap">
 								其中4次退单率
 							</th>
 						</tr>
 						<w:radioGroup id="group1">
-                           <l:iterate property="xdProcessTaskAssignees" id="id1">
+                           <l:iterate property="list" id="id1">
 							<tr class="<l:output evenOutput='EOS_table_row' oddOutput='EOS_table_row_o'  />">
-								<td align="center" nowrap="nowrap">
-									<w:rowRadio>
-										<h:param name='executionId' iterateId='id1' property='executionId' />
-										<h:param name='processName' iterateId='id1' property='processName' />
-										<h:param name='custName' iterateId='id1' property='custName' />
-										<h:param name='apply_bal' iterateId='id1' property='apply_bal' />
-										<h:param name='oneCategory' iterateId='id1' property='oneCategory' />
-										<h:param name='loanCategory' iterateId='id1' property='loanCategory' />
-										<h:param name='coorganization' iterateId='id1' property='coorganization' />
-									</w:rowRadio>
+							 <td nowrap="nowrap"> 
+									<b:write iterateId="id1"    property="oneCategory" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1"    property="processName" />
+									<b:write iterateId="id1"    property="loanCategory" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="custName" />
+									<b:write iterateId="id1" property="orgNameOne" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="apply_bal" />
+									<b:write iterateId="id1" property="orgNameTwo" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="oneCategory" />
+									<b:write iterateId="id1" property="passNumber" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="loanCategory" />
+									<b:write iterateId="id1" property="backOne" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="coorganization" />
+									<b:write iterateId="id1" property="backTwo" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="backThree" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="backFour" />
 								</td>
 							</tr>
 						</l:iterate>
 						</w:radioGroup>
 							<tr>
-              <td colspan="23" class="command_sort_area">
-              	<div class="h3"> 
-              	<l:greaterThan property="page.count" targetValue="0" compareType="number" >
-								&nbsp; &nbsp;
-									<input type="button" class="button" value="修改退单率信息" onclick="upt_loan_info();"/>
-								</l:greaterThan>
-							
-							<l:greaterThan property="page.count" targetValue="0" compareType="number" >
-								&nbsp; &nbsp;
-							<input type="button" class="button" value="查看修改明细" onclick="queryLoanUptWater();"/>
-								</l:greaterThan>
-								</div>
-							
+              <td colspan="23" class="command_sort_area">		
                 <div class="h4">
 	                <l:equal property="page.isCount" targetValue="true" >
 	                  <b:message key="l_total"></b:message>
@@ -177,71 +163,56 @@
 		</DIV>
 		<script type="text/javascript">
 
+		
+
 		//清空
 		function clears(){
-			$id("custName").value="";
+			$id("YYYY").value="";
+			$id("MM").value="";
 			$id("oneCategory").value="";
 			$id("oneCategoryId").value="";
 			$id("loanCategory").value="";
 			$id("loanCategoryId").value="";
 		}
+              
                 function search(){
-			$("#isExport").val("");
+			//$("#isExport").val("");
+			
+			var YY=$id("YYYY").value;
+			var MM=$id("MM").value;
+			if(YY=="" || MM==""){     
+                  alert("请输入时间！");
+                  return;
+				}
+/* 			if(YY==""){     
+                alert("请输入年份！");
+                return;
+				}
+			if( MM==""){     
+                alert("请输入月份！");
+                return;
+				} */
+        			var frm = $name("appQuery");
+                    frm.submit();
+    
+                    return;
 			}
-                function downExl() {
-			$("#isExport").val("1");
+             function downExl() {
+                 
+				var url = "/reportjbpm/rateofreturnReportAction_exportExcel.action?";
+				var loanCategory = $id("loanCategory").value;
+	     		url = url+"rateofreturnReport.loanCategory="+loanCategory;
+				window.location.href=url; 
 		}
 		
-		function upt_loan_info(){
-			var gop = $id("group1");
-	  		var len = gop.getSelectLength();
-	  		if(len == 0){
-	  			alert("请选择一条流程信息");
-	  			return;
-	  		}else{
-	  			var row=gop.getSelectRow();
-		  		var executionId = row.getParam("executionId");
-		  		var processName = row.getParam("processName");
-		  		var custName = row.getParam("custName");
-		  		var apply_bal = row.getParam("apply_bal");
-		  		var oneCategory = row.getParam("oneCategory");
-		  		var loanCategory = row.getParam("loanCategory");
-		  		var coorganization = row.getParam("coorganization");
 
-	            var strUrl = "/jbpm/xdProcessAction_toUptLoanInfo.action?xdProcessTaskAssignee.executionId="+executionId+"&xdProcessTaskAssignee.processName="+processName;
-	            strUrl = strUrl+"&xdProcessTaskAssignee.custName="+custName
-	            +"&xdProcessTaskAssignee.apply_bal="+apply_bal
-	            +"&xdProcessTaskAssignee.oneCategory="+oneCategory
-	            +"&xdProcessTaskAssignee.loanCategory="+loanCategory
-	            +"&xdProcessTaskAssignee.coorganization="+coorganization;
-	            
-				  showModalCenter(encodeURI(strUrl), null,callBack, 500, 300, '修改退单率信息');
-				  
-				  /* 	var url="/jbpm/xdProcessAction_toAddOneCategory.action?xdCdtypeBean.processName="+encodeURI(processName);
-		  		parent.window.frames["mainFrame"].location.href = encodeURI(strUrl); 
-		  		
-		  		showModalCenter(encodeURI(strUrl), null, callBack, clientX*0.9, clientY*0.9, ''修改退单率信息');*/	
-			}
-		}
 		function callBack(){
 			var frm = $name("page_form");
             frm.submit();
 			//  location.reload(); //就算页面直接关闭，也会重新加载页面
 			}
 
-	  	function queryLoanUptWater(){
-	  		var gop = $id("group1");
-	  		var len = gop.getSelectLength();
-	  		if(len == 0){
-	  			alert("请选择一条流程信息");
-	  			return;
-	  		}else{
-	  			var rows=gop.getSelectRow();
-		  		var executionId = rows.getParam("executionId");
-		  		var strUrl = "/jbpm/xdProcessAction_queryLoanUptWater.action?waterInfo.flow_id="+executionId;
-		  		showModalCenter(strUrl,'',null ,1200,500,'退单率修改流水明细');
-			  	}
-		  	}
+
 
 	  	function showoneCategory() {
 			var oneCategoryId=document.getElementById("oneCategoryId").value;
@@ -270,6 +241,52 @@
 			 document.getElementById("loanCategory").value = array[1];
 			}
 		}
+
+   
+
+		$(function(){
+        //  alert('${rateofreturnReport.appTimeStrat}'); 
+			function YYYYMMDDstart(){   
+				//先给年下拉框赋内容   
+				var y  = new Date().getFullYear();  
+				for (var i = (y-30); i < (y+30); i++) //以今年为准，前30年，后30年   
+					   document.appQuery.YYYY.options.add(new Option(" "+ i +" 年", i));   
+				//赋月份的下拉框   
+				for (var i = 1; i < 13; i++)   
+				document.appQuery.MM.options.add(new Option(" " + i + " 月", i));   
+				document.appQuery.YYYY.value = y;   
+				document.appQuery.MM.value = new Date().getMonth() + 1;   
+			}
+			//第一次加载当前日期
+	      	if('${rateofreturnReport.appTimeStrat}'==""){     
+	               window.attachEvent("onload", YYYYMMDDstart);   
+	      	}
+	      	//时间改变后页面时间加载Wie选择的时间
+	      	if('${rateofreturnReport.appTimeStrat}'!=""){     
+	      		//document.appQuery.YYYY.value = '${rateofreturnReport.appTimeStrat}'; 
+	      		   
+				var y  = new Date().getFullYear();  
+				for (var i = (y-30); i < (y+30); i++) //以今年为准，前30年，后30年   
+					   document.appQuery.YYYY.options.add(new Option(" "+ i +" 年", i));   
+				//赋月份的下拉框   
+				for (var i = 1; i < 13; i++)   
+				document.appQuery.MM.options.add(new Option(" " + i + " 月", i));   
+				document.appQuery.YYYY.value = '${rateofreturnReport.appTimeStrat}';   
+				document.appQuery.MM.value = '${rateofreturnReport.appTimeEnd}';              
+	      	}
+			
+
+
+
+
+
+      	
+               
+});
+ 
+
+
+		
 		</script>
 		
 	</body>
