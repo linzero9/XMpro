@@ -10,23 +10,18 @@
 <title>设置 时限</title>
 </head>
 <body topmargin="0" leftmargin="0">
-<h:form name="data_form"  id="data_form"  action="/jbpm/timeLimitManageAction_saveNodeTimeLimit.action" method="post" onsubmit="return checkForm(this);">
+<h:form name="data_form"  id="data_form"  action="/jbpm/timeLimitManageAction_saveModelName.action" method="post" onsubmit="return checkForm(this);">
 		<table align="center" border="0" width="100%" class="form_table">
-		<h:hidden id="e_id" property="nodeTimeLimitBean.e_id" /> 
-		<h:hidden id="c_id" property="nodeTimeLimitBean.c_id" />
+		
+		<h:hidden id="definitionId" property="proTimeModelBean.definitionId" /> 
 			<tr>
-				<td class="form_label" align="right" width="15%">节点名称</td>
+				<td class="form_label" align="right" width="15%">时限模版名称</td>
 				<td colspan="1" width="30%">
-				<h:text id="taskName"  property="nodeTimeLimitBean.taskName" readonly="true"/>
+				<h:text id="time_modelName"  property="proTimeModelBean.time_modelName"  validateAttr="allowNull=false;"/>
 				</td>
 			</tr>
-			<tr>
-				<td class="form_label" align="right">时限：</td>
-				<td colspan="1">
-				<h:text id="timeLimit" property="nodeTimeLimitBean.timeLimit"   validateAttr="type=double;minValue=0;allowNull=false;" /> 工时
-			</tr>
 			<tr class="form_bottom">
-				<td colspan="2"><input type="button" value="保存" onclick="saveNodeTimeLimit()"
+				<td colspan="2"><input type="button" value="保存" onclick="saveModelName()"
 					 class="button" > <input
 					type="button" value="关闭" onclick="window.close();" class="button"></td>
 			</tr>
@@ -34,12 +29,32 @@
 	</h:form>
 <script type="text/javascript">
 
-	function saveNodeTimeLimit() {
+	function saveModelName() {
 		var frm = $name("data_form");
 		if (!checkForm(frm)) {
 			return;
 		}
-		ajaxsubmitO();
+
+		var definitionId = $id("definitionId").value;
+		var time_modelName = $id("time_modelName").value;
+		
+		$.ajax({
+		      url: "/jbpm/timeLimitManageAction_checkTimeModelName.action",
+		      async: false,
+		      type: 'post',
+		      data: "proTimeModelBean.definitionId="+definitionId+"&proTimeModelBean.time_modelName="+time_modelName,
+		      timeout: 60000,
+		      success: function (data) {
+		       if (data.indexOf("notExist") >= 0) {
+		    		  ajaxsubmitO(); 
+				}else if (data.indexOf("exist") >= 0){
+					alert("该流程已存在此模版名称！请重新输入！");	
+				} else {
+					alert("操作失败!");
+				}
+		      }
+		}); 
+		
 	}
 
 	function ajaxsubmitO() {

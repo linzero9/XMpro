@@ -257,12 +257,22 @@
       	<result name="setNodeTimeLimit">
      		/jsp/jbpm/time_limit/setNodeTimeLimit.jsp
       	</result>
+      	<result name="selectModel">
+     		/jsp/jbpm/time_limit/selectModel.jsp
+      	</result>
+      	<result name="add_loanTimeModel">
+     		/jsp/jbpm/time_limit/add_loanTimeModel.jsp
+      	</result>
       	
       	<result name="oneCategorylist" type="json">
 		   <param name="root">proLoanBeans</param>
 	  </result>
 	 <result name="loanCategorylist" type="json">
 		   <param name="root">proLoanBeans</param>
+	  </result>
+	  
+	  <result name="oneAndLoanBeansList" type="json">
+		   <param name="root">oneAndLoanBeans</param>
 	  </result>
 	  
       	 </action>

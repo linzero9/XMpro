@@ -9,6 +9,7 @@ import com.gotop.jbpm.dao.ITimeLimitManageDAO;
 import com.gotop.jbpm.model.NodeTimeLimitBean;
 import com.gotop.jbpm.model.OneAndLoanBean;
 import com.gotop.jbpm.model.ProLoanBean;
+import com.gotop.jbpm.model.ProTimeModelBean;
 import com.gotop.util.dataSource.SqlMapClientDao;
 import com.primeton.utils.Page;
 
@@ -60,8 +61,8 @@ public class TimeLimitManageDAO extends SqlMapClientDao  implements ITimeLimitMa
 	}
 
 	@Override
-	public void insertProTimeLimitModel(ProLoanBean proLoanBean) {
-		getSqlMapClientTemplate().insert("TimeLimitManage_SqlMap.insertProTimeLimitModel",proLoanBean);
+	public void insertProTimeLimitModel(ProTimeModelBean proTimeModelBean) {
+		getSqlMapClientTemplate().insert("TimeLimitManage_SqlMap.insertProTimeLimitModel",proTimeModelBean);
 	}
 
 	@Override
@@ -83,6 +84,36 @@ public class TimeLimitManageDAO extends SqlMapClientDao  implements ITimeLimitMa
 	@Override
 	public int updateNodeTimeLimit(NodeTimeLimitBean nodeTimeLimitBean) {
 		int count = getSqlMapClientTemplate().update("TimeLimitManage_SqlMap.updateNodeTimeLimit", nodeTimeLimitBean);
+		return count;
+	}
+
+	@Override
+	public List querySelectModel(Map<String, Object> map) {
+		List list = queryForList("TimeLimitManage_SqlMap.querySelectModel", map);
+		return list;
+	}
+
+	@Override
+	public List checkTimeModelName(Map<String, Object> map) {
+		List list = this.queryForList("TimeLimitManage_SqlMap.checkTimeModelName", map);
+		return list;
+	}
+
+	@Override
+	public List queryProLoanTimeLimit(Map<String, Object> map) {
+		List list = this.queryForList("TimeLimitManage_SqlMap.queryProLoanTimeLimit", map);
+		return list;
+	}
+
+	@Override
+	public int updateProLoanTimeLimit(ProLoanBean my_proLoanBean2) {
+		int count = getSqlMapClientTemplate().update("TimeLimitManage_SqlMap.updateProLoanTimeLimit", my_proLoanBean2);
+		return count;
+	}
+
+	@Override
+	public int deleteTimeLimitManage(ProLoanBean proLoanBean) {
+		int count = getSqlMapClientTemplate().delete("TimeLimitManage_SqlMap.deleteTimeLimitManage", proLoanBean);
 		return count;
 	}
 

@@ -10,6 +10,7 @@ import com.gotop.jbpm.dao.ITimeLimitManageDAO;
 import com.gotop.jbpm.model.NodeTimeLimitBean;
 import com.gotop.jbpm.model.OneAndLoanBean;
 import com.gotop.jbpm.model.ProLoanBean;
+import com.gotop.jbpm.model.ProTimeModelBean;
 import com.gotop.jbpm.service.ITimeLimitManageService;
 import com.primeton.utils.Page;
 
@@ -92,8 +93,8 @@ public class TimeLimitManageService implements ITimeLimitManageService {
 	}
 
 	@Override
-	public void insertProTimeLimitModel(ProLoanBean proLoanBean) {
-		this.timeLimitManageDAO.insertProTimeLimitModel(proLoanBean);
+	public void insertProTimeLimitModel(ProTimeModelBean proTimeModelBean) {
+		this.timeLimitManageDAO.insertProTimeLimitModel(proTimeModelBean);
 	}
 
 	@Override
@@ -126,6 +127,61 @@ public class TimeLimitManageService implements ITimeLimitManageService {
 	@Override
 	public void updateNodeTimeLimit(NodeTimeLimitBean nodeTimeLimitBean) {
 		this.timeLimitManageDAO.updateNodeTimeLimit(nodeTimeLimitBean);
+	}
+
+	@Override
+	public List<ProTimeModelBean> querySelectModel(ProLoanBean proLoanBean) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		if(proLoanBean != null){
+			if(proLoanBean.getDefinitionId()!= null &&  !"".equals(proLoanBean.getDefinitionId())){
+				map.put("definitionId",  proLoanBean.getDefinitionId());
+			}
+		}
+		List list = this.timeLimitManageDAO.querySelectModel(map);
+		return list;
+	}
+
+	@Override
+	public List<ProTimeModelBean> checkTimeModelName(
+			ProTimeModelBean proTimeModelBean) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		if(proTimeModelBean != null){
+			if(proTimeModelBean.getDefinitionId()!= null &&  !"".equals(proTimeModelBean.getDefinitionId())){
+				map.put("definitionId",  proTimeModelBean.getDefinitionId());
+			}
+			if(proTimeModelBean.getTime_modelName()!= null &&  !"".equals(proTimeModelBean.getTime_modelName())){
+				map.put("time_modelName",  proTimeModelBean.getTime_modelName());
+			}
+		}
+		List list = this.timeLimitManageDAO.checkTimeModelName(map);
+		return list;
+	}
+
+	@Override
+	public List<OneAndLoanBean> queryProLoanTimeLimit(ProLoanBean proLoanBean) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		if(proLoanBean != null){
+			if(proLoanBean.getDefinitionId()!= null &&  !"".equals(proLoanBean.getDefinitionId())){
+				map.put("definitionId",  proLoanBean.getDefinitionId());
+			}
+			if(proLoanBean.getC_id() != null &&  !"".equals(proLoanBean.getC_id())){
+				map.put("c_id",  proLoanBean.getC_id());
+			}
+		}
+		List list = this.timeLimitManageDAO.queryProLoanTimeLimit(map);
+		return list;
+	}
+
+	@Override
+	public void updateProLoanTimeLimit(ProLoanBean my_proLoanBean2) {
+		this.timeLimitManageDAO.updateProLoanTimeLimit(my_proLoanBean2);
+	}
+
+	@Override
+	public void deleteTimeLimitManage(ProLoanBean proLoanBean) {
+		this.timeLimitManageDAO.deleteTimeLimitManage(proLoanBean);
 	}
 	
 	

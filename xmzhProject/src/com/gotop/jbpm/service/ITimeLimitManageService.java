@@ -6,6 +6,7 @@ import com.gotop.jbpm.dao.ITimeLimitManageDAO;
 import com.gotop.jbpm.model.NodeTimeLimitBean;
 import com.gotop.jbpm.model.OneAndLoanBean;
 import com.gotop.jbpm.model.ProLoanBean;
+import com.gotop.jbpm.model.ProTimeModelBean;
 import com.primeton.utils.Page;
 
 public interface ITimeLimitManageService {
@@ -27,7 +28,7 @@ public interface ITimeLimitManageService {
 
 	List<ProLoanBean> queryLoanCategorylist(ProLoanBean proLoanBean);
 
-	void insertProTimeLimitModel(ProLoanBean proLoanBean);
+	void insertProTimeLimitModel(ProTimeModelBean proTimeModelBean);
 
 	void insertProLoanTimeLimit(ProLoanBean proLoanBean2);
 
@@ -37,4 +38,14 @@ public interface ITimeLimitManageService {
 	void insertNodeTimeLimit(NodeTimeLimitBean nodeTimeLimitBean);
 
 	void updateNodeTimeLimit(NodeTimeLimitBean nodeTimeLimitBean);
+
+	List<ProTimeModelBean> querySelectModel(ProLoanBean proLoanBean);
+
+	List<ProTimeModelBean> checkTimeModelName(ProTimeModelBean proTimeModelBean);
+
+	List<OneAndLoanBean> queryProLoanTimeLimit(ProLoanBean proLoanBean);
+
+	void updateProLoanTimeLimit(ProLoanBean my_proLoanBean2);
+
+	void deleteTimeLimitManage(ProLoanBean proLoanBean);
 }

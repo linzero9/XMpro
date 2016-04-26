@@ -15,8 +15,14 @@
 				<h:form name="page_form"
 					action="/jbpm/timeLimitManageAction_queryNodeTimeLimitList.action" method="post">
 					
-					<h:hiddendata property="proLoanBean" />
+					<h:hiddendata property="proTimeModelBean" />
 					
+			<table align="center" border="0" width="100%" class="form_table">
+				<tr>
+					<td class="form_label"  >时限模版名称：<b:write  property="proTimeModelBean.time_modelName"  /></td>
+				</tr>
+			</table>
+			
 					<table align="center" border="0" width="100%" class="EOS_table">
 						<tr>
 							<th align="center" nowrap="nowrap">

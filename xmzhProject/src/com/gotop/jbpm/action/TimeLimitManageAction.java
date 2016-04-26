@@ -12,6 +12,7 @@ import com.gotop.jbpm.dto.TaskAssgineeDto;
 import com.gotop.jbpm.model.NodeTimeLimitBean;
 import com.gotop.jbpm.model.OneAndLoanBean;
 import com.gotop.jbpm.model.ProLoanBean;
+import com.gotop.jbpm.model.ProTimeModelBean;
 import com.gotop.jbpm.model.XdProcessBean;
 import com.gotop.jbpm.service.ITimeLimitManageService;
 import com.gotop.jbpm.service.IXdProcessService;
@@ -26,11 +27,17 @@ public class TimeLimitManageAction extends BaseAction {
 	
 	private ProLoanBean proLoanBean;
 	
+	private ProLoanBean my_proLoanBean;
+	
 	private List<ProLoanBean> proLoanBeans;
 	
 	private NodeTimeLimitBean nodeTimeLimitBean;
 	
 	private List<NodeTimeLimitBean> nodeTimeLimitBeans;
+	
+	private ProTimeModelBean proTimeModelBean;
+	
+	private List<ProTimeModelBean> proTimeModelBeans;
 	
 	private String ids;
 	
@@ -45,6 +52,30 @@ public class TimeLimitManageAction extends BaseAction {
 	private JbpmService jbpmService;
 	
 	
+	public ProLoanBean getMy_proLoanBean() {
+		return my_proLoanBean;
+	}
+
+	public void setMy_proLoanBean(ProLoanBean my_proLoanBean) {
+		this.my_proLoanBean = my_proLoanBean;
+	}
+
+	public ProTimeModelBean getProTimeModelBean() {
+		return proTimeModelBean;
+	}
+
+	public void setProTimeModelBean(ProTimeModelBean proTimeModelBean) {
+		this.proTimeModelBean = proTimeModelBean;
+	}
+
+	public List<ProTimeModelBean> getProTimeModelBeans() {
+		return proTimeModelBeans;
+	}
+
+	public void setProTimeModelBeans(List<ProTimeModelBean> proTimeModelBeans) {
+		this.proTimeModelBeans = proTimeModelBeans;
+	}
+
 	public NodeTimeLimitBean getNodeTimeLimitBean() {
 		return nodeTimeLimitBean;
 	}
@@ -212,8 +243,8 @@ public class TimeLimitManageAction extends BaseAction {
 			log.error("[保存设备信息失败！]", e);
 			throw e;
 		}finally{	
+			Struts2Utils.renderText(info);
 		}
-		Struts2Utils.renderText(info);
 	}
 	
 	/**
@@ -251,14 +282,59 @@ public class TimeLimitManageAction extends BaseAction {
 	}
 	
 	/**
+	 * 跳转到 选择模版 页面
+	 */
+	public String querySelectModel(){
+		proTimeModelBeans =  this.timeLimitManageService.querySelectModel(proLoanBean);
+			this.setProTimeModelBeans(proTimeModelBeans);
+			return "selectModel";  //跳转到 选择模版 页面
+	}
+	
+	public String addLoanTimeModel(){
+		
+		return "add_loanTimeModel";
+	}
+	
+	/**
+	 * 检验 同一流程 的 时限模版名称 是否已存在
+	 */
+	public void checkTimeModelName(){
+		
+		String info ="";
+		proTimeModelBeans = this.timeLimitManageService.checkTimeModelName(proTimeModelBean);
+		if(proTimeModelBeans.size() >0){
+			info ="exist";	
+		}else{
+			info="notExist";
+		}
+		Struts2Utils.renderText(info);
+		
+	}
+	
+	public void saveModelName() throws Exception{
+		
+		String info ="success";
+    	try {
+    		this.timeLimitManageService.insertProTimeLimitModel(proTimeModelBean);
+				
+    	} catch (Exception e) {
+			info="fails";
+			log.error("[保存设备信息失败！]", e);
+			throw e;
+		}finally{	
+		}
+		Struts2Utils.renderText(info);
+	}
+	
+	/**
 	 * 跳转到 时限管理配置 页面
 	 */
 	public String toTimeLimitManage(){
-	//	List<XdProcessBean> xdProcessBeans = this.xdProcessService.queryXdProcessList(xdProcessBean,this.getPage());
-	//	this.setXdProcessBeans(xdProcessBeans);
 		System.out.println(proLoanBean);
 		return "timeLimitManage";
 	}
+	
+	
 	
 	public String queryOneCategorylist(){
 		proLoanBeans = this.timeLimitManageService.queryOneCategorylist();
@@ -273,42 +349,99 @@ public class TimeLimitManageAction extends BaseAction {
 	}
 	
 	public void saveTimeLimitManage() throws Exception{
-		String info ="success";
+		String info ="";
     	try {
     		
     		if(proLoanBean != null){
-    			this.timeLimitManageService.insertProTimeLimitModel(proLoanBean); //插入到（C表） t_model_proTimeLimitModel 流程时限模版表
+    			
+    			String[] my_valueArra1 = my_proLoanBean.getOneCategory_name().split(",");
+    			String[] my_valueArra2 = my_proLoanBean.getLoanCategory_name().split(",");
+    			String[] init_valueArra1 = proLoanBean.getInit_oneCategory_name().split(",");
+    			String[] init_valueArra2 = proLoanBean.getInit_loanCategory_name().split(",");
     			
     			String[] valueArra1 = proLoanBean.getOneCategory_name().split(",");
     			String[] valueArra2 = proLoanBean.getLoanCategory_name().split(",");
-    			for(int i=0; i<valueArra1.length; i++){
-
-    				ProLoanBean proLoanBean2 = new ProLoanBean();
-    				proLoanBean2.setDefinitionId(proLoanBean.getDefinitionId());
-    				proLoanBean2.setProcessName(proLoanBean.getProcessName());
-    				proLoanBean2.setC_id(proLoanBean.getC_id());
-    				proLoanBean2.setOneCategory_name(valueArra1[i] );
-    				proLoanBean2.setLoanCategory_name(valueArra2[i] );
-    				proLoanBean2.setOp_empid(this.getCurrentOnlineUser().getEmpid());
-    				proLoanBean2.setOp_orgcode(this.getCurrentOnlineUser().getOrgcode());
-    				
-    				this.timeLimitManageService.insertProLoanTimeLimit(proLoanBean2); //插入到（B表） t_model_proLoanTimeLimit 流程贷种时限关表
-    				
-    			}
-    			info += ","+proLoanBean.getC_id();
+    			
+				int flag1 = 0;
+				int flag2 = 0;
+				
+    			//修改 一级 贷种分类 设置
+				List<OneAndLoanBean> my_oneAndLoanBeans = new ArrayList<OneAndLoanBean>();
+				ProLoanBean my_proLoanBean2 = new ProLoanBean();
+					for(int i=0; i<my_valueArra1.length; i++){
+						 if(!"".equals(my_valueArra1[i])  && !"".equals(my_valueArra2[i])  ){
+							 
+							//校验 修改 一级/贷种 分类 是否存在
+							my_oneAndLoanBeans =  this.timeLimitManageService.queryProLoanTimeLimit(proLoanBean);
+							int a = 0;
+							for (OneAndLoanBean oneAndLoanBean : my_oneAndLoanBeans) {
+								if(oneAndLoanBean.getOneCategory_name().equals(my_valueArra1[i]) && oneAndLoanBean.getLoanCategory_name().equals(my_valueArra2[i]) ){
+									info += "修改：一级分类（"+my_valueArra1[i]+"），贷种分类（"+my_valueArra2[i]+"）已存在！\n";
+									flag1 = 1;
+									a=1;
+								}
+							}
+							
+							if(a != 1){
+								my_proLoanBean2.setDefinitionId(proLoanBean.getDefinitionId());
+								my_proLoanBean2.setC_id(proLoanBean.getC_id());
+								my_proLoanBean2.setInit_oneCategory_name(init_valueArra1[i] );
+								my_proLoanBean2.setInit_loanCategory_name(init_valueArra2[i] );
+								my_proLoanBean2.setOneCategory_name(my_valueArra1[i] );
+								my_proLoanBean2.setLoanCategory_name(my_valueArra2[i] );
+								my_proLoanBean2.setOp_empid(this.getCurrentOnlineUser().getEmpid());
+								my_proLoanBean2.setOp_orgcode(this.getCurrentOnlineUser().getOrgcode());
+								
+								this.timeLimitManageService.updateProLoanTimeLimit(my_proLoanBean2); //修改（B表） t_model_proLoanTimeLimit 流程贷种时限关表
+							}
+						 }
+					}
+					
+					//新增 一级 贷种分类 设置
+					List<OneAndLoanBean> oneAndLoanBeans = new ArrayList<OneAndLoanBean>();
+					ProLoanBean proLoanBean2 = new ProLoanBean();
+					 for(int i=0; i<valueArra1.length; i++){
+						 if(!"".equals(valueArra1[i])  && !"".equals(valueArra2[i])  ){
+							 int a = 0;
+							//校验 新增 一级/贷种 分类 是否存在
+							 oneAndLoanBeans =  this.timeLimitManageService.queryProLoanTimeLimit(proLoanBean);
+							for (OneAndLoanBean oneAndLoanBean : oneAndLoanBeans) {
+								if(oneAndLoanBean.getOneCategory_name().equals(valueArra1[i]) && oneAndLoanBean.getLoanCategory_name().equals(valueArra2[i]) ){
+									info += "新增：一级分类（"+valueArra1[i]+"），贷种分类（"+valueArra2[i]+"）已存在！\n";
+									flag2 = 1;
+									a=1;
+								}
+							}
+							
+							if(a != 1){
+								proLoanBean2.setDefinitionId(proLoanBean.getDefinitionId());
+								proLoanBean2.setC_id(proLoanBean.getC_id());
+								proLoanBean2.setOneCategory_name(valueArra1[i] );
+								proLoanBean2.setLoanCategory_name(valueArra2[i] );
+								proLoanBean2.setOp_empid(this.getCurrentOnlineUser().getEmpid());
+								proLoanBean2.setOp_orgcode(this.getCurrentOnlineUser().getOrgcode());
+								
+								this.timeLimitManageService.insertProLoanTimeLimit(proLoanBean2); //插入到（B表） t_model_proLoanTimeLimit 流程贷种时限关表
+							}
+						 }
+		    		 }
+					 
+					 if(flag1 == 0 && flag2 == 0){
+						 info ="success";
+					 }
+    			
     		}
     	} catch (Exception e) {
 			info="fails";	
 			log.error("[保存设备信息失败！]", e);
 			throw e;
 		}finally{	
+			Struts2Utils.renderText(info);
 		}
-		Struts2Utils.renderText(info);
-		//Struts2Utils.renderJsonp(callbackName, object, headers);
 	}
 	
 	public String queryNodeTimeLimitList(){
-		String definitionId = this.proLoanBean.getDefinitionId();
+		String definitionId = this.proTimeModelBean.getDefinitionId();
 		RepositoryService repositoryService = jbpmService
 				.getRepositoryService();
 		ProcessDefinitionImpl processDefinition = (ProcessDefinitionImpl) repositoryService
@@ -324,7 +457,7 @@ public class TimeLimitManageAction extends BaseAction {
 			if (type.equals("task")) {
 				NodeTimeLimitBean nodeTimeLimitBean = new NodeTimeLimitBean();
 				nodeTimeLimitBean.setTaskName(activityImpl.getName());
-				nodeTimeLimitBean.setC_id(proLoanBean.getC_id());
+				nodeTimeLimitBean.setC_id(proTimeModelBean.getC_id());
 				List<NodeTimeLimitBean> nodeTimeLimitBeans2 = this.timeLimitManageService.queryNodeTimeLimitList(nodeTimeLimitBean);
 				if(nodeTimeLimitBeans2.size() == 1){
 					NodeTimeLimitBean nodeTimeLimitBean2 = nodeTimeLimitBeans2.get(0);
@@ -336,7 +469,7 @@ public class TimeLimitManageAction extends BaseAction {
 			}
 		}
 		this.setNodeTimeLimitBeans(nodeTimeLimitBeans);
-		this.setProLoanBean(proLoanBean);
+		this.setProTimeModelBean(proTimeModelBean);
 		return "nodeTimeLimit_list";
 	}
 	
@@ -365,5 +498,28 @@ public class TimeLimitManageAction extends BaseAction {
 		}finally{	
 		}
 		Struts2Utils.renderText(info);
+	}
+	
+	/**
+	 * 通过definitionId和c_id查（B表）t_model_proLoanTimeLimit，得到c_id对应的一级和贷种分类名称
+	 * @throws Exception 
+	 */
+	public String queryProLoanTimeLimit(){
+    	oneAndLoanBeans =  this.timeLimitManageService.queryProLoanTimeLimit(proLoanBean);
+		this.setOneAndLoanBeans(oneAndLoanBeans)	;
+		return "oneAndLoanBeansList";
+	}
+	
+	public void deleteTimeLimitManage() throws Exception{
+		String info ="success";
+    	try {
+    		this.timeLimitManageService.deleteTimeLimitManage(proLoanBean);
+    	} catch (Exception e) {
+			info="fails";
+			log.error("[保存设备信息失败！]", e);
+			throw e;
+		}finally{	
+			Struts2Utils.renderText(info);
+		}
 	}
 }

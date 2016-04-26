@@ -2,8 +2,7 @@
 <!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
 <sqlMap namespace="TimeLimitManage_SqlMap" >
 
-    <resultMap id="oneAndLoanCategory_HashMapResult" class="java.util.HashMap" >
-    <!--HashMap方式返回全表-->
+   <resultMap id="oneAndLoanCategory_HashMapResult" class="com.gotop.jbpm.model.OneAndLoanBean" >
     <result column="D_ID" property="d_id" jdbcType="DECIMAL" />
     <result column="ONECATEGORY_ID" property="oneCategory_id" jdbcType="VARCHAR" />
      <result column="ONECATEGORY_NAME" property="oneCategory_name" jdbcType="VARCHAR" />
@@ -28,6 +27,13 @@
     <result column="OP_ORGCODE" property="op_orgcode" jdbcType="VARCHAR" />
     <result column="OP_TIME" property="op_time" jdbcType="VARCHAR" />
   </resultMap>
+  
+  <resultMap id="proTimeModel_HashMapResult" class="java.util.HashMap" >
+   <result column="C_ID" property="c_id" jdbcType="DECIMAL" />
+    <result column="TIME_MODELNAME" property="time_modelName" jdbcType="VARCHAR" />
+    <result column="DEFINITION_ID" property="definitionId" jdbcType="VARCHAR" />
+  </resultMap>
+  
 
   <select id="queryOneAndLoanList" resultMap="oneAndLoanCategory_HashMapResult" parameterClass="java.util.HashMap" >
   select * from t_model_oneAndLoanCategory
@@ -81,12 +87,12 @@
   </select>
   
   <!-- 插入 流程时限模版表 t_model_proTimeLimitModel -->
-  <insert id="insertProTimeLimitModel"  parameterClass="com.gotop.jbpm.model.ProLoanBean"   >
+  <insert id="insertProTimeLimitModel"  parameterClass="com.gotop.jbpm.model.ProTimeModelBean"   >
        <selectKey resultClass="long" keyProperty="c_id"  >
 		SELECT t_model_proTimeLimitModel_seq.NEXTVAL AS VALUE FROM DUAL
 		</selectKey>
-    insert into t_model_proTimeLimitModel(C_ID, MODELNAME)
-    values (#c_id:DECIMAL:-9999#,  to_char(sysdate,'yyyyMMdd hh24:mi:ss') )
+    insert into t_model_proTimeLimitModel(C_ID, TIME_MODELNAME, DEFINITION_ID)
+    values (#c_id:DECIMAL:-9999#,  trim(#time_modelName:VARCHAR#), #definitionId:VARCHAR#)
   </insert>
   
   <!-- 插入 流程贷种时限关系表 t_model_proLoanTimeLimit -->
@@ -126,4 +132,48 @@
 	OP_TIME = sysdate
 	where  E_ID = #e_id:DECIMAL:-9999#
   </update>
+  
+  <select id="querySelectModel" resultMap="proTimeModel_HashMapResult" parameterClass="java.util.HashMap" >
+ select t1.*  from t_model_proTimeLimitModel t1
+ where t1.definition_id = '$definitionId$'
+  </select>
+  
+  <select id="checkTimeModelName" resultMap="proTimeModel_HashMapResult" parameterClass="java.util.HashMap" >
+ select t1.*  from t_model_proTimeLimitModel t1
+ where t1.definition_id = '$definitionId$'
+ and t1.time_modelName = trim('$time_modelName$')
+  </select>
+  
+   <select id="queryProLoanTimeLimit" resultMap="oneAndLoanCategory_HashMapResult" parameterClass="java.util.HashMap" >
+  select t1.*
+  from t_model_oneAndLoanCategory t1
+ where t1.d_id in (select t2.d_id
+                    from t_model_proLoanTimeLimit t2
+                   where t2.definition_id = '$definitionId$'
+                     and t2.c_id = '$c_id$')
+  </select>
+  <!--修改 节点模式工时维护表-->
+  <update id="updateProLoanTimeLimit" parameterClass="com.gotop.jbpm.model.ProLoanBean" >
+    update t_model_proLoanTimeLimit 
+	set D_ID=  ( select D_ID from t_model_oneAndLoanCategory
+ where oneCategory_name = '$oneCategory_name$'
+ and loanCategory_name = '$loanCategory_name$'  ),
+	OP_EMPID= #op_empid:DECIMAL:-9999#,
+	OP_ORGCODE =  #op_orgcode:VARCHAR#,
+	OP_TIME = sysdate
+	where  DEFINITION_ID = #definitionId:VARCHAR#
+	and C_ID = #c_id:DECIMAL:-9999#
+	and D_ID =  ( select D_ID from t_model_oneAndLoanCategory
+ where oneCategory_name = '$init_oneCategory_name$'
+ and loanCategory_name = '$init_loanCategory_name$'  )
+  </update>
+  
+  <delete id="deleteTimeLimitManage" parameterClass="com.gotop.jbpm.model.ProLoanBean" >
+    delete from t_model_proLoanTimeLimit t
+    where t.DEFINITION_ID = #definitionId:VARCHAR# 
+    and t.C_ID = #c_id:DECIMAL#
+    and t.D_ID = ( select D_ID from t_model_oneAndLoanCategory
+ where oneCategory_name = '$init_oneCategory_name$'
+ and loanCategory_name = '$init_loanCategory_name$'  )
+  </delete>
 </sqlMap>

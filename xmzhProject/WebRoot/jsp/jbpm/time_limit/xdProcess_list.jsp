@@ -132,11 +132,12 @@
 	  		}else{
 	  			var row=gop.getSelectRow();
 		  		var definitionId=row.getParam("definitionId");
-		  		alert(definitionId);
+		  		//alert(definitionId);
 		  		var processName=row.getParam("processName");
-	  			var strUrl = "/jbpm/timeLimitManageAction_toTimeLimitManage.action?proLoanBean.processName="+processName+"&proLoanBean.definitionId="+definitionId;
-	  			showModalCenter(encodeURI(strUrl), null, '', 900, 400, '时限管理配置');  
-		  		//parent.window.frames["mainFrame"].location.href = encodeURI(strUrl);	//新弹出一个IE窗口
+
+		  		var strUrl = "/jbpm/timeLimitManageAction_querySelectModel.action?proLoanBean.processName="+processName+"&proLoanBean.definitionId="+definitionId;
+	  			showModalCenter(encodeURI(strUrl), null, '', 600, 400, '选择模版');  
+	  				
 		  	}
 		 }
 

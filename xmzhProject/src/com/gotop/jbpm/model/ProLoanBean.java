@@ -16,6 +16,10 @@ public class ProLoanBean implements Serializable {
 	
 	private String loanCategory_name;  //贷种分类 名称
 	
+private String init_oneCategory_name;  //一级分类 名称
+	
+	private String init_loanCategory_name;  //贷种分类 名称
+	
 	private Long op_empid; //操作员工id
 	
 	private String op_orgcode; //操作员工机构
@@ -84,6 +88,22 @@ public class ProLoanBean implements Serializable {
 
 	public void setC_id(Long c_id) {
 		this.c_id = c_id;
+	}
+
+	public String getInit_oneCategory_name() {
+		return init_oneCategory_name;
+	}
+
+	public void setInit_oneCategory_name(String init_oneCategory_name) {
+		this.init_oneCategory_name = init_oneCategory_name;
+	}
+
+	public String getInit_loanCategory_name() {
+		return init_loanCategory_name;
+	}
+
+	public void setInit_loanCategory_name(String init_loanCategory_name) {
+		this.init_loanCategory_name = init_loanCategory_name;
 	}
 	
 	
