@@ -6,7 +6,7 @@
 		<result column="PROCESSMODELID" property="processModelOneID" jdbcType="DECIMAL" />
     	<result column="FLOW_ID" property="flow_Id" jdbcType="VARCHAR" />
     	<result column="END_" property="endDate" jdbcType="TIMESTAMP" />
-    	
+    	<result column="ORGNAMEONE" property="orgNameOne" jdbcType="VARCHAR" />
     	<result column="CUST_NAME" property="cust_Name" jdbcType="VARCHAR" />
     	<result column="APPLY_BAL" property="apply_bal" jdbcType="VARCHAR" />
 		<result column="COORGANIZATION" property="coOrganization" jdbcType="VARCHAR" />
@@ -22,10 +22,12 @@
     t.APPLY_BAL, 
     t.COORGANIZATION,  
     t.CUST_NAME, 
-    j.END_  
+    j.END_  ,
+    O.ORGNAME AS ORGNAMEONE 
     from T_GENERALPROCESS_MODELONE  t,     
-    JBPM4_HIST_ACTINST  j   
-    where  t.FLOW_ID=j.EXECUTION_  and j.ACTIVITY_NAME_='放款操作' 
+    JBPM4_HIST_ACTINST  j ,
+    OM_ORGANIZATION O   
+    where  t.FLOW_ID=j.EXECUTION_  and  T.ORGCODEONE=O.ORGCODE  and j.ACTIVITY_NAME_='放款操作' 
    
     <isNotNull  prepend="and" property="appTimeStrat">
     	<![CDATA[j.END_>to_date('$appTimeStrat$','yyyy-mm-dd hh24:mi:ss')]]>

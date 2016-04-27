@@ -27,7 +27,11 @@ public class ReportCooperateInstitution implements Serializable{
 	 * 开始时间
 	 * */
 	private String appTimeStrat;
-	
+	/**
+	 * 受理支行一	名称
+	 */
+	@GeneralprocessField(name="受理支行（一级选项）",type="text")
+	private String orgNameOne;
 	
 	 /**
      * 放款日期
@@ -115,6 +119,14 @@ public class ReportCooperateInstitution implements Serializable{
 
 	public void setAppTimeStrat(String appTimeStrat) {
 		this.appTimeStrat = appTimeStrat;
+	}
+
+	public String getOrgNameOne() {
+		return orgNameOne;
+	}
+
+	public void setOrgNameOne(String orgNameOne) {
+		this.orgNameOne = orgNameOne;
 	}
 	
 }
