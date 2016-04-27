@@ -22,7 +22,7 @@
      /jsp/jbpm/jbpm_task_list.jsp
       </result>
       
-       <result name="process_task_name_config">
+      <result name="process_task_name_config">
      /jsp/jbpm/process_task_name_config.jsp
       </result>
      

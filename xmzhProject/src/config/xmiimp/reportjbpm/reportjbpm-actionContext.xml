@@ -24,4 +24,9 @@
     <property name="rateofreturnReportService" ref="rateofreturnReportService" />
   </bean>
   
+
+  <bean name="reportCooperateInstitutionAction" id="reportCooperateInstitutionAction" class="com.gotop.reportjbpm.action.ReportCooperateInstitutionAction" singleton="false">
+  	<property name="reportCooperateInstitutionService" ref="reportCooperateInstitutionService"></property>
+  </bean>
+
 </beans>

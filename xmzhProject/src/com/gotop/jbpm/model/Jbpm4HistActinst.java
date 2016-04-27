@@ -10,7 +10,7 @@ public class Jbpm4HistActinst implements Serializable {
      * @abatorgenerated
      */
     private BigDecimal dbid;
-
+    
     /**
      * null .
      * @abatorgenerated
@@ -289,5 +289,7 @@ public class Jbpm4HistActinst implements Serializable {
      */
     public void setHtask(BigDecimal htask) {
         this.htask = htask;
+        
+        
     }
 }

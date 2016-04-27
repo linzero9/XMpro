@@ -34,6 +34,7 @@
 
       
     </action>
+
     
     
         <action name="rateofreturnReportAction_*" class="rateofreturnReportAction" method="{1}" >
@@ -54,5 +55,15 @@
       </result>
     </action>
     
+
+    <action name="reportCooperateInstitutionAction_*" class="reportCooperateInstitutionAction" method="{1}" >
+      <result name="ReportCooperateInstitution" >
+        /jsp/ReportStatistics/Report_CooperateInstitution.jsp
+      </result>
+      <result name="ReportCooperateInstitutionForExcl" >
+        /jsp/ReportStatistics/Report_CooperateInstitution_excl.jsp
+      </result>
+    </action>
+
   </package>
 </struts>

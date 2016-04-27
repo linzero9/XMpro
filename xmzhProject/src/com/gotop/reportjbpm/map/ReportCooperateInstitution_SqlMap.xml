@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="ReportCooperateInstitution_SqlMap">
+	<resultMap class="com.gotop.reportjbpm.model.ReportCooperateInstitution" id="reportCooperateInstitution">
+		<result column="numbers" property="number" jdbcType="DECIMAL" />
+		<result column="PROCESSMODELID" property="processModelOneID" jdbcType="DECIMAL" />
+    	<result column="FLOW_ID" property="flow_Id" jdbcType="VARCHAR" />
+    	<result column="END_" property="endDate" jdbcType="TIMESTAMP" />
+    	
+    	<result column="CUST_NAME" property="cust_Name" jdbcType="VARCHAR" />
+    	<result column="APPLY_BAL" property="apply_bal" jdbcType="VARCHAR" />
+		<result column="COORGANIZATION" property="coOrganization" jdbcType="VARCHAR" />
+		
+    
+	</resultMap>
+	<!-- 查询 -->
+	<select id="queryReportCooperateInstitution" resultMap="reportCooperateInstitution"  parameterClass="java.util.HashMap">
+    <!--通过Bean方式的动态条件，查询分页数据-->
+    select  row_number() over (order by j.DBID_ desc ) as numbers,  
+    t.PROCESSMODELID,
+    t.FLOW_ID,  
+    t.APPLY_BAL, 
+    t.COORGANIZATION,  
+    t.CUST_NAME, 
+    j.END_  
+    from T_GENERALPROCESS_MODELONE  t,     
+    JBPM4_HIST_ACTINST  j   
+    where  t.FLOW_ID=j.EXECUTION_  and j.ACTIVITY_NAME_='放款操作' 
+   
+    <isNotNull  prepend="and" property="appTimeStrat">
+    	<![CDATA[j.END_>to_date('$appTimeStrat$','yyyy-mm-dd hh24:mi:ss')]]>
+    </isNotNull>
+    <isNotNull prepend="and" property="appTimeEnd">
+   <![CDATA[j.END_<to_date('$appTimeEnd$','yyyy-mm-dd hh24:mi:ss')+1]]>
+    </isNotNull>
+	</select>
+	
+</sqlMap>

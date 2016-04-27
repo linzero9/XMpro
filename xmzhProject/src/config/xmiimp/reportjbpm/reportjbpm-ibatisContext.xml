@@ -18,4 +18,7 @@
        <bean id="rateofreturnReportDao" class="com.gotop.reportjbpm.dao.impl.RateofreturnReportDao" >
     <property name="sqlMapClient" ref="sqlMapClient" />
   </bean>
+  <bean id="reportCooperateInstitutionDao" class="com.gotop.reportjbpm.dao.impl.ReportCooperateInstitutionDao" >
+    <property name="sqlMapClient" ref="sqlMapClient" />
+  </bean>
 </beans>

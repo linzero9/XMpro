@@ -6,7 +6,11 @@
 
  	<sqlMap resource="com/gotop/reportjbpm/map/T_REPORTREFUSALRATE_SqlMap.xml" />
 
+
  	<sqlMap resource="com/gotop/reportjbpm/map/T_ERRORSTATISTIC_SqlMap.xml" />
  	
  	<sqlMap resource="com/gotop/reportjbpm/map/T_RateofreturnReport_SqlMap.xml" />
+
+ 	<sqlMap resource="com/gotop/reportjbpm/map/ReportCooperateInstitution_SqlMap.xml" />
+
 </sqlMapConfig>

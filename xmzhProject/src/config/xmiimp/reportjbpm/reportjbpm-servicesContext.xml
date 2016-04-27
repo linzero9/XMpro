@@ -14,8 +14,13 @@
      <bean id="reportRefusalRateService" class="com.gotop.reportjbpm.service.impl.ReportRefusalRateService" >
     <property name="reportRefusalrateDao" ref="reportRefusalrateDao" />
   </bean>
+
   
     <bean id="rateofreturnReportService" class="com.gotop.reportjbpm.service.impl.RateofreturnReportService" >
     <property name="rateofreturnReportDao" ref="rateofreturnReportDao" />
+	</bean>
+  <bean id="reportCooperateInstitutionService" class="com.gotop.reportjbpm.service.impl.ReportCooperateInstitutionService" >
+    <property name="reportCooperateInstitutionDao" ref="reportCooperateInstitutionDao" />
+
   </bean>
 </beans>
