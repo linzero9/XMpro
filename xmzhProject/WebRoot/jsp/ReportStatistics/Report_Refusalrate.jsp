@@ -11,6 +11,8 @@
 	</head>
 	<body topmargin="0" leftmargin="0">
 	<h:form name="appQuery"	action="/reportRefusalrateAction_queryReportRefusalRate.action" method="post">
+	<h:hidden property="nameString" id="nameString" />
+	<h:hidden property="isExport" id="isExport"/>
 		<w:panel id="panel1" title="查询条件">
 			<table align="center" border="0" width="100%" class="form_table">
 				
@@ -29,14 +31,14 @@
 					<td class="form_label" align="right" >一级分类：</td>
 					<td >
 			     		<h:hidden id="oneCategoryId" property="reportRefusalrate.oneCategoryId" />  
-						<h:text id="oneCategory" property="reportRefusalrate.oneCategory" readonly="true"/>
+						<h:text id="oneCategoryTxt" property="reportRefusalrate.oneCategoryTxt" readonly="true"/>
 						<a href="#" onclick="showoneCategory();">选择</a>
 					</td>
 					
 					<td class="form_label" align="right" >贷种分类：</td>
 					<td >
 						<h:hidden id="loanCategoryId" property="reportRefusalrate.loanCategoryId" />
-						<h:text id="loanCategory" property="reportRefusalrate.loanCategoryTxt" readonly="true"/>
+						<h:text id="loanCategoryTxt" property="reportRefusalrate.loanCategoryTxt" readonly="true"/>
 						<a href="#" onclick="showloanCategory();">选择</a>
 					</td>
 				</tr>
@@ -48,7 +50,7 @@
 					        <input type="hidden" name="page.isCount" value="true">
 							<input id="querys" type="submit" value="查 询" class="button" onclick="search();">
 							<input type="button" value="清 空" class="button" onclick="clears();">
-                                                        <input id="downexl" type="submit" class="button" value="导出列表" onclick="downExl();"></td>
+                            <input id="downexl" type="button" class="button" value="导出列表" onclick="downExl();"></td>
 					</tr>			
 			</table>
 		</w:panel>
@@ -59,7 +61,12 @@
 				<h:form name="page_form"
 					action="/ReportStatistics/reportRefusalrateAction_queryReportRefusalRate.action" method="post">
 			 <h:hiddendata property="reportRefusalrate"/>  
-
+			 <h:hiddendata property="reportRefusalrate.stratdate" />
+				<h:hiddendata property="reportRefusalrate.enddate" />
+                <h:hiddendata property="reportRefusalrate.oneCategoryId" />
+				<h:hiddendata property="reportRefusalrate.oneCategoryTxt" />
+				<h:hiddendata property="reportRefusalrate.loanCategoryId" />
+				<h:hiddendata property="reportRefusalrate.loanCategoryTxt" />
             <h:hidden property="page.begin"/>
 		    <h:hidden property="page.length"/>
 		    <h:hidden property="page.count"/>
@@ -110,7 +117,7 @@
 									<b:write iterateId="id1"    property="loanCategory" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="orgname'"/>
+									<b:write iterateId="id1" property="orgname"/>
 								</td>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1" property="orgnametwo" />
@@ -174,11 +181,13 @@
 
 		//清空
 		function clears(){
-			$id("stratdate").value="";
-			$id("enddate").value="";
-			$id("oneCategory").value="";
+			$("#stratdate_input").val("");
+			$("#stratdate_hidden").val("");
+			$("#enddate_input").val("");
+			$("#enddate_hidden").val("");
+			$id("oneCategoryTxt").value="";
 			$id("oneCategoryId").value="";
-			$id("loanCategory").value="";
+			$id("loanCategoryTxt").value="";
 			$id("loanCategoryId").value="";
 		}
                 function search(){
@@ -187,21 +196,24 @@
                
 		//导出excel 	
              function downExl(){
+             
+             //alert('ssssss');
     				//报单开始日期
-    				var reporttimeStrat = $id("stratdate").value;
+    				var stratdate = $id("stratdate").value;
     				//报单结束日期
-    				var reporttimeEnd = $id("enddate").value;
+    				var enddate = $id("enddate").value;
     				//一级分类
-    				var oneCategory = $id("oneCategory").value;
+    				var oneCategoryTxt = $id("oneCategoryTxt").value;
     				//贷种分类
-    				var loanCategory = $id("loanCategory").value;
+    				var loanCategoryTxt = $id("loanCategoryTxt").value;
     				
     				
-    				var strUrl = "/reportjbpm/reportRefusalrateAction_queryReportRefusalrateForExcel.action?"
+    				var strUrl = "/reportjbpm/reportRefusalrateAction_queryReportRefusalrateExcel.action?"
     				+"&reportRefusalrate.stratdate="+stratdate
     				+"&reportRefusalrate.enddate="+enddate
-    				+"&reportRefusalrate.oneCategory="+oneCategory
-    				+"&reportRefusalrate.loanCategory="+loanCategory
+    				+"&reportRefusalrate.oneCategoryTxt="+oneCategoryTxt
+    				+"&reportRefusalrate.loanCategoryTxt="+loanCategoryTxt
+    				//alert(strUrl);
     				window.location.href=strUrl;
     			}
 		
@@ -266,7 +278,7 @@
 			var array;
 			array = args.split(":");
 			 document.getElementById("oneCategoryId").value = array[0];
-			 document.getElementById("oneCategory").value = array[1];
+			 document.getElementById("oneCategoryTxt").value = array[1];
 			}
 		}	
 
@@ -280,7 +292,7 @@
 			var array;
 			array = args.split(":");
 			 document.getElementById("loanCategoryId").value = array[0];
-			 document.getElementById("loanCategory").value = array[1];
+			 document.getElementById("loanCategoryTxt").value = array[1];
 			}
 		}
 		</script>

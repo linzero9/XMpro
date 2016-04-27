@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 
 
 import com.gotop.reportjbpm.dao.TReportRefusalrateDao;
+import com.gotop.reportjbpm.model.ErrorStatistic;
 import com.gotop.reportjbpm.model.ReportRefusalrate;
 import com.gotop.reportjbpm.service.TReportRefusalrateService;
 import com.gotop.util.string.Obj2StrUtils;
@@ -37,14 +38,14 @@ public class ReportRefusalRateService implements TReportRefusalrateService{
 		Map<String, Object> map = new HashMap<String, Object>();
 		if (reportRefusalrate != null) {
 			if (reportRefusalrate.getStratdate() !=null&&!"".equals(reportRefusalrate.getStratdate())) {
-				map.put("reporttimeStrat", reportRefusalrate.getStratdate());
+				map.put("stratdate", reportRefusalrate.getStratdate());
 			}
 			if (reportRefusalrate.getEnddate() != null&&!"".equals(reportRefusalrate.getEnddate())) {
-				map.put("reporttimeEnd", reportRefusalrate.getEnddate());
+				map.put("enddate", reportRefusalrate.getEnddate());
 			}
 		
-			if(reportRefusalrate.getOneCategory()!=null && !"".equals(reportRefusalrate.getOneCategory())){
-				String[] oneCategorys=reportRefusalrate.getOneCategory().split(", ");
+			if(reportRefusalrate.getOneCategoryTxt()!=null && !"".equals(reportRefusalrate.getOneCategoryTxt())){
+				String[] oneCategorys=reportRefusalrate.getOneCategoryTxt().split(", ");
 				String oneCategory="";
 				try {
 					oneCategory = Obj2StrUtils.join(oneCategorys, String.class, ",");
@@ -70,21 +71,23 @@ public class ReportRefusalRateService implements TReportRefusalrateService{
 		
 		return reportRefusalrateDao.selectReportRefusalRate(map,page);
 	}
-	
+	/**
+	 * 导出拒贷信息列表
+	 */
 	@Override
-	public List<ReportRefusalrate> queryReportRefusalrateExcel(ReportRefusalrate reportRefusalrate, Page page) {
+	public List<ReportRefusalrate> queryReportRefusalrateExcel(ReportRefusalrate reportRefusalrate) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		if (reportRefusalrate != null) {
 			if (reportRefusalrate.getStratdate() !=null&&!"".equals(reportRefusalrate.getStratdate())) {
-				map.put("reporttimeStrat", reportRefusalrate.getStratdate());
+				map.put("stratdate", reportRefusalrate.getStratdate());
 			}
 			if (reportRefusalrate.getEnddate() != null&&!"".equals(reportRefusalrate.getEnddate())) {
-				map.put("reporttimeEnd", reportRefusalrate.getEnddate());
+				map.put("enddate", reportRefusalrate.getEnddate());
 			}
 		
-			if(reportRefusalrate.getOneCategory()!=null && !"".equals(reportRefusalrate.getOneCategory())){
-				String[] oneCategorys=reportRefusalrate.getOneCategory().split(", ");
+			if(reportRefusalrate.getOneCategoryTxt()!=null && !"".equals(reportRefusalrate.getOneCategoryTxt())){
+				String[] oneCategorys=reportRefusalrate.getOneCategoryTxt().split(", ");
 				String oneCategory="";
 				try {
 					oneCategory = Obj2StrUtils.join(oneCategorys, String.class, ",");
@@ -95,7 +98,7 @@ public class ReportRefusalRateService implements TReportRefusalrateService{
 				map.put("oneCategory",oneCategory);
 			}
 			if(reportRefusalrate.getLoanCategory()!=null && !"".equals(reportRefusalrate.getLoanCategory())){
-				String[] loanCategorys=reportRefusalrate.getLoanCategory().split(", ");
+				String[] loanCategorys=reportRefusalrate.getLoanCategoryTxt().split(", ");
 				String loanCategory="";
 				try {
 					loanCategory = Obj2StrUtils.join(loanCategorys, String.class, ",");
@@ -108,28 +111,13 @@ public class ReportRefusalRateService implements TReportRefusalrateService{
 			
 		}
 		
-		return reportRefusalrateDao.selectReportRefusalRate(map,page);
-	}
+		return reportRefusalrateDao.queryReportRefusalrateForExcel(map);
+			
+
+	
+	}	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	@Override
-	public List<ReportRefusalrate> queryOneCategoryList() {
-		List<ReportRefusalrate> errorStatistics=reportRefusalrateDao.queryOneCategoryList();
-		return errorStatistics;
-	}
-	@Override
-	public List<ReportRefusalrate> queryLoanCategoryList() {
-		List<ReportRefusalrate> errorStatistics=reportRefusalrateDao.queryLoanCategoryList();
-		return errorStatistics;
-	}
 }
+
+	

@@ -11,7 +11,6 @@ public class ReportRefusalrate implements Serializable{
 	private String  oneCategoryTxt;
 	private String loanCategory;
 	private String   loanCategoryTxt;
-	
 	private String orgname;
 	private String orgnametwo;
 	private String EA_number;
@@ -87,10 +86,6 @@ public class ReportRefusalrate implements Serializable{
 	public void setEnddate(String enddate) {
 		this.enddate = enddate;
 	}
-	
-	
-	
-	
 	
 	
 	

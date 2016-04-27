@@ -15,26 +15,7 @@
 			<table align="center" border="0" width="100%" class="form_table">
 				
 				<tr>
-                                         
-                                  
-					<td class="form_label" align="right">报表：</td>
-					
-			  
-                                     <td align="left"  >
-                            
-                                     <select   name="ym" size="1" id="ym" style="width:120px;" onchange="window.location.href=this.options[selectedIndex].value">  
-                           <option>请选择</option>  
-                           <option   value="http://localhost:8088/jsp/ReportStatistics/Report_ErrorCondition.jsp" target="_blank">差错情况统计表</option>    
-                           <option   value="http://localhost:8088/jsp/ReportStatistics/Report_DealApproval.jsp"   target="_self">受理审批台账</option>  
-                           <option   value="http://localhost:8088/jsp/ReportStatistics/Report_Jobworkload.jsp"   target="_self">岗位工作量统计表</option>  
-                           <option   value="http://localhost:8088/jsp/ReportStatistics/Report_Rateofreturn.jsp"   target="_self">退单率统计表</option> 
-                           <option   value="http://localhost:8088/jsp/ReportStatistics/Report_Refusalrate.jsp"   target="_self">拒贷率统计表</option> 
-                           <option   value="http://localhost:8088/jsp/ReportStatistics/Report_CooperateInstitution.jsp"   target="_self">合作机构业务发展台账</option> 
-                           <option   value="http://localhost:8088/jsp/ReportStatistics/Report_OverrunCondition.jsp"   target="_self">超限情况统计表</option> 
-                           </select> 
-                           </td>
-					
-					
+         	
 					
 				</tr>
 				<tr class="form_bottom">
@@ -95,30 +76,31 @@
 							</th>
 						</tr>
 						<w:radioGroup id="group1">
-                           <l:iterate property="xdProcessTaskAssignees" id="id1">
+                           <l:iterate property="list" id="id1">
 							<tr class="<l:output evenOutput='EOS_table_row' oddOutput='EOS_table_row_o'  />">
 								<td align="center" nowrap="nowrap">
 									<w:rowRadio>
 										<h:param name='executionId' iterateId='id1' property='executionId' />
-										<h:param name='processName' iterateId='id1' property='processName' />
+										<h:param name='Time' iterateId='id1' property='Time' />
+										<h:param name='overlimitlink' iterateId='id1' property='overlimitlink' />
 										<h:param name='custName' iterateId='id1' property='custName' />
-										<h:param name='apply_bal' iterateId='id1' property='apply_bal' />
-										<h:param name='oneCategory' iterateId='id1' property='oneCategory' />
 										<h:param name='loanCategory' iterateId='id1' property='loanCategory' />
 										<h:param name='coorganization' iterateId='id1' property='coorganization' />
+										<h:param name='olp' iterateId='id1' property='olp' />
+										<h:param name='old' iterateId='id1' property='old' />
+										<h:param name='remark' iterateId='id1' property='remark' />
+										
+										
 									</w:rowRadio>
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1"    property="processName" />
+									<b:write iterateId="id1"    property="op_Time" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="custName" />
+									<b:write iterateId="id1"    property="taskName" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="apply_bal" />
-								</td>
-								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="oneCategory" />
+									<b:write iterateId="id1" property="cust_Name" />
 								</td>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1" property="loanCategory" />
@@ -126,12 +108,21 @@
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1" property="coorganization" />
 								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="DYWX_NAME" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="workTime" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="CONTENT" />
+								</td>
 							</tr>
 						</l:iterate>
 						</w:radioGroup>
 							<tr>
               <td colspan="23" class="command_sort_area">
-              	<div class="h3"> 
+              	<!--  <div class="h3"> 
               	<l:greaterThan property="page.count" targetValue="0" compareType="number" >
 								&nbsp; &nbsp;
 									<input type="button" class="button" value="修改超限情况信息" onclick="upt_loan_info();"/>
@@ -141,7 +132,7 @@
 								&nbsp; &nbsp;
 							<input type="button" class="button" value="查看修改明细" onclick="queryLoanUptWater();"/>
 								</l:greaterThan>
-								</div>
+								</div>-->
 							
                 <div class="h4">
 	                <l:equal property="page.isCount" targetValue="true" >
@@ -189,7 +180,7 @@
 			$("#isExport").val("1");
 		}
 		
-		function upt_loan_info(){
+		/*function upt_loan_info(){
 			var gop = $id("group1");
 	  		var len = gop.getSelectLength();
 	  		if(len == 0){
@@ -217,16 +208,16 @@
 				  /* 	var url="/jbpm/xdProcessAction_toAddOneCategory.action?xdCdtypeBean.processName="+encodeURI(processName);
 		  		parent.window.frames["mainFrame"].location.href = encodeURI(strUrl); 
 		  		
-		  		showModalCenter(encodeURI(strUrl), null, callBack, clientX*0.9, clientY*0.9, ''修改超限情况信息');*/	
+		  		showModalCenter(encodeURI(strUrl), null, callBack, clientX*0.9, clientY*0.9, ''修改超限情况信息');
 			}
-		}
+		}*/	
 		function callBack(){
 			var frm = $name("page_form");
             frm.submit();
 			//  location.reload(); //就算页面直接关闭，也会重新加载页面
 			}
 
-	  	function queryLoanUptWater(){
+	  /*	function queryLoanUptWater(){
 	  		var gop = $id("group1");
 	  		var len = gop.getSelectLength();
 	  		if(len == 0){
@@ -266,7 +257,7 @@
 			 document.getElementById("loanCategoryId").value = array[0];
 			 document.getElementById("loanCategory").value = array[1];
 			}
-		}
+		}*/	
 		</script>
 		
 	</body>

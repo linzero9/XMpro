@@ -62,8 +62,7 @@ public class ErrorStatisticService implements IErrorStatisticService {
 		return errorStatistics;
 	}
 	@Override
-	public List<ErrorStatistic> queryErrorStatisticExcel(
-			ErrorStatistic errorStatistic) {
+	public List<ErrorStatistic> queryErrorStatisticExcel(ErrorStatistic errorStatistic) {
 		
 		Map<String, Object>map = new HashMap<String, Object>();
 		 StringBuffer stringBuffer = new StringBuffer();
