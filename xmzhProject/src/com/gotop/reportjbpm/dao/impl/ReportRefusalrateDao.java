@@ -27,23 +27,10 @@ public class ReportRefusalrateDao extends SqlMapClientDao implements TReportRefu
 		return queryForList("T_REPORTREFUSALRATE_SqlMap.queryReportRefusalRate", map, page);
 	}
 	@Override
-	public List<ReportRefusalrate> queryReportRefusalrateForExcel(
-			Map<String, Object> map) {
-		return queryForList("T_ERRORSTATISTIC_SqlMap.queryReportRefusalrate",map);
+	public List<ReportRefusalrate> queryReportRefusalrateForExcel(Map<String, Object> map) {
+		return queryForList("T_REPORTREFUSALRATE_SqlMap.queryReportRefusalRate",map);
 	}
 	
 	
 	
-	
-	
-	
-	@Override
-	public List<ReportRefusalrate> queryOneCategoryList() {
-		return queryForList("T_REPORTREFUSALRATE_SqlMap.queryOneCategoryList", new HashMap());
-	}
-	@Override
-	public List<ReportRefusalrate> queryLoanCategoryList() {
-		return queryForList("T_REPORTREFUSALRATE_SqlMap.queryOneCategoryList", new HashMap());
-	}
-
 }

@@ -28,7 +28,7 @@
       <result name="queryReportRefusalRate" >
         /jsp/ReportStatistics/Report_Refusalrate.jsp
       </result>
-     <result name="queryReportRefusalrateForExcel" >
+     <result name="queryReportRefusalrateExcel" >
         /jsp/ReportStatistics/Report_Refusalrate_excel.jsp
       </result>
 
