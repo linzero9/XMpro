@@ -236,7 +236,7 @@
 			
 			var endTime = $id("appTimeEnd").value;
 	
-			url = url + "ooperateInstitutionDto.appTimeStrat="
+			url = url + "cooperateInstitutionDto.appTimeStrat="
 					+ startTime + "&cooperateInstitutionDto.appTimeEnd="
 					+ endTime;
 			window.location.href = url;

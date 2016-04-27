@@ -93,8 +93,9 @@ public class ReportCooperateInstitutionAction extends BaseAction{
 	
 	public String queryReportCooperateInstitutionForExcl()
 	{
-	
+		
 		cooperateInstitutionDtos=reportCooperateInstitutionService.selectReportCooperateInstitutionForExcl(cooperateInstitutionDto);
+	
 		return "ReportCooperateInstitutionForExcl";
 	}
 }
