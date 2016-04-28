@@ -62,7 +62,13 @@ function clears(){
 
 	
 	alert( $("#startDate_input").val() );
-	$("#startTime1_container").clear();
+
+	   var  h=	$("#INPUT_HOURstartTime1").val("");
+	   var  m=	$("#INPUT_MINUTEstartTime1").val("");
+       var  s=	$("#INPUT_SECONDstartTime1").val("");
+
+      
+
 	//$name("time.startTime1").clear();
 	//$("#startTime1_hidden").clear();
 	//$id("startTime1_hidden").clear();
