@@ -103,14 +103,28 @@ function clears(){
 			alert("请为下午设置 结束时间！");
 			return;
 		}
-		/* var a = $name("time.startTime3").value;
-		if($name("time.startTime3").value == "null"){
-			$name("time.startTime3").value == "";
+
+		if($name("time.endDate").value <= $name("time.startDate").value){
+			alert("工作日有效期 结束日期必须大于始日期！");
+			return;
+			}
+		if($name("time.endTime1").value <= $name("time.startTime1").value){
+			alert("上午 结束时间必须大于开始时间！");
+			return;
+			}
+		if($name("time.endTime2").value <= $name("time.startTime2").value){
+			alert("下午 结束时间必须大于开始时间！");
+			return;
+			}
+		
+		if($name("time.startTime3").value != "null" && $name("time.endTime3").value != "null"){
+
+			if($name("time.endTime3").value <= $name("time.startTime3").value){
+				alert("晚上 结束时间必须大于开始时间！");
+				return;
+				}
 		}
-		if($name("time.endTime3").value == "null"){
-			$name("time.endTime3").value == "";
-		}
-		var b = $name("time.startTime3").value; */
+		
 		ajaxsubmitO();
 	}
 
