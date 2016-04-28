@@ -1,5 +1,6 @@
 package com.gotop.jbpm.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.gotop.jbpm.dao.ITimeLimitManageDAO;
@@ -7,6 +8,7 @@ import com.gotop.jbpm.model.NodeTimeLimitBean;
 import com.gotop.jbpm.model.OneAndLoanBean;
 import com.gotop.jbpm.model.ProLoanBean;
 import com.gotop.jbpm.model.ProTimeModelBean;
+import com.gotop.jbpm.model.WorkTimeMaintainBean;
 import com.primeton.utils.Page;
 
 public interface ITimeLimitManageService {
@@ -48,4 +50,8 @@ public interface ITimeLimitManageService {
 	void updateProLoanTimeLimit(ProLoanBean my_proLoanBean2);
 
 	void deleteTimeLimitManage(ProLoanBean proLoanBean);
+
+	void saveWorkTimeIntoTimeMain(WorkTimeMaintainBean workTimeMaintainBean);
+
+	void saveWorkTimeIntoTimeSide(WorkTimeMaintainBean workTimeMaintainBean);
 }

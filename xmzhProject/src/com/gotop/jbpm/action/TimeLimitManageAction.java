@@ -1,6 +1,7 @@
 package com.gotop.jbpm.action;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.jbpm.api.RepositoryService;
@@ -8,11 +9,11 @@ import org.jbpm.pvm.internal.model.ActivityImpl;
 import org.jbpm.pvm.internal.model.ProcessDefinitionImpl;
 
 import com.gotop.crm.util.BaseAction;
-import com.gotop.jbpm.dto.TaskAssgineeDto;
 import com.gotop.jbpm.model.NodeTimeLimitBean;
 import com.gotop.jbpm.model.OneAndLoanBean;
 import com.gotop.jbpm.model.ProLoanBean;
 import com.gotop.jbpm.model.ProTimeModelBean;
+import com.gotop.jbpm.model.WorkTimeMaintainBean;
 import com.gotop.jbpm.model.XdProcessBean;
 import com.gotop.jbpm.service.ITimeLimitManageService;
 import com.gotop.jbpm.service.IXdProcessService;
@@ -45,6 +46,10 @@ public class TimeLimitManageAction extends BaseAction {
 	
 	private List<XdProcessBean> xdProcessBeans ;
 	
+	private HashMap time;
+	
+	private WorkTimeMaintainBean workTimeMaintainBean;
+	
 	protected ITimeLimitManageService timeLimitManageService;
 	
 	protected IXdProcessService xdProcessService;
@@ -52,6 +57,22 @@ public class TimeLimitManageAction extends BaseAction {
 	private JbpmService jbpmService;
 	
 	
+	public HashMap getTime() {
+		return time;
+	}
+
+	public void setTime(HashMap time) {
+		this.time = time;
+	}
+
+	public WorkTimeMaintainBean getWorkTimeMaintainBean() {
+		return workTimeMaintainBean;
+	}
+
+	public void setWorkTimeMaintainBean(WorkTimeMaintainBean workTimeMaintainBean) {
+		this.workTimeMaintainBean = workTimeMaintainBean;
+	}
+
 	public ProLoanBean getMy_proLoanBean() {
 		return my_proLoanBean;
 	}
@@ -514,6 +535,52 @@ public class TimeLimitManageAction extends BaseAction {
 		String info ="success";
     	try {
     		this.timeLimitManageService.deleteTimeLimitManage(proLoanBean);
+    	} catch (Exception e) {
+			info="fails";
+			log.error("[保存设备信息失败！]", e);
+			throw e;
+		}finally{	
+			Struts2Utils.renderText(info);
+		}
+	}
+	
+	/**
+	 * 工作时间维护
+	 * @throws Exception
+	 */
+	public void saveWorkTime() throws Exception{
+		String info ="success";
+		
+    	try {
+    		WorkTimeMaintainBean workTimeMaintainBean = new WorkTimeMaintainBean();
+    		
+    		workTimeMaintainBean.setStartDate( ((String[]) time.get("startDate"))[0] );
+    		workTimeMaintainBean.setEndDate( ((String[]) time.get("endDate"))[0] );
+    		workTimeMaintainBean.setOrgcode(this.getCurrentOnlineUser().getOrgcode());
+    		workTimeMaintainBean.setEmpid(this.getCurrentOnlineUser().getEmpid());
+    		
+    		this.timeLimitManageService.saveWorkTimeIntoTimeMain(workTimeMaintainBean);
+    		
+    		//插入一条 上午 的配置信息
+    		workTimeMaintainBean.setTimeType("sw");
+    		workTimeMaintainBean.setStartTime(((String[]) time.get("startTime1"))[0]);
+    		workTimeMaintainBean.setEndTime(((String[]) time.get("endTime1"))[0]);
+    		this.timeLimitManageService.saveWorkTimeIntoTimeSide(workTimeMaintainBean);
+    		
+    		//插入一条 下午 的配置信息
+    		workTimeMaintainBean.setTimeType("xw");
+    		workTimeMaintainBean.setStartTime(((String[]) time.get("startTime2"))[0]);
+    		workTimeMaintainBean.setEndTime(((String[]) time.get("endTime2"))[0]);
+    		this.timeLimitManageService.saveWorkTimeIntoTimeSide(workTimeMaintainBean);
+    		
+    		//插入一条 晚上 的配置信息
+    		if(!("null".equals(((String[]) time.get("startTime3"))[0]) )  && !("null".equals(((String[]) time.get("endTime3"))[0]))  ){
+    			
+    			workTimeMaintainBean.setTimeType("ws");
+    			workTimeMaintainBean.setStartTime(((String[]) time.get("startTime3"))[0]);
+    			workTimeMaintainBean.setEndTime(((String[]) time.get("endTime3"))[0]);
+    			this.timeLimitManageService.saveWorkTimeIntoTimeSide(workTimeMaintainBean);
+    		}
     	} catch (Exception e) {
 			info="fails";
 			log.error("[保存设备信息失败！]", e);

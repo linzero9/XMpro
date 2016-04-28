@@ -171,9 +171,28 @@
   <delete id="deleteTimeLimitManage" parameterClass="com.gotop.jbpm.model.ProLoanBean" >
     delete from t_model_proLoanTimeLimit t
     where t.DEFINITION_ID = #definitionId:VARCHAR# 
-    and t.C_ID = #c_id:DECIMAL#
+    and t.C_ID = #c_id:DECIMAL:-9999#
     and t.D_ID = ( select D_ID from t_model_oneAndLoanCategory
  where oneCategory_name = '$init_oneCategory_name$'
  and loanCategory_name = '$init_loanCategory_name$'  )
   </delete>
+  
+  <!-- 插入工作时间维护 主表 t_model_timeMain -->
+  <insert id="saveWorkTimeIntoTimeMain"  parameterClass="com.gotop.jbpm.model.WorkTimeMaintainBean"  >
+       <selectKey resultClass="long" keyProperty="mainID" >
+		SELECT t_model_timeMain_seq.NEXTVAL AS VALUE FROM DUAL
+		</selectKey>
+    insert into t_model_timeMain(ID, STARTDATE, ENDDATE, ORGCODE, EMPID, CREATETIME )
+    values (#mainID:DECIMAL:-9999#, to_date(#startDate:VARCHAR#,'yyyy/MM/dd'), to_date(#endDate:VARCHAR#,'yyyy/MM/dd'), #orgcode:VARCHAR#, #empid:DECIMAL#, sysdate)
+  </insert>
+  
+  <!-- 插入 工作时间维护 副表 t_model_timeSide -->
+  <insert id="saveWorkTimeIntoTimeSide"  parameterClass="com.gotop.jbpm.model.WorkTimeMaintainBean"  >
+       <selectKey resultClass="long" keyProperty="id" >
+		SELECT t_model_timeSide_seq.NEXTVAL AS VALUE FROM DUAL
+		</selectKey>
+    insert into t_model_timeSide(ID, TIMETYPE, STARTTIME, ENDTIME, MAINID )
+    values (#id:DECIMAL:-9999#, #timeType:VARCHAR#, #startTime:VARCHAR#, #endTime:VARCHAR# , #mainID:DECIMAL:-9999#)
+  </insert>
+  
 </sqlMap>

@@ -15,7 +15,7 @@
 		<h:hidden id="e_id" property="nodeTimeLimitBean.e_id" /> 
 		<h:hidden id="c_id" property="nodeTimeLimitBean.c_id" />
 			<tr>
-				<td class="form_label" align="right" width="15%">节点名称</td>
+				<td class="form_label" align="right" width="15%">节点名称：</td>
 				<td colspan="1" width="30%">
 				<h:text id="taskName"  property="nodeTimeLimitBean.taskName" readonly="true"/>
 				</td>

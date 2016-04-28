@@ -1,5 +1,6 @@
 package com.gotop.jbpm.dao.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +11,7 @@ import com.gotop.jbpm.model.NodeTimeLimitBean;
 import com.gotop.jbpm.model.OneAndLoanBean;
 import com.gotop.jbpm.model.ProLoanBean;
 import com.gotop.jbpm.model.ProTimeModelBean;
+import com.gotop.jbpm.model.WorkTimeMaintainBean;
 import com.gotop.util.dataSource.SqlMapClientDao;
 import com.primeton.utils.Page;
 
@@ -115,6 +117,16 @@ public class TimeLimitManageDAO extends SqlMapClientDao  implements ITimeLimitMa
 	public int deleteTimeLimitManage(ProLoanBean proLoanBean) {
 		int count = getSqlMapClientTemplate().delete("TimeLimitManage_SqlMap.deleteTimeLimitManage", proLoanBean);
 		return count;
+	}
+
+	@Override
+	public void saveWorkTimeIntoTimeMain(WorkTimeMaintainBean workTimeMaintainBean) {
+		getSqlMapClientTemplate().insert("TimeLimitManage_SqlMap.saveWorkTimeIntoTimeMain", workTimeMaintainBean);
+	}
+
+	@Override
+	public void saveWorkTimeIntoTimeSide(WorkTimeMaintainBean workTimeMaintainBean) {
+		getSqlMapClientTemplate().insert("TimeLimitManage_SqlMap.saveWorkTimeIntoTimeSide", workTimeMaintainBean);
 	}
 
 }

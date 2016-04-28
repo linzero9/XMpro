@@ -11,6 +11,7 @@ import com.gotop.jbpm.model.NodeTimeLimitBean;
 import com.gotop.jbpm.model.OneAndLoanBean;
 import com.gotop.jbpm.model.ProLoanBean;
 import com.gotop.jbpm.model.ProTimeModelBean;
+import com.gotop.jbpm.model.WorkTimeMaintainBean;
 import com.gotop.jbpm.service.ITimeLimitManageService;
 import com.primeton.utils.Page;
 
@@ -182,6 +183,20 @@ public class TimeLimitManageService implements ITimeLimitManageService {
 	@Override
 	public void deleteTimeLimitManage(ProLoanBean proLoanBean) {
 		this.timeLimitManageDAO.deleteTimeLimitManage(proLoanBean);
+	}
+
+	@Override
+	public void saveWorkTimeIntoTimeMain(
+			WorkTimeMaintainBean workTimeMaintainBean) {
+		
+		this.timeLimitManageDAO.saveWorkTimeIntoTimeMain(workTimeMaintainBean);
+	}
+
+	@Override
+	public void saveWorkTimeIntoTimeSide(
+			WorkTimeMaintainBean workTimeMaintainBean) {
+		
+		this.timeLimitManageDAO.saveWorkTimeIntoTimeSide(workTimeMaintainBean);
 	}
 	
 	
