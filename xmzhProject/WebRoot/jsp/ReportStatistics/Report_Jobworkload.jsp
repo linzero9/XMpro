@@ -18,18 +18,18 @@
                                         <td class="form_label" align="right" width="20%">报单日期：</td>
 					<td colspan="1" width="30%">
 					从
-					<w:date  format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="appTimeStrat" name="JobworkloadDto.appTimeStrat" 
-					property="JobworkloadDto.appTimeStrat" /> 
+					<w:date  format="yyyy-MM-dd" submitFormat="yyyy-MM-dd" id="appTimeStrat" name="jobWorkload.appTimeStrat" 
+					property="jobWorkload.appTimeStrat" /> 
 					到
-					<w:date format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="appTimeEnd" name="JobworkloadDto.appTimeEnd" 
-					property="JobworkloadDto.appTimeEnd" /></td>
+					<w:date format="yyyy-MM-dd" submitFormat="yyyy-MM-dd" id="appTimeEnd" name="jobWorkload.appTimeEnd" 
+					property="jobWorkload.appTimeEnd" /></td>
 
 					
 					
 					<td class="form_label" align="right" >流程节点：</td>
 					<td >
-			     		<h:hidden id="ProcessrodeId" property="xdProcessTaskAssignee.ProcessrodeId" />  
-						<h:text id="Processrode" property="xdProcessTaskAssignee.Processrode" readonly="true"/>
+			     		
+						<h:text id="processNodeName" property="jobWorkload.processNodeName" readonly="true"/>
 						<a href="#" onclick="showProcessrode();">选择</a>
 					</td>
 					
@@ -43,7 +43,7 @@
 					        <input type="hidden" name="page.isCount" value="true">
 							<input id="querys" type="button" value="查 询" class="button" onclick="search();">
 							<input type="button" value="清 空" class="button" onclick="clears();">
-                                                        <input id="downexl" type="button" class="button" value="导出列表" onclick="downExl();"></td>
+                            <input id="downexl" type="button" class="button" value="导出列表" onclick="downExl();"></td>
 					</tr>			
 			</table>
 		</w:panel>
@@ -63,8 +63,8 @@
 					<table align="center" border="0" width="100%" class="EOS_table">
 		    
 						<tr>					
-							<th nowrap="nowrap">
-								时间
+							<th nowrap="nowrap" >
+								时    间
 							</th>
 							<th nowrap="nowrap">
 								一级分类
@@ -73,27 +73,33 @@
 								贷种分类
 							</th>
 							<th nowrap="nowrap">
-								流程岗位
+								流程节点
 					       </th>
 					       <th nowrap="nowrap">
 								人员姓名
 							</th>
                             <th nowrap="nowrap">
-								业务数量
+								1次业务数量 
+							</th>
+						  <th nowrap="nowrap">
+								2次业务数量 
+							</th>
+						  <th nowrap="nowrap">
+								3次业务数量 
+							</th>
+						  <th nowrap="nowrap">
+								4次业务数量 
+							</th>
+							 <th nowrap="nowrap">
+								5次业务数量 
 							</th>
                                                   
 						</tr>
 						<w:radioGroup id="group1">
-                           <l:iterate property="xdProcessTaskAssignees" id="id1">
+                           <l:iterate property="jobWorkloadList" id="id1">
 							<tr class="<l:output evenOutput='EOS_table_row' oddOutput='EOS_table_row_o'  />">
-								<td nowrap="nowrap"> 
-									<b:write iterateId="id1"    property="processName" />
-								</td>
-								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="custName" />
-								</td>
-								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="apply_bal" />
+							 <td nowrap="nowrap"> 
+							     ${starttime}      ${endtime} 
 								</td>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1" property="oneCategory" />
@@ -102,7 +108,25 @@
 									<b:write iterateId="id1" property="loanCategory" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="coorganization" />
+									<b:write iterateId="id1" property="processNodeName" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="personName" />
+								</td>
+								<td nowrap="nowrap"> 
+							         <b:write iterateId="id1" property="businessNumberOne" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="businessNumberTwo" />
+								</td>
+								 <td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="businessNumberThree" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="businessNumberFour" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="businessNumberFive" />
 								</td>
 							</tr>
 						</l:iterate>
@@ -142,17 +166,30 @@
 
 		//清空
 		function clears(){
-			$id("custName").value="";
-			$id("oneCategory").value="";
-			$id("oneCategoryId").value="";
-			$id("loanCategory").value="";
-			$id("loanCategoryId").value="";
+			$id("appTimeStrat_input").value="";
+			$id("appTimeEnd_input").value="";
+			$id("appTimeEnd").value="";
+
 		}
                 function search(){
-			$("#isExport").val("");
+        			var frm = $name("appQuery");
+                    frm.submit();
+    
+                    return;
 			}
                 function downExl() {
-			$("#isExport").val("1");
+     				var appTimeStrat = $id("appTimeStrat").value;
+    				var appTimeEnd = $id("appTimeEnd").value;
+    				//var oneCategory = $id("oneCategory").value;
+    			//	var loanCategory = $id("loanCategory").value;
+    				
+    				var url = "/reportjbpm/jobWorkloadAction_jobWorkloadExcel.action?";
+    	     		url = url+"&jobWorkload.appTimeStrat="+appTimeStrat;
+    	     		url = url+"&jobWorkload.appTimeEnd="+appTimeEnd;
+    	     		//url = url+"&rateofreturnReport.oneCategory="+oneCategory;
+    	     		//url = url+"&rateofreturnReport.loanCategory="+loanCategory;
+    				window.location.href=url; 
+			
 		}
 		
 		function upt_loan_info(){
@@ -207,19 +244,24 @@
 		  	}
 
 	  	function showProcessrode() {
-			var ProcessrodeId=document.getElementById("ProcessrodeId").value;
-			strUrl ="/Generalprocess/tGeneralprocessCdtypeAction_ProcessrodeDic.action?cdtypeJson="+ProcessrodeId,
-			showModalCenter(strUrl,'',showProcessrode_callback1 ,800,430,'流程节点选择'); 
-		} 
-		function showProcessrode_callback1(args){
-			if(args!=''){
-			var array;
-			array = args.split(":");
-			 document.getElementById("ProcessrodeId").value = array[0];
-			 document.getElementById("Processrode").value = array[1];
-			}
-		}	
+	  		//var processNodeName=document.getElementById("processNodeName").value;
+	  		//strUrl ="/reportjbpm/jobWorkloadAction_jobWorkloadNodeName.action？processNodeName="+processNodeName;
+	  
+	  		strUrl ="/reportjbpm/jobWorkloadAction_jobWorkloadNodeName.action";
 
+	  		//alert(strUrl);
+			showModalCenter(strUrl,'',showErrorlink_callback1 ,900,380,'流程节点选择'); 
+		} 
+		function showErrorlink_callback1(returnValue){
+			if(returnValue == ""){
+				//点击右上角关闭时,returnValue为null
+				//不做操作
+				$id("processNodeName").value="";
+			}else{
+				$id("processNodeName").value= returnValue[0];
+			
+			}
+			}
 		
 		</script>
 		

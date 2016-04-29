@@ -1,18 +1,138 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
-<sqlMap namespace="T_JOBWORKLOAD_SqlMa">
+<sqlMap namespace="T_JOBWORKLOAD_SqlMap">
 
  <resultMap id="JobWorkload" class="com.gotop.reportjbpm.model.JobWorkload" >
-
+ 
+     <result column="ONECATEGORY" property="oneCategory" jdbcType="VARCHAR" />
+    <result column="LOANCATEGORY" property="loanCategory" jdbcType="VARCHAR" />
+    <result column="ACTIVITY_NAME_" property="processNodeName" jdbcType="VARCHAR" />
+    <result column="OPERATORNAME" property="personName" jdbcType="VARCHAR" />
+    <result column="businessNumberOne" property="businessNumberOne" jdbcType="VARCHAR" />
+    <result column="businessNumberTwo" property="businessNumberTwo" jdbcType="VARCHAR" />
+    <result column="businessNumberThree" property="businessNumberThree" jdbcType="VARCHAR" />
+    <result column="businessNumberFour" property="businessNumberFour" jdbcType="VARCHAR" />
+    <result column="businessNumberFive" property="businessNumberFive" jdbcType="VARCHAR" />
 
   </resultMap>
 
-
-
+ <resultMap id="JobWorkload1" class="com.gotop.reportjbpm.model.JobWorkload" >
+    <result column="ACTIVITY_NAME" property="processNodeName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+	<select id="listNodName"  parameterClass="java.util.HashMap"  resultMap="JobWorkload1">
+               SELECT distinct ACTIVITY_NAME from t_process_task_exe_config where TASK_ASS_TYPE='05'
+	</select>
+  
+  
   
   	<select id="jobWorkloadtList" parameterClass="java.util.HashMap" resultMap="JobWorkload">
-
-     
+SELECT
+	ONECATEGORY,
+	LOANCATEGORY,
+	ACTIVITY_NAME_,
+	OPERATORNAME,
+	CASE
+WHEN cnt >= 1 THEN
+	1
+ELSE
+	0
+END businessNumberOne,
+ CASE
+WHEN cnt >= 2 THEN
+	1
+ELSE
+	0
+END businessNumberTwo,
+ CASE
+WHEN cnt >= 3 THEN
+	1
+ELSE
+	0
+END businessNumberThree,
+ CASE
+WHEN cnt >= 4 THEN
+	1
+ELSE
+	0
+END businessNumberFour,
+ CASE
+WHEN cnt >= 5 THEN
+	1
+ELSE
+	0
+END businessNumberFive
+FROM
+	(
+		SELECT
+			ONECATEGORY,
+			LOANCATEGORY,
+			ACTIVITY_NAME_,
+			OPERATORNAME,
+			COUNT (ACTIVITY_NAME_) cnt
+		FROM
+			(
+				SELECT
+					ACTIVITY_NAME_,
+					END_,
+					OPERATORNAME,
+					ONECATEGORY,
+					LOANCATEGORY,
+					REPORTTIME
+				FROM
+					(
+						SELECT
+							tt.EXECUTION_,
+							tt.ACTIVITY_NAME_,
+							tt.END_,
+							t2.OPERATORNAME,
+							t3.ONECATEGORY,
+							t3.LOANCATEGORY,
+							t4.REPORTTIME
+						FROM
+							JBPM4_HIST_ACTINST tt
+						LEFT JOIN JBPM4_HIST_TASK t1 ON TT.HTASK_ = T1.DBID_
+						LEFT JOIN ac_operator t2 ON t1.ASSIGNEE_ = t2.OPERATORID
+						LEFT JOIN T_GENERALPROCESS_MODELONE t3 ON tt.EXECUTION_ = t3.flow_id
+						LEFT JOIN T_GENERALPROCESS_MODELTHREE t4 ON t4.flow_id = tt.EXECUTION_
+						WHERE
+							HPROCI_ IN (
+								SELECT
+									DBID_
+								FROM
+									JBPM4_HIST_PROCINST T
+								WHERE
+									T .PROCDEFID_ IN (
+										SELECT
+											DEFINITION_ID
+										FROM
+											T_PROCESS_CONFIG T
+										WHERE
+											BUSINESS_TYPE = '88'
+									)
+							)
+					)
+				WHERE
+					end_ IS NOT NULL
+						    <isNotNull prepend="and" property="appTimeStrat" >
+                                        REPORTTIME  >=(#appTimeStrat#)
+                              </isNotNull>
+                             <isNotNull prepend="and" property="appTimeEnd" >                                    
+                                        <![CDATA[REPORTTIME  <=(#appTimeEnd#)]]>
+                              </isNotNull>
+							<isNotNull prepend="and" property="processNodeName" >
+                                        ACTIVITY_NAME_   in (#processNodeName#)
+                              </isNotNull>
+			)
+		GROUP BY
+			ONECATEGORY,
+			LOANCATEGORY,
+			ACTIVITY_NAME_,
+			OPERATORNAME
+	)
+  
 	</select>
+	
+
 
 </sqlMap>

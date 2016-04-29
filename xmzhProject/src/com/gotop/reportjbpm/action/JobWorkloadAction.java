@@ -12,6 +12,22 @@ public class JobWorkloadAction extends BaseAction{
 	protected IJobWorkloadService jobWorkloadService;
 	private JobWorkload jobWorkload;
 	private List<JobWorkload> jobWorkloadList;
+	
+	private String  starttime;
+	private String endtime;
+	
+	public String getStarttime() {
+		return starttime;
+	}
+	public void setStarttime(String starttime) {
+		this.starttime = starttime;
+	}
+	public String getEndtime() {
+		return endtime;
+	}
+	public void setEndtime(String endtime) {
+		this.endtime = endtime;
+	}
 	public IJobWorkloadService getJobWorkloadService() {
 		return jobWorkloadService;
 	}
@@ -39,8 +55,13 @@ public class JobWorkloadAction extends BaseAction{
 	public String  jobWorkloadLists(){
 		
 		jobWorkloadList=jobWorkloadService.jobWorkloadList(jobWorkload, this.getPage());
-		this.setJobWorkloadList(jobWorkloadList);
 		
+		if(jobWorkload!=null){
+			starttime=jobWorkload.getAppTimeStrat();
+			endtime=jobWorkload.getAppTimeEnd();	
+		}
+		
+		this.setJobWorkloadList(jobWorkloadList);	
 		return "jobWorkloadLists";
 	}
 	
@@ -58,5 +79,15 @@ public class JobWorkloadAction extends BaseAction{
 		this.setJobWorkloadList(jobWorkloadList);
 		return "jobWorkloadExcel";
 	}
-
+	
+	/**
+	 * 岗位工作量节点名称查询
+	 * @return
+	 */
+	public String jobWorkloadNodeName(){
+		
+		jobWorkloadList=jobWorkloadService.listNodName();
+		this.setJobWorkloadList(jobWorkloadList);
+		return "jobWorkloadNodeName";
+	}            
 }

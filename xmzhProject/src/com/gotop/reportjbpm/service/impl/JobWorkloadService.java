@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 import com.gotop.reportjbpm.dao.IJobWorkloadDao;
 import com.gotop.reportjbpm.model.JobWorkload;
 import com.gotop.reportjbpm.service.IJobWorkloadService;
+import com.gotop.util.string.Obj2StrUtils;
 import com.primeton.utils.Page;
 
 /**
@@ -47,9 +48,30 @@ public class JobWorkloadService implements IJobWorkloadService{
 		
 		if(jobWorkload!=null){
 			
+			if(!"".equals(jobWorkload.getAppTimeStrat())  &&  jobWorkload.getAppTimeStrat()!=null){
+				
+				String appTimeStrat=jobWorkload.getAppTimeStrat();
+				map.put("appTimeStrat", appTimeStrat);
+			}
+			if(!"".equals(jobWorkload.getAppTimeEnd())  && jobWorkload.getAppTimeEnd()!=null){
+				
+				String appTimeEnd=jobWorkload.getAppTimeEnd();
+				map.put("appTimeEnd", appTimeEnd);
+			}
+			if(!"".equals(jobWorkload.getProcessNodeName())  && jobWorkload.getProcessNodeName()!=null){
+				
+				String[] processNodeNames=jobWorkload.getProcessNodeName().split(",");
+				String processNodeName="";
+				try {
+					processNodeName = Obj2StrUtils.join(processNodeNames, String.class, ",");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				map.put("processNodeName", processNodeName);
+			}
 			
 		}
-		List list=jobWorkloadDao.jobWorkloadtList(map, page);
+		List<JobWorkload> list=jobWorkloadDao.jobWorkloadtList(map, page);
 		
 		return list;
 	}
@@ -61,10 +83,36 @@ public class JobWorkloadService implements IJobWorkloadService{
 		
 		if(jobWorkload!=null){
 			
-			
+			if(!"".equals(jobWorkload.getAppTimeStrat())  &&  jobWorkload.getAppTimeStrat()!=null){
+				
+				String appTimeStrat=jobWorkload.getAppTimeStrat();
+				map.put("appTimeStrat", appTimeStrat);
+			}
+			if(!"".equals(jobWorkload.getAppTimeEnd())  && jobWorkload.getAppTimeEnd()!=null){
+				
+				String appTimeEnd=jobWorkload.getAppTimeEnd();
+				map.put("appTimeEnd", appTimeEnd);
+			}
+			if(!"".equals(jobWorkload.getProcessNodeName())  && jobWorkload.getProcessNodeName()!=null){
+				
+				String[] processNodeNames=jobWorkload.getProcessNodeName().split(",");
+				String processNodeName="";
+				try {
+					processNodeName = Obj2StrUtils.join(processNodeNames, String.class, ",");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				map.put("processNodeName", processNodeName);
+			}
 		}
-		List list=jobWorkloadDao.JobWorkloadListExcel(map);
+		List<JobWorkload> list=jobWorkloadDao.JobWorkloadListExcel(map);
 		return list;
+	}
+
+	@Override
+	public List<JobWorkload> listNodName() {
+		List<JobWorkload>  listnode=jobWorkloadDao.listNodName();
+		return listnode;
 	}
 
 }

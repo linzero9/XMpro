@@ -34,5 +34,11 @@ public interface IJobWorkloadService {
 	 */
 	
 	List<JobWorkload> jobWorkloadListExcel(JobWorkload jobWorkload);
+	
+	/**
+	 * 流程节点查询
+	 */
+	
+	List<JobWorkload> listNodName();
 
 }

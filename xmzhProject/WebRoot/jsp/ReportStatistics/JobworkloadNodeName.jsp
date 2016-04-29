@@ -11,13 +11,13 @@
 <script type="text/javascript" src="/js/jquery.form.js"></script>
 <script type="text/javascript" src="/js/fileDown.js"></script>
 <script type="text/javascript" src="/js/commonUtil.js"></script>
-<title>差错环节选择</title>
+<title>流程节点选择</title>
 
   </head>
   <body>
 			
-			<DIV class="divList"  style="overflow:auto;width:100%; height: 410;">
-			<w:panel id="panel" width="100%" title="流程节点择">
+			<DIV class="divList"  style="overflow:auto;width:100%; height: 310;">
+			<w:panel id="panel" width="100%" title="流程节点选择">
 			<table align="center" border="0" width="100%" class="form_table">
 				<viewlist id="e2c61865-3b56-470d-bd42-fff792fb9493">
          
@@ -41,7 +41,7 @@
 							 <tr class="<l:output oddOutput="EOS_table_row_o" evenOutput='EOS_table_row' />">
 								<td align="center" nowrap="nowrap">
 									<w:rowCheckbox>
-											<h:param name='processNodeName' iterateId='id1' property='processNodeName' />					
+											<h:param name='processNodeName' iterateId='id1' property='processNodeName' />
 									</w:rowCheckbox>
 								</td>
 								<td nowrap="nowrap"> 
@@ -59,7 +59,7 @@
 					</table>
 			</w:panel>
 			</DIV>
-			<DIV class="divList"  style="overflow:auto;width:100%; height: 30;">
+			<DIV class="divList"  style="overflow:auto;width:100%; height: 100%;">
 						<table align="center" border="0" width="100%" class="EOS_table">
 					<tr class="form_bottom">
 						<td colspan="6" class="form_bottom">
@@ -73,32 +73,6 @@
 		</DIV>
   </body>
   <script type="text/javascript">
-
-
-  $(function() {
-		//当页面加载完成的时候，自动调用该方法
-		window.onload = function() {
-			//获得所要回显的值，此处为：100,1001,200,1400
-			var checkeds = $id("processNodeName").value;
-			//拆分为字符串数组
-			var checkArray = checkeds.split(", ");
-			//获得所有的复选框对象
-			//var checkBoxAll = $("input[name='generalprocessDto.oneCategory']");
-			var checkBoxAll = $id("group1").value;
-			
-			for ( var i = 0; i < checkArray.length; i++) {
-				//获取所有复选框对象的value属性，然后，用checkArray[i]和他们匹配，如果有，则说明他应被选中
-				$.each(checkBoxAll, function(j, checkbox) {
-					//获取复选框的value属性
-					var checkValue = $(checkbox).val();
-					if (checkArray[i] == checkValue) {
-						$(checkbox).attr("checked", true);
-					}
-				})
-			}
-		};
-	});
-  
 
 
   function returnValue(){
