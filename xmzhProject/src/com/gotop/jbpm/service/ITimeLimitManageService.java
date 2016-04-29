@@ -2,6 +2,7 @@ package com.gotop.jbpm.service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.gotop.jbpm.dao.ITimeLimitManageDAO;
 import com.gotop.jbpm.model.NodeTimeLimitBean;
@@ -54,4 +55,12 @@ public interface ITimeLimitManageService {
 	void saveWorkTimeIntoTimeMain(WorkTimeMaintainBean workTimeMaintainBean);
 
 	void saveWorkTimeIntoTimeSide(WorkTimeMaintainBean workTimeMaintainBean);
+
+	List<WorkTimeMaintainBean> queryWorkTimeList(Map<String, String> time, Page page);
+
+	void deleteTimeMain(WorkTimeMaintainBean workTimeMaintainBean);
+
+	int deleteTimeSide(WorkTimeMaintainBean workTimeMaintainBean);
+
+	List queryTimeSide(WorkTimeMaintainBean workTimeMaintainBean);
 }

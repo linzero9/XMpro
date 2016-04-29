@@ -11,7 +11,6 @@
 </head>
 <body topmargin="0" leftmargin="0">
 <h:form name="data_form"  id="data_form" action="/jbpm/timeLimitManageAction_saveWorkTime.action"   method="post" >
-		<w:panel id="panel1" title="工作时间维护">
 		<table align="center" border="0" width="100%" class="form_table">
 			<tr>
 				<td class="form_label" align="right"  width="40%">工作日有效期（必填）：</td>
@@ -52,30 +51,50 @@
 				</td>
 			</tr>
 		</table>
-		</w:panel>
 	</h:form>
 <script type="text/javascript">
 function clears(){
-	//$("#startDate_input").val("");
-	var a = $("#startDate_input");
-	var b = $("#startTime1_hidden");
 
+	   $("#startDate_input").val("");
+	   $("#endDate_input").val("");
+	   $name("time.startDate").value == "";
+	   $name("time.endDate").value == "";
 	
-	alert( $("#startDate_input").val() );
+	   $("#INPUT_HOURstartTime1").val("");
+	   $("#INPUT_MINUTEstartTime1").val("");
+       $("#INPUT_SECONDstartTime1").val("");
 
-	   var  h=	$("#INPUT_HOURstartTime1").val("");
-	   var  m=	$("#INPUT_MINUTEstartTime1").val("");
-       var  s=	$("#INPUT_SECONDstartTime1").val("");
+       $("#INPUT_HOURendTime1").val("");
+	   $("#INPUT_MINUTEendTime1").val("");
+       $("#INPUT_SECONDendTime1").val("");
+       $name("time.startTime1").value == "null";
+       $name("time.endTime1").value == "null";
+       var s = $name("time.startTime1").value;
+       var s2 = $name("time.endTime1").value;
+       
 
-      
+       $("#INPUT_HOURstartTime2").val("");
+	   $("#INPUT_MINUTEstartTime2").val("");
+       $("#INPUT_SECONDstartTime2").val("");
 
-	//$name("time.startTime1").clear();
-	//$("#startTime1_hidden").clear();
-	//$id("startTime1_hidden").clear();
-	/* $id("startDate_input").value == "";
-	$id("endDate_input").value == ""; */
-	/* $id("startTime1_input").value == "";
-	$name("time.endTime1").value == ""; */
+       $("#INPUT_HOURendTime2").val("");
+	   $("#INPUT_MINUTEendTime2").val("");
+       $("#INPUT_SECONDendTime2").val("");
+       $name("time.startTime2").value == "null";
+       $name("time.endTime2").value == "null";
+
+       $("#INPUT_HOURstartTime3").val("");
+	   $("#INPUT_MINUTEstartTime3").val("");
+       $("#INPUT_SECONDstartTime3").val("");
+
+       $("#INPUT_HOURendTime3").val("");
+	   $("#INPUT_MINUTEendTime3").val("");
+       $("#INPUT_SECONDendTime3").val("");
+       $name("time.startTime3").value = "null";
+       $name("time.endTime3").value = "null";
+       var q1 = $name("time.startTime3").value;
+       var q2 = $name("time.endTime3").value;
+
 }
 
 	function save() {
@@ -83,6 +102,14 @@ function clears(){
 		if (!checkForm(frm)) {
 			return;
 		}
+		var a = $name("time.startDate").value;
+		var b = $name("time.endDate").value;
+var c = $name("time.startTime1").value;
+var d = $name("time.endTime1").value;
+var c2 = $name("time.startTime2").value;
+var d2 = $name("time.endTime2").value;
+var c3 = $name("time.startTime3").value;
+var d3 = $name("time.endTime3").value;
 
 		if($name("time.startDate").value == ""){
 			alert("请为工作日有效期设置 开始日期！");
@@ -122,11 +149,19 @@ function clears(){
 			alert("下午 结束时间必须大于开始时间！");
 			return;
 			}
+		if($name("time.startTime2").value <= $name("time.endTime1").value){
+			alert("下午 开始时间必须大于上午结束时间！");
+			return;
+			}
 		
 		if($name("time.startTime3").value != "null" && $name("time.endTime3").value != "null"){
 
 			if($name("time.endTime3").value <= $name("time.startTime3").value){
 				alert("晚上 结束时间必须大于开始时间！");
+				return;
+				}
+			if($name("time.startTime3").value <= $name("time.endTime2").value){
+				alert("晚上 开始时间必须大于下午结束时间！");
 				return;
 				}
 		}
@@ -144,6 +179,7 @@ function clears(){
 					if (data.indexOf("success") >= 0) {
 						alert("保存成功!");
 						unMaskTop();
+						window.close();
 					} else if (data.indexOf("fails") >= 0) {
 						alert("保存失败!");
 						unMaskTop();

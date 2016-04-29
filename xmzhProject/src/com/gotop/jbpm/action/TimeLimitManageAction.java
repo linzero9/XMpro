@@ -3,6 +3,7 @@ package com.gotop.jbpm.action;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.jbpm.api.RepositoryService;
 import org.jbpm.pvm.internal.model.ActivityImpl;
@@ -46,9 +47,11 @@ public class TimeLimitManageAction extends BaseAction {
 	
 	private List<XdProcessBean> xdProcessBeans ;
 	
-	private HashMap time;
+	private Map<String, String> time;
 	
 	private WorkTimeMaintainBean workTimeMaintainBean;
+	
+	private List<WorkTimeMaintainBean> workTimeMaintainBeans;
 	
 	protected ITimeLimitManageService timeLimitManageService;
 	
@@ -57,12 +60,21 @@ public class TimeLimitManageAction extends BaseAction {
 	private JbpmService jbpmService;
 	
 	
-	public HashMap getTime() {
+	public Map<String, String> getTime() {
 		return time;
 	}
 
-	public void setTime(HashMap time) {
+	public void setTime(Map<String, String> time) {
 		this.time = time;
+	}
+
+	public List<WorkTimeMaintainBean> getWorkTimeMaintainBeans() {
+		return workTimeMaintainBeans;
+	}
+
+	public void setWorkTimeMaintainBeans(
+			List<WorkTimeMaintainBean> workTimeMaintainBeans) {
+		this.workTimeMaintainBeans = workTimeMaintainBeans;
 	}
 
 	public WorkTimeMaintainBean getWorkTimeMaintainBean() {
@@ -545,6 +557,44 @@ public class TimeLimitManageAction extends BaseAction {
 	}
 	
 	/**
+	 * 查询 工作时间配置列表
+	 * @return
+	 */
+	public String queryWorkTimeList(){
+		List<WorkTimeMaintainBean>  workTimeMaintainBeans = this.timeLimitManageService.queryWorkTimeList(time, this.getPage());
+		this.setWorkTimeMaintainBeans(workTimeMaintainBeans);
+		return "worktime_list";
+	}
+	
+	/**
+	 * 跳转到工作时间维护新增页面
+	 * @return
+	 */
+	public String toAddWorkTime(){
+		return "workTimeMaintain";
+	}
+	
+	public void deleteWorkTime() throws Exception{
+		String info ="success";
+    	try {
+    		int count = this.timeLimitManageService.deleteTimeSide(workTimeMaintainBean);
+    		if(count > 0){
+    			List list = this.timeLimitManageService.queryTimeSide(workTimeMaintainBean);
+    			if(list.size() == 0){
+    				this.timeLimitManageService.deleteTimeMain(workTimeMaintainBean);
+    			}
+    		}
+    		
+    	} catch (Exception e) {
+			info="fails";
+			log.error("[保存设备信息失败！]", e);
+			throw e;
+		}finally{	
+			Struts2Utils.renderText(info);
+		}
+	}
+	
+	/**
 	 * 工作时间维护
 	 * @throws Exception
 	 */
@@ -554,31 +604,31 @@ public class TimeLimitManageAction extends BaseAction {
     	try {
     		WorkTimeMaintainBean workTimeMaintainBean = new WorkTimeMaintainBean();
     		
-    		workTimeMaintainBean.setStartDate( ((String[]) time.get("startDate"))[0] );
-    		workTimeMaintainBean.setEndDate( ((String[]) time.get("endDate"))[0] );
+    		workTimeMaintainBean.setStartDate( time.get("startDate") );
+    		workTimeMaintainBean.setEndDate( time.get("endDate") );
     		workTimeMaintainBean.setOrgcode(this.getCurrentOnlineUser().getOrgcode());
     		workTimeMaintainBean.setEmpid(this.getCurrentOnlineUser().getEmpid());
     		
     		this.timeLimitManageService.saveWorkTimeIntoTimeMain(workTimeMaintainBean);
     		
     		//插入一条 上午 的配置信息
-    		workTimeMaintainBean.setTimeType("sw");
-    		workTimeMaintainBean.setStartTime(((String[]) time.get("startTime1"))[0]);
-    		workTimeMaintainBean.setEndTime(((String[]) time.get("endTime1"))[0]);
+    		workTimeMaintainBean.setTimeType("1");
+    		workTimeMaintainBean.setStartTime(time.get("startTime1"));
+    		workTimeMaintainBean.setEndTime(time.get("endTime1"));
     		this.timeLimitManageService.saveWorkTimeIntoTimeSide(workTimeMaintainBean);
     		
     		//插入一条 下午 的配置信息
-    		workTimeMaintainBean.setTimeType("xw");
-    		workTimeMaintainBean.setStartTime(((String[]) time.get("startTime2"))[0]);
-    		workTimeMaintainBean.setEndTime(((String[]) time.get("endTime2"))[0]);
+    		workTimeMaintainBean.setTimeType("2");
+    		workTimeMaintainBean.setStartTime(time.get("startTime2"));
+    		workTimeMaintainBean.setEndTime(time.get("endTime2"));
     		this.timeLimitManageService.saveWorkTimeIntoTimeSide(workTimeMaintainBean);
     		
     		//插入一条 晚上 的配置信息
-    		if(!("null".equals(((String[]) time.get("startTime3"))[0]) )  && !("null".equals(((String[]) time.get("endTime3"))[0]))  ){
+    		if(!("null".equals( time.get("startTime3")))  && !("null".equals(time.get("endTime3")) )){
     			
-    			workTimeMaintainBean.setTimeType("ws");
-    			workTimeMaintainBean.setStartTime(((String[]) time.get("startTime3"))[0]);
-    			workTimeMaintainBean.setEndTime(((String[]) time.get("endTime3"))[0]);
+    			workTimeMaintainBean.setTimeType("3");
+    			workTimeMaintainBean.setStartTime(time.get("startTime3"));
+    			workTimeMaintainBean.setEndTime( time.get("endTime3"));
     			this.timeLimitManageService.saveWorkTimeIntoTimeSide(workTimeMaintainBean);
     		}
     	} catch (Exception e) {

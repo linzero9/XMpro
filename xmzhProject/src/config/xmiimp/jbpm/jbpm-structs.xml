@@ -275,6 +275,13 @@
 		   <param name="root">oneAndLoanBeans</param>
 	  </result>
 	  
+	  <result name="worktime_list">
+     		/jsp/jbpm/time_limit/worktime_list.jsp
+      	</result>
+      	<result name="workTimeMaintain">
+     		/jsp/jbpm/time_limit/workTimeMaintain.jsp
+      	</result>
+	  
       	 </action>
     </package>
 </struts>

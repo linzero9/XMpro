@@ -198,6 +198,38 @@ public class TimeLimitManageService implements ITimeLimitManageService {
 		
 		this.timeLimitManageDAO.saveWorkTimeIntoTimeSide(workTimeMaintainBean);
 	}
+
+	@Override
+	public List<WorkTimeMaintainBean> queryWorkTimeList(Map<String, String> time , Page page) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		if(time != null){
+			if(time.get("query_startDate") != null && !"".equals(time.get("query_startDate"))){
+				map.put("query_startDate", time.get("query_startDate"));
+			}
+			if(time.get("query_endDate") != null && !"".equals(time.get("query_endDate"))){
+				map.put("query_endDate", time.get("query_endDate"));
+			}
+		}
+		List list = this.timeLimitManageDAO.queryWorkTimeList(map, page);
+		return list;
+	}
+
+	@Override
+	public void deleteTimeMain(WorkTimeMaintainBean workTimeMaintainBean) {
+		this.timeLimitManageDAO.deleteTimeMain(workTimeMaintainBean);
+	}
+
+	@Override
+	public int deleteTimeSide(WorkTimeMaintainBean workTimeMaintainBean) {
+		int count =  this.timeLimitManageDAO.deleteTimeSide(workTimeMaintainBean);
+		return count;
+	}
+
+	@Override
+	public List queryTimeSide(WorkTimeMaintainBean workTimeMaintainBean) {
+		List list = this.timeLimitManageDAO.queryTimeSide(workTimeMaintainBean);
+		return list;
+	}
 	
 	
 }

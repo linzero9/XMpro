@@ -50,4 +50,12 @@ public interface ITimeLimitManageDAO {
 
 	void saveWorkTimeIntoTimeSide(WorkTimeMaintainBean workTimeMaintainBean);
 
+	List queryWorkTimeList(Map<String, Object> map, Page page);
+
+	int deleteTimeMain(WorkTimeMaintainBean workTimeMaintainBean);
+
+	int deleteTimeSide(WorkTimeMaintainBean workTimeMaintainBean);
+
+	List queryTimeSide(WorkTimeMaintainBean workTimeMaintainBean);
+
 }

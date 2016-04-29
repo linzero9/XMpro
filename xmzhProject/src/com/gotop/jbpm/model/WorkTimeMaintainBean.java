@@ -4,23 +4,23 @@ import java.io.Serializable;
 
 public class WorkTimeMaintainBean implements Serializable {
 
-private Long mainID;
+private Long mainID;//主表ID
 	
-	private String startDate;
+	private String startDate;//开始日期
 	
-	private String endDate;
+	private String endDate;//结束日期
 	
-	private String orgcode;
+	private String orgcode;//机构号
 	
-	private Long empid;
+	private Long empid;//员工ID
 	
-	private Long id;
+	private Long id;//副表ID
 	
-	private String timeType;
+	private String timeType;//时间类型
 	
-	private String startTime;
+	private String startTime;//开始时间
 	
-	private String endTime;
+	private String endTime;//结束时间
 
 	public Long getMainID() {
 		return mainID;

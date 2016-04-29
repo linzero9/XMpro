@@ -10,6 +10,16 @@
      <result column="LOANCATEGORY_NAME" property="loanCategory_name" jdbcType="VARCHAR" />
   </resultMap>
   
+  <resultMap id="workTimeMaintain_Result" class="com.gotop.jbpm.model.WorkTimeMaintainBean" >
+    <result column="STARTDATE" property="startDate" jdbcType="VARCHAR" />
+     <result column="ENDDATE" property="endDate" jdbcType="VARCHAR" />
+    <result column="ID" property="id" jdbcType="DECIMAL" />
+        <result column="MAINID" property="mainID" jdbcType="DECIMAL" />
+     <result column="TIMETYPE" property="timeType" jdbcType="VARCHAR" />
+     <result column="STARTTIME" property="startTime" jdbcType="VARCHAR" />
+     <result column="ENDTIME" property="endTime" jdbcType="VARCHAR" />
+  </resultMap>
+  
   <resultMap id="oneCategory_HashMapResult" class="java.util.HashMap" >
     <result column="ONECATEGORY_NAME" property="oneCategory_name" jdbcType="VARCHAR" />
   </resultMap>
@@ -195,4 +205,36 @@
     values (#id:DECIMAL:-9999#, #timeType:VARCHAR#, #startTime:VARCHAR#, #endTime:VARCHAR# , #mainID:DECIMAL:-9999#)
   </insert>
   
+  <!-- 查询 工作时间配置列表 -->
+  <select id="queryWorkTimeList" resultMap="workTimeMaintain_Result" parameterClass="java.util.HashMap" >
+ select to_char(t1.startDate, 'yyyy/MM/dd') as startDate , to_char(t1.endDate, 'yyyy/MM/dd') as endDate, t2.*
+  from t_model_timeMain t1, t_model_timeSide t2
+ where t1.id = t2.mainid
+ <isNotNull prepend="and" property="query_startDate" >
+      t1.startDate >= to_date('$query_startDate$','yyyy/MM/dd')
+ </isNotNull>
+ <isNotNull prepend="and" property="query_endDate" >
+    <![CDATA[  t1.endDate < to_date('$query_endDate$','yyyy/MM/dd')  ]]>
+ </isNotNull>
+ order by t2.id, t2.timetype
+  </select>
+  
+  <!-- 删除 时间主表 -->
+  <delete id="deleteTimeMain" parameterClass="com.gotop.jbpm.model.WorkTimeMaintainBean" >
+    delete from t_model_timeMain t
+    where t.id = #mainID:DECIMAL:-9999# 
+  </delete>
+  
+  <!-- 删除 时间副表 -->
+  <delete id="deleteTimeSide" parameterClass="com.gotop.jbpm.model.WorkTimeMaintainBean" >
+    delete from t_model_timeSide t
+    where t.id = #id:DECIMAL:-9999# 
+  </delete>
+  
+  <!-- 查询 时间副表 -->
+  <select id="queryTimeSide" resultClass="java.util.HashMap" parameterClass="com.gotop.jbpm.model.WorkTimeMaintainBean" >
+ select t.*
+  from t_model_timeSide t
+ where t.mainid = '$mainID$'
+ </select>
 </sqlMap>
