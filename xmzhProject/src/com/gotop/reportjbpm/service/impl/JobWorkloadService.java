@@ -58,7 +58,8 @@ public class JobWorkloadService implements IJobWorkloadService{
 				String appTimeEnd=jobWorkload.getAppTimeEnd();
 				map.put("appTimeEnd", appTimeEnd);
 			}
-			if(!"".equals(jobWorkload.getProcessNodeName())  && jobWorkload.getProcessNodeName()!=null){
+			
+			if(!"".equals(jobWorkload.getProcessNodeName())  &&  jobWorkload.getProcessNodeName()!=null){
 				
 				String[] processNodeNames=jobWorkload.getProcessNodeName().split(",");
 				String processNodeName="";
@@ -67,6 +68,7 @@ public class JobWorkloadService implements IJobWorkloadService{
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				
 				map.put("processNodeName", processNodeName);
 			}
 			
@@ -93,7 +95,7 @@ public class JobWorkloadService implements IJobWorkloadService{
 				String appTimeEnd=jobWorkload.getAppTimeEnd();
 				map.put("appTimeEnd", appTimeEnd);
 			}
-			if(!"".equals(jobWorkload.getProcessNodeName())  && jobWorkload.getProcessNodeName()!=null){
+			if(!"".equals(jobWorkload.getProcessNodeName())  &&  jobWorkload.getProcessNodeName()!=null){
 				
 				String[] processNodeNames=jobWorkload.getProcessNodeName().split(",");
 				String processNodeName="";
@@ -102,8 +104,10 @@ public class JobWorkloadService implements IJobWorkloadService{
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				
 				map.put("processNodeName", processNodeName);
 			}
+
 		}
 		List<JobWorkload> list=jobWorkloadDao.JobWorkloadListExcel(map);
 		return list;

@@ -121,7 +121,7 @@ FROM
                                         <![CDATA[REPORTTIME  <=(#appTimeEnd#)]]>
                               </isNotNull>
 							<isNotNull prepend="and" property="processNodeName" >
-                                        ACTIVITY_NAME_   in (#processNodeName#)
+                                        ACTIVITY_NAME_   in  ($processNodeName$)
                               </isNotNull>
 			)
 		GROUP BY

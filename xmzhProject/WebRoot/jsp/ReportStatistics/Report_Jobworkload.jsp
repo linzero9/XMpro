@@ -28,8 +28,8 @@
 					
 					<td class="form_label" align="right" >流程节点：</td>
 					<td >
-			     		
-						<h:text id="processNodeName" property="jobWorkload.processNodeName" readonly="true"/>
+			     		                   
+						<h:text id="processNodeName" property="jobWorkload.processNodeName" readonly="true" name="jobWorkload.processNodeName"/>
 						<a href="#" onclick="showProcessrode();">选择</a>
 					</td>
 					
@@ -164,11 +164,27 @@
 		</DIV>
 		<script type="text/javascript">
 
+		$(function(){
+	   		 var appTimeStrat = $id("appTimeStrat").value;
+		     var appTimeEnd = $id("appTimeEnd").value;  
+
+	         if((appTimeStrat!=null && appTimeStrat!="") && (appTimeEnd!=null && appTimeEnd!="")){
+	             
+	    	     var star=appTimeStrat.replaceAll("-","");
+	    	     var end=appTimeEnd.replaceAll("-","");
+	              if(star>end){
+	                  alert("开始时间大于结束时间,请重新输入！");
+	                 // $id("appTimeEnd_input").value="";
+	                  return;
+	                  }
+	         }
+			});
+		
 		//清空
 		function clears(){
 			$id("appTimeStrat_input").value="";
 			$id("appTimeEnd_input").value="";
-			$id("appTimeEnd").value="";
+			$id("processNodeName").value="";
 
 		}
                 function search(){
@@ -180,13 +196,13 @@
                 function downExl() {
      				var appTimeStrat = $id("appTimeStrat").value;
     				var appTimeEnd = $id("appTimeEnd").value;
-    				//var oneCategory = $id("oneCategory").value;
+    				var processNodeName = $id("processNodeName").value;
     			//	var loanCategory = $id("loanCategory").value;
     				
     				var url = "/reportjbpm/jobWorkloadAction_jobWorkloadExcel.action?";
     	     		url = url+"&jobWorkload.appTimeStrat="+appTimeStrat;
     	     		url = url+"&jobWorkload.appTimeEnd="+appTimeEnd;
-    	     		//url = url+"&rateofreturnReport.oneCategory="+oneCategory;
+    	     		url = url+"&jobWorkload.processNodeName="+processNodeName;
     	     		//url = url+"&rateofreturnReport.loanCategory="+loanCategory;
     				window.location.href=url; 
 			

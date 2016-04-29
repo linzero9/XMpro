@@ -76,6 +76,11 @@ public class JobWorkloadAction extends BaseAction{
 			jobWorkload=new JobWorkload();
 		}
 		jobWorkloadList=jobWorkloadService.jobWorkloadListExcel(jobWorkload);
+		
+		if(jobWorkload!=null){
+			starttime=jobWorkload.getAppTimeStrat();
+			endtime=jobWorkload.getAppTimeEnd();	
+		}
 		this.setJobWorkloadList(jobWorkloadList);
 		return "jobWorkloadExcel";
 	}
