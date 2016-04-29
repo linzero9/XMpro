@@ -32,7 +32,7 @@ public class ApprovalAction extends BaseAction {
 	}
 	
 	public String queryApprovalList(){
-		approvalList=approvalService.queryApprovalList(approval,page);
+		approvalList=approvalService.queryApprovalList(approval,this.getPage());
 		this.setPage(page);
 		this.setApprovalList(approvalList);
 		return"queryApprovalList";

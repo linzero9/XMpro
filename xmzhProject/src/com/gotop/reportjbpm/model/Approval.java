@@ -45,22 +45,102 @@ public class Approval implements Serializable {
 	private String repTimeEnd;
 	private String appTimeStrat;
 	private String appTimeEnd;
-
-	//	审查人
-//	private String ywEd;
+//审批日期
+	private String approvalTime;
+//	审查人
+	private String checkOne;
 //	第二审查人
-//	private String ywEd;
+	private String checkTwo;
 //	审查岗审查时间
-//	private String ywEd;
+	private String checkTime;
 //	批复日期
-//	private String ywEd;
-//	上报
-//	private String ywEd;
+	private String replyTime;
+//	总的上报接收时间
+	private String receiveTime;
+//	上报接收时间1
+	private String receiveOne;
+//	上报接收时间2
+	private String receiveTwo;
+//	上报接收时间3
+	private String receiveThree;
+//	上报接收时间4
+	private String receiveFour;
+//	上报接收时间5
+	private String receiveFive;
 //	备注
 //	private String ww;
 	
+	
+	
+	
 	public String getRepTimeStrat() {
 		return repTimeStrat;
+	}
+	public String getApprovalTime() {
+		return approvalTime;
+	}
+	public void setApprovalTime(String approvalTime) {
+		this.approvalTime = approvalTime;
+	}
+	public String getCheckOne() {
+		return checkOne;
+	}
+	public void setCheckOne(String checkOne) {
+		this.checkOne = checkOne;
+	}
+	public String getCheckTwo() {
+		return checkTwo;
+	}
+	public void setCheckTwo(String checkTwo) {
+		this.checkTwo = checkTwo;
+	}
+	public String getCheckTime() {
+		return checkTime;
+	}
+	public void setCheckTime(String checkTime) {
+		this.checkTime = checkTime;
+	}
+	public String getReplyTime() {
+		return replyTime;
+	}
+	public void setReplyTime(String replyTime) {
+		this.replyTime = replyTime;
+	}
+	public String getReceiveTime() {
+		return receiveTime;
+	}
+	public void setReceiveTime(String receiveTime) {
+		this.receiveTime = receiveTime;
+	}
+	public String getReceiveOne() {
+		return receiveOne;
+	}
+	public void setReceiveOne(String receiveOne) {
+		this.receiveOne = receiveOne;
+	}
+	public String getReceiveTwo() {
+		return receiveTwo;
+	}
+	public void setReceiveTwo(String receiveTwo) {
+		this.receiveTwo = receiveTwo;
+	}
+	public String getReceiveThree() {
+		return receiveThree;
+	}
+	public void setReceiveThree(String receiveThree) {
+		this.receiveThree = receiveThree;
+	}
+	public String getReceiveFour() {
+		return receiveFour;
+	}
+	public void setReceiveFour(String receiveFour) {
+		this.receiveFour = receiveFour;
+	}
+	public String getReceiveFive() {
+		return receiveFive;
+	}
+	public void setReceiveFive(String receiveFive) {
+		this.receiveFive = receiveFive;
 	}
 	public void setRepTimeStrat(String repTimeStrat) {
 		this.repTimeStrat = repTimeStrat;

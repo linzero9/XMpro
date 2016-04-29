@@ -13,7 +13,7 @@ public class ApprovalDao extends SqlMapClientDao implements IApprovalDao {
 	@Override
 	public List<Approval> queryApprovalList(Map<String, Object> map, Page page) {
 		
-		return queryForList("T_APPROVAL_SqlMap.queryApproval", map,page);
+		return this.queryForList("T_APPROVAL_SqlMap.aa", map,page);
 	}
 
 }

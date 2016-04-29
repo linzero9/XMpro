@@ -132,13 +132,7 @@
 			   <th nowrap="nowrap">退回</th>
 			   <th nowrap="nowrap">接收</th>
 			   <th nowrap="nowrap">退回</th>
-
-
-
-							
-							
-							
-						</tr>
+				</tr>
 						<w:radioGroup id="group1">
                            <l:iterate property="approvalList" id="id1">
 							<tr class="<l:output evenOutput='EOS_table_row' oddOutput='EOS_table_row_o'  />">
@@ -196,10 +190,10 @@
 									<b:write iterateId="id1" property="fdxdy" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="1" />
+									<b:write iterateId="id1" property="checkOne" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="2" />
+									<b:write iterateId="id1" property="checkTwo" />
 								</td>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1" property="surveyTime" />
@@ -232,7 +226,7 @@
 									<b:write iterateId="id1" property="9" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="10" />
+									<b:write iterateId="id1" property="checkTime" />
 								</td>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1" property="appWay" />
@@ -298,12 +292,44 @@
 									<b:write iterateId="id1" property="ywEd" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="1" />
+									<b:write iterateId="id1" property="replyTime" />
 								</td>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1" property="2" />
 								</td>
 								
+							</tr>
+							<tr>
+							<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="receiveOne" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="1" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="receiveTwo" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="2" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="receiveThree" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="3" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="receiveFour" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="4" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="receiveFive" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="5" />
+								</td>
 							</tr>
 						</l:iterate>
 						</w:radioGroup>

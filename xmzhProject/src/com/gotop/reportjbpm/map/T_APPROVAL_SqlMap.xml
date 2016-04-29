@@ -3,7 +3,7 @@
 <sqlMap namespace="T_APPROVAL_SqlMap">
  <resultMap id="approval" class="com.gotop.reportjbpm.model.Approval" >
     <!--Bean方式返回全表-->
-    <result column="NEXT_ORG_NAME" property="nextOrgName" jdbcType="VARCHAR" />
+    <result column="NEXTORGNAME" property="nextOrgName" jdbcType="VARCHAR" />
     <result column="REPORTTIME" property="reportTime" jdbcType="VARCHAR" />
     <result column="ISURGENT" property="iSurgent" jdbcType="VARCHAR" />
     <result column="CUST_NAME" property="custName" jdbcType="VARCHAR" />
@@ -39,33 +39,130 @@
     <result column="FX_ED" property="fxEd" jdbcType="VARCHAR" />
     <result column="SX_ED" property="sxEd" jdbcType="VARCHAR" />
     <result column="YW_ED" property="ywEd" jdbcType="VARCHAR" />
+    
+    <result column="APPROVALTIME" property="approvalTime" jdbcType="VARCHAR" />
+    <result column="CHECKONE" property="checkOne" jdbcType="VARCHAR" />
+    <result column="CHECKTWO" property="checkTwo" jdbcType="VARCHAR" />
+    <result column="CHECKTIME" property="checkTime" jdbcType="VARCHAR" />
+    <result column="REPLYTIME" property="replyTime" jdbcType="VARCHAR" />
+    <result column="RECEIVETIME" property="receiveTime" jdbcType="VARCHAR" />
   </resultMap>
   
 	<!-- 查询差错情况统计 -->
-	<select id="queryErrorStatistic" parameterClass="java.util.HashMap" resultMap="approval">
-	<!-- 
-	select G.NEXT_ORG_NAME,
-       G.NEXT_OPR_NAME,
-       E.LOANCATEGORY,
-       E.FDXDY,
-       E.YXZG,
-       T.MISTAKE_CONTENT,
-       T.PUNISH_BAL,
-       T.TASKNAME,
-       M.REPORTTIME,
-       E.CUST_NAME,
-       P.EMPNAME,
-       T.ADD_TIME
-  FROM T_APPROVE_OPNINION_GP       G,
-       T_GENERALPROCESS_MODELONE   E,
-       T_GENERALPROCESS_MISTAKE    T,
-       OM_EMPLOYEE                 P,
-       T_GENERALPROCESS_MODELTHREE M
- WHERE P.EMPID = T.EMPID
-   AND G.OPERATOR = P.EMPID
-   AND E.FLOW_ID = T.FLOW_ID
+	<select id="aa" parameterClass="java.util.HashMap" resultMap="approval">
+	
+	SELECT Z.REPORTTIME,
+       Z.ISURGENT,
+       Z.CUST_NAME,
+       Z.OLD_CUST,
+       Z.ONECATEGORY,
+       Z.LOANCATEGORY,
+       Z.CURRENCY,
+       Z.APPLY_BAL,
+       Z.ORGNAMEONE,
+       Z.FLOW_ID,
+       Z.YXRY,
+       Z.NEXT_OPR_NAME,
+       Z.FDXDY,
+       Z.APP_WAY,
+       Z.SURVEY_TIME,
+       Z.POL_NO,
+       Z.MEETING_COUNT,
+       Z.VOTE_NO,
+       Z.APP_TIME,
+       Z.CON_MATTER,
+       Z.DS_MS_ONE,
+       Z.DS_MS_TWO,
+       Z.DY_APP,
+       Z.DE_APP,
+       Z.HY_ZR_NAME,
+       Z.HY_WY_ONE,
+       Z.SH_ADDR,
+       Z.FX_TYPE,
+       Z.SP_TYPE,
+       Z.YBJ_NUM,
+       Z.HY_SY_JL,
+       Z.PJ_JL,
+       Z.FX_ED,
+       Z.SX_ED,
+       Z.YW_ED,
+       Z.NEXTORGNAME,
+       O1.ORGNAMETWO,
+       A1.APPROVALTIME,
+       A2.CHECKTIME,
+       A3.REPLYTIME,
+       A4.CHECKONE,
+       A5.CHECKTWO,
+       A6.RECEIVETIME
+  FROM (select T.REPORTTIME,
+               T.ISURGENT,
+               O.CUST_NAME,
+               O.OLD_CUST,
+               O.ONECATEGORY,
+               O.LOANCATEGORY,
+               O.CURRENCY,
+               O.APPLY_BAL,
+               N.ORGNAME AS ORGNAMEONE,
+               O.FLOW_ID,
+               O.YXRY,
+               P.EMPNAME       AS NEXT_OPR_NAME,
+               O.FDXDY,
+               O.SURVEY_TIME,
+               I.APP_WAY,
+               I.POL_NO,
+               I.MEETING_COUNT,
+               I.VOTE_NO,
+               I.APP_TIME,
+               I.CON_MATTER,
+               I.DS_MS_ONE,
+               I.DS_MS_TWO,
+               I.DY_APP,
+               I.DE_APP,
+               I.HY_ZR_NAME,
+               I.HY_WY_ONE,
+               I.SH_ADDR,
+               I.FX_TYPE,
+               I.SP_TYPE,
+               I.YBJ_NUM,
+               I.HY_SY_JL,
+               I.PJ_JL,
+               I.FX_ED,
+               I.SX_ED,
+               I.YW_ED,
+               O2.NEXTORGNAME
+          from (SELECT O.ORGNAME AS NEXTORGNAME, T.FLOW_ID
+                  FROM T_GENERALPROCESS_MODELONE T
+                       
+                      ,
+                       OM_ORGANIZATION O
+                 WHERE O.ORGCODE = T.ORGCODEONE) O2,
+               OM_EMPLOYEE P,
+               T_GENERALPROCESS_MODELONE O,
+               T_GENERALPROCESS_MODELTHREE T,
+               T_GENERALPROCESS_MODELFIVE I,
+               OM_ORGANIZATION N
+         WHERE O2.FLOW_ID = O.FLOW_ID
+           AND N.ORGCODE = O.ORGCODEONE
+           AND O.CREATOR = P.EMPID
+           AND O.FLOW_ID = T.FLOW_ID
+           AND T.FLOW_ID = I.FLOW_ID) Z
+           LEFT JOIN (SELECT O.ORGNAME AS ORGNAMETWO,T.FLOW_ID FROM T_GENERALPROCESS_MODELONE T ,OM_ORGANIZATION O WHERE O.ORGCODE=T.ORGCODETWO)O1
+           ON O1.FLOW_ID=Z.FLOW_ID
+           LEFT JOIN (select q.execution_,to_char(max(q.end_),'yyyy-mm-dd hh24:mi:ss ') as APPROVALTIME from jbpm4_hist_actinst q where q.activity_name_='发起合同预审' group by q.execution_)A1
+           ON A1.EXECUTION_=Z.FLOW_ID
+           LEFT JOIN (select q.execution_ ,to_char(max(q.start_),'yyyy-mm-dd hh24:mi:ss ') as CHECKTIME from jbpm4_hist_actinst q  where q.activity_name_='审查一' group by q.execution_)A2
+           ON A2.EXECUTION_=Z.FLOW_ID
+           LEFT JOIN (select A.EXECUTION_,(CASE WHEN T.YQ_APP_TIME IS NULL THEN A.REPLYTIME ELSE to_char(TO_DATE(t.yq_app_time, 'yyyy/MM/dd hh24:mi:ss'), 'yyyy-mm-dd hh24:mi:ss') END) AS REPLYTIME  from t_generalprocess_modelfive T,(select t.outcome_,to_char(q.start_ ,'yyyy-mm-dd hh24:mi:ss ') as REPLYTIME,t.execution_ from JBPM4_HIST_TASK t，jbpm4_hist_actinst q where t.outcome_='提交发起合同预审' and q.htask_=t.dbid_)A WHERE T.FLOW_ID=A.EXECUTION_)A3
+           ON A3.EXECUTION_=Z.FLOW_ID
+           LEFT JOIN （select t.execution_,o.empname as CHECKONE from jbpm4_hist_actinst q,JBPM4_HIST_TASK t,om_employee o WHERE q.activity_name_='审批一'and q.htask_=t.dbid_ and o.empid=t.assignee_ group by t.execution_,o.empname)A4
+           ON A4.EXECUTION_=Z.FLOW_ID
+           LEFT JOIN (select t.execution_,o.empname as CHECKTWO from jbpm4_hist_actinst q,JBPM4_HIST_TASK t,om_employee o WHERE q.activity_name_='审批二'and q.htask_=t.dbid_ and o.empid=t.assignee_ group by t.execution_,o.empname)A5
+           ON A5.EXECUTION_=Z.FLOW_ID
+           LEFT JOIN (select t.execution_, wm_concat(to_char(t.start_,'yyyy-mm-dd hh24:mi;ss')) RECEIVETIME from (select *from jbpm4_hist_actinst q where q.activity_name_ = '审查一' order by q.execution_, q.start_)T group by t.execution_)A6
+           ON A6.EXECUTION_=Z.FLOW_ID
+	</select>
    
-      <isNotNull prepend="and" property="custName" >
+    <!--  <isNotNull prepend="and" property="custName" >
         E.CUST_NAME =#custName:VARCHAR#
       </isNotNull>
       
@@ -82,6 +179,5 @@
       </isNotNull>
      
 	 -->
-	</select>
 
 </sqlMap>
