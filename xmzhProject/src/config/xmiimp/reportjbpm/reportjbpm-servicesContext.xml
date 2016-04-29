@@ -29,4 +29,8 @@
     <property name="reportCooperateInstitutionDao" ref="reportCooperateInstitutionDao" />
 
   </bean>
+        <bean id="jobWorkloadService" class="com.gotop.reportjbpm.service.impl.JobWorkloadService" >
+    <property name="jobWorkloadDao" ref="jobWorkloadDao" />
+  </bean>
+  
 </beans>

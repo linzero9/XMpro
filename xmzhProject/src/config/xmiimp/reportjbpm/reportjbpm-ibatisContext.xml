@@ -30,4 +30,7 @@
     <property name="sqlMapClient" ref="sqlMapClient" />
   </bean>
 
+         <bean id="jobWorkloadDao" class="com.gotop.reportjbpm.dao.impl.JobWorkloadDao" >
+    <property name="sqlMapClient" ref="sqlMapClient" />
+  </bean>
 </beans>

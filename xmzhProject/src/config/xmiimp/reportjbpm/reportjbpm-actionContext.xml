@@ -44,4 +44,8 @@
     <property name="approval" ref="approval" />
   </bean>
 
+      <bean name="jobWorkloadAction" id="jobWorkloadAction" class="com.gotop.reportjbpm.action.JobWorkloadAction" singleton="false" >
+         <property name="jobWorkloadService" ref="jobWorkloadService" />
+     </bean>
+
 </beans>
