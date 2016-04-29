@@ -44,7 +44,7 @@ public class DevicePo  implements  Serializable{
 	//对应的外设
 	private String peripheral;
 	
-	//其他属性1
+	//是否在用
 	private  String otherAttribute_1;
 	//其他属性2
 	private  String otherAttribute_2;
@@ -66,7 +66,7 @@ public class DevicePo  implements  Serializable{
 	//其他信息5
 	private  String otherInfo_5;
 			
-	//备注1
+	//任务标记
 	private  String remarks_1;
 	//备注2
 	private  String remarks_2;

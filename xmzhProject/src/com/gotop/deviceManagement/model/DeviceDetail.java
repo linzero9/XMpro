@@ -54,7 +54,7 @@ public class DeviceDetail  implements  Serializable{
 		//本次 对应的外设
 		private String peripheral;
 		
-		//本次  其他属性1
+		//本次  是否在用
 		private  String otherAttribute_1;
 		//本次  其他属性2
 		private  String otherAttribute_2;
@@ -76,7 +76,7 @@ public class DeviceDetail  implements  Serializable{
 		//本次 其他信息5
 		private  String otherInfo_5;
 		
-		//本次  备注1
+		//本次  任务标记
 		private  String remarks_1;
 		//本次  备注2
 		private  String remarks_2;
