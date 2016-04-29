@@ -11,8 +11,7 @@
 	</head>
 	<body topmargin="0" leftmargin="0">
 	<h:form name="appQuery"	action="/reportRefusalrateAction_queryReportRefusalRate.action" method="post">
-	<h:hidden property="nameString" id="nameString" />
-	<h:hidden property="isExport" id="isExport"/>
+	
 		<w:panel id="panel1" title="查询条件">
 			<table align="center" border="0" width="100%" class="form_table">
 				
@@ -61,12 +60,7 @@
 				<h:form name="page_form"
 					action="/ReportStatistics/reportRefusalrateAction_queryReportRefusalRate.action" method="post">
 			 <h:hiddendata property="reportRefusalrate"/>  
-			 <h:hiddendata property="reportRefusalrate.stratdate" />
-				<h:hiddendata property="reportRefusalrate.enddate" />
-                <h:hiddendata property="reportRefusalrate.oneCategoryId" />
-				<h:hiddendata property="reportRefusalrate.oneCategoryTxt" />
-				<h:hiddendata property="reportRefusalrate.loanCategoryId" />
-				<h:hiddendata property="reportRefusalrate.loanCategoryTxt" />
+			
             <h:hidden property="page.begin"/>
 		    <h:hidden property="page.length"/>
 		    <h:hidden property="page.count"/>
@@ -75,9 +69,7 @@
 					<table align="center" border="0" width="100%" class="EOS_table">
 		    
 						<tr>
-							<th align="center" nowrap="nowrap">
-								<b:message key="l_select"></b:message>
-							</th>
+							
 							
 							<th nowrap="nowrap">
 								贷种
@@ -102,17 +94,7 @@
 						<w:radioGroup id="group1">
                            <l:iterate property="list" id="id1">
 							<tr class="<l:output evenOutput='EOS_table_row' oddOutput='EOS_table_row_o'  />">
-								<td align="center" nowrap="nowrap">
-									<w:rowRadio>
-										<h:param name='executionId' iterateId='id1' property='executionId' />
-										<h:param name='loancategory' iterateId='id1' property='loancategory' />
-										<h:param name='orgname' iterateId='id1' property='orgname' />
-										<h:param name='orgnametwo' iterateId='id1' property='orgnametwo' />
-										<h:param name='EA_number' iterateId='id1' property='EA_number' />
-										<h:param name='rejection_number' iterateId='id1' property='rejection_number' />
-										<h:param name='refusalrate' iterateId='id1' property='refusalrate'/>
-									</w:rowRadio>
-								</td>
+								
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1"    property="loanCategory" />
 								</td>
@@ -217,56 +199,14 @@
     				window.location.href=strUrl;
     			}
 		
-		 /*function upt_loan_info(){
-			var gop = $id("group1");
-	  		var len = gop.getSelectLength();
-	  		if(len == 0){
-	  			alert("请选择一条流程信息");
-	  			return;
-	  		}else{
-	  			var row=gop.getSelectRow();
-		  		var executionId = row.getParam("executionId");
-		  		var loan = row.getParam("loan");
-		  		var areasubbranch = row.getParam("areasubbranch");
-		  		var secondarysubbranch = row.getParam("secondarysubbranch");
-		  		var EA_number = row.getParam("EA_number");
-		  		var rejection_number = row.getParam("rejection_number");
-		  		var refusalrate = row.getParam("refusalrate");
-
-	            var strUrl = "/ReportStatistics/reportRefusalrateAction_toUptLoanInfo.action?reportRefusalrate.executionId="+executionId+"&reportRefusalrate.loan="+loan;
-	            strUrl = strUrl+"&reportRefusalrate.areasubbranch="+areasubbranch
-	            +"&reportRefusalrate.secondarysubbranch="+secondarysubbranch
-	            +"&reportRefusalrate.EA_number="+EA_number
-	            +"&reportRefusalrate.rejection_number="+rejection_number
-	            +"&reportRefusalrate.refusalrate="+refusalrate;
-	            
-				  showModalCenter(encodeURI(strUrl), null,callBack, 500, 300, '修改拒贷率信息');
-				  
-				  /* 	var url="/jbpm/xdProcessAction_toAddOneCategory.action?xdCdtypeBean.processName="+encodeURI(processName);
-		  		parent.window.frames["mainFrame"].location.href = encodeURI(strUrl); 
-		  		
-		  		showModalCenter(encodeURI(strUrl), null, callBack, clientX*0.9, clientY*0.9, ''修改拒贷率信息');
-			}
-		}*/	
+		
 		function callBack(){
 			var frm = $name("page_form");
             frm.submit();
 			//  location.reload(); //就算页面直接关闭，也会重新加载页面
 			}
 
-	   /*	function queryLoanUptWater(){
-	  		var gop = $id("group1");
-	  		var len = gop.getSelectLength();
-	  		if(len == 0){
-	  			alert("请选择一条流程信息");
-	  			return;
-	  		}else{
-	  			var rows=gop.getSelectRow();
-		  		var executionId = rows.getParam("executionId");
-		  		var strUrl = "/ReportStatistics/reportRefusalrateAction_queryLoanUptWater.action?waterInfo.flow_id="+executionId;
-		  		showModalCenter(strUrl,'',null ,1200,500,'拒贷率修改流水明细');
-			  	}
-		  	}*/	
+	  
 
 	  	function showoneCategory() {
 			var oneCategoryId=document.getElementById("oneCategoryId").value;

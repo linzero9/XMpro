@@ -16,114 +16,166 @@
 	
 	<!-- 查询拒贷信息 -->
 	<select id="queryReportRefusalRate" parameterClass="java.util.HashMap" resultMap="ReportRefusalrate">
-		
-SELECT LOANCATEGORY,
-       ORGNAME,
-       ORGNAMETWO,
-       EA_number,
-       rejection_number,
-       DECODE(refusalrate, '%', '0', refusalrate) refusalrate,
-       REPORTTIME,
-       ONECATEGORY
-  FROM (      
-        SELECT tt.LOANCATEGORY,
-                tt.ORGNAME,
-                tt.ORGNAMETWO,
-                tt.REPORTTIME,
-                tt.EA_number,
-                gg.rejection_number,
-                (round(gg.rejection_number /(tt.EA_number + gg.rejection_number) * 100,2)) || '%' as refusalrate,
-                tt.ONECATEGORY
-          from (SELECT t1.LOANCATEGORY,
-                        t1.ONECATEGORY,
-                        t2.ORGNAME,
-                        t3.ORGNAMETWO,
-                        t1.REPORTTIME,
-                        count(*) EA_number
-                   from (select T.flow_id,
-                                T.ORGCODEONE,
-                                T.ORGCODETWO,
-                                T.LOANCATEGORY,
-                                T.ONECATEGORY,
-                                M.REPORTTIME
-                           from T_GENERALPROCESS_MODELONE   T,
-                                T_GENERALPROCESS_MODELTHREE M
-                          where T.flow_id = M.flow_id) t1
-                   join (SELECT ORGCODE, ORGNAME FROM OM_ORGANIZATION) t2
-                     on t1.ORGCODEONE = t2.ORGCODE
-                   LEFT join (SELECT ORGCODE as ORGCODETWO,
-                                    ORGNAME as ORGNAMETWO
-                               FROM OM_ORGANIZATION) t3
-                     on t1.ORGCODETWO = t3.ORGCODETWO
-                   JOIN (select a.execution_ f_id
-                          from jbpm4_hist_actinst a
-                         where a.transition_ = 'TO 结束'
-                           and a.execution_ in
-                               (select t.flow_id
-                                  from T_GENERALPROCESS_MODELTWO t
-                                 where t.TASKNAME like '发起合同预审%')) t4
-                     on t1.flow_id = t4.f_id
-                  GROUP BY t1.LOANCATEGORY,
-                           t2.ORGNAME,
-                           t3.ORGNAMETWO,
-                           t1.ONECATEGORY,
-                           t1.REPORTTIME
-                  ORDER BY t1.LOANCATEGORY) tt
-          left join (SELECT t1.LOANCATEGORY,
-                            t1.ONECATEGORY,
-                            t2.ORGNAME,
-                            t3.ORGNAMETWO,
-                            t1.REPORTTIME,
-                            count(*) rejection_number
-                       from (select T.flow_id,
-                                    T.ORGCODEONE,
-                                    T.ORGCODETWO,
-                                    T.LOANCATEGORY,
-                                    T.ONECATEGORY,
-                                    M.REPORTTIME
-                               from T_GENERALPROCESS_MODELONE   T,
-                                    T_GENERALPROCESS_MODELTHREE M
-                              where T.flow_id = M.flow_id) t1
-                       join (SELECT ORGCODE, ORGNAME FROM OM_ORGANIZATION) t2
-                         on t1.ORGCODEONE = t2.ORGCODE
-                       LEFT join (SELECT ORGCODE as ORGCODETWO,
-                                        ORGNAME as ORGNAMETWO
-                                   FROM OM_ORGANIZATION) t3
-                         on t1.ORGCODETWO = t3.ORGCODETWO
-                       JOIN (select a.execution_ f_id
-                              from jbpm4_hist_actinst a
-                             where a.transition_ != 'TO 结束'
-                               and a.execution_ in
-                                   (select t.flow_id
-                                      from T_GENERALPROCESS_MODELTWO t
-                                     where t.TASKNAME like '发起合同预审%')) t4
-                         on t1.flow_id = t4.f_id
-                      GROUP BY t1.LOANCATEGORY,
-                               t2.ORGNAME,
-                               t3.ORGNAMETWO,
-                               t1.ONECATEGORY,
-                               t1.REPORTTIME
-                      ORDER BY t1.LOANCATEGORY) gg
-            on tt.LOANCATEGORY = gg.LOANCATEGORY
-           and tt.ORGNAME = gg.ORGNAME
-           and tt.ORGNAMETWO = gg.ORGNAMETWO
-where 1=1
-        <isNotNull prepend="and" property="stratdate" >
-             <![CDATA[tt.REPORTTIME>=#stratdate#]]>
-        </isNotNull>     
-        <isNotNull prepend="and" property="enddate" >
-             <![CDATA[tt.REPORTTIME<=#enddate#]]>
-        </isNotNull>
+
+SELECT JJ.*,
+       (ROUND(REJECTION_NUMBER / (EA_NUMBER + REJECTION_NUMBER) * 100, 2)) || '%' AS REFUSALRATE 
+  FROM (
+        
+        SELECT ONECATEGORY,
+                LOANCATEGORY,
+                ORGNAME,
+              ORGNAMETWO,
+                SUM(TT_NUM) EA_NUMBER,
+                SUM(GG_NUM) REJECTION_NUMBER      
+          FROM (
+                 
+                 SELECT
+                 
+                  CASE
+                     WHEN TT_LOANCATEGORY IS NOT NULL THEN
+                      TT_LOANCATEGORY
+                   
+                     ELSE
+                      GG_LOANCATEGORY
+                   END LOANCATEGORY, 
+                   
+                   CASE
+                     WHEN TT_ONECATEGORY IS NOT NULL THEN
+                      TT_ONECATEGORY
+                   
+                     ELSE
+                      GG_ONECATEGORY
+                   END ONECATEGORY,
+                   
+                   CASE
+                     WHEN TT_ORGNAME IS NOT NULL THEN
+                      TT_ORGNAME
+                   
+                     ELSE
+                      GG_ORGNAME
+                   END ORGNAME, 
+                   
+                   CASE
+                     WHEN TT_ORGNAMETWO IS NOT NULL THEN
+                      TT_ORGNAMETWO
+                   
+                     ELSE
+                      GG_ORGNAMETWO
+                   END ORGNAMETWO, 
+                   
+                   TT_NUM, 
+                   GG_NUM,  
+                   (ROUND(GG_NUM / (TT_NUM + GG_NUM) * 100, 2)) || '%' AS REFUSALRATE            
+                   FROM (                 
+                          SELECT          
+                           TT.LOANCATEGORY AS TT_LOANCATEGORY,
+                            TT.ONECATEGORY  AS TT_ONECATEGORY,
+                            TT.ORGNAME      AS TT_ORGNAME,
+                            TT.ORGNAMETWO   AS TT_ORGNAMETWO,                       
+                            NVL(TT.EA_NUMBER, 0) AS TT_NUM,                   
+                            GG.LOANCATEGORY AS GG_LOANCATEGORY,
+                            GG.ONECATEGORY  AS GG_ONECATEGORY,
+                            GG.ORGNAME      AS GG_ORGNAME,
+                            GG.ORGNAMETWO   AS GG_ORGNAMETWO,                           
+                            NVL(GG.REJECTION_NUMBER, 0) AS GG_NUM                     
+                            FROM (SELECT T1.LOANCATEGORY,
+                                          T1.ONECATEGORY,
+                                          T2.ORGNAME,
+                                          T3.ORGNAMETWO,       
+                                          COUNT(*) EA_NUMBER
+                                     FROM (SELECT T.FLOW_ID,
+                                                  T.ORGCODEONE,
+                                                  T.ORGCODETWO,
+                                                  T.LOANCATEGORY,
+                                                  T.ONECATEGORY,
+                                                  M.REPORTTIME
+                                             FROM T_GENERALPROCESS_MODELONE   T,
+                                                  T_GENERALPROCESS_MODELTHREE M
+                                            WHERE T.FLOW_ID = M.FLOW_ID
+                                            
+                                            <isNotNull prepend="and" property="stratdate" >
+                                                 <![CDATA[M.REPORTTIME>=#stratdate#]]>
+                                            </isNotNull>     
+                                            <isNotNull prepend="and" property="enddate" >
+                                                 <![CDATA[M.REPORTTIME<=#enddate#]]>
+                                            </isNotNull>
+                                            
+                                            ) T1
+                                     JOIN (SELECT ORGCODE, ORGNAME
+                                            FROM OM_ORGANIZATION) T2
+                                       ON T1.ORGCODEONE = T2.ORGCODE
+                                     LEFT JOIN (SELECT ORGCODE AS ORGCODETWO,
+                                                      ORGNAME AS ORGNAMETWO
+                                                 FROM OM_ORGANIZATION) T3
+                                       ON T1.ORGCODETWO = T3.ORGCODETWO
+                                     JOIN (
+                                     SELECT A.EXECUTION_ F_ID
+                                            FROM jbpm4_hist_actinst A                  
+                                                   WHERE A.ACTIVITY_NAME_ ='发起合同预审')T4
+                                       ON T1.FLOW_ID = T4.F_ID 
+                                GROUP BY T1.LOANCATEGORY,
+                                             T2.ORGNAME,
+                                             T3.ORGNAMETWO,
+                                             T1.ONECATEGORY                              
+                                    ORDER BY T1.LOANCATEGORY  ) TT
+                            FULL JOIN (SELECT T1.LOANCATEGORY,
+                                              T1.ONECATEGORY,
+                                              T2.ORGNAME,
+                                              T3.ORGNAMETWO,          
+                                              COUNT(*) REJECTION_NUMBER
+                                         FROM (SELECT T.FLOW_ID,
+                                                      T.ORGCODEONE,
+                                                      T.ORGCODETWO,
+                                                      T.LOANCATEGORY,
+                                                      T.ONECATEGORY,
+                                                      M.REPORTTIME
+                                                 FROM T_GENERALPROCESS_MODELONE   T,
+                                                      T_GENERALPROCESS_MODELTHREE M
+                                                WHERE T.FLOW_ID = M.FLOW_ID
+                                                <isNotNull prepend="and" property="stratdate" >
+                                                      <![CDATA[M.REPORTTIME>=#stratdate#]]>
+                                                </isNotNull>     
+                                                <isNotNull prepend="and" property="enddate" >
+                                                      <![CDATA[M.REPORTTIME<=#enddate#]]>
+                                                </isNotNull>
+                                                
+                                                ) T1
+                                         JOIN (SELECT ORGCODE, ORGNAME
+                                                FROM OM_ORGANIZATION) T2
+                                           ON T1.ORGCODEONE = T2.ORGCODE
+                                         LEFT JOIN (SELECT ORGCODE AS ORGCODETWO,
+                                                          ORGNAME AS ORGNAMETWO
+                                                     FROM OM_ORGANIZATION) T3
+                                           ON T1.ORGCODETWO = T3.ORGCODETWO
+                                         JOIN (SELECT A.EXECUTION_ F_ID
+                                                FROM JBPM4_HIST_ACTINST A
+                                               WHERE A.TRANSITION_ = 'TO 结束'
+                                                 AND A.EXECUTION_ IN
+                                                     (SELECT T.EXECUTION_
+                                                        FROM JBPM4_HIST_ACTINST T
+                                                       WHERE T.ACTIVITY_NAME_ !=
+                                                             '发起合同预审')) T4
+                                           ON T1.FLOW_ID = T4.F_ID    
+                                        GROUP BY T1.LOANCATEGORY,
+                                                 T2.ORGNAME,
+                                                 T3.ORGNAMETWO,
+                                                 T1.ONECATEGORY
+                                        ORDER BY T1.LOANCATEGORY                       
+                                       ) GG
+                              ON TT.LOANCATEGORY = GG.LOANCATEGORY
+                             AND TT.ORGNAME = GG.ORGNAME
+                             AND TT.ORGNAMETWO = GG.ORGNAMETWO) FIN) FII
+         GROUP BY FII.ONECATEGORY, FII.LOANCATEGORY, ORGNAME,ORGNAMETWO
+        
+        ) JJ 
+ where  1=1
+         
       	<isNotNull prepend="and" property="oneCategory" >
-                 tt.ONECATEGORY  in($oneCategory$)
+                JJ.ONECATEGORY  in($oneCategory$)
       	</isNotNull>
       	<isNotNull prepend="and" property="loanCategory" >
-           	     tt.LOANCATEGORY in($loanCategory$)
+           	     JJ.LOANCATEGORY in($loanCategory$)
       	</isNotNull>
-
- )
-		
-
-      		
+	
 	</select>
 </sqlMap>

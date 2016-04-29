@@ -46,7 +46,7 @@ public class ReportRefusalrateAction extends BaseAction {
 	 */
 	public String queryReportRefusalRate(){
 		list=reportRefusalRateService.selectReportRefusalRate(reportRefusalrate,this.getPage());
-		
+	
 		this.setList(list);
 		return"queryReportRefusalRate";
 	}
