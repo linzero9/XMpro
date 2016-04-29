@@ -28,7 +28,7 @@ margin-left:inherit;
 		<title>设备列表</title>
 	</head>
 	<body topmargin="0" leftmargin="0">
-	<DIV class="divList"  style="overflow:auto;width:100%; height:250;">  
+	<DIV class="divList"  style="overflow:auto;width:100%; height:168;">  
 	<h:form name="query_form"	action="/deviceManagement/deviceManagementAction_deviceList.action" method="post">
 		<w:panel id="panel1" title="查询条件">
 		<table align="center" border="0" width="100%" class="form_table"  >
@@ -39,73 +39,81 @@ margin-left:inherit;
 			            <h:hidden id="orgcode" property="device.orgcode" />
 			      		<a href="#" onclick="open_newyw_tree_fun1();">选择</a>
 					</td>
-					<td class="form_label" align="right" width="10%" nowrap="nowrap">设备名称：</td>
-					<td colspan="1"  width="20%" nowrap="nowrap">
-						<d:select  id="deviceName"  dictTypeId="DEVICE_NAME" property="device.deviceName" nullLabel="请选择"></d:select>
-					</td>
-						<td class="form_label" align="right" width="10%" nowrap="nowrap">设备型号：</td>
+					<td class="form_label" align="right" width="10%" nowrap="nowrap">IP地址：</td>
 					<td colspan="1"  width="25%" nowrap="nowrap">
-						<d:select  id="deviceModel"  dictTypeId="DEVICE_MODEL" property="device.deviceModel" nullLabel="请选择"></d:select>
+						<h:text id="ipAdress" property="device.ipAdress"  size="15"  validateAttr="fracDigit=2;type=double;"  />
 					</td>
-					
-				</tr>
-				<tr>
-					<td class="form_label" align="right" width="10%" nowrap="nowrap">内存：</td>
-					<td colspan="1"  width="25%" nowrap="nowrap">
-						<h:text id="memoryMin" property="device.memoryMin"  size="5"  validateAttr="fracDigit=2;type=double;"  />G
-						＜内存容量(G)＜
-						<h:text id="memoryMax" property="device.memoryMax"  size="5"  validateAttr="fracDigit=2;type=double;" />G
-					</td>
-					<td class="form_label" align="right" width="10%" nowrap="nowrap">硬盘：</td>
-					<td colspan="1"  width="20%" nowrap="nowrap">
-						<h:text id="hardDiskMin" property="device.hardDiskMin"  size="5"  validateAttr="fracDigit=2;type=double;"  />G
-						＜硬盘容量(G)＜
-						<h:text id="hardDiskMax" property="device.hardDiskMax" size="5"  validateAttr="fracDigit=2;type=double;"  />G
-					</td>
-					<td class="form_label" align="right" width="10%" nowrap="nowrap">设备状态：</td>
-					<td colspan="1"  width="25%" nowrap="nowrap" >
-						<d:select  id="deviceState"  dictTypeId="DEVICE_STATE" property="device.deviceState" nullLabel="请选择"></d:select>
-					</td>
-				</tr>
-				<tr>
-				
 					<td class="form_label" align="right" width="10%" nowrap="nowrap">操作系统版本：</td>
 					<td colspan="1"  width="23%" nowrap="nowrap">
 						<d:select  id="osVersion"  dictTypeId="DEVICE_OS_VERSION" property="device.osVersion" nullLabel="请选择"  ></d:select>
 					</td>
-					<td class="form_label" align="right" width="10%" nowrap="nowrap">内置软件版本：</td>
-					<td colspan="1"  width="23%" nowrap="nowrap">
-						<h:text id="softwareVersion" property="device.softwareVersion"  />
+						<td class="form_label" align="right" width="10%" nowrap="nowrap">其他属性2：</td>
+					<td colspan="1" width="30%" nowrap="nowrap">
+					<d:select id="otherAttribute_2"  dictTypeId="DEVICE_OTHERATTRIBUTE_2" property="device.otherAttribute_2" nullLabel="请选择"></d:select>
+				</td>
+					<td class="form_label" align="right" width="10%" nowrap="nowrap">其他信息2：</td>
+					<td colspan="1" width="30%" nowrap="nowrap">
+					<d:checkbox perrow="12"  id="otherInfo_2"  dictTypeId="DEVICE_OTHERINFO_2" property="device.otherInfo_2"  seperator=", " />
+				</td>
+					
+				</tr>
+				<tr>
+				<td class="form_label" align="right" width="10%" nowrap="nowrap">设备名称：</td>
+					<td colspan="1"  width="20%" nowrap="nowrap">
+						<d:select  id="deviceName"  dictTypeId="DEVICE_NAME" property="device.deviceName" nullLabel="请选择"></d:select>
 					</td>
-					<td class="form_label" align="right" width="10%" nowrap="nowrap">IE版本：</td>
-					<td colspan="1"  width="24%" nowrap="nowrap">
-						<d:select  id="ieVersion"  dictTypeId="DEVICE_IE_VERSION" property="device.ieVersion" nullLabel="请选择"></d:select>
+					<td class="form_label" align="right" width="10%" nowrap="nowrap">任务标记：</td>
+					
+					<td colspan="1" width="30%" nowrap="nowrap"><h:text id="remarks_1"
+						property="device.remarks_1" size="15" validateAttr="maxLength=127;" /></td>
+			
+					<td class="form_label" align="right" width="10%" nowrap="nowrap">备注2：</td>
+					
+					<td colspan="1" width="30%" nowrap="nowrap"><h:text id="remarks_2"
+						property="device.remarks_2" size="15" validateAttr="maxLength=127;" /></td>
+		
+					<td class="form_label" align="right" width="10%" nowrap="nowrap">其他属性3：</td>
+					<td colspan="1" width="30%" nowrap="nowrap">
+					<d:select id="otherAttribute_3"  dictTypeId="DEVICE_OTHERATTRIBUTE_3" property="device.otherAttribute_3" nullLabel="请选择"></d:select>
+				</td>
+					<td class="form_label" align="right" width="10%" nowrap="nowrap">其他信息3：</td>
+					<td colspan="1" width="30%" nowrap="nowrap">
+					<d:checkbox     perrow="12"    id="otherInfo_3"  dictTypeId="DEVICE_OTHERINFO_3" property="device.otherInfo_3"  seperator=", " />
+				</td>
+					
+				</tr>
+				<tr>
+					<td class="form_label" align="right" width="10%" nowrap="nowrap">型号：</td>
+					<td colspan="1" width="30%" nowrap="nowrap">
+					<d:select  id="deviceModel"  dictTypeId="DEVICE_MODEL" property="device.deviceModel" nullLabel="请选择"></d:select>
+				</td>
+					<td class="form_label" align="right" width="10%" nowrap="nowrap">是否在用：</td>
+					<td colspan="1" width="30%" nowrap="nowrap">
+					<d:select id="otherAttribute_1"  dictTypeId="DEVICE_OTHERATTRIBUTE_1" property="device.otherAttribute_1" nullLabel="请选择"></d:select>
+				</td>
+					<td class="form_label" align="right" width="10%" nowrap="nowrap">设备状态：</td>
+					<td colspan="1"  width="25%" nowrap="nowrap" >
+						<d:select  id="deviceState"  dictTypeId="DEVICE_STATE" property="device.deviceState" nullLabel="请选择"></d:select>
 					</td>
+					<td class="form_label" align="right" width="10%" nowrap="nowrap">其他属性4：</td>
+					<td colspan="1" width="30%" nowrap="nowrap">
+					<d:select id="otherAttribute_4"  dictTypeId="DEVICE_OTHERATTRIBUTE_4" property="device.otherAttribute_4" nullLabel="请选择"></d:select>
+				</td>
+					<td class="form_label" align="right" width="10%" nowrap="nowrap">其他信息：</td>
+					<td colspan="1" width="30%" nowrap="nowrap">
+					<d:checkbox  perrow="12"     id="otherInfo_4"  dictTypeId="DEVICE_OTHERINFO_4" property="device.otherInfo_4"  seperator=", " />
+				</td>
+					
 				</tr></table>
 			<table align="center" border="0" width="100%" class="form_table"  >
-				<tr>
-					<td class="form_label" align="right" width="10%" nowrap="nowrap">用途：</td>
-					<td colspan="1"  width="90%" nowrap="nowrap">
-					<d:checkbox perrow="12" id="useful"  name="device.useful" dictTypeId="DEVICE_USEFUL" property="device.useful"  seperator=", "  />
-					</td>
-				</tr>
-				<tr>
-					<td class="form_label" align="right" width="10%" nowrap="nowrap">安装的插件：</td>
-					<td colspan="1"  width="90%" nowrap="nowrap">
-						<d:checkbox perrow="12" id="plugIn"  name="device.plugIn" dictTypeId="DEVICE_PLUGIN" property="device.plugIn"   seperator=", " />
-					</td>
 				
-				</tr>
-				<tr>
-					<td class="form_label" align="right" width="10%" nowrap="nowrap">对应的外设：</td>
-					<td colspan="1"  width="90%" nowrap="nowrap">
-						<d:checkbox perrow="12" id="peripheral"  name="device.peripheral"  dictTypeId="DEVICE_PERIPHERAL" property="device.peripheral"   seperator=", "  />
-					</td>
-				</tr>
+				
+				
 				<tr class="form_bottom" >
-						<td colspan="6" class="form_bottom" style="text-align: center">
-						    <b:message key="l_display_per_page"></b:message>
-					        <h:text size="2" property="page.length" value="10" validateAttr="minValue=1;maxValue=100;type=integer;isNull=true" />
+						<td colspan="6" class="form_bottom" style="text-align: left;">
+						    <b:message key="l_display_per_page"></b:message> 
+					        <h:text size="3" property="page.length"  value="100" validateAttr="minValue=1;maxValue=100;type=integer;isNull=true" />
+					        
 					        <input type="hidden" name="page.begin" value="0">
 					        <input type="hidden" name="page.isCount" value="true">
 							<input id="querys" type="button" value="查 询" class="button" onclick="mysubmit();">
@@ -186,7 +194,7 @@ margin-left:inherit;
 								对应的外设
 							</th>
 							<th nowrap="nowrap">
-								其他属性1
+								是否在用
 							</th>
 							<th nowrap="nowrap">
 								其他属性2
@@ -216,7 +224,7 @@ margin-left:inherit;
 								其他信息5
 							</th>
 							<th nowrap="nowrap">
-								备注1
+								任务标记
 							</th>
 							<th nowrap="nowrap">
 								备注2
@@ -416,23 +424,26 @@ margin-left:inherit;
 				$id("deviceName").value="";
 				$id("deviceModel").value="";
 				$id("deviceState").value="";
-				$id("memoryMin").value="";
-				$id("memoryMax").value="";
-				$id("hardDiskMin").value="";
-				$id("hardDiskMax").value="";
-				$id("osVersion").value="";
-				$id("softwareVersion").value="";
-				$id("ieVersion").value="";
+				$id("ipAdress").value="";
 				
-				$("input[name='device.useful']:checkbox:checked").each(function(){ 
+				$id("otherAttribute_2").value="";
+				$id("remarks_1").value="";
+				$id("osVersion").value="";
+				$id("remarks_2").value="";
+				$id("otherAttribute_3").value="";
+				
+				$id("otherAttribute_1").value="";
+				$id("otherAttribute_4").value="";
+				
+				$("input[name='device.otherInfo_3']:checkbox:checked").each(function(){ 
 	                $(this).attr("checked",false);
 	            });	
 
-				$("input[name='device.plugIn']:checkbox:checked").each(function(){ 
+				$("input[name='device.otherInfo_2']:checkbox:checked").each(function(){ 
 	                $(this).attr("checked",false);
 	            });	
 
-				$("input[name='device.peripheral']:checkbox:checked").each(function(){ 
+				$("input[name='device.otherInfo_4']:checkbox:checked").each(function(){ 
 	                $(this).attr("checked",false);
 	            });	
 			}
@@ -587,72 +598,79 @@ margin-left:inherit;
 
 		//导出Excel
 		function export_Excel(){
+
 			var url = "/deviceManagement/deviceManagementAction_exportExcel.action?";
 			var orgcode = $id("orgcode").value;
 			var deviceName = $id("deviceName").value;
 			var deviceModel = $id("deviceModel").value;
 			var deviceState = $id("deviceState").value;
-			var memoryMin = $id("memoryMin").value;
-			var memoryMax = $id("memoryMax").value;
-			var hardDiskMin = $id("hardDiskMin").value;
-			var hardDiskMax = $id("hardDiskMax").value;
+			var ipAdress = $id("ipAdress").value;alert("11");
+			var otherAttribute_2 = $id("otherAttribute_2").value;
+				
+			var remarks_1 = $id("remarks_1").value;
+			var remarks_2 = $id("remarks_2").value;
+			var otherAttribute_3 = $id("otherAttribute_3").value;
+			
+
+			var otherAttribute_1 = $id("otherAttribute_1").value;
+			var otherAttribute_4 = $id("otherAttribute_4").value;
+			
 			var osVersion = $id("osVersion").value;
-			var softwareVersion = $id("softwareVersion").value;
-			var ieVersion = $id("ieVersion").value;
-
+		
 			//获取复选框的值
-            var useful="";
-            var  usefulLength  =  $("input[name='device.useful']:checkbox:checked").length;
-            $("input[name='device.useful']:checkbox:checked").each(function(i,value){ 
+            var otherInfo_4="";
+            var  otherInfo_4Length  =  $("input[name='device.otherInfo_4']:checkbox:checked").length;
+            $("input[name='device.otherInfo_4']:checkbox:checked").each(function(i,value){ 
                 if($(this).attr("checked")){
-                    if((i+1)==usefulLength){
-                    	useful += $(this).val();
+                    if((i+1)==otherInfo_4Length){
+                    	otherInfo_4 += $(this).val();
                     }else{
-                    	useful += $(this).val()+", ";
+                    	otherInfo_4 += $(this).val()+", ";
                 	}
                 }
             });
 
-            var plugIn="";
-            var  plugInLength  =  $("input[name='device.plugIn']:checkbox:checked").length;
-            $("input[name='device.plugIn']:checkbox:checked").each(function(i,value){ 
+            var otherInfo_2="";
+            var  otherInfo_2Length  =  $("input[name='device.otherInfo_2']:checkbox:checked").length;
+            $("input[name='device.otherInfo_2']:checkbox:checked").each(function(i,value){ 
                 if($(this).attr("checked")){
-                    if((i+1)==plugInLength){
-                    	plugIn += $(this).val();
+                    if((i+1)==otherInfo_2Length){
+                    	otherInfo_2 += $(this).val();
                     }else{
-                    	plugIn += $(this).val()+", ";
+                    	otherInfo_2 += $(this).val()+", ";
                 	}
                 }
             });
 
-            var peripheral="";
-            var  peripheralLength  =  $("input[name='device.peripheral']:checkbox:checked").length;
-            $("input[name='device.peripheral']:checkbox:checked").each(function(i,value){ 
+           var otherInfo_3="";
+            var  otherInfo_3Length  =  $("input[name='device.otherInfo_3']:checkbox:checked").length;
+            $("input[name='device.otherInfo_3']:checkbox:checked").each(function(i,value){ 
                 if($(this).attr("checked")){
-                    if((i+1)==peripheralLength){
-                    	peripheral += $(this).val();
+                    if((i+1)==otherInfo_3Length){
+                    	otherInfo_3 += $(this).val();
                     }else{
-                    	peripheral += $(this).val()+", ";
+                    	otherInfo_3 += $(this).val()+", ";
                 	}
                 }
             });
 			
-			if(useful == null){
-				useful="";
+			if(otherInfo_2 == null){
+				otherInfo_2="";
 				}
-			if(plugIn == null){
-				plugIn="";
+			if(otherInfo_3 == null){
+				otherInfo_3="";
 				}
-			if(peripheral == null){
-				peripheral="";
+			if(otherInfo_4 == null){
+				otherInfo_4="";
 				}
 			url = url+"device.orgcode="+orgcode+"&device.deviceName="+deviceName
 			+"&device.deviceModel="+deviceModel+"&device.deviceState="+deviceState
-			+"&device.memoryMin="+memoryMin+"&device.memoryMax="+memoryMax
-			+"&device.hardDiskMin="+hardDiskMin+"&device.hardDiskMax="+hardDiskMax
-			+"&device.osVersion="+osVersion+"&device.softwareVersion="+softwareVersion
-			+"&device.ieVersion="+ieVersion+"&device.useful="+useful
-			+"&device.plugIn="+plugIn+"&device.peripheral="+peripheral;
+			+"&device.ipAdress="+ipAdress+"&device.otherAttribute_2="+otherAttribute_2
+			+"&device.remarks_1="+remarks_1+"&device.remarks_2="+remarks_2
+			+"&device.osVersion="+osVersion+"&device.otherAttribute_3="+otherAttribute_3
+			+"&device.otherAttribute_1="+otherAttribute_1+"&device.otherInfo_2="+otherInfo_2
+			+"&device.otherInfo_3="+otherInfo_3+"&device.otherInfo_4="+otherInfo_4
+			+"&device.otherAttribute_4="+otherAttribute_4;
 			window.location.href=url;
 		  	
 		}

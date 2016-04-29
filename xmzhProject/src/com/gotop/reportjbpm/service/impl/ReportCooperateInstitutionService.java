@@ -31,12 +31,11 @@ public List<ReportCooperateInstitution> selectReportCooperateInstitution(ReportC
 		Map<String, Object> map = new HashMap<String, Object>();
 		if (reportCooperateInstitution != null) {
 			if (reportCooperateInstitution.getAppTimeStrat() !=null&&!"".equals(reportCooperateInstitution.getAppTimeStrat())) {
-				
-				String aa=reportCooperateInstitution.getAppTimeStrat();
+								
 				map.put("appTimeStrat", reportCooperateInstitution.getAppTimeStrat());
 			}
 			if (reportCooperateInstitution.getAppTimeEnd() != null&&!"".equals(reportCooperateInstitution.getAppTimeEnd())) {
-				String bb=reportCooperateInstitution.getAppTimeEnd();
+				
 				map.put("appTimeEnd", reportCooperateInstitution.getAppTimeEnd());
 			}
 	
@@ -52,11 +51,11 @@ public List<ReportCooperateInstitution> selectReportCooperateInstitution(ReportC
 			if (reportCooperateInstitution != null) {
 				if (reportCooperateInstitution.getAppTimeStrat() !=null&&!"".equals(reportCooperateInstitution.getAppTimeStrat())) {
 					
-					String aa=reportCooperateInstitution.getAppTimeStrat();
+					
 					map.put("appTimeStrat", reportCooperateInstitution.getAppTimeStrat());
 				}
 				if (reportCooperateInstitution.getAppTimeEnd() != null&&!"".equals(reportCooperateInstitution.getAppTimeEnd())) {
-					String bb=reportCooperateInstitution.getAppTimeEnd();
+					
 					map.put("appTimeEnd", reportCooperateInstitution.getAppTimeEnd());
 				}
 		

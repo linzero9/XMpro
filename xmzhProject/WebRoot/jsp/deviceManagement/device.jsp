@@ -110,7 +110,7 @@ margin-left:inherit;
 				</td>
 			</tr>
 			<tr>	
-				<td class="form_label" align="right" width="15%" nowrap="nowrap">	其他属性1：</td>
+				<td class="form_label" align="right" width="15%" nowrap="nowrap">是否在用：</td>
 				<td colspan="1" width="30%" nowrap="nowrap">
 					<d:select id="otherAttribute_1"  dictTypeId="DEVICE_OTHERATTRIBUTE_1" property="device.otherAttribute_1" nullLabel="请选择"></d:select>
 				</td>
@@ -170,7 +170,7 @@ margin-left:inherit;
 				</td>
 			</tr>
 			<tr>	
-				<td class="form_label" align="right" width="15%" nowrap="nowrap">备注1：</td>
+				<td class="form_label" align="right" width="15%" nowrap="nowrap">任务标记：</td>
 				<td colspan="1" width="30%" nowrap="nowrap"><h:textarea property="device.remarks_1"
 						id="remarks_1" extAttr="class='h80' "  rows="4" style="width:90%;"  validateAttr="maxLength=127;" /> </td>
 			</tr>

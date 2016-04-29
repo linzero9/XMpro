@@ -99,46 +99,64 @@ public class DeviceManagementService implements IDeviceManagementService{
 		Map<String, Object> map = new HashMap<String, Object>();
 		if(device != null){
 			if( device.getOrgcode() != null && !"".equals(device.getOrgcode())){
+				
 				map.put("orgcode", device.getOrgcode());
 			}
-			if( device.getDeviceName() != null && !"".equals(device.getDeviceName())){
-				map.put("deviceName", device.getDeviceName());
-			}
-			if( device.getDeviceModel() != null && !"".equals(device.getDeviceModel())){
-				map.put("deviceModel", device.getDeviceModel());
-			}
-			if( device.getDeviceState() != null && !"".equals(device.getDeviceState())){
-				map.put("deviceState", device.getDeviceState());
-			}
-			if( device.getMemoryMin() != null && !"".equals(device.getMemoryMin())){
-				map.put("memoryMin", device.getMemoryMin());
-			}
-			if( device.getMemoryMax() != null && !"".equals(device.getMemoryMax())){
-				map.put("memoryMax", device.getMemoryMax());
-			}
-			if( device.getHardDiskMin() != null && !"".equals(device.getHardDiskMin())){
-				map.put("hardDiskMin", device.getHardDiskMin());
-			}
-			if( device.getHardDiskMax() != null && !"".equals(device.getHardDiskMax())){
-				map.put("hardDiskMax", device.getHardDiskMax());
+			if( device.getIpAdress() != null && !"".equals(device.getIpAdress())){
+				
+				map.put("ipAdress", device.getIpAdress());
 			}
 			if( device.getOsVersion() != null && !"".equals(device.getOsVersion())){
+				
 				map.put("osVersion", device.getOsVersion());
 			}
-			if( device.getSoftwareVersion() != null && !"".equals(device.getSoftwareVersion())){
-				map.put("softwareVersion", device.getSoftwareVersion());
+			if( device.getOtherAttribute_2() != null && !"".equals(device.getOtherAttribute_2())){
+				
+				map.put("otherAttribute_2", device.getOtherAttribute_2());
 			}
-			if( device.getIeVersion() != null && !"".equals(device.getIeVersion())){
-				map.put("ieVersion", device.getIeVersion());
+			if( device.getOtherInfo_2() != null && !"".equals(device.getOtherInfo_2())){
+				
+				map.put("otherInfo_2", device.getOtherInfo_2());
 			}
-			if( device.getUseful() != null && !"".equals(device.getUseful())){
-				map.put("useful", device.getUseful());
+			if( device.getDeviceName() != null && !"".equals(device.getDeviceName())){
+			
+				map.put("deviceName", device.getDeviceName());
 			}
-			if( device.getPlugIn() != null && !"".equals(device.getPlugIn())){
-				map.put("plugIn", device.getPlugIn());
+			if( device.getRemarks_1() != null && !"".equals(device.getRemarks_1())){
+				
+				map.put("remarks_1", device.getRemarks_1());
 			}
-			if( device.getPeripheral() != null && !"".equals(device.getPeripheral())){
-				map.put("peripheral", device.getPeripheral());
+			if( device.getRemarks_2() != null && !"".equals(device.getRemarks_2())){
+				
+				map.put("remarks_2", device.getRemarks_2());
+			}
+			if( device.getOtherAttribute_3() != null && !"".equals(device.getOtherAttribute_3())){
+			
+				map.put("otherAttribute_3", device.getOtherAttribute_3());
+			}
+			if( device.getOtherInfo_3() != null && !"".equals(device.getOtherInfo_3())){
+				
+				map.put("otherInfo_3", device.getOtherInfo_3());
+			}
+			if( device.getDeviceModel() != null && !"".equals(device.getDeviceModel())){
+				
+				map.put("deviceModel", device.getDeviceModel());
+			}
+			if( device.getOtherAttribute_1() != null && !"".equals(device.getOtherAttribute_1())){
+			
+				map.put("otherAttribute_1", device.getOtherAttribute_1());
+			}
+			if( device.getDeviceState() != null && !"".equals(device.getDeviceState())){
+				
+				map.put("deviceState", device.getDeviceState());
+			}
+			if( device.getOtherAttribute_4() != null && !"".equals(device.getOtherAttribute_4())){
+				
+				map.put("otherAttribute_4", device.getOtherAttribute_4());
+			}
+			if( device.getOtherInfo_4() != null && !"".equals(device.getOtherInfo_4())){
+				
+				map.put("otherInfo_4", device.getOtherInfo_4());
 			}
 		}
 		

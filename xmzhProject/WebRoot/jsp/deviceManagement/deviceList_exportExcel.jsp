@@ -30,7 +30,7 @@
 		  <th height="34" width="100" align="center" class="form_label">使用人</th>
 		  <th height="34" width="100" align="center" class="form_label">安装的插件</th>
 		  <th height="34" width="100" align="center" class="form_label">对应的外设</th>
-		  <th height="34" width="100" align="center" class="form_label">其他属性1</th>
+		  <th height="34" width="100" align="center" class="form_label">是否在用</th>
 		  <th height="34" width="100" align="center" class="form_label">其他属性2</th>
 		  <th height="34" width="100" align="center" class="form_label">其他属性3</th>
 		  <th height="34" width="100" align="center" class="form_label">其他属性4</th>
@@ -40,7 +40,7 @@
 		  <th height="34" width="100" align="center" class="form_label">其他信息3</th>
 		  <th height="34" width="100" align="center" class="form_label">其他信息4</th>
 		  <th height="34" width="100" align="center" class="form_label">其他信息5</th>
-		  <th height="34" width="100" align="center" class="form_label">备注1</th>
+		  <th height="34" width="100" align="center" class="form_label">任务标记</th>
 		  <th height="34" width="100" align="center" class="form_label">备注2</th>
 		  <th height="34" width="100" align="center" class="form_label">备注3</th>
 		  <th height="34" width="100" align="center" class="form_label">备注4</th>

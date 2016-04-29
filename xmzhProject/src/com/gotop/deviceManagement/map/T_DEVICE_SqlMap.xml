@@ -124,41 +124,44 @@ where t.orgcode = o.orgcode
       <isNotNull prepend="and" property="deviceName" >
         t.DEVICENAME = #deviceName#
       </isNotNull>
-      <isNotNull prepend="and" property="deviceModel" >
-        t.DEVICEMODEL = #deviceModel#
+       <isNotNull prepend="and" property="ipAdress" >
+        t.IPADRESS like '%'|| #ipAdress# ||'%'
+      </isNotNull>
+      <isNotNull prepend="and" property="otherAttribute_2" >
+        t.OTHERATTRIBUTE_2 = #otherAttribute_2#
       </isNotNull>
       <isNotNull prepend="and" property="deviceState" >
          t.DEVICE_STATE = #deviceState#
       </isNotNull>
-      <isNotNull prepend="and" property="memoryMin" >
-         t.MEMORY > #memoryMin#
+      <isNotNull prepend="and" property="otherInfo_2" >
+       t.OTHERINFO_2 like replace('%'|| #otherInfo_2# ||'%', ',', '%')
       </isNotNull>
-      <isNotNull prepend="and" property="memoryMax" >
-      		<![CDATA[  t.MEMORY < #memoryMax# ]]>
+      <isNotNull prepend="and" property="remarks_1" >
+      		 t.REMARKS_1 like '%'|| #remarks_1# ||'%'
       </isNotNull>
-      <isNotNull prepend="and" property="hardDiskMin" >
-         t.HARDDISK > #hardDiskMin#
+      <isNotNull prepend="and" property="remarks_2" >
+         t.REMARKS_2 like '%'|| #remarks_2# ||'%'
       </isNotNull>
-      <isNotNull prepend="and" property="hardDiskMax" >
-         <![CDATA[  t.HARDDISK < #hardDiskMax# ]]>
+      <isNotNull prepend="and" property="otherAttribute_3" >
+         t.OTHERATTRIBUTE_3 = #otherAttribute_3# 
       </isNotNull>
        <isNotNull prepend="and" property="osVersion" >
          t.OSVERSION = #osVersion#
       </isNotNull>
-      <isNotNull prepend="and" property="softwareVersion" >
-        t.SOFTWAREVERSION like '%'|| #softwareVersion# ||'%'
+      <isNotNull prepend="and" property="otherInfo_3" >
+       t.OTHERINFO_3 like replace('%'|| #otherInfo_3# ||'%', ',', '%')
       </isNotNull>
-      <isNotNull prepend="and" property="ieVersion" >
-         t.IEVERSION = #ieVersion#
+      <isNotNull prepend="and" property="deviceModel" >
+         t.DEVICEMODEL = #deviceModel#
       </isNotNull>
-      <isNotNull prepend="and" property="useful" >
-        t.USEFUL like replace('%'|| #useful# ||'%', ',', '%')
+      <isNotNull prepend="and" property="otherAttribute_1" >
+        t.OTHERATTRIBUTE_1 = #otherAttribute_1# 
       </isNotNull>
-      <isNotNull prepend="and" property="plugIn" >
-         t.PLUGIN  like replace('%'|| #plugIn# ||'%', ',', '%')
+      <isNotNull prepend="and" property="otherAttribute_4" >
+         t.OTHERATTRIBUTE_4  = #otherAttribute_4# 
       </isNotNull>
-      <isNotNull prepend="and" property="peripheral" >
-        t.PERIPHERAL  like replace('%'|| #peripheral# ||'%', ',', '%')
+      <isNotNull prepend="and" property="otherInfo_4" >
+        t.OTHERINFO_4 like replace('%'|| #otherInfo_4# ||'%', ',', '%')
       </isNotNull>
   order by t.orgcode ,t.deviceName,t.deviceModel
   </select>

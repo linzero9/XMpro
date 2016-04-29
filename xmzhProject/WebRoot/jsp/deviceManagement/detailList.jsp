@@ -105,7 +105,7 @@
 								对应的外设
 							</th>
 							<th nowrap="nowrap">
-								其他属性1
+								是否在用
 							</th>
 							<th nowrap="nowrap">
 								其他属性2
@@ -135,7 +135,7 @@
 								其他信息5
 							</th>
 							<th nowrap="nowrap">
-								备注1
+								任务标记
 							</th>
 							<th nowrap="nowrap">
 								备注2
