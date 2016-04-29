@@ -11,6 +11,7 @@
     <property name="errorStatistic" ref="errorStatistic" />
   </bean>
 
+
   
   <bean name="reportRefusalrate" id="reportRefusalrate" class="com.gotop.reportjbpm.model.ReportRefusalrate" singleton="false" ></bean>
    <bean name="reportRefusalrateAction" id="reportRefusalrateAction" class="com.gotop.reportjbpm.action.ReportRefusalrateAction" singleton="false" >
@@ -27,6 +28,20 @@
 
   <bean name="reportCooperateInstitutionAction" id="reportCooperateInstitutionAction" class="com.gotop.reportjbpm.action.ReportCooperateInstitutionAction" singleton="false">
   	<property name="reportCooperateInstitutionService" ref="reportCooperateInstitutionService"></property>
+  </bean>
+
+
+  
+   <bean name="operateLog" id="operateLog" class="com.gotop.reportjbpm.model.OperateLog" singleton="false" ></bean>
+  <bean name="operateLogAction" id="operateLogAction" class="com.gotop.reportjbpm.action.OperateLogAction" singleton="false" >
+    <property name="operateLogService" ref="operateLogService" />
+    <property name="operateLog" ref="operateLog" />
+  </bean>
+  
+   <bean name="approval" id="approval" class="com.gotop.reportjbpm.model.Approval" singleton="false" ></bean>
+  <bean name="approvalAction" id="approvalAction" class="com.gotop.reportjbpm.action.ApprovalAction" singleton="false" >
+    <property name="approvalService" ref="approvalService" />
+    <property name="approval" ref="approval" />
   </bean>
 
 </beans>

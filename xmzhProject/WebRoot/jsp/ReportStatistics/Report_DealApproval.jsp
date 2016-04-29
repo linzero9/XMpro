@@ -109,7 +109,6 @@
 			   			 <th  nowrap="nowrap" rowspan="2">第二审批人（会议审批委员）</th>
 			   			 <th  nowrap="nowrap" rowspan="2">会议审批主任委员</th>
 			   			 <th  nowrap="nowrap" rowspan="2">会议审批委员</th>
-			   			 <th  nowrap="nowrap" rowspan="2">会议审批委员</th>
 			   			 <th  nowrap="nowrap" rowspan="2">上会地点</th>
 			   			<th  nowrap="nowrap" rowspan="2">风险类型（低/非低风险业务）</th>
 			   			 <th  nowrap="nowrap" rowspan="2">审批类型</th>
@@ -141,7 +140,7 @@
 							
 						</tr>
 						<w:radioGroup id="group1">
-                           <l:iterate property="xdProcessTaskAssignees" id="id1">
+                           <l:iterate property="approvalList" id="id1">
 							<tr class="<l:output evenOutput='EOS_table_row' oddOutput='EOS_table_row_o'  />">
 								<td align="center" nowrap="nowrap">
 									<w:rowRadio>
@@ -155,23 +154,156 @@
 									</w:rowRadio>
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1"    property="processName" />
+									<b:write iterateId="id1"    property="nextOrgName" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="reportTime" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="iSurgent" />
 								</td>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1" property="custName" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="apply_bal" />
+									<b:write iterateId="id1" property="oldCust" />
 								</td>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1" property="oneCategory" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="loanCategory" />
+									<b:write iterateId="id1"    property="loanCategory" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="coorganization" />
+									<b:write iterateId="id1" property="currency" />
 								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="applyBal" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="orgNameOne" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="orgNameTwo" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="yxry" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1"    property="nextOprName" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="fdxdy" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="1" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="2" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="surveyTime" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="1" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="2" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="3" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="4" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="5" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="6" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="7" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="8" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="9" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="10" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="appWay" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="polNo" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="meetingCount" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="voteNo" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="appTime" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="conMatter" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="dsMsOne" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="dsMsTwo" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="dyApp" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="deApp" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="hyZrName" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="hyWyOne" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="shAddr" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="fxType" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="spType" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="ybjNum" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="hySyJl" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="pjJl" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="fxEd" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="sxEd" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="ywEd" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="1" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="2" />
+								</td>
+								
 							</tr>
 						</l:iterate>
 						</w:radioGroup>

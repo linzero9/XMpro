@@ -13,10 +13,21 @@
     <property name="sqlMapClient" ref="sqlMapClient" />
   </bean>
 
+
        <bean id="rateofreturnReportDao" class="com.gotop.reportjbpm.dao.impl.RateofreturnReportDao" >
     <property name="sqlMapClient" ref="sqlMapClient" />
   </bean>
   <bean id="reportCooperateInstitutionDao" class="com.gotop.reportjbpm.dao.impl.ReportCooperateInstitutionDao" >
+   <property name="sqlMapClient" ref="sqlMapClient" />
+  </bean>
+
+  
+    <bean id="operateLogDao" class="com.gotop.reportjbpm.dao.impl.OperateLogDao" >
     <property name="sqlMapClient" ref="sqlMapClient" />
   </bean>
+  
+    <bean id="approvalDao" class="com.gotop.reportjbpm.dao.impl.ApprovalDao" >
+    <property name="sqlMapClient" ref="sqlMapClient" />
+  </bean>
+
 </beans>

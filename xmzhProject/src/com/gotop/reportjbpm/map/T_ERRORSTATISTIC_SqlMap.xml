@@ -25,7 +25,7 @@
 	select distinct taskname from T_GENERALPROCESS_MODELFOUR
 	</select>
 	
-	<!-- 查询人员信息 -->
+	<!-- 查询差错情况统计 -->
 	<select id="queryErrorStatistic" parameterClass="java.util.HashMap" resultMap="ErrorStatistic">
 	select G.NEXT_ORG_NAME,
        G.NEXT_OPR_NAME,
@@ -44,9 +44,10 @@
        T_GENERALPROCESS_MISTAKE    T,
        OM_EMPLOYEE                 P,
        T_GENERALPROCESS_MODELTHREE M
- WHERE P.EMPID = T.EMPID
-   AND G.OPERATOR = P.EMPID
-   AND E.FLOW_ID = T.FLOW_ID
+     where e.flow_id=t.flow_id
+     and t.flow_id=m.flow_id
+     and  p.empid=t.empid 
+      and p.empid=g.operator 
    
       <isNotNull prepend="and" property="custName" >
         E.CUST_NAME =#custName:VARCHAR#

@@ -9,8 +9,14 @@
 
  	<sqlMap resource="com/gotop/reportjbpm/map/T_ERRORSTATISTIC_SqlMap.xml" />
  	
+
  	<sqlMap resource="com/gotop/reportjbpm/map/T_RateofreturnReport_SqlMap.xml" />
 
  	<sqlMap resource="com/gotop/reportjbpm/map/ReportCooperateInstitution_SqlMap.xml" />
+
+ 	<sqlMap resource="com/gotop/reportjbpm/map/T_OPERATELOG_SqlMap.xml" />
+ 	
+ 	<sqlMap resource="com/gotop/reportjbpm/map/T_APPROVAL_SqlMap.xml" />
+
 
 </sqlMapConfig>

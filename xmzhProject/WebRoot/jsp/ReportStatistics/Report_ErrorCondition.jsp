@@ -176,8 +176,8 @@
 		//清空
 		function clears(){
 			$id("custName").value="";
-			$id("startTime").value="";
-			$id("endTime").value="";
+			$("#startTime_input").val("");
+			$("#endTime_input").val("");
 			$id("loanCategory").value="";
 			$id("loanCategoryId").value="";
 		}

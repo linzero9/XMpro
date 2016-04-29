@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="T_OPERATELOG_SqlMap">
+ <resultMap id="OperateLog" class="com.gotop.reportjbpm.model.OperateLog" >
+    <!--Bean方式返回全表-->
+    <result column="REPORTTIME" property="reportTime" jdbcType="VARCHAR" />
+    <result column="BUSINESS_TITLE" property="businessTitle" jdbcType="VARCHAR" />
+    <result column="PROCESS_NAME" property="processName" jdbcType="VARCHAR" />
+    <result column="EMPNAME" property="empName" jdbcType="VARCHAR" />
+    <result column="ACTIVITY_NAME_" property="activityName" jdbcType="VARCHAR" />
+    <result column="ORGNAME" property="orgName" jdbcType="VARCHAR" />
+    <result column="START_" property="start" jdbcType="VARCHAR" />
+    <result column="END_" property="end" jdbcType="VARCHAR" />
+  </resultMap>
+
+  
+  	
+	
+	<!-- 查询差错情况统计 -->
+	<select id="queryOperateLog" parameterClass="java.util.HashMap" resultMap="OperateLog">
+select T1.ACTIVITY_NAME_,
+       TO_CHAR(T1.START_,'yyyy-MM-dd hh24:mi:ss') AS START_,
+       TO_CHAR(T1.END_,'yyyy-MM-dd hh24:mm:ss') AS END_,
+       E.EMPNAME,
+       Y.ORGNAME,
+       T3.REPORTTIME,
+       T4.BUSINESS_TITLE,
+       T5.PROCESS_NAME
+  FROM JBPM4_HIST_ACTINST          T1,
+       JBPM4_HIST_TASK             T2,
+       OM_EMPLOYEE                 E,
+       OM_EMPORG                   A,
+       OM_ORGANIZATION             Y,
+       T_GENERALPROCESS_MODELTHREE T3,
+       T_PROCESS_BUSINESS          T4,
+       T_PROCESS_CONFIG            T5,
+       JBPM4_EXECUTION             T6
+ WHERE T1.HTASK_ = T2.DBID_
+   AND T2.ASSIGNEE_ = E.EMPID
+   AND E.EMPID = A.EMPID
+   AND A.ORGID = Y.ORGID
+   AND T6.ID_ = T4.EXECUTION_ID
+   AND T6.PROCDEFID_ = T5.DEFINITION_ID
+   AND T1.EXECUTION_ = T4.EXECUTION_ID
+   AND T1.EXECUTION_ = T3.FLOW_ID
+      <isNotNull prepend="and" property="businessTitle" >
+        T4.BUSINESS_TITLE =#businessTitle:VARCHAR#
+      </isNotNull>
+      
+      <isNotNull prepend="and" property="processName" >
+         T5.PROCESS_NAME =#processName:VARCHAR#
+      </isNotNull>
+      
+      <isNotNull prepend="and" property="airTime" >
+        <![CDATA[T3.REPORTTIME>=#airTime#]]>
+      </isNotNull>
+      
+      <isNotNull prepend="and" property="stopTime" >
+       <![CDATA[T3.REPORTTIME<=#stopTime#]]>
+      </isNotNull>
+     
+	
+	</select>
+
+</sqlMap>

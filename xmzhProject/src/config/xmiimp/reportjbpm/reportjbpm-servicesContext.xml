@@ -12,7 +12,14 @@
   
   <bean id="errorStatisticService" class="com.gotop.reportjbpm.service.impl.ErrorStatisticService" >
     <property name="errorStatisticDao" ref="errorStatisticDao" />
-
+    </bean>
+    
+  <bean id="operateLogService" class="com.gotop.reportjbpm.service.impl.OperateLogService" >
+    <property name="operateLogDao" ref="operateLogDao" />
+  </bean>
+  
+  <bean id="approvalService" class="com.gotop.reportjbpm.service.impl.ApprovalService" >
+    <property name="approvalDao" ref="approvalDao" />
   </bean>
   
     <bean id="rateofreturnReportService" class="com.gotop.reportjbpm.service.impl.RateofreturnReportService" >

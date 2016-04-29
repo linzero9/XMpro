@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd" >
-<struts >
-  <package name="reportjbpm" namespace="/" extends="struts-default" >
-    <action name="postWorkloadStatisticsAction_*" class="postWorkloadStatisticsAction" method="{1}" >
+<struts>
+	<package name="reportjbpm" namespace="/" extends="struts-default">
+	
+	
+
+ <action name="postWorkloadStatisticsAction_*" class="postWorkloadStatisticsAction" method="{1}" >
       <result name="Report_Jobworkload" >
-        /jsp/ReportStatistics/Report_Jobworkload.jsp
+       /jsp/ReportStatistics/Report_Jobworkload.jsp
       </result>
+     
       
     </action>
-
-
     
     <action name="errorStatisticAction_*" class="errorStatisticAction" method="{1}" >
       <result name="ErrorStatisticList" >
@@ -65,5 +67,33 @@
       </result>
     </action>
 
-  </package>
+  
+
+		
+
+
+	
+		
+		<action name="operateLogAction_*" class="operateLogAction"
+			method="{1}">
+			<result name="queryOperateLog">
+				/jsp/ReportStatistics/Report_OperateLog.jsp
+			</result>
+			<result name="queryOperateLogForExcel">
+				/jsp/ReportStatistics/Report_OperateLog_excel.jsp
+			</result>
+
+		</action>
+		
+		<action name="approvalAction_*" class="approvalAction"
+			method="{1}">
+			<result name="queryApprovalList">
+				/jsp/ReportStatistics/Report_DealApproval.jsp
+			</result>
+			
+
+		</action>
+
+	</package>
+
 </struts>
