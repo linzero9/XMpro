@@ -15,15 +15,15 @@
 			<tr>
 				<td class="form_label" align="right"  width="40%">工作日有效期（必填）：</td>
 				<td colspan="1" width="60%"> 
-					开始日期 <w:date id="startDate"  property="time.startDate"  /><font style="color: red">*</font>	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					结束日期 <w:date id="endDate"  property="time.endDate"  /><font style="color: red">*</font>	
+					开始日期 <w:date id="startDate" property="time.startDate"  /><font style="color: red">*</font>	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					结束日期 <w:date id="endDate" property="time.endDate"  /><font style="color: red">*</font>	
 				</td>
 			</tr>
 			
 			<tr>
 				<td class="form_label" align="right"  width="40%">上午（必填）：</td>
 				<td colspan="1" width="60%"> 
-					开始时间 <w:time id="startTime1" property="time.startTime1"  /><font style="color: red">*</font>	  &nbsp;&nbsp;&nbsp;
+					开始时间 <w:time id="startTime1" property="time.startTime1"  /><font style="color: red">*</font>	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					结束时间 <w:time id="endTime1" property="time.endTime1"  /><font style="color: red">*</font>	
 				</td>
 			</tr>
@@ -31,8 +31,8 @@
 			<tr>
 				<td class="form_label" align="right"  width="40%">下午（必填）：</td>
 				<td colspan="1" width="60%"> 
-					开始时间 <w:time id="startTime2" property="time.startTime2"  /><font style="color: red">*</font>	&nbsp;&nbsp;&nbsp;
-					结束时间 <w:time id="endTime2" property="time.endTime2" /><font style="color: red">*</font>	
+					开始时间 <w:time id="startTime2" property="time.startTime2"  /><font style="color: red">*</font>	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					结束时间 <w:time id="endTime2" property="time.endTime2"  /><font style="color: red">*</font>	
 				</td>
 			</tr>
 			
@@ -55,11 +55,13 @@
 <script type="text/javascript">
 function clears(){
 
+//***********清空 工作日有效期******************************
 	   $("#startDate_input").val("");
 	   $("#endDate_input").val("");
-	   $name("time.startDate").value == "";
-	   $name("time.endDate").value == "";
-	
+	   $name("time.startDate").value = "";
+	   $name("time.endDate").value = "";
+
+//***********清空 上午时间******************************       
 	   $("#INPUT_HOURstartTime1").val("");
 	   $("#INPUT_MINUTEstartTime1").val("");
        $("#INPUT_SECONDstartTime1").val("");
@@ -67,12 +69,10 @@ function clears(){
        $("#INPUT_HOURendTime1").val("");
 	   $("#INPUT_MINUTEendTime1").val("");
        $("#INPUT_SECONDendTime1").val("");
-       $name("time.startTime1").value == "null";
-       $name("time.endTime1").value == "null";
-       var s = $name("time.startTime1").value;
-       var s2 = $name("time.endTime1").value;
+       $name("time.startTime1").value = "null";
+       $name("time.endTime1").value = "null";
        
-
+ //***********清空 下午时间****************************** 
        $("#INPUT_HOURstartTime2").val("");
 	   $("#INPUT_MINUTEstartTime2").val("");
        $("#INPUT_SECONDstartTime2").val("");
@@ -80,9 +80,10 @@ function clears(){
        $("#INPUT_HOURendTime2").val("");
 	   $("#INPUT_MINUTEendTime2").val("");
        $("#INPUT_SECONDendTime2").val("");
-       $name("time.startTime2").value == "null";
-       $name("time.endTime2").value == "null";
+       $name("time.startTime2").value = "null";
+       $name("time.endTime2").value = "null";
 
+//***********清空 晚上时间****************************** 
        $("#INPUT_HOURstartTime3").val("");
 	   $("#INPUT_MINUTEstartTime3").val("");
        $("#INPUT_SECONDstartTime3").val("");
@@ -92,9 +93,6 @@ function clears(){
        $("#INPUT_SECONDendTime3").val("");
        $name("time.startTime3").value = "null";
        $name("time.endTime3").value = "null";
-       var q1 = $name("time.startTime3").value;
-       var q2 = $name("time.endTime3").value;
-
 }
 
 	function save() {
@@ -102,14 +100,6 @@ function clears(){
 		if (!checkForm(frm)) {
 			return;
 		}
-		var a = $name("time.startDate").value;
-		var b = $name("time.endDate").value;
-var c = $name("time.startTime1").value;
-var d = $name("time.endTime1").value;
-var c2 = $name("time.startTime2").value;
-var d2 = $name("time.endTime2").value;
-var c3 = $name("time.startTime3").value;
-var d3 = $name("time.endTime3").value;
 
 		if($name("time.startDate").value == ""){
 			alert("请为工作日有效期设置 开始日期！");
