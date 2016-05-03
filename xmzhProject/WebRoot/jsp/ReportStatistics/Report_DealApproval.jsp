@@ -10,7 +10,7 @@
 		<title>受理审批台账列表</title>
 	</head>
 	<body topmargin="0" leftmargin="0">
-	<h:form name="appQuery"	action="/jbpm/xdProcessAction_queryXdStartProcessList.action" method="post">
+	<h:form name="appQuery"	action="/reportjbpm/approvalAction_queryApprovalList.action" method="post">
 		<w:panel id="panel1" title="查询条件">
 			<table align="center" border="0" width="100%" class="form_table">
 				
@@ -52,7 +52,7 @@
 			<w:panel id="panel" width="100%" title="受理审批台账列表">
 				<viewlist id="e2c61865-3b56-470d-bd42-fff792fb9493">
 				<h:form name="page_form"
-					action="/jbpm/xdProcessAction_queryXdStartProcessList.action" method="post">
+					action="/reportjbpm/approvalAction_queryApprovalList.action" method="post">
 			 <h:hiddendata property="xdProcessTaskAssignee"/>  
 
             <h:hidden property="page.begin"/>
@@ -64,9 +64,7 @@
 
 		    
 						<tr>
-							<th align="center" nowrap="nowrap"  rowspan="2">
-								<b:message key="l_select"></b:message>
-							</th>
+							
                                                         <th nowrap="nowrap" rowspan="2">
 								机构名称
 							</th>
@@ -133,28 +131,18 @@
 			   <th nowrap="nowrap">接收</th>
 			   <th nowrap="nowrap">退回</th>
 				</tr>
-						<w:radioGroup id="group1">
+						
                            <l:iterate property="approvalList" id="id1">
 							<tr class="<l:output evenOutput='EOS_table_row' oddOutput='EOS_table_row_o'  />">
-								<td align="center" nowrap="nowrap">
-									<w:rowRadio>
-										<h:param name='executionId' iterateId='id1' property='executionId' />
-										<h:param name='processName' iterateId='id1' property='processName' />
-										<h:param name='custName' iterateId='id1' property='custName' />
-										<h:param name='apply_bal' iterateId='id1' property='apply_bal' />
-										<h:param name='oneCategory' iterateId='id1' property='oneCategory' />
-										<h:param name='loanCategory' iterateId='id1' property='loanCategory' />
-										<h:param name='coorganization' iterateId='id1' property='coorganization' />
-									</w:rowRadio>
-								</td>
+								
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1"    property="nextOrgName" />
 								</td>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1" property="reportTime" />
 								</td>
-								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="iSurgent" />
+								<td nowrap="nowrap">
+								<d:write iterateId="id1" property="iSurgent" dictTypeId="ZHPT_ISURGENT"/>
 								</td>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1" property="custName" />
@@ -168,8 +156,9 @@
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1"    property="loanCategory" />
 								</td>
-								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="currency" />
+								
+								<td nowrap="nowrap">
+								<d:write iterateId="id1" property="currency" dictTypeId="PROCESS_MONEY"/>
 								</td>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1" property="applyBal" />
@@ -199,7 +188,7 @@
 									<b:write iterateId="id1" property="surveyTime" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="1" />
+									<b:write iterateId="id1" property="receiveOne" />
 								</td>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1" property="2" />
@@ -208,7 +197,7 @@
 									<b:write iterateId="id1" property="3" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="4" />
+									<b:write iterateId="id1" property="receiveTwo" />
 								</td>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1" property="5" />
@@ -217,7 +206,7 @@
 									<b:write iterateId="id1" property="6" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="7" />
+									<b:write iterateId="id1" property="receiveThree" />
 								</td>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1" property="8" />
@@ -226,10 +215,26 @@
 									<b:write iterateId="id1" property="9" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="checkTime" />
+									<b:write iterateId="id1" property="receiveFour" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="appWay" />
+									<b:write iterateId="id1" property="11" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="12" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="receiveFive" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="14" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="checkTime" />
+								</td>
+								
+								<td nowrap="nowrap">
+								<d:write iterateId="id1" property="appWay" dictTypeId="PROCESS_method"/>
 								</td>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1" property="polNo" />
@@ -243,8 +248,9 @@
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1" property="appTime" />
 								</td>
-								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="conMatter" />
+								
+								<td nowrap="nowrap">
+								<d:write iterateId="id1" property="conMatter" dictTypeId="PROCESS_Consideration"/>
 								</td>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1" property="dsMsOne" />
@@ -267,17 +273,20 @@
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1" property="shAddr" />
 								</td>
-								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="fxType" />
+								
+								<td nowrap="nowrap">
+								<d:write iterateId="id1" property="fxType" dictTypeId="PROCESS_risk"/>
 								</td>
-								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="spType" />
+							
+								<td nowrap="nowrap">
+								<d:write iterateId="id1" property="spType" dictTypeId="PROCESS_approve"/>
 								</td>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1" property="ybjNum" />
 								</td>
-								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="hySyJl" />
+								
+								<td nowrap="nowrap">
+								<d:write iterateId="id1" property="hySyJl" dictTypeId="PROCESS_conclusion"/>
 								</td>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1" property="pjJl" />
@@ -299,53 +308,12 @@
 								</td>
 								
 							</tr>
-							<tr>
-							<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="receiveOne" />
-								</td>
-								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="1" />
-								</td>
-								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="receiveTwo" />
-								</td>
-								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="2" />
-								</td>
-								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="receiveThree" />
-								</td>
-								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="3" />
-								</td>
-								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="receiveFour" />
-								</td>
-								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="4" />
-								</td>
-								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="receiveFive" />
-								</td>
-								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="5" />
-								</td>
-							</tr>
+						
 						</l:iterate>
-						</w:radioGroup>
+
 							<tr>
               <td colspan="23" class="command_sort_area">
-              	<div class="h3"> 
-              	<l:greaterThan property="page.count" targetValue="0" compareType="number" >
-								&nbsp; &nbsp;
-									<input type="button" class="button" value="修改受理审批台账信息" onclick="upt_loan_info();"/>
-								</l:greaterThan>
-							
-							<l:greaterThan property="page.count" targetValue="0" compareType="number" >
-								&nbsp; &nbsp;
-							<input type="button" class="button" value="查看修改明细" onclick="queryLoanUptWater();"/>
-								</l:greaterThan>
-								</div>
+              
 							
                 <div class="h4">
 	                <l:equal property="page.isCount" targetValue="true" >
@@ -393,37 +361,7 @@
 			$("#isExport").val("1");
 		}
 		
-		function upt_loan_info(){
-			var gop = $id("group1");
-	  		var len = gop.getSelectLength();
-	  		if(len == 0){
-	  			alert("请选择一条流程信息");
-	  			return;
-	  		}else{
-	  			var row=gop.getSelectRow();
-		  		var executionId = row.getParam("executionId");
-		  		var processName = row.getParam("processName");
-		  		var custName = row.getParam("custName");
-		  		var apply_bal = row.getParam("apply_bal");
-		  		var oneCategory = row.getParam("oneCategory");
-		  		var loanCategory = row.getParam("loanCategory");
-		  		var coorganization = row.getParam("coorganization");
-
-	            var strUrl = "/jbpm/xdProcessAction_toUptLoanInfo.action?xdProcessTaskAssignee.executionId="+executionId+"&xdProcessTaskAssignee.processName="+processName;
-	            strUrl = strUrl+"&xdProcessTaskAssignee.custName="+custName
-	            +"&xdProcessTaskAssignee.apply_bal="+apply_bal
-	            +"&xdProcessTaskAssignee.oneCategory="+oneCategory
-	            +"&xdProcessTaskAssignee.loanCategory="+loanCategory
-	            +"&xdProcessTaskAssignee.coorganization="+coorganization;
-	            
-				  showModalCenter(encodeURI(strUrl), null,callBack, 500, 300, '修改受理审批台账信息');
-				  
-				  /* 	var url="/jbpm/xdProcessAction_toAddOneCategory.action?xdCdtypeBean.processName="+encodeURI(processName);
-		  		parent.window.frames["mainFrame"].location.href = encodeURI(strUrl); 
-		  		
-		  		showModalCenter(encodeURI(strUrl), null, callBack, clientX*0.9, clientY*0.9, ''修改受理审批台账信息');*/	
-			}
-		}
+		
 		function callBack(){
 			var frm = $name("page_form");
             frm.submit();

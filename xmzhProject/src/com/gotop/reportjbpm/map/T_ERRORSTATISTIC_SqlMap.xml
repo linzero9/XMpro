@@ -27,27 +27,32 @@
 	
 	<!-- 查询差错情况统计 -->
 	<select id="queryErrorStatistic" parameterClass="java.util.HashMap" resultMap="ErrorStatistic">
-	select G.NEXT_ORG_NAME,
-       G.NEXT_OPR_NAME,
-       E.LOANCATEGORY,
-       E.FDXDY,
-       E.YXZG,
-       T.MISTAKE_CONTENT,
-       T.PUNISH_BAL,
-       T.TASKNAME,
-       M.REPORTTIME,
-       E.CUST_NAME,
-       P.EMPNAME,
-       T.ADD_TIME
-  FROM T_APPROVE_OPNINION_GP       G,
-       T_GENERALPROCESS_MODELONE   E,
-       T_GENERALPROCESS_MISTAKE    T,
-       OM_EMPLOYEE                 P,
-       T_GENERALPROCESS_MODELTHREE M
-     where e.flow_id=t.flow_id
-     and t.flow_id=m.flow_id
-     and  p.empid=t.empid 
-      and p.empid=g.operator 
+	SELECT *
+  FROM (select G.ORGNAME AS NEXT_ORG_NAME,
+               E.Flow_Id,
+               E.LOANCATEGORY,
+               E.FDXDY,
+               E.YXZG,
+               T.MISTAKE_CONTENT,
+               T.PUNISH_BAL,
+               T.TASKNAME,
+               M.REPORTTIME,
+               E.CUST_NAME,
+               P.EMPNAME,
+               T.ADD_TIME
+          FROM T_GENERALPROCESS_MODELONE   E,
+               T_GENERALPROCESS_MISTAKE    T,
+               T_GENERALPROCESS_MODELTHREE M,
+               OM_ORGANIZATION             G,
+               OM_EMPLOYEE                 P
+         where e.flow_id = t.flow_id
+           and t.flow_id = m.flow_id
+           and p.empid = t.empid
+           AND E.ORGCODEONE = G.ORGCODE) A1
+  LEFT JOIN (select P.EMPNAME as NEXT_OPR_NAME, E.FLOW_ID
+               FROM OM_EMPLOYEE P, T_GENERALPROCESS_MODELONE E
+              where E.CREATOR = P.EMPID) A2
+    on A1.FLOW_ID = A2.FLOW_ID 
    
       <isNotNull prepend="and" property="custName" >
         E.CUST_NAME =#custName:VARCHAR#
