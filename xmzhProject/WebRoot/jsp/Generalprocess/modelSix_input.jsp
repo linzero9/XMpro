@@ -290,7 +290,11 @@ $(function(){
 			        } 
 		        }
 	 });
-	}
+	}else{    
+    	$("#row1").css("display","none");  
+    } 
+
+	
 	if('${isView}'!=''){
 		$("#save1").hide();
 		$("#smit").hide();

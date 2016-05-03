@@ -134,7 +134,10 @@
 						        } 
 					        }
 				 });
-				}
+				} else{    
+		        	$("#row1").css("display","none");  
+		        } 
+				
 			 //查看详情界面
 			if('${isView}'!=''){
 					$("#save3").hide();
