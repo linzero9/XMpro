@@ -197,9 +197,16 @@
     				var taskName = $id("taskName").value;
     				
     				
-    				var strUrl = "/reportjbpm/errorStatisticAction_queryErrorStatisticForExcel.action?"
-    				+"&errorStatistic.startTime="+startTime
-    				+"&errorStatistic.endTime="+endTime
+    				var strUrl = "/reportjbpm/errorStatisticAction_queryErrorStatisticForExcel.action?";
+    					  if(startTime!=null){
+    	                    	 strUrl=strUrl+"&errorStatistic.startTime="+startTime;
+    	                         }
+    	    				
+    	    				if(endTime!=null){
+    	    					strUrl=strUrl+"&errorStatistic.endTime="+endTime;
+    	        				} 
+    				
+    				
     				+"&errorStatistic.custName="+custName
     				+"&errorStatistic.taskName="+taskName
     				window.location.href=strUrl;

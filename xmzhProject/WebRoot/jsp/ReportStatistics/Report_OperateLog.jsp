@@ -52,7 +52,7 @@
 				<viewlist id="e2c61865-3b56-470d-bd42-fff792fb9493">
 				<h:form name="page_form"
 					action="/reportjbpm/operateLogAction_queryOperateLog.action" method="post">
-			 <h:hiddendata property="errorStatistic"/>  
+			 <h:hiddendata property="operateLog"/>  
 
             <h:hidden property="page.begin"/>
 		    <h:hidden property="page.length"/>
@@ -167,9 +167,14 @@
     				var stopTime = $id("stopTime").value;
     				var processName = $id("processName").value;
     				var businessTitle = $id("businessTitle").value;
-    				var strUrl = "/reportjbpm/operateLogAction_queryOperateLogForExcel.action?"
-    				+"&operateLog.airTime="+airTime
-    				+"&operateLog.stopTime="+stopTime
+    				var strUrl = "/reportjbpm/operateLogAction_queryOperateLogForExcel.action?";
+                     if(airTime!=null){
+                    	 strUrl=strUrl+"&operateLog.airTime="+airTime;
+                         }
+    				
+    				if(stopTime!=null){
+    					strUrl=strUrl+"&operateLog.stopTime="+stopTime;
+        				} 				
     				+"&operateLog.businessTitle="+businessTitle
     				+"&operateLog.processName="+processName;
     				window.location.href=strUrl;

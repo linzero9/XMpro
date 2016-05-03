@@ -53,7 +53,7 @@
 				<viewlist id="e2c61865-3b56-470d-bd42-fff792fb9493">
 				<h:form name="page_form"
 					action="/reportjbpm/approvalAction_queryApprovalList.action" method="post">
-			 <h:hiddendata property="xdProcessTaskAssignee"/>  
+			 <h:hiddendata property="approval"/>  
 
             <h:hidden property="page.begin"/>
 		    <h:hidden property="page.length"/>

@@ -52,22 +52,22 @@
   LEFT JOIN (select P.EMPNAME as NEXT_OPR_NAME, E.FLOW_ID
                FROM OM_EMPLOYEE P, T_GENERALPROCESS_MODELONE E
               where E.CREATOR = P.EMPID) A2
-    on A1.FLOW_ID = A2.FLOW_ID 
+    on A1.FLOW_ID = A2.FLOW_ID where 1=1
    
       <isNotNull prepend="and" property="custName" >
-        E.CUST_NAME =#custName:VARCHAR#
+        A1.CUST_NAME =#custName:VARCHAR#
       </isNotNull>
       
       <isNotNull prepend="and" property="taskName" >
-        T.TASKNAME in($taskName$)
+        A1.TASKNAME in($taskName$)
       </isNotNull>
       
       <isNotNull prepend="and" property="startTime" >
-        <![CDATA[M.REPORTTIME>=#startTime#]]>
+        <![CDATA[A1.REPORTTIME>=#startTime#]]>
       </isNotNull>
       
       <isNotNull prepend="and" property="endTime" >
-       <![CDATA[M.REPORTTIME<=#endTime#]]>
+       <![CDATA[A1.REPORTTIME<=#endTime#]]>
       </isNotNull>
      
 	</select>
