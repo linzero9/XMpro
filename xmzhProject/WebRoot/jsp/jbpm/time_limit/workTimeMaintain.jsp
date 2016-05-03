@@ -165,8 +165,32 @@ var d3 = $name("time.endTime3").value;
 				return;
 				}
 		}
+
+		var startDate = $id("startDate").value;
+		var endDate = $id("endDate").value;
 		
-		ajaxsubmitO();
+		$.ajax({
+		      url: "/jbpm/timeLimitManageAction_checkDate.action",
+		      async: false,
+		      type: 'post',
+		      data: "time.startDate="+startDate+"&time.endDate="+endDate,
+		      timeout: 60000,
+		      dataType:"text",
+		      success: function (data) {
+		    	  if (data.indexOf("notExist") >= 0) {
+		    		  ajaxsubmitO();
+				}else if (data.indexOf("exist") >= 0) {
+					alert("在此工作日有效期时间范围内已存在配置信息，请重新配置！");
+				} else if (data.indexOf("fails") >= 0) {
+					alert("日期校验失败！");
+				} else {
+					alert("操作失败!");
+				}
+						  	
+		      }
+		}); 
+		
+		
 	}
 
 	function ajaxsubmitO() {

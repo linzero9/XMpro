@@ -230,6 +230,12 @@ public class TimeLimitManageService implements ITimeLimitManageService {
 		List list = this.timeLimitManageDAO.queryTimeSide(workTimeMaintainBean);
 		return list;
 	}
+
+	@Override
+	public List checkDate(Map<String, String> time) {
+		List list = this.timeLimitManageDAO.checkDate(time);
+		return list;
+	}
 	
 	
 }

@@ -273,7 +273,7 @@ public class TimeLimitManageAction extends BaseAction {
 			}
     	} catch (Exception e) {
 			info="fails";
-			log.error("[保存设备信息失败！]", e);
+			log.error("[失败！]", e);
 			throw e;
 		}finally{	
 			Struts2Utils.renderText(info);
@@ -297,7 +297,7 @@ public class TimeLimitManageAction extends BaseAction {
 			}
     	} catch (Exception e) {
 			info="fails";
-			log.error("[保存设备信息失败！]", e);
+			log.error("[失败！]", e);
 			throw e;
 		}finally{	
 		}
@@ -352,7 +352,7 @@ public class TimeLimitManageAction extends BaseAction {
 				
     	} catch (Exception e) {
 			info="fails";
-			log.error("[保存设备信息失败！]", e);
+			log.error("[失败！]", e);
 			throw e;
 		}finally{	
 		}
@@ -466,7 +466,7 @@ public class TimeLimitManageAction extends BaseAction {
     		}
     	} catch (Exception e) {
 			info="fails";	
-			log.error("[保存设备信息失败！]", e);
+			log.error("[失败！]", e);
 			throw e;
 		}finally{	
 			Struts2Utils.renderText(info);
@@ -526,7 +526,7 @@ public class TimeLimitManageAction extends BaseAction {
 				
     	} catch (Exception e) {
 			info="fails";
-			log.error("[保存设备信息失败！]", e);
+			log.error("[失败！]", e);
 			throw e;
 		}finally{	
 		}
@@ -549,7 +549,7 @@ public class TimeLimitManageAction extends BaseAction {
     		this.timeLimitManageService.deleteTimeLimitManage(proLoanBean);
     	} catch (Exception e) {
 			info="fails";
-			log.error("[保存设备信息失败！]", e);
+			log.error("[失败！]", e);
 			throw e;
 		}finally{	
 			Struts2Utils.renderText(info);
@@ -587,7 +587,7 @@ public class TimeLimitManageAction extends BaseAction {
     		
     	} catch (Exception e) {
 			info="fails";
-			log.error("[保存设备信息失败！]", e);
+			log.error("[失败！]", e);
 			throw e;
 		}finally{	
 			Struts2Utils.renderText(info);
@@ -633,7 +633,30 @@ public class TimeLimitManageAction extends BaseAction {
     		}
     	} catch (Exception e) {
 			info="fails";
-			log.error("[保存设备信息失败！]", e);
+			log.error("[失败！]", e);
+			throw e;
+		}finally{	
+			Struts2Utils.renderText(info);
+		}
+	}
+	
+	/**
+	 * 校验 时间不能在之前配过的时间范围内
+	 * @throws Exception
+	 */
+	public void checkDate() throws Exception{
+		String info ="";
+    	try {
+    		List list = this.timeLimitManageService.checkDate(time);
+    		if(list.size() > 0){
+    			info = "exist";
+    		}else{
+    			info = "notExist";
+    		}
+    		
+    	} catch (Exception e) {
+			info="fails";
+			log.error("[失败！]", e);
 			throw e;
 		}finally{	
 			Struts2Utils.renderText(info);

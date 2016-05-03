@@ -58,4 +58,6 @@ public interface ITimeLimitManageDAO {
 
 	List queryTimeSide(WorkTimeMaintainBean workTimeMaintainBean);
 
+	List checkDate(Map<String, String> time);
+
 }

@@ -63,4 +63,6 @@ public interface ITimeLimitManageService {
 	int deleteTimeSide(WorkTimeMaintainBean workTimeMaintainBean);
 
 	List queryTimeSide(WorkTimeMaintainBean workTimeMaintainBean);
+
+	List checkDate(Map<String, String> time);
 }
