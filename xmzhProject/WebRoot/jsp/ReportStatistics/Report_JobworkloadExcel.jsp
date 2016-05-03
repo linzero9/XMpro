@@ -44,18 +44,18 @@
 			    <b:write iterateId="id1" property="personName"/>
 			  </td>
 			  	<td style="vnd.ms-excel.numberformat:@">
-			    <b:write iterateId="id1" property="businessNumbeOner"/>
+			    <b:write iterateId="id1" property="businessNumberOne"/>
 			  </td>
 			   <td style="vnd.ms-excel.numberformat:@">
 			    <b:write iterateId="id1" property="businessNumberTwo"/>
 			  </td>
-			  			   <td style="vnd.ms-excel.numberformat:@">
-			    <b:write iterateId="id1" property="businessNumbeThreer"/>
+			   <td style="vnd.ms-excel.numberformat:@">
+			    <b:write iterateId="id1" property="businessNumberThree"/>
 			  </td>
-			  			   <td style="vnd.ms-excel.numberformat:@">
+			<td style="vnd.ms-excel.numberformat:@">
 			    <b:write iterateId="id1" property="businessNumberFour"/>
 			  </td>
-			  			   <td style="vnd.ms-excel.numberformat:@">
+			  <td style="vnd.ms-excel.numberformat:@">
 			    <b:write iterateId="id1" property="businessNumberFive"/>
 			  </td>
 			</tr>

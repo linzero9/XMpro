@@ -53,7 +53,7 @@
 				<viewlist id="e2c61865-3b56-470d-bd42-fff792fb9493">
 				<h:form name="page_form"
 					action="/reportjbpm/jobWorkloadAction_jobWorkloadLists.action" method="post">
-			 <h:hiddendata property="xdProcessTaskAssignee"/>  
+			 <h:hiddendata property="jobWorkload"/>  
 
             <h:hidden property="page.begin"/>
 		    <h:hidden property="page.length"/>
@@ -165,19 +165,8 @@
 		<script type="text/javascript">
 
 		$(function(){
-	   		 var appTimeStrat = $id("appTimeStrat").value;
-		     var appTimeEnd = $id("appTimeEnd").value;  
 
-	         if((appTimeStrat!=null && appTimeStrat!="") && (appTimeEnd!=null && appTimeEnd!="")){
-	             
-	    	     var star=appTimeStrat.replaceAll("-","");
-	    	     var end=appTimeEnd.replaceAll("-","");
-	              if(star>end){
-	                  alert("开始时间大于结束时间,请重新输入！");
-	                 // $id("appTimeEnd_input").value="";
-	                  return;
-	                  }
-	         }
+
 			});
 		
 		//清空
@@ -188,6 +177,21 @@
 
 		}
                 function search(){
+       	   		 var appTimeStrat = $id("appTimeStrat").value;
+    		     var appTimeEnd = $id("appTimeEnd").value;  
+       	         if((appTimeStrat!=null && appTimeStrat!="") && (appTimeEnd!=null && appTimeEnd!="")){
+    	             
+    	    	     var star=appTimeStrat.replaceAll("-","");
+    	    	     var end=appTimeEnd.replaceAll("-","");
+    	              if(star>end){
+    	                  alert("开始时间大于结束时间,请重新输入！");
+    	                 // $id("appTimeEnd_input").value="";
+    	                 // $id("appTimeEnd_input").value="";
+    	                  return;
+    	                  }
+    	         }
+
+                    
         			var frm = $name("appQuery");
                     frm.submit();
     
@@ -200,8 +204,13 @@
     			//	var loanCategory = $id("loanCategory").value;
     				
     				var url = "/reportjbpm/jobWorkloadAction_jobWorkloadExcel.action?";
-    	     		url = url+"&jobWorkload.appTimeStrat="+appTimeStrat;
-    	     		url = url+"&jobWorkload.appTimeEnd="+appTimeEnd;
+
+                     if(appTimeStrat!=null){
+                    	 url = url+"&jobWorkload.appTimeStrat="+appTimeStrat;
+                         }
+    				if(appTimeEnd!=null){
+    					url = url+"&jobWorkload.appTimeEnd="+appTimeEnd;
+        				}	
     	     		url = url+"&jobWorkload.processNodeName="+processNodeName;
     	     		//url = url+"&rateofreturnReport.loanCategory="+loanCategory;
     				window.location.href=url; 
