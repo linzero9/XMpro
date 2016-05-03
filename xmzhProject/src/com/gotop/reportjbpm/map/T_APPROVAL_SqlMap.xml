@@ -5,7 +5,7 @@
     <!--Bean方式返回全表-->
     <result column="NEXTORGNAME" property="nextOrgName" jdbcType="VARCHAR" />
     <result column="REPORTTIME" property="reportTime" jdbcType="VARCHAR" />
-    <result column="ISURGENT" property="iSurgent" jdbcType="VARCHAR" />
+    <result column="ISURGENT" property="isurgent" jdbcType="VARCHAR" />
     <result column="CUST_NAME" property="custName" jdbcType="VARCHAR" />
     <result column="OLD_CUST" property="oldCust" jdbcType="VARCHAR" />
     <result column="ONECATEGORY" property="oneCategory" jdbcType="VARCHAR" />
@@ -48,8 +48,8 @@
     <result column="RECEIVETIME" property="receiveTime" jdbcType="VARCHAR" />
   </resultMap>
   
-	<!-- 查询差错情况统计 -->
-	<select id="aa" parameterClass="java.util.HashMap" resultMap="approval">
+	<!-- 查询受理审批台账 -->
+	<select id="queryApprovalList" parameterClass="java.util.HashMap" resultMap="approval">
 	
 	SELECT Z.REPORTTIME,
        Z.ISURGENT,
@@ -159,25 +159,25 @@
            LEFT JOIN (select t.execution_,o.empname as CHECKTWO from jbpm4_hist_actinst q,JBPM4_HIST_TASK t,om_employee o WHERE q.activity_name_='审批二'and q.htask_=t.dbid_ and o.empid=t.assignee_ group by t.execution_,o.empname)A5
            ON A5.EXECUTION_=Z.FLOW_ID
            LEFT JOIN (select t.execution_, wm_concat(to_char(t.start_,'yyyy-mm-dd hh24:mi;ss')) RECEIVETIME from (select *from jbpm4_hist_actinst q where q.activity_name_ = '审查一' order by q.execution_, q.start_)T group by t.execution_)A6
-           ON A6.EXECUTION_=Z.FLOW_ID
+           ON A6.EXECUTION_=Z.FLOW_ID where 1=1
+   <isNotNull prepend="and" property="repTimeStrat">
+   <![CDATA[Z.REPORTTIME>=#repTimeStrat#]]>
+   </isNotNull>
+   
+   <isNotNull prepend="and" property="repTimeEnd">
+   <![CDATA[Z.REPORTTIME<=#repTimeEnd#]]>
+   </isNotNull>
+      
+      <isNotNull prepend="and" property="appTimeStrat" >
+        <![CDATA[A1.APPROVALTIME>=#appTimeStrat#]]>
+      </isNotNull>
+      
+      <isNotNull prepend="and" property="appTimeEnd" >
+       <![CDATA[A1.APPROVALTIME<=#appTimeEnd#]]>
+      </isNotNull>
 	</select>
    
-    <!--  <isNotNull prepend="and" property="custName" >
-        E.CUST_NAME =#custName:VARCHAR#
-      </isNotNull>
-      
-      <isNotNull prepend="and" property="taskName" >
-        T.TASKNAME in($taskName$)
-      </isNotNull>
-      
-      <isNotNull prepend="and" property="startTime" >
-        <![CDATA[M.REPORTTIME>=#startTime#]]>
-      </isNotNull>
-      
-      <isNotNull prepend="and" property="endTime" >
-       <![CDATA[M.REPORTTIME<=#endTime#]]>
-      </isNotNull>
      
-	 -->
+	 
 
 </sqlMap>

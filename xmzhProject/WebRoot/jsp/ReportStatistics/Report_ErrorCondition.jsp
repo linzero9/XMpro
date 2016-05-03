@@ -178,8 +178,8 @@
 			$id("custName").value="";
 			$("#startTime_input").val("");
 			$("#endTime_input").val("");
-			$id("loanCategory").value="";
-			$id("loanCategoryId").value="";
+			$id("taskName").value="";
+			
 		}
                 function search(){
 			$("#isExport").val("");

@@ -18,20 +18,20 @@
                                         <td class="form_label" align="right" width="20%">上报日期：</td>
 					<td colspan="1" width="30%">
 					从
-					<w:date  format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="repTimeStrat" name="DealApprovalDto.repTimeStrat" 
-					property="DealApprovalDto.repTimeStrat" /> 
+					<w:date  format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="repTimeStrat" name="approval.repTimeStrat" 
+					property="approval.repTimeStrat" /> 
 					到
-					<w:date format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="repTimeEnd" name="DealApprovalDto.repTimeEnd" 
-					property="DealApprovalDto.repTimeEnd" /></td>
+					<w:date format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="repTimeEnd" name="approval.repTimeEnd" 
+					property="approval.repTimeEnd" /></td>
 
 					<td class="form_label" align="right" width="20%">审批日期：</td>
 					<td colspan="1" width="30%">
 					从
-					<w:date  format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="appTimeStrat" name="DealApprovalDto.appTimeStrat" 
-					property="DealApprovalDto.appTimeStrat" /> 
+					<w:date  format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="appTimeStrat" name="approval.appTimeStrat" 
+					property="approval.appTimeStrat" /> 
 					到
-					<w:date format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="appTimeEnd" name="DealApprovalDto.appTimeEnd" 
-					property="DealApprovalDto.appTimeEnd" /></td>
+					<w:date format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="appTimeEnd" name="approval.appTimeEnd" 
+					property="approval.appTimeEnd" /></td>
 					
 					
 				</tr>
@@ -142,7 +142,7 @@
 									<b:write iterateId="id1" property="reportTime" />
 								</td>
 								<td nowrap="nowrap">
-								<d:write iterateId="id1" property="iSurgent" dictTypeId="ZHPT_ISURGENT"/>
+								<d:write iterateId="id1" property="isurgent" dictTypeId="ZHPT_ISURGENT" />
 								</td>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1" property="custName" />
@@ -348,17 +348,44 @@
 
 		//清空
 		function clears(){
-			$id("custName").value="";
-			$id("oneCategory").value="";
-			$id("oneCategoryId").value="";
-			$id("loanCategory").value="";
-			$id("loanCategoryId").value="";
+			$("#repTimeStrat_input").val("");
+			$("#repTimeEnd_input").val("");
+			$("#appTimeStrat_input").val("");
+			$("#appTimeEnd_input").val("");
 		}
                 function search(){
 			$("#isExport").val("");
 			}
                 function downExl() {
-			$("#isExport").val("1");
+                	//报单开始日期
+    				var repTimeStrat = $id("repTimeStrat").value;
+    				//报单结束日期
+    				var repTimeEnd = $id("repTimeEnd").value;
+                	//审批开始日期
+    				var appTimeStrat = $id("appTimeStrat").value;
+    				//审批结束日期
+    				var appTimeEnd = $id("appTimeEnd").value;
+    			
+    				
+    				
+    				var strUrl = "/reportjbpm/approvalAction_queryApprovalListForExcel.action?";
+    					  if(repTimeStrat!=null){
+    	                    	 strUrl=strUrl+"&approval.repTimeStrat="+repTimeStrat;
+    	                         }
+    	    				
+    	    				if(repTimeEnd!=null){
+    	    					strUrl=strUrl+"&approval.repTimeEnd="+repTimeEnd;
+    	        				} 
+    				
+    					  if(appTimeStrat!=null){
+    	                    	 strUrl=strUrl+"&approval.appTimeStrat="+appTimeStrat;
+    	                         }
+    	    				
+    	    				if(appTimeEnd!=null){
+    	    					strUrl=strUrl+"&approval.appTimeEnd="+appTimeEnd;
+    	        				} 
+    				
+    				window.location.href=strUrl;
 		}
 		
 		

@@ -7,7 +7,7 @@ import com.informix.util.stringUtil;
 public class Approval implements Serializable {
 	private String nextOrgName;
 	private String reportTime;
-	private String iSurgent;
+	private String isurgent;
 	private String custName;
 	private String oldCust;
 	private String oneCategory;
@@ -175,14 +175,22 @@ public class Approval implements Serializable {
 	public void setReportTime(String reportTime) {
 		this.reportTime = reportTime;
 	}
-	public String getiSurgent() {
+	/*public String getiSurgent() {
 		return iSurgent;
 	}
 	public void setiSurgent(String iSurgent) {
 		this.iSurgent = iSurgent;
-	}
+	}*/
+	
 	public String getCustName() {
 		return custName;
+	}
+	
+	public String getIsurgent() {
+		return isurgent;
+	}
+	public void setIsurgent(String isurgent) {
+		this.isurgent = isurgent;
 	}
 	public void setCustName(String custName) {
 		this.custName = custName;

@@ -93,6 +93,9 @@
 			<result name="queryApprovalList">
 				/jsp/ReportStatistics/Report_DealApproval.jsp
 			</result>
+			<result name="queryApprovalListForExcel">
+				/jsp/ReportStatistics/Report_DealApproval_excel.jsp
+			</result>
 			
 
 		</action>
