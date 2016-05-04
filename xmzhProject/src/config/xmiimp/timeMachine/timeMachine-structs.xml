@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd" >
+<struts >
+  <package name="timeMachine" namespace="/timeMachine" extends="default" >
+    <action name="tModelTimedayAction_*" class="tModelTimedayAction" method="{1}" >
+      <result name="viewlist" >
+        /jsp/timeMachine/tModelTimedayDatacell.jsp
+      </result>
+    </action>
+  </package>
+</struts>

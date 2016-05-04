@@ -3,8 +3,8 @@
 <abatorConfiguration >
   <abatorContext >
   <jdbcConnection driverClass="oracle.jdbc.OracleDriver" 
-    	connectionURL="jdbc:oracle:thin:@10.214.40.59:1521:khyx"
-    	userId="xmdevelop" password="xmdevelop" >
+    	connectionURL="jdbc:oracle:thin:@127.0.0.1:1521:wujiajun"
+    	userId="super" password="super" >
       <!-- 数据库所用jar包,指定数据库jdbc驱动jar包的绝对路径。 -->
 <classPathEntry location="C:\Users\WUJIAJUN\git\XMpro\gotopXmzh\WebRoot\WEB-INF\lib\ojdbc14.jar" />
       <!-- 是否返回数据库注释(表、字段注释) -->
@@ -22,7 +22,7 @@
 
     <daoGenerator targetPackage="com.gotop.timeMachine.dao" targetProject="xmzhProject" type="SPRING">
     </daoGenerator>    
-    <table  tableName="T_GENERALPROCESS_MODELSEVEN" module="xmiimp.timeMachine">
+    <table  tableName="T_MODEL_TIMEDAY" module="xmiimp.timeMachine">
     </table>    
   </abatorContext>
 </abatorConfiguration>
