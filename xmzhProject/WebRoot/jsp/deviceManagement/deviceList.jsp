@@ -153,11 +153,15 @@ margin-left:inherit;
 								设备名称
 							</th>
 							<th nowrap="nowrap">
-								型号
-							</th>
-							<th nowrap="nowrap">
 								IP地址
 							</th>
+							<th nowrap="nowrap">
+								是否在用
+							</th>
+							<th nowrap="nowrap">
+								型号
+							</th>
+
 							<th nowrap="nowrap">
 								生产机器名称
 							</th>
@@ -177,10 +181,10 @@ margin-left:inherit;
 								内置软件版本
 							</th>
 							<th nowrap="nowrap">
-								IE版本
+								IE版本  
 							</th>
 							<th nowrap="nowrap">
-								用途
+								用途   
 							</th>
 							<th nowrap="nowrap">
 								终端号
@@ -194,53 +198,51 @@ margin-left:inherit;
 							<th nowrap="nowrap">
 								对应的外设
 							</th>
+
 							<th nowrap="nowrap">
-								是否在用
+								其他属性2  
 							</th>
 							<th nowrap="nowrap">
-								其他属性2
+								其他属性3  
 							</th>
 							<th nowrap="nowrap">
-								其他属性3
+								其他属性4 
 							</th>
 							<th nowrap="nowrap">
-								其他属性4
+								其他属性5 
 							</th>
 							<th nowrap="nowrap">
-								其他属性5
+								应用系统 
 							</th>
 							<th nowrap="nowrap">
-								应用系统
+								其他信息2  
 							</th>
 							<th nowrap="nowrap">
-								其他信息2
+								其他信息3 
 							</th>
 							<th nowrap="nowrap">
-								其他信息3
+								其他信息4  
 							</th>
 							<th nowrap="nowrap">
-								其他信息4
+								其他信息5  
 							</th>
 							<th nowrap="nowrap">
-								其他信息5
+								任务标记  
 							</th>
 							<th nowrap="nowrap">
-								任务标记
+								备注2  
 							</th>
 							<th nowrap="nowrap">
-								备注2
+								备注3  
 							</th>
 							<th nowrap="nowrap">
-								备注3
+								备注4  
 							</th>
 							<th nowrap="nowrap">
-								备注4
+								备注5  
 							</th>
 							<th nowrap="nowrap">
-								备注5
-							</th>
-							<th nowrap="nowrap">
-								设备状态
+								设备状态  
 							</th>
 						</tr>
 						<w:checkGroup id="group1">
@@ -249,60 +251,62 @@ margin-left:inherit;
 							 <tr class="<l:output oddOutput="EOS_table_row_o" evenOutput='EOS_table_row' />">
 								<td align="center" nowrap="nowrap">
 									<w:rowCheckbox>
-											<h:param name='deviceId' iterateId='id1' property='deviceId' />
+											<h:param name='deviceId' iterateId='id1' property='deviceId' />  
 									</w:rowCheckbox>
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="orgname" />
+									<b:write iterateId="id1" property="orgname" />   
 								</td>
 								<td nowrap="nowrap"> 
-									<d:write iterateId="id1" property="deviceName"  dictTypeId="DEVICE_NAME" />
+									<d:write iterateId="id1" property="deviceName"  dictTypeId="DEVICE_NAME" />  
 								</td>
 								<td nowrap="nowrap"> 
-									<d:write iterateId="id1" property="deviceModel"  dictTypeId="DEVICE_MODEL"  />
+								     <b:write iterateId="id1" property="ipAdress" />  
+								</td>
+						        <td nowrap="nowrap"> 
+								     <d:write iterateId="id1" property="otherAttribute_1"  dictTypeId="DEVICE_OTHERATTRIBUTE_1"/>
 								</td>
 								<td nowrap="nowrap"> 
-								     <b:write iterateId="id1" property="ipAdress" />
+									<d:write iterateId="id1" property="deviceModel"  dictTypeId="DEVICE_MODEL"  />   
+								</td>
+
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="productionMachineName" />  
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="productionMachineName" />
+									<b:write iterateId="id1" property="cpuCode" />  
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="cpuCode" />
+								     <b:write iterateId="id1" property="memory" />  
 								</td>
 								<td nowrap="nowrap"> 
-								     <b:write iterateId="id1" property="memory" />
+									<b:write iterateId="id1" property="hardDisk" />  
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="hardDisk" />
+									<d:write iterateId="id1" property="osVersion"  dictTypeId="DEVICE_OS_VERSION"/>  
 								</td>
 								<td nowrap="nowrap"> 
-									<d:write iterateId="id1" property="osVersion"  dictTypeId="DEVICE_OS_VERSION"/>
+								     <b:write iterateId="id1" property="softwareVersion" />  
 								</td>
 								<td nowrap="nowrap"> 
-								     <b:write iterateId="id1" property="softwareVersion" />
+									<d:write iterateId="id1" property="ieVersion"  dictTypeId="DEVICE_IE_VERSION"/>  
 								</td>
 								<td nowrap="nowrap"> 
-									<d:write iterateId="id1" property="ieVersion"  dictTypeId="DEVICE_IE_VERSION"/>
+									<d:write iterateId="id1" property="useful"  dictTypeId="DEVICE_USEFUL" seperator=", "  />  
 								</td>
 								<td nowrap="nowrap"> 
-									<d:write iterateId="id1" property="useful"  dictTypeId="DEVICE_USEFUL" seperator=", "  />
+								     <b:write iterateId="id1" property="terminalNumber" />  
 								</td>
 								<td nowrap="nowrap"> 
-								     <b:write iterateId="id1" property="terminalNumber" />
+									<b:write iterateId="id1" property="user" />  
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="user" />
-								</td>
-								<td nowrap="nowrap"> 
-									<d:write iterateId="id1" property="plugIn" dictTypeId="DEVICE_PLUGIN"  seperator=", " />
+									<d:write iterateId="id1" property="plugIn" dictTypeId="DEVICE_PLUGIN"  seperator=", " />  
 								</td>
 								<td nowrap="nowrap"> 
 								     <d:write iterateId="id1" property="peripheral"  dictTypeId="DEVICE_PERIPHERAL"  seperator=", "  />
 								</td>
-								<td nowrap="nowrap"> 
-								     <d:write iterateId="id1" property="otherAttribute_1"  dictTypeId="DEVICE_OTHERATTRIBUTE_1"/>
-								</td>
+
 								<td nowrap="nowrap"> 
 								     <d:write iterateId="id1" property="otherAttribute_2"  dictTypeId="DEVICE_OTHERATTRIBUTE_2"/>
 								</td>
