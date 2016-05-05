@@ -175,12 +175,7 @@ public class Approval implements Serializable {
 	public void setReportTime(String reportTime) {
 		this.reportTime = reportTime;
 	}
-	/*public String getiSurgent() {
-		return iSurgent;
-	}
-	public void setiSurgent(String iSurgent) {
-		this.iSurgent = iSurgent;
-	}*/
+	
 	
 	public String getCustName() {
 		return custName;

@@ -40,6 +40,31 @@
         		 ${taskName}
         </td>
       </tr>
+      
+       <tr>
+     	<td class="form_label" align="right" style="width:20%;" >是否电话核实</td>
+      	<td colspan="1" style="width:30%">
+        	<d:select id="dhhs" dictTypeId="ABF_PHONECHECK" property="modelFour.dhhs"   nullLabel="请选择"></d:select>
+      	</td>
+     
+       <td class="form_label" align="right" style="width:120px;">
+                                                   终审币别：
+        </td>
+					<td colspan="1">
+						<d:select  id="zscurrency"  dictTypeId="PROCESS_MONEY" property="modelFour.zscurrency"></d:select>    <font style="color: red">*</font>	
+					</td>
+					
+					
+      </tr>
+    
+      <tr>
+      <td class="form_label" align="right" style="width:120px;">
+                                                 终审金额：
+        </td>
+        <td colspan="1">
+         <h:text property="modelFour.zsmoney" id="zsje"  style="width:130px;" />万元<font id="decimal" style="color: red" style=display:none>小数点后两位 </font>	
+        </td>
+      </tr>
       <tr>
      	<td class="form_label" align="right" style="width:10%;">处理意见：</td>
      	<td colspan="3">
@@ -277,7 +302,20 @@
 					return queryCond;
 		}
 
-		function doSave(value){   		
+		function doSave(value){ 
+			
+			var zs=$("#zsje").val();
+			 var reg = /^(([1-9]+)|([0-9]+\.[0-9]{1,2}))$/;
+		        var is = reg.test(zs);
+			
+			if($.trim(zs)>0){
+				if(!is){
+					$("#decimal").css("display","");
+					return;
+					}
+				
+				}
+			
     		$("#btnType").val(value);
     		if(value!="1"){
     			//提交

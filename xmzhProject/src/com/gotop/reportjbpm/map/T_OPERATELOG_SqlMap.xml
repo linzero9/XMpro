@@ -19,8 +19,8 @@
 	<!-- 查询差错情况统计 -->
 	<select id="queryOperateLog" parameterClass="java.util.HashMap" resultMap="OperateLog">
 select T1.ACTIVITY_NAME_,
-       TO_CHAR(T1.START_,'yyyy-MM-dd hh24:mi:ss') AS START_,
-       TO_CHAR(T1.END_,'yyyy-MM-dd hh24:mm:ss') AS END_,
+       TO_CHAR(T1.START_,'yyyy-mm-dd hh24:mi:ss') AS START_,
+       TO_CHAR(T1.END_,'yyyy-mm-dd hh24:mi:ss') AS END_,
        E.EMPNAME,
        Y.ORGNAME,
        T3.REPORTTIME,

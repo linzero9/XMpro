@@ -17,6 +17,21 @@ public class ProcessModelFive extends ProcessModel  implements  Serializable{
 	private static final long serialVersionUID = 1L;
 
 	/**
+	 * 是否电话核实
+	 */
+	@GeneralprocessField(name="是否电话核实",type="text",hidden=false)
+	private String dhhs;
+	/**
+	 *  终审币别
+	 */
+	@GeneralprocessField(name=" 终审币别",type="text",hidden=false)
+	private String zscurrency;
+	/**
+	 *  终审金额
+	 */
+	@GeneralprocessField(name=" 终审金额",type="text",hidden=false)
+	private String zsmoney;
+	/**
 	 * 流程实例id
 	 */
 	@GeneralprocessField(name="流程业务id",type="text",hidden=false)

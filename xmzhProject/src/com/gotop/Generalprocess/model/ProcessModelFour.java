@@ -17,6 +17,24 @@ public class ProcessModelFour extends ProcessModel  implements  Serializable{
      */
 	@GeneralprocessField(name="流程业务id",type="text",hidden=false)
     private String flowId;
+	/**
+	 * 是否电话核实.
+	 * @abatorgenerated
+	 */
+	@GeneralprocessField(name="是否电话核实",type="text",hidden=false)
+	private String dhhs;
+	/**
+	 * 终审币别.
+	 * @abatorgenerated
+	 */
+	@GeneralprocessField(name="终审币别",type="text",hidden=false)
+	private String zscurrency;
+	/**
+	 * 终审金额 .
+	 * @abatorgenerated
+	 */
+	@GeneralprocessField(name="终审金额",type="text",hidden=false)
+	private String zsmoney;
 
     /**
      * 处理意见 .
@@ -32,6 +50,32 @@ public class ProcessModelFour extends ProcessModel  implements  Serializable{
 	
 	@GeneralprocessField(name="差错情况",type="misTakeType")
 	private String misTakeType;
+	
+	
+
+	public String getDhhs() {
+		return dhhs;
+	}
+
+	public void setDhhs(String dhhs) {
+		this.dhhs = dhhs;
+	}
+
+	public String getZscurrency() {
+		return zscurrency;
+	}
+
+	public void setZscurrency(String zscurrency) {
+		this.zscurrency = zscurrency;
+	}
+
+	public String getZsmoney() {
+		return zsmoney;
+	}
+
+	public void setZsmoney(String zsmoney) {
+		this.zsmoney = zsmoney;
+	}
 
 	public String getMisTakeType() {
 		return misTakeType;
