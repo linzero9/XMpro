@@ -33,8 +33,33 @@ public class TModelTimeday implements Serializable {
      * @abatorgenerated
      */
     private String status;
+    
+    
+    
+    
+    
+    private   BigDecimal mainid;
+    
+    private  String  type;
+    
+    
+    public BigDecimal getMainid() {
+		return mainid;
+	}
 
-    /**
+	public void setMainid(BigDecimal mainid) {
+		this.mainid = mainid;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	/**
      * 主键 .
      * @abatorgenerated
      */

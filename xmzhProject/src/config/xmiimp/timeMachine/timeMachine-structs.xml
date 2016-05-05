@@ -4,7 +4,7 @@
   <package name="timeMachine" namespace="/timeMachine" extends="default" >
     <action name="tModelTimedayAction_*" class="tModelTimedayAction" method="{1}" >
       <result name="viewlist" >
-        /jsp/timeMachine/tModelTimedayDatacell.jsp
+        /jsp/timeMachine/tModelTimedayList.jsp
       </result>
     </action>
   </package>

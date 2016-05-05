@@ -8,6 +8,11 @@
     <result column="ORGCODE" property="orgcode" jdbcType="VARCHAR" />
     <result column="ROLE" property="role" jdbcType="VARCHAR" />
     <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    
+     <result column="MAINID" property="mainid" jdbcType="DECIMAL" />
+     <result column="TYPE" property="type" jdbcType="VARCHAR" />
+     
+     
   </resultMap>
   <resultMap id="abatorgenerated_TModelTimeday_HashMapResult" class="java.util.HashMap" >
     <!--HashMap方式返回全表-->
@@ -16,40 +21,15 @@
     <result column="ORGCODE" property="orgcode" jdbcType="VARCHAR" />
     <result column="ROLE" property="role" jdbcType="VARCHAR" />
     <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    
+     <result column="MAINID" property="mainid" jdbcType="DECIMAL" />
+     <result column="TYPE" property="type" jdbcType="VARCHAR" />
+     
   </resultMap>
-  <select id="abatorgenerated_selectByExample" resultMap="abatorgenerated_TModelTimedayResult" parameterClass="com.gotop.timeMachine.model.TModelTimedayExample" >
-    <!--通过查询实体,查询满足条件的记录-->
-    select ID, TIME, ORGCODE, ROLE, STATUS
-    from T_MODEL_TIMEDAY
-    <isParameterPresent >
-      <include refid="COMMON.abatorgenerated_Example_Where_Clause" />
-      <isNotNull property="orderByClause" >
-        order by $orderByClause$
-      </isNotNull>
-    </isParameterPresent>
-  </select>
-  <select id="abatorgenerated_expandEntityByTemplate" resultMap="abatorgenerated_TModelTimedayResult" parameterClass="com.gotop.timeMachine.model.TModelTimeday" >
-    <!--根据Bean数据模板查询条件查询所有记录，可查询分页数据-->
-    select ID, TIME, ORGCODE, ROLE, STATUS
-    from T_MODEL_TIMEDAY where <![CDATA[ rownum<2 ]]>
-    <dynamic >
-      <isNotNull prepend="and" property="id" >
-        ID = #id:DECIMAL#
-      </isNotNull>
-      <isNotNull prepend="and" property="time" >
-        TIME = #time:VARCHAR#
-      </isNotNull>
-      <isNotNull prepend="and" property="orgcode" >
-        ORGCODE = #orgcode:VARCHAR#
-      </isNotNull>
-      <isNotNull prepend="and" property="role" >
-        ROLE = #role:VARCHAR#
-      </isNotNull>
-      <isNotNull prepend="and" property="status" >
-        STATUS = #status:VARCHAR#
-      </isNotNull>
-    </dynamic>
-  </select>
+  
+  
+  
+  
   <select id="abatorgenerated_queryEntitiesByTemplate" resultMap="abatorgenerated_TModelTimedayResult" parameterClass="com.gotop.timeMachine.model.TModelTimeday" >
     <!--根据Bean数据模板查询条件查询所有记录，可查询分页数据-->
     select ID, TIME, ORGCODE, ROLE, STATUS
@@ -72,6 +52,8 @@
       </isNotNull>
     </dynamic>
   </select>
+  
+  
   <delete id="abatorgenerated_deleteByExample" parameterClass="com.gotop.timeMachine.model.TModelTimedayExample" >
     <!--通过查询实例，删除满足条件的数据-->
     delete from T_MODEL_TIMEDAY
@@ -98,11 +80,17 @@
       </isNotEmpty>
     </dynamic>
   </delete>
+  
+  
+  
   <insert id="abatorgenerated_insert" parameterClass="com.gotop.timeMachine.model.TModelTimeday" >
     <!--通过主键更新整条数据-->
     insert into T_MODEL_TIMEDAY (ID, TIME, ORGCODE, ROLE, STATUS)
     values (#id:DECIMAL:-9999#, #time:VARCHAR#, #orgcode:VARCHAR#, #role:VARCHAR#, #status:VARCHAR#)
   </insert>
+  
+  
+  
   <select id="abatorgenerated_countByExample" parameterClass="com.gotop.timeMachine.model.TModelTimedayExample" resultClass="java.lang.Integer" >
     <!--通过查询实例，统计总数-->
     select count(*) from T_MODEL_TIMEDAY
@@ -129,6 +117,9 @@
       </isNotNull>
     </dynamic>
   </select>
+  
+  
+  
   <update id="abatorgenerated_updateByExampleSelective" >
     <!--通过查询实例，更新非null字段-->
     update T_MODEL_TIMEDAY
@@ -153,6 +144,9 @@
       <include refid="COMMON.abatorgenerated_Example_Where_Clause" />
     </isParameterPresent>
   </update>
+  
+  
+  
   <update id="abatorgenerated_updateByExample" >
     <!--通过查询实例，更新全部字段-->
     update T_MODEL_TIMEDAY
@@ -165,6 +159,9 @@
       <include refid="COMMON.abatorgenerated_Example_Where_Clause" />
     </isParameterPresent>
   </update>
+  
+  
+  
   <update id="abatorgenerated_updateEntityByTemplate" >
     <!--根据Bean数据模板查询条件更新记录-->
     update T_MODEL_TIMEDAY
@@ -203,9 +200,12 @@
       </isNotEmpty>
     </dynamic>
   </update>
+  
+  
+  
   <select id="abatorgenerated_selectByMapAndPage" resultMap="abatorgenerated_TModelTimeday_HashMapResult" parameterClass="java.util.HashMap" >
     <!--通过Map方式的动态条件，查询分页数据-->
-    select ID, TIME, ORGCODE, ROLE, STATUS
+    select ID, TIME, ORGCODE, ROLE, STATUS,MAINID,TYPE
     from T_MODEL_TIMEDAY
     <dynamic prepend="where" >
       <isNotNull prepend="and" property="id" >
@@ -223,8 +223,20 @@
       <isNotNull prepend="and" property="status" >
         STATUS = #status:VARCHAR#
       </isNotNull>
+      
+      <isNotNull prepend="and" property="mianid" >
+        MAINID = #mainid:DECIMAL#
+      </isNotNull>
+            
+      <isNotNull prepend="and" property="type" >
+        TYPE = #type:VARCHAR#
+      </isNotNull>
+      
     </dynamic>
   </select>
+  
+  
+  
   <select id="abatorgenerated_selectByExampleAndPage" resultMap="abatorgenerated_TModelTimedayResult" parameterClass="com.gotop.timeMachine.model.TModelTimedayExample" >
     <!--通过Bean方式的动态条件，查询分页数据-->
     select ID, TIME, ORGCODE, ROLE, STATUS

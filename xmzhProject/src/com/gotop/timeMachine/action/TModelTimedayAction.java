@@ -2,6 +2,7 @@ package com.gotop.timeMachine.action;
 
 import com.gotop.crm.util.BaseAction;
 import com.gotop.crm.util.MUO;
+import com.gotop.timeMachine.model.TModelTimeday;
 import com.gotop.timeMachine.service.ITModelTimedayService;
 import com.gotop.util.XmlConvert;
 import com.primeton.utils.AjaxParam;
@@ -18,8 +19,21 @@ public class TModelTimedayAction extends BaseAction {
      * @abatorgenerated
      */
     protected ITModelTimedayService tModelTimedayService;
+    
+    
+    private  List<TModelTimeday>  days;
+    
+    
+    
+    public List<TModelTimeday> getDays() {
+		return days;
+	}
 
-    /**
+	public void setDays(List<TModelTimeday> days) {
+		this.days = days;
+	}
+
+	/**
      * 通过spring注入Service的set类.
      * @abatorgenerated
      */
@@ -79,7 +93,7 @@ public class TModelTimedayAction extends BaseAction {
         Page page = this.getPage();
         HashMap hm = new HashMap();
         List orgs = tModelTimedayService.queryPageDataList(hm,page);
-        request.setAttribute("orgs", orgs);
+        request.setAttribute("beans", orgs);
         request.setAttribute("page", page);
         return "viewlist";
     }
