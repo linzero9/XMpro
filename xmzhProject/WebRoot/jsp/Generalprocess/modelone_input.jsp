@@ -132,7 +132,26 @@
          </div>
         </td>
       </tr>
-      
+             <tr>
+     	<td class="form_label" align="right" style="width:120px;">借款人工作单位：</td>
+     	<td>
+	     	 <h:text property="modelOne.borr_Unit" id="borr_Unit" validateAttr="allowNull=ture" style="width:250px;" />
+     	</td>
+     	<td class="form_label" align="right" style="width:120px;">借款人配偶工作单位：</td>
+     	<td>
+	     	 <h:text property="modelOne.borrSpouse_Unit" id="borrSpouse_Unit" validateAttr="allowNull=ture" style="width:250px;" />
+     	</td>
+      </tr>
+                   <tr>
+     	<td class="form_label" align="right" style="width:120px;">共同借款人工作单位：</td>
+     	<td>
+	     	 <h:text property="modelOne.comBorr_Unit" id="comBorr_Unit" validateAttr="allowNull=ture" style="width:250px;" />
+     	</td>
+     	<td class="form_label" align="right" style="width:120px;">共同借款人配偶工作单位：</td>
+     	<td>
+	     	 <h:text property="modelOne.comBorrSpouse_Unit" id="comBorrSpouse_Unit" validateAttr="allowNull=ture" style="width:250px;" />
+     	</td>
+      </tr>
        <tr>
         <td class="form_label" align="right" style="width:120px;">
                                                  申请金额：

@@ -150,8 +150,66 @@ public class TGeneralprocessModelone implements Serializable {
      */
     private String oldCust;
     
+    /**
+     * null .
+     * @abatorgenerated
+     */
+    private String borrUnit;
+    
+    /**
+     * null .
+     * @abatorgenerated
+     */
+    private String borrSpouseUnit;
 
-    public String getOldCust() {
+    /**
+     * null .
+     * @abatorgenerated
+     */
+    private String comBorrUnit;
+    
+    
+    /**
+     * null .
+     * @abatorgenerated
+     */
+    private String comBorrSpouseUnit;
+    
+
+    
+	public String getComBorrSpouseUnit() {
+		return comBorrSpouseUnit;
+	}
+
+	public void setComBorrSpouseUnit(String comBorrSpouseUnit) {
+		this.comBorrSpouseUnit = comBorrSpouseUnit;
+	}
+
+	public String getComBorrUnit() {
+		return comBorrUnit;
+	}
+
+	public void setComBorrUnit(String comBorrUnit) {
+		this.comBorrUnit = comBorrUnit;
+	}
+
+	public String getBorrSpouseUnit() {
+		return borrSpouseUnit;
+	}
+
+	public void setBorrSpouseUnit(String borrSpouseUnit) {
+		this.borrSpouseUnit = borrSpouseUnit;
+	}
+
+	public String getBorrUnit() {
+		return borrUnit;
+	}
+
+	public void setBorrUnit(String borrUnit) {
+		this.borrUnit = borrUnit;
+	}
+
+	public String getOldCust() {
 		return oldCust;
 	}
 

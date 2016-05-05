@@ -125,9 +125,44 @@ public class ProcessModelOne extends ProcessModel  implements  Serializable {
 	@GeneralprocessField(name="是否老顾客",type="dic",dicname="ZHPT_LGK")
 	private String  old_Cust;
 	
+	@GeneralprocessField(name="借款人工作单位",type="text")
+	private String   borr_Unit;
+	
+	@GeneralprocessField(name="借款人配偶工作单位",type="text")
+	private String borrSpouse_Unit;
+	
+	@GeneralprocessField(name="共同借款人工作单位",type="text")
+    private String comBorr_Unit; 
+	
+	@GeneralprocessField(name="共同借款人配偶工作单位",type="text")
+    private String comBorrSpouse_Unit;
 	
 	
-	
+
+	public String getComBorrSpouse_Unit() {
+		return comBorrSpouse_Unit;
+	}
+	public void setComBorrSpouse_Unit(String comBorrSpouse_Unit) {
+		this.comBorrSpouse_Unit = comBorrSpouse_Unit;
+	}
+	public String getComBorr_Unit() {
+		return comBorr_Unit;
+	}
+	public void setComBorr_Unit(String comBorr_Unit) {
+		this.comBorr_Unit = comBorr_Unit;
+	}
+	public String getBorrSpouse_Unit() {
+		return borrSpouse_Unit;
+	}
+	public void setBorrSpouse_Unit(String borrSpouse_Unit) {
+		this.borrSpouse_Unit = borrSpouse_Unit;
+	}
+	public String getBorr_Unit() {
+		return borr_Unit;
+	}
+	public void setBorr_Unit(String borr_Unit) {
+		this.borr_Unit = borr_Unit;
+	}
 	public String getOld_Cust() {
 		return old_Cust;
 	}
