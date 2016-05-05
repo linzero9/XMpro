@@ -5,4 +5,6 @@
   <sqlMap resource="com/gotop/deviceManagement/map/T_DEVICE_SqlMap.xml" />
  
  <sqlMap resource="com/gotop/deviceManagement/map/T_DEVICE_Detail_SqlMap.xml" />
+ 
+ <sqlMap resource="com/gotop/deviceManagement/map/MyTree_SqlMap.xml" />
 </sqlMapConfig>

@@ -6,4 +6,9 @@
     <property name="deviceManDetailService" ref="deviceManDetailService" />
      <property name="eosDictEntryService" ref="eosDictEntryService" />
   </bean>
+  
+  <bean name="myMainTreeAction" id="myMainTreeAction" class="com.gotop.deviceManagement.action.MyMainTreeAction" singleton="false" >
+    <property name="mainTreeService" ref="mainTreeService" />
+    <property name="myMainTreeService" ref="myMainTreeService" />
+  </bean>
 </beans>

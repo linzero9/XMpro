@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="MyTree_SqlMap" >
+  
+  <typeAlias alias="organization" type="com.gotop.tyjg.common.model.Organization"/>
+
+<!--按选择部室按钮  查询行政树的机构信息  -->
+	<select id="selectAdminTreeRoot1" parameterClass="java.util.HashMap" resultClass="organization">
+		SELECT ORGID     AS orgid,
+		       ORGNAME   AS orgname,
+		       ORGCODE   AS orgcode,
+		       ORGDEGREE AS orgdegree,
+		       ORGTYPE   AS orgtype,
+		       YSJGBH    AS ysjgbh,
+		       ORGSEQ    AS orgseq
+		  FROM OM_ORGANIZATION A
+		 WHERE 1=1
+		 	<isNotNull property="parentid">
+		 		<!-- 查询行政树子机构信息 -->
+		 		AND A.PARENTORGID = #parentid#
+		 		<isEqual property="parentid" compareValue="5425">
+		 			and A.ORGTYPE = '3'
+		 		</isEqual>
+		 	</isNotNull>
+		 	
+		 	<isNotNull property="parent">
+		 		AND A.PARENTORGID IS NULL
+		 	</isNotNull>
+		 	<isNotNull property="startorgcode">
+		 			AND A.ORGCODE = #startorgcode#
+		 	</isNotNull>
+		 	<isNotNull property="startorgid">
+		 			AND A.ORGID = #startorgid#
+		 	</isNotNull>
+		 	<isNotNull property="orgdegree">
+				 <![CDATA[
+				   AND A.ORGDEGREE <= #orgdegree#
+				   ]]>
+		   </isNotNull>
+		   <isNotNull property="jgsx">
+		   		AND A.JGSX = #jgsx#
+		   </isNotNull>
+		   AND A.STATUS = 'running'
+		   ORDER BY DISPLAYORDER asc,ORGCODE asc
+	</select>
+	
+	<!-- 按选择支行按钮 查询行政树的机构信息  -->
+	<select id="selectAdminTreeRoot2" parameterClass="java.util.HashMap" resultClass="organization">
+		SELECT ORGID     AS orgid,
+		       ORGNAME   AS orgname,
+		       ORGCODE   AS orgcode,
+		       ORGDEGREE AS orgdegree,
+		       ORGTYPE   AS orgtype,
+		       YSJGBH    AS ysjgbh,
+		       ORGSEQ    AS orgseq
+		  FROM OM_ORGANIZATION A
+		 WHERE 1=1
+		 	<isNotNull property="parentid">
+		 		<!-- 查询行政树子机构信息 -->
+		 		AND A.PARENTORGID = #parentid#
+		 		<isEqual property="parentid" compareValue="5425">
+		 			and A.ORGTYPE IS NULL
+		 		</isEqual>
+		 	</isNotNull>
+		 	
+		 	<isNotNull property="parent">
+		 		AND A.PARENTORGID IS NULL
+		 	</isNotNull>
+		 	<isNotNull property="startorgcode">
+		 			AND A.ORGCODE = #startorgcode#
+		 	</isNotNull>
+		 	<isNotNull property="startorgid">
+		 			AND A.ORGID = #startorgid#
+		 	</isNotNull>
+		 	<isNotNull property="orgdegree">
+				 <![CDATA[
+				   AND A.ORGDEGREE <= #orgdegree#
+				   ]]>
+		   </isNotNull>
+		   <isNotNull property="jgsx">
+		   		AND A.JGSX = #jgsx#
+		   </isNotNull>
+		   AND A.STATUS = 'running'
+		   ORDER BY DISPLAYORDER asc,ORGCODE asc
+	</select>
+</sqlMap>

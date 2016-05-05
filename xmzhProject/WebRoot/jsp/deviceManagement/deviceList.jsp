@@ -37,7 +37,8 @@ margin-left:inherit;
 					<td colspan="1"  width="25%" nowrap="nowrap">
 						<h:text id="orgname" property="device.orgname"   readonly="true"  />
 			            <h:hidden id="orgcode" property="device.orgcode" />
-			      		<a href="#" onclick="open_newyw_tree_fun1();">选择</a>
+			      		<a href="#" onclick="open_orgcode_tree(1);">选择部室</a>
+			      		<a href="#" onclick="open_orgcode_tree(2);">选择支行</a>
 					</td>
 					<td class="form_label" align="right" width="10%" nowrap="nowrap">IP地址：</td>
 					<td colspan="1"  width="25%" nowrap="nowrap">
@@ -244,6 +245,7 @@ margin-left:inherit;
 						</tr>
 						<w:checkGroup id="group1">
                             <l:iterate property="devices" id="id1">
+                            
 							 <tr class="<l:output oddOutput="EOS_table_row_o" evenOutput='EOS_table_row' />">
 								<td align="center" nowrap="nowrap">
 									<w:rowCheckbox>
@@ -561,8 +563,13 @@ margin-left:inherit;
 			}
 
 			//选择 部门/机构
-			function open_newyw_tree_fun1(){//方法名
-			     strUrl ="/tree/initMainTree_mainTree.action?changeTree.showTabOrg=1&changeTree.checkcount=1&changeTree.orgType=4&changeTree.showSelBox=4";
+			function open_orgcode_tree(flag){//方法名
+			     strUrl ="/deviceManagement/myMainTreeAction_initMainTree.action?changeTree.showTabOrg=1&changeTree.checkcount=1&changeTree.orgType=4&changeTree.showSelBox=4";
+			     if(flag == "1"){
+					  strUrl += "&orgflag=1";
+				  }else if(flag == "2"){
+					  strUrl += "&orgflag=2";
+				  }
 				var peArgument = [];
 		   		//机构
 		   		var paramEntity = new ParamEntity('Organization');

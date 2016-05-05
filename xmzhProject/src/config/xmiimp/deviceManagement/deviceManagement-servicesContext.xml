@@ -8,4 +8,8 @@
   <bean id="deviceManDetailService" class="com.gotop.deviceManagement.service.impl.DeviceManDetailService" >
   	<property name="deviceManDetailDAO" ref="deviceManDetailDAO" />
   </bean>
+  <bean id="myMainTreeService" class="com.gotop.deviceManagement.service.impl.MyMainTreeService" >
+  	<property name="mainTreeDao" ref="mainTreeDao" />
+  	<property name="myMainTreeDao" ref="myMainTreeDao" />
+  </bean>
 </beans>
