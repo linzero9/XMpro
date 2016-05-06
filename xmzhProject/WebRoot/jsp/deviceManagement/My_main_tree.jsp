@@ -1,6 +1,6 @@
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <%@include file="/common/common.jsp"%>
-<%@include file="/common/skins/skin1/component.jsp" %>
+<%@include file="/common/skins/skin0/component.jsp" %>
 <%@page import="com.gotop.util.security.*"%>
 
 <h:css href="/css/style1/style-custom.css"/>
