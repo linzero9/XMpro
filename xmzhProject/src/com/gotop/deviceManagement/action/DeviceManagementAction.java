@@ -87,6 +87,8 @@ public class DeviceManagementAction  extends BaseAction    {
 	private String orgcodeTemp;
 	private Sum sum;
 	private List<Sum> sums;
+	private String deviceName;
+
 	
 	public String getImportExcelFlag() {
 		return importExcelFlag;
@@ -124,6 +126,13 @@ public class DeviceManagementAction  extends BaseAction    {
 		this.orgcodeTemp = orgcodeTemp;
 	}
 
+	public String getDeviceName() {
+		return deviceName;
+	}
+
+	public void setDeviceName(String deviceName) {
+		this.deviceName = deviceName;
+	}
 
 
 	protected IDeviceManagementService deviceManagermentService;
@@ -213,7 +222,6 @@ public class DeviceManagementAction  extends BaseAction    {
 	public void setReadFile(File readFile) {
 		this.readFile = readFile;
 	}
-	
 	//输出统计
 	public String sumUpDevice(){
 
@@ -232,6 +240,7 @@ public class DeviceManagementAction  extends BaseAction    {
 	public String toImportExcel(){
 		return "importExcel";
 	}
+	
 	public String deviceList(){
 
     	if(device == null){
@@ -1783,6 +1792,13 @@ private HashMap checkData_maxLength(String str, String colName, int i, String ms
 			InputStream in=new FileInputStream(file);
 			
 			return in;		
+		}
+	    
+//		查询设备型号
+		public String queryType(){
+			devices=this.deviceManagermentService.queryType(deviceName);
+			this.setDevices(devices);
+			return "devices";
 		}
 			
 }
