@@ -276,6 +276,16 @@ public class DeviceManagementService implements IDeviceManagementService{
 		List list = deviceManagementDAO.deviceList(map);
 		return list;
 	}
+//	查询设备型号
+	@Override
+	public List<DevicePo> queryType(String deviceName) {
+		Map<String, String> map =new HashMap<String, String>();
+		if (deviceName !=null&&!"".equals(deviceName)) {
+			map.put("deviceName", deviceName);
+		}
+		List list  =deviceManagementDAO.queryType(map);
+		return list;
+	}
 
 	
 }

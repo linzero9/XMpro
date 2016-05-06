@@ -37,4 +37,6 @@ public interface IDeviceManagementService {
 
 	List<DevicePo> deviceList(DevicePo device);
 
+	List<DevicePo> queryType(String deviceName);
+
 }

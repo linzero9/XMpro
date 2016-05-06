@@ -94,7 +94,14 @@ public class DevicePo  implements  Serializable{
 	//硬盘容量 最大值
 	private String hardDiskMax;
 	
+	private String deviceModelName;
 	
+	public String getDeviceModelName() {
+		return deviceModelName;
+	}
+	public void setDeviceModelName(String deviceModelName) {
+		this.deviceModelName = deviceModelName;
+	}
 	public Long getDeviceId() {
 		return deviceId;
 	}

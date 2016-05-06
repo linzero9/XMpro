@@ -44,13 +44,36 @@
     <result column="ORGID" property="orgid" jdbcType="DECIMAL" />
     <result column="ORGCODE" property="orgcode" jdbcType="VARCHAR" />
     <result column="ORGNAME" property="orgname" jdbcType="VARCHAR" />
-  </resultMap>   
+  </resultMap>  
   
     <resultMap id="tSum" class="com.gotop.deviceManagement.model.Sum" >
     <!--Bean方式返回全表-->
     <result column="orgname" property="orgnameTemp" jdbcType="VARCHAR" />
     <result column="tot" property="tot" jdbcType="DECIMAL" />
   </resultMap>
+  
+  <resultMap id="model" class="com.gotop.deviceManagement.model.DevicePo" >
+    <!--Bean方式返回全表-->
+    <result column="DICTNAME" property="deviceModelName" jdbcType="VARCHAR" />
+    <result column="DICTID" property="deviceModel" jdbcType="VARCHAR" />
+  </resultMap> 
+  
+  <!-- 查询设备名称下的设备型号 -->
+    <select id="queryType" resultMap="model" parameterClass="java.util.HashMap" >
+ 	select b.dictid, b.dictname
+  from eos_dict_type c, eos_dict_entry b
+ where b.dicttypeid = c.dicttypeid
+   and c.dicttypeid = 'DEVICE_MODEL'
+   and b.dictid in(select a.devicemodel
+  from t_new_deviceManagement a
+ where 1=1
+ 
+  <isNotNull prepend="and" property="deviceName" >
+        a.DEVICENAME = #deviceName#
+      </isNotNull>)
+     
+     
+</select>
   <!-- 查询机构下设备总数 -->
   <select id="querySumList" resultMap="tSum" parameterClass="java.util.HashMap">
 select  o.orgname , count(t.deviceid) tot 
@@ -163,12 +186,7 @@ where t.orgcode = o.orgcode
       <isNotNull prepend="and" property="otherInfo_4" >
         t.OTHERINFO_4 like replace('%'|| #otherInfo_4# ||'%', ',', '%')
       </isNotNull>
-  order by   
-    o.orgname,
-    T.IPADRESS,
-	T .deviceName,
-	T .deviceModel
-	asc
+  order by t.orgcode ,t.deviceName,t.deviceModel
   </select>
   
   <!--通过主键查询一条数据-->

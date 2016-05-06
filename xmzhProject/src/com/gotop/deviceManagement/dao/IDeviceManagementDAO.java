@@ -25,5 +25,6 @@ public interface IDeviceManagementDAO {
 	List queryOrgList();
 	
 	List deviceList(Map<String, Object> map);
+	List queryType(Map<String, String> map);
 
 }

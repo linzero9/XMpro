@@ -61,7 +61,7 @@ margin-left:inherit;
 				<tr>
 				<td class="form_label" align="right" width="10%" nowrap="nowrap">设备名称：</td>
 					<td colspan="1"  width="20%" nowrap="nowrap">
-						<d:select  id="deviceName"  dictTypeId="DEVICE_NAME" property="device.deviceName" nullLabel="请选择"></d:select>
+						<d:select  id="deviceName"  dictTypeId="DEVICE_NAME" property="device.deviceName" nullLabel="请选择" onchange="devicename(this.value)"></d:select>
 					</td>
 					<td class="form_label" align="right" width="10%" nowrap="nowrap">任务标记：</td>
 					
@@ -84,10 +84,18 @@ margin-left:inherit;
 					
 				</tr>
 				<tr>
-					<td class="form_label" align="right" width="10%" nowrap="nowrap">型号：</td>
-					<td colspan="1" width="30%" nowrap="nowrap">
-					<d:select  id="deviceModel"  dictTypeId="DEVICE_MODEL" property="device.deviceModel" nullLabel="请选择"></d:select>
-				</td>
+					<tr>
+						<td class="form_label" align="right" width="10%" nowrap="nowrap">型号
+
+：</td>
+						<td colspan="1" width="30%" nowrap="nowrap">
+						<select
+							id="deviceModels" onchange="changedeviceModel()">
+								
+						</select> <h:hidden property="device.deviceModel" id="deviceModel" /> 
+
+<!-- <d:select  id="deviceModel"  dictTypeId="DEVICE_MODEL" property="device.deviceModel" nullLabel="请选择"></d:select> -->
+						</td>
 					<td class="form_label" align="right" width="10%" nowrap="nowrap">是否在用：</td>
 					<td colspan="1" width="30%" nowrap="nowrap">
 					<d:select id="otherAttribute_1"  dictTypeId="DEVICE_OTHERATTRIBUTE_1" property="device.otherAttribute_1" nullLabel="请选择"></d:select>
@@ -528,298 +536,376 @@ margin-left:inherit;
 			</w:panel>		
 		</DIV>
 		<script type="text/javascript">
-	
-		//提交
-		function mysubmit(){
-			  var frm = $name("query_form");
-	            frm.submit();
+		$(function (){
+			$("deviceModels").html("");
+			var selecthtml=$("#deviceModels").html();
+			selecthtml = selecthtml+"<option value='' >请选择</option>";
+			$("#deviceModels").html(selecthtml);
+			});
+			function devicename(value) {
+				
+				$("#deviceModels").html("");
+				var selecthtml=$("#deviceModels").html();
+				
+						$.ajax({
+							url : "/deviceManagement/deviceManagementAction_queryType.action",
+							async : false,
+							type : 'post',
+							data : "deviceName=" + value,
+							timeout : 60000,
+							dataType : 'json',
+							success : function(json) {
+
+								if (json == "") {
+
+								} else {
+									$.each(json,function(key, value) {
+														selecthtml = 
+
+	selecthtml
+																
+
+	+ "<option value="+value.deviceModel+">"
+																
+
+	+ value.deviceModelName
+																
+
+	+ "</option>";
+													});
+								}
+							}
+						});
+						
+						$("#deviceModels").html(selecthtml);
+				if ($id("deviceModel").value == '') {
+					$("#deviceModel").val(
+							$('#deviceModels option:selected').val());
+				} else {
+					var all_options = document.getElementById("deviceModels").options;
+					for ( var i = 0; i < all_options.length; i++) {
+						if (all_options[i].value == $id("deviceModels").value
+
+						) // 根据option标签的ID来进行判断 测试的代码这里是两个等号
+						{
+							all_options[i].selected = true;
+						}
+					}
+				}
+			}
+			function changedeviceModel() {
+				$("#deviceModel").val($('#deviceModels option:selected').val());
 			}
 
-		//清空
-			function clears(){
-				$id("orgcode").value="";
-				$id("orgname").value="";
-				$id("deviceName").value="";
-				$id("deviceModel").value="";
-				$id("deviceState").value="";
-				$id("ipAdress").value="";
-				
-				$id("otherAttribute_2").value="";
-				$id("remarks_1").value="";
-				$id("osVersion").value="";
-				$id("remarks_2").value="";
-				$id("otherAttribute_3").value="";
-				
-				$id("otherAttribute_1").value="";
-				$id("otherAttribute_4").value="";
-				
-				$("input[name='device.otherInfo_3']:checkbox:checked").each(function(){ 
-	                $(this).attr("checked",false);
-	            });	
+			//提交
+			function mysubmit() {
+				var frm = $name("query_form");
+				frm.submit();
+			}
 
-				$("input[name='device.otherInfo_2']:checkbox:checked").each(function(){ 
-	                $(this).attr("checked",false);
-	            });	
+			//清空
+			function clears() {
+				$id("orgcode").value = "";
+				$id("orgname").value = "";
+				$id("deviceName").value = "";
+				$id("deviceModel").value = "";
+				$id("deviceState").value = "";
+				$id("ipAdress").value = "";
 
-				$("input[name='device.otherInfo_4']:checkbox:checked").each(function(){ 
-	                $(this).attr("checked",false);
-	            });	
+				$id("otherAttribute_2").value = "";
+				$id("remarks_1").value = "";
+				$id("osVersion").value = "";
+				$id("remarks_2").value = "";
+				$id("otherAttribute_3").value = "";
+
+				$id("otherAttribute_1").value = "";
+				$id("otherAttribute_4").value = "";
+
+				$("input[name='device.otherInfo_3']:checkbox:checked").each(
+						function() {
+							$(this).attr("checked", false);
+						});
+
+				$("input[name='device.otherInfo_2']:checkbox:checked").each(
+						function() {
+							$(this).attr("checked", false);
+						});
+
+				$("input[name='device.otherInfo_4']:checkbox:checked").each(
+						function() {
+							$(this).attr("checked", false);
+						});
 			}
 
 			//新增
-			function add(){
-				  var url="/deviceManagement/deviceManagementAction_toDevice.action";
-				  showModalCenter(url, null,callBackFunc, 700, 550, '新增设备');
+			function add() {
+				var url = "/deviceManagement/deviceManagementAction_toDevice.action";
+				showModalCenter(url, null, callBackFunc, 700, 550, '新增设备');
 			}
 
 			//修改
-			function upt(){
+			function upt() {
 				var gop = $id("group1");
-		  		var len = gop.getSelectLength();
-		  		if(len != 1){
-		  			alert("请选择一条记录");
-		  			return;
-		  		}else{
-		  			var rows=gop.getSelectRows();
-			  		var deviceId=rows[0].getParam("deviceId");
-		  			var strUrl = "/deviceManagement/deviceManagementAction_toDevice.action?device.deviceId="+deviceId;
-		  			showModalCenter(strUrl, null, callBackFunc, 700, 550, '修改设备');  
-			  	}
+				var len = gop.getSelectLength();
+				if (len != 1) {
+					alert("请选择一条记录");
+					return;
+				} else {
+					var rows = gop.getSelectRows();
+					var deviceId = rows[0].getParam("deviceId");
+					var strUrl = "/deviceManagement/deviceManagementAction_toDevice.action?device.deviceId="
+							+ deviceId;
+					showModalCenter(strUrl, null, callBackFunc, 700, 550,
+							'修改设备');
+				}
 			}
-			
-			function callBackFunc(){
-		        var frm = $name("query_form");
-		            frm.submit();
-		    }
+
+			function callBackFunc() {
+				var frm = $name("query_form");
+				frm.submit();
+			}
 
 			//删除
-			function del(){
+			function del() {
 				var gop = $id("group1");
-		  		var len = gop.getSelectLength();
-		  		if(len == 0){
-		  			alert("请选择一条或多条记录");
-		  			return;
-		  		}else{
-			  	  if(confirm("确定要删除该设备吗？")){
-		  			var rows=gop.getSelectRows();
-		  			var deviceIds="";
-		  			for(var i=0;i<rows.length;i++){
-		  				deviceIds += rows[i].getParam("deviceId")+",";
-		  			}
-		  			if(deviceIds!=""){
-		  				deviceIds=deviceIds.substring(0,deviceIds.length-1);
-			  		$.ajax({
-					      url: "/deviceManagement/deviceManagementAction_delete.action",
-					      async: false,
-					      type: 'post',
-					      data: "deviceIds="+deviceIds,
-					      timeout: 60000,
-					      dataType:"text",
-					      success: function (data) {
-					    	  if (data.indexOf("success") >= 0) {
-					    		  alert("删除成功");
-					    		  callBackFunc();
-							} else if (data.indexOf("fails") >= 0) {
-								alert("删除失败!");
-							} else {
-								alert("操作失败!");
-							}
-									  	
-					      }
-					}); 
-		  			}
-			 	 }	
-			  	}
+				var len = gop.getSelectLength();
+				if (len == 0) {
+					alert("请选择一条或多条记录");
+					return;
+				} else {
+					if (confirm("确定要删除该设备吗？")) {
+						var rows = gop.getSelectRows();
+						var deviceIds = "";
+						for ( var i = 0; i < rows.length; i++) {
+							deviceIds += rows[i].getParam("deviceId") + ",";
+						}
+						if (deviceIds != "") {
+							deviceIds = deviceIds.substring(0,
+									deviceIds.length - 1);
+							$
+									.ajax({
+										url : "/deviceManagement/deviceManagementAction_delete.action",
+										async : false,
+										type : 'post',
+										data : "deviceIds=" + deviceIds,
+										timeout : 60000,
+										dataType : "text",
+										success : function(data) {
+											if (data.indexOf("success") >= 0) {
+												alert("删除成功");
+												callBackFunc();
+											} else if (data.indexOf("fails") >= 0) {
+												alert("删除失败!");
+											} else {
+												alert("操作失败!");
+											}
+
+										}
+									});
+						}
+					}
+				}
 			}
 
 			//维护明细查询
-			function detail_search(){
+			function detail_search() {
 				var gop = $id("group1");
-		  		var len = gop.getSelectLength();
-		  		if(len != 1){
-		  			alert("请选择一条记录");
-		  			return;
-		  		}else{
-		  			var rows=gop.getSelectRows();
-			  		var deviceId=rows[0].getParam("deviceId");
-		  			var strUrl = "/deviceManagement/deviceManagementAction_detailList.action?detail.deviceId="+deviceId;
-		  			showModalCenter(strUrl, null, callBackFunc, 1000, 500, '修改设备');  
-			  	}
+				var len = gop.getSelectLength();
+				if (len != 1) {
+					alert("请选择一条记录");
+					return;
+				} else {
+					var rows = gop.getSelectRows();
+					var deviceId = rows[0].getParam("deviceId");
+					var strUrl = "/deviceManagement/deviceManagementAction_detailList.action?detail.deviceId="
+							+ deviceId;
+					showModalCenter(strUrl, null, callBackFunc, 1000, 500,
+							'修改设备');
+				}
 			}
 
 			//批量修改导出
-			function batchUpdate_export(){
+			function batchUpdate_export() {
 				var gop = $id("group1");
-		  		var len = gop.getSelectLength();
-		  		if(len == 0){
-		  			alert("请选择一条或多条记录");
-		  			return;
-		  		}else{
-		  			var rows=gop.getSelectRows();
-		  			var deviceIds="";
-		  			for(var i=0;i<rows.length;i++){
-		  				deviceIds += rows[i].getParam("deviceId")+",";
-		  			}
-		  			if(deviceIds!=""){
-		  				deviceIds=deviceIds.substring(0,deviceIds.length-1);  //将最后一个逗号去掉
+				var len = gop.getSelectLength();
+				if (len == 0) {
+					alert("请选择一条或多条记录");
+					return;
+				} else {
+					var rows = gop.getSelectRows();
+					var deviceIds = "";
+					for ( var i = 0; i < rows.length; i++) {
+						deviceIds += rows[i].getParam("deviceId") + ",";
+					}
+					if (deviceIds != "") {
+						deviceIds = deviceIds
+								.substring(0, deviceIds.length - 1); //将最后一个逗号去掉
 
+						window.location.href = "/deviceManagement/deviceManagementAction_batchUpdateExport.action?deviceIds="
+								+ deviceIds;
 
-
-		  				window.location.href="/deviceManagement/deviceManagementAction_batchUpdateExport.action?deviceIds="+deviceIds;
-		  				
-			  		
-		  			}
-			  	}
+					}
+				}
 			}
 
 			//批量修改导出全部
-			function batchUpdate_exportAll(){
+			function batchUpdate_exportAll() {
 
-		  		window.location.href="/deviceManagement/deviceManagementAction_batchUpdateExportAll.action";
+				window.location.href = "/deviceManagement/deviceManagementAction_batchUpdateExportAll.action";
 			}
 
 			//选择 部门/机构
-			function open_orgcode_tree(flag){//方法名
-			     strUrl ="/deviceManagement/myMainTreeAction_initMainTree.action?changeTree.showTabOrg=1&changeTree.checkcount=1&changeTree.orgType=4&changeTree.showSelBox=4";
-			     if(flag == "1"){
-					  strUrl += "&orgflag=1";
-				  }else if(flag == "2"){
-					  strUrl += "&orgflag=2";
-				  }
+			function open_orgcode_tree(flag) {//方法名
+				strUrl = "/deviceManagement/myMainTreeAction_initMainTree.action?changeTree.showTabOrg=1&changeTree.checkcount=1&changeTree.orgType=4&changeTree.showSelBox=4";
+				if (flag == "1") {
+					strUrl += "&orgflag=1";
+				} else if (flag == "2") {
+					strUrl += "&orgflag=2";
+				}
 				var peArgument = [];
-		   		//机构
-		   		var paramEntity = new ParamEntity('Organization');
-		   		paramEntity.setProperty('orgcode',$id("orgcode").value);
-				paramEntity.setProperty('orgname',$id("orgname").value);
+				//机构
+				var paramEntity = new ParamEntity('Organization');
+				paramEntity.setProperty('orgcode', $id("orgcode").value);
+				paramEntity.setProperty('orgname', $id("orgname").value);
 				/* paramEntity.setProperty('orgid',$id("orgid").value);
 				peArgument[3]=[paramEntity,'orgname','orgcode','orgid'];  */
-				peArgument[3]=[paramEntity,'orgname','orgcode'];
-				
-		       //调用并传参
-		        strUrl += "&time="+new Date().getTime();
-				showModalCenter(strUrl,peArgument,openNewEmpTreeCallBack1,500,430,'选择机构');
+				peArgument[3] = [ paramEntity, 'orgname', 'orgcode' ];
+
+				//调用并传参
+				strUrl += "&time=" + new Date().getTime();
+				showModalCenter(strUrl, peArgument, openNewEmpTreeCallBack1,
+						500, 430, '选择机构');
 			}
-			
-		function openNewEmpTreeCallBack1(arg){//回调方法
-			if(arg['Organization']){ //原写法无需判断是否为空
-		 		var sorgidArra  = arg['Organization'].slice(0);//人员数组
-		 		argRes=[[],[],[],[]];
-				for(var i=0;i<sorgidArra.length;i++){
-					argRes[0].push(sorgidArra[i].getProperty("orgcode"));
-					argRes[1].push(sorgidArra[i].getProperty("orgname"));
-					//argRes[2].push(sorgidArra[i].getProperty("orgid"));
+
+			function openNewEmpTreeCallBack1(arg) {//回调方法
+				if (arg['Organization']) { //原写法无需判断是否为空
+					var sorgidArra = arg['Organization'].slice(0);//人员数组
+					argRes = [ [], [], [], [] ];
+					for ( var i = 0; i < sorgidArra.length; i++) {
+						argRes[0].push(sorgidArra[i].getProperty("orgcode"));
+						argRes[1].push(sorgidArra[i].getProperty("orgname"));
+						//argRes[2].push(sorgidArra[i].getProperty("orgid"));
+					}
+					$id("orgcode").value = argRes[0];
+					$id("orgname").value = argRes[1];
+					//$id("orgid").value = argRes[2];
+				} else {
+					$id("orgcode").value = "";
+					$id("orgname").value = "";
+					//$id("orgid").value = "";
 				}
-				$id("orgcode").value = argRes[0];
-				$id("orgname").value = argRes[1];
-				//$id("orgid").value = argRes[2];
-			}else{
-				$id("orgcode").value = "";
-				$id("orgname").value = "";
-				//$id("orgid").value = "";
 			}
-		}
 
-		//导出Excel
-		function export_Excel(){
+			//导出Excel
+			function export_Excel() {
 
-			var url = "/deviceManagement/deviceManagementAction_exportExcel.action?";
-			var orgcode = $id("orgcode").value;
-			var deviceName = $id("deviceName").value;
-			var deviceModel = $id("deviceModel").value;
-			var deviceState = $id("deviceState").value;
-			var ipAdress = $id("ipAdress").value;alert("11");
-			var otherAttribute_2 = $id("otherAttribute_2").value;
-				
-			var remarks_1 = $id("remarks_1").value;
-			var remarks_2 = $id("remarks_2").value;
-			var otherAttribute_3 = $id("otherAttribute_3").value;
-			
+				var url = "/deviceManagement/deviceManagementAction_exportExcel.action?";
+				var orgcode = $id("orgcode").value;
+				var deviceName = $id("deviceName").value;
+				var deviceModel = $id("deviceModel").value;
+				var deviceState = $id("deviceState").value;
+				var ipAdress = $id("ipAdress").value;
+				alert("11");
+				var otherAttribute_2 = $id("otherAttribute_2").value;
 
-			var otherAttribute_1 = $id("otherAttribute_1").value;
-			var otherAttribute_4 = $id("otherAttribute_4").value;
-			
-			var osVersion = $id("osVersion").value;
-		
-			//获取复选框的值
-            var otherInfo_4="";
-            var  otherInfo_4Length  =  $("input[name='device.otherInfo_4']:checkbox:checked").length;
-            $("input[name='device.otherInfo_4']:checkbox:checked").each(function(i,value){ 
-                if($(this).attr("checked")){
-                    if((i+1)==otherInfo_4Length){
-                    	otherInfo_4 += $(this).val();
-                    }else{
-                    	otherInfo_4 += $(this).val()+", ";
-                	}
-                }
-            });
+				var remarks_1 = $id("remarks_1").value;
+				var remarks_2 = $id("remarks_2").value;
+				var otherAttribute_3 = $id("otherAttribute_3").value;
 
-            var otherInfo_2="";
-            var  otherInfo_2Length  =  $("input[name='device.otherInfo_2']:checkbox:checked").length;
-            $("input[name='device.otherInfo_2']:checkbox:checked").each(function(i,value){ 
-                if($(this).attr("checked")){
-                    if((i+1)==otherInfo_2Length){
-                    	otherInfo_2 += $(this).val();
-                    }else{
-                    	otherInfo_2 += $(this).val()+", ";
-                	}
-                }
-            });
+				var otherAttribute_1 = $id("otherAttribute_1").value;
+				var otherAttribute_4 = $id("otherAttribute_4").value;
 
-           var otherInfo_3="";
-            var  otherInfo_3Length  =  $("input[name='device.otherInfo_3']:checkbox:checked").length;
-            $("input[name='device.otherInfo_3']:checkbox:checked").each(function(i,value){ 
-                if($(this).attr("checked")){
-                    if((i+1)==otherInfo_3Length){
-                    	otherInfo_3 += $(this).val();
-                    }else{
-                    	otherInfo_3 += $(this).val()+", ";
-                	}
-                }
-            });
-			
-			if(otherInfo_2 == null){
-				otherInfo_2="";
+				var osVersion = $id("osVersion").value;
+
+				//获取复选框的值
+				var otherInfo_4 = "";
+				var otherInfo_4Length = $("input[name='device.otherInfo_4']:checkbox:checked").length;
+				$("input[name='device.otherInfo_4']:checkbox:checked").each(
+						function(i, value) {
+							if ($(this).attr("checked")) {
+								if ((i + 1) == otherInfo_4Length) {
+									otherInfo_4 += $(this).val();
+								} else {
+									otherInfo_4 += $(this).val() + ", ";
+								}
+							}
+						});
+
+				var otherInfo_2 = "";
+				var otherInfo_2Length = $("input[name='device.otherInfo_2']:checkbox:checked").length;
+				$("input[name='device.otherInfo_2']:checkbox:checked").each(
+						function(i, value) {
+							if ($(this).attr("checked")) {
+								if ((i + 1) == otherInfo_2Length) {
+									otherInfo_2 += $(this).val();
+								} else {
+									otherInfo_2 += $(this).val() + ", ";
+								}
+							}
+						});
+
+				var otherInfo_3 = "";
+				var otherInfo_3Length = $("input[name='device.otherInfo_3']:checkbox:checked").length;
+				$("input[name='device.otherInfo_3']:checkbox:checked").each(
+						function(i, value) {
+							if ($(this).attr("checked")) {
+								if ((i + 1) == otherInfo_3Length) {
+									otherInfo_3 += $(this).val();
+								} else {
+									otherInfo_3 += $(this).val() + ", ";
+								}
+							}
+						});
+
+				if (otherInfo_2 == null) {
+					otherInfo_2 = "";
 				}
-			if(otherInfo_3 == null){
-				otherInfo_3="";
+				if (otherInfo_3 == null) {
+					otherInfo_3 = "";
 				}
-			if(otherInfo_4 == null){
-				otherInfo_4="";
+				if (otherInfo_4 == null) {
+					otherInfo_4 = "";
 				}
-			url = url+"device.orgcode="+orgcode+"&device.deviceName="+deviceName
-			+"&device.deviceModel="+deviceModel+"&device.deviceState="+deviceState
-			+"&device.ipAdress="+ipAdress+"&device.otherAttribute_2="+otherAttribute_2
-			+"&device.remarks_1="+remarks_1+"&device.remarks_2="+remarks_2
-			+"&device.osVersion="+osVersion+"&device.otherAttribute_3="+otherAttribute_3
-			+"&device.otherAttribute_1="+otherAttribute_1+"&device.otherInfo_2="+otherInfo_2
-			+"&device.otherInfo_3="+otherInfo_3+"&device.otherInfo_4="+otherInfo_4
-			+"&device.otherAttribute_4="+otherAttribute_4;
-			window.location.href=url;
-		  	
-		}
+				url = url + "device.orgcode=" + orgcode + "&device.deviceName="
+						+ deviceName + "&device.deviceModel=" + deviceModel
+						+ "&device.deviceState=" + deviceState
+						+ "&device.ipAdress=" + ipAdress
+						+ "&device.otherAttribute_2=" + otherAttribute_2
+						+ "&device.remarks_1=" + remarks_1
+						+ "&device.remarks_2=" + remarks_2
+						+ "&device.osVersion=" + osVersion
+						+ "&device.otherAttribute_3=" + otherAttribute_3
+						+ "&device.otherAttribute_1=" + otherAttribute_1
+						+ "&device.otherInfo_2=" + otherInfo_2
+						+ "&device.otherInfo_3=" + otherInfo_3
+						+ "&device.otherInfo_4=" + otherInfo_4
+						+ "&device.otherAttribute_4=" + otherAttribute_4;
+				window.location.href = url;
 
-		//批量导入Excel
-		function import_Excel(){
-			var url="/deviceManagement/deviceManagementAction_toImportExcel.action?";
-			url = url+"importExcelFlag="+"batchInsert";
-			showModalCenter(url, null,callBackFunc, 700, 300, '批量导入');
-		}
-
-		function allItem(){
-			var group =$id("group1");
-			if(document.getElementById("selectBox").checked){
-				group.selectAll();
-			}else{
-				group.disSelectAll();
 			}
-		}
 
-		//批量修改导入Excel importExcel
-		function batchUpdate_import_view(){
-			var url="/deviceManagement/deviceManagementAction_toImportExcel.action?";
-			url = url+"importExcelFlag="+"batchUpdate";
-			showModalCenter(url, null,callBackFunc, 700, 300, '批量修改导入');
-		}
+			//批量导入Excel
+			function import_Excel() {
+				var url = "/deviceManagement/deviceManagementAction_toImportExcel.action?";
+				url = url + "importExcelFlag=" + "batchInsert";
+				showModalCenter(url, null, callBackFunc, 700, 300, '批量导入');
+			}
+
+			function allItem() {
+				var group = $id("group1");
+				if (document.getElementById("selectBox").checked) {
+					group.selectAll();
+				} else {
+					group.disSelectAll();
+				}
+			}
+
+			//批量修改导入Excel importExcel
+			function batchUpdate_import_view() {
+				var url = "/deviceManagement/deviceManagementAction_toImportExcel.action?";
+				url = url + "importExcelFlag=" + "batchUpdate";
+				showModalCenter(url, null, callBackFunc, 700, 300, '批量修改导入');
+			}
 		</script>
 	</body>
 </html>

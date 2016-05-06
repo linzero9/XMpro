@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd" >
 <struts >
-  <package name="deviceManagement" namespace="/" extends="struts-default" >
+  <package name="deviceManagement" namespace="/" extends="default" >
     <action name="deviceManagementAction_*" class="deviceManagementAction" method="{1}" >
       <result name="deviceList" >
         /jsp/deviceManagement/deviceList.jsp
@@ -32,7 +32,10 @@
         /jsp/deviceManagement/deviceList_importExcel.jsp
       </result>
       
-      
+      <result name="devices" type="json">
+		   <param name="root">devices</param>
+	  </result>
+	  
       <result name="excelTemplate" type="stream">  
                <param name="contentType">text/plain</param>  
                <param name="contentDisposition">attachment;fileName="myname1.xls"</param>  
@@ -60,15 +63,7 @@
                <param name="inputName">downloadFile4</param>  
                <param name="bufferSize">1024</param>  
            </result>       
-    </action>
-    
-    <action name="myMainTreeAction_*" class="myMainTreeAction" method="{1}" >
-	    <result name="my_initMainTree" >
-	        /jsp/deviceManagement/My_main_tree.jsp
-	      </result>
-	      <result name="my_adminTree" >
-	        /jsp/deviceManagement/My_admin_tree.jsp
-	      </result>
+      
     </action>
   </package>
 </struts>

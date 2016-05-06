@@ -105,4 +105,12 @@ public class DeviceManagementDAO extends SqlMapClientDao implements IDeviceManag
 		return list;
 	}
 
+//查询设备型号
+	@Override
+	public List queryType(Map<String, String> map) {
+		
+		List list = queryForList("T_DEVICE_SqlMap.queryType", map);
+		return list;
+	}
+
 }
