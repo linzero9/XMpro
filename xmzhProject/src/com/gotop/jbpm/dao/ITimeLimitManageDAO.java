@@ -8,7 +8,8 @@ import com.gotop.jbpm.model.NodeTimeLimitBean;
 import com.gotop.jbpm.model.OneAndLoanBean;
 import com.gotop.jbpm.model.ProLoanBean;
 import com.gotop.jbpm.model.ProTimeModelBean;
-import com.gotop.jbpm.model.WorkTimeMaintainBean;
+import com.gotop.jbpm.model.WorkTimeMainBean;
+import com.gotop.jbpm.model.WorkTimeSideBean;
 import com.primeton.utils.Page;
 
 public interface ITimeLimitManageDAO {
@@ -46,18 +47,16 @@ public interface ITimeLimitManageDAO {
 
 	int deleteTimeLimitManage(ProLoanBean proLoanBean);
 
-	void saveWorkTimeIntoTimeMain(WorkTimeMaintainBean workTimeMaintainBean);
+	void saveWorkTimeIntoTimeMain(WorkTimeMainBean workTimeMaintainBean);
 
-	void saveWorkTimeIntoTimeSide(WorkTimeMaintainBean workTimeMaintainBean);
+	void saveWorkTimeIntoTimeSide(WorkTimeSideBean workTimeSideBean);
 
-	List queryWorkTimeList(Map<String, Object> map, Page page);
-
-	int deleteTimeMain(WorkTimeMaintainBean workTimeMaintainBean);
-
-	int deleteTimeSide(WorkTimeMaintainBean workTimeMaintainBean);
-
-	List queryTimeSide(WorkTimeMaintainBean workTimeMaintainBean);
+	List queryValidDayList(Map<String, Object> map, Page page);
 
 	List checkDate(Map<String, String> time);
+
+	List queryWorkTimeList(WorkTimeMainBean workTimeMainBean);
+
+	void updateTimeMain_delState(WorkTimeMainBean workTimeMainBean);
 
 }

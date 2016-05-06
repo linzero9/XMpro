@@ -10,9 +10,13 @@
      <result column="LOANCATEGORY_NAME" property="loanCategory_name" jdbcType="VARCHAR" />
   </resultMap>
   
-  <resultMap id="workTimeMaintain_Result" class="com.gotop.jbpm.model.WorkTimeMaintainBean" >
+  <resultMap id="workTimeMain_Result" class="com.gotop.jbpm.model.WorkTimeMainBean" >
+    <result column="ID" property="id" jdbcType="DECIMAL" />
     <result column="STARTDATE" property="startDate" jdbcType="VARCHAR" />
      <result column="ENDDATE" property="endDate" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="workTimeSide_Result" class="com.gotop.jbpm.model.WorkTimeSideBean" >
     <result column="ID" property="id" jdbcType="DECIMAL" />
         <result column="MAINID" property="mainID" jdbcType="DECIMAL" />
      <result column="TIMETYPE" property="timeType" jdbcType="VARCHAR" />
@@ -188,16 +192,16 @@
   </delete>
   
   <!-- 插入工作时间维护 主表 t_model_timeMain -->
-  <insert id="saveWorkTimeIntoTimeMain"  parameterClass="com.gotop.jbpm.model.WorkTimeMaintainBean"  >
+  <insert id="saveWorkTimeIntoTimeMain"  parameterClass="com.gotop.jbpm.model.WorkTimeMainBean"  >
        <selectKey resultClass="long" keyProperty="mainID" >
 		SELECT t_model_timeMain_seq.NEXTVAL AS VALUE FROM DUAL
 		</selectKey>
     insert into t_model_timeMain(ID, STARTDATE, ENDDATE, ORGCODE, EMPID, CREATETIME )
-    values (#mainID:DECIMAL:-9999#, to_date(#startDate:VARCHAR#,'yyyy/MM/dd'), to_date(#endDate:VARCHAR#,'yyyy/MM/dd'), #orgcode:VARCHAR#, #empid:DECIMAL#, sysdate)
+    values (#id:DECIMAL:-9999#, to_date(#startDate:VARCHAR#,'yyyy/MM/dd'), to_date(#endDate:VARCHAR#,'yyyy/MM/dd'), #orgcode:VARCHAR#, #empid:DECIMAL#, sysdate)
   </insert>
   
   <!-- 插入 工作时间维护 副表 t_model_timeSide -->
-  <insert id="saveWorkTimeIntoTimeSide"  parameterClass="com.gotop.jbpm.model.WorkTimeMaintainBean"  >
+  <insert id="saveWorkTimeIntoTimeSide"  parameterClass="com.gotop.jbpm.model.WorkTimeSideBean"  >
        <selectKey resultClass="long" keyProperty="id" >
 		SELECT t_model_timeSide_seq.NEXTVAL AS VALUE FROM DUAL
 		</selectKey>
@@ -206,36 +210,37 @@
   </insert>
   
   <!-- 查询 工作时间配置列表 -->
-  <select id="queryWorkTimeList" resultMap="workTimeMaintain_Result" parameterClass="java.util.HashMap" >
- select to_char(t1.startDate, 'yyyy/MM/dd') as startDate , to_char(t1.endDate, 'yyyy/MM/dd') as endDate, t2.*
-  from t_model_timeMain t1, t_model_timeSide t2
- where t1.id = t2.mainid
+  <select id="queryValidDayList" resultMap="workTimeMain_Result" parameterClass="java.util.HashMap" >
+ select t1.id, to_char(t1.startDate, 'yyyy/MM/dd') as startDate , to_char(t1.endDate, 'yyyy/MM/dd') as endDate
+  from t_model_timeMain t1
+ where 1=1
  <isNotNull prepend="and" property="query_startDate" >
       t1.startDate >= to_date('$query_startDate$','yyyy/MM/dd')
  </isNotNull>
  <isNotNull prepend="and" property="query_endDate" >
     <![CDATA[  t1.endDate < to_date('$query_endDate$','yyyy/MM/dd')  ]]>
  </isNotNull>
- order by t1.startDate, t2.timetype
+ order by t1.startDate
   </select>
   
-  <!-- 删除 时间主表 -->
-  <delete id="deleteTimeMain" parameterClass="com.gotop.jbpm.model.WorkTimeMaintainBean" >
-    delete from t_model_timeMain t
-    where t.id = #mainID:DECIMAL:-9999# 
-  </delete>
-  
-  <!-- 删除 时间副表 -->
-  <delete id="deleteTimeSide" parameterClass="com.gotop.jbpm.model.WorkTimeMaintainBean" >
-    delete from t_model_timeSide t
+  <!-- 修改 时间主表 删除状态-->
+  <update id="updateTimeMain_delState" parameterClass="com.gotop.jbpm.model.WorkTimeMainBean" >
+    update t_model_timeMain t
+    set t.delState = #delState:VARCHAR#
     where t.id = #id:DECIMAL:-9999# 
-  </delete>
+  </update>
+  
+  <!-- 修改 时间副表 -->
+  <update id="updateTimeSide" parameterClass="com.gotop.jbpm.model.WorkTimeSideBean" >
+    update t_model_timeSide t
+    where t.mainid = #id:DECIMAL:-9999# 
+  </update>
   
   <!-- 查询 时间副表 -->
-  <select id="queryTimeSide" resultClass="java.util.HashMap" parameterClass="com.gotop.jbpm.model.WorkTimeMaintainBean" >
+  <select id="queryWorkTimeList"  resultMap="workTimeSide_Result"  parameterClass="com.gotop.jbpm.model.WorkTimeMainBean" >
  select t.*
   from t_model_timeSide t
- where t.mainid = '$mainID$'
+ where t.mainid = '$id$'
  </select>
  
    <!--校验 时间不能在之前配过的时间范围内 -->

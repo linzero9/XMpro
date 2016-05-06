@@ -275,11 +275,20 @@
 		   <param name="root">oneAndLoanBeans</param>
 	  </result>
 	  
-	  <result name="worktime_list">
-     		/jsp/jbpm/time_limit/worktime_list.jsp
+	  <result name="validDay_list">
+     		/jsp/jbpm/time_limit/validDay_list.jsp
       	</result>
-      	<result name="workTimeMaintain">
-     		/jsp/jbpm/time_limit/workTimeMaintain.jsp
+      	<result name="workTime_list">
+     		/jsp/jbpm/time_limit/workTime_list.jsp
+      	</result>
+      	<result name="add_validDay">
+     		/jsp/jbpm/time_limit/add_validDay.jsp
+      	</result>
+      	<result name="add_workTime">
+     		/jsp/jbpm/time_limit/add_workTime.jsp
+      	</result>
+      	<result name="add_workDay">
+     		/jsp/jbpm/time_limit/add_workDay.jsp
       	</result>
 	  
       	 </action>

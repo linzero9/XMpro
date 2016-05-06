@@ -2,7 +2,7 @@ package com.gotop.jbpm.model;
 
 import java.io.Serializable;
 
-public class WorkTimeMaintainBean implements Serializable {
+public class CopyOfWorkTimeMainBean implements Serializable {
 
 private Long mainID;//主表ID
 	

@@ -14,7 +14,9 @@ import com.gotop.jbpm.model.NodeTimeLimitBean;
 import com.gotop.jbpm.model.OneAndLoanBean;
 import com.gotop.jbpm.model.ProLoanBean;
 import com.gotop.jbpm.model.ProTimeModelBean;
-import com.gotop.jbpm.model.WorkTimeMaintainBean;
+import com.gotop.jbpm.model.TimeBean;
+import com.gotop.jbpm.model.WorkTimeMainBean;
+import com.gotop.jbpm.model.WorkTimeSideBean;
 import com.gotop.jbpm.model.XdProcessBean;
 import com.gotop.jbpm.service.ITimeLimitManageService;
 import com.gotop.jbpm.service.IXdProcessService;
@@ -49,17 +51,47 @@ public class TimeLimitManageAction extends BaseAction {
 	
 	private Map<String, String> time;
 	
-	private WorkTimeMaintainBean workTimeMaintainBean;
+	private WorkTimeMainBean workTimeMainBean;
 	
-	private List<WorkTimeMaintainBean> workTimeMaintainBeans;
+	private List<WorkTimeMainBean> workTimeMainBeans;
+	
+	private WorkTimeSideBean workTimeSideBean;
+	
+	private List<WorkTimeSideBean> workTimeSideBeans;
 	
 	protected ITimeLimitManageService timeLimitManageService;
+	
+	private TimeBean timeBean;
 	
 	protected IXdProcessService xdProcessService;
 
 	private JbpmService jbpmService;
 	
 	
+	public WorkTimeSideBean getWorkTimeSideBean() {
+		return workTimeSideBean;
+	}
+
+	public void setWorkTimeSideBean(WorkTimeSideBean workTimeSideBean) {
+		this.workTimeSideBean = workTimeSideBean;
+	}
+
+	public List<WorkTimeSideBean> getWorkTimeSideBeans() {
+		return workTimeSideBeans;
+	}
+
+	public void setWorkTimeSideBeans(List<WorkTimeSideBean> workTimeSideBeans) {
+		this.workTimeSideBeans = workTimeSideBeans;
+	}
+
+	public TimeBean getTimeBean() {
+		return timeBean;
+	}
+
+	public void setTimeBean(TimeBean timeBean) {
+		this.timeBean = timeBean;
+	}
+
 	public Map<String, String> getTime() {
 		return time;
 	}
@@ -68,21 +100,21 @@ public class TimeLimitManageAction extends BaseAction {
 		this.time = time;
 	}
 
-	public List<WorkTimeMaintainBean> getWorkTimeMaintainBeans() {
-		return workTimeMaintainBeans;
+
+	public WorkTimeMainBean getWorkTimeMainBean() {
+		return workTimeMainBean;
 	}
 
-	public void setWorkTimeMaintainBeans(
-			List<WorkTimeMaintainBean> workTimeMaintainBeans) {
-		this.workTimeMaintainBeans = workTimeMaintainBeans;
+	public void setWorkTimeMainBean(WorkTimeMainBean workTimeMainBean) {
+		this.workTimeMainBean = workTimeMainBean;
 	}
 
-	public WorkTimeMaintainBean getWorkTimeMaintainBean() {
-		return workTimeMaintainBean;
+	public List<WorkTimeMainBean> getWorkTimeMainBeans() {
+		return workTimeMainBeans;
 	}
 
-	public void setWorkTimeMaintainBean(WorkTimeMaintainBean workTimeMaintainBean) {
-		this.workTimeMaintainBean = workTimeMaintainBean;
+	public void setWorkTimeMainBeans(List<WorkTimeMainBean> workTimeMainBeans) {
+		this.workTimeMainBeans = workTimeMainBeans;
 	}
 
 	public ProLoanBean getMy_proLoanBean() {
@@ -557,13 +589,31 @@ public class TimeLimitManageAction extends BaseAction {
 	}
 	
 	/**
-	 * 查询 工作时间配置列表
+	 * 查询 有效日列表
+	 * @return
+	 */
+	public String queryValidDayList(){
+		List<WorkTimeMainBean>  workTimeMainBeans = this.timeLimitManageService.queryValidDayList(time, this.getPage());
+		this.setWorkTimeMainBeans(workTimeMainBeans);
+		return "validDay_list";
+	}
+	
+	/**
+	 * 查询 工作时间列表
 	 * @return
 	 */
 	public String queryWorkTimeList(){
-		List<WorkTimeMaintainBean>  workTimeMaintainBeans = this.timeLimitManageService.queryWorkTimeList(time, this.getPage());
-		this.setWorkTimeMaintainBeans(workTimeMaintainBeans);
-		return "worktime_list";
+		List<WorkTimeSideBean>  workTimeSideBeans = this.timeLimitManageService.queryWorkTimeList(workTimeMainBean);
+		this.setWorkTimeSideBeans(workTimeSideBeans);
+		return "workTime_list";
+	}
+	
+	/**
+	 * 跳转到有效日维护新增页面
+	 * @return
+	 */
+	public String toAddValidDay(){
+		return "add_validDay";
 	}
 	
 	/**
@@ -571,19 +621,42 @@ public class TimeLimitManageAction extends BaseAction {
 	 * @return
 	 */
 	public String toAddWorkTime(){
-		return "workTimeMaintain";
+		TimeBean timeBean = new TimeBean();
+		timeBean.setMianID(workTimeMainBean.getId());
+		
+		List<WorkTimeSideBean> workTimeSideBeans = this.timeLimitManageService.queryWorkTimeList(workTimeMainBean);
+		for (WorkTimeSideBean workTimeSideBean : workTimeSideBeans) {
+			if("1".equals(workTimeSideBean.getTimeType())){
+				timeBean.setStartTime1(workTimeSideBean.getStartTime());
+				timeBean.setEndTime1(workTimeSideBean.getEndTime());
+			}
+			if("2".equals(workTimeSideBean.getTimeType())){
+				timeBean.setStartTime2(workTimeSideBean.getStartTime());
+				timeBean.setEndTime2(workTimeSideBean.getEndTime());
+			}
+			if("3".equals(workTimeSideBean.getTimeType())){
+				timeBean.setStartTime2(workTimeSideBean.getStartTime());
+				timeBean.setEndTime2(workTimeSideBean.getEndTime());
+			}
+		}
+		
+		this.setTimeBean(timeBean);
+		this.setWorkTimeMainBean(workTimeMainBean);
+		return "add_workTime";
 	}
 	
-	public void deleteWorkTime() throws Exception{
+	/**
+	 * 跳转到工作日维护新增页面
+	 * @return
+	 */
+	public String toAddWorkDay(){
+		return "add_workDay";
+	}
+	
+	public void deleteValidDay() throws Exception{
 		String info ="success";
     	try {
-    		int count = this.timeLimitManageService.deleteTimeSide(workTimeMaintainBean);
-    		if(count > 0){
-    			List list = this.timeLimitManageService.queryTimeSide(workTimeMaintainBean);
-    			if(list.size() == 0){
-    				this.timeLimitManageService.deleteTimeMain(workTimeMaintainBean);
-    			}
-    		}
+    		 this.timeLimitManageService.updateTimeMain_delState(workTimeMainBean);
     		
     	} catch (Exception e) {
 			info="fails";
@@ -595,41 +668,61 @@ public class TimeLimitManageAction extends BaseAction {
 	}
 	
 	/**
-	 * 工作时间维护
+	 * 保存 新增有效日
+	 * @throws Exception
+	 */
+	public void saveValidDay() throws Exception{
+		String info ="success";
+		
+    	try {
+    		WorkTimeMainBean workTimeMainBean = new WorkTimeMainBean();
+    		
+    		workTimeMainBean.setStartDate( time.get("startDate") );
+    		workTimeMainBean.setEndDate( time.get("endDate") );
+    		workTimeMainBean.setOrgcode(this.getCurrentOnlineUser().getOrgcode());
+    		workTimeMainBean.setEmpid(this.getCurrentOnlineUser().getEmpid());
+    		
+    		this.timeLimitManageService.saveWorkTimeIntoTimeMain(workTimeMainBean);
+    		
+    	} catch (Exception e) {
+			info="fails";
+			log.error("[失败！]", e);
+			throw e;
+		}finally{	
+			Struts2Utils.renderText(info);
+		}
+	}
+	
+	/**
+	 * 保存 新增工作时间
 	 * @throws Exception
 	 */
 	public void saveWorkTime() throws Exception{
 		String info ="success";
 		
     	try {
-    		WorkTimeMaintainBean workTimeMaintainBean = new WorkTimeMaintainBean();
-    		
-    		workTimeMaintainBean.setStartDate( time.get("startDate") );
-    		workTimeMaintainBean.setEndDate( time.get("endDate") );
-    		workTimeMaintainBean.setOrgcode(this.getCurrentOnlineUser().getOrgcode());
-    		workTimeMaintainBean.setEmpid(this.getCurrentOnlineUser().getEmpid());
-    		
-    		this.timeLimitManageService.saveWorkTimeIntoTimeMain(workTimeMaintainBean);
+    		WorkTimeSideBean workTimeSideBean = new WorkTimeSideBean();
+    		workTimeSideBean.setMainID(timeBean.getMianID());
     		
     		//插入一条 上午 的配置信息
-    		workTimeMaintainBean.setTimeType("1");
-    		workTimeMaintainBean.setStartTime(time.get("startTime1"));
-    		workTimeMaintainBean.setEndTime(time.get("endTime1"));
-    		this.timeLimitManageService.saveWorkTimeIntoTimeSide(workTimeMaintainBean);
+    		workTimeSideBean.setTimeType("1");
+    		workTimeSideBean.setStartTime(time.get("startTime1"));
+    		workTimeSideBean.setEndTime(time.get("endTime1"));
+    		this.timeLimitManageService.saveWorkTimeIntoTimeSide(workTimeSideBean);
     		
     		//插入一条 下午 的配置信息
-    		workTimeMaintainBean.setTimeType("2");
-    		workTimeMaintainBean.setStartTime(time.get("startTime2"));
-    		workTimeMaintainBean.setEndTime(time.get("endTime2"));
-    		this.timeLimitManageService.saveWorkTimeIntoTimeSide(workTimeMaintainBean);
+    		workTimeSideBean.setTimeType("2");
+    		workTimeSideBean.setStartTime(time.get("startTime2"));
+    		workTimeSideBean.setEndTime(time.get("endTime2"));
+    		this.timeLimitManageService.saveWorkTimeIntoTimeSide(workTimeSideBean);
     		
     		//插入一条 晚上 的配置信息
     		if(!("null".equals( time.get("startTime3")))  && !("null".equals(time.get("endTime3")) )){
     			
-    			workTimeMaintainBean.setTimeType("3");
-    			workTimeMaintainBean.setStartTime(time.get("startTime3"));
-    			workTimeMaintainBean.setEndTime( time.get("endTime3"));
-    			this.timeLimitManageService.saveWorkTimeIntoTimeSide(workTimeMaintainBean);
+    			workTimeSideBean.setTimeType("3");
+    			workTimeSideBean.setStartTime(time.get("startTime3"));
+    			workTimeSideBean.setEndTime( time.get("endTime3"));
+    			this.timeLimitManageService.saveWorkTimeIntoTimeSide(workTimeSideBean);
     		}
     	} catch (Exception e) {
 			info="fails";

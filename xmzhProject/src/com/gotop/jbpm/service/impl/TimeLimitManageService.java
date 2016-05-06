@@ -11,7 +11,8 @@ import com.gotop.jbpm.model.NodeTimeLimitBean;
 import com.gotop.jbpm.model.OneAndLoanBean;
 import com.gotop.jbpm.model.ProLoanBean;
 import com.gotop.jbpm.model.ProTimeModelBean;
-import com.gotop.jbpm.model.WorkTimeMaintainBean;
+import com.gotop.jbpm.model.WorkTimeMainBean;
+import com.gotop.jbpm.model.WorkTimeSideBean;
 import com.gotop.jbpm.service.ITimeLimitManageService;
 import com.primeton.utils.Page;
 
@@ -187,20 +188,19 @@ public class TimeLimitManageService implements ITimeLimitManageService {
 
 	@Override
 	public void saveWorkTimeIntoTimeMain(
-			WorkTimeMaintainBean workTimeMaintainBean) {
+			WorkTimeMainBean workTimeMainBean) {
 		
-		this.timeLimitManageDAO.saveWorkTimeIntoTimeMain(workTimeMaintainBean);
+		this.timeLimitManageDAO.saveWorkTimeIntoTimeMain(workTimeMainBean);
 	}
 
 	@Override
-	public void saveWorkTimeIntoTimeSide(
-			WorkTimeMaintainBean workTimeMaintainBean) {
+	public void saveWorkTimeIntoTimeSide(WorkTimeSideBean workTimeSideBean) {
 		
-		this.timeLimitManageDAO.saveWorkTimeIntoTimeSide(workTimeMaintainBean);
+		this.timeLimitManageDAO.saveWorkTimeIntoTimeSide(workTimeSideBean);
 	}
 
 	@Override
-	public List<WorkTimeMaintainBean> queryWorkTimeList(Map<String, String> time , Page page) {
+	public List<WorkTimeMainBean> queryValidDayList(Map<String, String> time , Page page) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		if(time != null){
 			if(time.get("query_startDate") != null && !"".equals(time.get("query_startDate"))){
@@ -210,24 +210,7 @@ public class TimeLimitManageService implements ITimeLimitManageService {
 				map.put("query_endDate", time.get("query_endDate"));
 			}
 		}
-		List list = this.timeLimitManageDAO.queryWorkTimeList(map, page);
-		return list;
-	}
-
-	@Override
-	public void deleteTimeMain(WorkTimeMaintainBean workTimeMaintainBean) {
-		this.timeLimitManageDAO.deleteTimeMain(workTimeMaintainBean);
-	}
-
-	@Override
-	public int deleteTimeSide(WorkTimeMaintainBean workTimeMaintainBean) {
-		int count =  this.timeLimitManageDAO.deleteTimeSide(workTimeMaintainBean);
-		return count;
-	}
-
-	@Override
-	public List queryTimeSide(WorkTimeMaintainBean workTimeMaintainBean) {
-		List list = this.timeLimitManageDAO.queryTimeSide(workTimeMaintainBean);
+		List list = this.timeLimitManageDAO.queryValidDayList(map, page);
 		return list;
 	}
 
@@ -235,6 +218,19 @@ public class TimeLimitManageService implements ITimeLimitManageService {
 	public List checkDate(Map<String, String> time) {
 		List list = this.timeLimitManageDAO.checkDate(time);
 		return list;
+	}
+
+	@Override
+	public List<WorkTimeSideBean> queryWorkTimeList(
+			WorkTimeMainBean workTimeMainBean) {
+		
+		List list = this.timeLimitManageDAO.queryWorkTimeList(workTimeMainBean);
+		return list;
+	}
+
+	@Override
+	public void updateTimeMain_delState(WorkTimeMainBean workTimeMainBean) {
+		this.timeLimitManageDAO.updateTimeMain_delState(workTimeMainBean);
 	}
 	
 	

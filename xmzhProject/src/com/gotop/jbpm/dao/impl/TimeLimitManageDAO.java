@@ -11,7 +11,8 @@ import com.gotop.jbpm.model.NodeTimeLimitBean;
 import com.gotop.jbpm.model.OneAndLoanBean;
 import com.gotop.jbpm.model.ProLoanBean;
 import com.gotop.jbpm.model.ProTimeModelBean;
-import com.gotop.jbpm.model.WorkTimeMaintainBean;
+import com.gotop.jbpm.model.WorkTimeMainBean;
+import com.gotop.jbpm.model.WorkTimeSideBean;
 import com.gotop.util.dataSource.SqlMapClientDao;
 import com.primeton.utils.Page;
 
@@ -120,36 +121,18 @@ public class TimeLimitManageDAO extends SqlMapClientDao  implements ITimeLimitMa
 	}
 
 	@Override
-	public void saveWorkTimeIntoTimeMain(WorkTimeMaintainBean workTimeMaintainBean) {
-		getSqlMapClientTemplate().insert("TimeLimitManage_SqlMap.saveWorkTimeIntoTimeMain", workTimeMaintainBean);
+	public void saveWorkTimeIntoTimeMain(WorkTimeMainBean workTimeMainBean) {
+		getSqlMapClientTemplate().insert("TimeLimitManage_SqlMap.saveWorkTimeIntoTimeMain", workTimeMainBean);
 	}
 
 	@Override
-	public void saveWorkTimeIntoTimeSide(WorkTimeMaintainBean workTimeMaintainBean) {
-		getSqlMapClientTemplate().insert("TimeLimitManage_SqlMap.saveWorkTimeIntoTimeSide", workTimeMaintainBean);
+	public void saveWorkTimeIntoTimeSide(WorkTimeSideBean workTimeSideBean) {
+		getSqlMapClientTemplate().insert("TimeLimitManage_SqlMap.saveWorkTimeIntoTimeSide", workTimeSideBean);
 	}
 
 	@Override
-	public List queryWorkTimeList(Map<String, Object> map, Page page) {
-		List list = this.queryForList("TimeLimitManage_SqlMap.queryWorkTimeList", map, page);
-		return list;
-	}
-
-	@Override
-	public int deleteTimeMain(WorkTimeMaintainBean workTimeMaintainBean) {
-		int count = getSqlMapClientTemplate().delete("TimeLimitManage_SqlMap.deleteTimeMain", workTimeMaintainBean);
-		return count;
-	}
-
-	@Override
-	public int deleteTimeSide(WorkTimeMaintainBean workTimeMaintainBean) {
-		int count = getSqlMapClientTemplate().delete("TimeLimitManage_SqlMap.deleteTimeSide", workTimeMaintainBean);
-		return count;
-	}
-
-	@Override
-	public List queryTimeSide(WorkTimeMaintainBean workTimeMaintainBean) {
-		List list = this.queryForList("TimeLimitManage_SqlMap.queryTimeSide", workTimeMaintainBean);
+	public List queryValidDayList(Map<String, Object> map, Page page) {
+		List list = this.queryForList("TimeLimitManage_SqlMap.queryValidDayList", map, page);
 		return list;
 	}
 
@@ -157,6 +140,17 @@ public class TimeLimitManageDAO extends SqlMapClientDao  implements ITimeLimitMa
 	public List checkDate(Map<String, String> time) {
 		List list = this.queryForList("TimeLimitManage_SqlMap.checkDate", time);
 		return list;
+	}
+
+	@Override
+	public List queryWorkTimeList(WorkTimeMainBean workTimeMainBean) {
+		List list = this.queryForList("TimeLimitManage_SqlMap.queryWorkTimeList", workTimeMainBean);
+		return list;
+	}
+
+	@Override
+	public void updateTimeMain_delState(WorkTimeMainBean workTimeMainBean) {
+		getSqlMapClientTemplate().update("TimeLimitManage_SqlMap.updateTimeMain_delState", workTimeMainBean);
 	}
 
 }

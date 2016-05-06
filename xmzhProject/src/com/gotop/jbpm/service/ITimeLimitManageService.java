@@ -9,7 +9,8 @@ import com.gotop.jbpm.model.NodeTimeLimitBean;
 import com.gotop.jbpm.model.OneAndLoanBean;
 import com.gotop.jbpm.model.ProLoanBean;
 import com.gotop.jbpm.model.ProTimeModelBean;
-import com.gotop.jbpm.model.WorkTimeMaintainBean;
+import com.gotop.jbpm.model.WorkTimeMainBean;
+import com.gotop.jbpm.model.WorkTimeSideBean;
 import com.primeton.utils.Page;
 
 public interface ITimeLimitManageService {
@@ -52,17 +53,15 @@ public interface ITimeLimitManageService {
 
 	void deleteTimeLimitManage(ProLoanBean proLoanBean);
 
-	void saveWorkTimeIntoTimeMain(WorkTimeMaintainBean workTimeMaintainBean);
+	void saveWorkTimeIntoTimeMain(WorkTimeMainBean workTimeMaintainBean);
 
-	void saveWorkTimeIntoTimeSide(WorkTimeMaintainBean workTimeMaintainBean);
+	void saveWorkTimeIntoTimeSide(WorkTimeSideBean workTimeSideBean);
 
-	List<WorkTimeMaintainBean> queryWorkTimeList(Map<String, String> time, Page page);
-
-	void deleteTimeMain(WorkTimeMaintainBean workTimeMaintainBean);
-
-	int deleteTimeSide(WorkTimeMaintainBean workTimeMaintainBean);
-
-	List queryTimeSide(WorkTimeMaintainBean workTimeMaintainBean);
+	List<WorkTimeMainBean> queryValidDayList(Map<String, String> time, Page page);
 
 	List checkDate(Map<String, String> time);
+
+	List<WorkTimeSideBean> queryWorkTimeList(WorkTimeMainBean workTimeMainBean);
+
+	void updateTimeMain_delState(WorkTimeMainBean workTimeMainBean);
 }
