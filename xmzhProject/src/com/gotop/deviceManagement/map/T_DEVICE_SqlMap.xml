@@ -163,7 +163,12 @@ where t.orgcode = o.orgcode
       <isNotNull prepend="and" property="otherInfo_4" >
         t.OTHERINFO_4 like replace('%'|| #otherInfo_4# ||'%', ',', '%')
       </isNotNull>
-  order by t.orgcode ,t.deviceName,t.deviceModel
+  order by   
+    o.orgname,
+    T.IPADRESS,
+	T .deviceName,
+	T .deviceModel
+	asc
   </select>
   
   <!--通过主键查询一条数据-->
