@@ -537,10 +537,15 @@ margin-left:inherit;
 		</DIV>
 		<script type="text/javascript">
 		$(function (){
-			$("deviceModels").html("");
-			var selecthtml=$("#deviceModels").html();
-			selecthtml = selecthtml+"<option value='' >请选择</option>";
-			$("#deviceModels").html(selecthtml);
+			
+			if($("#deviceName").val()!=0){
+				devicename($("#deviceName").val());
+				}else{	
+				$("deviceModels").html("");
+				var selecthtml=$("#deviceModels").html();
+				selecthtml = selecthtml+"<option value='' >请选择</option>";
+				$("#deviceModels").html(selecthtml);}
+			
 			});
 			function devicename(value) {
 				
