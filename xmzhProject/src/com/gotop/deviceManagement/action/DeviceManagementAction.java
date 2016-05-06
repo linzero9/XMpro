@@ -214,16 +214,6 @@ public class DeviceManagementAction  extends BaseAction    {
 		this.readFile = readFile;
 	}
 	
-	private String sss;
-	
-	public String getSss() {
-		return sss;
-	}
-	public void setSss(String sss) {
-		this.sss = sss;
-	}
-	
-	
 	//输出统计
 	public String sumUpDevice(){
 
@@ -247,7 +237,6 @@ public class DeviceManagementAction  extends BaseAction    {
     	if(device == null){
     		device = new DevicePo();
     	}
-    	sss="1";
     	devices = deviceManagermentService.deviceList(device,this.getPage());
     	this.setDevices(devices);
     	return "deviceList";
