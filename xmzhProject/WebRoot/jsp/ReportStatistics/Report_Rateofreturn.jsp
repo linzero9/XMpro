@@ -16,16 +16,17 @@
 				
 				<tr>
                     <td class="form_label" align="right" width="20%">审批时间：</td>
-					<td colspan="1" width="30%">					
+					<td colspan="1" width="30%">
+					从
+					<w:date  format="yyyy-MM-dd" submitFormat="yyyy-MM-dd" id="appTimeStrat" name="rateofreturnReport.appTimeStrat" 
+					property="rateofreturnReport.appTimeStrat" /> 
+					到
+					<w:date format="yyyy-MM-dd" submitFormat="yyyy-MM-dd" id="appTimeEnd" name="rateofreturnReport.appTimeEnd" 
+					property="rateofreturnReport.appTimeEnd" /></td>				
 
-					<h:select id="YYYY" onchange="YYYYDD(this.value)" property="rateofreturnReport.appTimeStrat"  name="rateofreturnReport.appTimeStrat">
-					     <h:option label="请选择 年" value="" />
-					</h:select>
-					<h:select id="MM" onchange="MMDD(this.value)" property="rateofreturnReport.appTimeEnd"  name="rateofreturnReport.appTimeEnd">
-					     <h:option  label="请选择 月" value="" />
-					</h:select>
 
-					
+
+				
 					
 					<td class="form_label" align="right" >一级分类：</td>
 					<td >
@@ -82,7 +83,7 @@
 								二级支行
 							</th>
 							<th nowrap="nowrap">
-								本月审批通过笔数
+								审批通过笔数
 							</th>
 							<th nowrap="nowrap">
 								其中1次退单率
@@ -167,8 +168,8 @@
 
 		//清空
 		function clears(){
-			$id("YYYY").value="";
-			$id("MM").value="";
+			$id("appTimeStrat_input").value="";
+			$id("appTimeEnd_input").value="";
 			$id("oneCategory").value="";
 			$id("oneCategoryId").value="";
 			$id("loanCategory").value="";
@@ -178,12 +179,6 @@
                 function search(){
 			//$("#isExport").val("");
 			
-			var YY=$id("YYYY").value;
-			var MM=$id("MM").value;
-			if(YY=="" || MM==""){     
-                  alert("请输入时间！");
-                  return;
-				}
 /* 			if(YY==""){     
                 alert("请输入年份！");
                 return;
@@ -198,14 +193,19 @@
                     return;
 			}
              function downExl() {
- 				var appTimeStrat = $id("YYYY").value;
-				var appTimeEnd = $id("MM").value;
+
+  				var appTimeStrat = $id("appTimeStrat").value;
+				var appTimeEnd = $id("appTimeEnd").value;
 				var oneCategory = $id("oneCategory").value;
 				var loanCategory = $id("loanCategory").value;
 				
 				var url = "/reportjbpm/rateofreturnReportAction_exportExcel.action?";
+				if(appTimeStrat!=null){
 	     		url = url+"rateofreturnReport.appTimeStrat="+appTimeStrat;
+				}
+				if(appTimeEnd!=null){
 	     		url = url+"&rateofreturnReport.appTimeEnd="+appTimeEnd;
+				}
 	     		url = url+"&rateofreturnReport.oneCategory="+oneCategory;
 	     		url = url+"&rateofreturnReport.loanCategory="+loanCategory;
 				window.location.href=url; 
@@ -248,49 +248,7 @@
 			}
 		}
 
-   
-
-		$(function(){
-        //  alert('${rateofreturnReport.appTimeStrat}'); 
-			function YYYYMMDDstart(){   
-				//先给年下拉框赋内容   
-				var y  = new Date().getFullYear();  
-				for (var i = (y-30); i < (y+30); i++) //以今年为准，前30年，后30年   
-					   document.appQuery.YYYY.options.add(new Option(" "+ i +" 年", i));   
-				//赋月份的下拉框   
-				for (var i = 1; i < 13; i++)   
-				document.appQuery.MM.options.add(new Option(" " + i + " 月", i));   
-				document.appQuery.YYYY.value = y;   
-				document.appQuery.MM.value = new Date().getMonth() + 1;   
-			}
-			//第一次加载当前日期
-	      	if('${rateofreturnReport.appTimeStrat}'==""){     
-	               window.attachEvent("onload", YYYYMMDDstart);   
-	      	}
-	      	//时间改变后页面时间加载Wie选择的时间
-	      	if('${rateofreturnReport.appTimeStrat}'!=""){     
-	      		//document.appQuery.YYYY.value = '${rateofreturnReport.appTimeStrat}'; 
-	      		   
-				var y  = new Date().getFullYear();  
-				for (var i = (y-30); i < (y+30); i++) //以今年为准，前30年，后30年   
-					   document.appQuery.YYYY.options.add(new Option(" "+ i +" 年", i));   
-				//赋月份的下拉框   
-				for (var i = 1; i < 13; i++)   
-				document.appQuery.MM.options.add(new Option(" " + i + " 月", i));   
-				document.appQuery.YYYY.value = '${rateofreturnReport.appTimeStrat}';   
-				document.appQuery.MM.value = '${rateofreturnReport.appTimeEnd}';              
-	      	}
-			
-
-
-
-
-
-      	
-               
-});
- 
-
+  
 
 		
 		</script>

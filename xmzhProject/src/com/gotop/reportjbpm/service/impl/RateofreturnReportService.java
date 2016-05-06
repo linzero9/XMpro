@@ -36,27 +36,17 @@ public class RateofreturnReportService implements IRateofreturnReportService {
 		Map<String, Object> map=new HashMap<String, Object>();
 		
 		if(rateofreturnReport!=null){
-/*			String ss=null;
-			if(!"".equals(rateofreturnReport.getAppTimeStrat())){
-				String appTimeStrat=rateofreturnReport.getAppTimeStrat();	
-				map.put("appTimeStrat", appTimeStrat);
-				ss=appTimeStrat;
-			}*/
+
+			   if(!"".equals(rateofreturnReport.getAppTimeStrat()) && rateofreturnReport.getAppTimeStrat()!=null){
+
+				   String appTimeStrat=rateofreturnReport.getAppTimeStrat();
+					map.put("appTimeStrat", appTimeStrat);
+				}
 			
-			
-		   if(!"".equals(rateofreturnReport.getAppTimeEnd())){
-			   //String ss2="";
-			   String YYYY=rateofreturnReport.getAppTimeStrat();	
-			   String MM=rateofreturnReport.getAppTimeEnd();
-			   String appTimeEnd="";
-			   if(MM.equals("10") || MM.equals("12") || MM.equals("12") ){
-				    appTimeEnd=YYYY+"-"+MM;
-			   }else
-			   {
-				    appTimeEnd=YYYY+"-0"+MM;
-			   }
+		   if(!"".equals(rateofreturnReport.getAppTimeEnd()) && rateofreturnReport.getAppTimeEnd()!=null){
+
+			   String appTimeEnd=rateofreturnReport.getAppTimeEnd();
 				map.put("appTimeEnd", appTimeEnd);
-				//ss2=appTimeEnd;
 			}
 			if(!"".equals(rateofreturnReport.getOneCategory())){
 				String[] oneCategorys=rateofreturnReport.getOneCategory().split(", ");
@@ -91,19 +81,18 @@ public class RateofreturnReportService implements IRateofreturnReportService {
 			RateofreturnReport rateofreturnReport) {
 		Map<String, Object> map=new HashMap<String, Object>();
 		
-		   if(!"".equals(rateofreturnReport.getAppTimeStrat())  && rateofreturnReport.getAppTimeStrat()!=null 
-				   && !"".equals(rateofreturnReport.getAppTimeEnd())  && rateofreturnReport.getAppTimeEnd()!=null){
-			   String YYYY=rateofreturnReport.getAppTimeStrat();	
-			   String MM=rateofreturnReport.getAppTimeEnd();
-			   String appTimeEnd="";
-			   if(MM.equals("10") || MM.equals("12") || MM.equals("12") ){
-				    appTimeEnd=YYYY+"-"+MM;
-			   }else
-			   {
-				    appTimeEnd=YYYY+"-0"+MM;
-			   }
-				map.put("appTimeEnd", appTimeEnd);
+		if(rateofreturnReport!=null){
+		   if(!"".equals(rateofreturnReport.getAppTimeStrat()) && rateofreturnReport.getAppTimeStrat()!=null){
+
+			   String appTimeStrat=rateofreturnReport.getAppTimeStrat();
+				map.put("appTimeStrat", appTimeStrat);
 			}
+		
+	   if(!"".equals(rateofreturnReport.getAppTimeEnd()) && rateofreturnReport.getAppTimeEnd()!=null){
+
+		   String appTimeEnd=rateofreturnReport.getAppTimeEnd();
+			map.put("appTimeEnd", appTimeEnd);
+		}
 
 			
 			if(!"".equals(rateofreturnReport.getOneCategory())){
@@ -128,7 +117,7 @@ public class RateofreturnReportService implements IRateofreturnReportService {
 			
 			}
 
-			
+		}
 		
 		
 		List list=rateofreturnReportDao.rateofreturnReportListExcel(map);

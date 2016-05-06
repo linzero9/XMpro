@@ -3,7 +3,7 @@
 <sqlMap namespace="T_RateofreturnReport_SqlMap">
  <resultMap id="RateofreturnReport" class="com.gotop.reportjbpm.model.RateofreturnReport" >
     <!--Bean方式返回全表-->
-    <result column="appTimeEnd" property="appTimeEnd" jdbcType="VARCHAR" />
+    
     <result column="ONECATEGORY" property="oneCategory" jdbcType="VARCHAR" />
     <result column="LOANCATEGORY" property="loanCategory" jdbcType="VARCHAR" />
     <result column="ORGNAME" property="orgNameOne" jdbcType="VARCHAR" />
@@ -18,8 +18,8 @@
 	
 	<!-- 查询退单率列表 -->
 	<select id="RateofreturnReportList" resultMap="RateofreturnReport" parameterClass="java.util.HashMap">
+
 SELECT
-    end_  appTimeEnd,
 	ONECATEGORY,
 	LOANCATEGORY,
 	ORGNAME,
@@ -37,7 +37,6 @@ SELECT
 FROM
 	(
 		SELECT
-			end_,
 			LOANCATEGORY,
 			ORGNAME,
 			ORGNAMETWO,
@@ -50,7 +49,6 @@ FROM
 		FROM
 			(
 				SELECT
-					tm.end_,
 					tm.LOANCATEGORY,
 					tm.ORGNAME,
 					tm.ORGNAMETWO,
@@ -67,7 +65,6 @@ FROM
 							LOANCATEGORY,
 							ORGNAME,
 							ORGNAMETWO,
-							end_,
 							ONECATEGORY
 						FROM
 							(
@@ -121,7 +118,7 @@ FROM
 								JOIN (
 									SELECT
 										execution_,
-										MAX (TO_CHAR(end_, 'yyyy-mm')) end_
+										MAX (TO_CHAR(end_, 'yyyy-mm-dd')) end_
 									FROM
 										jbpm4_hist_actinst T
 									WHERE
@@ -140,11 +137,22 @@ FROM
 							)
 						WHERE
 							ORGNAMETWO IS NOT NULL
+		<isNotNull prepend="and" property="appTimeStrat" >
+                  end_  >=(#appTimeStrat#)
+        </isNotNull>
+       <isNotNull prepend="and" property="appTimeEnd" >                                    
+                <![CDATA[end_  <=(#appTimeEnd#)]]>
+      </isNotNull>
+      <isNotNull prepend="and" property="oneCategory" >
+                 ONECATEGORY  in($oneCategory$)
+      </isNotNull>
+      <isNotNull prepend="and" property="loanCategory" >
+                 LOANCATEGORY in($loanCategory$)
+      </isNotNull>
 						GROUP BY
 							LOANCATEGORY,
 							ORGNAME,
 							ORGNAMETWO,
-							end_,
 							ONECATEGORY
 					) tm
 				LEFT JOIN (
@@ -154,7 +162,6 @@ FROM
 						ORGNAME,
 						ORGNAMETWO,
 						reportcnt,
-						end_,
 						ONECATEGORY
 					FROM
 						(
@@ -227,7 +234,7 @@ FROM
 									JOIN (
 										SELECT
 											execution_,
-											MAX (TO_CHAR(end_, 'yyyy-mm')) end_
+											MAX (TO_CHAR(end_, 'yyyy-mm-dd')) end_
 										FROM
 											jbpm4_hist_actinst T
 										WHERE
@@ -247,16 +254,26 @@ FROM
 						)
 					WHERE
 						reportcnt = '2'
+		<isNotNull prepend="and" property="appTimeStrat" >
+                  end_  >=(#appTimeStrat#)
+        </isNotNull>
+       <isNotNull prepend="and" property="appTimeEnd" >                                    
+                <![CDATA[end_  <=(#appTimeEnd#)]]>
+      </isNotNull>
+      <isNotNull prepend="and" property="oneCategory" >
+                 ONECATEGORY  in($oneCategory$)
+      </isNotNull>
+      <isNotNull prepend="and" property="loanCategory" >
+                 LOANCATEGORY in($loanCategory$)
+      </isNotNull>
 					GROUP BY
 						LOANCATEGORY,
 						ORGNAME,
 						ORGNAMETWO,
 						reportcnt,
-						end_,
 						ONECATEGORY
 				) tn1 ON tm.LOANCATEGORY = tn1.LOANCATEGORY
 				AND tm.ORGNAME = tn1.ORGNAME
-				AND tm.end_ = tn1.end_
 				AND tm.ONECATEGORY = tn1.ONECATEGORY
 				AND (
 					tn1.ORGNAMETWO IS NOT NULL
@@ -269,7 +286,6 @@ FROM
 						ORGNAME,
 						ORGNAMETWO,
 						reportcnt,
-						end_,
 						ONECATEGORY
 					FROM
 						(
@@ -342,7 +358,7 @@ FROM
 									JOIN (
 										SELECT
 											execution_,
-											MAX (TO_CHAR(end_, 'yyyy-mm')) end_
+											MAX (TO_CHAR(end_, 'yyyy-mm-dd')) end_
 										FROM
 											jbpm4_hist_actinst T
 										WHERE
@@ -362,16 +378,26 @@ FROM
 						)
 					WHERE
 						reportcnt = '3'
+		<isNotNull prepend="and" property="appTimeStrat" >
+                  end_  >=(#appTimeStrat#)
+        </isNotNull>
+       <isNotNull prepend="and" property="appTimeEnd" >                                    
+                <![CDATA[end_  <=(#appTimeEnd#)]]>
+      </isNotNull>
+      <isNotNull prepend="and" property="oneCategory" >
+                 ONECATEGORY  in($oneCategory$)
+      </isNotNull>
+      <isNotNull prepend="and" property="loanCategory" >
+                 LOANCATEGORY in($loanCategory$)
+      </isNotNull>
 					GROUP BY
 						LOANCATEGORY,
 						ORGNAME,
 						ORGNAMETWO,
 						reportcnt,
-						end_,
 						ONECATEGORY
 				) tn2 ON tm.LOANCATEGORY = tn2.LOANCATEGORY
 				AND tm.ORGNAME = tn2.ORGNAME
-				AND tm.end_ = tn2.end_
 				AND tm.ONECATEGORY = tn2.ONECATEGORY
 				AND (
 					tn2.ORGNAMETWO IS NOT NULL
@@ -384,7 +410,6 @@ FROM
 						ORGNAME,
 						ORGNAMETWO,
 						reportcnt,
-						end_,
 						ONECATEGORY
 					FROM
 						(
@@ -457,7 +482,7 @@ FROM
 									JOIN (
 										SELECT
 											execution_,
-											MAX (TO_CHAR(end_, 'yyyy-mm')) end_
+											MAX (TO_CHAR(end_, 'yyyy-mm-dd')) end_
 										FROM
 											jbpm4_hist_actinst T
 										WHERE
@@ -477,16 +502,26 @@ FROM
 						)
 					WHERE
 						reportcnt = '4'
+		<isNotNull prepend="and" property="appTimeStrat" >
+                  end_  >=(#appTimeStrat#)
+        </isNotNull>
+       <isNotNull prepend="and" property="appTimeEnd" >                                    
+                <![CDATA[end_  <=(#appTimeEnd#)]]>
+      </isNotNull>
+      <isNotNull prepend="and" property="oneCategory" >
+                 ONECATEGORY  in($oneCategory$)
+      </isNotNull>
+      <isNotNull prepend="and" property="loanCategory" >
+                 LOANCATEGORY in($loanCategory$)
+      </isNotNull>
 					GROUP BY
 						LOANCATEGORY,
 						ORGNAME,
 						ORGNAMETWO,
 						reportcnt,
-						end_,
 						ONECATEGORY
 				) tn3 ON tm.LOANCATEGORY = tn3.LOANCATEGORY
 				AND tm.ORGNAME = tn3.ORGNAME
-				AND tm.end_ = tn3.end_
 				AND tm.ONECATEGORY = tn3.ONECATEGORY
 				AND (
 					tn3.ORGNAMETWO IS NOT NULL
@@ -499,7 +534,6 @@ FROM
 						ORGNAME,
 						ORGNAMETWO,
 						reportcnt,
-						end_,
 						ONECATEGORY
 					FROM
 						(
@@ -572,7 +606,7 @@ FROM
 									JOIN (
 										SELECT
 											execution_,
-											MAX (TO_CHAR(end_, 'yyyy-mm')) end_
+											MAX (TO_CHAR(end_, 'yyyy-mm-dd')) end_
 										FROM
 											jbpm4_hist_actinst T
 										WHERE
@@ -592,16 +626,26 @@ FROM
 						)
 					WHERE
 						reportcnt = '5'
+		<isNotNull prepend="and" property="appTimeStrat" >
+                  end_  >=(#appTimeStrat#)
+        </isNotNull>
+       <isNotNull prepend="and" property="appTimeEnd" >                                    
+                <![CDATA[end_  <=(#appTimeEnd#)]]>
+      </isNotNull>
+      <isNotNull prepend="and" property="oneCategory" >
+                 ONECATEGORY  in($oneCategory$)
+      </isNotNull>
+      <isNotNull prepend="and" property="loanCategory" >
+                 LOANCATEGORY in($loanCategory$)
+      </isNotNull>
 					GROUP BY
 						LOANCATEGORY,
 						ORGNAME,
 						ORGNAMETWO,
 						reportcnt,
-						end_,
 						ONECATEGORY
 				) tn4 ON tm.LOANCATEGORY = tn4.LOANCATEGORY
 				AND tm.ORGNAME = tn4.ORGNAME
-				AND tm.end_ = tn4.end_
 				AND tm.ONECATEGORY = tn4.ONECATEGORY
 				AND (
 					tn4.ORGNAMETWO IS NOT NULL
@@ -610,7 +654,6 @@ FROM
 			)
 		UNION
 			SELECT
-				end_,
 				LOANCATEGORY,
 				ORGNAME,
 				ORGNAMETWO,
@@ -623,7 +666,6 @@ FROM
 			FROM
 				(
 					SELECT
-						tm.end_,
 						tm.LOANCATEGORY,
 						tm.ORGNAME,
 						tm.ORGNAMETWO,
@@ -640,7 +682,6 @@ FROM
 								LOANCATEGORY,
 								ORGNAME,
 								ORGNAMETWO,
-								end_,
 								ONECATEGORY
 							FROM
 								(
@@ -694,7 +735,7 @@ FROM
 									JOIN (
 										SELECT
 											execution_,
-											MAX (TO_CHAR(end_, 'yyyy-mm')) end_
+											MAX (TO_CHAR(end_, 'yyyy-mm-dd')) end_
 										FROM
 											jbpm4_hist_actinst T
 										WHERE
@@ -713,11 +754,22 @@ FROM
 								)
 							WHERE
 								ORGNAMETWO IS NULL
+		<isNotNull prepend="and" property="appTimeStrat" >
+                  end_  >=(#appTimeStrat#)
+        </isNotNull>
+       <isNotNull prepend="and" property="appTimeEnd" >                                    
+                <![CDATA[end_  <=(#appTimeEnd#)]]>
+      </isNotNull>
+      <isNotNull prepend="and" property="oneCategory" >
+                 ONECATEGORY  in($oneCategory$)
+      </isNotNull>
+      <isNotNull prepend="and" property="loanCategory" >
+                 LOANCATEGORY in($loanCategory$)
+      </isNotNull>
 							GROUP BY
 								LOANCATEGORY,
 								ORGNAME,
 								ORGNAMETWO,
-								end_,
 								ONECATEGORY
 						) tm
 					LEFT JOIN (
@@ -727,7 +779,6 @@ FROM
 							ORGNAME,
 							ORGNAMETWO,
 							reportcnt,
-							end_,
 							ONECATEGORY
 						FROM
 							(
@@ -800,7 +851,7 @@ FROM
 										JOIN (
 											SELECT
 												execution_,
-												MAX (TO_CHAR(end_, 'yyyy-mm')) end_
+												MAX (TO_CHAR(end_, 'yyyy-mm-dd')) end_
 											FROM
 												jbpm4_hist_actinst T
 											WHERE
@@ -820,16 +871,27 @@ FROM
 							)
 						WHERE
 							reportcnt = '2'
+
+		<isNotNull prepend="and" property="appTimeStrat" >
+                  end_  >=(#appTimeStrat#)
+        </isNotNull>
+       <isNotNull prepend="and" property="appTimeEnd" >                                    
+                <![CDATA[end_  <=(#appTimeEnd#)]]>
+      </isNotNull>
+      <isNotNull prepend="and" property="oneCategory" >
+                 ONECATEGORY  in($oneCategory$)
+      </isNotNull>
+      <isNotNull prepend="and" property="loanCategory" >
+                 LOANCATEGORY in($loanCategory$)
+      </isNotNull>
 						GROUP BY
 							LOANCATEGORY,
 							ORGNAME,
 							ORGNAMETWO,
 							reportcnt,
-							end_,
 							ONECATEGORY
 					) tn1 ON tm.LOANCATEGORY = tn1.LOANCATEGORY
 					AND tm.ORGNAME = tn1.ORGNAME
-					AND tm.end_ = tn1.end_
 					AND tm.ONECATEGORY = tn1.ONECATEGORY
 					AND tn1.ORGNAMETWO IS NULL
 					LEFT JOIN (
@@ -839,7 +901,6 @@ FROM
 							ORGNAME,
 							ORGNAMETWO,
 							reportcnt,
-							end_,
 							ONECATEGORY
 						FROM
 							(
@@ -912,7 +973,7 @@ FROM
 										JOIN (
 											SELECT
 												execution_,
-												MAX (TO_CHAR(end_, 'yyyy-mm')) end_
+												MAX (TO_CHAR(end_, 'yyyy-mm-dd')) end_
 											FROM
 												jbpm4_hist_actinst T
 											WHERE
@@ -932,16 +993,26 @@ FROM
 							)
 						WHERE
 							reportcnt = '3'
+		<isNotNull prepend="and" property="appTimeStrat" >
+                  end_  >=(#appTimeStrat#)
+        </isNotNull>
+       <isNotNull prepend="and" property="appTimeEnd" >                                    
+                <![CDATA[end_  <=(#appTimeEnd#)]]>
+      </isNotNull>
+      <isNotNull prepend="and" property="oneCategory" >
+                 ONECATEGORY  in($oneCategory$)
+      </isNotNull>
+      <isNotNull prepend="and" property="loanCategory" >
+                 LOANCATEGORY in($loanCategory$)
+      </isNotNull>
 						GROUP BY
 							LOANCATEGORY,
 							ORGNAME,
 							ORGNAMETWO,
 							reportcnt,
-							end_,
 							ONECATEGORY
 					) tn2 ON tm.LOANCATEGORY = tn2.LOANCATEGORY
 					AND tm.ORGNAME = tn2.ORGNAME
-					AND tm.end_ = tn2.end_
 					AND tm.ONECATEGORY = tn2.ONECATEGORY
 					AND tn2.ORGNAMETWO IS NULL
 					LEFT JOIN (
@@ -951,7 +1022,7 @@ FROM
 							ORGNAME,
 							ORGNAMETWO,
 							reportcnt,
-							end_,
+				
 							ONECATEGORY
 						FROM
 							(
@@ -1024,7 +1095,7 @@ FROM
 										JOIN (
 											SELECT
 												execution_,
-												MAX (TO_CHAR(end_, 'yyyy-mm')) end_
+												MAX (TO_CHAR(end_, 'yyyy-mm-dd')) end_
 											FROM
 												jbpm4_hist_actinst T
 											WHERE
@@ -1044,16 +1115,26 @@ FROM
 							)
 						WHERE
 							reportcnt = '4'
+		<isNotNull prepend="and" property="appTimeStrat" >
+                  end_  >=(#appTimeStrat#)
+        </isNotNull>
+       <isNotNull prepend="and" property="appTimeEnd" >                                    
+                <![CDATA[end_  <=(#appTimeEnd#)]]>
+      </isNotNull>
+      <isNotNull prepend="and" property="oneCategory" >
+                 ONECATEGORY  in($oneCategory$)
+      </isNotNull>
+      <isNotNull prepend="and" property="loanCategory" >
+                 LOANCATEGORY in($loanCategory$)
+      </isNotNull>
 						GROUP BY
 							LOANCATEGORY,
 							ORGNAME,
 							ORGNAMETWO,
 							reportcnt,
-							end_,
 							ONECATEGORY
 					) tn3 ON tm.LOANCATEGORY = tn3.LOANCATEGORY
 					AND tm.ORGNAME = tn3.ORGNAME
-					AND tm.end_ = tn3.end_
 					AND tm.ONECATEGORY = tn3.ONECATEGORY
 					AND tn3.ORGNAMETWO IS NULL
 					LEFT JOIN (
@@ -1063,7 +1144,6 @@ FROM
 							ORGNAME,
 							ORGNAMETWO,
 							reportcnt,
-							end_,
 							ONECATEGORY
 						FROM
 							(
@@ -1136,7 +1216,7 @@ FROM
 										JOIN (
 											SELECT
 												execution_,
-												MAX (TO_CHAR(end_, 'yyyy-mm')) end_
+												MAX (TO_CHAR(end_, 'yyyy-mm-dd')) end_
 											FROM
 												jbpm4_hist_actinst T
 											WHERE
@@ -1156,31 +1236,30 @@ FROM
 							)
 						WHERE
 							reportcnt = '5'
+		<isNotNull prepend="and" property="appTimeStrat" >
+                  end_  >=(#appTimeStrat#)
+        </isNotNull>
+       <isNotNull prepend="and" property="appTimeEnd" >                                    
+                <![CDATA[end_  <=(#appTimeEnd#)]]>
+      </isNotNull>
+      <isNotNull prepend="and" property="oneCategory" >
+                 ONECATEGORY  in($oneCategory$)
+      </isNotNull>
+      <isNotNull prepend="and" property="loanCategory" >
+                 LOANCATEGORY in($loanCategory$)
+      </isNotNull>
 						GROUP BY
 							LOANCATEGORY,
 							ORGNAME,
 							ORGNAMETWO,
 							reportcnt,
-							end_,
 							ONECATEGORY
 					) tn4 ON tm.LOANCATEGORY = tn4.LOANCATEGORY
 					AND tm.ORGNAME = tn4.ORGNAME
-					AND tm.end_ = tn4.end_
 					AND tm.ONECATEGORY = tn4.ONECATEGORY
 					AND tn4.ORGNAMETWO IS NULL
 				)
 	)
-	tinf  where 1=1   
-	    <isNotNull prepend="and" property="appTimeEnd" >
-           tinf.end_  =(#appTimeEnd#)
-      </isNotNull>
-      <isNotNull prepend="and" property="oneCategory" >
-        tinf.ONECATEGORY  in($oneCategory$)
-      </isNotNull>
-      <isNotNull prepend="and" property="loanCategory" >
-        tinf.LOANCATEGORY in($loanCategory$)
-      </isNotNull>
-
 
 	</select>
 	
