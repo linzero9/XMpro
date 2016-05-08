@@ -78,10 +78,81 @@
 </select>
   <!-- 查询机构下设备总数 -->
   <select id="querySumList" resultMap="tSum" parameterClass="java.util.HashMap">
-select  o.orgname, T.DEVICENAME,T.DEVICEMODEL,count(*) tot
+SELECT 
+orgname,DEVICENAME,DEVICEMODEL,count(*) as tot
+from(
+select  t.orgcode,o.orgname, T.DEVICENAME,T.DEVICEMODEL,t.DEVICE_STATE,t.MEMORY ,
+t.HARDDISK,t.OSVERSION,t.SOFTWAREVERSION,t.IEVERSION, t.USEFUL, t.PLUGIN,t.PERIPHERAL
   from  t_new_deviceManagement t , om_organization o
   where t.orgcode = o.orgcode
-  
+    <isNotNull prepend="and" property="orgcode" >      
+        t.orgcode in(
+    select orgcode from om_organization 
+     start with orgcode = #orgcode#
+    connect by prior orgid = parentorgid )
+      </isNotNull>
+   <isNotNull prepend="and" property="deviceName" >
+        t.DEVICENAME = #deviceName#
+      </isNotNull>
+      <isNotNull prepend="and" property="deviceModel" >
+        t.DEVICEMODEL = #deviceModel#
+      </isNotNull>
+      <isNotNull prepend="and" property="deviceState" >
+         t.DEVICE_STATE = #deviceState#
+      </isNotNull>
+      <isNotNull prepend="and" property="memoryMin" >
+         t.MEMORY > #memoryMin#
+      </isNotNull>
+      <isNotNull prepend="and" property="memoryMax" >
+      		<![CDATA[  t.MEMORY < #memoryMax# ]]>
+      </isNotNull>
+      <isNotNull prepend="and" property="hardDiskMin" >
+         t.HARDDISK > #hardDiskMin#
+      </isNotNull>
+      <isNotNull prepend="and" property="hardDiskMax" >
+         <![CDATA[  t.HARDDISK < #hardDiskMax# ]]>
+      </isNotNull>
+       <isNotNull prepend="and" property="osVersion" >
+         t.OSVERSION = #osVersion#
+      </isNotNull>
+      <isNotNull prepend="and" property="softwareVersion" >
+        t.SOFTWAREVERSION like '%'|| #softwareVersion# ||'%'
+      </isNotNull>
+      <isNotNull prepend="and" property="ieVersion" >
+         t.IEVERSION = #ieVersion#
+      </isNotNull>
+      <isNotNull prepend="and" property="useful" >
+        t.USEFUL like replace('%'|| #useful# ||'%', ',', '%')
+      </isNotNull>
+      <isNotNull prepend="and" property="plugIn" >
+         t.PLUGIN  like replace('%'|| #plugIn# ||'%', ',', '%')
+      </isNotNull>
+      <isNotNull prepend="and" property="peripheral" >
+        t.PERIPHERAL  like replace('%'|| #peripheral# ||'%', ',', '%')
+      </isNotNull>
+      
+      
+   <isEmpty property="orgcode" >
+  and t.orgcode in(
+    select orgcode from om_organization 
+     start with orgcode = '$orgcodeTemp$'
+    connect by prior orgid = parentorgid 
+ )
+</isEmpty> 
+)
+group by orgname,DEVICENAME,DEVICEMODEL
+
+UNION
+SELECT '合计'  as orgname,'  ' DEVICENAME,'  ' DEVICEMODEL,tot
+from 
+(
+SELECT count(*) tot
+from 
+(
+select  t.orgcode,o.orgname, T.DEVICENAME,T.DEVICEMODEL,t.DEVICE_STATE,t.MEMORY ,
+t.HARDDISK,t.OSVERSION,t.SOFTWAREVERSION,t.IEVERSION, t.USEFUL, t.PLUGIN,t.PERIPHERAL
+  from  t_new_deviceManagement t , om_organization o
+  where t.orgcode = o.orgcode
   <isNotNull prepend="and" property="orgcode" >      
         t.orgcode in(
     select orgcode from om_organization 
@@ -135,13 +206,12 @@ select  o.orgname, T.DEVICENAME,T.DEVICEMODEL,count(*) tot
      start with orgcode = '$orgcodeTemp$'
     connect by prior orgid = parentorgid 
  )
-</isEmpty>  
-group by o.orgname,T.DEVICENAME,T.DEVICEMODEL
-UNION
-SELECT '合计'  as orgname,'  ' DEVICENAME,'  ' DEVICEMODEL,sum(count(*)) tot
-  from  t_new_deviceManagement t , om_organization o
-  where t.orgcode = o.orgcode 
-group by o.orgname,T.DEVICENAME,T.DEVICEMODEL
+</isEmpty> 
+)
+)
+
+
+
 ORDER BY tot
   </select>
   
