@@ -65,5 +65,16 @@
            </result>       
       
     </action>
+    
+    
+     
+    <action name="myMainTreeAction_*" class="myMainTreeAction" method="{1}" >
+	    <result name="my_initMainTree" >
+	        /jsp/deviceManagement/My_main_tree.jsp
+	      </result>
+	      <result name="my_adminTree" >
+	        /jsp/deviceManagement/My_admin_tree.jsp
+	      </result>
+    </action>
   </package>
 </struts>
