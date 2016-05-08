@@ -131,8 +131,10 @@ public class XdProcessTaskAssignee implements Serializable {
      */
     private String coorganization;
     
+    /*
+     * 流程标题
+     */
     
-
 	public String getApply_bal() {
 		return apply_bal;
 	}

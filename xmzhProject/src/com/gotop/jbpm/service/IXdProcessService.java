@@ -50,5 +50,7 @@ public interface IXdProcessService {
 	void insertWorkTime(WorkTimeBean workTimeBean);
 
 	void updateWorkTime(WorkTimeBean workTimeBean);
+
+	void updateTitle(XdProcessTaskAssignee xdProcessTaskAssignee);
 	
 }

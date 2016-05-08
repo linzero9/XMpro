@@ -166,6 +166,23 @@ public class XdProcessService implements IXdProcessService {
 	public void insertWater(WaterInfo waterInfo) {
 		 this.xdProcessDAO.insertWater(waterInfo);
 	}
+	/**
+	 * 更新流程标题
+	 */
+	@Override
+	public void updateTitle(XdProcessTaskAssignee xdProcessTaskAssignee) {
+		StringBuffer businessTitle=new StringBuffer();
+		if (xdProcessTaskAssignee.getCustName()!=null&&!"".equals(xdProcessTaskAssignee.getCustName())&&xdProcessTaskAssignee.getProcessName()!=null&&!"".equals(xdProcessTaskAssignee.getProcessName())) {
+			businessTitle.append(xdProcessTaskAssignee.getProcessName());
+			businessTitle.append("-");
+			businessTitle.append(xdProcessTaskAssignee.getCustName());
+			xdProcessTaskAssignee.setBusinessTitle(businessTitle.toString());
+		}
+		
+		
+		 this.xdProcessDAO.updateTitle(xdProcessTaskAssignee);
+	}
+	
 	@Override
 	public List<WaterInfo> queryLoanUptWater(WaterInfo waterInfo, Page page) {
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -196,6 +213,7 @@ public class XdProcessService implements IXdProcessService {
 	public void updateWorkTime(WorkTimeBean workTimeBean) {
 		 this.xdProcessDAO.updateWorkTime(workTimeBean);
 	}
+	
 	
 
 	

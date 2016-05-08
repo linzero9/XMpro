@@ -43,4 +43,6 @@ public interface IXdProcessDAO {
 
 	int updateWorkTime(WorkTimeBean workTimeBean);
 
+	void updateTitle(XdProcessTaskAssignee xdProcessTaskAssignee);
+
 }

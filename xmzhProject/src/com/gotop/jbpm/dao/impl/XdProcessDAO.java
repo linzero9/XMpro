@@ -95,6 +95,14 @@ public class XdProcessDAO  extends SqlMapClientDao  implements IXdProcessDAO{
 		getSqlMapClientTemplate().insert("XD_PROCESS_SqlMap.insertWater", waterInfo);
 		
 	}
+	/**
+	 * 更新流程标题
+	 */
+	@Override
+	public void updateTitle(XdProcessTaskAssignee xdProcessTaskAssignee) {
+		getSqlMapClientTemplate().update("XD_PROCESS_SqlMap.updateTitle", xdProcessTaskAssignee);
+		
+	}
 
 	@Override
 	public List<WaterInfo> queryLoanUptWater(Map<String, Object> map, Page page) {
@@ -119,4 +127,6 @@ public class XdProcessDAO  extends SqlMapClientDao  implements IXdProcessDAO{
 		int count = getSqlMapClientTemplate().update("XD_PROCESS_SqlMap.updateWorkTime", workTimeBean);
 		return count;
 	}
+
+
 }

@@ -323,6 +323,13 @@
 	COORGANIZATION = #coorganization:VARCHAR#
 	where  FLOW_ID = #executionId:VARCHAR#
   </update>
+  <!--修改流程标题-->
+  <update id="updateTitle" parameterClass="com.gotop.jbpm.model.XdProcessTaskAssignee" >
+  update T_PROCESS_BUSINESS t
+   set t.business_title =#businessTitle:VARCHAR#
+ where t.execution_id =#executionId:VARCHAR#
+ 
+  </update>
   
    <!--插入 贷款 信息修改 流水表-->
   <insert id="insertWater" parameterClass="com.gotop.jbpm.model.WaterInfo" >

@@ -488,6 +488,7 @@ public class XdProcessAction   extends BaseAction {
 					waterInfo.setUptEmpid(this.getCurrentOnlineUser().getEmpid());
 					waterInfo.setUptOrgcode(this.getCurrentOnlineUser().getOrgcode());
 					
+					this.xdProcessService.updateTitle(xdProcessTaskAssignee);
 					this.xdProcessService.insertWater(waterInfo);
 				}
     	} catch (Exception e) {
