@@ -130,15 +130,26 @@ margin-left:inherit;
 								机构/部门
 							</th>
 							<th align="center" nowrap="nowrap">
-								设备总数
+								设备名称
+							</th>
+							<th align="center" nowrap="nowrap">
+								型号
+							</th>
+						   <th align="center" nowrap="nowrap">
+								数量
 							</th>
 						</tr>
 						<w:radioGroup id="group1">
                             <l:iterate property="devices" id="id1">
 							 <tr class="<l:output oddOutput="EOS_table_row_o" evenOutput='EOS_table_row' />">
-					
 								<td align="center" nowrap="nowrap"> 
 									<b:write iterateId="id1" property="orgnameTemp" />
+								</td>
+								<td align ="center" nowrap="nowrap"> 
+									<d:write iterateId="id1" property="deviceName"  dictTypeId="DEVICE_NAME" />   
+								</td>
+								<td align ="center" nowrap="nowrap"> 
+									<d:write iterateId="id1" property="deviceModel"  dictTypeId="DEVICE_MODEL"  />   
 								</td>
 								<td align ="center" nowrap="nowrap"> 
 									<b:write iterateId="id1" property="tot"/>

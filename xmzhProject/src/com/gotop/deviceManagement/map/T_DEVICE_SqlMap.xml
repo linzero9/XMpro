@@ -48,6 +48,8 @@
   
     <resultMap id="tSum" class="com.gotop.deviceManagement.model.Sum" >
     <!--Bean方式返回全表-->
+     <result column="DEVICENAME" property="deviceName" jdbcType="VARCHAR" />
+    <result column="DEVICEMODEL" property="deviceModel" jdbcType="VARCHAR" />
     <result column="orgname" property="orgnameTemp" jdbcType="VARCHAR" />
     <result column="tot" property="tot" jdbcType="DECIMAL" />
   </resultMap>
@@ -76,7 +78,7 @@
 </select>
   <!-- 查询机构下设备总数 -->
   <select id="querySumList" resultMap="tSum" parameterClass="java.util.HashMap">
-select  o.orgname , count(t.deviceid) tot 
+select  o.orgname, T.DEVICENAME,T.DEVICEMODEL,count(*) tot
   from  t_new_deviceManagement t , om_organization o
   where t.orgcode = o.orgcode
   
@@ -134,7 +136,13 @@ select  o.orgname , count(t.deviceid) tot
     connect by prior orgid = parentorgid 
  )
 </isEmpty>  
-group by o.orgname
+group by o.orgname,T.DEVICENAME,T.DEVICEMODEL
+UNION
+SELECT '合计'  as orgname,'  ' DEVICENAME,'  ' DEVICEMODEL,sum(count(*)) tot
+  from  t_new_deviceManagement t , om_organization o
+  where t.orgcode = o.orgcode 
+group by o.orgname,T.DEVICENAME,T.DEVICEMODEL
+ORDER BY tot
   </select>
   
   <!-- 查询设备列表 -->
