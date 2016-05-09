@@ -44,7 +44,7 @@
 				<td class="form_label" align="right"  width="30%">时间：</td>
 				<td colspan="1" width="60%"  id="timees" > 
 				
-	              <input id="date" onclick="WdatePicker({el:this,dateFmt:'yyyy-MM-dd HH:mm:00',onpicked:null})"/>
+	              <input id="date" onclick="WdatePicker({el:this,dateFmt:'yyyy-MM-dd ',onpicked:null})"/>
 	              
 	              
                   <h:img alt="添加"   src="../images/e_add.gif" onclick="add_time();" />
@@ -158,7 +158,13 @@
 
 	var rowId = 1; 
 	function add_time() {
-	    $("#wujiajundate").append(" 	 <input id='date'  onclick='WdatePicker({el:this,dateFmt:\"yyyy-MM-dd HH:mm:00\",onpicked:null})''/> <br/> <br/>");
+
+		//onclick="WdatePicker( {el:this,dateFmt:'yyyy-MM-dd HH:mm:ss'} )"
+		//可以根据格式化  选择 是否需要时分秒
+	    $("#wujiajundate").append(" 	 <input id='date'  onclick='WdatePicker({el:this,dateFmt:\"yyyy-MM-dd \",onpicked:null})''/> <br/> <br/>");
+
+
+	    
 	}
 	
 
