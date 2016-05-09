@@ -32,7 +32,7 @@
 			<tr>	
 				<td class="form_label" align="right" width="15%">贷种分类：</td>
 				<td colspan="1" width="30%">
-				<h:hidden id="loanCategoryId" />
+				<%-- <h:hidden id="loanCategoryId" /> --%>
 				<h:textarea rows="5" cols="40"  id="loanCategory" property="xdCdtypeBean.loanCategory"  readonly="true"  validateAttr="allowNull=false"  extAttr="class='h80' "  />
 							<a href="#" onclick="showloanCategory();">选择</a>		
 				</td>						
@@ -70,7 +70,7 @@
 		       if (data.indexOf("success") >= 0) {
 		    		 ajaxsubmitO(); 
 				} else if (data.indexOf("success") < 0){
-						alert("贷种分类("+data+")已存在！");	
+						alert("贷种分类("+data+")已存在！请重新选择！");	
 				} else {
 					alert("操作失败!");
 				}
@@ -106,16 +106,25 @@
 	}
 
 	function showloanCategory() {
-		var loanCategoryId=document.getElementById("loanCategoryId").value;
+		/* var loanCategoryId=document.getElementById("loanCategoryId").value;
 		strUrl ="/Generalprocess/tGeneralprocessCdtypeAction_loanCategoryDic.action?cdtypeJson="+loanCategoryId,
-		showModalCenter(strUrl,'',showloanCategory_callback1 ,800,500,'贷种选择'); 
+		showModalCenter(strUrl,'',showloanCategory_callback1 ,800,500,'贷种选择');  */
+
+		var oneCategory_name = $id("oneCategory").value;
+		strUrl = "/jbpm/timeLimitManageAction_queryLoanCategorylist2.action?proLoanBean.oneCategory_name="+oneCategory_name;
+		showModalCenter(encodeURI(strUrl),'',showloanCategory_callback1 ,500,430,'贷种分类选择'); 
+		
 	} 
 	function showloanCategory_callback1(args){
-		if(args!=''){
+		/* if(args!=''){
 		var array;
 		array = args.split(":");
 		 document.getElementById("loanCategoryId").value = array[0];
 		 document.getElementById("loanCategory").value = array[1];
+		} */
+
+		if(args!=null){
+			 $id("loanCategory").value = args;
 		}
 	}	
 </script>

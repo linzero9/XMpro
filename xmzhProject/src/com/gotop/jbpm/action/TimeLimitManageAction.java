@@ -400,13 +400,20 @@ public class TimeLimitManageAction extends BaseAction {
 	}
 	
 	
-	
+	/**
+	 * 查询已关联维护的一级分类列表，配置流程时限 功能时用，将查到的结果返回为json类型
+	 * @return
+	 */
 	public String queryOneCategorylist(){
 		proLoanBeans = this.timeLimitManageService.queryOneCategorylist();
 		this.setProLoanBeans(proLoanBeans);
 		return "oneCategorylist";
 	}
 	
+	/**
+	 * 查询已关联维护的贷种分类列表，配置流程时限 功能时用，将查到的结果返回为json类型
+	 * @return
+	 */
 	public String queryLoanCategorylist(){
 		proLoanBeans = this.timeLimitManageService.queryLoanCategorylist(proLoanBean);
 		this.setProLoanBeans(proLoanBeans);
@@ -785,4 +792,25 @@ public class TimeLimitManageAction extends BaseAction {
 			Struts2Utils.renderText(info);
 		}
 	}
+	
+	/**
+	 * 查询已关联维护的一级分类列表，业务选择参数维护 功能时用，将查到的结果返回为列表
+	 * @return
+	 */
+	public String queryOneCategorylist2(){
+		proLoanBeans = this.timeLimitManageService.queryOneCategorylist();
+		this.setProLoanBeans(proLoanBeans);
+		return "oneCategory_list";
+	}
+	
+	/**
+	 * 查询已关联维护的贷种分类列表，业务选择参数维护 功能时用，将查到的结果返回为列表
+	 * @return
+	 */
+	public String queryLoanCategorylist2(){
+		proLoanBeans = this.timeLimitManageService.queryLoanCategorylist(proLoanBean);
+		this.setProLoanBeans(proLoanBeans);
+		return "loanCategory_list";
+	}
+	
 }

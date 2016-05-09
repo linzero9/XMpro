@@ -264,6 +264,14 @@
      		/jsp/jbpm/time_limit/add_loanTimeModel.jsp
       	</result>
       	
+      	<result name="oneCategory_list">
+     		/jsp/jbpm/xd_process/oneCategory_list.jsp
+      	</result>
+      	<result name="loanCategory_list">
+     		/jsp/jbpm/xd_process/loanCategory_list.jsp
+      	</result>
+      	
+      	
       	<result name="oneCategorylist" type="json">
 		   <param name="root">proLoanBeans</param>
 	  </result>
