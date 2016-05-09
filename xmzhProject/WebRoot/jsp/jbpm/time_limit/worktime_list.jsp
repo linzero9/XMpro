@@ -35,8 +35,16 @@
 								结束时间
 							</th>
 						</tr>
-					<w:radioGroup id="group1">
-                          <l:iterate property="workTimeSideBeans" id="id1">
+					
+					<l:equal property="workTimeSideBeans.size"  targetValue="0"  compareType="number">
+					 	<tr bgcolor="#FFE4E1">
+					 		<td colspan="20"  align="center">无记录！</td>
+					 	</tr>
+					 </l:equal>
+					 
+					<l:notEqual property="workTimeSideBeans.size"  targetValue="0"  compareType="number">
+					 	<w:radioGroup id="group1">
+					 	<l:iterate property="workTimeSideBeans" id="id1">
 							<tr class="<l:output evenOutput='EOS_table_row' oddOutput='EOS_table_row_o'  />">
 								<%-- <td align="center" nowrap="nowrap" width="5%">
 								<w:rowRadio>
@@ -55,6 +63,8 @@
 							</tr>
 						</l:iterate>
 					</w:radioGroup>
+				</l:notEqual>
+                          
 						<tr>
               <td colspan="23" class="command_sort_area">
 							<%-- <div class="h3">

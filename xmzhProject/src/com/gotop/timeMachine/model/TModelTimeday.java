@@ -8,7 +8,7 @@ public class TModelTimeday implements Serializable {
      * 主键 .
      * @abatorgenerated
      */
-    private BigDecimal id;
+    private Long id;
 
     /**
      * 时间(年月日) .
@@ -26,7 +26,7 @@ public class TModelTimeday implements Serializable {
      * 添加的人员 .
      * @abatorgenerated
      */
-    private String role;
+    private Long empid;
 
     /**
      * 是否在用 .
@@ -34,23 +34,20 @@ public class TModelTimeday implements Serializable {
      */
     private String status;
     
-    
-    
-    
-    
-    private   BigDecimal mainid;
+    private   Long mainID;
     
     private  String  type;
     
+    private String remark;
     
-    public BigDecimal getMainid() {
-		return mainid;
-	}
-
-	public void setMainid(BigDecimal mainid) {
-		this.mainid = mainid;
-	}
-
+    private String orgname;
+    
+    private String empname;
+    
+    private String startDate;
+    
+    private String endDate;
+    
 	public String getType() {
 		return type;
 	}
@@ -59,21 +56,7 @@ public class TModelTimeday implements Serializable {
 		this.type = type;
 	}
 
-	/**
-     * 主键 .
-     * @abatorgenerated
-     */
-    public BigDecimal getId() {
-        return id;
-    }
-
-    /**
-     * 主键 .
-     * @abatorgenerated
-     */
-    public void setId(BigDecimal id) {
-        this.id = id;
-    }
+	
 
     /**
      * 时间(年月日) .
@@ -107,23 +90,35 @@ public class TModelTimeday implements Serializable {
         this.orgcode = orgcode;
     }
 
-    /**
-     * 添加的人员 .
-     * @abatorgenerated
-     */
-    public String getRole() {
-        return role;
-    }
+   
 
-    /**
-     * 添加的人员 .
-     * @abatorgenerated
-     */
-    public void setRole(String role) {
-        this.role = role;
-    }
+    public Long getId() {
+		return id;
+	}
 
-    /**
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	
+
+	public Long getEmpid() {
+		return empid;
+	}
+
+	public void setEmpid(Long empid) {
+		this.empid = empid;
+	}
+
+	public Long getMainID() {
+		return mainID;
+	}
+
+	public void setMainID(Long mainID) {
+		this.mainID = mainID;
+	}
+
+	/**
      * 是否在用 .
      * @abatorgenerated
      */
@@ -138,4 +133,46 @@ public class TModelTimeday implements Serializable {
     public void setStatus(String status) {
         this.status = status;
     }
+
+	public String getOrgname() {
+		return orgname;
+	}
+
+	public void setOrgname(String orgname) {
+		this.orgname = orgname;
+	}
+
+	public String getEmpname() {
+		return empname;
+	}
+
+	public void setEmpname(String empname) {
+		this.empname = empname;
+	}
+
+	public String getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+    
+    
 }

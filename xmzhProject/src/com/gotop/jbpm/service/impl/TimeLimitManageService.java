@@ -232,6 +232,16 @@ public class TimeLimitManageService implements ITimeLimitManageService {
 	public void updateTimeMain_delState(WorkTimeMainBean workTimeMainBean) {
 		this.timeLimitManageDAO.updateTimeMain_delState(workTimeMainBean);
 	}
+
+	@Override
+	public void updateWorkTimeById(WorkTimeSideBean workTimeSideBean) {
+		this.timeLimitManageDAO.updateWorkTimeById(workTimeSideBean);
+	}
+
+	@Override
+	public void deleteWorkTimeById(WorkTimeSideBean workTimeSideBean) {
+		this.timeLimitManageDAO.deleteWorkTimeById(workTimeSideBean);
+	}
 	
 	
 }

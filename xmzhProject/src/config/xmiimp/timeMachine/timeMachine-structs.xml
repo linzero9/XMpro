@@ -3,9 +3,16 @@
 <struts >
   <package name="timeMachine" namespace="/timeMachine" extends="default" >
     <action name="tModelTimedayAction_*" class="tModelTimedayAction" method="{1}" >
-      <result name="viewlist" >
-        /jsp/timeMachine/tModelTimedayList.jsp
+      <result name="workDay_list" >
+        /jsp/timeMachine/workDay_list.jsp
       </result>
+      <result name="add_workDay" >
+        /jsp/timeMachine/add_workDay.jsp
+      </result>
+       <result name="upt_workDay" >
+        /jsp/timeMachine/upt_workDay.jsp
+      </result>
+      
     </action>
   </package>
 </struts>

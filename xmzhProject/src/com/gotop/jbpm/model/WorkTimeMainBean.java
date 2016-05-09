@@ -10,11 +10,33 @@ public class WorkTimeMainBean implements Serializable {
 	
 	private String endDate;//结束日期
 	
-	private String orgcode;//机构号
+	private String orgcode;//维护机构号
 	
-	private Long empid;//员工ID
+	private Long empid;//维护员工ID
 	
 	private String delState;//员工ID
+	
+	private String orgname;  //维护机构名
+	
+	private String empname;  //维护员工名
+	
+
+	
+	public String getOrgname() {
+		return orgname;
+	}
+
+	public void setOrgname(String orgname) {
+		this.orgname = orgname;
+	}
+
+	public String getEmpname() {
+		return empname;
+	}
+
+	public void setEmpname(String empname) {
+		this.empname = empname;
+	}
 
 	public String getStartDate() {
 		return startDate;

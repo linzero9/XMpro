@@ -63,12 +63,8 @@
                <param name="inputName">downloadFile4</param>  
                <param name="bufferSize">1024</param>  
            </result>       
-      
-    </action>
-    
-    
-     
-    <action name="myMainTreeAction_*" class="myMainTreeAction" method="{1}" >
+      </action>
+      <action name="myMainTreeAction_*" class="myMainTreeAction" method="{1}" >
 	    <result name="my_initMainTree" >
 	        /jsp/deviceManagement/My_main_tree.jsp
 	      </result>
@@ -76,5 +72,7 @@
 	        /jsp/deviceManagement/My_admin_tree.jsp
 	      </result>
     </action>
+    
+
   </package>
 </struts>

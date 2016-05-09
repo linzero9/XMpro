@@ -14,6 +14,8 @@
     <result column="ID" property="id" jdbcType="DECIMAL" />
     <result column="STARTDATE" property="startDate" jdbcType="VARCHAR" />
      <result column="ENDDATE" property="endDate" jdbcType="VARCHAR" />
+     <result column="ORGNAME" property="orgname" jdbcType="VARCHAR" />
+     <result column="EMPNAME" property="empname" jdbcType="VARCHAR" />
   </resultMap>
   
   <resultMap id="workTimeSide_Result" class="com.gotop.jbpm.model.WorkTimeSideBean" >
@@ -193,7 +195,7 @@
   
   <!-- 插入工作时间维护 主表 t_model_timeMain -->
   <insert id="saveWorkTimeIntoTimeMain"  parameterClass="com.gotop.jbpm.model.WorkTimeMainBean"  >
-       <selectKey resultClass="long" keyProperty="mainID" >
+       <selectKey resultClass="long" keyProperty="id" >
 		SELECT t_model_timeMain_seq.NEXTVAL AS VALUE FROM DUAL
 		</selectKey>
     insert into t_model_timeMain(ID, STARTDATE, ENDDATE, ORGCODE, EMPID, CREATETIME )
@@ -211,9 +213,12 @@
   
   <!-- 查询 工作时间配置列表 -->
   <select id="queryValidDayList" resultMap="workTimeMain_Result" parameterClass="java.util.HashMap" >
- select t1.id, to_char(t1.startDate, 'yyyy/MM/dd') as startDate , to_char(t1.endDate, 'yyyy/MM/dd') as endDate
-  from t_model_timeMain t1
- where 1=1
+ select t1.id, to_char(t1.startDate, 'yyyy/MM/dd') as startDate , to_char(t1.endDate, 'yyyy/MM/dd') as endDate,
+    t2.orgname, t3.empname
+  from t_model_timeMain t1, om_organization t2, om_employee t3
+ where t1.orgcode = t2.orgcode
+ and t1.empid = t3.empid
+ and t1.delState='0'
  <isNotNull prepend="and" property="query_startDate" >
       t1.startDate >= to_date('$query_startDate$','yyyy/MM/dd')
  </isNotNull>
@@ -226,7 +231,7 @@
   <!-- 修改 时间主表 删除状态-->
   <update id="updateTimeMain_delState" parameterClass="com.gotop.jbpm.model.WorkTimeMainBean" >
     update t_model_timeMain t
-    set t.delState = #delState:VARCHAR#
+    set t.delState = '1'
     where t.id = #id:DECIMAL:-9999# 
   </update>
   
@@ -241,15 +246,30 @@
  select t.*
   from t_model_timeSide t
  where t.mainid = '$id$'
+ order by t.timeType
  </select>
  
    <!--校验 时间不能在之前配过的时间范围内 -->
   <select id="checkDate" resultClass="java.util.HashMap" parameterClass="java.util.HashMap" >
  select *
   from t_model_timeMain
- where
+ where delState = '0' and
+ (
   <![CDATA[  (startDate <= to_date('$startDate$','yyyy/MM/dd') and endDate > to_date('$startDate$','yyyy/MM/dd'))
     or (startDate < to_date('$endDate$','yyyy/MM/dd') and endDate >= to_date('$endDate$','yyyy/MM/dd'))
     or (startDate >= to_date('$startDate$','yyyy/MM/dd') and endDate <= to_date('$endDate$','yyyy/MM/dd'))   ]]>
+ )
  </select>
+ 
+  <update id="updateWorkTimeById" parameterClass="com.gotop.jbpm.model.WorkTimeSideBean" >
+    update t_model_timeSide t
+    set t.startTime = #startTime:VARCHAR#,
+    	  t.endTime = #endTime:VARCHAR#
+    where t.id = #id:DECIMAL:-9999# 
+  </update>
+  
+  <delete id="deleteWorkTimeById" parameterClass="com.gotop.jbpm.model.WorkTimeSideBean" >
+    delete from t_model_timeSide t
+    where t.id = #id:DECIMAL:-9999# 
+  </delete>
 </sqlMap>

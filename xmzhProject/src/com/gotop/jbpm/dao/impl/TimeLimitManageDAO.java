@@ -153,4 +153,14 @@ public class TimeLimitManageDAO extends SqlMapClientDao  implements ITimeLimitMa
 		getSqlMapClientTemplate().update("TimeLimitManage_SqlMap.updateTimeMain_delState", workTimeMainBean);
 	}
 
+	@Override
+	public void updateWorkTimeById(WorkTimeSideBean workTimeSideBean) {
+		getSqlMapClientTemplate().update("TimeLimitManage_SqlMap.updateWorkTimeById", workTimeSideBean);
+	}
+
+	@Override
+	public void deleteWorkTimeById(WorkTimeSideBean workTimeSideBean) {
+		getSqlMapClientTemplate().delete("TimeLimitManage_SqlMap.deleteWorkTimeById", workTimeSideBean);
+	}
+
 }

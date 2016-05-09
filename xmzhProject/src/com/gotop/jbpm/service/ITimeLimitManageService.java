@@ -64,4 +64,8 @@ public interface ITimeLimitManageService {
 	List<WorkTimeSideBean> queryWorkTimeList(WorkTimeMainBean workTimeMainBean);
 
 	void updateTimeMain_delState(WorkTimeMainBean workTimeMainBean);
+
+	void updateWorkTimeById(WorkTimeSideBean workTimeSideBean);
+
+	void deleteWorkTimeById(WorkTimeSideBean workTimeSideBean);
 }

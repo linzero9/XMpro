@@ -6,11 +6,12 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<title>有效日列表</title>
+		<title>工作日配置列表</title>
 	</head>
 	<body topmargin="0" leftmargin="0">
-	<h:form name="query_form"	action="/jbpm/timeLimitManageAction_queryValidDayList.action" method="post">
-		<w:panel id="panel1" title="查询条件">
+	<h:form name="query_form"	action="/timeMachine/tModelTimedayAction_queryWorkDayList.action" method="post">
+	<h:hiddendata property="day"/>
+		<%-- <w:panel id="panel1" title="查询条件">
 			<table align="center" border="0" width="100%" class="form_table">
 				<tr>
 					<td class="form_label" align="right" width="40%">有效日范围：</td>
@@ -23,26 +24,25 @@
 							<td colspan="2" class="form_bottom">
 							每页显示
 							<h:text size="2" property="page.length" value="10"
-								validateAttr="minValue=1;maxValue=100;type=integer;isNull=true" />
+								validateAttr="minValue=1;maxValue=100;type=integer;isNull=true" /> --%>
 							<input type="hidden" name="page.begin" value="0">
 							<input type="hidden" name="page.isCount" value="true">
-							<input type="submit" id="btn" class="button" value='查询' >
+							<%-- <input type="submit" id="btn" class="button" value='查询' >
 							<input type="button" id="btn" class="button" value='清空' onclick="clears();">
 						</td>
 			</tr>
 			</table>
-		</w:panel>
+		</w:panel> --%>
 	</h:form>
 	<DIV class="divList">
-			<w:panel id="panel" width="100%" title="工作时间配置列表">
 				<viewlist id="e2c61865-3b56-470d-bd42-fff792fb9493">
 				<h:form name="page_form"
-					action="/jbpm/timeLimitManageAction_queryValidDayList.action" method="post">
+					action="/timeMachine/tModelTimedayAction_queryWorkDayList.action" method="post">
 					<h:hidden property="page.begin" />
 					<h:hidden property="page.length" />
 					<h:hidden property="page.count" />
 					<h:hidden property="page.isCount" />
-					<h:hiddendata property="time"/>
+					<h:hiddendata property="day"/>
 					<table align="center" border="0" width="100%" class="EOS_table">
 						<tr>
 							<th align="center" nowrap="nowrap">
@@ -55,14 +55,31 @@
 								有效日结束日期
 							</th>
 							<th nowrap="nowrap">
+								时间
+							</th>
+							<th nowrap="nowrap">
+								类型(周末/节假日/自定义节假日)
+							</th>
+							<th nowrap="nowrap">
+								是否在用
+							</th>
+							<th nowrap="nowrap">
 								维护机构
 							</th>
 							<th nowrap="nowrap">
-								维护员工
+								维护人员
 							</th>
 						</tr>
+					
+					<l:equal property="page.count"  targetValue="0"  compareType="number">
+					 	<tr bgcolor="#FFE4E1">
+					 		<td colspan="20"  align="center">无记录！</td>
+					 	</tr>
+					 </l:equal>
+					 
+					<l:notEqual property="days.size"  targetValue="0"  compareType="number">
 					<w:radioGroup id="group1">
-                          <l:iterate property="workTimeMainBeans" id="id1">
+                          <l:iterate property="days" id="id1">
 							<tr class="<l:output evenOutput='EOS_table_row' oddOutput='EOS_table_row_o'  />">
 								<td align="center" nowrap="nowrap" width="5%">
 								<w:rowRadio>
@@ -71,11 +88,21 @@
 										<h:param name='endDate' iterateId='id1' property='endDate' />
 									</w:rowRadio>
 								</td>
+								
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1" property="startDate" />
 								</td>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1" property="endDate" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1"    property="time"   />
+								</td>
+								<td nowrap="nowrap"> 
+									<d:write iterateId="id1" property="type"  dictTypeId="TIMEDAY_TYPE"/>
+								</td>
+								<td nowrap="nowrap"> 
+									<d:write iterateId="id1"    property="status"  dictTypeId="TIMEDAY_STATUS" />
 								</td>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1" property="orgname" />
@@ -86,19 +113,15 @@
 							</tr>
 						</l:iterate>
 					</w:radioGroup>
+					</l:notEqual>
 						<tr>
               <td colspan="23" class="command_sort_area">
 							<div class="h3">
-								&nbsp; &nbsp;
-								<input type="button" class="button" value="新增有效日" onclick="addValidDay();" />
 							<l:greaterThan property="page.count" targetValue="0" compareType="number" >
 								&nbsp; &nbsp;
-								<input type="button" class="button" value="删除有效日" onclick="delValidDay();" />
-								<input type="button" class="button" value="维护工作时间" onclick="addWorkTime();" />
-								<input type="button" class="button" value="查看工作时间" onclick="queryWorkTimeList();" />
-								<input type="button" class="button" value="维护工作日" onclick="addWorkDay();" />
-								<input type="button" class="button" value="查看工作日" onclick="queryWorkDayList();" />
-							</l:greaterThan>
+								<input type="button" class="button" value="修改" onclick="uptWorkDay();" />
+								<input type="button" class="button" value="删除" onclick="delWorkDay();" />
+									</l:greaterThan>
 							</div>
 							<div class="h4">
 	                <l:equal property="page.isCount" targetValue="true" >
@@ -127,26 +150,9 @@
 					</table>
 				</h:form>
 				</viewlist>
-			</w:panel>		
 		</DIV>
 		<script type="text/javascript">
-
-		function clears(){
-			//让JSP页面的时间输入框 清空
-			$("#query_startDate_input").val("");
-			$("#query_endDate_input").val("");
-
-			//让时间传入后台的值 清空
-			$name("time.query_startDate").value = "";
-			$name("time.query_endDate").value = "";
-			}
-
-		function addValidDay(){
-			var strUrl = "/jbpm/timeLimitManageAction_toAddValidDay.action";
-  			showModalCenter(strUrl, null, callBackFunc, 500, 200, '新增有效日');  
-		}
-
-		function addWorkTime(){
+		function uptWorkDay(){
 			var gop = $id("group1");
 	  		var len = gop.getSelectLength();
 	  		if(len == 0){
@@ -158,36 +164,13 @@
     			var startDate = row.getParam("startDate");
     			var endDate = row.getParam("endDate");
     			
-				var strUrl = "/jbpm/timeLimitManageAction_toAddWorkTime.action?workTimeMainBean.id="+id;
-				strUrl += "&workTimeMainBean.startDate="+startDate+"&workTimeMainBean.endDate="+endDate;
-	  			showModalCenter(strUrl, null, '', 800, 400, '维护工作时间');  
-	  		}
-		}
-
-		function addWorkDay(){
-			var gop = $id("group1");
-	  		var len = gop.getSelectLength();
-	  		if(len == 0){
-	  			alert("请选择一条记录");
-	  			return;
-	  		}else{
-	  			var row=gop.getSelectRow();
-    			var id = row.getParam("id");
-    			var startDate = row.getParam("startDate");
-    			var endDate = row.getParam("endDate");
-    			
-				var strUrl = "/timeMachine/tModelTimedayAction_toAddWorkDay.action?day.mainID="+id;
+				var strUrl = "/timeMachine/tModelTimedayAction_toUpdateWorkDay.action?day.id="+id;
 				strUrl += "&day.startDate="+startDate+"&day.endDate="+endDate;
-	  			showModalCenter(strUrl, null, '', 800, 400, '新增');  
+	  			showModalCenter(strUrl, null, callBackFunc, 800, 400, '修改');  
 	  		}
 		}
-		
-		function callBackFunc(){
-	        var frm = $name("query_form");
-	            frm.submit();
-	    }
-	    	
-	  	function delValidDay(){
+
+		function delWorkDay(){
 	  		var gop = $id("group1");
 	  		var len = gop.getSelectLength();
 	  		if(len == 0){
@@ -199,10 +182,10 @@
 	    			var id = row.getParam("id");
 		    			
 		  	  		$.ajax({
-		  			      url: "/jbpm/timeLimitManageAction_deleteValidDay.action",
+		  			      url: "/timeMachine/tModelTimedayAction_delWorkDay.action",
 		  			      async: false,
 		  			      type: 'post',
-		  			      data: "workTimeMainBean.id="+id,
+		  			      data: "day.id="+id,
 		  			      timeout: 60000,
 		  			      dataType:"text",
 		  			      success: function (data) {
@@ -222,34 +205,10 @@
 		  	}
 		 }
 
-	  	function queryWorkTimeList(){
-			var gop = $id("group1");
-	  		var len = gop.getSelectLength();
-	  		if(len == 0){
-	  			alert("请选择一条记录");
-	  			return;
-	  		}else{
-	  			var row=gop.getSelectRow();
-    			var id = row.getParam("id");
-				var strUrl = "/jbpm/timeLimitManageAction_queryWorkTimeList.action?workTimeMainBean.id="+id;
-	  			showModalCenter(strUrl, null, '', 800, 400, '工作时间列表');  
-	  		}
-		}
-
-	  	function queryWorkDayList(){
-			var gop = $id("group1");
-	  		var len = gop.getSelectLength();
-	  		if(len == 0){
-	  			alert("请选择一条记录");
-	  			return;
-	  		}else{
-	  			var row=gop.getSelectRow();
-    			var id = row.getParam("id");
-				var strUrl = "/timeMachine/tModelTimedayAction_queryWorkDayList.action?day.mainID="+id;
-	  			showModalCenter(strUrl, null, '', 1000, 400, '工作日列表');  
-	  		}
-		}
-	  	
+		function callBackFunc(){
+	        var frm = $name("query_form");
+	            frm.submit();
+	    }
 		</script>
 	</body>
 </html>

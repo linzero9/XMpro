@@ -59,4 +59,8 @@ public interface ITimeLimitManageDAO {
 
 	void updateTimeMain_delState(WorkTimeMainBean workTimeMainBean);
 
+	void updateWorkTimeById(WorkTimeSideBean workTimeSideBean);
+
+	void deleteWorkTimeById(WorkTimeSideBean workTimeSideBean);
+
 }

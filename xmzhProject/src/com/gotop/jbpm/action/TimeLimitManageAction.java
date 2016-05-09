@@ -627,16 +627,19 @@ public class TimeLimitManageAction extends BaseAction {
 		List<WorkTimeSideBean> workTimeSideBeans = this.timeLimitManageService.queryWorkTimeList(workTimeMainBean);
 		for (WorkTimeSideBean workTimeSideBean : workTimeSideBeans) {
 			if("1".equals(workTimeSideBean.getTimeType())){
+				timeBean.setId1(workTimeSideBean.getId());
 				timeBean.setStartTime1(workTimeSideBean.getStartTime());
 				timeBean.setEndTime1(workTimeSideBean.getEndTime());
 			}
 			if("2".equals(workTimeSideBean.getTimeType())){
+				timeBean.setId2(workTimeSideBean.getId());
 				timeBean.setStartTime2(workTimeSideBean.getStartTime());
 				timeBean.setEndTime2(workTimeSideBean.getEndTime());
 			}
 			if("3".equals(workTimeSideBean.getTimeType())){
-				timeBean.setStartTime2(workTimeSideBean.getStartTime());
-				timeBean.setEndTime2(workTimeSideBean.getEndTime());
+				timeBean.setId3(workTimeSideBean.getId());
+				timeBean.setStartTime3(workTimeSideBean.getStartTime());
+				timeBean.setEndTime3(workTimeSideBean.getEndTime());
 			}
 		}
 		
@@ -694,7 +697,7 @@ public class TimeLimitManageAction extends BaseAction {
 	}
 	
 	/**
-	 * 保存 新增工作时间
+	 * 保存 工作时间
 	 * @throws Exception
 	 */
 	public void saveWorkTime() throws Exception{
@@ -704,25 +707,52 @@ public class TimeLimitManageAction extends BaseAction {
     		WorkTimeSideBean workTimeSideBean = new WorkTimeSideBean();
     		workTimeSideBean.setMainID(timeBean.getMianID());
     		
-    		//插入一条 上午 的配置信息
     		workTimeSideBean.setTimeType("1");
-    		workTimeSideBean.setStartTime(time.get("startTime1"));
-    		workTimeSideBean.setEndTime(time.get("endTime1"));
-    		this.timeLimitManageService.saveWorkTimeIntoTimeSide(workTimeSideBean);
-    		
-    		//插入一条 下午 的配置信息
-    		workTimeSideBean.setTimeType("2");
-    		workTimeSideBean.setStartTime(time.get("startTime2"));
-    		workTimeSideBean.setEndTime(time.get("endTime2"));
-    		this.timeLimitManageService.saveWorkTimeIntoTimeSide(workTimeSideBean);
-    		
-    		//插入一条 晚上 的配置信息
-    		if(!("null".equals( time.get("startTime3")))  && !("null".equals(time.get("endTime3")) )){
+			workTimeSideBean.setStartTime(timeBean.getStartTime1());
+			workTimeSideBean.setEndTime(timeBean.getEndTime1());
+    		if(timeBean.getId1() == null){
     			
-    			workTimeSideBean.setTimeType("3");
-    			workTimeSideBean.setStartTime(time.get("startTime3"));
-    			workTimeSideBean.setEndTime( time.get("endTime3"));
+    			//插入一条 上午 的配置信息
     			this.timeLimitManageService.saveWorkTimeIntoTimeSide(workTimeSideBean);
+    		}else{
+    			workTimeSideBean.setId(timeBean.getId1());
+    			//修改一条 上午 的配置信息
+    			this.timeLimitManageService.updateWorkTimeById(workTimeSideBean);
+    		}
+    		
+    		workTimeSideBean.setTimeType("2");
+    		workTimeSideBean.setStartTime(timeBean.getStartTime2());
+    		workTimeSideBean.setEndTime(timeBean.getEndTime2());
+    		if(timeBean.getId2() == null){
+    			
+    			//插入一条 下午 的配置信息
+        		this.timeLimitManageService.saveWorkTimeIntoTimeSide(workTimeSideBean);
+    		}else{
+    			workTimeSideBean.setId(timeBean.getId2());
+    			//修改一条 下午 的配置信息
+    			this.timeLimitManageService.updateWorkTimeById(workTimeSideBean);
+    		}
+    		
+    		workTimeSideBean.setTimeType("3");
+			workTimeSideBean.setStartTime(timeBean.getStartTime3());
+			workTimeSideBean.setEndTime( timeBean.getEndTime3());
+    		if(timeBean.getId3() == null){
+    			
+    			//插入一条 晚上 的配置信息
+    			if(!("null".equals( timeBean.getStartTime3()))  && !("null".equals(timeBean.getEndTime3()) )){
+    				this.timeLimitManageService.saveWorkTimeIntoTimeSide(workTimeSideBean);
+    			}
+    		}else{
+    			workTimeSideBean.setId(timeBean.getId3());
+    			
+    			//修改一条 晚上 的配置信息
+    			if(!("null".equals( timeBean.getStartTime3()))  && !("null".equals(timeBean.getEndTime3()) )){
+    				this.timeLimitManageService.updateWorkTimeById(workTimeSideBean);
+    			}
+    			//删除一条 晚上 的配置信息
+    			if(("null".equals( timeBean.getStartTime3()))  && ("null".equals(timeBean.getEndTime3()) )){
+    				this.timeLimitManageService.deleteWorkTimeById(workTimeSideBean);
+    			}
     		}
     	} catch (Exception e) {
 			info="fails";
