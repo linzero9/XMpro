@@ -1,9 +1,12 @@
 package com.gotop.Generalprocess.action;
 
+import com.gotop.Generalprocess.model.ProcessSubmitter;
 import com.gotop.Generalprocess.service.ITGeneralprocessModeloneService;
 import com.gotop.crm.util.BaseAction;
 import com.gotop.crm.util.MUO;
 import com.gotop.util.XmlConvert;
+import com.gotop.vo.system.MUOUserSession;
+import com.hp.hpl.sparta.xpath.ThisNodeTest;
 import com.primeton.utils.AjaxParam;
 import com.primeton.utils.Page;
 import com.primeton.utils.pageCondExpand;
@@ -13,7 +16,29 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.struts2.ServletActionContext;
 
 public class TGeneralprocessModeloneAction extends BaseAction {
-    /**
+	/**
+	 * 当前用户和提交人po
+	 */
+	private ProcessSubmitter processSubmitter;
+	private String flowId;
+	
+    public String getFlowId() {
+		return flowId;
+	}
+
+	public void setFlowId(String flowId) {
+		this.flowId = flowId;
+	}
+
+	public ProcessSubmitter getProcessSubmitter() {
+		return processSubmitter;
+	}
+
+	public void setProcessSubmitter(ProcessSubmitter processSubmitter) {
+		this.processSubmitter = processSubmitter;
+	}
+
+	/**
      * 通过spring注入的Service对象.
      * @abatorgenerated
      */
@@ -83,4 +108,19 @@ public class TGeneralprocessModeloneAction extends BaseAction {
         request.setAttribute("page", page);
         return "viewlist";
     }
+    
+	/**
+	 * 查询提交人
+	 */
+	public String querySubmitter(){
+		if (flowId!=null&&!"".equals(flowId)) {
+			this.processSubmitter.setFlowId(flowId);
+		}
+		processSubmitter=tGeneralprocessModeloneService.querySubmitter(processSubmitter);
+		MUOUserSession user = this.getCurrentOnlineUser();
+		processSubmitter.setCurrenUser(user.toString());
+		this.setProcessSubmitter(processSubmitter);
+		return "processSubmitter";
+	}
+    
 }

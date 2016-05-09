@@ -100,5 +100,14 @@
         /jsp/Generalprocess/modelseven_input.jsp
       </result>
     </action>
+    
+    <action class="tGeneralprocessModeloneAction" method="{1}" name="tGeneralprocessModeloneAction_*">
+      <result name="processSubmitter" type="json">
+        <param name="root">processSubmitter</param>
+      </result>
+    </action>
+    
+    
+    
     </package>
 </struts>

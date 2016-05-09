@@ -2,6 +2,7 @@ package com.gotop.Generalprocess.service.impl;
 
 import com.gotop.Generalprocess.dao.ITGeneralprocessModeloneDAO;
 import com.gotop.Generalprocess.model.ProcessModelOne;
+import com.gotop.Generalprocess.model.ProcessSubmitter;
 import com.gotop.Generalprocess.model.TGeneralprocessModelone;
 import com.gotop.Generalprocess.model.TGeneralprocessModeloneExample;
 import com.gotop.Generalprocess.service.ITGeneralprocessModeloneService;
@@ -12,6 +13,10 @@ import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import oracle.net.aso.p;
+
 import org.apache.log4j.Logger;
 
 public class TGeneralprocessModeloneService implements ITGeneralprocessModeloneService {
@@ -177,4 +182,21 @@ public class TGeneralprocessModeloneService implements ITGeneralprocessModeloneS
 		}
 		return this.tGeneralprocessModeloneDAO.queryModelOne(map);
 	}
+	
+	/**
+	 * 查询提交人
+	 */
+	public ProcessSubmitter querySubmitter(ProcessSubmitter processSubmitter){
+		Map<String, Object>map=new HashMap<String, Object>();
+		if (processSubmitter.getFlowId()!=null&&!"".equals(processSubmitter.getFlowId())) {
+			map.put("flowId", processSubmitter.getFlowId());
+		}
+		processSubmitter=tGeneralprocessModeloneDAO.querySubmitter(map);
+		
+		return processSubmitter;
+	}
+	
+	
+	
+	
 }

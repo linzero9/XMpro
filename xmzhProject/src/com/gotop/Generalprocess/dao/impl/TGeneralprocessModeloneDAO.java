@@ -2,6 +2,7 @@ package com.gotop.Generalprocess.dao.impl;
 
 import com.gotop.Generalprocess.dao.ITGeneralprocessModeloneDAO;
 import com.gotop.Generalprocess.model.ProcessModelOne;
+import com.gotop.Generalprocess.model.ProcessSubmitter;
 import com.gotop.Generalprocess.model.TGeneralprocessModelone;
 import com.gotop.Generalprocess.model.TGeneralprocessModeloneExample;
 import com.gotop.util.dataSource.SqlMapClientDao;
@@ -10,6 +11,8 @@ import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.log4j.Logger;
 
 public class TGeneralprocessModeloneDAO extends SqlMapClientDao implements ITGeneralprocessModeloneDAO {
@@ -259,4 +262,11 @@ public class TGeneralprocessModeloneDAO extends SqlMapClientDao implements ITGen
 	public void uptModelOne(ProcessModelOne modelOne) {
 		getSqlMapClientTemplate().update("T_GENERALPROCESS_MODELONE_SqlMap.uptModelOne", modelOne);
 	}
+
+	@Override
+	public ProcessSubmitter querySubmitter(Map<String, Object> map) {
+		
+		  return (ProcessSubmitter) queryForObject("T_GENERALPROCESS_MODELONE_SqlMap.querySubmitter", map);
+		
+	};
 }

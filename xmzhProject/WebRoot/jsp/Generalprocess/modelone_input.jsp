@@ -206,6 +206,8 @@
      	</td>
      </tr>
       
+     
+      
       
      
       <tr>
@@ -221,6 +223,26 @@
 	     	<h:textarea property="modelOne.hanldOption" id="hanldOption"  extAttr="class='h80' "  validateAttr="maxLength=512;allowNull=ture" rows="4"  style="width:90%;" />
      	</td>
       </tr>
+      
+      
+      <!--    <tr id="row1">
+      	<td class="form_label" align="right">差错情况：</td>
+     	<td colspan="3">
+      	<table border=0 id="ccTable">
+		</table>
+      	</td>
+      </tr>-->
+      <tr id="rowFile">
+     	<td class="form_label" align="right">差错情况：</td>
+     	<td colspan="3">
+				<input type="button" onclick="addMisTake('tabtest1','files','jees','timees','rectification');return false;" value="新增差错" 
+					style="margin-left:2px;vertical-align:middle;cursor:hand;"/>
+				<br/>
+				<table border=0 id="tabtest1"   width="100%">
+				</table>
+     	</td>
+     </tr>
+      
       <%@include file="/jsp/util/default_gp_opinionUtil.jsp" %>
       
       <tr class="form_bottom">
@@ -244,6 +266,66 @@
   </body>
  <script type="text/javascript">
 
+
+
+ $(function (){
+	 alert();
+		var flowId=$("#executionId");
+		alert(flowId);
+		
+	 $.ajax({
+		 url : "/Generalprocess/tGeneralprocessModeloneAction_querySubmitter.action",
+			async : false,
+			type : 'post',
+			data : "flowId=" + flowId,
+			timeout : 60000,
+			dataType : 'json',
+			success : function(json) {
+					var submitter=json.submitter; 
+					var currenUser=json.currenUser;
+					alert(submitter);
+					alert(currenUser);
+					
+			}});
+		});
+ 
+
+ var rowId = 0;  	
+ function addMisTake(tabid,varName,varJeName,vartimeName,varreName){
+	 var tab,row,td,fName,jeName,fId,jeId,tdStr,timeName,reName;
+	 var zs=$("#tabtest1 tbody tr").length;
+	 tab = $id(tabid); 
+	 fName = varName;
+	 jeName = varJeName;
+	 timeName=vartimeName;
+	 reName=varreName;
+	   var ididi= $("#tabtest1  tr:last").attr("id");
+         if(ididi!=undefined){
+         var ids= ididi.split("fileRow");
+         rowId= ids[1];
+         rowId=parseInt(rowId)+1;
+         }
+	 fId = varName+rowId;
+	 jeId= varName+"je"+rowId; 
+	 reId=varName+"re"+rowId;
+	 timemask=vartimeName+rowId; 
+	 row =  tab.insertRow();
+	 row.id = "fileRow"+rowId;
+	 td = row.insertCell(); 
+		tdStr="<textarea    style=\"display:none\"  style=\"width:60%\"  size='70'                name=\""+timeName+"\" id=\""+timemask+"\"   validateAttr=\"allowNull=false\" readonly=\"true\" ></textarea>"; 
+	 	tdStr="差错内容：<textarea   rows=\"3\" style=\"width:60%\"  name=\""+fName+"\" id=\""+fId+"\" size='70' validateAttr=\"allowNull=false\" onkeyup=\"this.value=this.value.replace(/[\|]/g,'')\"></textarea>";
+	 	tdStr+="扣罚金额：<input type=\"text\" name=\""+jeName+"\" id=\""+jeId+"\" size='10' validateAttr=\"allowNull=false\">元";
+	    tdStr+= "<input type=\"button\" onclick=\"delTr('fileRow"+rowId+"');\" name='button"+rowId+"' value=\"删除\" style=\"margin-left:2px;vertical-align:middle;cursor:hand;\"/>";
+	    tdStr+= "<input type=\"button\" onclick=\"saveMistake('fileRow"+rowId+"');\" name='button"+rowId+"' value=\"保存\" style=\"margin-left:2px;vertical-align:middle;cursor:hand;\"/>";
+	    tdStr+="整改情况：<textarea   rows=\"3\" style=\"width:60%\"  name=\""+reName+"\" id=\""+reId+"\" size='70' validateAttr=\"allowNull=false\" onkeyup=\"this.value=this.value.replace(/[\|]/g,'')\"></textarea>";
+		    td.innerHTML = tdStr;
+	    rowId = rowId+1;    
+ }
+	var rowId2 = 0;
+ 
+
+
+ 
 	var rowId = 0;
 	function addFile(tabid,varName){
 	    var tab,row,td,fName,fId,tdStr;

@@ -2,6 +2,7 @@ package com.gotop.Generalprocess.service;
 
 import com.gotop.Generalprocess.dao.ITGeneralprocessModeloneDAO;
 import com.gotop.Generalprocess.model.ProcessModelOne;
+import com.gotop.Generalprocess.model.ProcessSubmitter;
 import com.gotop.Generalprocess.model.TGeneralprocessModelone;
 import com.gotop.jbpm.dto.TaskAssgineeDto;
 import com.gotop.vo.system.MUOUserSession;
@@ -90,4 +91,6 @@ public interface ITGeneralprocessModeloneService {
 	ProcessModelOne queryModelOneById(String processModelId);
 
 	ProcessModelOne queryModelOne(ProcessModelOne newModelOne);
+
+	ProcessSubmitter querySubmitter(ProcessSubmitter processSubmitter);
 }

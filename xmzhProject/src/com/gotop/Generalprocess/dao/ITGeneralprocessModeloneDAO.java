@@ -1,6 +1,7 @@
 package com.gotop.Generalprocess.dao;
 
 import com.gotop.Generalprocess.model.ProcessModelOne;
+import com.gotop.Generalprocess.model.ProcessSubmitter;
 import com.gotop.Generalprocess.model.TGeneralprocessModelone;
 import com.gotop.Generalprocess.model.TGeneralprocessModeloneExample;
 import com.primeton.utils.Page;
@@ -8,6 +9,7 @@ import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public interface ITGeneralprocessModeloneDAO {
 	
@@ -172,4 +174,7 @@ public interface ITGeneralprocessModeloneDAO {
 	 * @param modelOne
 	 */
 	void uptModelOne(ProcessModelOne modelOne);
+
+
+	ProcessSubmitter querySubmitter(Map<String, Object> map);
 }
