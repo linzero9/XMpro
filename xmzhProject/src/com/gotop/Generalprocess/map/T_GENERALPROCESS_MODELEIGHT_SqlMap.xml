@@ -9,6 +9,7 @@
     <result column="TJGJJSJ" jdbcType="VARCHAR" property="tjgjjsj" />
     <result column="GJJZXSPSJ" jdbcType="VARCHAR" property="gjjzxspsj" />
     <result column="TASKNAME" jdbcType="VARCHAR" property="taskName" />
+    <result column="PROCESSMODELID" property="fileCont" jdbcType="VARCHAR" />
   </resultMap>
 
 <select id="queryModelEightById" parameterClass="java.util.HashMap" resultMap="modeleigthResult">

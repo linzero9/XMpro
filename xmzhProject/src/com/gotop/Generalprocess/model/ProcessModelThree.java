@@ -23,7 +23,17 @@ public class ProcessModelThree extends ProcessModel implements Serializable {
 	private String reporttime;
 	@GeneralprocessField(name="报单次数",type="text")
 	private String reportcnt;
+	@GeneralprocessField(name="附件下载",type="fileCont")
+	private String fileCont;
+	
 
+	public String getFileCont() {
+		return fileCont;
+	}
+
+	public void setFileCont(String fileCont) {
+		this.fileCont =flow_id+","+fileCont+",mod3";
+	}
 	public String getIsurgent() {
 		return isurgent;
 	}

@@ -38,6 +38,7 @@
     <result column="FLOW_ID" property="flow_id" jdbcType="VARCHAR" />
     <result column="OPNINION_CONTENT" property="opninion_content" jdbcType="VARCHAR" />
     <result column="TASKNAME" property="taskName" jdbcType="VARCHAR" />
+     <result column="PROCESSMODELID" property="fileCont" jdbcType="VARCHAR" />
   </resultMap>
   
   <update id="uptModelTwo" parameterClass="com.gotop.Generalprocess.model.ProcessModelTwo" >

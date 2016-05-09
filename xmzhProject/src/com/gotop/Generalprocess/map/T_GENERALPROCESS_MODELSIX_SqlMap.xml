@@ -20,7 +20,7 @@
     <result column="LOANCATEGORY" property="loanCategory" jdbcType="VARCHAR" />
     <result column="SUPPORT_MONEYTYPE" property="supportMoneyType" jdbcType="VARCHAR" />
        <result column="YESORNOTRISK" property="yesOrNotRisk" jdbcType="VARCHAR" />
-    
+    <result column="PROCESSMODELID" property="fileCont" jdbcType="VARCHAR" />
     
         
         

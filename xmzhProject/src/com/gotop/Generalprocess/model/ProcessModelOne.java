@@ -137,8 +137,18 @@ public class ProcessModelOne extends ProcessModel  implements  Serializable {
 	@GeneralprocessField(name="共同借款人配偶工作单位",type="text")
     private String comBorrSpouse_Unit;
 	
+	@GeneralprocessField(name="附件下载",type="fileCont")
+	private String fileCont;
 	
 
+	public String getFileCont() {
+		return fileCont;
+	}
+
+	public void setFileCont(String fileCont) {
+		this.fileCont =flow_Id+","+fileCont+",mod1";
+	}
+	
 	public String getComBorrSpouse_Unit() {
 		return comBorrSpouse_Unit;
 	}

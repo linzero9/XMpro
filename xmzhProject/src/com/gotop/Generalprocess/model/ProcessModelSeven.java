@@ -42,7 +42,17 @@ public class ProcessModelSeven extends ProcessModel implements Serializable{
     private String optionNews;
     
     
-    
+	@GeneralprocessField(name="附件下载",type="fileCont")
+	private String fileCont;
+	
+
+	public String getFileCont() {
+		return fileCont;
+	}
+
+	public void setFileCont(String fileCont) {
+		this.fileCont =flowId+","+fileCont+",mod7";
+	}
 
     public String getOptionNews() {
 		return optionNews;

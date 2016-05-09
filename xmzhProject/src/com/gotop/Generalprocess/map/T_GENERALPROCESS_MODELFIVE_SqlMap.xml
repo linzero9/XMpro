@@ -35,6 +35,7 @@
     <result column="FLOW_ID" property="flowId" jdbcType="VARCHAR" />
     <result column="TASKNAME" property="taskName" jdbcType="VARCHAR" />
         <result column="OPTION_NEW" property="optionNew" jdbcType="VARCHAR" />
+        <result column="PROCESSMODELID" property="fileCont" jdbcType="VARCHAR" />
   </resultMap>
   
   <select id="queryModelFive" parameterClass="java.util.HashMap" resultMap="processModelFive_Result">

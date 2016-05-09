@@ -563,12 +563,23 @@ WEB.turnMainFrame=function(){
 					var showpanelhtml='';
 		           var title="节点名称";
 		           var misTakeType="";
+		           var fileCont="";
 		           $.each(value, function(i, item) {
 			           if(item.type=='title'){
 			        	   title=item.value; 
 				           }
 			           if(item.type=='misTakeType'){
 			        	   misTakeType=item.value; 
+				           }
+			           if(item.type=='fileCont'){
+			        	   fileCont=item.value; 
+                           var arr=fileCont.split(",");
+                           var executionId=arr[0];
+                           var modeId=arr[1];
+                           var modeType=arr[2];
+			        	   showpanelhtml=showpanelhtml+
+			        	   '<tr><td  class="form_label" align="right" style="width:30%;">'+"附件下载"+ '</td><td colspan="1" ><div id="tag">'+executionId+modeId+modeType+'</div></td>';
+		
 				           }
 		        	   if(item.hidden==true){
 			           if(index%2==0){
@@ -713,6 +724,27 @@ WEB.turnMainFrame=function(){
 				    });
 			           
 			           }
+		           if(1==1){
+						 $.ajax({
+								        url: '/modeFile/tModelFileAction_selectFiletest.action',
+								        async: false,
+								        type: 'post',
+								        data: "executionId=ms1235678yiz6c.1360008&modeId=267&modeType=mod2",
+								        dataType: 'json',
+								        timeout: 60000,
+								        success: function (files) {
+									        if(files!=""){
+									        	
+									        	 
+									         	$.each(files,function( i,item ){
+									    	        	//$("#tag").fileDown({filename:item.fileName,filevalue:item.fileId});		    	        
+									          		});	
+									
+									        }
+								        }
+							    });	
+					           
+					           }
 
 		           });
 			}
@@ -723,7 +755,6 @@ WEB.turnMainFrame=function(){
 	 function tablehide(value){
 		  $("#table"+value+" td").toggle();
 	 }
-	 
 	 
 	  
 	

@@ -10,6 +10,7 @@
     <result column="TASKNAME" property="taskName" jdbcType="VARCHAR" />
     <result column="REPORTTIME" property="reporttime" jdbcType="VARCHAR" />
     <result column="REPORTCNT" property="reportcnt" jdbcType="VARCHAR" />
+    <result column="PROCESSMODELID" property="fileCont" jdbcType="VARCHAR" />
   </resultMap>
  
    <!--通过条件查询数据-->

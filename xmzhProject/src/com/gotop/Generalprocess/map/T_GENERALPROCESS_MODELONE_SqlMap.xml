@@ -101,6 +101,8 @@
         <result column="BORRSPOUSE_UNIT" property="borrSpouse_Unit" jdbcType="VARCHAR" />
         <result column="COMBORR_UNIT" property="comBorr_Unit" jdbcType="VARCHAR" />
         <result column="COMBORRSPOUSE_UNIT" property="comBorrSpouse_Unit" jdbcType="VARCHAR" />
+        <result column="PROCESSMODELID" property="fileCont" jdbcType="VARCHAR" />
+        
 	</resultMap>
 	
 	<resultMap id="processSubmitter" class="com.gotop.Generalprocess.model.ProcessSubmitter" >

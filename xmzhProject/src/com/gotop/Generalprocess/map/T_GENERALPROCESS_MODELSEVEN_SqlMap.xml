@@ -10,6 +10,7 @@
     <result column="SP_BB" property="spBb" jdbcType="VARCHAR" />
     <result column="SP_JE" property="spJe" jdbcType="VARCHAR" />
         <result column="OPTION_NEW" property="optionNews" jdbcType="VARCHAR" />
+        <result column="PROCESSMODELID" property="fileCont" jdbcType="VARCHAR" />
   </resultMap>
   
    <update id="uptModelSeven" parameterClass="com.gotop.Generalprocess.model.ProcessModelSeven" >

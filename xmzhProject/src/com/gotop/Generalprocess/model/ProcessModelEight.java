@@ -26,6 +26,19 @@ public class ProcessModelEight extends ProcessModel implements Serializable {
 	@GeneralprocessField(name="处理意见",type="text")
 	private String opninion_content;
 	
+	
+	@GeneralprocessField(name="附件下载",type="fileCont")
+	private String fileCont;
+	
+
+	public String getFileCont() {
+		return fileCont;
+	}
+
+	public void setFileCont(String fileCont) {
+		this.fileCont =flow_id+","+fileCont+",mod8";
+	}
+	
 	public String getFlow_id() {
 		return flow_id;
 	}
