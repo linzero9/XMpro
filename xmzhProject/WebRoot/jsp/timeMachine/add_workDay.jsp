@@ -5,6 +5,9 @@
 
 <script src="<%=request.getContextPath() %>/common/gotop/jquery.min.js"></script>
 <script type="text/javascript" src="/js/jquery.form.js"></script>
+
+  <script src="/jsp/timeMachine/WdatePicker.js"></script>
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -41,8 +44,11 @@
 				<td class="form_label" align="right"  width="30%">时间：</td>
 				<td colspan="1" width="60%"  id="timees" > 
 				
-                 <input  type="date"   id="times" name=""/>					
+	              <input id="date" onclick="WdatePicker({el:this,dateFmt:'yyyy-MM-dd HH:mm:00',onpicked:null})"/>
+	              
+	              
                   <h:img alt="添加"   src="../images/e_add.gif" onclick="add_time();" />
+                  <br/><br/><div  id="wujiajundate" ></div>
 					<div id="add_time" ></div>
 			
 				</td>
@@ -152,7 +158,7 @@
 
 	var rowId = 1; 
 	function add_time() {
-	    $("#timees").append(" <input  type='date'  '/><br/>");
+	    $("#wujiajundate").append(" 	 <input id='date'  onclick='WdatePicker({el:this,dateFmt:\"yyyy-MM-dd HH:mm:00\",onpicked:null})''/> <br/> <br/>");
 	}
 	
 
