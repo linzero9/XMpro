@@ -9,6 +9,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>维护工作日</title>
+
+
 </head>
 
 
@@ -36,10 +38,11 @@
 				</td>
 			</tr>
 			<tr>
-				<td class="form_label" align="right"  width="30%">时间2：</td>
-				<td colspan="1" width="60%" > 
-					<w:date id="time"  property="day.time"  format="yyyy/MM/dd"  submitFormat="yyyy/MM/dd"/><font style="color: red">*</font>
-					<h:img alt="添加"   src="../images/e_add.gif" onclick="add_time();" />
+				<td class="form_label" align="right"  width="30%">时间：</td>
+				<td colspan="1" width="60%"  id="timees" > 
+				
+                 <input  type="date"   id="times" name=""/>					
+                  <h:img alt="添加"   src="../images/e_add.gif" onclick="add_time();" />
 					<div id="add_time" ></div>
 			
 				</td>
@@ -149,8 +152,7 @@
 
 	var rowId = 1; 
 	function add_time() {
-		 $("#add_time").append(	"<h:text id=\"time2\"  />" );
-	   // $("#add_time").append(	"<input type=\"text\"  id=\"time2\"  />" );
+	    $("#timees").append(" <input  type='date'  '/><br/>");
 	}
 	
 
