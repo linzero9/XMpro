@@ -36,13 +36,12 @@
 				</td>
 			</tr>
 			<tr>
-				<td class="form_label" align="right"  width="30%">时间：</td>
-				<td colspan="1" width="60%"> 
+				<td class="form_label" align="right"  width="30%">时间2：</td>
+				<td colspan="1" width="60%" > 
 					<w:date id="time"  property="day.time"  format="yyyy/MM/dd"  submitFormat="yyyy/MM/dd"/><font style="color: red">*</font>
-					<h:img alt="添加"   src="../images/e_add.gif" onclick="add_time('tabtest');" />
-					<br/>
-						<table border=0 id="tabtest"   width="100%">
-						</table>
+					<h:img alt="添加"   src="../images/e_add.gif" onclick="add_time();" />
+					<div id="add_time" ></div>
+			
 				</td>
 			</tr>
 			<tr>
@@ -52,7 +51,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td class="form_label" align="right"  width="30%">是否在用11：</td>
+				<td class="form_label" align="right"  width="30%">是否在用：</td>
 				<td colspan="1" width="60%"> 
 					<d:select dictTypeId="TIMEDAY_STATUS"  property="day.status"  value="0"></d:select>
 					<font style="color: red">*</font>
@@ -149,13 +148,9 @@
 	}
 
 	var rowId = 1; 
-	function add_time(tabid) {
-		var tab = $id(tabid);
-		var row =  tab.insertRow();
-	    row.id = "fileRow"+rowId;
-	    var td = row.insertCell(); 
-	    var timeN =  "time"+rowId;
-	    alert(timeN);
+	function add_time() {
+		 $("#add_time").append(	"<h:text id=\"time2\"  />" );
+	   // $("#add_time").append(	"<input type=\"text\"  id=\"time2\"  />" );
 	}
 	
 
