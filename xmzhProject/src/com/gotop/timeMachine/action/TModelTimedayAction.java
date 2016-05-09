@@ -97,4 +97,39 @@ public class TModelTimedayAction extends BaseAction {
         request.setAttribute("page", page);
         return "viewlist";
     }
+    
+    
+    /**
+     * 超限时长报表  hanld
+     * 
+     * @author wujiajun
+     * 
+     * @desc  用于处理  超限时长报表 的action
+     * 
+     * 1.查询出所有的信贷流程，必须为结束
+     * 2.循环流程的 flowid 获取到每个流程，然后取到表JBPM4_HIST_ACTINST 的所有记录（就是走过的所有节点）
+     * 3.循环JBPM4_HIST_ACTINST   根据 时间表 计算出 是否超时 以及超时时间 （考虑二次提交）
+     * 3.计算后的结果存入到 临时表中 
+     * 4.查询临时表信息 ，显示到页面 
+     * 
+     */
+    public String hanldTimeReport() throws Exception {
+      
+        return "timeReport";
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }
