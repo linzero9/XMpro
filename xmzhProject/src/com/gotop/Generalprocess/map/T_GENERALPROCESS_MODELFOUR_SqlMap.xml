@@ -11,6 +11,7 @@
     <result column="ZSCURRENCY" property="zscurrency" jdbcType="VARCHAR" />
     <result column="ZSMONEY" property="zsmoney" jdbcType="VARCHAR" />
     <result column="TASKNAME" property="taskName" jdbcType="VARCHAR" />
+    <result column="PROCESSMODELID" property="fileCont" jdbcType="VARCHAR" />
   </resultMap>
   
   <resultMap id="processModelFour_result1" class="com.gotop.Generalprocess.model.ProcessModelFour" >
@@ -24,6 +25,7 @@
     <result column="OPNINION_CONTENT" property="opninionContent" jdbcType="VARCHAR" />
     <result column="TASKNAME" property="taskName" jdbcType="VARCHAR" />
     <result column="MISTAKETYPE" property="misTakeType" jdbcType="VARCHAR" />
+    <result column="PROCESSMODELID" property="fileCont" jdbcType="VARCHAR" />
   </resultMap>
   
    <resultMap id="processModelFourMistake_result" class="com.gotop.Generalprocess.model.ProcessModelFourMistake" >

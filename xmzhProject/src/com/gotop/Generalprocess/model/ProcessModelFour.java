@@ -51,7 +51,17 @@ public class ProcessModelFour extends ProcessModel  implements  Serializable{
 	@GeneralprocessField(name="差错情况",type="misTakeType")
 	private String misTakeType;
 	
+	@GeneralprocessField(name="附件下载",type="fileCont")
+	private String fileCont;
 	
+
+	public String getFileCont() {
+		return fileCont;
+	}
+
+	public void setFileCont(String fileCont) {
+		this.fileCont =flowId+","+fileCont+",mod4";
+	}
 
 	public String getDhhs() {
 		return dhhs;

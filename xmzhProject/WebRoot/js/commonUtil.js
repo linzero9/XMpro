@@ -557,14 +557,20 @@ WEB.turnMainFrame=function(){
 				}
 			else{
 				var dataObj=eval("("+jsonString+")");
+				
 				$.each(dataObj,function(key,value){
 					var index=0;
 					$("#showdiv").append('<table id="table'+key+'" align="center" border="0" width="100%" class="form_table">');
 					var showpanelhtml='';
 		           var title="节点名称";
 		           var misTakeType="";
-		           var fileCont="";
+		           var arr;
+		           var executionId;
+		           var modeId;
+		           var modeType;
 		           $.each(value, function(i, item) {
+		        	   var fileCont="";
+		        	   fileCont=item.value; 
 			           if(item.type=='title'){
 			        	   title=item.value; 
 				           }
@@ -572,14 +578,49 @@ WEB.turnMainFrame=function(){
 			        	   misTakeType=item.value; 
 				           }
 			           if(item.type=='fileCont'){
-			        	   fileCont=item.value; 
-                           var arr=fileCont.split(",");
-                           var executionId=arr[0];
-                           var modeId=arr[1];
-                           var modeType=arr[2];
-			        	   showpanelhtml=showpanelhtml+
-			        	   '<tr><td  class="form_label" align="right" style="width:30%;">'+"附件下载"+ '</td><td colspan="1" ><div id="tag">'+executionId+modeId+modeType+'</div></td>';
-		
+			        	  
+				           if(fileCont!=''){
+				        	   fileCont=item.value; 
+		                        arr=fileCont.split(",");
+		                        executionId=arr[0];
+		                        modeId=arr[1];
+		                        modeType=arr[2];
+		                        
+		                        
+		                        if(modeType=="mod1"){
+			                    	showpanelhtml=showpanelhtml+
+						        	   '<tr ><td  class="form_label" align="right" >'+"附件下载"+ '</td><td colspan="4"  ><div id="mod1"></div></td>';		                       	                       
+		                        }      		                        
+		                        if(modeType=="mod2"){
+			                    	showpanelhtml=showpanelhtml+
+						        	   '<tr ><td  class="form_label" align="right" >'+"附件下载"+ '</td><td colspan="4"  ><div id="mod2"></div></td>';		                       	                       
+		                        }   
+		                        if(modeType=="mod3"){
+			                    	showpanelhtml=showpanelhtml+
+						        	   '<tr ><td  class="form_label" align="right" >'+"附件下载"+ '</td><td colspan="4"  ><div id="mod3"></div></td>';		                       	                       
+		                        }   
+		                        if(modeType=="mod4"){
+			                    	showpanelhtml=showpanelhtml+
+						        	   '<tr ><td  class="form_label" align="right" >'+"附件下载"+ '</td><td colspan="4"  ><div id="mod4"></div></td>';		                       	                       
+		                        }   
+		                        if(modeType=="mod5"){
+			                    	showpanelhtml=showpanelhtml+
+						        	   '<tr ><td  class="form_label" align="right" >'+"附件下载"+ '</td><td colspan="4"  ><div id="mod5"></div></td>';		                       	                       
+		                        }   
+		                        if(modeType=="mod6"){
+			                    	showpanelhtml=showpanelhtml+
+						        	   '<tr ><td  class="form_label" align="right" >'+"附件下载"+ '</td><td colspan="4"  ><div id="mod6"></div></td>';		                       	                       
+		                        }   
+		                        if(modeType=="mod7"){
+			                    	showpanelhtml=showpanelhtml+
+						        	   '<tr ><td  class="form_label" align="right" >'+"附件下载"+ '</td><td colspan="4" ><div id="mod7"></div></td>';		                       	                       
+		                        }   
+		                        if(modeType=="mod8"){
+			                    	showpanelhtml=showpanelhtml+
+						        	   '<tr ><td  class="form_label" align="right" >'+"附件下载"+ '</td><td colspan="4" ><div id="mod8"></div></td>';		                       	                       
+		                        }						 
+							           
+							   } 
 				           }
 		        	   if(item.hidden==true){
 			           if(index%2==0){
@@ -696,7 +737,14 @@ WEB.turnMainFrame=function(){
 							   				}
 					           }
 		        	   }
+		        	   
+		        	   
+		        	   
+		        	   
+		        	   
 		           });
+		           
+		           
 		           $("#table"+key).html(showpanelhtml);
 		           $("#table"+key).prepend('<tr><th  colspan="4" style="text-align: center;font-weight:bold;font-size:16pt;background: rgb(226, 210, 244);" class="table_head" onclick="tablehide('+key+')">'+title+'</th></tr>');
 		           if(misTakeType!=''){
@@ -724,27 +772,144 @@ WEB.turnMainFrame=function(){
 				    });
 			           
 			           }
-		           if(1==1){
+                     if(modeType=="mod1"){
 						 $.ajax({
-								        url: '/modeFile/tModelFileAction_selectFiletest.action',
-								        async: false,
-								        type: 'post',
-								        data: "executionId=ms1235678yiz6c.1360008&modeId=267&modeType=mod2",
-								        dataType: 'json',
-								        timeout: 60000,
-								        success: function (files) {
-									        if(files!=""){
-									        	
-									        	 
-									         	$.each(files,function( i,item ){
-									    	        	//$("#tag").fileDown({filename:item.fileName,filevalue:item.fileId});		    	        
-									          		});	
-									
-									        }
-								        }
-							    });	
-					           
-					           }
+						        url: '/modeFile/tModelFileAction_selectFiletest.action',
+						        async: false,
+						        type: 'post',
+						        data: "executionId="+executionId+"&modeId="+modeId+"&modeType="+modeType+"",   
+						        dataType: 'json',
+						        timeout: 60000,
+						        success: function (files) {
+							        if(files!=""){		
+							         	$.each(files,function( i,item ){						         	
+							         			 $("#mod1").fileDown({filename:item.fileName,filevalue:item.fileId});							         										      								    	       									    	       
+							          		});							
+							        }
+						        }
+					    });
+                     }
+                     if(modeType=="mod2"){
+						 $.ajax({
+						        url: '/modeFile/tModelFileAction_selectFiletest.action',
+						        async: false,
+						        type: 'post',
+						        data: "executionId="+executionId+"&modeId="+modeId+"&modeType="+modeType+"",   
+						        dataType: 'json',
+						        timeout: 60000,
+						        success: function (files) {
+							        if(files!=""){		
+							         	$.each(files,function( i,item ){						         	
+							         			 $("#mod2").fileDown({filename:item.fileName,filevalue:item.fileId});							         										      								    	       									    	       
+							          		});							
+							        }
+						        }
+					    });
+                     }
+                     if(modeType=="mod3"){
+						 $.ajax({
+						        url: '/modeFile/tModelFileAction_selectFiletest.action',
+						        async: false,
+						        type: 'post',
+						        data: "executionId="+executionId+"&modeId="+modeId+"&modeType="+modeType+"",   
+						        dataType: 'json',
+						        timeout: 60000,
+						        success: function (files) {
+							        if(files!=""){		
+							         	$.each(files,function( i,item ){						         	
+							         			 $("#mod3").fileDown({filename:item.fileName,filevalue:item.fileId});							         										      								    	       									    	       
+							          		});							
+							        }
+						        }
+					    });
+                     }
+                     if(modeType=="mod4"){
+						 $.ajax({
+						        url: '/modeFile/tModelFileAction_selectFiletest.action',
+						        async: false,
+						        type: 'post',
+						        data: "executionId="+executionId+"&modeId="+modeId+"&modeType="+modeType+"",   
+						        dataType: 'json',
+						        timeout: 60000,
+						        success: function (files) {
+							        if(files!=""){		
+							         	$.each(files,function( i,item ){						         	
+							         			 $("#mod4").fileDown({filename:item.fileName,filevalue:item.fileId});							         										      								    	       									    	       
+							          		});							
+							        }
+						        }
+					    });
+                     }
+                     if(modeType=="mod5"){
+						 $.ajax({
+						        url: '/modeFile/tModelFileAction_selectFiletest.action',
+						        async: false,
+						        type: 'post',
+						        data: "executionId="+executionId+"&modeId="+modeId+"&modeType="+modeType+"",   
+						        dataType: 'json',
+						        timeout: 60000,
+						        success: function (files) {
+							        if(files!=""){		
+							         	$.each(files,function( i,item ){						         	
+							         			 $("#mod5").fileDown({filename:item.fileName,filevalue:item.fileId});							         										      								    	       									    	       
+							          		});							
+							        }
+						        }
+					    });
+                     }
+                     if(modeType=="mod6"){
+						 $.ajax({
+						        url: '/modeFile/tModelFileAction_selectFiletest.action',
+						        async: false,
+						        type: 'post',
+						        data: "executionId="+executionId+"&modeId="+modeId+"&modeType="+modeType+"",   
+						        dataType: 'json',
+						        timeout: 60000,
+						        success: function (files) {
+							        if(files!=""){		
+							         	$.each(files,function( i,item ){						         	
+							         			 $("#mod6").fileDown({filename:item.fileName,filevalue:item.fileId});							         										      								    	       									    	       
+							          		});							
+							        }
+						        }
+					    });
+                     }
+                     if(modeType=="mod7"){
+						 $.ajax({
+						        url: '/modeFile/tModelFileAction_selectFiletest.action',
+						        async: false,
+						        type: 'post',
+						        data: "executionId="+executionId+"&modeId="+modeId+"&modeType="+modeType+"",   
+						        dataType: 'json',
+						        timeout: 60000,
+						        success: function (files) {
+							        if(files!=""){		
+							         	$.each(files,function( i,item ){						         	
+							         			 $("#mod7").fileDown({filename:item.fileName,filevalue:item.fileId});							         										      								    	       									    	       
+							          		});							
+							        }
+						        }
+					    });
+                     }
+                     if(modeType=="mod8"){
+						 $.ajax({
+						        url: '/modeFile/tModelFileAction_selectFiletest.action',
+						        async: false,
+						        type: 'post',
+						        data: "executionId="+executionId+"&modeId="+modeId+"&modeType="+modeType+"",   
+						        dataType: 'json',
+						        timeout: 60000,
+						        success: function (files) {
+							        if(files!=""){		
+							         	$.each(files,function( i,item ){						         	
+							         			 $("#mod8").fileDown({filename:item.fileName,filevalue:item.fileId});							         										      								    	       									    	       
+							          		});							
+							        }
+						        }
+					    });
+                     }
+ 
+		           
 
 		           });
 			}
@@ -755,6 +920,6 @@ WEB.turnMainFrame=function(){
 	 function tablehide(value){
 		  $("#table"+value+" td").toggle();
 	 }
-	 
-	  
+
+
 	
