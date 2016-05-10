@@ -144,11 +144,13 @@
 					<tr>
 						<td colspan="23" class="command_sort_area">
 							<div class="h3">
-							<input type="button" class="button" value="新增"  onclick="add_loanCategory();" />
+							<l:notEmpty property="xdCdtypeBean2.oneCategory">
+								<input type="button" class="button" value="新增"  onclick="add_loanCategory();" />
+							</l:notEmpty>
 								<l:greaterThan property="page2.count" targetValue="0"
 									compareType="number">
-							<input type="button" class="button" value="删除"
-										onclick="del_loanCategory();" />
+									<input type="button" class="button" value="删除"
+												onclick="del_loanCategory();" />
 								</l:greaterThan>
 							</div>
 							

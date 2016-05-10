@@ -42,14 +42,12 @@
 			</tr>
 			<tr>
 				<td class="form_label" align="right"  width="30%">时间：</td>
-				<td colspan="1" width="60%"  id="timees" > 
-				
-	              <input id="date" onclick="WdatePicker({el:this,dateFmt:'yyyy-MM-dd ',onpicked:null})"/>
-	              
-	              
-                  <h:img alt="添加"   src="../images/e_add.gif" onclick="add_time();" />
-                  <br/><br/><div  id="wujiajundate" ></div>
-					<div id="add_time" ></div>
+				<td colspan="1" width="60%"   > 
+				<h:hidden id="time"  property="day.time"/>
+	              <input id="date0" onclick="WdatePicker({el:this,dateFmt:'yyyy/MM/dd ',onpicked:null})"/>
+	              <font style="color: red">*</font>
+                  <h:img alt="添加"   src="../images/e_add.gif" onclick="add_time();" /><br/>
+				 <div id="add_time" ></div>
 			
 				</td>
 			</tr>
@@ -87,43 +85,91 @@
 			alert("类型 不能为空！");
 			return;
 		}
-		if($name("day.time").value == ""){
-			alert("非工作日 不能为空！");
-			return;
-		}
+		
 		if($name("day.status").value == ""){
 			alert("是否在用 不能为空！");
 			return;
 		}
 
-		if($name("day.time").value < $name("day.startDate").value || $name("day.time").value>= $name("day.endDate").value){
-			alert("非工作日必须在工作日有效期之内！");
+		var a1 = $name("day.time").value;
+		var b1 = $("#time").val("");
+		$name("day.time").value == "";//每次点保存，都要先清除之前的值，再赋值，以免检验不通过时多次点保存，导致重复赋值！
+		$("#time").val("");
+		 a1 = $name("day.time").value;
+		b1 = $("#time").val("");
+
+		var date = "";	
+		for(var i=0; i<a; i++){
+			date =$("#date"+i).val();
+			
+			//日期内容不为空的时候，才将值拼接起来
+			if(date != ""){
+				if(date < $name("day.startDate").value || date >= $name("day.endDate").value){
+					alert(date +"不在 工作日有效期 之内！请重新设置日期！");
+					return;
+			 	}
+			 	
+				//日期内容不为空的时候，才将值拼接起来
+					$("#time").val( $("#time").val()+ date + "," ); 
+
+			}
+			
+			 
+		}
+
+		if($("#time").val() != ""){
+			//将拼接好的值去掉最后的 空格+逗号,空格是时间控件会自动加的
+			$("#time").val($("#time").val().substring(0,$("#time").val().length-2));
+		}
+		
+		if($name("day.time").value == ""){
+			alert("时间 不能为空！");
 			return;
 		}
 		
-		var time =$name("day.time").value;
-		
-		$.ajax({
-		      url: "/timeMachine/tModelTimedayAction_checkDayTime.action",
-		      async: false,
-		      type: 'post',
-		      data: "day.time="+time,
-		      timeout: 60000,
-		      dataType:"text",
-		      success: function (data) {
-		    	  if (data.indexOf("notExist") >= 0) {
-		    		  ajaxsubmitO();
-				}else if (data.indexOf("exist") >= 0) {
-					alert("该 非工作日 日期已存在，请重新配置！");
-				} else if (data.indexOf("fails") >= 0) {
-					alert("日期校验失败！");
-				} else {
-					alert("操作失败!");
+
+		var flag = true; //判断时间检验是否校验成功的标志
+		for(var i=0; i<a; i++){
+			date =$("#date"+i).val();
+			
+			 if(date != ""){
+
+				 //检验日期在数据库里是否已存在
+				 $.ajax({
+				      url: "/timeMachine/tModelTimedayAction_checkDayTime.action",
+				      async: false,
+				      type: 'post',
+				      data: "day.time="+date,
+				      timeout: 60000,
+				      dataType:"text",
+				      success: function (data) {
+				    	  if (data.indexOf("notExist") >= 0) {
+				    		//继续下一个时间校验
+						}else if (data.indexOf("exist") >= 0) {
+							alert(date+"已存在，请重新设置日期！");
+							flag = false;
+						} else if (data.indexOf("fails") >= 0) {
+							alert("日期校验失败！");
+							flag = false;
+						} else {
+							alert("操作失败!");
+							flag = false;
+						}
+								  	
+				      }
+				}); 
+					
+				if(!flag){//flag为false，跳出循环
+					break;
 				}
-						  	
-		      }
-		}); 
+				
+			 }
+		}
 		
+		if(flag){//flag为true，表单才提交
+			//表单提交
+			  ajaxsubmitO();
+		}
 		
 	}
 
@@ -156,17 +202,15 @@
 		$("#data_form").ajaxSubmit(options);
 	}
 
-	var rowId = 1; 
+	var a = 1; 
 	function add_time() {
 
 		//onclick="WdatePicker( {el:this,dateFmt:'yyyy-MM-dd HH:mm:ss'} )"
 		//可以根据格式化  选择 是否需要时分秒
-	    $("#wujiajundate").append(" 	 <input id='date'  onclick='WdatePicker({el:this,dateFmt:\"yyyy-MM-dd \",onpicked:null})''/> <br/> <br/>");
-
-
-	    
+	    $("#add_time").append(" 	 <input id='date"+a+"'  onclick='WdatePicker({el:this,dateFmt:\"yyyy/MM/dd \",onpicked:null})''/> <br/>");
+		a += 1;
+		
 	}
-	
 
 </script>
 </body>

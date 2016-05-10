@@ -125,6 +125,7 @@ public class TModelTimedayAction extends BaseAction {
 	public void checkDayTime() throws Exception{
 		String info ="";
     	try {
+    		day.setTime(day.getTime().trim()); //日期控件会自动在日期后面加空格，故需去空格
     		List list = this.tModelTimedayService.checkDayTime(day);
     		if(list.size() > 0){
     			info = "exist";
@@ -152,8 +153,15 @@ public class TModelTimedayAction extends BaseAction {
     		day.setOrgcode(this.getCurrentOnlineUser().getOrgcode());
     		day.setEmpid(this.getCurrentOnlineUser().getEmpid());
     		
-    		//插入一条新记录
-    		this.tModelTimedayService.insertWorkDay(day);
+    		String[] valueArra = day.getTime().split(" ,");  //分隔符为 空格+逗号
+    		for(int i=0; i<valueArra.length; i++){
+    			day.setTime(valueArra[i]);
+    			
+    			//插入一条新记录
+    			this.tModelTimedayService.insertWorkDay(day);
+    		}
+    		
+    		
     		
     	} catch (Exception e) {
 			info="fails";

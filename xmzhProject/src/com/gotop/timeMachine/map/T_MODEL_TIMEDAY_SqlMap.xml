@@ -48,7 +48,7 @@
 		SELECT SEQ_T_MODEL_TIMEDAY.NEXTVAL AS VALUE FROM DUAL
 		</selectKey>
     insert into T_MODEL_TIMEDAY(ID, TYPE, TIME, STATUS, MAINID, REMARK, ORGCODE, EMPID )
-    values (#id:DECIMAL:-9999#, #type:VARCHAR#, #time:VARCHAR#, #status:VARCHAR#, #mainID:DECIMAL#, #remark:VARCHAR#, #orgcode:VARCHAR#, #empid:VARCHAR#)
+    values (#id:DECIMAL:-9999#, #type:VARCHAR#, trim(#time:VARCHAR#), #status:VARCHAR#, #mainID:DECIMAL#, #remark:VARCHAR#, #orgcode:VARCHAR#, #empid:VARCHAR#)
   </insert>
   
   <!-- 修改 非工作日  -->
