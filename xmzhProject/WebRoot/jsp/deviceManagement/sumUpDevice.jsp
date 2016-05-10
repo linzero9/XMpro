@@ -369,7 +369,9 @@ $(function (){
 
 			//选择 部门/机构
 			function open_orgcode_tree(flag){//方法名
-				 strUrl ="/deviceManagement/myMainTreeAction_initMainTree.action?changeTree.showTabOrg=1&changeTree.checkcount=1&changeTree.orgType=4&changeTree.showSelBox=4";
+				 //strUrl ="/deviceManagement/myMainTreeAction_initMainTree.action?changeTree.showTabOrg=1&changeTree.checkcount=1&changeTree.orgType=4&changeTree.showSelBox=4";
+				 
+				strUrl = "/deviceManagement/myMainTreeAction_initMainTree.action?changeTree.showTabOrg=1&changeTree.orgType=4&changeTree.showSelBox=4";//changeTree.checkcount=1为多选框可选个数，为1表示只能单选，若不指定选的个数，则需去掉
 			     if(flag == "1"){
 					  strUrl += "&orgflag=1";
 				  }else if(flag == "2"){

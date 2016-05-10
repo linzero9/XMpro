@@ -86,10 +86,9 @@ t.HARDDISK,t.OSVERSION,t.SOFTWAREVERSION,t.IEVERSION, t.USEFUL, t.PLUGIN,t.PERIP
   from  t_new_deviceManagement t , om_organization o
   where t.orgcode = o.orgcode
     <isNotNull prepend="and" property="orgcode" >      
-        t.orgcode in(
-    select orgcode from om_organization 
-     start with orgcode = #orgcode#
-    connect by prior orgid = parentorgid )
+        t.ORGCODE in  
+        (select regexp_substr(#orgcode#,'[^,]+',1,rownum) from dual  
+<![CDATA[  connect by rownum<=length(#orgcode#)-length(replace(#orgcode#,','))+1  )   ]]>
       </isNotNull>
    <isNotNull prepend="and" property="deviceName" >
         t.DEVICENAME = #deviceName#
@@ -122,13 +121,13 @@ t.HARDDISK,t.OSVERSION,t.SOFTWAREVERSION,t.IEVERSION, t.USEFUL, t.PLUGIN,t.PERIP
          t.IEVERSION = #ieVersion#
       </isNotNull>
       <isNotNull prepend="and" property="useful" >
-        t.USEFUL like replace('%'|| #useful# ||'%', ',', '%')
+        ($useful$)
       </isNotNull>
       <isNotNull prepend="and" property="plugIn" >
-         t.PLUGIN  like replace('%'|| #plugIn# ||'%', ',', '%')
+        ($plugIn$)
       </isNotNull>
       <isNotNull prepend="and" property="peripheral" >
-        t.PERIPHERAL  like replace('%'|| #peripheral# ||'%', ',', '%')
+        ($peripheral$)
       </isNotNull>
       
       
@@ -154,10 +153,9 @@ t.HARDDISK,t.OSVERSION,t.SOFTWAREVERSION,t.IEVERSION, t.USEFUL, t.PLUGIN,t.PERIP
   from  t_new_deviceManagement t , om_organization o
   where t.orgcode = o.orgcode
   <isNotNull prepend="and" property="orgcode" >      
-        t.orgcode in(
-    select orgcode from om_organization 
-     start with orgcode = #orgcode#
-    connect by prior orgid = parentorgid )
+         t.ORGCODE in  
+        (select regexp_substr(#orgcode#,'[^,]+',1,rownum) from dual  
+<![CDATA[  connect by rownum<=length(#orgcode#)-length(replace(#orgcode#,','))+1  )   ]]>
       </isNotNull>
    <isNotNull prepend="and" property="deviceName" >
         t.DEVICENAME = #deviceName#
@@ -190,13 +188,13 @@ t.HARDDISK,t.OSVERSION,t.SOFTWAREVERSION,t.IEVERSION, t.USEFUL, t.PLUGIN,t.PERIP
          t.IEVERSION = #ieVersion#
       </isNotNull>
       <isNotNull prepend="and" property="useful" >
-        t.USEFUL like replace('%'|| #useful# ||'%', ',', '%')
+        ($useful$)
       </isNotNull>
       <isNotNull prepend="and" property="plugIn" >
-         t.PLUGIN  like replace('%'|| #plugIn# ||'%', ',', '%')
+         ($plugIn$)
       </isNotNull>
       <isNotNull prepend="and" property="peripheral" >
-        t.PERIPHERAL  like replace('%'|| #peripheral# ||'%', ',', '%')
+        ($peripheral$)
       </isNotNull>
       
       
@@ -220,7 +218,9 @@ ORDER BY tot
  	select t.*, o.orgname from  t_new_deviceManagement t , om_organization o
 where t.orgcode = o.orgcode
       <isNotNull prepend="and" property="orgcode" >
-        t.ORGCODE = #orgcode#
+        t.ORGCODE in  
+        (select regexp_substr(#orgcode#,'[^,]+',1,rownum) from dual  
+<![CDATA[  connect by rownum<=length(#orgcode#)-length(replace(#orgcode#,','))+1  )   ]]>
       </isNotNull>
       <isNotNull prepend="and" property="deviceName" >
         t.DEVICENAME = #deviceName#
@@ -235,7 +235,7 @@ where t.orgcode = o.orgcode
          t.DEVICE_STATE = #deviceState#
       </isNotNull>
       <isNotNull prepend="and" property="otherInfo_2" >
-       t.OTHERINFO_2 like replace('%'|| #otherInfo_2# ||'%', ',', '%')
+      ($otherInfo_2$)
       </isNotNull>
       <isNotNull prepend="and" property="remarks_1" >
       		 t.REMARKS_1 like '%'|| #remarks_1# ||'%'
@@ -250,7 +250,7 @@ where t.orgcode = o.orgcode
          t.OSVERSION = #osVersion#
       </isNotNull>
       <isNotNull prepend="and" property="otherInfo_3" >
-       t.OTHERINFO_3 like replace('%'|| #otherInfo_3# ||'%', ',', '%')
+       ($otherInfo_3$)
       </isNotNull>
       <isNotNull prepend="and" property="deviceModel" >
          t.DEVICEMODEL = #deviceModel#
@@ -262,7 +262,7 @@ where t.orgcode = o.orgcode
          t.OTHERATTRIBUTE_4  = #otherAttribute_4# 
       </isNotNull>
       <isNotNull prepend="and" property="otherInfo_4" >
-        t.OTHERINFO_4 like replace('%'|| #otherInfo_4# ||'%', ',', '%')
+        ($otherInfo_4$)
       </isNotNull>
   order by t.orgcode ,t.deviceName,t.deviceModel
   </select>
