@@ -38,6 +38,7 @@
     <result column="E_ID" property="e_id" jdbcType="DECIMAL" />
     <result column="TASKNAME" property="taskName" jdbcType="VARCHAR" />
     <result column="TIMELIMIT" property="timeLimit" jdbcType="DOUBLE" />
+    <result column="TWOTIMELIMIT" property="twotimeLimit" jdbcType="DOUBLE" />
     <result column="C_ID" property="c_id" jdbcType="DECIMAL" />
     <result column="OP_EMPID" property="op_empid" jdbcType="DECIMAL" />
     <result column="OP_ORGCODE" property="op_orgcode" jdbcType="VARCHAR" />
@@ -135,14 +136,15 @@
        <selectKey resultClass="long" keyProperty="e_id" >
 		SELECT t_model_nodeTimeLimit_seq.NEXTVAL AS VALUE FROM DUAL
 		</selectKey>
-    insert into t_model_nodeTimeLimit(E_ID, TASKNAME, TIMELIMIT, C_ID, OP_EMPID, OP_ORGCODE, OP_TIME )
-    values (#e_id:DECIMAL:-9999#, #taskName:VARCHAR#, #timeLimit:DOUBLE#, #c_id:DECIMAL:-9999#,#op_empid:DECIMAL:-9999#, #op_orgcode:VARCHAR#, sysdate)
+    insert into t_model_nodeTimeLimit(E_ID, TASKNAME, TIMELIMIT, TWOTIMELIMIT, C_ID, OP_EMPID, OP_ORGCODE, OP_TIME )
+    values (#e_id:DECIMAL:-9999#, #taskName:VARCHAR#, #timeLimit:DOUBLE#, #twotimeLimit:DOUBLE#, #c_id:DECIMAL:-9999#,#op_empid:DECIMAL:-9999#, #op_orgcode:VARCHAR#, sysdate)
   </insert>
   
    <!--修改 节点模式工时维护表-->
   <update id="updateNodeTimeLimit" parameterClass="com.gotop.jbpm.model.NodeTimeLimitBean" >
     update t_model_nodeTimeLimit 
 	set TIMELIMIT= #timeLimit:DOUBLE#,
+	TWOTIMELIMIT= #twotimeLimit:DOUBLE#,
 	OP_EMPID= #op_empid:DECIMAL:-9999#,
 	OP_ORGCODE =  #op_orgcode:VARCHAR#,
 	OP_TIME = sysdate

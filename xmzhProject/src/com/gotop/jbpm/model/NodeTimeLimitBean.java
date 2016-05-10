@@ -8,6 +8,8 @@ public class NodeTimeLimitBean implements Serializable {
 	
 	private Double timeLimit; //时限
 	
+	private Double twotimeLimit; //二次提交时限
+	
 	private Long c_id;
 	
 	private Long e_id;
@@ -75,6 +77,15 @@ public class NodeTimeLimitBean implements Serializable {
 	public void setOp_time(String op_time) {
 		this.op_time = op_time;
 	}
+
+	public Double getTwotimeLimit() {
+		return twotimeLimit;
+	}
+
+	public void setTwotimeLimit(Double twotimeLimit) {
+		this.twotimeLimit = twotimeLimit;
+	}
+
 	
 	
 }

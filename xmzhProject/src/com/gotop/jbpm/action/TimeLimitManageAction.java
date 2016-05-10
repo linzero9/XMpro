@@ -535,6 +535,7 @@ public class TimeLimitManageAction extends BaseAction {
 					NodeTimeLimitBean nodeTimeLimitBean2 = nodeTimeLimitBeans2.get(0);
 					nodeTimeLimitBean.setE_id(nodeTimeLimitBean2.getE_id());
 					nodeTimeLimitBean.setTimeLimit(nodeTimeLimitBean2.getTimeLimit());
+					nodeTimeLimitBean.setTwotimeLimit(nodeTimeLimitBean2.getTwotimeLimit());
 				}
 				
 				nodeTimeLimitBeans.add(nodeTimeLimitBean);

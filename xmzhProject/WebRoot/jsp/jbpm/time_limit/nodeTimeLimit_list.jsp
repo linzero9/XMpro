@@ -34,6 +34,9 @@
 							<th nowrap="nowrap">
 								时限（单位：工时）
 							</th>
+							<th nowrap="nowrap">
+								二次提交时限（单位：工时）
+							</th>
 						</tr>
 					<w:radioGroup id="group1">
                           <l:iterate property="nodeTimeLimitBeans" id="id1">
@@ -44,6 +47,7 @@
 										<h:param name='c_id' iterateId='id1' property='c_id' />
 										<h:param name='taskName' iterateId='id1' property='taskName' />
 										<h:param name='timeLimit' iterateId='id1' property='timeLimit' />
+										<h:param name='twotimeLimit' iterateId='id1' property='twotimeLimit' />
 									</w:rowRadio>
 								</td>
 								<td nowrap="nowrap"> 
@@ -51,6 +55,9 @@
 								</td>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1" property="timeLimit" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="twotimeLimit" />
 								</td>
 							</tr>
 						</l:iterate>
@@ -88,8 +95,9 @@
 		  		var c_id = rows.getParam("c_id");
 		  		var taskName = rows.getParam("taskName");
 		  		var timeLimit = rows.getParam("timeLimit");
+		  		var twotimeLimit = rows.getParam("twotimeLimit");
 
-		  		var strUrl = "/jbpm/timeLimitManageAction_toSetNodeTimeLimit.action?nodeTimeLimitBean.timeLimit="+timeLimit + "&nodeTimeLimitBean.taskName=" + taskName + "&nodeTimeLimitBean.e_id=" + e_id +"&nodeTimeLimitBean.c_id="+c_id;
+		  		var strUrl = "/jbpm/timeLimitManageAction_toSetNodeTimeLimit.action?nodeTimeLimitBean.timeLimit="+timeLimit + "&nodeTimeLimitBean.taskName=" + taskName + "&nodeTimeLimitBean.e_id=" + e_id +"&nodeTimeLimitBean.c_id="+c_id+"&nodeTimeLimitBean.twotimeLimit="+twotimeLimit;
 		  		 
 		  		showModalCenter(encodeURI(strUrl), null,callBackFunc, 500, 300, '设置节点时限'); 
 			 }
