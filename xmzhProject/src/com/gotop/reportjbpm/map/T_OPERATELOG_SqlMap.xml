@@ -44,11 +44,11 @@ select T1.ACTIVITY_NAME_,
    AND T1.EXECUTION_ = T4.EXECUTION_ID
    AND T1.EXECUTION_ = T3.FLOW_ID
       <isNotNull prepend="and" property="businessTitle" >
-        T4.BUSINESS_TITLE =#businessTitle:VARCHAR#
+        T4.BUSINESS_TITLE  like '%$businessTitle$%'
       </isNotNull>
       
       <isNotNull prepend="and" property="processName" >
-         T5.PROCESS_NAME =#processName:VARCHAR#
+         T5.PROCESS_NAME  like '%$processName$%'
       </isNotNull>
       
       <isNotNull prepend="and" property="airTime" >

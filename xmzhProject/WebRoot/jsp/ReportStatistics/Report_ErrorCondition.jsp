@@ -71,6 +71,9 @@
 								贷种
 							</th>
 							<th nowrap="nowrap">
+								客户名称
+							</th>
+							<th nowrap="nowrap">
 								主调信贷员
 							</th>
 							<th nowrap="nowrap">
@@ -105,6 +108,9 @@
 								</td>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1" property="loancategory" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="custName" />
 								</td>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1" property="nextOprName" />

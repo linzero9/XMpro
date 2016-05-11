@@ -32,10 +32,10 @@
 			    	<b:write iterateId="id1" property="orgName"/>
 			  </td>
 			  <td style="vnd.ms-excel.numberformat:@">
-			    <b:write iterateId="id1" property="businessTitle"/>
+			    <b:write iterateId="id1" property="processName"/>
 			  </td>
 			   <td style="vnd.ms-excel.numberformat:@">
-			   <b:write iterateId="id1" property="processName"/>
+			   <b:write iterateId="id1" property="businessTitle"/>
 			  </td>
 			   <td style="vnd.ms-excel.numberformat:@">
 			    <b:write iterateId="id1" property="activityName" />

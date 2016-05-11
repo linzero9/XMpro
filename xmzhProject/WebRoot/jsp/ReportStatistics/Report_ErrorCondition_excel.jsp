@@ -16,6 +16,7 @@
 	<tr height="34">
 		<th height="34" width="100" align="center" class="form_label">机构名称</th>
 		<th height="34" width="100" align="center" class="form_label">贷种</th>
+		<th height="34" width="100" align="center" class="form_label">客户名称</th>
 		<th height="34" width="200" align="center" class="form_label">主调信贷员</th>
 		<th height="34" width="100" align="center" class="form_label">辅调信贷员</th>
 		<th height="34" width="100" align="center" class="form_label">营业主管</th>
@@ -34,6 +35,9 @@
 			  </td>
 			  <td style="vnd.ms-excel.numberformat:@">
 			    	<b:write iterateId="id1" property="loancategory"/>
+			  </td>
+			  <td style="vnd.ms-excel.numberformat:@">
+			    	<b:write iterateId="id1" property="custName"/>
 			  </td>
 			  <td style="vnd.ms-excel.numberformat:@">
 			    <b:write iterateId="id1" property="nextOprName" />

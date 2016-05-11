@@ -55,7 +55,7 @@
     on A1.FLOW_ID = A2.FLOW_ID where 1=1
    
       <isNotNull prepend="and" property="custName" >
-        A1.CUST_NAME =#custName:VARCHAR#
+        A1.CUST_NAME   like '%$custName$%'
       </isNotNull>
       
       <isNotNull prepend="and" property="taskName" >
