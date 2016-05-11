@@ -589,35 +589,35 @@ WEB.turnMainFrame=function(){
 		                        
 		                        if(modeType=="mod1"){
 			                    	showpanelhtml=showpanelhtml+
-						        	   '<tr ><td  class="form_label" align="right" >'+"附件下载"+ '</td><td colspan="4"  ><div id="mod1"></div></td>';		                       	                       
+						        	   '<tr ><td  class="form_label" align="right" >'+"附件下载"+ '</td><td colspan="4"  ><div id="mod1" style="padding-top:15px;"></div></td>';		                       	                       
 		                        }      		                        
 		                        if(modeType=="mod2"){
 			                    	showpanelhtml=showpanelhtml+
-						        	   '<tr ><td  class="form_label" align="right" >'+"附件下载"+ '</td><td colspan="4"  ><div id="mod2"></div></td>';		                       	                       
+						        	   '<tr ><td  class="form_label" align="right" >'+"附件下载"+ '</td><td colspan="4"  ><div id="mod2" style="padding-top:15px;"></div></td>';		                       	                       
 		                        }   
 		                        if(modeType=="mod3"){
 			                    	showpanelhtml=showpanelhtml+
-						        	   '<tr ><td  class="form_label" align="right" >'+"附件下载"+ '</td><td colspan="4"  ><div id="mod3"></div></td>';		                       	                       
+						        	   '<tr ><td  class="form_label" align="right" >'+"附件下载"+ '</td><td colspan="4"  ><div id="mod3" style="padding-top:15px;"></div></td>';		                       	                       
 		                        }   
 		                        if(modeType=="mod4"){
 			                    	showpanelhtml=showpanelhtml+
-						        	   '<tr ><td  class="form_label" align="right" >'+"附件下载"+ '</td><td colspan="4"  ><div id="mod4"></div></td>';		                       	                       
+						        	   '<tr ><td  class="form_label" align="right" >'+"附件下载"+ '</td><td colspan="4"  ><div id="mod4" style="padding-top:15px;"></div></td>';		                       	                       
 		                        }   
 		                        if(modeType=="mod5"){
 			                    	showpanelhtml=showpanelhtml+
-						        	   '<tr ><td  class="form_label" align="right" >'+"附件下载"+ '</td><td colspan="4"  ><div id="mod5"></div></td>';		                       	                       
+						        	   '<tr ><td  class="form_label" align="right" >'+"附件下载"+ '</td><td colspan="4"  ><div id="mod5" style="padding-top:15px;"></div></td>';		                       	                       
 		                        }   
 		                        if(modeType=="mod6"){
 			                    	showpanelhtml=showpanelhtml+
-						        	   '<tr ><td  class="form_label" align="right" >'+"附件下载"+ '</td><td colspan="4"  ><div id="mod6"></div></td>';		                       	                       
+						        	   '<tr ><td  class="form_label" align="right" >'+"附件下载"+ '</td><td colspan="4"  ><div id="mod6" style="padding-top:15px;"></div></td>';		                       	                       
 		                        }   
 		                        if(modeType=="mod7"){
 			                    	showpanelhtml=showpanelhtml+
-						        	   '<tr ><td  class="form_label" align="right" >'+"附件下载"+ '</td><td colspan="4" ><div id="mod7"></div></td>';		                       	                       
+						        	   '<tr ><td  class="form_label" align="right" >'+"附件下载"+ '</td><td colspan="4" ><div id="mod7" style="padding-top:15px;"></div></td>';		                       	                       
 		                        }   
 		                        if(modeType=="mod8"){
 			                    	showpanelhtml=showpanelhtml+
-						        	   '<tr ><td  class="form_label" align="right" >'+"附件下载"+ '</td><td colspan="4" ><div id="mod8"></div></td>';		                       	                       
+						        	   '<tr ><td  class="form_label" align="right" >'+"附件下载"+ '</td><td colspan="4" ><div id="mod8" style="padding-top:15px;"></div></td>';		                       	                       
 		                        }						 
 							           
 							   } 
