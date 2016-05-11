@@ -313,7 +313,7 @@ public class TGeneralprocessModelthreeAction extends BaseAction {
 		} else {
 			MUOUserSession muo = getCurrentOnlineUser();
 			try {
-				this.generalprocessModelthreeService.handleModelThree(muo, modelThree, modelOne, taskAssgineeDto, files, filesFileName);
+				this.generalprocessModelthreeService.handleModelThree(muo, modelThree, modelOne, taskAssgineeDto, files, filesFileName,files2, files2FileName);
 			} catch (Exception e) {
 				info = "fails";
 				log.error("[提交模式一表单失败！]", e);
@@ -324,7 +324,27 @@ public class TGeneralprocessModelthreeAction extends BaseAction {
 
 	}
 	
-    //文件操作
+    //模式1文件操作
+	private File[] files2;
+	private String[] files2FileName;
+	
+    public File[] getFiles2() {
+		return files2;
+	}
+
+	public void setFiles2(File[] files2) {
+		this.files2 = files2;
+	}
+
+	public String[] getFiles2FileName() {
+		return files2FileName;
+	}
+
+	public void setFiles2FileName(String[] files2FileName) {
+		this.files2FileName = files2FileName;
+	}
+
+	//模式3文件操作
 	private File[] files;
 	private String[] filesFileName;
     private String fileId;

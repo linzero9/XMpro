@@ -134,6 +134,17 @@
          
         </td>
       </tr>
+        <tr>
+           	<td class="form_label" align="right" style="width:120px;">是否老顾客：</td>
+     	<td colspan="1">
+			<h:select  id="old_Cust"  property="modelOne.old_Cust">
+			     <h:option label="=未选择=" value=""/>
+			     <h:option label="是" value="y"/>
+			     <h:option label="否" value="n"/>
+			</h:select> 
+		</td>
+      
+      </tr>
       <tr>
       <td class="form_label" align="right" style="width:120px;">
                                                    抵押物权属人名称：
@@ -153,7 +164,46 @@
          </div>
         </td>
       </tr>
-     
+                  <tr>
+     	<td class="form_label" align="right" style="width:120px;">借款人工作单位：</td>
+     	<td>
+	     	 <h:text property="modelOne.borr_Unit" id="borr_Unit" validateAttr="allowNull=ture" style="width:250px;" />
+     	</td>
+     	<td class="form_label" align="right" style="width:120px;">借款人配偶工作单位：</td>
+     	<td>
+	     	 <h:text property="modelOne.borrSpouse_Unit" id="borrSpouse_Unit" validateAttr="allowNull=ture" style="width:250px;" />
+     	</td>
+      </tr>
+                   <tr>
+     	<td class="form_label" align="right" style="width:120px;">共同借款人工作单位：</td>
+     	<td>
+	     	 <h:text property="modelOne.comBorr_Unit" id="comBorr_Unit" validateAttr="allowNull=ture" style="width:250px;" />
+     	</td>
+     	<td class="form_label" align="right" style="width:120px;">共同借款人配偶工作单位：</td>
+     	<td>
+	     	 <h:text property="modelOne.comBorrSpouse_Unit" id="comBorrSpouse_Unit" validateAttr="allowNull=ture" style="width:250px;" />
+     	</td>
+      </tr>
+       <tr id="row11">
+                <td class="form_label" align="right">附件下载：</td>
+                <td colspan="3">
+                     <div id="tag11" style="padding-top:15px;"></div>
+                 </td>
+       </tr>
+        <tr id="fujian">
+     	<td class="form_label" align="right">附件：</td>
+     	<td colspan="3">
+				<input type="button" onclick="addFile11('tabtest11','files2');return false;" value="新增附件" 
+					style="margin-left:2px;vertical-align:middle;cursor:hand;"/>
+				<font style="color: red">(说明：最多上传5个附件)</font>
+				<br/>
+				<table border=0 id="tabtest11">
+				</table>
+     	</td>
+     </tr>
+      
+      
+      
       <tr>
      	<td class="form_label" align="right">超限说明：</td>
      	<td colspan="3">
@@ -194,7 +244,7 @@
       <div id="tag"></div>
       </td>
       </tr>
-           <tr id="fujian">
+       <tr id="fujian">
      	<td class="form_label" align="right">附件：</td>
      	<td colspan="3">
 				<input type="button" onclick="addFile('tabtest','files');return false;" value="新增附件" 
@@ -271,6 +321,26 @@
 			//存在模式一则显示模式一表单
 			 if('${modelOne.processModelId}' != ""){
 				 $("#modelOneTb").show();
+		 		 $.ajax({
+				        url: '/modeFile/tModelFileAction_selectFiletest.action',
+				        async: false,
+				        type: 'post',
+				        data: "executionId=${taskAssgineeDto.executionId}&modeId=${modelOne.processModelId}&modeType=mod1",
+				        dataType: 'json',
+				        timeout: 60000,
+				        success: function (files) {
+					        if(files!=""){
+					         	$.each(files,function( i,item ){
+						         	if('${isView}'!='')
+					    	        	$("#tag11").fileDown({filename:item.fileName,filevalue:item.fileId});
+						         	else 
+						         		$("#tag11").fileDown({filename:item.fileName,filevalue:item.fileId,remove:1});
+					          		});	
+					        } else{    
+					        	$("#row11").css("display","none");  
+					        } 
+				        }
+			    });			 
 			 }else{
 				 $("#modelOneTb").hide();
 			 }
@@ -446,6 +516,29 @@
 				    td.innerHTML = tdStr;
 				    rowId = rowId+1;    
 				}
+
+				var rowId2 = 0;
+				function addFile11(tabid,varName){
+					alert("3zhongyou1 ");
+				    var tab,row,td,fName,fId,tdStr;
+				    var zs=$("#tabtest tbody tr").length;
+				    tab = $id(tabid);
+				    if (zs>=5){
+				    	alert("新增附件不能超过5个");
+				    	return false;
+				    }
+				    fName = varName;
+				    fId = varName+rowId2;
+				    row =  tab.insertRow();
+				    row.id = "fileRow2"+rowId2;
+				    td = row.insertCell(); 
+				    
+				    tdStr="<input type=\"file\" name=\""+fName+"\" id=\""+fId+"\" onchange=\"CheckUpLoadFile(this,2);\" size='70' class=smallInput validateAttr=\"allowNull=false\">";
+				    tdStr += "<input type=\"button\" onclick=\"delTr('fileRow2"+rowId2+"');\" name='button"+rowId2+"' value=\"删除\" style=\"margin-left:2px;vertical-align:middle;cursor:hand;\"/>";
+				    td.innerHTML = tdStr;
+				    rowId2 = rowId2+1;    
+				}
+				
 				function delTr(id){
 					$("#"+id).remove();
 				}

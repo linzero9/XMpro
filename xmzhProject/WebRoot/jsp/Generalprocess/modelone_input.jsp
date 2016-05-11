@@ -269,9 +269,9 @@
 
 
  $(function (){
-	 alert();
+	 //alert();
 		var flowId=$("#executionId");
-		alert(flowId);
+		//alert(flowId);
 		
 	 $.ajax({
 		 url : "/Generalprocess/tGeneralprocessModeloneAction_querySubmitter.action",
@@ -283,8 +283,8 @@
 			success : function(json) {
 					var submitter=json.submitter; 
 					var currenUser=json.currenUser;
-					alert(submitter);
-					alert(currenUser);
+					//alert(submitter);
+					//alert(currenUser);
 					
 			}});
 		});

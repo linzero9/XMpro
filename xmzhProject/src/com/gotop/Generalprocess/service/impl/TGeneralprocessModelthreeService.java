@@ -123,7 +123,7 @@ public class TGeneralprocessModelthreeService implements ITGeneralprocessModelth
 
 	@Override
 	public void handleModelThree(MUOUserSession muo,
-			ProcessModelThree modelThree,ProcessModelOne modelOne, TaskAssgineeDto taskAssgineeDto,File[] files,String[] filesFileName) throws Exception {
+			ProcessModelThree modelThree,ProcessModelOne modelOne, TaskAssgineeDto taskAssgineeDto,File[] files,String[] filesFileName,File[] files2,String[] files2FileName) throws Exception {
 		String taskId = taskAssgineeDto.getNextTaskId();
 		String taskName = jbpmService.getTaskNameById(taskId);
 		modelThree.setTaskName(taskName);
@@ -268,7 +268,41 @@ public class TGeneralprocessModelthreeService implements ITGeneralprocessModelth
 			
 	 		       	 }
 			}
-		
+	        //////////////////////////////////////////////操作模式3时，回显模式1  可操作附件上传////////////////////////////////////////////////////
+				if(files2!=null){
+					TModelFile	obj=new TModelFile();
+		 	    	 String suffixStr = null;
+		 	    	 String address="";
+		 	    	String ioioio=	SpringPropertyResourceReader.getProperty("file_model");
+		 	    	 address=DictManager.getDictName("ZHPT_FILE_PATH","01");
+		 	    	Properties props=System.getProperties();
+		 	    	System.out.println(props.getProperty("os.name"));
+		 	    	if(address==null||"".equals(address))
+		 			     address=ServletActionContext.getServletContext().getRealPath("/uploadfile");
+		 	    	else {
+		 	    	    	if(props.getProperty("os.name").indexOf("Windows")>=0)
+		 	    		    	address=ioioio+address;
+		 	    	 }  
+		 	    		 SimpleDateFormat sdf=new SimpleDateFormat("yyy-MM-dd");
+		 	    		 String fileDate=sdf.format(new Date());//时间
+		     	
+		 		       	 for(int i=0;i<files2FileName.length;i++){
+		 		    		 String uuid = UUID.randomUUID().toString();//UUID
+		 		       		 suffixStr = files2FileName[i].substring(files2FileName[i].indexOf("."), files2FileName[i].length());//获取后缀名      		 
+		 			       		obj.setExecutionId(newDto.getExecutionId());
+		 			       		obj.setModeId(String.valueOf(modelOne.getProcessModelId()));
+		 			       		obj.setModeType("mod1");
+		 			       		byte[] content = FileCopyUtils.copyToByteArray(files2[i]);
+								obj.setModeFiles(content);
+				       			       		
+		 		       		  obj.setFileName(files2FileName[i]);
+		 		       		  obj.setFilePath(address+File.separator+fileDate+File.separator+uuid+suffixStr); 	       		
+		 		    		  FileUploadUtil.uploadFile(uuid, fileDate, address, files2FileName[i], files2[i], suffixStr);
+
+								tModelFileService.insert(obj);
+				
+		 		       	 }
+				}
 		
 	}
 

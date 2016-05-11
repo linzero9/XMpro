@@ -28,7 +28,7 @@ public interface ITGeneralprocessModelthreeService {
     
 
 	void handleModelThree(MUOUserSession muo, ProcessModelThree modelThree,ProcessModelOne modelOne,
-			TaskAssgineeDto taskAssgineeDto,File[] files,String[] filesFileName) throws Exception;
+			TaskAssgineeDto taskAssgineeDto,File[] files,String[] filesFileName,File[] files2,String[] files2FileName) throws Exception;
 
 	ProcessModelThree queryModelThree(ProcessModelThree modelThree);
 }
