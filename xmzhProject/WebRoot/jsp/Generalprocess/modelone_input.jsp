@@ -291,8 +291,8 @@
  var rowId = 0; 
  $(function (){
 
-		var flowId=$("#executionId");
- submitter; 
+	
+        var submitter; 
 		var currenUser;
 		var flowId=$("#executionId");
 		
