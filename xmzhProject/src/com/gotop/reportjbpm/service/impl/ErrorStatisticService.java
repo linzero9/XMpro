@@ -1,5 +1,7 @@
 package com.gotop.reportjbpm.service.impl;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +30,8 @@ public class ErrorStatisticService implements IErrorStatisticService {
 		
 		
 		Map<String, Object>map = new HashMap<String, Object>();
+		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyyMMdd");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		 StringBuffer stringBuffer = new StringBuffer();
 		 if (errorStatistic.getTaskName()!=null&&!"".equals(errorStatistic.getTaskName())) {
 			 String[] array =errorStatistic.getTaskName().split(",");
@@ -42,12 +46,17 @@ public class ErrorStatisticService implements IErrorStatisticService {
 			 map.put("taskName", stringBuffer); 
 		}
 			
+		 try {
 		if (errorStatistic.getStartTime()!=null&&!"".equals(errorStatistic.getStartTime())) {
-			map.put("startTime", errorStatistic.getStartTime());
+				map.put("startTime", sdf.format(sdf1.parse(errorStatistic.getStartTime())));
+			
 		}
 		if (errorStatistic.getEndTime()!=null&&!"".equals(errorStatistic.getEndTime())) {
-			map.put("endTime", errorStatistic.getEndTime());
+			map.put("endTime",sdf.format(sdf1.parse(errorStatistic.getEndTime())));
 		}
+		 } catch (ParseException e) {
+				e.printStackTrace();
+			}
 		if (errorStatistic.getCustName()!=null&&!"".equals(errorStatistic.getCustName())) {
 			map.put("custName", errorStatistic.getCustName());
 		}

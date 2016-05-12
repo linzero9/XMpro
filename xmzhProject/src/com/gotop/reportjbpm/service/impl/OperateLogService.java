@@ -1,5 +1,7 @@
 package com.gotop.reportjbpm.service.impl;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,13 +25,22 @@ public class OperateLogService implements IOperateLogService {
 	@Override
 	public List<OperateLog> queryOperateLog(OperateLog operateLog, Page page) {
 		Map<String, Object> map = new HashMap<String, Object>();
+		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyyMMdd");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
+		try {
 		if (operateLog.getAirTime() != null
 				&& !"".equals(operateLog.getAirTime())) {
-			map.put("airTime", operateLog.getAirTime());
+				map.put("airTime", sdf.format(sdf1.parse(operateLog.getAirTime())));
+		
 		}
 		if (operateLog.getStopTime() != null
 				&& !"".equals(operateLog.getStopTime())) {
-			map.put("stopTime", operateLog.getStopTime());
+			map.put("stopTime",sdf.format(sdf1.parse(operateLog.getStopTime())));
+		}
+		} catch (ParseException e) {
+			
+			e.printStackTrace();
 		}
 		if (operateLog.getProcessName() != null
 				&& !"".equals(operateLog.getProcessName())) {
