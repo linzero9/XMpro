@@ -21,7 +21,7 @@
 			<table align="center" border="0" width="100%" class="form_table">
 				<viewlist id="e2c61865-3b56-470d-bd42-fff792fb9493">
          			
-         			<h:text id="checked_processNodeName" property="jobWorkload.processNodeName" />
+         			<h:hidden id="checked_processNodeName" property="jobWorkload.processNodeName" />
 					<table align="center" border="0" width="100%" class="EOS_table">
 						<tr>
 							<th align="center" nowrap="nowrap">
@@ -67,60 +67,36 @@
                             <input id="downexl" type="button" class="button" value="确定" onclick="returnValue();">
 						    <input id="selectAll" type="button" class="button" value="全选" onclick="chooseAll();">
                              <input id="clearAll" type="button" class="button" value="清空" onclick="clearAll();">
-                              <input id="aa" type="button" class="button" value="aa" onclick="aa();">
                             </td>
 					</tr>	
 					</table>
 				    		
 		</DIV>
   </body>
-  <script type="text/javascript">
-/*   $(function() {
-		//当页面加载完成的时候，自动调用该方法
-		//window.onload = function() {
-			//获得所要回显的值，例如 此处为："会议申请,填写数据下发表,受理调查"
-			var checkeds = $id("checked_processNodeName").value;
-			//拆分为字符串数组
-			var checkArray = checkeds.split(",");
-			
-			for ( var i = 0; i < checkArray.length; i++) {
-				//获得每行的值，然后，用checkArray[i]和他们匹配，如果有，则说明他应被选中
-				var rows = $id("group1").getRows();//获得所有的行
-				for(var j=0; j<rows.length; j++){
-	  				var processNodeName = rows[j].getParam("processNodeName");
-	  				var checkValue = checkArray[i];
-	  				if (checkValue == processNodeName) {
-	  					 rows[j].setSelected();
-	  					 alert("111");
-	  				}
-				}
-			}
-	//	};
-	}); */
 
-	//window.onload = function() {
-	 		//当页面加载完成的时候，自动调用该方法
-	 	/* 	$(window).load(function() {
-	 			//获得所要回显的值，例如 此处为："会议申请,填写数据下发表,受理调查"
-	 			var checkeds = $id("checked_processNodeName").value;
-	 			//拆分为字符串数组
-	 			var checkArray = checkeds.split(",");
-	 			
-	 			for ( var i = 0; i < checkArray.length; i++) {
-	 				//获得每行的值，然后，用checkArray[i]和他们匹配，如果有，则说明他应被选中
-	 				var rows = $id("group1").getRows();//获得所有的行
-	 				for(var j=0; j<rows.length; j++){
-	 	  				var processNodeName = rows[j].getParam("processNodeName");
-	 	  				var checkValue = checkArray[i];
-	 	  				if (checkValue == processNodeName) {
-	 	  					 rows[j].setSelected();
-	 	  					 alert("111");
-	 	  					 break;
-	 	  				}
-	 				}
-	 			}	
-	 		}); */
-	 	//	};
+
+
+   <script   type="text/javascript"> 
+   function init(){
+		//获得所要回显的值，例如 此处为："会议申请,填写数据下发表,受理调查"
+		var checkeds = $id("checked_processNodeName").value;
+		//拆分为字符串数组
+		var checkArray = checkeds.split(",");
+		
+		for ( var i = 0; i < checkArray.length; i++) {
+			//获得每行的值，然后，用checkArray[i]和他们匹配，如果有，则说明他应被选中
+			var rows = $id("group1").getRows();//获得所有的行
+			for(var j=0; j<rows.length; j++){
+ 				var processNodeName = rows[j].getParam("processNodeName");
+ 				var checkValue = checkArray[i];
+ 				if (checkValue == processNodeName) {
+ 					 rows[j].setSelected();
+ 				}
+			}
+		}
+}
+
+eventManager.add(window, "load", init); //一进JSP页面自动调用初始化函数
 
 
   function returnValue(){
@@ -163,31 +139,6 @@
 		$id("group1").disSelectAll() ;
 	}
 
-	 function aa(){
-			
-				//获得所要回显的值，例如 此处为："会议申请,填写数据下发表,受理调查"
-				var checkeds = $id("checked_processNodeName").value;
-				//拆分为字符串数组
-				var checkArray = checkeds.split(",");
-				
-				for ( var i = 0; i < checkArray.length; i++) {
-					//获得每行的值，然后，用checkArray[i]和他们匹配，如果有，则说明他应被选中
-					var rows = $id("group1").getRows();//获得所有的行
-					for(var j=0; j<rows.length; j++){
-		  				var processNodeName = rows[j].getParam("processNodeName");
-		  				var checkValue = checkArray[i];
-		  				if (checkValue == processNodeName) {
-		  					 rows[j].setSelected();
-		  				}
-					}
-				}
-	  }
-
-	  $(function(){
-		  alert(111);
-			aa();
-		  });
-	  
-
+	 
   </script>
 </html>
