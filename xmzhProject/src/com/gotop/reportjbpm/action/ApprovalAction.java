@@ -38,7 +38,7 @@ public class ApprovalAction extends BaseAction {
 		approvalList=approvalService.queryApprovalList(approval,this.getPage());
 		this.setPage(page);
 		this.setApprovalList(approvalList);
-		return"queryApprovalList";
+		return  "queryApprovalList";
 	}
 	/**
 	 * 审批受理台账导出excel
@@ -47,7 +47,7 @@ public class ApprovalAction extends BaseAction {
 	public String queryApprovalListForExcel(){
 		approvalList=approvalService.queryApprovalListForExcel(approval);
 		this.setApprovalList(approvalList);
-		return"queryApprovalListForExcel";
+		return  "queryApprovalListForExcel";
 	}
 	
 

@@ -14,56 +14,56 @@
 %>
 <table width="98%" border="1" cellspacing="1" cellpadding="1">
 	<tr height="34">
-		<th height="34" width="100" align="center" class="form_label">机构名称</th>
-		<th height="34" width="100" align="center" class="form_label">报单时间</th>
-		<th height="34" width="200" align="center" class="form_label">是否加急</th>
-		<th height="34" width="100" align="center" class="form_label">客户姓名</th>
-		<th height="34" width="100" align="center" class="form_label">是否老客户</th>
-		<th height="34" width="100" align="center" class="form_label">一级分类</th>
-		<th height="34" width="100" align="center" class="form_label">贷款种类</th>
-		<th height="34" width="100" align="center" class="form_label">申请币别</th>
-		<th height="34" width="100" align="center" class="form_label">申请金额（万元</th>
-		<th height="34" width="100" align="center" class="form_label">区支行</th>
-		<th height="34" width="100" align="center" class="form_label">受理支行</th>
-		<th height="34" width="100" align="center" class="form_label">营销人员</th>
-		<th height="34" width="200" align="center" class="form_label">主调信贷员</th>
-		<th height="34" width="100" align="center" class="form_label">辅调信贷员</th>
-		<th height="34" width="100" align="center" class="form_label">审查人</th>
-		<th height="34" width="100" align="center" class="form_label">第二审查人</th>
-		<th height="34" width="100" align="center" class="form_label">调查时间</th>
-		<th height="34" width="100" align="center" class="form_label">一次上报</th>
-		<th height="34" width="100" align="center" class="form_label">二次上报时间</th>
-		<th height="34" width="100" align="center" class="form_label">二次上报</th>
-		<th height="34" width="100" align="center" class="form_label">三次上报时间</th>
-		<th height="34" width="100" align="center" class="form_label">三次上报</th>
-		<th height="34" width="200" align="center" class="form_label">四次上报时间</th>
-		<th height="34" width="100" align="center" class="form_label">四次上报</th>
-		<th height="34" width="100" align="center" class="form_label">五次上报时间</th>
-		<th height="34" width="100" align="center" class="form_label">五次上报</th>
-		<th height="34" width="100" align="center" class="form_label">审查岗审结时间</th>
-		<th height="34" width="100" align="center" class="form_label">审批方式</th>
-		<th height="34" width="100" align="center" class="form_label">决策单编号</th>
-		<th height="34" width="100" align="center" class="form_label">会议期数</th>
-		<th height="34" width="100" align="center" class="form_label">表决表编号</th>
-		<th height="34" width="100" align="center" class="form_label"> 会议时间/审批岗审结时间</th>
-		<th height="34" width="200" align="center" class="form_label">审议事项</th>
-		<th height="34" width="100" align="center" class="form_label">贷审会秘书一</th>
-		<th height="34" width="100" align="center" class="form_label">贷审会秘书二</th>
-		<th height="34" width="100" align="center" class="form_label">第一审批人（会议审批委员）</th>
-		<th height="34" width="100" align="center" class="form_label">第二审批人（会议审批委员）</th>
-		<th height="34" width="100" align="center" class="form_label">会议审批主任委员</th>
-		<th height="34" width="100" align="center" class="form_label">会议审批委员</th>
-		<th height="34" width="100" align="center" class="form_label">上会地点</th>
-		<th height="34" width="100" align="center" class="form_label">风险类型（低/非低风险业务）</th>
-		<th height="34" width="100" align="center" class="form_label">审批类型</th>
-		<th height="34" width="200" align="center" class="form_label">有表决权人数</th>
-		<th height="34" width="100" align="center" class="form_label">会议审议结论</th>
-		<th height="34" width="100" align="center" class="form_label">评级结论</th>
-		<th height="34" width="100" align="center" class="form_label">风险限额（万元）</th>
-		<th height="34" width="100" align="center" class="form_label">额度授信金额（万元）</th>
-		<th height="34" width="100" align="center" class="form_label">业务金额（万元）</th>
-		<th height="34" width="100" align="center" class="form_label">批复日期</th>
-		<th height="34" width="100" align="center" class="form_label">备注</th>
+		<th height="34" width="100" align="center" class="form_label"  rowspan="2">机构名称</th>
+		<th height="34" width="100" align="center" class="form_label"  rowspan="2">报单时间</th>
+		<th height="34" width="200" align="center" class="form_label"  rowspan="2">是否加急</th>
+		<th height="34" width="100" align="center" class="form_label"  rowspan="2">客户姓名</th>
+		<th height="34" width="100" align="center" class="form_label"  rowspan="2">是否老客户</th>
+		<th height="34" width="100" align="center" class="form_label"  rowspan="2">一级分类</th>
+		<th height="34" width="100" align="center" class="form_label"  rowspan="2">贷款种类</th>
+		<th height="34" width="100" align="center" class="form_label"  rowspan="2">申请币别</th>
+		<th height="34" width="100" align="center" class="form_label"  rowspan="2">申请金额（万元）</th>
+		<th height="34" width="100" align="center" class="form_label"  rowspan="2">区支行</th>
+		<th height="34" width="100" align="center" class="form_label"  rowspan="2">受理支行</th>
+		<th height="34" width="100" align="center" class="form_label"  rowspan="2">营销人员</th>
+		<th height="34" width="200" align="center" class="form_label"  rowspan="2">主调信贷员</th>
+		<th height="34" width="100" align="center" class="form_label"  rowspan="2">辅调信贷员</th>
+		<th height="34" width="100" align="center" class="form_label"  rowspan="2">审查人</th>
+		<th height="34" width="100" align="center" class="form_label"  rowspan="2">第二审查人</th>
+		<th height="34" width="100" align="center" class="form_label"  rowspan="2">调查时间</th>
+		<th height="34" width="100" align="center" class="form_label" colspan="2">一次上报</th>
+		<th height="34" width="100" align="center" class="form_label"  rowspan="2">二次上报时间</th>
+		<th height="34" width="100" align="center" class="form_label" colspan="2">二次上报</th>
+		<th height="34" width="100" align="center" class="form_label"  rowspan="2">三次上报时间</th>
+		<th height="34" width="100" align="center" class="form_label" colspan="2">三次上报</th>
+		<th height="34" width="200" align="center" class="form_label"  rowspan="2">四次上报时间</th>
+		<th height="34" width="100" align="center" class="form_label" colspan="2">四次上报</th>
+		<th height="34" width="100" align="center" class="form_label"  rowspan="2">五次上报时间</th>
+		<th height="34" width="100" align="center" class="form_label" colspan="2">五次上报</th>
+		<th height="34" width="100" align="center" class="form_label"  rowspan="2">审查岗审结时间</th>
+		<th height="34" width="100" align="center" class="form_label"  rowspan="2">审批方式</th>
+		<th height="34" width="100" align="center" class="form_label"  rowspan="2">决策单编号</th>
+		<th height="34" width="100" align="center" class="form_label"  rowspan="2">会议期数</th>
+		<th height="34" width="100" align="center" class="form_label"  rowspan="2">表决表编号</th>
+		<th height="34" width="100" align="center" class="form_label"  rowspan="2"> 会议时间/审批岗审结时间</th>
+		<th height="34" width="200" align="center" class="form_label"  rowspan="2">审议事项</th>
+		<th height="34" width="100" align="center" class="form_label"  rowspan="2">贷审会秘书一</th>
+		<th height="34" width="100" align="center" class="form_label"  rowspan="2">贷审会秘书二</th>
+		<th height="34" width="100" align="center" class="form_label"  rowspan="2">第一审批人（会议审批委员）</th>
+		<th height="34" width="100" align="center" class="form_label"  rowspan="2">第二审批人（会议审批委员）</th>
+		<th height="34" width="100" align="center" class="form_label"  rowspan="2">会议审批主任委员</th>
+		<th height="34" width="100" align="center" class="form_label"  rowspan="2">会议审批委员</th>
+		<th height="34" width="100" align="center" class="form_label"  rowspan="2">上会地点</th>
+		<th height="34" width="100" align="center" class="form_label"  rowspan="2">风险类型（低/非低风险业务）</th>
+		<th height="34" width="100" align="center" class="form_label"  rowspan="2">审批类型</th>
+		<th height="34" width="200" align="center" class="form_label"  rowspan="2">有表决权人数</th>
+		<th height="34" width="100" align="center" class="form_label"  rowspan="2">会议审议结论</th>
+		<th height="34" width="100" align="center" class="form_label"  rowspan="2">评级结论</th>
+		<th height="34" width="100" align="center" class="form_label"  rowspan="2">风险限额（万元）</th>
+		<th height="34" width="100" align="center" class="form_label"  rowspan="2">额度授信金额（万元）</th>
+		<th height="34" width="100" align="center" class="form_label"  rowspan="2">业务金额（万元）</th>
+		<th height="34" width="100" align="center" class="form_label"  rowspan="2">批复日期</th>
+		<th height="34" width="100" align="center" class="form_label"  rowspan="2">备注</th>
 		
 	</tr>
 			   <tr>
@@ -75,7 +75,8 @@
 		<th height="34" width="100" align="center" class="form_label">退回</th>
 		<th height="34" width="100" align="center" class="form_label">接收</th>
 		<th height="34" width="100" align="center" class="form_label">退回</th>
-			  
+		<th height="34" width="100" align="center" class="form_label">接收</th>
+		<th height="34" width="100" align="center" class="form_label">退回</th>	  
 				</tr>
 	<l:iterate property="approvalList" id="id1">
 			<tr class="<l:output evenOutput='EOS_table_row' />" id="id1">

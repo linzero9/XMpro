@@ -158,7 +158,7 @@
            ON A4.EXECUTION_=Z.FLOW_ID
            LEFT JOIN (select t.execution_,o.empname as CHECKTWO from jbpm4_hist_actinst q,JBPM4_HIST_TASK t,om_employee o WHERE q.activity_name_='审批二'and q.htask_=t.dbid_ and o.empid=t.assignee_ group by t.execution_,o.empname)A5
            ON A5.EXECUTION_=Z.FLOW_ID
-           LEFT JOIN (select t.execution_, wm_concat(to_char(t.start_,'yyyy-mm-dd hh24:mi;ss')) RECEIVETIME from (select *from jbpm4_hist_actinst q where q.activity_name_ = '审查一' order by q.execution_, q.start_)T group by t.execution_)A6
+           LEFT JOIN (select t.execution_, wm_concat(to_char(t.start_,'yyyy-mm-dd hh24:mi:ss')) RECEIVETIME from (select *from jbpm4_hist_actinst q where q.activity_name_ = '审查一' order by q.execution_, q.start_)T group by t.execution_)A6
            ON A6.EXECUTION_=Z.FLOW_ID where 1=1
    <isNotNull prepend="and" property="repTimeStrat">
    <![CDATA[Z.REPORTTIME>=#repTimeStrat#]]>

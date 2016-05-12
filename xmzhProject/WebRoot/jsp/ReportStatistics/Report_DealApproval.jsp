@@ -18,19 +18,19 @@
                                         <td class="form_label" align="right" width="20%">上报日期：</td>
 					<td colspan="1" width="30%">
 					从
-					<w:date  format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="repTimeStrat" name="approval.repTimeStrat" 
+					<w:date  format="yyyy-MM-dd" submitFormat="yyyy-MM-dd" id="repTimeStrat" name="approval.repTimeStrat" 
 					property="approval.repTimeStrat" /> 
 					到
-					<w:date format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="repTimeEnd" name="approval.repTimeEnd" 
+					<w:date format="yyyy-MM-dd" submitFormat="yyyy-MM-dd" id="repTimeEnd" name="approval.repTimeEnd" 
 					property="approval.repTimeEnd" /></td>
 
 					<td class="form_label" align="right" width="20%">审批日期：</td>
 					<td colspan="1" width="30%">
 					从
-					<w:date  format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="appTimeStrat" name="approval.appTimeStrat" 
+					<w:date  format="yyyy-MM-dd" submitFormat="yyyy-MM-dd" id="appTimeStrat" name="approval.appTimeStrat" 
 					property="approval.appTimeStrat" /> 
 					到
-					<w:date format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="appTimeEnd" name="approval.appTimeEnd" 
+					<w:date format="yyyy-MM-dd" submitFormat="yyyy-MM-dd" id="appTimeEnd" name="approval.appTimeEnd" 
 					property="approval.appTimeEnd" /></td>
 					
 					
@@ -43,7 +43,7 @@
 					        <input type="hidden" name="page.isCount" value="true">
 							<input id="querys" type="submit" value="查 询" class="button" onclick="search();">
 							<input type="button" value="清 空" class="button" onclick="clears();">
-                                                        <input id="downexl" type="submit" class="button" value="导出列表" onclick="downExl();"></td>
+                                                        <input id="downexl" type="button" class="button" value="导出列表" onclick="downExl();"></td>
 					</tr>			
 			</table>
 		</w:panel>
@@ -348,10 +348,17 @@
 
 		//清空
 		function clears(){
+			//清空JSP页面时间控件显示的值
 			$("#repTimeStrat_input").val("");
 			$("#repTimeEnd_input").val("");
 			$("#appTimeStrat_input").val("");
 			$("#appTimeEnd_input").val("");
+
+			//清空传入后台的时间控件的值
+			$name("approval.repTimeStrat").value = "";
+			$name("approval.repTimeEnd").value = "";
+			$name("approval.appTimeStrat").value = "";
+			$name("approval.appTimeEnd").value = "";
 		}
                 function search(){
 			$("#isExport").val("");

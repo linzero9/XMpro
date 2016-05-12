@@ -38,6 +38,11 @@ public List<ReportCooperateInstitution> selectReportCooperateInstitution(ReportC
 				
 				map.put("appTimeEnd", reportCooperateInstitution.getAppTimeEnd());
 			}
+			
+			if (reportCooperateInstitution.getCoOrganization() != null&&!"".equals(reportCooperateInstitution.getCoOrganization())) {
+				
+				map.put("coOrganization", reportCooperateInstitution.getCoOrganization());
+			}
 	
 		}
 		
@@ -59,6 +64,10 @@ public List<ReportCooperateInstitution> selectReportCooperateInstitution(ReportC
 					map.put("appTimeEnd", reportCooperateInstitution.getAppTimeEnd());
 				}
 		
+				if (reportCooperateInstitution.getCoOrganization() != null&&!"".equals(reportCooperateInstitution.getCoOrganization())) {
+					
+					map.put("coOrganization", reportCooperateInstitution.getCoOrganization());
+				}
 			}
 			
 			return reportCooperateInstitutionDao.selectReportCooperateInstitutionFoeExcl(map);

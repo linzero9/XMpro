@@ -24,9 +24,10 @@
 					<w:date format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="appTimeEnd" name="cooperateInstitutionDto.appTimeEnd" 
 					property="cooperateInstitutionDto.appTimeEnd" /></td>
 
-					
-					
-					
+					 <td class="form_label" align="right" width="20%">合作机构：</td>
+					<td colspan="1" width="30%">
+						<h:text  id="coOrganization"  property="cooperateInstitutionDto.coOrganization" />
+					</td>
 				</tr>
 				<tr class="form_bottom">
 						<td colspan="6" class="form_bottom">
@@ -56,9 +57,9 @@
 					<table align="center" border="0" width="100%" class="EOS_table">
 		    
 						<tr>
-							<th align="center" nowrap="nowrap">
+							<%-- <th align="center" nowrap="nowrap">
 								<b:message key="l_select"></b:message>
-							</th>
+							</th> --%>
 							
 							<th nowrap="nowrap">
 								序号
@@ -83,7 +84,7 @@
 						<w:radioGroup id="group1">
                            <l:iterate property="cooperateInstitutionDtos" id="id1">
 							<tr class="<l:output evenOutput='EOS_table_row' oddOutput='EOS_table_row_o'  />">
-								<td align="center" nowrap="nowrap">
+								<%-- <td align="center" nowrap="nowrap">
 									<w:rowRadio>
 										<h:param name='executionId' iterateId='id1' property='executionId' />
 										<h:param name='flow_Id' iterateId='id1' property='flow_Id' />
@@ -92,7 +93,7 @@
 										<h:param name='apply_bal' iterateId='id1' property='apply_bal' />
 										<h:param name='coOrganization' iterateId='id1' property='coOrganization' />
 										</w:rowRadio>
-								</td>
+								</td> --%>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1"    property="number" />
 								</td>
@@ -161,10 +162,16 @@
 
 		//清空
 		function clears(){
-			/*$id("appTimeStrat").value="";
-			$id("appTimeEnd").value="";*/
+			//清空 时间控件页面显示的值
 			$("#appTimeStrat_input").val("");
 			$("#appTimeEnd_input").val("");
+
+			//清空时间控件 传入后台的值
+			$name("cooperateInstitutionDto.appTimeStrat").value = "";
+			$name("cooperateInstitutionDto.appTimeEnd").value = "";
+
+			//清空合作机构的值
+			$("#coOrganization").val("");
 			
 		}
                 function search(){
@@ -232,13 +239,15 @@
 		
 			var url = "/reportjbpm/reportCooperateInstitutionAction_queryReportCooperateInstitutionForExcl.action?";
 			
-			var startTime = $id("appTimeStrat").value;
+			var startTime = $name("cooperateInstitutionDto.appTimeStrat").value;
 			
-			var endTime = $id("appTimeEnd").value;
+			var endTime = $name("cooperateInstitutionDto.appTimeEnd").value;
+
+			var coOrganization = $name("cooperateInstitutionDto.coOrganization").value;
 	
 			url = url + "cooperateInstitutionDto.appTimeStrat="
 					+ startTime + "&cooperateInstitutionDto.appTimeEnd="
-					+ endTime;
+					+ endTime + "&cooperateInstitutionDto.coOrganization="+ coOrganization;
 			window.location.href = url;
 
 		}

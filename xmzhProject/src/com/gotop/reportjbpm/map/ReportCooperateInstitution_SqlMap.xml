@@ -28,12 +28,17 @@
     JBPM4_HIST_ACTINST  j ,
     OM_ORGANIZATION O   
     where  t.FLOW_ID=j.EXECUTION_  and  T.ORGCODEONE=O.ORGCODE  and j.ACTIVITY_NAME_='放款操作' 
-   
+   and t.COORGANIZATION is not null
     <isNotNull  prepend="and" property="appTimeStrat">
     	<![CDATA[j.END_>to_date('$appTimeStrat$','yyyy-mm-dd hh24:mi:ss')]]>
     </isNotNull>
     <isNotNull prepend="and" property="appTimeEnd">
    <![CDATA[j.END_<to_date('$appTimeEnd$','yyyy-mm-dd hh24:mi:ss')+1]]>
+    </isNotNull>
+    
+    <isNotNull prepend="and" property="coOrganization">
+  		 t.COORGANIZATION like  '%'||trim('$coOrganization$')||'%'
+  		<!--  t.COORGANIZATION =  trim('$coOrganization$') -->
     </isNotNull>
 	</select>
 	

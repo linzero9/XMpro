@@ -81,13 +81,13 @@
 								二级支行
 							</th>
 							<th nowrap="nowrap">
-								本月上报审批笔数
+								上报审批笔数
 							</th>
 							<th nowrap="nowrap">
-								本月拒贷笔数
+								拒贷笔数
 					       </th>
 					       <th nowrap="nowrap">
-								本月拒贷率
+								拒贷率
 							</th>
                                                  
 						</tr>
@@ -181,9 +181,9 @@
              
              //alert('ssssss');
     				//报单开始日期
-    				var stratdate = $id("stratdate").value;
+    				var stratdate = $name("reportRefusalrate.stratdate").value;
     				//报单结束日期
-    				var enddate = $id("enddate").value;
+    				var enddate = $name("reportRefusalrate.enddate").value;
     				//一级分类
     				var oneCategoryTxt = $id("oneCategoryTxt").value;
     				//贷种分类
