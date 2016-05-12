@@ -138,9 +138,9 @@
            	<td class="form_label" align="right" style="width:120px;">是否老顾客：</td>
      	<td colspan="1">
 			<h:select  id="old_Cust"  property="modelOne.old_Cust">
-			     <h:option label="=未选择=" value=""/>
-			     <h:option label="是" value="y"/>
 			     <h:option label="否" value="n"/>
+			     <h:option label="是" value="y"/>
+			     
 			</h:select> 
 		</td>
       
