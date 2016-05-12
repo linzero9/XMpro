@@ -455,8 +455,12 @@ public class TGeneralprocessModeleightAction extends BaseAction {
 	 * 查询提交人
 	 */
 	public String querySubmitter(){
-	
-		processSubmitter=generalprocessMistakeService.querySubmitter(processSubmitter);
+		if (processSubmitter!=null&&!"".equals(processSubmitter)) {
+			if (processSubmitter.getFlowId()!=null&&!"".equals(processSubmitter.getFlowId())) {
+				processSubmitter=generalprocessMistakeService.querySubmitter(processSubmitter);
+				
+			}
+		}
 		MUOUserSession user = this.getCurrentOnlineUser();
 		processSubmitter.setCurrenUser(user.getEmpname());
 		this.setProcessSubmitter(processSubmitter);

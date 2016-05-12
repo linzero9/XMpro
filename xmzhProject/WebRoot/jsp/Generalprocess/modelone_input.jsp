@@ -233,8 +233,10 @@
       	</td>
       </tr>-->
       
-      <tr id="rowFile">
-      
+     <tr id="rowFile">
+     	<td class="form_label" align="right">差错情况：</td>
+     	<td colspan="3">
+				<br/>
 				<table border=0 id="tabtest1"   width="100%">
 				</table>
      	</td>
@@ -291,7 +293,7 @@
  var rowId = 0; 
  $(function (){
 
-	
+		
         var submitter; 
 		var currenUser;
 		var flowId=$("#executionId");
@@ -306,15 +308,11 @@
 			timeout : 60000,
 			dataType : 'json',
 			success : function(json) {
-
-					var submitter=json.submitter; 
-					var currenUser=json.currenUser;
-					
-
+						
 				
 					 submitter=json.submitter; 
 					 currenUser=json.currenUser;
-
+					
 					
 			}});
 
