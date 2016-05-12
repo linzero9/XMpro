@@ -233,7 +233,7 @@
       	</td>
       </tr>-->
       
-     <tr id="rowFile">
+     <tr id="errorContent" style="display: none">
      	<td class="form_label" align="right">差错情况：</td>
      	<td colspan="3">
 				<br/>
@@ -317,6 +317,8 @@
 			}});
 
 		if(submitter==currenUser){
+
+			$("#errorContent").css("display","");
 			
 			$.ajax({
 				

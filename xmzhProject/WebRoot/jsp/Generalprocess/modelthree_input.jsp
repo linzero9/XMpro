@@ -262,7 +262,7 @@
 	     	<h:textarea  extAttr="class='h80' "  id="hanldOption" property="modelThree.opninion_content"  validateAttr="maxLength=512;" rows="4"  style="width:90%;" />
      	</td>
       </tr>
-      <tr id="rowFile">
+    <tr id="errorContent" style="display: none">
      	<td class="form_label" align="right">差错情况：</td>
      	<td colspan="3">
 				<br/>
