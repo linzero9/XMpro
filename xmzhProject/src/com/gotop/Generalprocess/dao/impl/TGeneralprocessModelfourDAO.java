@@ -77,6 +77,14 @@ public class TGeneralprocessModelfourDAO extends SqlMapClientDao implements ITGe
 			HashMap<String, Object> map) {
 		return queryForList("T_GENERALPROCESS_MODELFOUR_SqlMap.queryFourMistakeByFlowId", map);
 	}
+	/**
+	 * 查询流程整改情况
+	 */
+	@Override
+	public List<ProcessModelFourMistake> queryMistakes(Map<String, Object>map) {
+	
+		 return queryForList("T_GENERALPROCESS_MODELFOUR_SqlMap.queryMistakes", map);
+	}
 
 	
 }

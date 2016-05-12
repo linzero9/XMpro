@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 <beans>
+
+	<bean class="com.gotop.Generalprocess.service.impl.GeneralprocessMistakeService" id="generalprocessMistakeService">
+    <property name="generalprocessMistakeDao" ref="generalprocessMistakeDao" />
+  </bean>
+
   <bean class="com.gotop.Generalprocess.service.impl.GeneralprocessService" id="generalProcessService">
   	<property name="generalProcessDAO" ref="generalProcessDAO" />
   	<property name="generalprocessMainDAO" ref="generalprocessMainDAO" />

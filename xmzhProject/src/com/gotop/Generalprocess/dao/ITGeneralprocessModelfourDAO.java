@@ -26,4 +26,6 @@ public interface ITGeneralprocessModelfourDAO {
 			HashMap<String, Object> map);
 
 	void saveMistakeInfo(Map<String, Object> map);
+
+	List<ProcessModelFourMistake> queryMistakes(Map<String, Object> map2);
 }

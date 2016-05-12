@@ -2,6 +2,7 @@ package com.gotop.Generalprocess.action;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,9 +10,11 @@ import java.util.Map;
 import net.sf.json.JSONArray;
 import com.gotop.Generalprocess.annonation.GeneralprocessFieldBean;
 import com.gotop.Generalprocess.model.GeneralprocessDto;
+import com.gotop.Generalprocess.model.ProcessMistake;
 import com.gotop.Generalprocess.model.ProcessModelOne;
 import com.gotop.Generalprocess.model.ProcessModelTwo;
 import com.gotop.Generalprocess.model.TGeneralprocessMain;
+import com.gotop.Generalprocess.service.IGeneralprocessMistakeService;
 import com.gotop.Generalprocess.service.IGeneralprocessService;
 import com.gotop.Generalprocess.service.ITGeneralprocessMainService;
 import com.gotop.Generalprocess.service.ITGeneralprocessModeloneService;
@@ -25,6 +28,7 @@ import com.gotop.opinion.service.ITDefaultOpinionService;
 import com.gotop.util.Struts2Utils;
 import com.gotop.vo.system.MUOUserSession;
 import com.gotop.vo.tyjg.Omorganization;
+import com.informix.util.stringUtil;
 
 /****
  * 
@@ -32,6 +36,63 @@ import com.gotop.vo.tyjg.Omorganization;
  *
  */
 public class GeneralprocessAction extends BaseAction {
+	
+	
+	private String[] rectification;
+	private String[] mistakeId;
+
+	public String[] getMistakeId() {
+		return mistakeId;
+	}
+
+	public void setMistakeId(String[] mistakeId) {
+		this.mistakeId = mistakeId;
+	}
+
+	public String[] getRectification() {
+		return rectification;
+	}
+
+	public void setRectification(String[] rectification) {
+		this.rectification = rectification;
+	}
+
+
+	
+	
+	private ProcessMistake processMistake;
+	private List<ProcessMistake> processMistakeList = new ArrayList<ProcessMistake>();
+	/**
+	 * 差错相关的service
+	 */
+	private IGeneralprocessMistakeService generalprocessMistakeService;
+	
+	public IGeneralprocessMistakeService getGeneralprocessMistakeService() {
+		return generalprocessMistakeService;
+	}
+
+	public void setGeneralprocessMistakeService(
+			IGeneralprocessMistakeService generalprocessMistakeService) {
+		this.generalprocessMistakeService = generalprocessMistakeService;
+	}
+	public ProcessMistake getProcessMistake() {
+		return processMistake;
+	}
+
+	public void setProcessMistake(ProcessMistake processMistake) {
+		this.processMistake = processMistake;
+	}
+
+	public List<ProcessMistake> getProcessMistakeList() {
+		return processMistakeList;
+	}
+
+	public void setProcessMistakeList(List<ProcessMistake> processMistakeList) {
+		this.processMistakeList = processMistakeList;
+	}
+
+
+
 
 	/**
 	 * 
@@ -504,6 +565,7 @@ public class GeneralprocessAction extends BaseAction {
 		modeType="mod1";
 		try {
 			this.generalProcessService.handleModelOne(muo, modelOne, taskAssgineeDto, files, filesFileName, modeId, modeType);
+			this.updateProcessMistakes();
 		} catch (Exception e) {
 			info = "fails";
 			log.error("[提交模式一表单失败！]", e);
@@ -529,6 +591,7 @@ public class GeneralprocessAction extends BaseAction {
 			MUOUserSession muo = getCurrentOnlineUser();
 			try {
 				this.generalProcessService.handleModelTwo(muo, modelTwo, taskAssgineeDto, files, filesFileName);
+				this.updateProcessMistakes();
 			} catch (Exception e) {
 				info = "fails";
 				log.error("[提交模式二表单失败！]", e);
@@ -556,7 +619,27 @@ public class GeneralprocessAction extends BaseAction {
 		Struts2Utils.renderText(info);
 	}
 	
+	/**
+	 * 提交时批量更新整改情况
+	 * @throws Exception 
+	 */
 	
+	public void updateProcessMistakes() throws Exception {
+		if (mistakeId!=null&&mistakeId.length!=0&&rectification!=null&&!"".equals(rectification)) {
+			
+			for (int i = 0; i < mistakeId.length; i++) {
+				processMistake=new ProcessMistake();
+			    processMistake.setMistakeId(mistakeId[i]);
+				processMistake.setRectification(rectification[i]);
+				processMistakeList.add(processMistake);
+				
+			}
+		}
+		
+	
+			this.generalprocessMistakeService.updateProcessMistake(processMistakeList);
+		
+	}
 
     /**
      * @author yyx

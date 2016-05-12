@@ -176,5 +176,4 @@ public interface ITGeneralprocessModeloneDAO {
 	void uptModelOne(ProcessModelOne modelOne);
 
 
-	ProcessSubmitter querySubmitter(Map<String, Object> map);
 }

@@ -27,11 +27,25 @@
       <result name="viewlist">
         /jsp/generalProcess/tGeneralprocessModeltwoDatacell.jsp
       </result>
+      
+        <result name="processSubmitter" type="json">
+        <param name="root">processSubmitter</param>
+      </result>
+      <result name="processMistakeList" type="json">
+        <param name="root">processMistakeList</param>
+      </result>
     </action>
     
     <action class="tGeneralprocessModelthreeAction" method="{1}" name="tGeneralprocessModelThreeAction_*">
        <result name="toModelthree">
         /jsp/Generalprocess/modelthree_input.jsp
+      </result>
+      
+         <result name="processSubmitter" type="json">
+        <param name="root">processSubmitter</param>
+      </result>
+      <result name="processMistakeList" type="json">
+        <param name="root">processMistakeList</param>
       </result>
     </action>
     
@@ -70,6 +84,13 @@
 	  <result name="list2" type="json">
 		   <param name="root">otherMistakes</param>
 	  </result>
+	  
+	     <result name="processSubmitter" type="json">
+        <param name="root">processSubmitter</param>
+      </result>
+      <result name="processMistakeList" type="json">
+        <param name="root">processMistakeList</param>
+      </result>
     </action>
     
     
@@ -78,7 +99,14 @@
  
       <result name="modelSix_input">
         /jsp/Generalprocess/modelSix_input.jsp
-      </result>    
+      </result>   
+      
+         <result name="processSubmitter" type="json">
+        <param name="root">processSubmitter</param>
+      </result>
+      <result name="processMistakeList" type="json">
+        <param name="root">processMistakeList</param>
+      </result> 
     </action>
     
     
@@ -86,11 +114,25 @@
       <result name="toModelFive">
         /jsp/Generalprocess/modelfive_input.jsp
       </result>
+      
+         <result name="processSubmitter" type="json">
+        <param name="root">processSubmitter</param>
+      </result>
+      <result name="processMistakeList" type="json">
+        <param name="root">processMistakeList</param>
+      </result>
     </action>
     
     <action class="tGeneralprocessModeleightAction" method="{1}" name="tGeneralprocessModelEightAction_*">
       <result name="toModelEight">
         /jsp/Generalprocess/modeleight_input.jsp
+      </result>
+      
+         <result name="processSubmitter" type="json">
+        <param name="root">processSubmitter</param>
+      </result>
+      <result name="processMistakeList" type="json">
+        <param name="root">processMistakeList</param>
       </result>
     </action>
     
@@ -99,13 +141,24 @@
      <result name="toModelSeven">
         /jsp/Generalprocess/modelseven_input.jsp
       </result>
+      
+         <result name="processSubmitter" type="json">
+        <param name="root">processSubmitter</param>
+      </result>
+      <result name="processMistakeList" type="json">
+        <param name="root">processMistakeList</param>
+      </result>
     </action>
     
     <action class="tGeneralprocessModeloneAction" method="{1}" name="tGeneralprocessModeloneAction_*">
       <result name="processSubmitter" type="json">
         <param name="root">processSubmitter</param>
       </result>
+      <result name="processMistakeList" type="json">
+        <param name="root">processMistakeList</param>
+      </result>
     </action>
+  
     
     
     

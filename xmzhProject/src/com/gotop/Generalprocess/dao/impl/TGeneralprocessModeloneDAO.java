@@ -263,10 +263,5 @@ public class TGeneralprocessModeloneDAO extends SqlMapClientDao implements ITGen
 		getSqlMapClientTemplate().update("T_GENERALPROCESS_MODELONE_SqlMap.uptModelOne", modelOne);
 	}
 
-	@Override
-	public ProcessSubmitter querySubmitter(Map<String, Object> map) {
-		
-		  return (ProcessSubmitter) queryForObject("T_GENERALPROCESS_MODELONE_SqlMap.querySubmitter", map);
-		
-	};
+
 }

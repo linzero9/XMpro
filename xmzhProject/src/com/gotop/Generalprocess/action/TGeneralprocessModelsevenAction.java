@@ -2,14 +2,18 @@ package com.gotop.Generalprocess.action;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import net.sf.json.JSONArray;
 import com.gotop.Generalprocess.annonation.GeneralprocessFieldBean;
+import com.gotop.Generalprocess.model.ProcessMistake;
 import com.gotop.Generalprocess.model.ProcessModelSeven;
+import com.gotop.Generalprocess.model.ProcessSubmitter;
 import com.gotop.Generalprocess.model.TGeneralprocessMain;
+import com.gotop.Generalprocess.service.IGeneralprocessMistakeService;
 import com.gotop.Generalprocess.service.ITGeneralprocessMainService;
 import com.gotop.Generalprocess.service.ITGeneralprocessModelsevenService;
 import com.gotop.Generalprocess.util.GeneralprocessUtil;
@@ -22,6 +26,67 @@ import com.gotop.util.Struts2Utils;
 import com.gotop.vo.system.MUOUserSession;
 
 public class TGeneralprocessModelsevenAction extends BaseAction {
+	private String[] rectification;
+	private String[] mistakeId;
+
+	public String[] getMistakeId() {
+		return mistakeId;
+	}
+
+	public void setMistakeId(String[] mistakeId) {
+		this.mistakeId = mistakeId;
+	}
+
+	public String[] getRectification() {
+		return rectification;
+	}
+
+	public void setRectification(String[] rectification) {
+		this.rectification = rectification;
+	}
+	/**
+	 * 当前用户和提交人po
+	 */
+	private ProcessSubmitter processSubmitter;
+	private ProcessMistake processMistake;
+	private List<ProcessMistake> processMistakeList = new ArrayList<ProcessMistake>();
+	public List<ProcessMistake> getProcessMistakeList() {
+		return processMistakeList;
+	}
+
+	public void setProcessMistakeList(List<ProcessMistake> processMistakeList) {
+		this.processMistakeList = processMistakeList;
+	}
+
+	public ProcessMistake getProcessMistake() {
+		return processMistake;
+	}
+
+	public void setProcessMistake(ProcessMistake processMistake) {
+		this.processMistake = processMistake;
+	}
+
+	public ProcessSubmitter getProcessSubmitter() {
+		return processSubmitter;
+	}
+
+	public void setProcessSubmitter(ProcessSubmitter processSubmitter) {
+		this.processSubmitter = processSubmitter;
+	}
+	/**
+	 * 差错相关的service
+	 */
+	private IGeneralprocessMistakeService generalprocessMistakeService;
+	
+	public IGeneralprocessMistakeService getGeneralprocessMistakeService() {
+		return generalprocessMistakeService;
+	}
+
+	public void setGeneralprocessMistakeService(
+			IGeneralprocessMistakeService generalprocessMistakeService) {
+		this.generalprocessMistakeService = generalprocessMistakeService;
+	}
+	
 	/**
 	 * 模式七控制器
 	 */
@@ -269,6 +334,7 @@ public class TGeneralprocessModelsevenAction extends BaseAction {
 			MUOUserSession muo = getCurrentOnlineUser();
 			try {
 				this.tGeneralprocessModelsevenService.handleModelSeven(muo, modelSeven, taskAssgineeDto, files, filesFileName);
+				this.updateProcessMistakes();
 			} catch (Exception e) {
 				info = "fails";
 				log.error("[提交模式七表单失败！]", e);
@@ -333,5 +399,61 @@ public class TGeneralprocessModelsevenAction extends BaseAction {
 	public void setModeType(String modeType) {
 		this.modeType = modeType;
 	}
+	/**
+	 * 查询提交人
+	 */
+	public String querySubmitter(){
 	
+		processSubmitter=generalprocessMistakeService.querySubmitter(processSubmitter);
+		MUOUserSession user = this.getCurrentOnlineUser();
+		processSubmitter.setCurrenUser(user.getEmpname());
+		this.setProcessSubmitter(processSubmitter);
+		return "processSubmitter";
+	}
+	/**
+	 * 查询差错相关
+	 */
+ public String queryProcessMistake(){
+	List<ProcessMistake> processMistakeList= generalprocessMistakeService.queryProcessMistake(processMistake);
+	this.setProcessMistakeList(processMistakeList);
+   return "processMistakeList";
+ }
+	/**
+	 * 更新整改情况
+	 * @throws Exception 
+	 */
+	
+	public void updateProcessMistake() throws Exception {
+		processMistakeList.add(processMistake);
+		String info = "success";
+		try {
+			this.generalprocessMistakeService.updateProcessMistake(processMistakeList);
+		} catch (Exception e) {
+			info = "fails";
+			log.error("[保存错误失败！]", e);
+			throw e;
+		}
+		Struts2Utils.renderText(info);
+	}
+	/**
+	 * 提交时批量更新整改情况
+	 * @throws Exception 
+	 */
+	
+	public void updateProcessMistakes() throws Exception {
+		if (mistakeId!=null&&mistakeId.length!=0&&rectification!=null&&!"".equals(rectification)) {
+			
+			for (int i = 0; i < mistakeId.length; i++) {
+				processMistake=new ProcessMistake();
+			    processMistake.setMistakeId(mistakeId[i]);
+				processMistake.setRectification(rectification[i]);
+				processMistakeList.add(processMistake);
+				
+			}
+		}
+		
+	
+			this.generalprocessMistakeService.updateProcessMistake(processMistakeList);
+		
+	}
 }

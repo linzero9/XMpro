@@ -8,6 +8,8 @@
     <property name="generalprocessModeloneService" ref="generalprocessModeloneService" />
     <property name="generalprocessModeltwoService" ref="tGeneralprocessModeltwoService" />
     <property name="jbpmService" ref="jbpmService" />
+     <property name="generalprocessMistakeService" ref="generalprocessMistakeService" />
+     
   </bean>
   
   <bean class="com.gotop.Generalprocess.action.TGeneralprocessMainAction" id="tGeneralprocessMainaction" name="tGeneralprocessMainAction" singleton="false">
@@ -16,10 +18,12 @@
   
   <bean class="com.gotop.Generalprocess.action.TGeneralprocessModeltwoAction" id="tGeneralprocessModeltwoaction" name="tGeneralprocessModeltwoAction" singleton="false">
     <property name="tGeneralprocessModeltwoService" ref="tGeneralprocessModeltwoService" />
+    <property name="generalprocessMistakeService" ref="generalprocessMistakeService" />
   </bean>
   
    <bean class="com.gotop.Generalprocess.action.TGeneralprocessModeloneAction" id="tGeneralprocessModeloneAction" name="tGeneralprocessModeloneAction" singleton="false">
-    <property name="tGeneralprocessModeloneService" ref="tGeneralprocessModeloneService" />
+    <property name="tGeneralprocessModeloneService" ref="generalprocessModeloneService" />
+    <property name="generalprocessMistakeService" ref="generalprocessMistakeService" />
   </bean>
   
   <bean class="com.gotop.Generalprocess.action.TGeneralprocessModelthreeAction" id="tGeneralprocessModelthreeaction" name="tGeneralprocessModelthreeAction" singleton="false">
@@ -28,6 +32,7 @@
   	<property name="generalprocessMainService" ref="tGeneralprocessMainService" />
   	 <property name="jbpmService" ref="jbpmService" />
   	 <property name="tDefaultOpinionService" ref="tDefaultOpinionService" />
+  	 <property name="generalprocessMistakeService" ref="generalprocessMistakeService" />
   </bean>
   
   <bean class="com.gotop.Generalprocess.action.TGeneralprocessCdtypeAction" id="tGeneralprocessCdtypeaction" name="tGeneralprocessCdtypeAction" singleton="false">
@@ -39,6 +44,7 @@
     <property name="generalprocessMainService" ref="tGeneralprocessMainService" />
     <property name="jbpmService" ref="jbpmService" />
     <property name="tDefaultOpinionService" ref="tDefaultOpinionService" />
+   
   </bean>
   
   
@@ -49,6 +55,7 @@
          <property name="generalprocessModeloneService" ref="generalprocessModeloneService" />
             <property name="jbpmService" ref="jbpmService" />
             <property name="tDefaultOpinionService" ref="tDefaultOpinionService" />
+            <property name="generalprocessMistakeService" ref="generalprocessMistakeService" />
   </bean>
   
   <bean class="com.gotop.Generalprocess.action.TGeneralprocessModelfiveAction" id="tGeneralprocessModelfiveaction" name="tGeneralprocessModelfiveAction" singleton="false">
@@ -56,6 +63,7 @@
     <property name="generalprocessMainService" ref="tGeneralprocessMainService" />
     <property name="jbpmService" ref="jbpmService" />
     <property name="tDefaultOpinionService" ref="tDefaultOpinionService" />
+    <property name="generalprocessMistakeService" ref="generalprocessMistakeService" />
   </bean>
   
   <bean class="com.gotop.Generalprocess.action.TGeneralprocessModeleightAction" id="tGeneralprocessModeleightaction" name="tGeneralprocessModeleightAction" singleton="false">
@@ -64,7 +72,7 @@
     <property name="jbpmService" ref="jbpmService" />
     <property name="tDefaultOpinionService" ref="tDefaultOpinionService" />
        <property name="tApproveOpninionService" ref="tApproveOpninionService" />
-    
+    <property name="generalprocessMistakeService" ref="generalprocessMistakeService" />
     
     
   </bean>
@@ -74,5 +82,6 @@
     <property name="generalprocessMainService" ref="tGeneralprocessMainService" />
     <property name="jbpmService" ref="jbpmService" />
      <property name="tDefaultOpinionService" ref="tDefaultOpinionService" />
+     <property name="generalprocessMistakeService" ref="generalprocessMistakeService" />
   </bean>
   </beans>

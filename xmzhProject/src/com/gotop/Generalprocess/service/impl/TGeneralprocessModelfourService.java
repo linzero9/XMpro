@@ -20,6 +20,7 @@ import com.gotop.vo.system.MUOUserSession;
 import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -127,10 +128,12 @@ public class TGeneralprocessModelfourService implements ITGeneralprocessModelfou
 	@Override
 	public void handleModelFour(MUOUserSession muo, ProcessModelFour modelFour,Map<String, Object> map,
 			TaskAssgineeDto taskAssgineeDto,File[] files2,String[] filesFileName )throws Exception  {
+		List<ProcessModelFourMistake> mistakes = new ArrayList<ProcessModelFourMistake>();
 		String taskId = taskAssgineeDto.getNextTaskId();
 		String taskName = jbpmService.getTaskNameById(taskId);
 		modelFour.setTaskName(taskName);
 		modelFour.setFlowId(taskAssgineeDto.getExecutionId());
+		
 		String[] hiAddTimeAr = null;
 		String[] hiProFourAr = null;
 		String[] hiTaskNameAr = null;
@@ -264,9 +267,12 @@ public class TGeneralprocessModelfourService implements ITGeneralprocessModelfou
 		}
 		if (modelFour.getProcessModelId() != null
 				&& !"".equals(modelFour.getProcessModelId())){
+			Map<String, Object>map2=new HashMap<String, Object>();
 			// 修改模式四表单内容
 			this.tGeneralprocessModelfourDAO.uptModelFour(modelFour);
-			
+			//查询流程整改情况
+			map2.put("processModelIdFour", modelFour.getProcessModelId());
+			mistakes=this.tGeneralprocessModelfourDAO.queryMistakes(map2);
 			this.tGeneralprocessModelfourDAO.deleteModelFourMistake(modelFour);
 		}else{
 			// 保存模式四表单内容
@@ -290,7 +296,11 @@ public class TGeneralprocessModelfourService implements ITGeneralprocessModelfou
 					mistake.setProcessModelIdFour(String.valueOf(modelFour.getProcessModelId()));
 					//String currDate = TimeUtil.getCntDtStr(timeee,
 					//		"yyyyMMddHHmmss");
-					              
+					if (mistakes !=null&&mistakes.size()!=0) {
+						if (mistakes.get(i).getRectification()!=null&&!"".equals(mistakes.get(i).getRectification())) {
+							mistake.setRectification(mistakes.get(i).getRectification());
+						}             
+					}
 					if (timeesArray == null) {
 
 						mistake.setAddTime(TimeUtil.getCntDtStr(new Date(),

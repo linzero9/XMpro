@@ -20,7 +20,7 @@ public interface ITGeneralprocessMainService {
     ITGeneralprocessMainDAO gettGeneralprocessMainDAO() throws Exception;
 
     /**
-     * 动态查询实例，分页查询数据并返回list
+     * 动态查询实例，分页查询数据并返回list 
      * @abatorgenerated
      */
     List queryDataGrid(HashMap map, Page page) throws Exception;

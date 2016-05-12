@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="T_GENERALPROCESS_MISTAKE_SqlMap" >
+  
+   <resultMap id="processMistake" class="com.gotop.Generalprocess.model.ProcessMistake" >
+    <!--Bean方式返回全表-->
+    <result column="MISTAKEID" property="mistakeId" jdbcType="VARCHAR" />
+    <result column="MISTAKE_CONTENT" property="mistakeContent" jdbcType="VARCHAR" />
+    <result column="PUNISH_BAL" property="money" jdbcType="VARCHAR" />
+    <result column="RECTIFICATION" property="rectification" jdbcType="VARCHAR" />
+  
+  </resultMap>
+  
+  	<resultMap id="processSubmitter" class="com.gotop.Generalprocess.model.ProcessSubmitter" >
+		
+    	<result column="SUBMITTER" property="submitter" jdbcType="VARCHAR" />
+    	
+	</resultMap>
+	
+	
+	<!--查询提交人-->
+	<select id="querySubmitter" resultMap="processSubmitter" parameterClass="java.util.HashMap">
+     select b.empname AS SUBMITTER
+   from t_process_business a, om_employee b
+  where a.submit_id = b.empid
+   <isNotNull prepend="and" property="flowId" >
+       a.execution_id = #flowId:VARCHAR#
+      </isNotNull>
+ 
+  	</select>
+  <!--查询差错情况-->
+  <select id="queryProcessMistake" parameterClass="java.util.HashMap" resultMap="processMistake">
+  	select t.mistakeid, t.mistake_content, t.punish_bal, t.rectification
+  from T_GENERALPROCESS_MISTAKE t
+ where 1=1
+   
+      <isNotNull prepend="and" property="flowId" >
+        t.flow_id = #flowId:VARCHAR#
+      </isNotNull>
+     
+  </select>
+  
+ 
+  
+
+  
+  <update id="updateProcessMistake" parameterClass="com.gotop.Generalprocess.model.ProcessMistake">
+ update T_GENERALPROCESS_MISTAKE t set t.rectification=#rectification:VARCHAR#
+ where t.mistakeid =#mistakeId:VARCHAR#
+
+     
+  </update>
+  
+</sqlMap>

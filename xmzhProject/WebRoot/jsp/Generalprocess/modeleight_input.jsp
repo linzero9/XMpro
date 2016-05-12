@@ -89,6 +89,12 @@
 		 
      	</td>
       </tr>
+          <tr id="rowFile">
+      
+				<table border=0 id="tabtest1"   width="100%">
+				</table>
+     	</td>
+     </tr>
     <%@include file="/jsp/util/default_gp_opinionUtil.jsp" %>
       <tr class="form_bottom">
         <td colspan="4">
@@ -107,7 +113,107 @@
     </h:form>
   </body>
  <script type="text/javascript">
+
+
+
+ 
  show('${taskAssgineeDto.fxJson}');
+
+ function saveRectification(mistakeId,rowId){
+
+		var rectification = $("#rectification"+rowId).val();
+		if(rectification==null & rectification==""){alert("请输入整改情况!")}
+		$.ajax({//获得当前
+			        url: "/Generalprocess/tGeneralprocessModelEightAction_updateProcessMistake.action",
+			        async:false,
+			        type: 'post',
+			        data: "processMistake.mistakeId="+mistakeId+"&processMistake.rectification="+rectification,
+			        dataType:"text",
+			        timeout: 60000,
+			        	 success: function (data) {
+					    	  if (data.indexOf("success") >= 0) {
+					    		  alert("保存成功");
+					    		  
+							} else if (data.indexOf("fails") >= 0) {
+								alert("保存失败!");
+							} else {
+								alert("操作失败!");
+							}
+									  	
+					      }
+			        
+		    });	
+}
+var rowId = 0; 
+$(function (){
+		var submitter; 
+		var currenUser;
+		var flowId=$("#executionId");
+		
+		
+	 $.ajax({
+		 url : "/Generalprocess/tGeneralprocessModelEightAction_querySubmitter.action",
+			async : false,
+			type : 'post',
+			data : "processSubmitter.flowId=${taskAssgineeDto.executionId}",
+			timeout : 60000,
+			dataType : 'json',
+			success : function(json) {
+				
+					 submitter=json.submitter; 
+					 currenUser=json.currenUser;
+					
+					
+			}});
+
+		if(submitter==currenUser){
+			
+			$.ajax({
+				
+				url : "/Generalprocess/tGeneralprocessModelEightAction_queryProcessMistake.action",
+				async : false,
+				type : 'post',
+				data : "processMistake.flowId=${taskAssgineeDto.executionId}",
+				timeout : 60000,
+				dataType : 'json',
+				success : function(json) {
+					if (json == "") {
+
+					} else {
+
+                  $.each(json,function(key, value) {
+                 		var money =value.money;
+                 		var mistakeContent =value.mistakeContent;
+                 		var rectification =value.rectification;
+                 		var mistakeId =value.mistakeId;
+							if(rectification==null){
+								rectification="";
+
+								}
+							 var tab,row,td,tdStr;
+							 var zs=$("#tabtest1 tbody tr").length;
+							 tab = $id("tabtest1"); 
+							 row =  tab.insertRow();
+							 row.id = "fileRow"+rowId;
+							 td = row.insertCell(); 
+		tdStr="差错内容：<textarea   rows=\"3\" style=\"width:60%\"  name=\"mistakeContent\" id=\"mistakeContent\" size='70' validateAttr=\"allowNull=false\" readonly=\"true\" onkeyup=\"this.value=this.value.replace(/[\|]/g,'')\">"+mistakeContent+"</textarea>";
+		tdStr+="<input type=\"hidden\" id=\"processMistake.mistakeId\" name=\"mistakeId\" value=\""+mistakeId+"\" />";
+		tdStr+="扣罚金额：<input type=\"text\" name=\"money\" value=\""+money+"\" id=\"money\" readonly=\"true\" size='10' validateAttr=\"allowNull=false\">元  <br/>";
+		tdStr+="整改情况：<textarea   rows=\"3\" style=\"width:60%\"  name=\"rectification\" id=\"rectification"+rowId+"\" size='70'  onkeyup=\"this.value=this.value.replace(/[\|]/g,'')\">"+rectification+"</textarea>";
+	    tdStr+= "<input type=\"button\" onclick=\"delTr('fileRow"+rowId+"');\" name='button"+rowId+"' value=\"删除\" style=\"margin-left:2px;vertical-align:middle;cursor:hand;\"/>";
+		tdStr+= "<input type=\"button\" onclick=\"saveRectification("+mistakeId+","+rowId+");\" name='button"+rowId+"' value=\"保存\" style=\"margin-left:2px;vertical-align:middle;cursor:hand;\"/>";
+								td.innerHTML = tdStr;
+							    rowId = rowId+1;     
+				
+			
+							  	 
+						});	
+							}}
+						});
+			     }
+	           	});
+
+	
 
 		 $(document).ready(function(){
 

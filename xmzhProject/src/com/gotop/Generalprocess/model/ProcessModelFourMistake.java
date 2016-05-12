@@ -17,7 +17,19 @@ public class ProcessModelFourMistake {
 	private String processModelIdFour;
 
 	private String addTime;
+	/*
+	 * 整改情况 
+	 */
+	private String rectification;
 	
+	public String getRectification() {
+		return rectification;
+	}
+
+	public void setRectification(String rectification) {
+		this.rectification = rectification;
+	}
+
 	public String getAddTime() {
 		return addTime;
 	}

@@ -183,18 +183,7 @@ public class TGeneralprocessModeloneService implements ITGeneralprocessModeloneS
 		return this.tGeneralprocessModeloneDAO.queryModelOne(map);
 	}
 	
-	/**
-	 * 查询提交人
-	 */
-	public ProcessSubmitter querySubmitter(ProcessSubmitter processSubmitter){
-		Map<String, Object>map=new HashMap<String, Object>();
-		if (processSubmitter.getFlowId()!=null&&!"".equals(processSubmitter.getFlowId())) {
-			map.put("flowId", processSubmitter.getFlowId());
-		}
-		processSubmitter=tGeneralprocessModeloneDAO.querySubmitter(map);
-		
-		return processSubmitter;
-	}
+
 	
 	
 	

@@ -105,23 +105,7 @@
         
 	</resultMap>
 	
-	<resultMap id="processSubmitter" class="com.gotop.Generalprocess.model.ProcessSubmitter" >
-		
-    	<result column="SUBMITTER" property="submitter" jdbcType="VARCHAR" />
-    	
-	</resultMap>
-	
-	
-	<!--查询提交人-->
-	<select id="querySubmitter" resultMap="processSubmitter" parameterClass="java.util.HashMap">
-     select b.empname AS SUBMITTER
-   from t_process_business a, om_employee b
-  where a.submit_id = b.empid
-   <isNotNull prepend="and" property="flowId" >
-       a.execution_id = #flowId:VARCHAR#
-      </isNotNull>
- 
-  	</select>
+
 	
 	<!-- 更新模式一 -->
 	<update id="uptModelOne" parameterClass="com.gotop.Generalprocess.model.ProcessModelOne" >

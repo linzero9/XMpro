@@ -92,5 +92,4 @@ public interface ITGeneralprocessModeloneService {
 
 	ProcessModelOne queryModelOne(ProcessModelOne newModelOne);
 
-	ProcessSubmitter querySubmitter(ProcessSubmitter processSubmitter);
 }
