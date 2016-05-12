@@ -760,11 +760,11 @@ WEB.turnMainFrame=function(){
 						        	var mistakeshtml=$("#table"+key).html();
 						        	mistakeshtml=mistakeshtml+'<tr class="form_label" align="right" style="width:20%;"><td>差错情况</td><td colspan="3" style="width:80%;"><table id="mistake'+misTakeType+'" border="0" width="100%" class="form_table"></table></td></tr>';
 						        	$("#table"+key).html(mistakeshtml);
-						        	var mistake="<tr><th style='width:60%;'>差错内容</th><th style='width:20%;'>扣罚金额</th><th style='width:20%;'>登记时间</th></tr>";
+						        	var mistake="<tr><th nowrap='nowrap' style='width:35%;'>差错内容</th><th nowrap='nowrap' style='width:15%;'>扣罚金额</th><th nowrap='nowrap' style='width:15%;'>登记时间</th><th nowrap='nowrap' style='width:35%;'>整改情况</th></tr>";
 						        	$.each(files,function( i,item ){
 						        		var addtimestr=item.addTime;
 						        		var addtime=addtimestr.substring(0,4)+"-"+addtimestr.substring(4,6)+"-"+addtimestr.substring(6,8)+"  "+addtimestr.substring(8,10)+":"+addtimestr.substring(10,12) +":"+addtimestr.substring(12,14);
-						        		mistake=mistake+"<tr><td>"+item.mistakeContent+"</td><td>"+item.punishBal+"元</td><td>"+addtime+"</td></tr>";
+						        		mistake=mistake+"<tr><td>"+item.mistakeContent+"</td><td>"+item.punishBal+"元</td><td>"+addtime+"</td><td>"+item.rectification+"</td></tr>";
 						        	});
 						        	$("#mistake"+misTakeType).html(mistake);
 						        }  

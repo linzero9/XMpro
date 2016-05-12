@@ -523,9 +523,21 @@ public class TGeneralprocessModelfourAction extends BaseAction {
 		map.put("mistakeContent", files[0]);
 		map.put("punishBal", jees);
 		map.put("addTime", addTime);
-		
+		ProcessModelFour processModelFour;
 		
 		try {
+			
+			processModelFour =this.tGeneralprocessModelfourService.queryProceeModelId(modelFour,taskAssgineeDto);
+			if (processModelFour==null||"".equals(processModelFour)) {
+			
+			
+				tGeneralprocessModelfourService.saveProcessModelFour(modelFour,taskAssgineeDto);
+				processModelFour =this.tGeneralprocessModelfourService.queryProceeModelId(modelFour,taskAssgineeDto);
+				modelFour.setProcessModelId(processModelFour.getProcessModelId());
+				
+			
+		}
+			
 			this.tGeneralprocessModelfourService.saveMistakeInfo(muo, modelFour, map, taskAssgineeDto);
 		} catch (Exception e) {
 			info = "fails";

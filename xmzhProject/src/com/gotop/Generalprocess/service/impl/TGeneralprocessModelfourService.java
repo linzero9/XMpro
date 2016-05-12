@@ -459,6 +459,28 @@ public class TGeneralprocessModelfourService implements ITGeneralprocessModelfou
 		this.tGeneralprocessModelfourDAO.saveMistakeInfo(map);
 		
 	}
+	@Override
+	public ProcessModelFour queryProceeModelId(ProcessModelFour modelFour,
+			TaskAssgineeDto taskAssgineeDto) {
+		Map<String, Object>map=new HashMap<String, Object>();
+		String taskId = taskAssgineeDto.getNextTaskId();
+		String taskName = jbpmService.getTaskNameById(taskId);
+		modelFour.setFlowId(taskAssgineeDto.getExecutionId());
+		map.put("flowId", modelFour.getFlowId());
+		map.put("taskName", taskName);
+		return tGeneralprocessModelfourDAO.queryProceeModelId(map);
+	}
+	@Override
+	public void saveProcessModelFour(ProcessModelFour modelFour,
+			TaskAssgineeDto taskAssgineeDto) {
+		Map<String, Object>map=new HashMap<String, Object>();
+		String taskId = taskAssgineeDto.getNextTaskId();
+		String taskName = jbpmService.getTaskNameById(taskId);
+		modelFour.setFlowId(taskAssgineeDto.getExecutionId());
+		map.put("flowId", modelFour.getFlowId());
+		map.put("taskName", taskName);
+		tGeneralprocessModelfourDAO.saveProcessModelFour(map);
+	}
 	
 	
 
@@ -486,6 +508,10 @@ public class TGeneralprocessModelfourService implements ITGeneralprocessModelfou
 		}
 		return this.tGeneralprocessModelfourDAO.queryFourMistakeByFlowId(map);
 	}
+
+
+
+
 
 
 

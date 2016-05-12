@@ -35,8 +35,9 @@ public class ProcessModelFour extends ProcessModel  implements  Serializable{
 	 */
 	@GeneralprocessField(name="终审金额",type="text",hidden=false)
 	private String zsmoney;
+	
 
-    /**
+	/**
      * 处理意见 .
      * @abatorgenerated
      */
@@ -44,7 +45,7 @@ public class ProcessModelFour extends ProcessModel  implements  Serializable{
     private String opninionContent;
 
 
-	@GeneralprocessField(name="整改情况",type="text")
+	
 	private String rectification;
 	
 	

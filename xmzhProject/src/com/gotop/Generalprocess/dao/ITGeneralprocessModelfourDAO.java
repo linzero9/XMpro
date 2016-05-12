@@ -28,4 +28,8 @@ public interface ITGeneralprocessModelfourDAO {
 	void saveMistakeInfo(Map<String, Object> map);
 
 	List<ProcessModelFourMistake> queryMistakes(Map<String, Object> map2);
+
+	ProcessModelFour queryProceeModelId(Map<String, Object> map);
+
+	void saveProcessModelFour(Map<String, Object> map);
 }

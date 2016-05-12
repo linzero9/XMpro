@@ -53,4 +53,10 @@ public interface ITGeneralprocessModelfourService {
 	void saveMistakeInfo(MUOUserSession muo, ProcessModelFour modelFour,
 			Map<String, Object> map, TaskAssgineeDto taskAssgineeDto);
 
+ProcessModelFour queryProceeModelId(ProcessModelFour modelFour,
+		TaskAssgineeDto taskAssgineeDto);
+
+void saveProcessModelFour(ProcessModelFour modelFour,
+		TaskAssgineeDto taskAssgineeDto);
+
 }

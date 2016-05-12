@@ -26,6 +26,10 @@ public class TGeneralprocessModelfourDAO extends SqlMapClientDao implements ITGe
     public TGeneralprocessModelfourDAO() {
         super();
     }
+	@Override
+	public ProcessModelFour queryProceeModelId(Map<String, Object> map) {
+		return (ProcessModelFour) getSqlMapClientTemplate().queryForObject("T_GENERALPROCESS_MODELFOUR_SqlMap.queryProceeModelId", map);
+	}
 
 	@Override
 	public ProcessModelFour queryModelFour(HashMap<String, Object> map) {
@@ -60,7 +64,12 @@ public class TGeneralprocessModelfourDAO extends SqlMapClientDao implements ITGe
 		
 		getSqlMapClientTemplate().insert("T_GENERALPROCESS_MODELFOUR_SqlMap.saveMistakeInfo", map);
 	}
-
+	 
+	@Override
+	public void saveProcessModelFour(Map<String, Object> map) {
+		getSqlMapClientTemplate().insert("T_GENERALPROCESS_MODELFOUR_SqlMap.saveProcessModelFour", map);
+		
+	}
 	@Override
 	public List<ProcessModelFourMistake> queryFourMistake(
 			HashMap<String, Object> map) {
@@ -85,6 +94,8 @@ public class TGeneralprocessModelfourDAO extends SqlMapClientDao implements ITGe
 	
 		 return queryForList("T_GENERALPROCESS_MODELFOUR_SqlMap.queryMistakes", map);
 	}
+	
+
 
 	
 }

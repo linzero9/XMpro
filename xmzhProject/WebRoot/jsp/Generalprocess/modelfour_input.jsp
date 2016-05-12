@@ -62,7 +62,7 @@
                                                  终审金额：
         </td>
         <td colspan="1">
-         <h:text property="modelFour.zsmoney" id="zsje"  style="width:130px;" />万元<font id="decimal" style="color: red" style=display:none>小数点后两位 </font>	
+         <h:text property="modelFour.zsmoney" id="zsje"  style="width:130px;" />万元<font id="decimal" style="color: red" style=display:none>最多保留小数点后两位 </font>	
         </td>
       </tr>
       <tr>
@@ -108,7 +108,7 @@
       <tr id="rowFile">
      	<td class="form_label" align="right">差错情况：</td>
      	<td colspan="3">
-				<input type="button" onclick="addMisTake('tabtest','files','jees','timees');return false;" value="新增差错" 
+				<input type="button"  onclick="addMisTake('tabtest','files','jees','timees');return false;" value="新增差错" 
 					style="margin-left:2px;vertical-align:middle;cursor:hand;"/>
 				<br/>
 				<table border=0 id="tabtest"   width="100%">
@@ -127,7 +127,7 @@
       </tr>-->
       <tr class="form_bottom">
         <td colspan="4">
-          <input type="button" value="提交" onclick="doSave(2);" class="button" id="save3" />
+          <input type="button"  value="提交" onclick="doSave(2);" class="button" id="save3" />
           <input type="button" value="查看流程" onclick="doflowpic();" class="button" id="flowpic" />
          </td>
       </tr>
@@ -282,7 +282,7 @@
 					         		//	tdStr+=row.id;
 									 	tdStr+="扣罚金额：<input type=\"text\" name=\""+jeName+"\" id=\""+jeId+"\" value=\""+item.punishBal+"\" size='10' validateAttr=\"allowNull=false\">元";
 									 	tdStr+= "<input type=\"button\" onclick=\"delTr('fileRow"+rowId+"');\" name='button"+rowId+"' value=\"删除\" style=\"margin-left:2px;vertical-align:middle;cursor:hand;\"/>";
-									 	tdStr+= "<input type=\"button\" onclick=\"saveMistake('fileRow"+rowId+"');\" name='button"+rowId+"' value=\"保存\" style=\"margin-left:2px;vertical-align:middle;cursor:hand;\"/>";
+									 	tdStr+= "<input type=\"button\" id='save"+rowId+"' onclick=\"saveMistake('fileRow"+rowId+"');\"  name='button"+rowId+"' value=\"保存\" style=\"margin-left:2px;vertical-align:middle;cursor:hand;\"/>";
 									 	td.innerHTML = tdStr;
 										rowId = rowId+1; 
 					         		 }
@@ -305,7 +305,7 @@
 		function doSave(value){ 
 			
 			var zs=$("#zsje").val();
-			 var reg = /^(([1-9]+)|([0-9]+\.[0-9]{1,2}))$/;
+			 var reg =/^[0-9]+([.]\d{1,2})?$/;
 		        var is = reg.test(zs);
 			
 			if($.trim(zs)>0){
@@ -390,7 +390,7 @@
 			 	tdStr="差错内容：<textarea   rows=\"3\" style=\"width:60%\"  name=\""+fName+"\" id=\""+fId+"\" size='70' validateAttr=\"allowNull=false\" onkeyup=\"this.value=this.value.replace(/[\|]/g,'')\"></textarea>";
 			 	tdStr+="扣罚金额：<input type=\"text\" name=\""+jeName+"\" id=\""+jeId+"\" size='10' validateAttr=\"allowNull=false\">元";
 			    tdStr+= "<input type=\"button\" onclick=\"delTr('fileRow"+rowId+"');\" name='button"+rowId+"' value=\"删除\" style=\"margin-left:2px;vertical-align:middle;cursor:hand;\"/>";
-			    tdStr+= "<input type=\"button\" onclick=\"saveMistake('fileRow"+rowId+"');\" name='button"+rowId+"' value=\"保存\" style=\"margin-left:2px;vertical-align:middle;cursor:hand;\"/>";
+			    tdStr+= "<input type=\"button\"  onclick=\"saveMistake('fileRow"+rowId+"');\" name='button"+rowId+"' value=\"保存\" style=\"margin-left:2px;vertical-align:middle;cursor:hand;\"/>";
 				    td.innerHTML = tdStr;
 			    rowId = rowId+1;    
 		 }
@@ -419,14 +419,10 @@
 			$("#"+id).remove();
 		}
 			function saveMistake(id){
-
-
+				
 				var money = $("#" + id + "   input").val();
 				var time = $("#" + id + "   textarea[name='timees']").val();
-
 				var files = $("#" + id + "   textarea[name='files']").val();
-
-				
 				
 			
 				$.ajax({//获得当前
@@ -438,8 +434,10 @@
 					        timeout: 60000,
 					        	 success: function (data) {
 							    	  if (data.indexOf("success") >= 0) {
-							    		  alert("保存成功");
-							    		  
+							    		 alert("保存成功");
+							    		 var length=id.length;
+										 var s=id.substring(7,length);
+											 $("#save"+s).attr("disabled","disabled");
 									} else if (data.indexOf("fails") >= 0) {
 										alert("保存失败!");
 									} else {
