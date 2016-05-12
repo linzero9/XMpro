@@ -39,7 +39,7 @@
                M.REPORTTIME,
                E.CUST_NAME,
                P.EMPNAME,
-               T.ADD_TIME
+               substr(T.ADD_TIME,0,4)||'-'||substr(T.ADD_TIME,5,2)||'-'||substr(T.ADD_TIME,7,2)||' '||substr(T.ADD_TIME,9,2)||':'||substr(T.ADD_TIME,11,2)||':'||substr(T.ADD_TIME,5,2) ADD_TIME
           FROM T_GENERALPROCESS_MODELONE   E,
                T_GENERALPROCESS_MISTAKE    T,
                T_GENERALPROCESS_MODELTHREE M,
