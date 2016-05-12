@@ -269,13 +269,12 @@
 		  	}
 
 	  	function showProcessrode() {
-	  		//var processNodeName=document.getElementById("processNodeName").value;
-	  		//strUrl ="/reportjbpm/jobWorkloadAction_jobWorkloadNodeName.action？processNodeName="+processNodeName;
+	  		var processNodeName=document.getElementById("processNodeName").value;
+	  		strUrl ="/reportjbpm/jobWorkloadAction_jobWorkloadNodeName.action?jobWorkload.processNodeName="+processNodeName;
 	  
-	  		strUrl ="/reportjbpm/jobWorkloadAction_jobWorkloadNodeName.action";
+	  		//strUrl ="/reportjbpm/jobWorkloadAction_jobWorkloadNodeName.action";
 
-	  		//alert(strUrl);
-			showModalCenter(strUrl,'',showErrorlink_callback1 ,900,380,'流程节点选择'); 
+			showModalCenter(encodeURI(strUrl),'',showErrorlink_callback1 ,900,380,'流程节点选择'); 
 		} 
 		function showErrorlink_callback1(returnValue){
 			if(returnValue == ""){

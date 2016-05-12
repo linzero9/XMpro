@@ -15,8 +15,13 @@
 			<table align="center" border="0" width="100%" class="form_table">
 				
 				<tr>
-         	
-					
+					<td class="form_label" align="right" width="20%">报单日期：</td>
+					<td colspan="1" width="30%">
+						从
+						<w:date  id="appTimeStrat"  property="" /> 
+						到
+						<w:date id="appTimeEnd"  property="" />
+					</td>					
 				</tr>
 				<tr class="form_bottom">
 						<td colspan="6" class="form_bottom">
