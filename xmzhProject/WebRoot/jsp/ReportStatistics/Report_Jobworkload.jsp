@@ -171,9 +171,14 @@
 		
 		//清空
 		function clears(){
+			//清空JSP页面时间控件显示的值
 			$id("appTimeStrat_input").value="";
 			$id("appTimeEnd_input").value="";
 			$id("processNodeName").value="";
+
+			//清空传入后台的时间控件的值
+			$name("jobWorkload.appTimeStrat").value = "";
+			$name("jobWorkload.appTimeEnd").value = "";
 
 		}
                 function search(){

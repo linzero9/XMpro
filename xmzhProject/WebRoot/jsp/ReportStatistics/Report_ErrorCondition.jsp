@@ -181,10 +181,15 @@
 
 		//清空
 		function clears(){
+			//清空JSP页面时间控件显示的值
 			$id("custName").value="";
 			$("#startTime_input").val("");
 			$("#endTime_input").val("");
 			$id("taskName").value="";
+
+			//清空传入后台的时间控件的值
+			$name("errorStatistic.startTime").value = "";
+			$name("errorStatistic.endTime").value = "";
 			
 		}
                 function search(){

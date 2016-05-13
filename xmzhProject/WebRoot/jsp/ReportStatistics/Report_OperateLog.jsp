@@ -151,10 +151,15 @@
 
 		//清空
 		function clears(){
+			//清空JSP页面时间控件显示的值
 			$("#airTime_input").val("");
 			$("#stopTime_input").val("");
 			$("#businessTitle").val("");
 			$("#processName").val("");
+
+			//清空传入后台的时间控件的值
+			$name("operateLog.airTime").value = "";
+			$name("operateLog.stopTime").value = "";
 		}
 		
                 function search(){

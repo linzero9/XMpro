@@ -168,12 +168,17 @@
 
 		//清空
 		function clears(){
+			//清空JSP页面时间控件显示的值
 			$id("appTimeStrat_input").value="";
 			$id("appTimeEnd_input").value="";
 			$id("oneCategory").value="";
 			$id("oneCategoryId").value="";
 			$id("loanCategory").value="";
 			$id("loanCategoryId").value="";
+
+			//清空传入后台的时间控件的值
+			$name("rateofreturnReport.appTimeStrat").value = "";
+			$name("rateofreturnReport.appTimeEnd").value = "";
 		}
               
                 function search(){
