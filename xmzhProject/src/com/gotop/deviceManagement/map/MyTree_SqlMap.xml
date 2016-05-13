@@ -19,7 +19,7 @@
 		 		<!-- 查询行政树子机构信息 -->
 		 		AND A.PARENTORGID = #parentid#
 		 		<isEqual property="parentid" compareValue="5425">
-		 			and A.ORGTYPE = '3'
+		 		 <![CDATA[	and A.ORGNAME <> '一类支行'  ]]>
 		 		</isEqual>
 		 	</isNotNull>
 		 	
@@ -59,7 +59,7 @@
 		 		<!-- 查询行政树子机构信息 -->
 		 		AND A.PARENTORGID = #parentid#
 		 		<isEqual property="parentid" compareValue="5425">
-		 			and A.ORGTYPE IS NULL
+		 			and A.ORGNAME = '一类支行'
 		 		</isEqual>
 		 	</isNotNull>
 		 	
