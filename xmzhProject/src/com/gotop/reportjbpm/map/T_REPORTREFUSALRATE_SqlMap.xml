@@ -101,14 +101,14 @@ SELECT JJ.*,
                                             </isNotNull>
                                             
                                             ) T1
-                                     JOIN (SELECT ORGCODE, ORGNAME
+                                  LEFT   JOIN (SELECT ORGCODE, ORGNAME
                                             FROM OM_ORGANIZATION) T2
                                        ON T1.ORGCODEONE = T2.ORGCODE
                                      LEFT JOIN (SELECT ORGCODE AS ORGCODETWO,
                                                       ORGNAME AS ORGNAMETWO
                                                  FROM OM_ORGANIZATION) T3
                                        ON T1.ORGCODETWO = T3.ORGCODETWO
-                                     JOIN (
+                              LEFT       JOIN (
                                      SELECT A.EXECUTION_ F_ID
                                             FROM jbpm4_hist_actinst A                  
                                                    WHERE A.ACTIVITY_NAME_ ='发起合同预审')T4
@@ -140,14 +140,14 @@ SELECT JJ.*,
                                                 </isNotNull>
                                                 
                                                 ) T1
-                                         JOIN (SELECT ORGCODE, ORGNAME
+                                 LEFT        JOIN (SELECT ORGCODE, ORGNAME
                                                 FROM OM_ORGANIZATION) T2
                                            ON T1.ORGCODEONE = T2.ORGCODE
                                          LEFT JOIN (SELECT ORGCODE AS ORGCODETWO,
                                                           ORGNAME AS ORGNAMETWO
                                                      FROM OM_ORGANIZATION) T3
                                            ON T1.ORGCODETWO = T3.ORGCODETWO
-                                         JOIN (SELECT A.EXECUTION_ F_ID
+                                 LEFT        JOIN (SELECT A.EXECUTION_ F_ID
                                                 FROM JBPM4_HIST_ACTINST A
                                                WHERE A.TRANSITION_ = 'TO 结束'
                                                  AND A.EXECUTION_ IN
