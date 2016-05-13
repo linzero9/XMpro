@@ -20,7 +20,7 @@
 			<w:panel id="panel" width="100%" title="差错环节选择">
 			<table align="center" border="0" width="100%" class="form_table">
 				<viewlist id="e2c61865-3b56-470d-bd42-fff792fb9493">
-         <h:text id="checked_taskName" property="errorStatistic.taskName"  />
+         <h:hidden id="checked_taskName" property="errorStatistic.taskName"  />
 					<table align="center" border="0" width="100%" class="EOS_table">
 						<tr>
 							<th align="center" nowrap="nowrap">
