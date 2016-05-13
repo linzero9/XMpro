@@ -18,10 +18,10 @@
                                         <td class="form_label" align="right" width="10%">报单日期：</td>
 					<td colspan="1" width="25%">
 					从
-					<w:date  format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="airTime" name="operateLog.airTime" 
+					<w:date  format="yyyy-MM-dd" submitFormat="yyyy-MM-dd" id="airTime" name="operateLog.airTime" 
 					property="operateLog.airTime" /> 
 					到
-					<w:date format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="stopTime" name="operateLog.stopTime" 
+					<w:date format="yyyy-MM-dd" submitFormat="yyyy-MM-dd" id="stopTime" name="operateLog.stopTime" 
 					property="operateLog.stopTime" /></td>
 
 					<td class="form_label" align="right" width="10%">客户名称：</td>

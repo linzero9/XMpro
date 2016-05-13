@@ -30,7 +30,7 @@
 	</select>
   
   
-  
+  <!-- 岗位工作量统计 -->
   	<select id="jobWorkloadtList" parameterClass="java.util.HashMap" resultMap="JobWorkload">
 SELECT
 	ONECATEGORY,

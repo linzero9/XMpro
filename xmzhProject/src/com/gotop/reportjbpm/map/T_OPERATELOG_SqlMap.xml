@@ -35,7 +35,7 @@ select T1.ACTIVITY_NAME_,
        T_GENERALPROCESS_MODELTHREE T3,
        T_PROCESS_BUSINESS          T4,
        T_PROCESS_CONFIG            T5,
-       JBPM4_EXECUTION             T6，
+       JBPM4_EXECUTION             T6,
         T_GENERALPROCESS_MODELONE T7
  WHERE T1.HTASK_ = T2.DBID_
    AND T2.ASSIGNEE_ = E.EMPID
@@ -55,11 +55,11 @@ select T1.ACTIVITY_NAME_,
       </isNotNull>
       
       <isNotNull prepend="and" property="airTime" >
-        <![CDATA[T3.REPORTTIME>=#airTime#]]>
+        <![CDATA[T3.REPORTTIME >= #airTime#]]>
       </isNotNull>
       
       <isNotNull prepend="and" property="stopTime" >
-       <![CDATA[T3.REPORTTIME<=#stopTime#]]>
+       <![CDATA[T3.REPORTTIME <= #stopTime#]]>
       </isNotNull>
      
 	

@@ -25,23 +25,18 @@ public class OperateLogService implements IOperateLogService {
 	@Override
 	public List<OperateLog> queryOperateLog(OperateLog operateLog, Page page) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyyMMdd");
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		
-		try {
+
+	
 		if (operateLog.getAirTime() != null
 				&& !"".equals(operateLog.getAirTime())) {
-				map.put("airTime", sdf.format(sdf1.parse(operateLog.getAirTime())));
+				map.put("airTime", operateLog.getAirTime());
 		
 		}
 		if (operateLog.getStopTime() != null
 				&& !"".equals(operateLog.getStopTime())) {
-			map.put("stopTime",sdf.format(sdf1.parse(operateLog.getStopTime())));
+			map.put("stopTime",operateLog.getStopTime());
 		}
-		} catch (ParseException e) {
-			
-			e.printStackTrace();
-		}
+
 		if (operateLog.getActivityName() != null
 				&& !"".equals(operateLog.getActivityName())) {
 			map.put("activityName", operateLog.getActivityName());
