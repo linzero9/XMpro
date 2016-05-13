@@ -30,8 +30,8 @@
 					
 					<td class="form_label" align="right" width="10%">差错环节：</td>
 					<td >
-			     		<h:hidden id="ErrorlinkId" property="xdProcessTaskAssignee.ErrorlinkId" />   <!--//xdProcessTaskAssignee是dao名称 -->
-						<h:text id="taskName" property="errorStatistic.taskName" readonly="true"/>
+			     		
+						<h:text id="taskName" property="errorStatistic.taskName" readonly="true" name="errorStatistic.taskName"/>
 						<a href="#" onclick="showErrorlink();">选择</a>
 					</td>
 					
@@ -282,8 +282,9 @@ var proposeET = row.getParam("proposeET");
 	  	
 
 	  	function showErrorlink() {
-			strUrl ="/reportjbpm/errorStatisticAction_querytaskNameList.action";
-			showModalCenter(strUrl,'',showErrorlink_callback1 ,900,500,'差错环节选择'); 
+	  		var taskName=document.getElementById("taskName").value;
+			strUrl ="/reportjbpm/errorStatisticAction_querytaskNameList.action?errorStatistic.taskName="+taskName;
+			showModalCenter(encodeURI(strUrl),'',showErrorlink_callback1 ,900,500,'差错环节选择'); 
 		} 
 		function showErrorlink_callback1(returnValue){
 			if(returnValue == ""){
