@@ -390,7 +390,7 @@
 			 	tdStr="差错内容：<textarea   rows=\"3\" style=\"width:60%\"  name=\""+fName+"\" id=\""+fId+"\" size='70' validateAttr=\"allowNull=false\" onkeyup=\"this.value=this.value.replace(/[\|]/g,'')\"></textarea>";
 			 	tdStr+="扣罚金额：<input type=\"text\" name=\""+jeName+"\" id=\""+jeId+"\" size='10' validateAttr=\"allowNull=false\">元";
 			    tdStr+= "<input type=\"button\" onclick=\"delTr('fileRow"+rowId+"');\" name='button"+rowId+"' value=\"删除\" style=\"margin-left:2px;vertical-align:middle;cursor:hand;\"/>";
-			    tdStr+= "<input type=\"button\"  onclick=\"saveMistake('fileRow"+rowId+"');\" name='button"+rowId+"' value=\"保存\" style=\"margin-left:2px;vertical-align:middle;cursor:hand;\"/>";
+			    tdStr+= "<input type=\"button\" id=\"save"+rowId+"\" onclick=\"saveMistake('fileRow"+rowId+"');\" name='button"+rowId+"' value=\"保存\" style=\"margin-left:2px;vertical-align:middle;cursor:hand;\"/>";
 				    td.innerHTML = tdStr;
 			    rowId = rowId+1;    
 		 }
@@ -423,8 +423,14 @@
 				var money = $("#" + id + "   input").val();
 				var time = $("#" + id + "   textarea[name='timees']").val();
 				var files = $("#" + id + "   textarea[name='files']").val();
+				if(files==null ||files==""){
+					alert("差错内容不能为空");
+					return;
+					}else if(money==null||money==""){
+						alert("扣罚金额不能为空");
+						return;
+						}
 				
-			
 				$.ajax({//获得当前
 					        url: '/Generalprocess/tGeneralprocessModelFourAction_saveMistakeInfo.action',
 					        async:false,
