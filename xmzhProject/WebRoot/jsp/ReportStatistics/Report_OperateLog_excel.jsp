@@ -17,7 +17,7 @@
 		<th height="34" width="100" align="center" class="form_label">操作人</th>
 		<th height="34" width="100" align="center" class="form_label">操作人机构</th>
 		<th height="34" width="100" align="center" class="form_label">模板名称</th>
-		<th height="34" width="100" align="center" class="form_label">流程名称</th>
+		<th height="34" width="100" align="center" class="form_label">客户名称</th>
 		<th height="34" width="200" align="center" class="form_label">节点名称</th>
 		<th height="34" width="100" align="center" class="form_label">操作模式开始时间</th>
 		<th height="34" width="100" align="center" class="form_label">操作模式结束时间</th>
@@ -35,7 +35,7 @@
 			    <b:write iterateId="id1" property="processName"/>
 			  </td>
 			   <td style="vnd.ms-excel.numberformat:@">
-			   <b:write iterateId="id1" property="businessTitle"/>
+			   <b:write iterateId="id1" property="custName"/>
 			  </td>
 			   <td style="vnd.ms-excel.numberformat:@">
 			    <b:write iterateId="id1" property="activityName" />

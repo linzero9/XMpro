@@ -42,13 +42,13 @@ public class OperateLogService implements IOperateLogService {
 			
 			e.printStackTrace();
 		}
-		if (operateLog.getProcessName() != null
-				&& !"".equals(operateLog.getProcessName())) {
-			map.put("processName", operateLog.getProcessName());
+		if (operateLog.getActivityName() != null
+				&& !"".equals(operateLog.getActivityName())) {
+			map.put("activityName", operateLog.getActivityName());
 		}
-		if (operateLog.getBusinessTitle()!= null
-				&& !"".equals(operateLog.getBusinessTitle())) {
-			map.put("businessTitle", operateLog.getBusinessTitle());
+		if (operateLog.getCustName()!= null
+				&& !"".equals(operateLog.getCustName())) {
+			map.put("custName", operateLog.getCustName());
 		}
 		
 
@@ -59,22 +59,27 @@ public class OperateLogService implements IOperateLogService {
 	public List<OperateLog> queryOperateLogForExcel(OperateLog operateLog) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
-		if (operateLog.getAirTime() != null
-				&& !"".equals(operateLog.getAirTime())) {
-			map.put("airTime", operateLog.getAirTime());
+		if(operateLog!=null){
+			
+			if (operateLog.getAirTime() != null
+					&& !"".equals(operateLog.getAirTime())) {
+				map.put("airTime", operateLog.getAirTime());
+			}
+			if (operateLog.getStopTime() != null
+					&& !"".equals(operateLog.getStopTime())) {
+				map.put("stopTime", operateLog.getStopTime());
+			}
+			if (operateLog.getActivityName() != null
+					&& !"".equals(operateLog.getActivityName())) {
+				map.put("activityName", operateLog.getActivityName());
+			}
+			if (operateLog.getCustName()!= null
+					&& !"".equals(operateLog.getCustName())) {
+				map.put("custName", operateLog.getCustName());
+			}
 		}
-		if (operateLog.getStopTime() != null
-				&& !"".equals(operateLog.getStopTime())) {
-			map.put("stopTime", operateLog.getStopTime());
-		}
-		if (operateLog.getProcessName() != null
-				&& !"".equals(operateLog.getProcessName())) {
-			map.put("processName", operateLog.getProcessName());
-		}
-		if (operateLog.getBusinessTitle()!= null
-				&& !"".equals(operateLog.getBusinessTitle())) {
-			map.put("businessTitle", operateLog.getBusinessTitle());
-		}
+		
+
 		
 
 		return operateLogDao.queryOperateLogForExcel(map);

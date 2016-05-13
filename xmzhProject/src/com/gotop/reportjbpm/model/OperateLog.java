@@ -15,8 +15,15 @@ public class OperateLog implements Serializable {
 	private String orgName;
 	private String start;
 	private String end;
+	//顾客名称
+	private String custName;
 	
-	
+	public String getCustName() {
+		return custName;
+	}
+	public void setCustName(String custName) {
+		this.custName = custName;
+	}
 	public String getAirTime() {
 		return airTime;
 	}

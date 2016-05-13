@@ -24,14 +24,12 @@
 					<w:date format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="stopTime" name="operateLog.stopTime" 
 					property="operateLog.stopTime" /></td>
 
-					<td class="form_label" align="right" width="10%">模板名称：</td>
-					<td colspan="1" width="25%"><h:text id="processName" property="operateLog.processName" />
+					<td class="form_label" align="right" width="10%">客户名称：</td>
+					<td colspan="1" width="25%"><h:text id="custName" property="operateLog.custName" />
 					</td>
-					
-					<td class="form_label" align="right" width="10%">流程名称：</td>
-					<td colspan="1" width="25%"><h:text id="businessTitle" property="operateLog.businessTitle" />
+					<td class="form_label" align="right" width="10%">节点名称：</td>
+					<td colspan="1" width="25%"><h:text id="activityName" property="operateLog.activityName" />
 					</td>
-					
 					
 				</tr>
 				<tr class="form_bottom">
@@ -72,7 +70,7 @@
 								模板名称
 							</th>
 							<th nowrap="nowrap">
-								流程名称
+								客户名称
 							</th>
 							<th nowrap="nowrap">
 								节点名称
@@ -98,7 +96,7 @@
 									<b:write iterateId="id1" property="processName" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="businessTitle" />
+									<b:write iterateId="id1" property="custName" />
 								</td>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1" property="activityName" />
@@ -170,8 +168,8 @@
              function excelExport(){
     				var airTime = $id("airTime").value;
     				var stopTime = $id("stopTime").value;
-    				var processName = $id("processName").value;
-    				var businessTitle = $id("businessTitle").value;
+    				var custName = $id("custName").value;
+    				var activityName = $id("activityName").value;
     				var strUrl = "/reportjbpm/operateLogAction_queryOperateLogForExcel.action?";
                      if(airTime!=null){
                     	 strUrl=strUrl+"&operateLog.airTime="+airTime;
@@ -180,8 +178,8 @@
     				if(stopTime!=null){
     					strUrl=strUrl+"&operateLog.stopTime="+stopTime;
         				} 				
-    				+"&operateLog.businessTitle="+businessTitle
-    				+"&operateLog.processName="+processName;
+    				strUrl=strUrl+"&operateLog.custName="+custName;
+    				strUrl=strUrl+"&operateLog.activityName="+activityName;
     				window.location.href=strUrl;
 
 
