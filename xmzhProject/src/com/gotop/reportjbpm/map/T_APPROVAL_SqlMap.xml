@@ -51,7 +51,10 @@
 	<!-- 查询受理审批台账 -->
 	<select id="queryApprovalList" parameterClass="java.util.HashMap" resultMap="approval">
 	
-	SELECT Z.REPORTTIME,
+	SELECT 
+	    A7.UPTIME,
+       A8.LOOKTIME,
+	   Z.REPORTTIME,
        Z.ISURGENT,
        Z.CUST_NAME,
        Z.OLD_CUST,
@@ -159,21 +162,28 @@
            LEFT JOIN (select t.execution_,o.empname as CHECKTWO from jbpm4_hist_actinst q,JBPM4_HIST_TASK t,om_employee o WHERE q.activity_name_='审批二'and q.htask_=t.dbid_ and o.empid=t.assignee_ group by t.execution_,o.empname)A5
            ON A5.EXECUTION_=Z.FLOW_ID
            LEFT JOIN (select t.execution_, wm_concat(to_char(t.start_,'yyyy-mm-dd hh24:mi:ss')) RECEIVETIME from (select *from jbpm4_hist_actinst q where q.activity_name_ = '审查一' order by q.execution_, q.start_)T group by t.execution_)A6
-           ON A6.EXECUTION_=Z.FLOW_ID where 1=1
+           ON A6.EXECUTION_=Z.FLOW_ID
+            LEFT JOIN(
+           SELECT    execution_ ,TO_CHAR (MIN (T .start_),'yyyy-mm-dd') uptime FROM   JBPM4_HIST_ACTINST  t  WHERE   t.activity_name_='收单派单'  GROUP  BY  t.execution_
+           ) A7 on A7.EXECUTION_=Z.FLOW_ID 
+           LEFT JOIN(
+           SELECT    execution_ ,TO_CHAR (MIN (T .start_),'yyyy-mm-dd') looktime  FROM   JBPM4_HIST_ACTINST  t  WHERE   t.activity_name_='发起合同预审'  GROUP  BY  t.execution_
+           ) A8 on A8.EXECUTION_=Z.FLOW_ID 
+            where 1=1
    <isNotNull prepend="and" property="repTimeStrat">
-   <![CDATA[Z.REPORTTIME>=#repTimeStrat#]]>
+   <![CDATA[uptime>=#repTimeStrat#]]>
    </isNotNull>
    
    <isNotNull prepend="and" property="repTimeEnd">
-   <![CDATA[Z.REPORTTIME<=#repTimeEnd#]]>
+   <![CDATA[uptime<=#repTimeEnd#]]>
    </isNotNull>
       
       <isNotNull prepend="and" property="appTimeStrat" >
-        <![CDATA[A1.APPROVALTIME>=#appTimeStrat#]]>
+        <![CDATA[LOOKTIME >= #appTimeStrat#]]>
       </isNotNull>
       
       <isNotNull prepend="and" property="appTimeEnd" >
-       <![CDATA[A1.APPROVALTIME<=#appTimeEnd#]]>
+       <![CDATA[LOOKTIME <= #appTimeEnd#]]>
       </isNotNull>
 	</select>
    
