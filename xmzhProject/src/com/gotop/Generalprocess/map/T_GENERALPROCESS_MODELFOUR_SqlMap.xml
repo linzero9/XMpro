@@ -91,7 +91,8 @@
        t.empid,
        t.taskname,
        t.processmodelid_four,
-       t.add_time
+       t.add_time,
+       t.rectification
   from T_GENERALPROCESS_MISTAKE t
  WHERE t.flow_id=#busId#
  	<dynamic>

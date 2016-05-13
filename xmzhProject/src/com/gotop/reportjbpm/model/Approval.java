@@ -69,10 +69,95 @@ public class Approval implements Serializable {
 	private String receiveFive;
 //	备注
 //	private String ww;
+//	总的上报退回时间
+	private String returnTime;
+//	上报退回时间1
+	private String returnOne;
+//	上报退回时间2
+	private String returnTwo;
+//	上报退回时间3
+	private String returnThree;
+//	上报退回时间4
+	private String returnFour;
+//	上报退回时间5
+	private String returnFive;
+//	总的上报时间
+	private String reportedTime;
+	//二次上报
+	private String reportedTwo;
+	//san次上报
+	private String reportedThree;
+	//四次上报
+	private String reportedFour;
+	//五次上报
+	private String reportedFive;
 	
-	
-	
-	
+	public String getReturnTime() {
+		return returnTime;
+	}
+	public void setReturnTime(String returnTime) {
+		this.returnTime = returnTime;
+	}
+	public String getReturnOne() {
+		return returnOne;
+	}
+	public void setReturnOne(String returnOne) {
+		this.returnOne = returnOne;
+	}
+	public String getReturnTwo() {
+		return returnTwo;
+	}
+	public void setReturnTwo(String returnTwo) {
+		this.returnTwo = returnTwo;
+	}
+	public String getReturnThree() {
+		return returnThree;
+	}
+	public void setReturnThree(String returnThree) {
+		this.returnThree = returnThree;
+	}
+	public String getReturnFour() {
+		return returnFour;
+	}
+	public void setReturnFour(String returnFour) {
+		this.returnFour = returnFour;
+	}
+	public String getReturnFive() {
+		return returnFive;
+	}
+	public void setReturnFive(String returnFive) {
+		this.returnFive = returnFive;
+	}
+	public String getReportedTime() {
+		return reportedTime;
+	}
+	public void setReportedTime(String reportedTime) {
+		this.reportedTime = reportedTime;
+	}
+	public String getReportedTwo() {
+		return reportedTwo;
+	}
+	public void setReportedTwo(String reportedTwo) {
+		this.reportedTwo = reportedTwo;
+	}
+	public String getReportedThree() {
+		return reportedThree;
+	}
+	public void setReportedThree(String reportedThree) {
+		this.reportedThree = reportedThree;
+	}
+	public String getReportedFour() {
+		return reportedFour;
+	}
+	public void setReportedFour(String reportedFour) {
+		this.reportedFour = reportedFour;
+	}
+	public String getReportedFive() {
+		return reportedFive;
+	}
+	public void setReportedFive(String reportedFive) {
+		this.reportedFive = reportedFive;
+	}
 	public String getRepTimeStrat() {
 		return repTimeStrat;
 	}

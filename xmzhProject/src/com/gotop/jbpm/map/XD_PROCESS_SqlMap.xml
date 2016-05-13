@@ -91,7 +91,7 @@
   <!--查询信贷流程 待办事项列表-->
   <select id="queryXdMyTodoList" resultMap="abatorgenerated_XdProcess_HashMapResult" parameterClass="java.util.HashMap" >
   select T13.* from
-   (select T11.*, T12.REPORTCNT, T12.REPORTTIME
+   (select T11.*, to_number(nvl(T12.REPORTCNT,'0')) as REPORTCNT, T12.REPORTTIME
   from (select T9.*, T10.CUST_NAME, T10.ONECATEGORY, T10.LOANCATEGORY
           from (SELECT T1.ID,
                        T7.EXECUTION_ID_ as EXECUTION_ID,
@@ -156,7 +156,7 @@
            	 and dic.dictid in($loanCategoryId$))
       		</isNotNull>
       		</dynamic>
-      		order by T13.PRE_TASK_TIME ,T13.REPORTTIME,T13.REPORTCNT desc
+      		order by T13.REPORTCNT DESC,T13.PRE_TASK_TIME DESC
   </select>
   
    <select id="queryXdProcessList" resultMap="abatorgenerated_XdProcess_HashMapResult2" parameterClass="java.util.HashMap" >
