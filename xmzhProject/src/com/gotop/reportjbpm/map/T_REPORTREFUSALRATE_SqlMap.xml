@@ -108,11 +108,10 @@ SELECT JJ.*,
                                                       ORGNAME AS ORGNAMETWO
                                                  FROM OM_ORGANIZATION) T3
                                        ON T1.ORGCODETWO = T3.ORGCODETWO
-                              LEFT       JOIN (
+                      WHERE FLOW_ID  IN(
                                      SELECT A.EXECUTION_ F_ID
                                             FROM jbpm4_hist_actinst A                  
-                                                   WHERE A.ACTIVITY_NAME_ ='发起合同预审')T4
-                                       ON T1.FLOW_ID = T4.F_ID 
+                                                   WHERE A.ACTIVITY_NAME_ ='发起合同预审')
                                 GROUP BY T1.LOANCATEGORY,
                                              T2.ORGNAME,
                                              T3.ORGNAMETWO,
@@ -147,15 +146,14 @@ SELECT JJ.*,
                                                           ORGNAME AS ORGNAMETWO
                                                      FROM OM_ORGANIZATION) T3
                                            ON T1.ORGCODETWO = T3.ORGCODETWO
-                                 LEFT        JOIN (SELECT A.EXECUTION_ F_ID
+                                   WHERE FLOW_ID  IN(SELECT A.EXECUTION_ F_ID
                                                 FROM JBPM4_HIST_ACTINST A
                                                WHERE A.TRANSITION_ = 'TO 结束'
                                                  AND A.EXECUTION_ IN
                                                      (SELECT T.EXECUTION_
                                                         FROM JBPM4_HIST_ACTINST T
                                                        WHERE T.ACTIVITY_NAME_ !=
-                                                             '发起合同预审')) T4
-                                           ON T1.FLOW_ID = T4.F_ID    
+                                                             '发起合同预审'))
                                         GROUP BY T1.LOANCATEGORY,
                                                  T2.ORGNAME,
                                                  T3.ORGNAMETWO,
