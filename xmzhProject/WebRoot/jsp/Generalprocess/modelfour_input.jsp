@@ -190,7 +190,7 @@
 				 var hiFlowId = "hiFlowId";
 				 var hiJees = "hiJees";
 				 var hiFiles = "hiFiles";
-				 
+				 var hirectification="hirectification";
 				 $.ajax({
 				        url: '/Generalprocess/tGeneralprocessModelFourAction_queryFourMistakeByFlowId.action',
 				        async: false,
@@ -208,6 +208,7 @@
 									 tnId= hiTaskName+rowId;
 									 epId= hiEmpId+rowId;
 									 flId= hiFlowId+rowId;
+									 reId=hirectification+rowId;
 					         		 if('${isView}'!=''){
 					         			
 					         		 }else{
@@ -222,6 +223,7 @@
 										tdStr+="<input type=\"hidden\" name=\""+hiFlowId+"\" id=\""+flId+"\" value=\""+item.flowId+"\" >";
 					         			tdStr+="差错内容：<textarea  rows=\"3\"  style=\"width:60%\"  name=\""+hiFiles+"\" id=\""+fId+"\" value=\""+item.mistakeContent+"\" size='70' validateAttr=\"allowNull=false\" onkeyup=\"this.value=this.value.replace(/[\|]/g,'')\">"+item.mistakeContent+"</textarea>";
 									 	tdStr+="扣罚金额：<input type=\"text\" name=\""+hiJees+"\" id=\""+jeId+"\" value=\""+item.punishBal+"\" size='10' validateAttr=\"allowNull=false\" >元";
+					         			tdStr+="整改情况：<textarea  rows=\"3\"    style=\"width:60%\"  name=\""+hirectification+"\" id=\""+reId+"\" value=\""+item.rectification+"\" size='70' validateAttr=\"allowNull=false\" onkeyup=\"this.value=this.value.replace(/[\|]/g,'')\">"+item.rectification+"</textarea>";
 									 	tdStr+= "<input type=\"button\" onclick=\"delTr('fileRow"+rowId+"');\" name='button"+rowId+"' value=\"删除\" style=\"margin-left:2px;vertical-align:middle;cursor:hand;\"/>";
 									 	td.innerHTML = tdStr;
 										rowId = rowId+1; 
@@ -264,6 +266,7 @@
 										row.id = "fileRow"+rowId;
 										td = row.insertCell();
 					         			tdStr= "<textarea   style=\"display:none\"   style=\"width:60%\"  size='70' validateAttr=\"allowNull=false\" readonly=\"true\" >"+item.addTime+"</textarea>";
+					         			tdStr+="<textarea   style=\"display:none\"   style=\"width:60%\"  size='70' validateAttr=\"allowNull=false\" name=\"rectification\" id=\"rectification\" readonly=\"true\" >"+item.rectification+"</textarea>";
 										
 					         			tdStr+="差错内容：<textarea   rows=\"3\"   style=\"width:60%\"  size='70' validateAttr=\"allowNull=false\" readonly=\"true\" >"+item.mistakeContent+"</textarea>";
 									 	tdStr+="扣罚金额：<input type=\"text\" value=\""+item.punishBal+"\" size='10' validateAttr=\"allowNull=false\" readonly=\"true\">元";
@@ -274,10 +277,9 @@
 										row =  tab1.insertRow();
 										row.id = "fileRow"+rowId;
 										td = row.insertCell();
-										
 					         			tdStr="<textarea   style=\"display:none\"  style=\"width:60%\"  size='70'                name=\""+timeName+"\"   id=\""+timemask+"\"   validateAttr=\"allowNull=false\" readonly=\"true\" >"+item.addTime+"</textarea>";
 
-										
+					         			tdStr+="<textarea    style=\"width:60%\" style=\"display:none\" size='70'  name=\"rectification\" id=\"rectification\" readonly=\"true\" >"+item.rectification+"</textarea>";
 					         			tdStr+="差错内容：<textarea   rows=\"3\" style=\"width:60%\"   name=\""+fName+"\" id=\""+fId+"\"    validateAttr=\"allowNull=false\" onkeyup=\"this.value=this.value.replace(/[\|]/g,'')\">"+item.mistakeContent+"</textarea>";
 					         		//	tdStr+=row.id;
 									 	tdStr+="扣罚金额：<input type=\"text\" name=\""+jeName+"\" id=\""+jeId+"\" value=\""+item.punishBal+"\" size='10' validateAttr=\"allowNull=false\">元";

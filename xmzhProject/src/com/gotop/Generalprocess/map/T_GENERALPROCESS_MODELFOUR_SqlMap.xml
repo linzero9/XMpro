@@ -38,7 +38,7 @@
     <result column="TASKNAME" property="taskName" jdbcType="VARCHAR" />
     <result column="PROCESSMODELID_FOUR" property="processModelIdFour" jdbcType="VARCHAR" />
     <result column="ADD_TIME" property="addTime" jdbcType="VARCHAR" />
-    <result column="RECTIFICATION" property="rectification" jdbcType="VARCHAR" />
+    <result column="RECTIFICATION" property="rectification" jdbcType="VARCHAR" nullValue=" " />
   </resultMap>
    <resultMap id="mistakes" class="com.gotop.Generalprocess.model.ProcessModelFourMistake" >
     <!--Bean方式返回全表-->
@@ -111,7 +111,7 @@
        t.taskname,
        t.processmodelid_four,
        t.add_time,
-       t.rectification
+       nvl(t.rectification,'') as rectification
   from T_GENERALPROCESS_MISTAKE t, T_GENERALPROCESS_MODELFOUR T1
  WHERE t.processmodelid_four = t1.processmodelid
  and t.processmodelid_four=$processModelId$

@@ -38,11 +38,25 @@ public class TGeneralprocessModelfourAction extends BaseAction {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	private String[] rectification;
+	public String[] getRectification() {
+		return rectification;
+	}
+
+	public void setRectification(String[] rectification) {
+		this.rectification = rectification;
+	}
 
 	private List<ProcessModelFourMistake> fourMistakes;
 
 	private List<ProcessModelFourMistake> otherMistakes;
-	
+	/**
+	 * 历史整改情况
+	 */
+	private String hirectification;
+
+
 	/**
 	 * 历史差错内容
 	 */
@@ -324,7 +338,13 @@ public class TGeneralprocessModelfourAction extends BaseAction {
 	public void setTaskAssgineeDto(TaskAssgineeDto taskAssgineeDto) {
 		this.taskAssgineeDto = taskAssgineeDto;
 	}
+	public String getHirectification() {
+		return hirectification;
+	}
 
+	public void setHirectification(String hirectification) {
+		this.hirectification = hirectification;
+	}
 	public String getTaskName() {
 		return taskName;
 	}
@@ -497,11 +517,12 @@ public class TGeneralprocessModelfourAction extends BaseAction {
 			map.put("hiFlowId", hiFlowId);
 			map.put("hiJees", hiJees);
 			map.put("hiFiles", hiFiles);
+			map.put("hirectification", hirectification);
 			
 			map.put("sss", sss);
 			map.put("jees", jees);
 			map.put("timees", timees);
-			
+			map.put("rectifications", rectification);
 			
 			try {
 				this.tGeneralprocessModelfourService.handleModelFour(muo, modelFour, map, taskAssgineeDto, files2, files2FileName);

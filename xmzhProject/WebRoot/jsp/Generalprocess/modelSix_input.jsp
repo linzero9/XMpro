@@ -271,7 +271,7 @@ function saveRectification(mistakeId,rowId){
 	var rectification = $("#rectification"+rowId).val();
 	if(rectification==null & rectification==""){alert("请输入整改情况!")}
 	$.ajax({//获得当前
-		        url: "/Generalprocess/tGeneralprocessModelSixAction_updateProcessMistake.action",
+		        url: "/Generalprocess/tGeneralprocessModeloneAction_updateProcessMistake.action",
 		        async:false,
 		        type: 'post',
 		        data: "processMistake.mistakeId="+mistakeId+"&processMistake.rectification="+rectification,
@@ -293,32 +293,37 @@ function saveRectification(mistakeId,rowId){
 }
 var rowId = 0; 
 $(function (){
-	var submitter; 
+
+	
+    var submitter; 
 	var currenUser;
 	var flowId=$("#executionId");
 	
+
 	
-	
-  $.ajax({
-	 url : "/Generalprocess/tGeneralprocessModelSixAction_querySubmitter.action",
+ $.ajax({
+	 url : "/Generalprocess/tGeneralprocessModeloneAction_querySubmitter.action",
 		async : false,
 		type : 'post',
 		data : "processSubmitter.flowId=${taskAssgineeDto.executionId}",
 		timeout : 60000,
 		dataType : 'json',
 		success : function(json) {
+					
 			
 				 submitter=json.submitter; 
 				 currenUser=json.currenUser;
 				
 				
-		}}); 
+		}});
 
 	if(submitter==currenUser){
+
+		$("#errorContent").css("display","");
 		
 		$.ajax({
 			
-			url : "/Generalprocess/tGeneralprocessModelSixAction_queryProcessMistake.action",
+			url : "/Generalprocess/tGeneralprocessModeloneAction_queryProcessMistake.action",
 			async : false,
 			type : 'post',
 			data : "processMistake.flowId=${taskAssgineeDto.executionId}",

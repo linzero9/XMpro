@@ -141,7 +141,8 @@ public class TGeneralprocessModelfourService implements ITGeneralprocessModelfou
 		String[] hiFlowIdAr = null;
 		String[] hiJeesAr = null;
 		String[] hiFilesAr = null;
-	
+		//历史整改情况 zrd
+		String[] hiRectificationAr=null;
 		
 		String hiAddTime = null;
 		String hiProFour = null;
@@ -150,7 +151,7 @@ public class TGeneralprocessModelfourService implements ITGeneralprocessModelfou
 		String hiFlowId = null;
 		String hiJees = null;
 		String hiFiles = null;
-		
+		String hirectification=null;
 		
 
 		
@@ -196,6 +197,12 @@ public class TGeneralprocessModelfourService implements ITGeneralprocessModelfou
 			hiFilesAr = hiFiles.split(",");
 		}
 		
+		if(map.get("hirectification") != null){
+			hirectification = (String) map.get("hirectification");
+			hirectification=hirectification.replace(" ", "");
+			hiRectificationAr = hirectification.split(",");
+		}
+		
 
 		
 		if(hiProFourAr !=null){
@@ -227,7 +234,9 @@ public class TGeneralprocessModelfourService implements ITGeneralprocessModelfou
 		String[] jeArray = null;
 		String files = null;
 		String jees = null;
-		
+		//
+		String[] rectificationArray=null;
+		String rectification=null;
 		String[] timeesArray =null;
 		String timees = null;
 		String aa=null;
@@ -249,12 +258,14 @@ public class TGeneralprocessModelfourService implements ITGeneralprocessModelfou
 			timees = (String) map.get("timees");
 			timees=timees.replace(" ", "");
 		}
-		
+		if (map.get("rectifications")!=null) {
+			rectificationArray =(String[]) map.get("rectifications");
+		}
 		
 		if(timees != null && !"".equals(timees)){
 			timeesArray = timees.split(",");
 		}
-		
+	
 		
 		String[] bb=null;
 		if(files != null && !"".equals(files)){
@@ -266,13 +277,10 @@ public class TGeneralprocessModelfourService implements ITGeneralprocessModelfou
 			jeArray = jees.split(", ");
 		}
 		if (modelFour.getProcessModelId() != null
-				&& !"".equals(modelFour.getProcessModelId())){
-			Map<String, Object>map2=new HashMap<String, Object>();
+				&& !"".equals(modelFour.getProcessModelId())){//zrd
 			// 修改模式四表单内容
 			this.tGeneralprocessModelfourDAO.uptModelFour(modelFour);
-			//查询流程整改情况
-			map2.put("processModelIdFour", modelFour.getProcessModelId());
-			mistakes=this.tGeneralprocessModelfourDAO.queryMistakes(map2);
+			
 			this.tGeneralprocessModelfourDAO.deleteModelFourMistake(modelFour);
 		}else{
 			// 保存模式四表单内容
@@ -296,18 +304,32 @@ public class TGeneralprocessModelfourService implements ITGeneralprocessModelfou
 					mistake.setProcessModelIdFour(String.valueOf(modelFour.getProcessModelId()));
 					//String currDate = TimeUtil.getCntDtStr(timeee,
 					//		"yyyyMMddHHmmss");
-					if (mistakes !=null&&mistakes.size()!=0) {
-						if (mistakes.get(i).getRectification()!=null&&!"".equals(mistakes.get(i).getRectification())) {
-							mistake.setRectification(mistakes.get(i).getRectification());
-						}             
-					}
+					
+					//mistake赋值整改情况 zrd
+					
+					if (rectificationArray == null) {
+
+						mistake.setRectification("");
+					} else {
+
+						if (i>=rectificationArray.length) {
+							mistake.setRectification("");
+						} else {
+							if (rectificationArray[i].equals("null")) {
+								rectificationArray[i]="";
+							}
+							mistake.setRectification(rectificationArray[i]);
+						}
+					              }
+					
+					
 					if (timeesArray == null) {
 
 						mistake.setAddTime(TimeUtil.getCntDtStr(new Date(),
 								"yyyyMMddHHmmss"));
 					} else {
 
-						if (timeesArray.length == i) {
+						if (timeesArray.length <= i) {  
 							mistake.setAddTime(TimeUtil.getCntDtStr(new Date(),
 									"yyyyMMddHHmmss"));
 						} else {

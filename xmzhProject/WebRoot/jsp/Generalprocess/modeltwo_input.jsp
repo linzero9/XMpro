@@ -106,7 +106,7 @@
 		var rectification = $("#rectification"+rowId).val();
 		if(rectification==null & rectification==""){alert("请输入整改情况!")}
 		$.ajax({//获得当前
-			        url: "/Generalprocess/tGeneralprocessModeltwoAction_updateProcessMistake.action",
+			        url: "/Generalprocess/tGeneralprocessModeloneAction_updateProcessMistake.action",
 			        async:false,
 			        type: 'post',
 			        data: "processMistake.mistakeId="+mistakeId+"&processMistake.rectification="+rectification,
@@ -128,19 +128,23 @@
 }
 var rowId = 0; 
 $(function (){
-		var submitter; 
+
+		
+     var submitter; 
 		var currenUser;
 		var flowId=$("#executionId");
 		
+
 		
 	 $.ajax({
-		 url : "/Generalprocess/tGeneralprocessModeltwoAction_querySubmitter.action",
+		 url : "/Generalprocess/tGeneralprocessModeloneAction_querySubmitter.action",
 			async : false,
 			type : 'post',
 			data : "processSubmitter.flowId=${taskAssgineeDto.executionId}",
 			timeout : 60000,
 			dataType : 'json',
 			success : function(json) {
+						
 				
 					 submitter=json.submitter; 
 					 currenUser=json.currenUser;
@@ -149,10 +153,12 @@ $(function (){
 			}});
 
 		if(submitter==currenUser){
+
+			$("#errorContent").css("display","");
 			
 			$.ajax({
 				
-				url : "/Generalprocess/tGeneralprocessModeltwoAction_queryProcessMistake.action",
+				url : "/Generalprocess/tGeneralprocessModeloneAction_queryProcessMistake.action",
 				async : false,
 				type : 'post',
 				data : "processMistake.flowId=${taskAssgineeDto.executionId}",

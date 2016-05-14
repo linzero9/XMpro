@@ -41,7 +41,11 @@ public List<ProcessMistake> queryProcessMistake(ProcessMistake processMistake){
  */	
 public void updateProcessMistake(List<ProcessMistake> processMistakes){
 	
-	generalprocessMistakeDao.updateProcessMistake(processMistakes);
+		
+		
+		generalprocessMistakeDao.updateProcessMistake(processMistakes);
+		
+	
 	
 	
 }
