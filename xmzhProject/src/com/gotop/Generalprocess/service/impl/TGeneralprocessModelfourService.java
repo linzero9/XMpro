@@ -225,6 +225,11 @@ public class TGeneralprocessModelfourService implements ITGeneralprocessModelfou
 					mistake.setPunishBal(hiJeesAr[i]);
 					mistake.setProcessModelIdFour(hiProFourAr[i]);
 					mistake.setAddTime(hiAddTimeAr[i]);
+					
+					//历史差错  整改情况
+					mistake.setRectification(hiRectificationAr[i]);
+					
+					
 					this.tGeneralprocessModelfourDAO.addModelFourMistake(mistake);
 				}
 		}
