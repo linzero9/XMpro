@@ -222,8 +222,8 @@
 										tdStr+="<input type=\"hidden\" name=\""+hiEmpId+"\" id=\""+epId+"\" value=\""+item.empid+"\" >";
 										tdStr+="<input type=\"hidden\" name=\""+hiFlowId+"\" id=\""+flId+"\" value=\""+item.flowId+"\" >";
 					         			tdStr+="差错内容：<textarea  rows=\"3\"  style=\"width:60%\"  name=\""+hiFiles+"\" id=\""+fId+"\" value=\""+item.mistakeContent+"\" size='70' validateAttr=\"allowNull=false\" onkeyup=\"this.value=this.value.replace(/[\|]/g,'')\">"+item.mistakeContent+"</textarea>";
-									 	tdStr+="扣罚金额：<input type=\"text\" name=\""+hiJees+"\" id=\""+jeId+"\" value=\""+item.punishBal+"\" size='10' validateAttr=\"allowNull=false\" >元";
-					         			tdStr+="整改情况：<textarea  rows=\"3\"    style=\"width:60%\"  name=\""+hirectification+"\" id=\""+reId+"\" value=\""+item.rectification+"\" size='70' validateAttr=\"allowNull=false\" onkeyup=\"this.value=this.value.replace(/[\|]/g,'')\">"+item.rectification+"</textarea>";
+									 	tdStr+="扣罚金额：<input type=\"text\" name=\""+hiJees+"\" id=\""+jeId+"\" value=\""+item.punishBal+"\" size='10' validateAttr=\"allowNull=false\" >元<br />";
+					         			tdStr+="整改情况：<textarea  rows=\"3\"    style=\"width:60%\"  name=\""+hirectification+"\" id=\""+reId+"\" value=\""+item.rectification+"\" size='70'  onkeyup=\"this.value=this.value.replace(/[\|]/g,'')\">"+item.rectification+"</textarea>";
 									 	tdStr+= "<input type=\"button\" onclick=\"delTr('fileRow"+rowId+"');\" name='button"+rowId+"' value=\"删除\" style=\"margin-left:2px;vertical-align:middle;cursor:hand;\"/>";
 									 	td.innerHTML = tdStr;
 										rowId = rowId+1; 

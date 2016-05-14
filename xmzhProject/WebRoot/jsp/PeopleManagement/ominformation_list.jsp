@@ -227,7 +227,7 @@
 	  					var userid = rows[0].getParam("userid");
 	  					var orgId = rows[0].getParam("orgid");
 	  					var empid = rows[0].getParam("empid");
-			        	var strUrl = "/empMngr/queryEmpBaseAndFjxx_empMngr.action?empid="+empid+"&orgId="+orgId+"&userid="+userid+"&execType=update"+"&_ts=" +new Date();
+			        	var strUrl = "/empMngr/queryEmpBaseAndFjxx_empMngr.action?empid="+empid+"&orgId="+orgId+"&userid="+userid+"&sNodetype=emp"+"&execType=update"+"&_ts=" +new Date();
 			        	showModalCenter(strUrl, null, callBack, 850, 500, '人员维护信息');  
 		        	}
 		        }

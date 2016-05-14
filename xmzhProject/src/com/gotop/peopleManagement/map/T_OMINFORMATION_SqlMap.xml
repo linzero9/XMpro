@@ -6,36 +6,37 @@
     <result column="EMPID" property="empid" jdbcType="VARCHAR" />
     <result column="ORGID" property="orgid" jdbcType="VARCHAR" />
     <result column="USERID" property="userid" jdbcType="VARCHAR" />
-    <result column="ORGNAME" property="orgName" jdbcType="VARCHAR" />
+   <!--<result column="POSINAME" property="posiName" jdbcType="VARCHAR" />
+    <result column="ROLENAME" property="roleName" jdbcType="VARCHAR" />-->
     <result column="EMPNAME" property="empName" jdbcType="VARCHAR" />
     <result column="EMPCODE" property="empCode" jdbcType="VARCHAR" />
-    <result column="ROLENAME" property="roleName" jdbcType="VARCHAR" />
-    <result column="POSINAME" property="posiName" jdbcType="VARCHAR" />
+    <result column="ORGNAME" property="orgName" jdbcType="VARCHAR" />
     <result column="EMPSTATUS" property="empStatus" jdbcType="VARCHAR" />
     <result column="GENDER" property="gender" jdbcType="VARCHAR" />
     <result column="MOBILENO" property="mobileNo" jdbcType="VARCHAR" />
   </resultMap>
 	
-	<!-- 查询人员信息 -->
+	 	<!-- 查询人员信息 -->
 	<select id="queryOmInformationList" parameterClass="java.util.HashMap" resultMap="OmInformation">
-		select Y.EMPID,Y.ORGID,Y.USERID,ORGNAME,EMPNAME,Y.EMPCODE,ROLENAME,POSINAME,EMPSTATUS,GENDER,MOBILENO
-  from OM_EMPORG      A,
-       OM_POSITION    P,
-       OM_EMPPOSITION  N,
-       OM_EMPLOYEE     Y,
+		select  T.EMPID,T.USERID,T.ORGID, T.EMPNAME ,T.GENDER,T.EMPCODE,T.ORGNAME,T.EMPSTATUS,T.MOBILENO from (
+    select y.empid, y.empname,o.userid,g.orgid,g.orgname,y.gender,y.empcode,y.empstatus,b.mobileno,r.rolename,p.posiname
+  from OM_EMPORG       A,
        OM_ORGANIZATION G,
+       OM_EMPLOYEE     Y,
+       AC_OPERATOR     O,
+       AC_OPERATORROLE E,
        AC_ROLE         R,
        ABF_T_YGFJXXB   B,
-       AC_OPERATOR     O,
-       AC_OPERATORROLE E
- where A.EMPID = Y.EMPID
-   AND A.ORGID = G.ORGID
-   AND Y.USERID = O.USERID
-   AND O.OPERATORID = E.OPERATORID
+       OM_EMPPOSITION  N,
+        OM_POSITION    P
+ where y.empid = a.empid
+   and g.orgid = a.orgid
+   and y.empid = o.empid
+   and O.OPERATORID = E.OPERATORID
    AND E.ROLEID = R.ROLEID
    AND Y.EMPID = B.EMPID
-   AND N.POSITIONID = P.POSITIONID
    AND N.EMPID = Y.EMPID
+   AND N.POSITIONID = P.POSITIONID
       <isNotNull prepend="and" property="orgName" >
         G.ORGNAME LIKE '%'||#orgName:VARCHAR#||'%'
       </isNotNull>
@@ -51,7 +52,7 @@
       <isNotNull prepend="and" property="posiName" >
         P.POSINAME LIKE '%'||#posiName:VARCHAR#||'%'
       </isNotNull>
-     
+     )  T where 1=1 group by  T.EMPID,T.USERID,T.ORGID, T.EMPNAME ,T.GENDER,T.EMPCODE,T.ORGNAME,T.EMPSTATUS,T.MOBILENO
 	</select>
 	
 </sqlMap>
