@@ -115,9 +115,55 @@ margin-left:inherit;
 					
 				</tr></table>
 			<table align="center" border="0" width="100%" class="form_table"  >
+					<tr>
+						<td class="form_label" align="right" width="10%" nowrap="nowrap">内存：</td>
+					<td colspan="1"  width="25%" nowrap="nowrap">
+						<h:text id="memoryMin" property="device.memoryMin"  size="5"  validateAttr="fracDigit=2;type=double;"  />G
+						＜内存容量(G)＜
+						<h:text id="memoryMax" property="device.memoryMax"  size="5"  validateAttr="fracDigit=2;type=double;" />G
+					</td>
+
+				<td class="form_label" align="right" width="10%" nowrap="nowrap">内置软件版本：</td>
+					<td colspan="1"  width="23%" nowrap="nowrap">
+						<h:text id="softwareVersion" property="device.softwareVersion"  />
+					</td>
+					
+				</tr>
+				<tr>
+				<td class="form_label" align="right" width="10%" nowrap="nowrap">硬盘：</td>
+					<td colspan="1"  width="20%" nowrap="nowrap">
+						<h:text id="hardDiskMin" property="device.hardDiskMin"  size="5"  validateAttr="fracDigit=2;type=double;"  />G
+						＜硬盘容量(G)＜
+						<h:text id="hardDiskMax" property="device.hardDiskMax" size="5"  validateAttr="fracDigit=2;type=double;"  />G
+					</td>
+					<td class="form_label" align="right" width="10%" nowrap="nowrap">IE版本：</td>
+					<td colspan="1"  width="24%" nowrap="nowrap">
+						<d:select  id="ieVersion"  dictTypeId="DEVICE_IE_VERSION" property="device.ieVersion" nullLabel="请选择"></d:select>
+					</td>
+					<td class="form_label" align="right" width="10%" nowrap="nowrap">操作系统版本：</td>
+					<td colspan="1"  width="23%" nowrap="nowrap">
+						<d:select  id="osVersion"  dictTypeId="DEVICE_OS_VERSION" property="device.osVersion" nullLabel="请选择"  ></d:select>
+					</td>
+				</tr>
+								<tr>
+					<td class="form_label" align="right" width="10%" nowrap="nowrap">用途：</td>
+					<td colspan="10"  width="90%" nowrap="nowrap">
+					<d:checkbox perrow="12" id="useful"  name="device.useful" dictTypeId="DEVICE_USEFUL" property="device.useful"  seperator=", "  />
+					</td>
+				</tr>
+				<tr>
+					<td class="form_label" align="right" width="10%" nowrap="nowrap">安装的插件：</td>
+					<td colspan="10"  width="90%" nowrap="nowrap">
+						<d:checkbox perrow="12" id="plugIn"  name="device.plugIn" dictTypeId="DEVICE_PLUGIN" property="device.plugIn"   seperator=", " />
+					</td>
 				
-				
-				
+				</tr>
+				<tr>
+					<td class="form_label" align="right" width="10%" nowrap="nowrap">对应的外设：</td>
+					<td colspan="10"  width="90%" nowrap="nowrap">
+						<d:checkbox perrow="12" id="peripheral"  name="device.peripheral"  dictTypeId="DEVICE_PERIPHERAL" property="device.peripheral"   seperator=", "  />
+					</td>
+				</tr>
 				<tr class="form_bottom" >
 						<td colspan="6" class="form_bottom" style="text-align: left;">
 						    <b:message key="l_display_per_page"></b:message> 

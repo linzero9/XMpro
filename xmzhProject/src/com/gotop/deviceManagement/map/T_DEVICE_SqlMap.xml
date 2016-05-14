@@ -252,6 +252,33 @@ where t.orgcode = o.orgcode
       <isNotNull prepend="and" property="otherInfo_4" >
         ($otherInfo_4$)
       </isNotNull>
+            <isNotNull prepend="and" property="memoryMin" >
+         t.MEMORY > #memoryMin#
+      </isNotNull>
+      <isNotNull prepend="and" property="memoryMax" >
+      		<![CDATA[  t.MEMORY < #memoryMax# ]]>
+      </isNotNull>
+            <isNotNull prepend="and" property="hardDiskMin" >
+         t.HARDDISK > #hardDiskMin#
+      </isNotNull>
+      <isNotNull prepend="and" property="hardDiskMax" >
+         <![CDATA[  t.HARDDISK < #hardDiskMax# ]]>
+      </isNotNull>
+      <isNotNull prepend="and" property="softwareVersion" >
+        t.SOFTWAREVERSION like '%'|| #softwareVersion# ||'%'
+      </isNotNull>
+        <isNotNull prepend="and" property="ieVersion" >
+         t.IEVERSION = #ieVersion#
+      </isNotNull>
+       <isNotNull prepend="and" property="useful" >
+        ($useful$)
+      </isNotNull>
+            <isNotNull prepend="and" property="plugIn" >
+         ($plugIn$)
+      </isNotNull>
+      <isNotNull prepend="and" property="peripheral" >
+        ($peripheral$)
+      </isNotNull>
   order by t.orgcode ,t.deviceName,t.deviceModel
   </select>
   

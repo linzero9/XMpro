@@ -142,7 +142,7 @@ public class DeviceManagementService implements IDeviceManagementService{
 				map.put("ipAdress", device.getIpAdress());
 			}
 			if( device.getOsVersion() != null && !"".equals(device.getOsVersion())){
-				
+				//////////////////////////////////////////////////////////////////////////////////////////////操作系统
 				map.put("osVersion", device.getOsVersion());
 			}
 			if( device.getOtherAttribute_2() != null && !"".equals(device.getOtherAttribute_2())){
@@ -228,6 +228,76 @@ public class DeviceManagementService implements IDeviceManagementService{
 				map.put("otherInfo_4", sql_otherInfo4 );
 				
 			}
+			
+			//内存
+			if( device.getMemoryMin() != null && !"".equals(device.getMemoryMin())){
+				map.put("memoryMin", device.getMemoryMin());
+			}
+			if( device.getMemoryMax() != null && !"".equals(device.getMemoryMax())){
+				map.put("memoryMax", device.getMemoryMax());
+			}
+			//硬盘
+			if( device.getHardDiskMin() != null && !"".equals(device.getHardDiskMin())){
+				map.put("hardDiskMin", device.getHardDiskMin());
+			}
+			if( device.getHardDiskMax() != null && !"".equals(device.getHardDiskMax())){
+				map.put("hardDiskMax", device.getHardDiskMax());
+			}
+			//内置软件版本
+			if( device.getSoftwareVersion() != null && !"".equals(device.getSoftwareVersion())){
+				map.put("softwareVersion", device.getSoftwareVersion());
+			}
+			//IE版本
+			if( device.getIeVersion() != null && !"".equals(device.getIeVersion())){
+				map.put("ieVersion", device.getIeVersion());
+			}
+			//操作系统版本 在上面
+			if( device.getUseful() != null && !"".equals(device.getUseful())){
+				//map.put("useful", device.getUseful());
+				
+				String sql_useful ="";
+				String[] arr_useful = device.getUseful().split(", ");
+				for(int i=0; i<arr_useful.length; i++){//最后拼接得到的SQL如：sql_otherInfo2 = "t.OTHERINFO_2 like '%01%' or t.OTHERINFO_2 like '%02%'";只要数据库里含用户所选的一项，都要选出来
+					if(i == 0){
+						sql_useful += "t.USEFUL like  " + "'%" + arr_useful[i] + "%'";
+					}else{
+						sql_useful += " or " +  "t.USEFUL like  " + "'%" + arr_useful[i] + "%'";
+					}
+				}
+				map.put("useful", sql_useful );
+			}
+			//安装的插件
+			if( device.getPlugIn() != null && !"".equals(device.getPlugIn())){
+				//map.put("plugIn", device.getPlugIn());
+				
+				String sql_plugIn ="";
+				String[] arr_plugIn = device.getPlugIn().split(", ");
+				for(int i=0; i<arr_plugIn.length; i++){//最后拼接得到的SQL如：sql_otherInfo2 = "t.OTHERINFO_2 like '%01%' or t.OTHERINFO_2 like '%02%'";只要数据库里含用户所选的一项，都要选出来
+					if(i == 0){
+						sql_plugIn += "t.PLUGIN like  " + "'%" + arr_plugIn[i] + "%'";
+					}else{
+						sql_plugIn += " or " +  "t.PLUGIN like  " + "'%" + arr_plugIn[i] + "%'";
+					}
+				}
+				map.put("plugIn", sql_plugIn );
+			}
+			//对应的外设
+			if( device.getPeripheral() != null && !"".equals(device.getPeripheral())){
+				//map.put("peripheral", device.getPeripheral());
+				
+				String sql_peripheral ="";
+				String[] arr_peripheral = device.getPeripheral().split(", ");
+				for(int i=0; i<arr_peripheral.length; i++){//最后拼接得到的SQL如：sql_otherInfo2 = "t.OTHERINFO_2 like '%01%' or t.OTHERINFO_2 like '%02%'";只要数据库里含用户所选的一项，都要选出来
+					if(i == 0){
+						sql_peripheral += "t.PERIPHERAL like  " + "'%" + arr_peripheral[i] + "%'";
+					}else{
+						sql_peripheral += " or " +  "t.PERIPHERAL like  " + "'%" + arr_peripheral[i] + "%'";
+					}
+				}
+				map.put("peripheral", sql_peripheral );
+			}
+			
+			
 		}
 		
 		List list = deviceManagementDAO.deviceList(map, page);
