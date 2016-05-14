@@ -160,31 +160,20 @@ public class TGeneralprocessModelsixService implements ITGeneralprocessModelsixS
 	public void handleModelSix(MUOUserSession muo,
 			ProcessModelSix Six, TaskAssgineeDto taskAssgineeDto,File[] files,String[] filesFileName,
 			String... otherParam) throws Exception {
-		
-		
-		
 
 		String taskId = "";
 		String preTaskId = "";
 		String nextTaskId = "";
 		String submitType = "";
 		TaskAssgineeDto dto1 = null;
-		TProcessBusiness pb = null;
-		
-		
-		
+		TProcessBusiness pb = null;	
 		//.首先判断是不是第一次发起  
 		//是：创建流程start 保存模式6 
 		//否：｛1.有数据 更新 模式6  2. 没数据 新增  模式6｝
 		
 		if("start".equals(taskAssgineeDto.getStartFlag())){
 			//表示第一次发起  
-//第一次发起
-			
-			
-			
-			
-			
+           //第一次发起
 			// 新增模式
 			// 新增模式表单
 			HashMap<String, Object> map = new HashMap<String, Object>();
@@ -192,21 +181,14 @@ public class TGeneralprocessModelsixService implements ITGeneralprocessModelsixS
 			map.put("user", String.valueOf(muo.getEmpid()));
 			// 启动流程,获得TaskAssgineeDto对象,获得ExecutionId流程实例id和NextTaskId当前节点的taskid
 			dto1 = jbpmService.startProcessByDefinition(
-					taskAssgineeDto.getDefinitionId(), map);
-			
+					taskAssgineeDto.getDefinitionId(), map);		
 			// 获取当前节点的taskid
 			preTaskId = dto1.getNextTaskId();
 			taskId = preTaskId;
 			taskAssgineeDto.setExecutionId(dto1.getExecutionId());
-			
 			String taskName = jbpmService.getTaskNameById(preTaskId);
-			
-			
 			Six.setTaskName(taskName);
-		
-			
-			
-			
+
 			/**
 			 * flowId  要赋值
 			 */
@@ -220,29 +202,15 @@ public class TGeneralprocessModelsixService implements ITGeneralprocessModelsixS
 			 * 这样待办、已办才能关联的到
 			 */
 			pb =generalprocessService.insertProcessBus(Six, taskAssgineeDto);
-
-			jbpmService.saveProcessBusiness(muo, pb);
-			
-			
-			//
-			
-			
-			
+			jbpmService.saveProcessBusiness(muo, pb);		
 			Six.setOpinion(Six.getProcessingOpinion());
-			
-			
-			
-			//////////////////////////
-			
-			
+			//////////////////////////	
 			if (Six.getProcessModelId() != null
 					&& !"".equals(Six.getProcessModelId())){
-				// 修改模式四表单内容
+				// 修改模式6表单内容
 				this.tGeneralprocessModelsixDAO.uptModelSix(Six);
-				
-				
 			}else{
-				// 保存模式四表单内容
+				// 保存模式6表单内容
 				this.tGeneralprocessModelsixDAO.addModelSix(Six);
 			}
 			/**
@@ -268,91 +236,48 @@ public class TGeneralprocessModelsixService implements ITGeneralprocessModelsixS
 				this.generalprocessMainDAO.addGeneralProcessMain(taskAssgineeDto,
 						Six, ProcessModelSix.class);
 			}
-			
-			
-			
-			
-			
-			
-	
-			
-			
-			/**
-			 * ★★★★★★★★★★★★★★★★★★★★
-			 * 
-			 */
-			
-			
 			/**
 			 * ★★★★★★★★★★★★★★★★★★★★
 			 * 流程通用的一些操作   ---
 			 * 1.获取下一个选择的节点的名字--存成  提交类型
-			 */
-
-			
+			 */		
 			String btnType = taskAssgineeDto.getBtnType();
 			if (!"1".equals(btnType)) {
 				//提交按钮
-
 				//给DTO赋值taskId
-				taskAssgineeDto.setTaskId(taskId);
-				
+				taskAssgineeDto.setTaskId(taskId);		
 				TaskAssgineeDto d1 = new TaskAssgineeDto();
 				d1.setTaskExeAssginee(String.valueOf(muo.getEmpid()));
-				d1.setTaskId(taskId);
-				
+				d1.setTaskId(taskId);				
 				// 当前节点签收
 				jbpmService.assignTask(d1);
 				// 当前节点完成
 				jbpmService.completeTask(taskId,
-						taskAssgineeDto.getTransitionName(), null);
-				
-				taskAssgineeDto.setPreTaskAssingee(muo.getEmpid());
-				
-				jbpmService.updateTaskAssigneeState(taskAssgineeDto);
-				
+						taskAssgineeDto.getTransitionName(), null);			
+				taskAssgineeDto.setPreTaskAssingee(muo.getEmpid());				
+				jbpmService.updateTaskAssigneeState(taskAssgineeDto);			
 				// 正常下一步
 				nextTaskId = jbpmService.getNextTaskId(taskAssgineeDto
 						.getExecutionId());
 				taskAssgineeDto.setNextTaskId(nextTaskId);
-				
-
 				TaskAssgineeDto newDto = this.generalprocessService.makeTaskAssgineeDto(pb,muo, taskAssgineeDto);
-
 				jbpmService.saceTaskAssignee(newDto);
-				
-
 				 submitType =taskAssgineeDto.getTransitionName();
-
-				
-
 				this.generalprocessService.insertApproveOpninion(Six, muo, nextTaskId,
 						submitType, taskAssgineeDto);
 
 			}
-
-			
 		}else{
-
 			//正常发起
-			
-			
-			
-			// TODO Auto-generated method stub
-			
 			/**
 			 * ★★★★★★★★★★★★★★★★★★★★
 			 //1.获取teskid----从而获取name
 			//2.获取 flowid
 			 */
-			
 			 taskId = taskAssgineeDto.getNextTaskId();
 			 String taskName = jbpmService.getTaskNameById(taskId);
 			Six.setTaskName(taskName);
 			Six.setFlowId(taskAssgineeDto.getExecutionId());
-			
-
-			
 			/**
 			 * ★★★★★★★★★★★★★★★★★★★★
 			 * 判断是否存在  这个model对象 
@@ -363,13 +288,87 @@ public class TGeneralprocessModelsixService implements ITGeneralprocessModelsixS
 			
 			if (Six.getProcessModelId() != null
 					&& !"".equals(Six.getProcessModelId())){
-				// 修改模式四表单内容
+				// 修改模式6表单内容
 				this.tGeneralprocessModelsixDAO.uptModelSix(Six);
+		          //////////////////////////////////////////////附件上传////////////////////////////////////////////////////
+				if(files!=null){
+					TModelFile	obj=new TModelFile();
+		 	    	 String suffixStr = null;
+		 	    	 String address="";
+		 	    	String ioioio=	SpringPropertyResourceReader.getProperty("file_model");
+		 	    	 address=DictManager.getDictName("ZHPT_FILE_PATH","01");
+		 	    	Properties props=System.getProperties();
+		 	    	System.out.println(props.getProperty("os.name"));
+		 	    	if(address==null||"".equals(address)){
+		 			     address=ServletActionContext.getServletContext().getRealPath("/uploadfile");
+		 	    	}
+		 	    	else {
+		 	    	    	if(props.getProperty("os.name").indexOf("Windows")>=0)
+		 	    		    	address=ioioio+address;
+		 	    	 }  
+		 	    		 SimpleDateFormat sdf=new SimpleDateFormat("yyy-MM-dd");
+		 	    		 String fileDate=sdf.format(new Date());//时间
+		     	
+		 		       	 for(int i=0;i<filesFileName.length;i++){
+		 		    		 String uuid = UUID.randomUUID().toString();//UUID
+		 		       		 suffixStr = filesFileName[i].substring(filesFileName[i].indexOf("."), filesFileName[i].length());//获取后缀名      		 
+		 			       		obj.setExecutionId(Six.getFlowId());
+		 			       		obj.setModeId(String.valueOf(Six.getProcessModelId()));
+		 			       		obj.setModeType("mod6");
+		 			       		byte[] content = FileCopyUtils.copyToByteArray(files[i]);
+								obj.setModeFiles(content);
+				       			       		
+		 		       		  obj.setFileName(filesFileName[i]);
+		 		       		  obj.setFilePath(address+File.separator+fileDate+File.separator+uuid+suffixStr); 	       		
+		 		    		  FileUploadUtil.uploadFile(uuid, fileDate, address, filesFileName[i], files[i], suffixStr);
+
+								tModelFileService.insert(obj);
 				
+		 		       	 }
+				}
 				
 			}else{
-				// 保存模式四表单内容
+				// 保存模式6表单内容
 				this.tGeneralprocessModelsixDAO.addModelSix(Six);
+				
+		          //////////////////////////////////////////////附件上传////////////////////////////////////////////////////
+				if(files!=null){
+					TModelFile	obj=new TModelFile();
+		 	    	 String suffixStr = null;
+		 	    	 String address="";
+		 	    	String ioioio=	SpringPropertyResourceReader.getProperty("file_model");
+		 	    	 address=DictManager.getDictName("ZHPT_FILE_PATH","01");
+		 	    	Properties props=System.getProperties();
+		 	    	System.out.println(props.getProperty("os.name"));
+		 	    	if(address==null||"".equals(address)){
+		 			     address=ServletActionContext.getServletContext().getRealPath("/uploadfile");
+		 	    	}
+		 	    	else {
+		 	    	    	if(props.getProperty("os.name").indexOf("Windows")>=0)
+		 	    		    	address=ioioio+address;
+		 	    	 }  
+		 	    		 SimpleDateFormat sdf=new SimpleDateFormat("yyy-MM-dd");
+		 	    		 String fileDate=sdf.format(new Date());//时间
+		     	
+		 		       	 for(int i=0;i<filesFileName.length;i++){
+		 		    		 String uuid = UUID.randomUUID().toString();//UUID
+		 		       		 suffixStr = filesFileName[i].substring(filesFileName[i].indexOf("."), filesFileName[i].length());//获取后缀名      		 
+		 			       		obj.setExecutionId(Six.getFlowId());
+		 			       		obj.setModeId(String.valueOf(Six.getProcessModelId()));
+		 			       		obj.setModeType("mod6");
+		 			       		byte[] content = FileCopyUtils.copyToByteArray(files[i]);
+								obj.setModeFiles(content);
+				       			       		
+		 		       		  obj.setFileName(filesFileName[i]);
+		 		       		  obj.setFilePath(address+File.separator+fileDate+File.separator+uuid+suffixStr); 	       		
+		 		    		  FileUploadUtil.uploadFile(uuid, fileDate, address, filesFileName[i], files[i], suffixStr);
+
+								tModelFileService.insert(obj);
+				
+		 		       	 }
+				}
+				
+				
 			}
 			Six.setOpinion(Six.getProcessingOpinion());
 			
@@ -485,25 +484,7 @@ public class TGeneralprocessModelsixService implements ITGeneralprocessModelsixS
 			
 			
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-	
-		
-		
-		
 
-		
-		
-		
-
-	
-		
 	
 	}
     

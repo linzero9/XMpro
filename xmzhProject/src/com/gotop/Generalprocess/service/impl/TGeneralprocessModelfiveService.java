@@ -148,11 +148,80 @@ public class TGeneralprocessModelfiveService implements
 				&& !"".equals(modelFive.getProcessModelId())) {
 			// 修改模式五表单内容
 			this.tGeneralprocessModelfiveDAO.uptModelFive(modelFive);
+	        //////////////////////////////////////////////附件保存////////////////////////////////////////////////////
+				if(files!=null){
+					TModelFile	obj=new TModelFile();
+		 	    	 String suffixStr = null;
+		 	    	 String address="";
+		 	    	String ioioio=	SpringPropertyResourceReader.getProperty("file_model");
+		 	    	 address=DictManager.getDictName("ZHPT_FILE_PATH","01");
+		 	    	Properties props=System.getProperties();
+		 	    	System.out.println(props.getProperty("os.name"));
+		 	    	if(address==null||"".equals(address))
+		 			     address=ServletActionContext.getServletContext().getRealPath("/uploadfile");
+		 	    	else {
+		 	    	    	if(props.getProperty("os.name").indexOf("Windows")>=0)
+		 	    		    	address=ioioio+address;
+		 	    	 }  
+		 	    		 SimpleDateFormat sdf=new SimpleDateFormat("yyy-MM-dd");
+		 	    		 String fileDate=sdf.format(new Date());//时间
+		     	
+		 		       	 for(int i=0;i<filesFileName.length;i++){
+		 		    		 String uuid = UUID.randomUUID().toString();//UUID
+		 		       		 suffixStr = filesFileName[i].substring(filesFileName[i].indexOf("."), filesFileName[i].length());//获取后缀名      		 
+		 		       		   obj.setExecutionId(modelFive.getFlowId());
+		 			       		obj.setModeId(String.valueOf(modelFive.getProcessModelId()));
+		 			       		obj.setModeType("mod5");
+		 			       		byte[] content = FileCopyUtils.copyToByteArray(files[i]);
+								obj.setModeFiles(content);
+				       			       		
+		 		       		  obj.setFileName(filesFileName[i]);
+		 		       		  obj.setFilePath(address+File.separator+fileDate+File.separator+uuid+suffixStr); 	       		
+		 		    		  FileUploadUtil.uploadFile(uuid, fileDate, address, filesFileName[i], files[i], suffixStr);
 
+								tModelFileService.insert(obj);
+				
+		 		       	 }
+				}
 		} else {
 			// 保存模式五表单内容
 			
 			this.tGeneralprocessModelfiveDAO.addModelFive(modelFive);
+	        //////////////////////////////////////////////附件保存////////////////////////////////////////////////////
+				if(files!=null){
+					TModelFile	obj=new TModelFile();
+		 	    	 String suffixStr = null;
+		 	    	 String address="";
+		 	    	String ioioio=	SpringPropertyResourceReader.getProperty("file_model");
+		 	    	 address=DictManager.getDictName("ZHPT_FILE_PATH","01");
+		 	    	Properties props=System.getProperties();
+		 	    	System.out.println(props.getProperty("os.name"));
+		 	    	if(address==null||"".equals(address))
+		 			     address=ServletActionContext.getServletContext().getRealPath("/uploadfile");
+		 	    	else {
+		 	    	    	if(props.getProperty("os.name").indexOf("Windows")>=0)
+		 	    		    	address=ioioio+address;
+		 	    	 }  
+		 	    		 SimpleDateFormat sdf=new SimpleDateFormat("yyy-MM-dd");
+		 	    		 String fileDate=sdf.format(new Date());//时间
+		     	
+		 		       	 for(int i=0;i<filesFileName.length;i++){
+		 		    		 String uuid = UUID.randomUUID().toString();//UUID
+		 		       		 suffixStr = filesFileName[i].substring(filesFileName[i].indexOf("."), filesFileName[i].length());//获取后缀名      		 
+		 		       		   obj.setExecutionId(modelFive.getFlowId());
+		 			       		obj.setModeId(String.valueOf(modelFive.getProcessModelId()));
+		 			       		obj.setModeType("mod5");
+		 			       		byte[] content = FileCopyUtils.copyToByteArray(files[i]);
+								obj.setModeFiles(content);
+				       			       		
+		 		       		  obj.setFileName(filesFileName[i]);
+		 		       		  obj.setFilePath(address+File.separator+fileDate+File.separator+uuid+suffixStr); 	       		
+		 		    		  FileUploadUtil.uploadFile(uuid, fileDate, address, filesFileName[i], files[i], suffixStr);
+
+								tModelFileService.insert(obj);
+				
+		 		       	 }
+				}
 		}
 
 		modelFive.setOpinion(modelFive.getOptionNew());
@@ -216,45 +285,44 @@ public class TGeneralprocessModelfiveService implements
 
 				this.generalprocessService.insertApproveOpninion(modelFive, muo,
 						nextTaskId, submitType, taskAssgineeDto);
-			}
-			
-	        //////////////////////////////////////////////附件上传////////////////////////////////////////////////////
-				if(files!=null){
-					TModelFile	obj=new TModelFile();
-		 	    	 String suffixStr = null;
-		 	    	 String address="";
-		 	    	String ioioio=	SpringPropertyResourceReader.getProperty("file_model");
-		 	    	 address=DictManager.getDictName("ZHPT_FILE_PATH","01");
-		 	    	Properties props=System.getProperties();
-		 	    	System.out.println(props.getProperty("os.name"));
-		 	    	if(address==null||"".equals(address))
-		 			     address=ServletActionContext.getServletContext().getRealPath("/uploadfile");
-		 	    	else {
-		 	    	    	if(props.getProperty("os.name").indexOf("Windows")>=0)
-		 	    		    	address=ioioio+address;
-		 	    	 }  
-		 	    		 SimpleDateFormat sdf=new SimpleDateFormat("yyy-MM-dd");
-		 	    		 String fileDate=sdf.format(new Date());//时间
-		     	
-		 		       	 for(int i=0;i<filesFileName.length;i++){
-		 		    		 String uuid = UUID.randomUUID().toString();//UUID
-		 		       		 suffixStr = filesFileName[i].substring(filesFileName[i].indexOf("."), filesFileName[i].length());//获取后缀名      		 
-		 		       		   obj.setExecutionId(newDto.getExecutionId());
-		 			       		obj.setModeId(String.valueOf(modelFive.getProcessModelId()));
-		 			       		obj.setModeType("mod5");
-		 			       		byte[] content = FileCopyUtils.copyToByteArray(files[i]);
-								obj.setModeFiles(content);
-				       			       		
-		 		       		  obj.setFileName(filesFileName[i]);
-		 		       		  obj.setFilePath(address+File.separator+fileDate+File.separator+uuid+suffixStr); 	       		
-		 		    		  FileUploadUtil.uploadFile(uuid, fileDate, address, filesFileName[i], files[i], suffixStr);
-
-								tModelFileService.insert(obj);
 				
-		 		       	 }
-				}
-			
-			
+		        //////////////////////////////////////////////附件上传////////////////////////////////////////////////////
+					if(files!=null){
+						TModelFile	obj=new TModelFile();
+			 	    	 String suffixStr = null;
+			 	    	 String address="";
+			 	    	String ioioio=	SpringPropertyResourceReader.getProperty("file_model");
+			 	    	 address=DictManager.getDictName("ZHPT_FILE_PATH","01");
+			 	    	Properties props=System.getProperties();
+			 	    	System.out.println(props.getProperty("os.name"));
+			 	    	if(address==null||"".equals(address))
+			 			     address=ServletActionContext.getServletContext().getRealPath("/uploadfile");
+			 	    	else {
+			 	    	    	if(props.getProperty("os.name").indexOf("Windows")>=0)
+			 	    		    	address=ioioio+address;
+			 	    	 }  
+			 	    		 SimpleDateFormat sdf=new SimpleDateFormat("yyy-MM-dd");
+			 	    		 String fileDate=sdf.format(new Date());//时间
+			     	
+			 		       	 for(int i=0;i<filesFileName.length;i++){
+			 		    		 String uuid = UUID.randomUUID().toString();//UUID
+			 		       		 suffixStr = filesFileName[i].substring(filesFileName[i].indexOf("."), filesFileName[i].length());//获取后缀名      		 
+			 		       		   obj.setExecutionId(newDto.getExecutionId());
+			 			       		obj.setModeId(String.valueOf(modelFive.getProcessModelId()));
+			 			       		obj.setModeType("mod5");
+			 			       		byte[] content = FileCopyUtils.copyToByteArray(files[i]);
+									obj.setModeFiles(content);
+					       			       		
+			 		       		  obj.setFileName(filesFileName[i]);
+			 		       		  obj.setFilePath(address+File.separator+fileDate+File.separator+uuid+suffixStr); 	       		
+			 		    		  FileUploadUtil.uploadFile(uuid, fileDate, address, filesFileName[i], files[i], suffixStr);
+
+									tModelFileService.insert(obj);
+					
+			 		       	 }
+					}
+			}
+		
 		}
 		
 

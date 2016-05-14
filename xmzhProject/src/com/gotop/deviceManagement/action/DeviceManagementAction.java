@@ -1648,7 +1648,7 @@ private HashMap checkData_maxLength(String str, String colName, int i, String ms
 			DevicePo devicePo = new DevicePo();
 			List<DevicePo> dataset = deviceManagermentService.deviceList(devicePo);
 			
-			for(DevicePo device : dataset){
+/*			for(DevicePo device : dataset){
 				if(device.getUseful() != null){
 					device.setUseful((device.getUseful()).replaceAll(", ", "," ));
 				}
@@ -1674,7 +1674,7 @@ private HashMap checkData_maxLength(String str, String colName, int i, String ms
 					device.setOtherInfo_5((device.getOtherInfo_5()).replaceAll(", ", "," ));
 				}
 				
-			}
+			}*/
 			exportExcelFuntion("设备信息批量修改全部", headers, dataset);
 			
 			System.out.println("getDownloadFile3() end.... ");

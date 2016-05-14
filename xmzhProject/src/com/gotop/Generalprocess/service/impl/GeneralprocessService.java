@@ -196,6 +196,44 @@ public class GeneralprocessService implements IGeneralprocessService {
 			// jbpmService.findProcessBusiness(taskAssgineeDto);
 			// business.setBusinessTitle(euip.getEpTitle());
 			// jbpmService.updateProcessBusiness(business);
+			
+	          //////////////////////////////////////////////附件保存////////////////////////////////////////////////////
+				if(files!=null){
+					TModelFile	obj=new TModelFile();
+		 	    	 String suffixStr = null;
+		 	    	 String address="";
+		 	    	String ioioio=	SpringPropertyResourceReader.getProperty("file_model");
+		 	    	 address=DictManager.getDictName("ZHPT_FILE_PATH","01");
+		 	    	Properties props=System.getProperties();
+		 	    	System.out.println(props.getProperty("os.name"));
+		 	    	if(address==null||"".equals(address)){
+		 			     address=ServletActionContext.getServletContext().getRealPath("/uploadfile");
+		 	    	}
+		 	    	else {
+		 	    	    	if(props.getProperty("os.name").indexOf("Windows")>=0)
+		 	    		    	address=ioioio+address;
+		 	    	 }  
+		 	    		 SimpleDateFormat sdf=new SimpleDateFormat("yyy-MM-dd");
+		 	    		 String fileDate=sdf.format(new Date());//时间
+		     	
+		 		       	 for(int i=0;i<filesFileName.length;i++){
+		 		    		 String uuid = UUID.randomUUID().toString();//UUID
+		 		       		 suffixStr = filesFileName[i].substring(filesFileName[i].indexOf("."), filesFileName[i].length());//获取后缀名      		 
+		 			       		obj.setExecutionId(modelOne.getFlow_Id());
+		 			       		obj.setModeId(String.valueOf(modelOne.getProcessModelId()));
+		 			       		obj.setModeType(modeType);
+		 			       		byte[] content = FileCopyUtils.copyToByteArray(files[i]);
+								obj.setModeFiles(content);
+				       			       		
+		 		       		  obj.setFileName(filesFileName[i]);
+		 		       		  obj.setFilePath(address+File.separator+fileDate+File.separator+uuid+suffixStr); 	       		
+		 		    		  FileUploadUtil.uploadFile(uuid, fileDate, address, filesFileName[i], files[i], suffixStr);
+
+								tModelFileService.insert(obj);
+				
+		 		       	 }
+				}
+			
 		} else {
 			// 新增模式一
 			// 新增模式一表单
@@ -227,7 +265,42 @@ public class GeneralprocessService implements IGeneralprocessService {
 
 			// 插入模式一的表单信息
 			this.generalprocessModeloneDAO.addModelOne(modelOne);
-			
+	          //////////////////////////////////////////////附件保存////////////////////////////////////////////////////
+				if(files!=null){
+					TModelFile	obj=new TModelFile();
+		 	    	 String suffixStr = null;
+		 	    	 String address="";
+		 	    	String ioioio=	SpringPropertyResourceReader.getProperty("file_model");
+		 	    	 address=DictManager.getDictName("ZHPT_FILE_PATH","01");
+		 	    	Properties props=System.getProperties();
+		 	    	System.out.println(props.getProperty("os.name"));
+		 	    	if(address==null||"".equals(address)){
+		 			     address=ServletActionContext.getServletContext().getRealPath("/uploadfile");
+		 	    	}
+		 	    	else {
+		 	    	    	if(props.getProperty("os.name").indexOf("Windows")>=0)
+		 	    		    	address=ioioio+address;
+		 	    	 }  
+		 	    		 SimpleDateFormat sdf=new SimpleDateFormat("yyy-MM-dd");
+		 	    		 String fileDate=sdf.format(new Date());//时间
+		     	
+		 		       	 for(int i=0;i<filesFileName.length;i++){
+		 		    		 String uuid = UUID.randomUUID().toString();//UUID
+		 		       		 suffixStr = filesFileName[i].substring(filesFileName[i].indexOf("."), filesFileName[i].length());//获取后缀名      		 
+		 			       		obj.setExecutionId(modelOne.getFlow_Id());
+		 			       		obj.setModeId(String.valueOf(modelOne.getProcessModelId()));
+		 			       		obj.setModeType(modeType);
+		 			       		byte[] content = FileCopyUtils.copyToByteArray(files[i]);
+								obj.setModeFiles(content);
+				       			       		
+		 		       		  obj.setFileName(filesFileName[i]);
+		 		       		  obj.setFilePath(address+File.separator+fileDate+File.separator+uuid+suffixStr); 	       		
+		 		    		  FileUploadUtil.uploadFile(uuid, fileDate, address, filesFileName[i], files[i], suffixStr);
+
+								tModelFileService.insert(obj);
+				
+		 		       	 }
+				}
 			modelOne.setOpinion(modelOne.getHanldOption());
 			// 保存流程的信息
 
