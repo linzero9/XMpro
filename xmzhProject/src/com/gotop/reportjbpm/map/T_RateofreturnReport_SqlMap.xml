@@ -105,7 +105,7 @@ FROM
 									FROM
 										jbpm4_hist_actinst A
 									WHERE
-										A .transition_ = 'TO 结束'
+										A .transition_   like '%结束%'
 									AND A .execution_ IN (
 										SELECT
 											T .execution_
@@ -129,7 +129,7 @@ FROM
 										FROM
 											jbpm4_hist_actinst A
 										WHERE
-											A .transition_ = 'TO 结束'
+											A .transition_ like '%结束%'
 									) 
 									GROUP BY
 										execution_
@@ -214,7 +214,7 @@ FROM
 										FROM
 											jbpm4_hist_actinst A
 										WHERE
-											A .transition_ = 'TO 结束'
+											A .transition_ like '%结束%'
 										AND A .execution_ IN (
 											SELECT
 												T .execution_
@@ -245,7 +245,7 @@ FROM
 											FROM
 												jbpm4_hist_actinst A
 											WHERE
-												A .transition_ = 'TO 结束'
+												A .transition_ like '%结束%'
 										)
 										GROUP BY
 											execution_
@@ -338,7 +338,7 @@ FROM
 										FROM
 											jbpm4_hist_actinst A
 										WHERE
-											A .transition_ = 'TO 结束'
+											A .transition_  like '%结束%'
 										AND A .execution_ IN (
 											SELECT
 												T .execution_
@@ -369,7 +369,7 @@ FROM
 											FROM
 												jbpm4_hist_actinst A
 											WHERE
-												A .transition_ = 'TO 结束'
+												A .transition_  like '%结束%'
 										)
 										GROUP BY
 											execution_
@@ -462,7 +462,7 @@ FROM
 										FROM
 											jbpm4_hist_actinst A
 										WHERE
-											A .transition_ = 'TO 结束'
+											A .transition_  like '%结束%'
 										AND A .execution_ IN (
 											SELECT
 												T .execution_
@@ -493,7 +493,7 @@ FROM
 											FROM
 												jbpm4_hist_actinst A
 											WHERE
-												A .transition_ = 'TO 结束'
+												A .transition_  like '%结束%'
 										)
 										GROUP BY
 											execution_
@@ -586,7 +586,7 @@ FROM
 										FROM
 											jbpm4_hist_actinst A
 										WHERE
-											A .transition_ = 'TO 结束'
+											A .transition_  like '%结束%'
 										AND A .execution_ IN (
 											SELECT
 												T .execution_
@@ -617,7 +617,7 @@ FROM
 											FROM
 												jbpm4_hist_actinst A
 											WHERE
-												A .transition_ = 'TO 结束'
+												A .transition_   like '%结束%'
 										)
 										GROUP BY
 											execution_
@@ -722,7 +722,7 @@ FROM
 										FROM
 											jbpm4_hist_actinst A
 										WHERE
-											A .transition_ = 'TO 结束'
+											A .transition_  like '%结束%'
 										AND A .execution_ IN (
 											SELECT
 												T .execution_
@@ -746,7 +746,7 @@ FROM
 											FROM
 												jbpm4_hist_actinst A
 											WHERE
-												A .transition_ = 'TO 结束'
+												A .transition_  like '%结束%'
 										) 
 										GROUP BY
 											execution_
@@ -831,7 +831,7 @@ FROM
 											FROM
 												jbpm4_hist_actinst A
 											WHERE
-												A .transition_ = 'TO 结束'
+												A .transition_  like '%结束%'
 											AND A .execution_ IN (
 												SELECT
 													T .execution_
@@ -862,7 +862,7 @@ FROM
 												FROM
 													jbpm4_hist_actinst A
 												WHERE
-													A .transition_ = 'TO 结束'
+													A .transition_  like '%结束%'
 											)
 											GROUP BY
 												execution_
@@ -953,7 +953,7 @@ FROM
 											FROM
 												jbpm4_hist_actinst A
 											WHERE
-												A .transition_ = 'TO 结束'
+												A .transition_  like '%结束%'
 											AND A .execution_ IN (
 												SELECT
 													T .execution_
@@ -984,7 +984,7 @@ FROM
 												FROM
 													jbpm4_hist_actinst A
 												WHERE
-													A .transition_ = 'TO 结束'
+													A .transition_  like '%结束%'
 											)
 											GROUP BY
 												execution_
@@ -1075,7 +1075,7 @@ FROM
 											FROM
 												jbpm4_hist_actinst A
 											WHERE
-												A .transition_ = 'TO 结束'
+												A .transition_  like '%结束%'
 											AND A .execution_ IN (
 												SELECT
 													T .execution_
@@ -1106,7 +1106,7 @@ FROM
 												FROM
 													jbpm4_hist_actinst A
 												WHERE
-													A .transition_ = 'TO 结束'
+													A .transition_  like '%结束%'
 											)
 											GROUP BY
 												execution_
@@ -1196,7 +1196,7 @@ FROM
 											FROM
 												jbpm4_hist_actinst A
 											WHERE
-												A .transition_ = 'TO 结束'
+												A .transition_  like '%结束%'
 											AND A .execution_ IN (
 												SELECT
 													T .execution_
@@ -1227,7 +1227,7 @@ FROM
 												FROM
 													jbpm4_hist_actinst A
 												WHERE
-													A .transition_ = 'TO 结束'
+													A .transition_ like '%结束%'
 											)
 											GROUP BY
 												execution_
