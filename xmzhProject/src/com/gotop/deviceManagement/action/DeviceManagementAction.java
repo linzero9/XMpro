@@ -1366,7 +1366,7 @@ private HashMap checkData_maxLength(String str, String colName, int i, String ms
         
         }
         
-        int count = 1000;  //设置1000行的单元格都为文本格式
+        int count = 65536;  //因为excel表格最多只能有65536行，设置65536行的单元格都为文本格式芬
         
         HSSFCellStyle textStyle = wb.createCellStyle();
 		    HSSFDataFormat format = wb.createDataFormat();
