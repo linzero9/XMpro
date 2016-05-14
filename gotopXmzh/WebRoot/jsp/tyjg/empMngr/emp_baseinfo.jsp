@@ -409,6 +409,7 @@
 <h:script src="/common/skins/default/scripts/common.js"/>
 <script>
 	function returnFuncOrgLuss(arg){//如果点击右上角关闭则不进入该方法    
+		
 		var orgid = "";
 		var orgname = "";
 		if(arg.length<2 || arg[0].length<1){
