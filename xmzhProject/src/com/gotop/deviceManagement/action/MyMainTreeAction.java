@@ -157,6 +157,28 @@ public class MyMainTreeAction extends BaseAction{
 		return "my_adminTree";
 	}
 	
+	/**
+	 * 查询行政树根机构
+	 * @return
+	 * @throws Exception
+	 */
+	public String selectAdminTreeRoot() throws Exception{
+		HashMap<String, String> hmp = XmlConvert.getParamsAjax();
+		String orgflag = String.valueOf(hmp.get("orgflag"));
+		if("2".equals(orgflag)){
+			hmp.put("parentid", "5478");  //5478为一类支行，表示“选择支行”时一进机构树就显示一类支行下的所有支行
+		}
+		List<Organization> orgList = this.getMyMainTreeService().selectAdminTreeNode(hmp, orgflag);
+		String xml = XmlConvert.getXmlListBean(orgList);
+		this.write(xml);
+		return null;
+	}
+	
+	/**
+	 * 查询树子机构
+	 * @return
+	 * @throws Exception
+	 */
 	public String selectAdminTreeChild() throws Exception{
 		HashMap paramMap = XmlConvert.getParamsAjax();
 		String orgType = String.valueOf(paramMap.get("orgType"));

@@ -174,7 +174,7 @@
 						<r:treeRoot childEntities="Organization" display="行政机构树"
 							initParamFunc="getInitParam" onDblclickFunc="rtnSelectVal"
 							icon="/common/images/icons/arrow_merge.png"
-							action="/tree/selectAdminTreeRoot_mainTree.action">
+							action="/deviceManagement/myMainTreeAction_selectAdminTreeRoot.action">
 						</r:treeRoot>
 						<r:treeNode nodeType="Organization" showField="orgname"
 							childEntities="Organization;oaPosi;Employee"
@@ -221,6 +221,9 @@
 	    var ret = '<startorgid>${changeTree.startOrgid}</startorgid><startorgcode>${changeTree.startOrgcode}</startorgcode>';
 	    	ret += "<jgsx>${changeTree.jgsx}</jgsx>";
 	    	ret += "<positioncode>${changeTree.positioncode}</positioncode>";
+
+	    	var orgflag = $id("orgflag").value;
+	    	ret +="<orgflag>"+orgflag+"</orgflag>";
 		return ret ;
 	}	
 	/**
