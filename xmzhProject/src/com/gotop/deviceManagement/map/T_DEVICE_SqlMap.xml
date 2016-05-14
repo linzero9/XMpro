@@ -131,13 +131,7 @@ t.HARDDISK,t.OSVERSION,t.SOFTWAREVERSION,t.IEVERSION, t.USEFUL, t.PLUGIN,t.PERIP
       </isNotNull>
       
       
-   <isEmpty property="orgcode" >
-  and t.orgcode in(
-    select orgcode from om_organization 
-     start with orgcode = '$orgcodeTemp$'
-    connect by prior orgid = parentorgid 
- )
-</isEmpty> 
+
 )
 group by orgname,DEVICENAME,DEVICEMODEL
 
@@ -198,13 +192,7 @@ t.HARDDISK,t.OSVERSION,t.SOFTWAREVERSION,t.IEVERSION, t.USEFUL, t.PLUGIN,t.PERIP
       </isNotNull>
       
       
-   <isEmpty property="orgcode" >
-  and t.orgcode in(
-    select orgcode from om_organization 
-     start with orgcode = '$orgcodeTemp$'
-    connect by prior orgid = parentorgid 
- )
-</isEmpty> 
+
 )
 )
 
