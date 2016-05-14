@@ -191,43 +191,43 @@
 									<b:write iterateId="id1" property="receiveOne" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="2" />
+									<b:write iterateId="id1" property="returnOne" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="3" />
+									<b:write iterateId="id1" property="reportedTwo" />
 								</td>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1" property="receiveTwo" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="5" />
+									<b:write iterateId="id1" property="returnTwo" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="6" />
+									<b:write iterateId="id1" property="reportedThree" />
 								</td>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1" property="receiveThree" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="8" />
+									<b:write iterateId="id1" property="returnThree" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="9" />
+									<b:write iterateId="id1" property="reportedFour" />
 								</td>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1" property="receiveFour" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="11" />
+									<b:write iterateId="id1" property="returnFour" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="12" />
+									<b:write iterateId="id1" property="reportedFive" />
 								</td>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1" property="receiveFive" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="14" />
+									<b:write iterateId="id1" property="returnFive" />
 								</td>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1" property="checkTime" />

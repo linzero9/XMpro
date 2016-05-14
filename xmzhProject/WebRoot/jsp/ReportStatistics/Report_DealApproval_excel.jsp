@@ -137,43 +137,43 @@
 									<b:write iterateId="id1" property="receiveOne" />
 								</td>
 								<td style="vnd.ms-excel.numberformat:@"> 
-									<b:write iterateId="id1" property="2" />
+									<b:write iterateId="id1" property="returnOne" />
 								</td>
 								<td style="vnd.ms-excel.numberformat:@"> 
-									<b:write iterateId="id1" property="3" />
+									<b:write iterateId="id1" property="reportedTwo" />
 								</td>
 								<td style="vnd.ms-excel.numberformat:@"> 
 									<b:write iterateId="id1" property="receiveTwo" />
 								</td>
 								<td style="vnd.ms-excel.numberformat:@"> 
-									<b:write iterateId="id1" property="5" />
+									<b:write iterateId="id1" property="returnTwo" />
 								</td>
 								<td style="vnd.ms-excel.numberformat:@"> 
-									<b:write iterateId="id1" property="6" />
+									<b:write iterateId="id1" property="reportedThree" />
 								</td>
 								<td style="vnd.ms-excel.numberformat:@"> 
 									<b:write iterateId="id1" property="receiveThree" />
 								</td>
 								<td style="vnd.ms-excel.numberformat:@"> 
-									<b:write iterateId="id1" property="8" />
+									<b:write iterateId="id1" property="returnThree" />
 								</td>
 								<td style="vnd.ms-excel.numberformat:@"> 
-									<b:write iterateId="id1" property="9" />
+									<b:write iterateId="id1" property="reportedFour" />
 								</td>
 								<td style="vnd.ms-excel.numberformat:@"> 
 									<b:write iterateId="id1" property="receiveFour" />
 								</td>
 								<td style="vnd.ms-excel.numberformat:@"> 
-									<b:write iterateId="id1" property="11" />
+									<b:write iterateId="id1" property="returnFour" />
 								</td>
 								<td style="vnd.ms-excel.numberformat:@"> 
-									<b:write iterateId="id1" property="12" />
+									<b:write iterateId="id1" property="reportedFive" />
 								</td>
 								<td style="vnd.ms-excel.numberformat:@"> 
 									<b:write iterateId="id1" property="receiveFive" />
 								</td>
 								<td style="vnd.ms-excel.numberformat:@"> 
-									<b:write iterateId="id1" property="14" />
+									<b:write iterateId="id1" property="returnFive" />
 								</td>
 								<td style="vnd.ms-excel.numberformat:@"> 
 									<b:write iterateId="id1" property="checkTime" />

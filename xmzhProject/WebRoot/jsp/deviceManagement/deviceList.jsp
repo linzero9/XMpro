@@ -42,7 +42,7 @@ margin-left:inherit;
 					</td>
 					<td class="form_label" align="right" width="10%" nowrap="nowrap">IP地址：</td>
 					<td colspan="1"  width="25%" nowrap="nowrap">
-						<h:text id="ipAdress" property="device.ipAdress"  size="15"  validateAttr="fracDigit=2;type=double;"  />
+						<h:text id="ipAdress" property="device.ipAdress"  size="15"   />
 					</td>
 					<td class="form_label" align="right" width="10%" nowrap="nowrap">操作系统版本：</td>
 					<td colspan="1"  width="23%" nowrap="nowrap">
@@ -551,7 +551,7 @@ margin-left:inherit;
 				
 				$("#deviceModels").html("");
 				var selecthtml=$("#deviceModels").html();
-				
+				selecthtml = selecthtml+"<option value='' >请选择</option>";
 						$.ajax({
 							url : "/deviceManagement/deviceManagementAction_queryType.action",
 							async : false,
@@ -565,18 +565,7 @@ margin-left:inherit;
 
 								} else {
 									$.each(json,function(key, value) {
-														selecthtml = 
-
-	selecthtml
-																
-
-	+ "<option value="+value.deviceModel+">"
-																
-
-	+ value.deviceModelName
-																
-
-	+ "</option>";
+			selecthtml = selecthtml+ "<option value="+value.deviceModel+">"+ value.deviceModelName+ "</option>";
 													});
 								}
 							}

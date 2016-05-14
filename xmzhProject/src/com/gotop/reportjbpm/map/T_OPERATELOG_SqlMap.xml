@@ -61,7 +61,7 @@ select T1.ACTIVITY_NAME_,
       <isNotNull prepend="and" property="stopTime" >
        <![CDATA[T3.REPORTTIME <= #stopTime#]]>
       </isNotNull>
-     
+     order by T5.PROCESS_NAME,T7.CUST_NAME,START_
 	
 	</select>
 

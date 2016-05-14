@@ -91,6 +91,89 @@ public class ApprovalService implements IApprovalService {
 		}
 		}
 		}
+		
+		for (int i = 0; i < approvalList.size(); i++) {
+			if (approvalList.get(i).getReturnTime()!=null) {
+				
+				String [] time=approvalList.get(i).getReturnTime().split(",");
+			   switch (time.length) {
+			case 0:
+				   break;
+			case 1:
+				approvalList.get(i).setReturnOne(time[0]);
+				break;
+			case 2:
+				approvalList.get(i).setReturnOne(time[0]);
+				approvalList.get(i).setReturnTwo(time[1]);
+				break;
+			case 3:
+				approvalList.get(i).setReturnOne(time[0]);
+				approvalList.get(i).setReturnTwo(time[1]);
+				approvalList.get(i).setReturnThree(time[2]);
+				break;
+			case 4:
+				approvalList.get(i).setReturnOne(time[0]);
+				approvalList.get(i).setReturnTwo(time[1]);
+				approvalList.get(i).setReturnThree(time[2]);
+				approvalList.get(i).setReturnFour(time[3]);
+				break;
+			case 5:
+				approvalList.get(i).setReturnOne(time[0]);
+				approvalList.get(i).setReturnTwo(time[1]);
+				approvalList.get(i).setReturnThree(time[2]);
+				approvalList.get(i).setReturnFour(time[3]);
+				approvalList.get(i).setReturnFive(time[4]);
+				break;
+
+			default:
+				approvalList.get(i).setReturnOne(time[0]);
+				approvalList.get(i).setReturnTwo(time[1]);
+				approvalList.get(i).setReturnThree(time[2]);
+				approvalList.get(i).setReturnFour(time[3]);
+				approvalList.get(i).setReturnFive(time[4]);
+				break;
+			}
+			}
+			}
+		
+		for (int i = 0; i < approvalList.size(); i++) {
+			if (approvalList.get(i).getReportedTime()!=null) {
+				
+				String [] time=approvalList.get(i).getReportedTime().split(",");
+			   switch (time.length) {
+			case 0:
+				   break;
+	        case 1:
+				break;
+			case 2:
+				approvalList.get(i).setReportedTwo(time[1]);
+				break;
+			case 3:
+				approvalList.get(i).setReportedTwo(time[1]);
+				approvalList.get(i).setReportedThree(time[2]);
+				break;
+			case 4:
+				approvalList.get(i).setReportedTwo(time[1]);
+				approvalList.get(i).setReportedThree(time[2]);
+				approvalList.get(i).setReportedFour(time[3]);
+				break;
+			case 5:
+				approvalList.get(i).setReportedTwo(time[1]);
+				approvalList.get(i).setReportedThree(time[2]);
+				approvalList.get(i).setReportedFour(time[3]);
+				approvalList.get(i).setReportedFive(time[4]);
+				break;
+		
+
+			default:
+				approvalList.get(i).setReportedTwo(time[1]);
+				approvalList.get(i).setReportedThree(time[2]);
+				approvalList.get(i).setReportedFour(time[3]);
+				approvalList.get(i).setReportedFive(time[4]);
+				break;
+			}
+			}
+			}
 		return approvalList;
 	}
 
@@ -155,6 +238,89 @@ public class ApprovalService implements IApprovalService {
 		}
 		}
 		}
+		
+		for (int i = 0; i < approvalList.size(); i++) {
+			if (approvalList.get(i).getReturnTime()!=null) {
+				
+				String [] time=approvalList.get(i).getReturnTime().split(",");
+			   switch (time.length) {
+			case 0:
+				   break;
+			case 1:
+				approvalList.get(i).setReturnOne(time[0]);
+				break;
+			case 2:
+				approvalList.get(i).setReturnOne(time[0]);
+				approvalList.get(i).setReturnTwo(time[1]);
+				break;
+			case 3:
+				approvalList.get(i).setReturnOne(time[0]);
+				approvalList.get(i).setReturnTwo(time[1]);
+				approvalList.get(i).setReturnThree(time[2]);
+				break;
+			case 4:
+				approvalList.get(i).setReturnOne(time[0]);
+				approvalList.get(i).setReturnTwo(time[1]);
+				approvalList.get(i).setReturnThree(time[2]);
+				approvalList.get(i).setReturnFour(time[3]);
+				break;
+			case 5:
+				approvalList.get(i).setReturnOne(time[0]);
+				approvalList.get(i).setReturnTwo(time[1]);
+				approvalList.get(i).setReturnThree(time[2]);
+				approvalList.get(i).setReturnFour(time[3]);
+				approvalList.get(i).setReturnFive(time[4]);
+				break;
+
+			default:
+				approvalList.get(i).setReturnOne(time[0]);
+				approvalList.get(i).setReturnTwo(time[1]);
+				approvalList.get(i).setReturnThree(time[2]);
+				approvalList.get(i).setReturnFour(time[3]);
+				approvalList.get(i).setReturnFive(time[4]);
+				break;
+			}
+			}
+			}
+		
+		for (int i = 0; i < approvalList.size(); i++) {
+			if (approvalList.get(i).getReportedTime()!=null) {
+				
+				String [] time=approvalList.get(i).getReportedTime().split(",");
+			   switch (time.length) {
+			case 0:
+				   break;
+	        case 1:
+				break;
+			case 2:
+				approvalList.get(i).setReportedTwo(time[1]);
+				break;
+			case 3:
+				approvalList.get(i).setReportedTwo(time[1]);
+				approvalList.get(i).setReportedThree(time[2]);
+				break;
+			case 4:
+				approvalList.get(i).setReportedTwo(time[1]);
+				approvalList.get(i).setReportedThree(time[2]);
+				approvalList.get(i).setReportedFour(time[3]);
+				break;
+			case 5:
+				approvalList.get(i).setReportedTwo(time[1]);
+				approvalList.get(i).setReportedThree(time[2]);
+				approvalList.get(i).setReportedFour(time[3]);
+				approvalList.get(i).setReportedFive(time[4]);
+				break;
+		
+
+			default:
+				approvalList.get(i).setReportedTwo(time[1]);
+				approvalList.get(i).setReportedThree(time[2]);
+				approvalList.get(i).setReportedFour(time[3]);
+				approvalList.get(i).setReportedFive(time[4]);
+				break;
+			}
+			}
+			}
 		return approvalList;
 	}
 

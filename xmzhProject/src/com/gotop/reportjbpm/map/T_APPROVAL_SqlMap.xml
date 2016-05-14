@@ -46,6 +46,8 @@
     <result column="CHECKTIME" property="checkTime" jdbcType="VARCHAR" />
     <result column="REPLYTIME" property="replyTime" jdbcType="VARCHAR" />
     <result column="RECEIVETIME" property="receiveTime" jdbcType="VARCHAR" />
+    <result column="RETURNTIME" property="returnTime" jdbcType="VARCHAR" />
+    <result column="REPORTEDTIME" property="reportedTime" jdbcType="VARCHAR" />
   </resultMap>
   
 	<!-- 查询受理审批台账 -->
@@ -96,7 +98,9 @@
        A3.REPLYTIME,
        A4.CHECKONE,
        A5.CHECKTWO,
-       A6.RECEIVETIME
+       A6.RECEIVETIME,
+       A9.RETURNTIME,
+       A10.REPORTEDTIME
   FROM (select T.REPORTTIME,
                T.ISURGENT,
                O.CUST_NAME,
@@ -169,6 +173,10 @@
            LEFT JOIN(
            SELECT    execution_ ,TO_CHAR (MIN (T .start_),'yyyy-mm-dd') looktime  FROM   JBPM4_HIST_ACTINST  t  WHERE   t.activity_name_='发起合同预审'  GROUP  BY  t.execution_
            ) A8 on A8.EXECUTION_=Z.FLOW_ID 
+           LEFT JOIN (select t.execution_,wm_concat(to_char(t.create_, 'yyyy-mm-dd hh24:mi:ss')) returnTime from (select *from JBPM4_HIST_TASK k where k.outcome_ ='退回收单派单' order by k.execution_, k.create_) T group by t.execution_) A9 
+           ON A9.EXECUTION_=Z.FLOW_ID
+           LEFT JOIN (select t.execution_,wm_concat(to_char(t.create_, 'yyyy-mm-dd hh24:mi:ss')) reportedTime from (select *from JBPM4_HIST_TASK k where k.outcome_ ='提交收单派单' order by k.execution_, k.create_) T group by t.execution_) A10
+           ON A10.EXECUTION_=Z.FLOW_ID
             where 1=1
    <isNotNull prepend="and" property="repTimeStrat">
    <![CDATA[uptime>=#repTimeStrat#]]>
