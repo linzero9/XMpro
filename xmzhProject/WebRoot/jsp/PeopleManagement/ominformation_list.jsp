@@ -158,7 +158,9 @@
 	                <l:greaterThan property="page.count" targetValue="0" compareType="number" >
 	                   <input type="button" class="button" value="人员维护" onclick="updateRecord();"  id="updateButton">
 	                </l:greaterThan>
-	                
+	                <l:greaterThan property="page.count" targetValue="0" compareType="number" >
+	                   <input type="button" class="button" value="所属机构的修改维护" onclick="updateRecord2();"  id="updateButton">
+	                </l:greaterThan>
                 </div>
                 
                 
@@ -191,6 +193,25 @@
         <script type="text/javascript">
         	
 		        
+		        //所属机构的修改维护
+		        function updateRecord2(){
+		        	var gop = $id("group1");
+			  		var len = gop.getSelectLength();
+			  		if(len == 0){
+			  			alert("至少选择一位人员信息");
+			  			return;
+			  		} else if(len > 1){
+			  			alert("只能选择一位人员信息进行修改");
+			  			return;
+			  		}else{
+			  			var rows = gop.getSelectRows();	  			
+	  					var orgId = rows[0].getParam("orgid");
+	  					var empid = rows[0].getParam("empid");
+			        	var strUrl = "/jsp/tyjg/empMngr/empopr_belong_maintain.jsp?empid="+empid+"&orgId="+orgId;
+			        	showModalCenter(strUrl, null, callBack, 850, 500, '人员维护信息');  
+		        	}
+		        }
+
 		        //人员维护
 		        function updateRecord(){
 		        	var gop = $id("group1");
@@ -210,6 +231,7 @@
 			        	showModalCenter(strUrl, null, callBack, 850, 500, '人员维护信息');  
 		        	}
 		        }
+		        
 		        function callBack(){
 		        	$id("querys").click();
 		        }
