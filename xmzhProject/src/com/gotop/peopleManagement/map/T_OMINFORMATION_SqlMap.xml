@@ -41,10 +41,10 @@
         G.ORGNAME LIKE '%'||#orgName:VARCHAR#||'%'
       </isNotNull>
       <isNotNull prepend="and" property="empName" >
-        Y.EMPNAME = #empName:VARCHAR#
+        Y.EMPNAME like   '%'||#empName:VARCHAR#||'%' 
       </isNotNull>
       <isNotNull prepend="and" property="empCode" >
-        Y.EMPCODE =#empCode:VARCHAR#
+        Y.EMPCODE like '%'||#empCode:VARCHAR#||'%' 
       </isNotNull>
       <isNotNull prepend="and" property="roleName" >
          R.ROLENAME LIKE '%'||#roleName:VARCHAR#||'%'

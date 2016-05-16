@@ -50,13 +50,15 @@
     <result column="REPORTEDTIME" property="reportedTime" jdbcType="VARCHAR" />
   </resultMap>
   
-	<!-- 查询受理审批台账 -->
+  
+  
+  	<!-- 查询受理审批台账 -->
 	<select id="queryApprovalList" parameterClass="java.util.HashMap" resultMap="approval">
 	
 	SELECT 
-	    A7.UPTIME,
+      A7.UPTIME,
        A8.LOOKTIME,
-	   Z.REPORTTIME,
+     Z.REPORTTIME,
        Z.ISURGENT,
        Z.CUST_NAME,
        Z.OLD_CUST,
@@ -101,7 +103,8 @@
        A6.RECEIVETIME,
        A9.RETURNTIME,
        A10.REPORTEDTIME
-  FROM (select T.REPORTTIME,
+  FROM (
+     select   T.REPORTTIME,
                T.ISURGENT,
                O.CUST_NAME,
                O.OLD_CUST,
@@ -137,27 +140,17 @@
                I.SX_ED,
                I.YW_ED,
                O2.NEXTORGNAME
-          from (SELECT O.ORGNAME AS NEXTORGNAME, T.FLOW_ID
-                  FROM T_GENERALPROCESS_MODELONE T
-                       
-                      ,
-                       OM_ORGANIZATION O
-                 WHERE O.ORGCODE = T.ORGCODEONE) O2,
-               OM_EMPLOYEE P,
-               T_GENERALPROCESS_MODELONE O,
-               T_GENERALPROCESS_MODELTHREE T,
-               T_GENERALPROCESS_MODELFIVE I,
-               OM_ORGANIZATION N
-         WHERE O2.FLOW_ID = O.FLOW_ID
-           AND N.ORGCODE = O.ORGCODEONE
-           AND O.CREATOR = P.EMPID
-           AND O.FLOW_ID = T.FLOW_ID
-           AND T.FLOW_ID = I.FLOW_ID) Z
+          from T_GENERALPROCESS_MODELONE O
+          left join T_GENERALPROCESS_MODELFIVE I  on O.FLOW_ID = I.FLOW_ID
+          left join T_GENERALPROCESS_MODELTHREE T on T.FLOW_ID = I.FLOW_ID
+          left join OM_EMPLOYEE P                 on O.CREATOR = P.EMPID                   
+          left join OM_ORGANIZATION N             on N.ORGCODE = O.ORGCODEONE
+          left join (SELECT O.ORGNAME AS NEXTORGNAME, T.FLOW_ID FROM T_GENERALPROCESS_MODELONE T ,OM_ORGANIZATION O WHERE O.ORGCODE = T.ORGCODEONE) O2 on O2.FLOW_ID = O.FLOW_ID ) Z
            LEFT JOIN (SELECT O.ORGNAME AS ORGNAMETWO,T.FLOW_ID FROM T_GENERALPROCESS_MODELONE T ,OM_ORGANIZATION O WHERE O.ORGCODE=T.ORGCODETWO)O1
            ON O1.FLOW_ID=Z.FLOW_ID
            LEFT JOIN (select q.execution_,to_char(max(q.end_),'yyyy-mm-dd hh24:mi:ss ') as APPROVALTIME from jbpm4_hist_actinst q where q.activity_name_='发起合同预审' group by q.execution_)A1
            ON A1.EXECUTION_=Z.FLOW_ID
-           LEFT JOIN (select q.execution_ ,to_char(max(q.start_),'yyyy-mm-dd hh24:mi:ss ') as CHECKTIME from jbpm4_hist_actinst q  where q.activity_name_='审查一' group by q.execution_)A2
+           LEFT JOIN (select q.execution_ ,to_char(max(q.start_),'yyyy-mm-dd') as CHECKTIME from jbpm4_hist_actinst q  where q.activity_name_='审查一' group by q.execution_)A2
            ON A2.EXECUTION_=Z.FLOW_ID
            LEFT JOIN (select A.EXECUTION_,(CASE WHEN T.YQ_APP_TIME IS NULL THEN A.REPLYTIME ELSE to_char(TO_DATE(t.yq_app_time, 'yyyy/MM/dd hh24:mi:ss'), 'yyyy-mm-dd hh24:mi:ss') END) AS REPLYTIME  from t_generalprocess_modelfive T,(select t.outcome_,to_char(q.start_ ,'yyyy-mm-dd hh24:mi:ss ') as REPLYTIME,t.execution_ from JBPM4_HIST_TASK t，jbpm4_hist_actinst q where t.outcome_='提交发起合同预审' and q.htask_=t.dbid_)A WHERE T.FLOW_ID=A.EXECUTION_)A3
            ON A3.EXECUTION_=Z.FLOW_ID
@@ -194,7 +187,6 @@
        <![CDATA[LOOKTIME <= #appTimeEnd#]]>
       </isNotNull>
 	</select>
-   
      
 	 
 
