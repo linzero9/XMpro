@@ -69,8 +69,11 @@ public class DeviceManagementService implements IDeviceManagementService{
 			if( device.getHardDiskMax() != null && !"".equals(device.getHardDiskMax())){
 				map.put("hardDiskMax", device.getHardDiskMax());
 			}
-			if( device.getOsVersion() != null && !"".equals(device.getOsVersion())){
-				map.put("osVersion", device.getOsVersion());
+			
+				
+				if( device.getOsVersion() != null && !"".equals(device.getOsVersion())){
+					map.put("osVersion", device.getOsVersion());
+				
 			}
 			if( device.getSoftwareVersion() != null && !"".equals(device.getSoftwareVersion())){
 				map.put("softwareVersion", device.getSoftwareVersion());
@@ -141,9 +144,11 @@ public class DeviceManagementService implements IDeviceManagementService{
 				
 				map.put("ipAdress", device.getIpAdress());
 			}
+			if (!", ".equals(device.getOsVersion())) {
 			if( device.getOsVersion() != null && !"".equals(device.getOsVersion())){
-				//////////////////////////////////////////////////////////////////////////////////////////////操作系统
-				map.put("osVersion", device.getOsVersion());
+				String[] devices =device.getOsVersion().split(",");
+				map.put("osVersion", devices[0]);
+			}
 			}
 			if( device.getOtherAttribute_2() != null && !"".equals(device.getOtherAttribute_2())){
 				
