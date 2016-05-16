@@ -3,6 +3,7 @@ package com.gotop.reportjbpm.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.gotop.reportjbpm.model.JobWorkload;
 import com.gotop.reportjbpm.model.OperateLog;
 import com.primeton.utils.Page;
 
@@ -21,5 +22,10 @@ public interface IOperateLogDao {
 	 * @return
 	 */
 	List<OperateLog> queryOperateLogForExcel(Map<String, Object> map);
+    /**
+     * 流程节点查询
+     */
+    
+    List<OperateLog> listNodName();
 
 }

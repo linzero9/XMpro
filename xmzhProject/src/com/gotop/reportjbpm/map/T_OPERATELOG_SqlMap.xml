@@ -12,11 +12,21 @@
     <result column="START_" property="start" jdbcType="VARCHAR" />
     <result column="END_" property="end" jdbcType="VARCHAR" />
   </resultMap>
-
-  
+   <resultMap id="OperateLog2" class="com.gotop.reportjbpm.model.OperateLog" >
+    <result column="ACTIVITY_NAME" property="activityName" jdbcType="VARCHAR" />
+  </resultMap>
+	<!-- 流程节点统计 -->
+  	<select id="listNodName"  parameterClass="java.util.HashMap"  resultMap="OperateLog2">
+        <!--  SELECT distinct ACTIVITY_NAME from t_process_task_exe_config where TASK_ASS_TYPE='05' -->
+           SELECT distinct t1.ACTIVITY_NAME
+			  from t_process_task_exe_config t1 left join T_PROCESS_CONFIG t2
+			  on t1.definition_id = t2.definition_id
+			 where t1.TASK_ASS_TYPE = '05'
+			  and t2.state = '01'   
+	</select>
   	
 	
-	<!-- 查询差错情况统计 -->
+	<!-- 操作日志量统计 -->
 	<select id="queryOperateLog" parameterClass="java.util.HashMap" resultMap="OperateLog">
 select T1.ACTIVITY_NAME_,
         T7.CUST_NAME,
@@ -46,10 +56,10 @@ select T1.ACTIVITY_NAME_,
    AND T1.EXECUTION_ = T4.EXECUTION_ID
    AND T1.EXECUTION_ = T3.FLOW_ID
    and T1.EXECUTION_=T7.FLOW_ID
-      <isNotNull prepend="and" property="activityName" >
-        T1.ACTIVITY_NAME_  like '%$activityName$%'
-      </isNotNull>
-      
+
+      							<isNotNull prepend="and" property="activityName" >
+                                        ACTIVITY_NAME_   in  ($activityName$)
+                              </isNotNull>
       <isNotNull prepend="and" property="custName" >
          T7.CUST_NAME  like '%$custName$%'
       </isNotNull>

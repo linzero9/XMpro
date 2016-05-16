@@ -55,5 +55,14 @@ public class OperateLogAction extends BaseAction {
 		this.setOperateLogList(operateLogList);
 		return"queryOperateLogForExcel";
 	}
-
+	/**
+	 * 岗位工作量节点名称查询
+	 * @return
+	 */
+	public String operateLogNodeName(){
+		
+		operateLogList=operateLogService.listNodName();
+		this.setOperateLogList(operateLogList);
+		return "operateLogNodeName";
+	}  
 }

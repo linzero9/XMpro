@@ -2,6 +2,7 @@ package com.gotop.reportjbpm.service;
 
 import java.util.List;
 
+import com.gotop.reportjbpm.model.JobWorkload;
 import com.gotop.reportjbpm.model.OperateLog;
 import com.primeton.utils.Page;
 
@@ -18,5 +19,11 @@ public interface IOperateLogService {
 	 * @return
 	 */
 	List<OperateLog> queryOperateLogForExcel(OperateLog operateLog);
+	
+	/**
+	 * 流程节点查询
+	 */
+	
+	List<OperateLog> listNodName();
 
 }

@@ -85,7 +85,9 @@
 			<result name="queryOperateLogForExcel">
 				/jsp/ReportStatistics/Report_OperateLog_excel.jsp
 			</result>
-
+       <result name="operateLogNodeName" >
+        /jsp/ReportStatistics/operateNodeName.jsp
+      </result>
 		</action>
 		
 		<action name="approvalAction_*" class="approvalAction"

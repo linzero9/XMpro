@@ -128,7 +128,7 @@ public class DeviceManagementService implements IDeviceManagementService{
 		}
 		map.put("orgcodeTemp", orgcodeTemp);
 		
-		List list = deviceManagementDAO.sumUpList(map, page);
+		List list = deviceManagementDAO.sumUpList(map, null);
         return list;
 	}
 	

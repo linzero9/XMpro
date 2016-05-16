@@ -26,11 +26,12 @@
 
 					<td class="form_label" align="right" width="10%">客户名称：</td>
 					<td colspan="1" width="25%"><h:text id="custName" property="operateLog.custName" />
+					</td>	
+					<td class="form_label" align="right" >流程节点：</td>
+					<td >             
+						<h:text id="activityName" property="operateLog.activityName" readonly="true" name="operateLog.activityName"/>
+						<a href="#" onclick="showProcessrode();">选择</a>
 					</td>
-					<td class="form_label" align="right" width="10%">节点名称：</td>
-					<td colspan="1" width="25%"><h:text id="activityName" property="operateLog.activityName" />
-					</td>
-					
 				</tr>
 				<tr class="form_bottom">
 						<td colspan="6" class="form_bottom">
@@ -184,8 +185,25 @@
 
 
     			}
-		
+             
+     	  	function showProcessrode() {
+    	  		var activityName=document.getElementById("activityName").value;
+    	  		strUrl ="/reportjbpm/operateLogAction_operateLogNodeName.action?operateLog.activityName="+activityName;
+    	  
+    	  		//strUrl ="/reportjbpm/jobWorkloadAction_jobWorkloadNodeName.action";
 
+    			showModalCenter(encodeURI(strUrl),'',showErrorlink_callback1 ,900,380,'流程节点选择'); 
+    		} 
+    		function showErrorlink_callback1(returnValue){
+    			if(returnValue == ""){
+    				//点击右上角关闭时,returnValue为null
+    				//不做操作
+    				$id("activityName").value="";
+    			}else{
+    				$id("activityName").value= returnValue[0];
+    			
+    			}
+    			}
 	
 
 	  	

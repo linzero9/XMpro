@@ -1,5 +1,6 @@
 package com.gotop.reportjbpm.dao.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +21,12 @@ public class OperateLogDao extends SqlMapClientDao implements IOperateLogDao {
 	@Override
 	public List<OperateLog> queryOperateLogForExcel(Map<String, Object> map) {
 		return queryForList("T_OPERATELOG_SqlMap.queryOperateLog",map);
+	}
+
+	@Override
+	public List<OperateLog> listNodName() {
+		// TODO Auto-generated method stub
+		return queryForList("T_OPERATELOG_SqlMap.listNodName",new HashMap());
 	}
 
 }
