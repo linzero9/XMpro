@@ -206,6 +206,7 @@ $(function (){
 				
 				$("#deviceModels").html("");
 				var selecthtml=$("#deviceModels").html();
+				selecthtml = selecthtml+"<option value='' >请选择</option>";
 				
 						$.ajax({
 							url : "/deviceManagement/deviceManagementAction_queryType.action",
