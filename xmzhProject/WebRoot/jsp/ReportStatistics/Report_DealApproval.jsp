@@ -148,7 +148,7 @@
 									<b:write iterateId="id1" property="custName" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="oldCust" />
+									<d:write iterateId="id1" property="oldCust" dictTypeId="ZHPT_LGK" />
 								</td>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1" property="oneCategory" />
@@ -304,7 +304,7 @@
 									<b:write iterateId="id1" property="replyTime" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="2" />
+									<b:write iterateId="id1" property="" />
 								</td>
 								
 							</tr>
