@@ -227,7 +227,20 @@ public class TGeneralprocessModelfourService implements ITGeneralprocessModelfou
 					mistake.setAddTime(hiAddTimeAr[i]);
 					
 					//历史差错  整改情况
-					mistake.setRectification(hiRectificationAr[i]);
+					if(hiRectificationAr.length==0){
+
+					}else{
+					
+						if(i>=hiRectificationAr.length){
+							
+							
+						}else{
+							mistake.setRectification(hiRectificationAr[i]);	
+						}
+
+					}
+					
+					
 					
 					
 					this.tGeneralprocessModelfourDAO.addModelFourMistake(mistake);
