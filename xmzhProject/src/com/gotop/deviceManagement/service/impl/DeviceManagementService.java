@@ -256,7 +256,7 @@ public class DeviceManagementService implements IDeviceManagementService{
 			if( device.getIeVersion() != null && !"".equals(device.getIeVersion())){
 				map.put("ieVersion", device.getIeVersion());
 			}
-			//操作系统版本 在上面
+			//用途
 			if( device.getUseful() != null && !"".equals(device.getUseful())){
 				//map.put("useful", device.getUseful());
 				

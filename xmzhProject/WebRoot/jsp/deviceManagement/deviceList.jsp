@@ -661,6 +661,13 @@ margin-left:inherit;
 				$id("otherAttribute_1").value = "";
 				$id("otherAttribute_4").value = "";
 
+			    $id("memoryMin").value="";
+				$id("memoryMax").value= "";
+				$id("softwareVersion").value= "";
+			    $id("hardDiskMin").value= "";
+				$id("hardDiskMax").value= "";
+				$id("ieVersion").value= "";
+
 				$("input[name='device.otherInfo_3']:checkbox:checked").each(
 						function() {
 							$(this).attr("checked", false);
@@ -675,6 +682,19 @@ margin-left:inherit;
 						function() {
 							$(this).attr("checked", false);
 						});
+				$("input[name='device.useful']:checkbox:checked").each(
+						function() {
+							$(this).attr("checked", false);
+						});
+				$("input[name='device.plugIn']:checkbox:checked").each(
+						function() {
+							$(this).attr("checked", false);
+						});
+				$("input[name='device.peripheral']:checkbox:checked").each(
+						function() {
+							$(this).attr("checked", false);
+						});
+	
 			}
 
 			//新增
@@ -857,7 +877,7 @@ margin-left:inherit;
 				var otherAttribute_4 = $id("otherAttribute_4").value;
 
 				var osVersion = $id("osVersion").value;
-
+       
 				//获取复选框的值
 				var otherInfo_4 = "";
 				var otherInfo_4Length = $("input[name='device.otherInfo_4']:checkbox:checked").length;
@@ -907,6 +927,50 @@ margin-left:inherit;
 				if (otherInfo_4 == null) {
 					otherInfo_4 = "";
 				}
+				var memoryMin = $id("memoryMin").value;
+				var memoryMax = $id("memoryMax").value;
+				var softwareVersion = $id("softwareVersion").value;
+				var hardDiskMin = $id("hardDiskMin").value;
+				var hardDiskMax = $id("hardDiskMax").value;
+				var ieVersion = $id("ieVersion").value;
+				//var osVersion = $id("osVersion").value;
+				var useful = "";
+				var usefulLength = $("input[name='device.useful']:checkbox:checked").length;
+				$("input[name='device.useful']:checkbox:checked").each(
+						function(i, value) {
+							if ($(this).attr("checked")) {
+								if ((i + 1) == usefulLength) {
+									useful += $(this).val();
+								} else {
+									useful += $(this).val() + ", ";
+								}
+							}
+						});
+				var plugIn = "";
+				var plugInLength = $("input[name='device.plugIn']:checkbox:checked").length;
+				$("input[name='device.plugIn']:checkbox:checked").each(
+						function(i, value) {
+							if ($(this).attr("checked")) {
+								if ((i + 1) == plugInLength) {
+									plugIn += $(this).val();
+								} else {
+									plugIn += $(this).val() + ", ";
+								}
+							}
+						});
+				var peripheral="";
+				var peripheralLength = $("input[name='device.peripheral']:checkbox:checked").length;
+				$("input[name='device.peripheral']:checkbox:checked").each(
+						function(i, value) {
+							if ($(this).attr("checked")) {
+								if ((i + 1) == plugInLength) {
+									peripheral += $(this).val();
+								} else {
+									peripheral += $(this).val() + ", ";
+								}
+							}
+						});
+				
 				url = url + "device.orgcode=" + orgcode + "&device.deviceName="
 						+ deviceName + "&device.deviceModel=" + deviceModel
 						+ "&device.deviceState=" + deviceState
@@ -920,7 +984,16 @@ margin-left:inherit;
 						+ "&device.otherInfo_2=" + otherInfo_2
 						+ "&device.otherInfo_3=" + otherInfo_3
 						+ "&device.otherInfo_4=" + otherInfo_4
-						+ "&device.otherAttribute_4=" + otherAttribute_4;
+						+ "&device.otherAttribute_4=" + otherAttribute_4
+						+ "&device.memoryMin=" + memoryMin
+						+ "&device.memoryMax=" + memoryMax
+						+ "&device.softwareVersion=" + softwareVersion
+						+ "&device.hardDiskMin=" + hardDiskMin				
+						+ "&device.hardDiskMax=" + hardDiskMax
+						+ "&device.ieVersion=" + ieVersion
+						+ "&device.useful=" + useful
+						+ "&device.plugIn=" + plugIn
+						+ "&device.peripheral=" + peripheral;
 				window.location.href = url;
 
 			}
