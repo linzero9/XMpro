@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 import com.gotop.deviceManagement.service.impl.DeviceManagementService;
 import com.gotop.peopleManagement.dao.IOmInformationDao;
 import com.gotop.peopleManagement.model.OmInformation;
+import com.gotop.peopleManagement.model.OmInformationVo;
 import com.gotop.peopleManagement.service.IOmInformationService;
 import com.primeton.utils.Page;
 
@@ -36,7 +37,18 @@ public class OmInformationService implements IOmInformationService{
 		Map<String, Object> map = new HashMap<String, Object>();
 		if (omInformation != null) {
 			if (omInformation.getOrgName() !=null&&!"".equals(omInformation.getOrgName())) {
-				map.put("orgName", omInformation.getOrgName().trim());
+				
+				 StringBuffer stringBuffer = new StringBuffer();
+				
+					 String[] array =omInformation.getOrgName().split(",");
+					 for (int i = 0; i < array.length; i++) {
+						 stringBuffer.append("'");
+						stringBuffer.append(array[i]);
+						stringBuffer.append("'");
+						stringBuffer.append(",");
+				}
+					 stringBuffer=stringBuffer.deleteCharAt(stringBuffer.length()-1);
+				      map.put("orgName", stringBuffer);
 			}
 			if (omInformation.getEmpName() != null&&!"".equals(omInformation.getEmpName())) {
 				map.put("empName", omInformation.getEmpName().trim());
@@ -45,14 +57,63 @@ public class OmInformationService implements IOmInformationService{
 				map.put("empCode", omInformation.getEmpCode().trim());
 			}
 			if (omInformation.getPosiName()!=null&&!"".equals(omInformation.getPosiName())) {
-				map.put("posiName", omInformation.getPosiName().trim());
+				 StringBuffer stringBuffer = new StringBuffer();
+					
+				 String[] array =omInformation.getPosiName().split(",");
+				 for (int i = 0; i < array.length; i++) {
+					 stringBuffer.append("'");
+					stringBuffer.append(array[i]);
+					stringBuffer.append("'");
+					stringBuffer.append(",");
+			}
+				 stringBuffer=stringBuffer.deleteCharAt(stringBuffer.length()-1);
+			     map.put("posiName", stringBuffer);
 			}
 			if (omInformation.getRoleName()!=null&&!"".equals(omInformation.getRoleName())) {
-				map.put("roleName", omInformation.getRoleName().trim());
+				 StringBuffer stringBuffer = new StringBuffer();
+					
+				 String[] array =omInformation.getRoleName().split(",");
+				 for (int i = 0; i < array.length; i++) {
+					 stringBuffer.append("'");
+					stringBuffer.append(array[i]);
+					stringBuffer.append("'");
+					stringBuffer.append(",");
+			}
+				 stringBuffer=stringBuffer.deleteCharAt(stringBuffer.length()-1);
+			     map.put("roleName", stringBuffer);
+				
 			}
 		}
 		
 		return omInformationDao.selectOmInformationList(map,page);
+	}
+
+	/**
+	 * 查询所有机构
+	 * @return
+	 */
+	@Override
+	public List<OmInformationVo> queryOrgName() {
+		return omInformationDao.queryOrgName();
+	}
+
+	/**
+	 * 查询所有业务角色
+	 * @return
+	 */
+	@Override
+	public List<OmInformationVo> queryRoleName() {
+		return omInformationDao.queryRoleName();
+	}
+
+	/**
+	 * 查询所有岗位
+	 * @return
+	 */
+	@Override
+	public List<OmInformationVo> queryPosiName() {
+		
+		return omInformationDao.queryPosiName();
 	}
 
 }

@@ -15,6 +15,21 @@
     <result column="GENDER" property="gender" jdbcType="VARCHAR" />
     <result column="MOBILENO" property="mobileNo" jdbcType="VARCHAR" />
   </resultMap>
+  
+ <resultMap id="OmInformationVo1" class="com.gotop.peopleManagement.model.OmInformationVo" >
+    <!--Bean方式返回全表-->
+    <result column="ORGNAME" property="orgName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+ <resultMap id="OmInformationVo2" class="com.gotop.peopleManagement.model.OmInformationVo" >
+    <!--Bean方式返回全表-->
+    <result column="ROLENAME" property="roleName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+ <resultMap id="OmInformationVo3" class="com.gotop.peopleManagement.model.OmInformationVo" >
+    <!--Bean方式返回全表-->
+   <result column="POSINAME" property="posiName" jdbcType="VARCHAR" />
+  </resultMap>
 	
 	 	<!-- 查询人员信息 -->
 	<select id="queryOmInformationList" parameterClass="java.util.HashMap" resultMap="OmInformation">
@@ -38,7 +53,7 @@
    AND N.EMPID = Y.EMPID
    AND N.POSITIONID = P.POSITIONID
       <isNotNull prepend="and" property="orgName" >
-        G.ORGNAME LIKE '%'||#orgName:VARCHAR#||'%'
+        G.ORGNAME in ($orgName$)
       </isNotNull>
       <isNotNull prepend="and" property="empName" >
         Y.EMPNAME like   '%'||#empName:VARCHAR#||'%' 
@@ -47,12 +62,24 @@
         Y.EMPCODE like '%'||#empCode:VARCHAR#||'%' 
       </isNotNull>
       <isNotNull prepend="and" property="roleName" >
-         R.ROLENAME LIKE '%'||#roleName:VARCHAR#||'%'
+         R.ROLENAME in ($roleName$)
       </isNotNull>
       <isNotNull prepend="and" property="posiName" >
-        P.POSINAME LIKE '%'||#posiName:VARCHAR#||'%'
+        P.POSINAME in ($posiName$)
       </isNotNull>
      )  T where 1=1 group by  T.EMPID,T.USERID,T.ORGID, T.EMPNAME ,T.GENDER,T.EMPCODE,T.ORGNAME,T.EMPSTATUS,T.MOBILENO
 	</select>
 	
+	 	<!-- 查询机构 -->
+	<select id="queryOrgName" parameterClass="java.util.HashMap" resultMap="OmInformationVo1">
+	select distinct orgname from om_organization 
+	</select>
+	 	<!-- 查询业务角色 -->
+	<select id="queryRoleName" parameterClass="java.util.HashMap" resultMap="OmInformationVo2">
+	select distinct ROLENAME from ac_role
+	</select>
+	 	<!-- 查询岗位-->
+	<select id="queryPosiName" parameterClass="java.util.HashMap" resultMap="OmInformationVo3">
+	select distinct POSINAME from om_position
+	</select>
 </sqlMap>

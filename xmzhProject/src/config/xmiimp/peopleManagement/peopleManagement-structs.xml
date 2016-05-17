@@ -6,6 +6,15 @@
       <result name="queryOmInformationList" >
         /jsp/PeopleManagement/ominformation_list.jsp
       </result>
+      <result name="queryOrgName" >
+        /jsp/PeopleManagement/ominformation_orgNameList.jsp
+      </result>
+      <result name="queryRoleName" >
+        /jsp/PeopleManagement/ominformation_roleNameList.jsp
+      </result>
+      <result name="queryPosiName" >
+        /jsp/PeopleManagement/ominformation_posiNameList.jsp
+      </result>
       
            
       

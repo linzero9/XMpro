@@ -47,10 +47,12 @@
 						<td class="form_label" align="right">机构名称：</td>
 						<td colspan="1">
 							<h:text id="orgName" property="omInformation.orgName" style="width:148px;" />
+							<a href="#" onclick="showErrorlink1()">选择</a>
 						</td>
 						<td class="form_label"  align="right">业务角色：</td>
 						<td colspan="1">
 							<h:text id="roleName" property="omInformation.roleName" style="width:148px;" />
+							<a href="#" onclick="showErrorlink2()">选择</a>
 						</td>
 					</tr>
 					
@@ -58,6 +60,7 @@
 						<td class="form_label" align="right">岗位名称：</td>
 						<td colspan="1">
 							<h:text id="posiName" property="omInformation.posiName" style="width:148px;" />
+							<a href="#" onclick="showErrorlink3()">选择</a>
 						</td>
 					</tr>
 					
@@ -251,8 +254,58 @@
 					}
 				}
 
-				
-			
+			  	function showErrorlink1() {
+			  		var orgName=document.getElementById("orgName").value;
+					strUrl ="/peopleManagement/omInformationAction_queryOrgName.action?omInformation.orgName="+orgName;
+					showModalCenter(encodeURI(strUrl),'',showErrorlink_callback1 ,900,500,'机构选择'); 
+				} 
+
+			  	function showErrorlink_callback1(returnValue){
+					if(returnValue == ""){
+						//点击右上角关闭时,returnValue为null
+						//不做操作
+						$id("orgName").value="";
+					}else{
+						$id("orgName").value= returnValue[0];
+					
+
+					}
+					}
+
+			  	function showErrorlink2() {
+			  		var roleName=document.getElementById("roleName").value;
+					strUrl ="/peopleManagement/omInformationAction_queryRoleName.action";
+					showModalCenter(encodeURI(strUrl),'',showErrorlink_callback2 ,900,400,'业务角色选择'); 
+				} 
+
+			  	function showErrorlink_callback2(returnValue){
+					if(returnValue == ""){
+						//点击右上角关闭时,returnValue为null
+						//不做操作
+						$id("roleName").value="";
+					}else{
+						$id("roleName").value= returnValue[0];
+					
+
+					}
+					}
+
+			  	function showErrorlink3() {
+			  		var posiName=document.getElementById("posiName").value;
+					strUrl ="/peopleManagement/omInformationAction_queryPosiName.action";
+					showModalCenter(encodeURI(strUrl),'',showErrorlink_callback3 ,900,500,'岗位选择'); 
+				} 
+			  	function showErrorlink_callback3(returnValue){
+					if(returnValue == ""){
+						//点击右上角关闭时,returnValue为null
+						//不做操作
+						$id("posiName").value="";
+					}else{
+						$id("posiName").value= returnValue[0];
+					
+
+					}
+					}
         </script>
   </body>
 </html>
