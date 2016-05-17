@@ -16,7 +16,6 @@
 	
 	<!-- 查询拒贷信息 -->
 	<select id="queryReportRefusalRate" parameterClass="java.util.HashMap" resultMap="ReportRefusalrate">
-
 SELECT JJ.*,
        (ROUND(REJECTION_NUMBER / (EA_NUMBER + REJECTION_NUMBER) * 100, 2)) || '%' AS REFUSALRATE 
   FROM (
@@ -101,17 +100,19 @@ SELECT JJ.*,
                                             </isNotNull>
                                             
                                             ) T1
-                                  LEFT   JOIN (SELECT ORGCODE, ORGNAME
+                                   LEFT  JOIN (SELECT ORGCODE, ORGNAME
                                             FROM OM_ORGANIZATION) T2
                                        ON T1.ORGCODEONE = T2.ORGCODE
                                      LEFT JOIN (SELECT ORGCODE AS ORGCODETWO,
                                                       ORGNAME AS ORGNAMETWO
                                                  FROM OM_ORGANIZATION) T3
                                        ON T1.ORGCODETWO = T3.ORGCODETWO
-                      WHERE FLOW_ID  IN(
-                                     SELECT A.EXECUTION_ F_ID
-                                            FROM jbpm4_hist_actinst A                  
-                                                   WHERE A.ACTIVITY_NAME_ ='发起合同预审')
+                                  INNER   JOIN (
+                                     SELECT A.EXECUTION_ID F_ID
+                                           FROM T_PROCESS_TASK_ASSIGNEE A
+                                          WHERE A.BUSINESS_TYPE = '88'
+                                            AND A.NEXT_ACTIVITY_NAME = '发起合同预审')T4
+                                       ON T1.FLOW_ID = T4.F_ID 
                                 GROUP BY T1.LOANCATEGORY,
                                              T2.ORGNAME,
                                              T3.ORGNAMETWO,
@@ -139,21 +140,23 @@ SELECT JJ.*,
                                                 </isNotNull>
                                                 
                                                 ) T1
-                                 LEFT        JOIN (SELECT ORGCODE, ORGNAME
+                                      LEFT   JOIN (SELECT ORGCODE, ORGNAME
                                                 FROM OM_ORGANIZATION) T2
                                            ON T1.ORGCODEONE = T2.ORGCODE
                                          LEFT JOIN (SELECT ORGCODE AS ORGCODETWO,
                                                           ORGNAME AS ORGNAMETWO
                                                      FROM OM_ORGANIZATION) T3
                                            ON T1.ORGCODETWO = T3.ORGCODETWO
-                                   WHERE FLOW_ID  IN(SELECT A.EXECUTION_ F_ID
-                                                FROM JBPM4_HIST_ACTINST A
-                                               WHERE A.TRANSITION_ = 'TO 结束'
-                                                 AND A.EXECUTION_ IN
-                                                     (SELECT T.EXECUTION_
-                                                        FROM JBPM4_HIST_ACTINST T
-                                                       WHERE T.ACTIVITY_NAME_ !=
-                                                             '发起合同预审'))
+                                      INNER   JOIN (SELECT A.EXECUTION_ID F_ID
+                                               FROM T_PROCESS_TASK_ASSIGNEE A
+                                              WHERE A.BUSINESS_TYPE = '88'
+                                                AND A.NEXT_ACTIVITY_NAME = '结束'
+                                                AND A.EXECUTION_ID NOT IN
+                                                    (SELECT B.EXECUTION_ID
+                                                       FROM T_PROCESS_TASK_ASSIGNEE B
+                                                      WHERE B.NEXT_ACTIVITY_NAME =
+                                                            '发起合同预审')) T4
+                                           ON T1.FLOW_ID = T4.F_ID    
                                         GROUP BY T1.LOANCATEGORY,
                                                  T2.ORGNAME,
                                                  T3.ORGNAMETWO,
@@ -174,6 +177,5 @@ SELECT JJ.*,
       	<isNotNull prepend="and" property="loanCategory" >
            	     JJ.LOANCATEGORY in($loanCategory$)
       	</isNotNull>
-	
 	</select>
 </sqlMap>
