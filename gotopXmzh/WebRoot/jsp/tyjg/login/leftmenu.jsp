@@ -15,6 +15,21 @@
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
 	<style>
+	div#tree1_container{
+	
+
+
+	width:90%;height:90%; overflow-y:scroll;border:0px solid;
+	
+	
+	
+	
+	
+		}
+		
+		
+
+
 		body{
 			/* background-image: url("/common/skins/default/images/sideline.gif"); */
 		}
