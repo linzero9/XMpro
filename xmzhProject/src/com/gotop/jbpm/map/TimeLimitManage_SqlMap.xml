@@ -167,8 +167,14 @@
   from t_model_oneAndLoanCategory t1
  where t1.d_id in (select t2.d_id
                     from t_model_proLoanTimeLimit t2
-                   where t2.definition_id = '$definitionId$'
-                     and t2.c_id = '$c_id$')
+                   where 1=1
+                   <isNotNull prepend="and" property="definitionId" >
+                     t2.definition_id = '$definitionId$'
+                   </isNotNull>
+                   <isNotNull prepend="and" property="c_id" >
+                     t2.c_id = '$c_id$'
+                   </isNotNull>  
+                     )
   </select>
   <!--修改 节点模式工时维护表-->
   <update id="updateProLoanTimeLimit" parameterClass="com.gotop.jbpm.model.ProLoanBean" >

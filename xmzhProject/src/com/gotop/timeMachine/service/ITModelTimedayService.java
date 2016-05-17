@@ -1,10 +1,18 @@
 package com.gotop.timeMachine.service;
 
+import com.gotop.Generalprocess.model.ProcessModelOne;
+import com.gotop.Generalprocess.model.ProcessModelThree;
+import com.gotop.jbpm.model.NodeTimeLimitBean;
+import com.gotop.jbpm.model.ProTimeModelBean;
 import com.gotop.timeMachine.dao.ITModelTimedayDAO;
+import com.gotop.timeMachine.model.HistActinst;
+import com.gotop.timeMachine.model.OverTimeReport;
 import com.gotop.timeMachine.model.TModelTimeday;
+import com.gotop.timeMachine.model.XdproForEnd;
 import com.primeton.utils.Page;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public interface ITModelTimedayService {
     /**
@@ -35,4 +43,28 @@ public interface ITModelTimedayService {
 	void delWorkDayById(TModelTimeday day);
 
 	List<TModelTimeday> queryWorkDayById(TModelTimeday day);
+
+	List<XdproForEnd> queryXdproForEnd();
+
+	List<HistActinst> queryHistActinst(Map<String, Object> map);
+
+	List<ProcessModelOne> queryModelOne(Map<String, Object> map);
+
+	List<ProTimeModelBean> queryLoanModel(Map<String, Object> map);
+
+	List<NodeTimeLimitBean> queryNodeTimeLimit(Map<String, Object> map2);
+
+	List<ProcessModelThree> queryModelThree(Map<String, Object> map);
+
+	List queryOperatorname(Map<String, Object> map2);
+
+	void insertOverTime(OverTimeReport overTimeReport);
+
+	Object queryRequestId();
+
+	List<OverTimeReport> queryOverTimeReport(OverTimeReport overTimeReport, Page page);
+
+	void deleteOverTimeReport(OverTimeReport overTimeReport);
+
+	List<OverTimeReport> queryOverTimeReport(OverTimeReport overTimeReport);
 }

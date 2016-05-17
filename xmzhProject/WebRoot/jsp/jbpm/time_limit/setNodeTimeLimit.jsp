@@ -23,12 +23,12 @@
 			<tr>
 				<td class="form_label" align="right">时限：</td>
 				<td colspan="1">
-				<h:text id="timeLimit" property="nodeTimeLimitBean.timeLimit"   validateAttr="type=double;minValue=0;" /> 工时
+				<h:text id="timeLimit" property="nodeTimeLimitBean.timeLimit"   validateAttr="type=double;minValue=0;" /> 小时
 			</tr>
 			<tr>
 				<td class="form_label" align="right">二次提交时限：</td>
 				<td colspan="1">
-				<h:text id="twotimeLimit" property="nodeTimeLimitBean.twotimeLimit"   validateAttr="type=double;minValue=0;" /> 工时
+				<h:text id="twotimeLimit" property="nodeTimeLimitBean.twotimeLimit"   validateAttr="type=double;minValue=0;" /> 小时
 			</tr>
 			<tr class="form_bottom">
 				<td colspan="2"><input type="button" value="保存" onclick="saveNodeTimeLimit()"

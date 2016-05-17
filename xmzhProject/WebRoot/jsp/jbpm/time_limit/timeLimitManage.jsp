@@ -287,7 +287,7 @@ function save(){
 		
 		$("#"+my_loanCategoryM).val($('#'+my_loanCategorysN+' option:selected').val());
 
-		if($("#"+oneCategoryM).val() != undefined){//如果为undefined，说明此行被删除了
+		if($("#"+my_oneCategoryM).val() != undefined){//如果为undefined，说明此行被删除了
 			//如果 修改的一级/贷种 不等于初始值
 			if(!($("#"+my_oneCategoryM).val() == $("#"+init_oneCategoryM).val() && $("#"+my_loanCategoryM).val() == $("#"+init_loanCategoryM).val()) ){
 				if($id("my_oneCategory").value == ""){
@@ -353,7 +353,9 @@ function save(){
 	    		  //window.close();
 			}else if (data.indexOf("新增") >= 0 || data.indexOf("修改") >= 0) {
 	    		  alert(data);
-	    		  queryNodeTimeLimitList();
+	    		  window.close();
+	    		  //queryNodeTimeLimitList();
+	    		 
 	    		  /* $id("oneCategory").value = "";
 	    		  $id("loanCategory").value = "";
 	    		  $id("my_oneCategory").value = "";

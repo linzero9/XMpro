@@ -440,11 +440,13 @@ public class TimeLimitManageAction extends BaseAction {
     			//修改 一级 贷种分类 设置
 				List<OneAndLoanBean> my_oneAndLoanBeans = new ArrayList<OneAndLoanBean>();
 				ProLoanBean my_proLoanBean2 = new ProLoanBean();
+				ProLoanBean my_proLoanBean3 = new ProLoanBean();
 					for(int i=0; i<my_valueArra1.length; i++){
 						 if(!"".equals(my_valueArra1[i])  && !"".equals(my_valueArra2[i])  ){
 							 
 							//校验 修改 一级/贷种 分类 是否存在
-							my_oneAndLoanBeans =  this.timeLimitManageService.queryProLoanTimeLimit(proLoanBean);
+							my_proLoanBean3.setDefinitionId(proLoanBean.getDefinitionId());
+							my_oneAndLoanBeans =  this.timeLimitManageService.queryProLoanTimeLimit(my_proLoanBean3);
 							int a = 0;
 							for (OneAndLoanBean oneAndLoanBean : my_oneAndLoanBeans) {
 								if(oneAndLoanBean.getOneCategory_name().equals(my_valueArra1[i]) && oneAndLoanBean.getLoanCategory_name().equals(my_valueArra2[i]) ){
@@ -472,11 +474,13 @@ public class TimeLimitManageAction extends BaseAction {
 					//新增 一级 贷种分类 设置
 					List<OneAndLoanBean> oneAndLoanBeans = new ArrayList<OneAndLoanBean>();
 					ProLoanBean proLoanBean2 = new ProLoanBean();
+					ProLoanBean proLoanBean3 = new ProLoanBean();
 					 for(int i=0; i<valueArra1.length; i++){
 						 if(!"".equals(valueArra1[i])  && !"".equals(valueArra2[i])  ){
 							 int a = 0;
 							//校验 新增 一级/贷种 分类 是否存在
-							 oneAndLoanBeans =  this.timeLimitManageService.queryProLoanTimeLimit(proLoanBean);
+							 proLoanBean3.setDefinitionId(proLoanBean.getDefinitionId());
+							 oneAndLoanBeans =  this.timeLimitManageService.queryProLoanTimeLimit(proLoanBean3);
 							for (OneAndLoanBean oneAndLoanBean : oneAndLoanBeans) {
 								if(oneAndLoanBean.getOneCategory_name().equals(valueArra1[i]) && oneAndLoanBean.getLoanCategory_name().equals(valueArra2[i]) ){
 									info += "新增：一级分类（"+valueArra1[i]+"），贷种分类（"+valueArra2[i]+"）已存在！\n";

@@ -1,11 +1,14 @@
 package com.gotop.timeMachine.dao.impl;
 
 import com.gotop.timeMachine.dao.ITModelTimedayDAO;
+import com.gotop.timeMachine.model.OverTimeReport;
 import com.gotop.timeMachine.model.TModelTimeday;
 import com.gotop.util.dataSource.SqlMapClientDao;
 import com.primeton.utils.Page;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.log4j.Logger;
 
 public class TModelTimedayDAO extends SqlMapClientDao implements ITModelTimedayDAO {
@@ -64,6 +67,88 @@ public class TModelTimedayDAO extends SqlMapClientDao implements ITModelTimedayD
 	@Override
 	public List queryWorkDayById(TModelTimeday day) {
 		List list = queryForList("T_MODEL_TIMEDAY_SqlMap.queryWorkDayById", day);
+        return list;
+	}
+
+
+	@Override
+	public List queryXdproForEnd() {
+		List list = queryForList("T_MODEL_TIMEDAY_SqlMap.queryXdproForEnd", null);
+        return list;
+	}
+
+
+	@Override
+	public List queryHistActinst(Map<String, Object> map) {
+		List list = queryForList("T_MODEL_TIMEDAY_SqlMap.queryHistActinst", map);
+        return list;
+	}
+
+
+	@Override
+	public List queryModelOne(Map<String, Object> map) {
+		List list = queryForList("T_GENERALPROCESS_MODELONE_SqlMap.queryModelOne", map);
+        return list;
+	}
+
+
+	@Override
+	public List queryLoanModel(Map<String, Object> map) {
+		List list = queryForList("T_MODEL_TIMEDAY_SqlMap.queryLoanModel", map);
+        return list;
+	}
+
+
+	@Override
+	public List queryNodeTimeLimit(Map<String, Object> map2) {
+		List list = queryForList("T_MODEL_TIMEDAY_SqlMap.queryNodeTimeLimit", map2);
+        return list;
+	}
+
+
+	@Override
+	public List queryModelThree(Map<String, Object> map) {
+		List list = queryForList("T_GENERALPROCESS_MODELTHREE_SqlMap.queryModelThree", map);
+        return list;
+	}
+
+
+	@Override
+	public List queryOperatorname(Map<String, Object> map2) {
+		List list = queryForList("T_MODEL_TIMEDAY_SqlMap.queryOperatorname", map2);
+        return list;
+	}
+
+
+	@Override
+	public void insertOverTime(OverTimeReport overTimeReport) {
+		getSqlMapClientTemplate().insert("T_MODEL_TIMEDAY_SqlMap.insertOverTime", overTimeReport);
+	}
+
+
+	@Override
+	public Object  queryRequestId() {
+		Object object = queryForObject("T_MODEL_TIMEDAY_SqlMap.queryRequestId");
+        return object;
+	}
+
+
+	@Override
+	public List queryOverTimeReport(OverTimeReport overTimeReport , Page page) {
+		List list = queryForList("T_MODEL_TIMEDAY_SqlMap.queryOverTimeReport", overTimeReport, page);
+        return list;
+	}
+
+
+	@Override
+	public void deleteOverTimeReport(OverTimeReport overTimeReport) {
+		getSqlMapClientTemplate().delete("T_MODEL_TIMEDAY_SqlMap.deleteOverTimeReport", overTimeReport);
+	}
+
+
+	@Override
+	public List queryOverTimeReport(OverTimeReport overTimeReport) {
+		List list = queryForList("T_MODEL_TIMEDAY_SqlMap.queryOverTimeReport", overTimeReport);
         return list;
 	}
 

@@ -13,6 +13,13 @@
         /jsp/timeMachine/upt_workDay.jsp
       </result>
       
+      <result name="Report_OverrunCondition" >
+        /jsp/timeMachine/Report_OverrunCondition.jsp
+      </result>
+      
+       <result name="Report_OverrunCondition_excel" >
+        /jsp/timeMachine/Report_OverrunCondition_excel.jsp
+      </result>
     </action>
   </package>
 </struts>

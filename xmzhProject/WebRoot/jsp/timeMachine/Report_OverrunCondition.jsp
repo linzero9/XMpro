@@ -10,7 +10,7 @@
 		<title>超限情况统计列表</title>
 	</head>
 	<body topmargin="0" leftmargin="0">
-	<h:form name="appQuery"	action="/jbpm/xdProcessAction_queryXdStartProcessList.action" method="post">
+	<h:form name="appQuery"	action="/timeMachine/tModelTimedayAction_queryOvertimeReport.action" method="post">
 		<w:panel id="panel1" title="查询条件">
 			<table align="center" border="0" width="100%" class="form_table">
 				
@@ -18,9 +18,9 @@
 					<td class="form_label" align="right" width="20%">报单日期：</td>
 					<td colspan="1" width="30%">
 						从
-						<w:date  id="appTimeStrat"  property="" /> 
+						<w:date  id="reportStarttime"  property="overTimeReport.reportStarttime" /> 
 						到
-						<w:date id="appTimeEnd"  property="" />
+						<w:date id="reportEndtime"  property="overTimeReport.reportEndtime" />
 					</td>					
 				</tr>
 				<tr class="form_bottom">
@@ -29,9 +29,9 @@
 					        <h:text size="2" property="page.length" value="10" validateAttr="minValue=1;maxValue=100;type=integer;isNull=true" />
 					        <input type="hidden" name="page.begin" value="0">
 					        <input type="hidden" name="page.isCount" value="true">
-							<input id="querys" type="submit" value="查 询" class="button" onclick="search();">
+							<input id="querys" type="submit" value="查 询" class="button" >
 							<input type="button" value="清 空" class="button" onclick="clears();">
-                                                        <input id="downexl" type="submit" class="button" value="导出列表" onclick="downExl();"></td>
+                                                        <input id="downexl" type="button" class="button" value="导出列表" onclick="downExl();"></td>
 					</tr>			
 			</table>
 		</w:panel>
@@ -40,7 +40,7 @@
 			<w:panel id="panel" width="100%" title="超限情况统计列表">
 				<viewlist id="e2c61865-3b56-470d-bd42-fff792fb9493">
 				<h:form name="page_form"
-					action="/jbpm/xdProcessAction_queryXdStartProcessList.action" method="post">
+					action="/timeMachine/tModelTimedayAction_queryOvertimeReport.action" method="post">
 			 <h:hiddendata property="xdProcessTaskAssignee"/>  
 
             <h:hidden property="page.begin"/>
@@ -51,12 +51,12 @@
 					<table align="center" border="0" width="100%" class="EOS_table">
 		    
 						<tr>
-							<th align="center" nowrap="nowrap">
+							<%-- <th align="center" nowrap="nowrap">
 								<b:message key="l_select"></b:message>
-							</th>
+							</th> --%>
 							
 							<th nowrap="nowrap">
-								时间
+								报单时间
 							</th>
 							<th nowrap="nowrap">
 								超限环节
@@ -81,46 +81,35 @@
 							</th>
 						</tr>
 						<w:radioGroup id="group1">
-                           <l:iterate property="list" id="id1">
+                           <l:iterate property="overTimeReports" id="id1">
 							<tr class="<l:output evenOutput='EOS_table_row' oddOutput='EOS_table_row_o'  />">
-								<td align="center" nowrap="nowrap">
+								<%-- <td align="center" nowrap="nowrap">
 									<w:rowRadio>
-										<h:param name='executionId' iterateId='id1' property='executionId' />
-										<h:param name='Time' iterateId='id1' property='Time' />
-										<h:param name='overlimitlink' iterateId='id1' property='overlimitlink' />
-										<h:param name='custName' iterateId='id1' property='custName' />
-										<h:param name='loanCategory' iterateId='id1' property='loanCategory' />
-										<h:param name='coorganization' iterateId='id1' property='coorganization' />
-										<h:param name='olp' iterateId='id1' property='olp' />
-										<h:param name='old' iterateId='id1' property='old' />
-										<h:param name='remark' iterateId='id1' property='remark' />
-										
-										
 									</w:rowRadio>
-								</td>
+								</td> --%>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1"    property="op_Time" />
+									<b:write iterateId="id1"    property="reportTime" />
 								</td>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1"    property="taskName" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="cust_Name" />
+									<b:write iterateId="id1" property="custName" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="loanCategory" />
+									<b:write iterateId="id1" property="loanCategory_name" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="coorganization" />
+									<b:write iterateId="id1" property="orgname" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="DYWX_NAME" />
+									<b:write iterateId="id1" property="empname" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="workTime" />
+									<b:write iterateId="id1" property="overtime" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="CONTENT" />
+									<b:write iterateId="id1" property="remark" />
 								</td>
 							</tr>
 						</l:iterate>
@@ -172,97 +161,30 @@
 
 		//清空
 		function clears(){
-			$id("custName").value="";
-			$id("oneCategory").value="";
-			$id("oneCategoryId").value="";
-			$id("loanCategory").value="";
-			$id("loanCategoryId").value="";
+			//清除JSP页面时间控件的值
+			$id("reportStarttime_input").value="";
+			$id("reportEndtime_input").value="";
+
+			//清除传入后台的值
+			$name("overTimeReport.reportStarttime").value="";
+			$name("overTimeReport.reportEndtime").value="";
 		}
-                function search(){
-			$("#isExport").val("");
-			}
-                function downExl() {
-			$("#isExport").val("1");
-		}
-		
-		/*function upt_loan_info(){
-			var gop = $id("group1");
-	  		var len = gop.getSelectLength();
-	  		if(len == 0){
-	  			alert("请选择一条流程信息");
-	  			return;
-	  		}else{
-	  			var row=gop.getSelectRow();
-		  		var executionId = row.getParam("executionId");
-		  		var processName = row.getParam("processName");
-		  		var custName = row.getParam("custName");
-		  		var apply_bal = row.getParam("apply_bal");
-		  		var oneCategory = row.getParam("oneCategory");
-		  		var loanCategory = row.getParam("loanCategory");
-		  		var coorganization = row.getParam("coorganization");
 
-	            var strUrl = "/jbpm/xdProcessAction_toUptLoanInfo.action?xdProcessTaskAssignee.executionId="+executionId+"&xdProcessTaskAssignee.processName="+processName;
-	            strUrl = strUrl+"&xdProcessTaskAssignee.custName="+custName
-	            +"&xdProcessTaskAssignee.apply_bal="+apply_bal
-	            +"&xdProcessTaskAssignee.oneCategory="+oneCategory
-	            +"&xdProcessTaskAssignee.loanCategory="+loanCategory
-	            +"&xdProcessTaskAssignee.coorganization="+coorganization;
-	            
-				  showModalCenter(encodeURI(strUrl), null,callBack, 500, 300, '修改超限情况信息');
-				  
-				  /* 	var url="/jbpm/xdProcessAction_toAddOneCategory.action?xdCdtypeBean.processName="+encodeURI(processName);
-		  		parent.window.frames["mainFrame"].location.href = encodeURI(strUrl); 
-		  		
-		  		showModalCenter(encodeURI(strUrl), null, callBack, clientX*0.9, clientY*0.9, ''修改超限情况信息');
-			}
-		}*/	
-		function callBack(){
-			var frm = $name("page_form");
-            frm.submit();
-			//  location.reload(); //就算页面直接关闭，也会重新加载页面
-			}
+		function downExl() {
 
-	  /*	function queryLoanUptWater(){
-	  		var gop = $id("group1");
-	  		var len = gop.getSelectLength();
-	  		if(len == 0){
-	  			alert("请选择一条流程信息");
-	  			return;
-	  		}else{
-	  			var rows=gop.getSelectRow();
-		  		var executionId = rows.getParam("executionId");
-		  		var strUrl = "/jbpm/xdProcessAction_queryLoanUptWater.action?waterInfo.flow_id="+executionId;
-		  		showModalCenter(strUrl,'',null ,1200,500,'超限情况修改流水明细');
-			  	}
-		  	}
-
-	  	function showoneCategory() {
-			var oneCategoryId=document.getElementById("oneCategoryId").value;
-			strUrl ="/Generalprocess/tGeneralprocessCdtypeAction_oneCategoryDic.action?cdtypeJson="+oneCategoryId,
-			showModalCenter(strUrl,'',showoneCategory_callback1 ,800,430,'一级分类选择'); 
-		} 
-		function showoneCategory_callback1(args){
-			if(args!=''){
-			var array;
-			array = args.split(":");
-			 document.getElementById("oneCategoryId").value = array[0];
-			 document.getElementById("oneCategory").value = array[1];
+			var reportStarttime = $id("reportStarttime_input").value;
+			var reportEndtime = $id("reportEndtime_input").value;
+			
+			var url = "/timeMachine/tModelTimedayAction_queryOvertimeReportExcel.action?";
+			if(reportStarttime != null){
+     		url = url+"overTimeReport.reportStarttime="+reportStarttime;
 			}
-		}	
-
-		function showloanCategory() {
-			var loanCategoryId=document.getElementById("loanCategoryId").value;
-			strUrl ="/Generalprocess/tGeneralprocessCdtypeAction_loanCategoryDic.action?cdtypeJson="+loanCategoryId,
-			showModalCenter(strUrl,'',showloanCategory_callback1 ,800,500,'贷种选择'); 
-		} 
-		function showloanCategory_callback1(args){
-			if(args!=''){
-			var array;
-			array = args.split(":");
-			 document.getElementById("loanCategoryId").value = array[0];
-			 document.getElementById("loanCategory").value = array[1];
+			if(reportEndtime != null){
+     		url = url+"&overTimeReport.reportEndtime="+reportEndtime;
 			}
-		}*/	
+			
+			window.location.href=url; 
+		}    
 		</script>
 		
 	</body>

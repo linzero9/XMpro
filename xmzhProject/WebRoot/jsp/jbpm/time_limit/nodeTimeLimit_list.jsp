@@ -32,10 +32,10 @@
 								节点名称
 							</th>
 							<th nowrap="nowrap">
-								时限（单位：工时）
+								时限（单位：小时）
 							</th>
 							<th nowrap="nowrap">
-								二次提交时限（单位：工时）
+								二次提交时限（单位：小时）
 							</th>
 						</tr>
 					<w:radioGroup id="group1">

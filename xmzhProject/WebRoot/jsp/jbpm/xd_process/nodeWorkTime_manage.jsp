@@ -23,7 +23,7 @@
 			<tr>
 				<td class="form_label" align="right"  width="40%">超时时长：</td>
 				<td colspan="1" width="60%"> 
-					<h:text property="workTimeBean.workTime" size="10"  validateAttr="type=double;minValue=0;allowNull=false;"   />工时
+					<h:text property="workTimeBean.workTime" size="10"  validateAttr="type=double;minValue=0;allowNull=false;"   />小时
 				</td>
 			</tr>
 			
