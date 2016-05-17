@@ -157,6 +157,20 @@ margin-left:inherit;
 							</tr>
 						</l:iterate>
 					</w:radioGroup>
+
+                      <table align="center" border="0" width="100%" class="EOS_table">
+                      <tr>				
+							<th align="center" nowrap="nowrap">
+								合计
+							</th>
+						   <th align="center" nowrap="nowrap">
+								<l:iterate property="heJis" id="id1">
+								    <b:write iterateId="id1" property="heJi"/>
+								</l:iterate>
+																								
+							</th>
+						</tr>
+                      </table>					
 							<tr>
               <td colspan="23" class="command_sort_area">
 							

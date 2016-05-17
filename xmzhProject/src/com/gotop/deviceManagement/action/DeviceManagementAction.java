@@ -60,6 +60,7 @@ import com.fr.third.org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import com.gotop.crm.util.BaseAction;
 import com.gotop.deviceManagement.model.DeviceDetail;
 import com.gotop.deviceManagement.model.DevicePo;
+import com.gotop.deviceManagement.model.HeJi;
 
 import com.gotop.deviceManagement.model.Sum;
 
@@ -77,7 +78,7 @@ public class DeviceManagementAction  extends BaseAction    {
 
 	private static final long serialVersionUID = 1L;
 	private DevicePo device;
-	private List<DevicePo> devices;
+	private List<DevicePo> devices; 
 	private DeviceDetail detail;
 	private List<DeviceDetail> details;
 	private String deviceIds;
@@ -87,9 +88,18 @@ public class DeviceManagementAction  extends BaseAction    {
 	private String orgcodeTemp;
 	private Sum sum;
 	private List<Sum> sums;
+	private List<HeJi> heJis;
 	private String deviceName;
 
 	
+	public List<HeJi> getHeJis() {
+		return heJis;
+	}
+
+	public void setHeJis(List<HeJi> heJis) {
+		this.heJis = heJis;
+	}
+
 	public String getImportExcelFlag() {
 		return importExcelFlag;
 	}
@@ -231,9 +241,11 @@ public class DeviceManagementAction  extends BaseAction    {
     	
     	  MUOUserSession muo=getCurrentOnlineUser();
     	  orgcodeTemp = muo.getOrgcode();
-    	  
+    	  heJis=deviceManagermentService.heJi(device, orgcodeTemp);
     	devices = deviceManagermentService.sumUpDevicePos(device,orgcodeTemp,this.getPage());
+    	
     	this.setDevices(devices);
+    	this.setHeJis(heJis);
     	return "sumUpDeviceList";
 		
 	}
@@ -280,8 +292,10 @@ public class DeviceManagementAction  extends BaseAction    {
 	    	}
 	    	  MUOUserSession muo=getCurrentOnlineUser();
 	    	  orgcodeTemp = muo.getOrgcode();
+	    	  heJis=deviceManagermentService.heJi(device, orgcodeTemp);
 	    	  devices = deviceManagermentService.sumUpDevicePosExcel(device, orgcodeTemp);
 	    	//this.setSums(devices);
+	    	  this.setHeJis(heJis);
 	    	this.setDevices(devices);
 	    	return "exportExcelsumUp";
 	    }

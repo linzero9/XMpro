@@ -28,5 +28,6 @@ public interface IDeviceManagementDAO {
 	
 	List deviceList(Map<String, Object> map);
 	List queryType(Map<String, String> map);
-
+    //合计
+	List heJi(Map<String, Object> map);
 }

@@ -118,4 +118,11 @@ public class DeviceManagementDAO extends SqlMapClientDao implements IDeviceManag
 	public List sumUpListExcel(Map<String, Object> map) {
 		return queryForList("T_DEVICE_SqlMap.querySumList", map);
 	}
+
+
+	@Override
+	public List heJi(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return queryForList("T_DEVICE_SqlMap.querySumList2",map);
+	}
 }

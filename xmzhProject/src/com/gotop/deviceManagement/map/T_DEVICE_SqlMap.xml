@@ -59,7 +59,10 @@
     <result column="DICTNAME" property="deviceModelName" jdbcType="VARCHAR" />
     <result column="DICTID" property="deviceModel" jdbcType="VARCHAR" />
   </resultMap> 
-  
+   <resultMap id="tSum2" class="com.gotop.deviceManagement.model.HeJi" >
+    <!--Bean方式返回全表-->
+    <result column="heji" property="heJi" jdbcType="DECIMAL" />
+  </resultMap>
   <!-- 查询设备名称下的设备型号 -->
     <select id="queryType" resultMap="model" parameterClass="java.util.HashMap" >
  	select b.dictid, b.dictname
@@ -76,6 +79,62 @@
      
      
 </select>
+  <!-- 查询机构下设备合计 -->
+    <select id="querySumList2" resultMap="tSum2" parameterClass="java.util.HashMap">
+    SELECT count(*) heji
+from 
+(
+select  t.orgcode,o.orgname, T.DEVICENAME,T.DEVICEMODEL,t.DEVICE_STATE,t.MEMORY ,
+t.HARDDISK,t.OSVERSION,t.SOFTWAREVERSION,t.IEVERSION, t.USEFUL, t.PLUGIN,t.PERIPHERAL
+  from  t_new_deviceManagement t , om_organization o
+  where t.orgcode = o.orgcode
+  <isNotNull prepend="and" property="orgcode" >      
+         t.ORGCODE in  
+        (select regexp_substr(#orgcode#,'[^,]+',1,rownum) from dual  
+<![CDATA[  connect by rownum<=length(#orgcode#)-length(replace(#orgcode#,','))+1  )   ]]>
+      </isNotNull>
+   <isNotNull prepend="and" property="deviceName" >
+        t.DEVICENAME = #deviceName#
+      </isNotNull>
+      <isNotNull prepend="and" property="deviceModel" >
+        t.DEVICEMODEL = #deviceModel#
+      </isNotNull>
+      <isNotNull prepend="and" property="deviceState" >
+         t.DEVICE_STATE = #deviceState#
+      </isNotNull>
+      <isNotNull prepend="and" property="memoryMin" >
+         t.MEMORY > #memoryMin#
+      </isNotNull>
+      <isNotNull prepend="and" property="memoryMax" >
+      		<![CDATA[  t.MEMORY < #memoryMax# ]]>
+      </isNotNull>
+      <isNotNull prepend="and" property="hardDiskMin" >
+         t.HARDDISK > #hardDiskMin#
+      </isNotNull>
+      <isNotNull prepend="and" property="hardDiskMax" >
+         <![CDATA[  t.HARDDISK < #hardDiskMax# ]]>
+      </isNotNull>
+       <isNotNull prepend="and" property="osVersion" >
+         t.OSVERSION = #osVersion#
+      </isNotNull>
+      <isNotNull prepend="and" property="softwareVersion" >
+        t.SOFTWAREVERSION like '%'|| #softwareVersion# ||'%'
+      </isNotNull>
+      <isNotNull prepend="and" property="ieVersion" >
+         t.IEVERSION = #ieVersion#
+      </isNotNull>
+      <isNotNull prepend="and" property="useful" >
+        ($useful$)
+      </isNotNull>
+      <isNotNull prepend="and" property="plugIn" >
+         ($plugIn$)
+      </isNotNull>
+      <isNotNull prepend="and" property="peripheral" >
+        ($peripheral$)
+      </isNotNull>
+)
+    
+    </select>
   <!-- 查询机构下设备总数 -->
   <select id="querySumList" resultMap="tSum" parameterClass="java.util.HashMap">
 SELECT 
@@ -134,71 +193,6 @@ t.HARDDISK,t.OSVERSION,t.SOFTWAREVERSION,t.IEVERSION, t.USEFUL, t.PLUGIN,t.PERIP
 
 )
 group by orgname,DEVICENAME,DEVICEMODEL
-
-UNION
-SELECT '合计'  as orgname,'  ' DEVICENAME,'  ' DEVICEMODEL,tot
-from 
-(
-SELECT count(*) tot
-from 
-(
-select  t.orgcode,o.orgname, T.DEVICENAME,T.DEVICEMODEL,t.DEVICE_STATE,t.MEMORY ,
-t.HARDDISK,t.OSVERSION,t.SOFTWAREVERSION,t.IEVERSION, t.USEFUL, t.PLUGIN,t.PERIPHERAL
-  from  t_new_deviceManagement t , om_organization o
-  where t.orgcode = o.orgcode
-  <isNotNull prepend="and" property="orgcode" >      
-         t.ORGCODE in  
-        (select regexp_substr(#orgcode#,'[^,]+',1,rownum) from dual  
-<![CDATA[  connect by rownum<=length(#orgcode#)-length(replace(#orgcode#,','))+1  )   ]]>
-      </isNotNull>
-   <isNotNull prepend="and" property="deviceName" >
-        t.DEVICENAME = #deviceName#
-      </isNotNull>
-      <isNotNull prepend="and" property="deviceModel" >
-        t.DEVICEMODEL = #deviceModel#
-      </isNotNull>
-      <isNotNull prepend="and" property="deviceState" >
-         t.DEVICE_STATE = #deviceState#
-      </isNotNull>
-      <isNotNull prepend="and" property="memoryMin" >
-         t.MEMORY > #memoryMin#
-      </isNotNull>
-      <isNotNull prepend="and" property="memoryMax" >
-      		<![CDATA[  t.MEMORY < #memoryMax# ]]>
-      </isNotNull>
-      <isNotNull prepend="and" property="hardDiskMin" >
-         t.HARDDISK > #hardDiskMin#
-      </isNotNull>
-      <isNotNull prepend="and" property="hardDiskMax" >
-         <![CDATA[  t.HARDDISK < #hardDiskMax# ]]>
-      </isNotNull>
-       <isNotNull prepend="and" property="osVersion" >
-         t.OSVERSION = #osVersion#
-      </isNotNull>
-      <isNotNull prepend="and" property="softwareVersion" >
-        t.SOFTWAREVERSION like '%'|| #softwareVersion# ||'%'
-      </isNotNull>
-      <isNotNull prepend="and" property="ieVersion" >
-         t.IEVERSION = #ieVersion#
-      </isNotNull>
-      <isNotNull prepend="and" property="useful" >
-        ($useful$)
-      </isNotNull>
-      <isNotNull prepend="and" property="plugIn" >
-         ($plugIn$)
-      </isNotNull>
-      <isNotNull prepend="and" property="peripheral" >
-        ($peripheral$)
-      </isNotNull>
-      
-      
-
-)
-)
-
-
-
-ORDER BY tot
   </select>
   
   <!-- 查询设备列表 -->

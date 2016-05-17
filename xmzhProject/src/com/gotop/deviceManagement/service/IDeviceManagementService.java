@@ -5,6 +5,8 @@ import com.gotop.deviceManagement.dao.IDeviceManDetailDAO;
 import com.gotop.deviceManagement.dao.IDeviceManagementDAO;
 import com.gotop.deviceManagement.model.DeviceDetail;
 import com.gotop.deviceManagement.model.DevicePo;
+import com.gotop.deviceManagement.model.HeJi;
+import com.gotop.deviceManagement.model.Sum;
 import com.gotop.vo.system.MUOUserSession;
 import com.primeton.utils.Page;
 
@@ -39,5 +41,6 @@ public interface IDeviceManagementService {
 	List<DevicePo> deviceList(DevicePo device);
 
 	List<DevicePo> queryType(String deviceName);
-
+   //合计
+	 List<HeJi> heJi(DevicePo device, String orgcodeTemp);
 }
