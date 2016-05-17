@@ -129,6 +129,7 @@ public class TModelTimedayAction extends BaseAction {
     		//2.循环流程的 flowid 获取到每个流程
     		Map<String, Object> map = new HashMap<String, Object>();
     		map.put("flow_id", xdproForEnd.getFlow_id());
+    		String process_name = xdproForEnd.getProcess_name();
     		
     		//通过flow_id，查询获取模式一的相关信息
 			List<ProcessModelOne> processModelOnes = this.tModelTimedayService.queryModelOne(map);
@@ -172,9 +173,9 @@ public class TModelTimedayAction extends BaseAction {
 	    		//循环每一个节点，得到开始时间和结束时间
 	    		for (HistActinst histActinst : histActinsts) {
 	    			// 3.循环JBPM4_HIST_ACTINST的所有及节点，将 结束时间 - 开始时间 =时间差，在用时间差-非工作日时间=共消耗的时间
-	    			String starttime = histActinst.getStart_();
-	    			String endtime = histActinst.getEnd_();
-	    			String activity_name = histActinst.getActivity_name_();
+	    			String starttime = histActinst.getStart();
+	    			String endtime = histActinst.getEnd();
+	    			String activity_name = histActinst.getActivity_name();
 	    			Double expendtime = getExpendTime(starttime, endtime); //计算得到消耗的时间
 	    			
 	    			//查询节点配置的时限，判断是否超限
@@ -183,13 +184,26 @@ public class TModelTimedayAction extends BaseAction {
 					map2.put("activity_name", activity_name);
 					List<NodeTimeLimitBean>  nodeTimeLimitBeans = this.tModelTimedayService.queryNodeTimeLimit(map2);
 					
-					//得到时间配置表的时限
-					Double timeLimitOne =  nodeTimeLimitBeans.get(0).getTimeLimit();
-					Double timeLimitTwo = nodeTimeLimitBeans.get(0).getTwotimeLimit();
-					
-					map2.put("htask_", histActinst.getHtask_());
-					List list2 = this.tModelTimedayService.queryOperatorname(map2);
-					String operatorname = ((HashMap<String,String>) list2.get(0)).get("operatorname");
+					Double timeLimitOne;
+					Double timeLimitTwo;
+					List list2;
+					String operatorname = "";
+					if(nodeTimeLimitBeans.size() == 0){
+						continue;
+					}else{
+						
+						//得到时间配置表的时限
+						timeLimitOne =  nodeTimeLimitBeans.get(0).getTimeLimit();
+						timeLimitTwo = nodeTimeLimitBeans.get(0).getTwotimeLimit();
+						
+						map2.put("htask", histActinst.getHtask());
+						operatorname  = (String) this.tModelTimedayService.queryOperatorname(map2);
+						/*if(list2.size() == 0){
+							operatorname = "";
+						}else{
+							operatorname = ((HashMap<String,String>) list2.get(0)).get("operatorname");
+						}*/
+					}
 					
 					OverTimeReport overTimeReport = new OverTimeReport();
 					
@@ -210,6 +224,7 @@ public class TModelTimedayAction extends BaseAction {
 								overTimeReport.setOvertime(overtime);
 								//overTimeReport.setRemark(remark);
 								overTimeReport.setRequest_id(request_id);
+								overTimeReport.setProcess_name(process_name);
 								
 								// 5.计算后的结果insert到 临时表中 
 								this.tModelTimedayService.insertOverTime(overTimeReport);
@@ -235,6 +250,7 @@ public class TModelTimedayAction extends BaseAction {
 								overTimeReport.setOvertime(overtime);
 								//overTimeReport.setRemark(remark);
 								overTimeReport.setRequest_id(request_id);
+								overTimeReport.setProcess_name(process_name);
 								
 								// 5.计算后的结果insert到 临时表中 
 								this.tModelTimedayService.insertOverTime(overTimeReport);
@@ -255,47 +271,69 @@ public class TModelTimedayAction extends BaseAction {
        
     }
     
+    /**
+     * @author liaomeiting
+     * @desc查询超限报表
+     * @return
+     * @throws Exception
+     */
     public String queryOvertimeReport() throws Exception{
+    	
+    	
     	if(overTimeReport == null){
     		overTimeReport = new OverTimeReport();
+    		
+    		//得到当次请求的id
+    		Long request_id = (Long) this.tModelTimedayService.queryRequestId();
+    		
+   //（1）首次发起请求，查询超限报表的相关内容insert到临时表里，以供后面的查询使用
+    		handleTimeReport(request_id);
+    		
+    		overTimeReport.setRequest_id(request_id);
     	}
     	
-    	//得到当次请求的id
-    	Long request_id = (Long) this.tModelTimedayService.queryRequestId();
     	
-    	//查询并insert超限报表的相关内容到临时表里，以供后面的查询使用
-		handleTimeReport(request_id);
-		
+   //（2）不是首次，则只需在之前查询的基础上在临时表里过滤数据 即可，无需再insert
     	
     	//6.分页 查询当次请求request_id的临时表信息 ，显示到页面 
-    	overTimeReport.setRequest_id(request_id);
-    	List<OverTimeReport> overTimeReports = this.tModelTimedayService.queryOverTimeReport(overTimeReport, this.getPage());
+    	List<OverTimeReport> overTimeReports = this.tModelTimedayService.queryOverTimeReportWithPage(overTimeReport, this.getPage());
     	this.setOverTimeReports(overTimeReports);
     	
     	//7.删除当次的请求id的临时表记录
-    	 this.tModelTimedayService.deleteOverTimeReport(overTimeReport);
+    	 /*this.tModelTimedayService.deleteOverTimeReport(overTimeReport);*/
     	 
     	 return "Report_OverrunCondition";
     }
     
+    /**
+     * @author liaomeiting
+     * @desc导出超限报表
+     * @return
+     * @throws Exception
+     */
     public String queryOvertimeReportExcel() throws Exception{
+    	
     	if(overTimeReport == null){
     		overTimeReport = new OverTimeReport();
+    		
+    		//得到当次请求的id
+    		Long request_id = (Long) this.tModelTimedayService.queryRequestId();
+    		
+   //（1）首次发起请求，查询超限报表的相关内容insert到临时表里，以供后面的查询使用
+    		handleTimeReport(request_id);
+    		
+    		overTimeReport.setRequest_id(request_id);
     	}
     	
-    	//得到当次请求的id
-    	Long request_id = (Long) this.tModelTimedayService.queryRequestId();
     	
-    	//查询并insert超限报表的相关内容到临时表里，以供后面的查询使用
-    	handleTimeReport(request_id);
+   //（2）不是首次，则只需在之前查询的基础上在临时表里过滤数据 即可，无需再insert
     	
     	//6.查询当次请求request_id的临时表信息 ，显示到页面 
-    	overTimeReport.setRequest_id(request_id);
     	List<OverTimeReport> overTimeReports = this.tModelTimedayService.queryOverTimeReport(overTimeReport);
     	this.setOverTimeReports(overTimeReports);
     	
     	//7.删除当次的请求id的临时表记录
-    	 this.tModelTimedayService.deleteOverTimeReport(overTimeReport);
+    	/* this.tModelTimedayService.deleteOverTimeReport(overTimeReport);*/
     	 
     	return "Report_OverrunCondition_excel";
     }
@@ -307,7 +345,7 @@ public class TModelTimedayAction extends BaseAction {
     }
     
     
-/*
+/**
 	 * 跳转到工作日新增页面
 	 * @return
 	 */

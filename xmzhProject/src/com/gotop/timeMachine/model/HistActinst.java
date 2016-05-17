@@ -6,73 +6,92 @@ import com.sun.jna.platform.win32.WinDef.LONG;
 
 public class HistActinst  implements Serializable {
 
-	 
-	private LONG  dbid_  ;
-	private String  type_ ;  //节点任务类型
-	private String  execution_   ;  //流程id
-	private String  activity_name_ ;  //几点名称
-	private String  start_ ;  //节点的开始时间
-	private String  end_  ;  //节点的结束时间
-	private String  transition_   ;
-	private LONG  htask_ ;  //任务id， 对应JBPM4_HIST_TASK表的dbid_
+	
+	private Long  dbid;
+	private String  type;  //节点任务类型
+	private String  execution;  //流程id
+	private String  activity_name;  //几点名称
+	private String  start;  //节点的开始时间
+	private String  end;  //节点的结束时间
+	private String  transition;
+	private Long  htask;  //任务id， 对应JBPM4_HIST_TASK表的dbid_
 	
 	private Integer rn ;
+
 	
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getExecution() {
+		return execution;
+	}
+
+	public void setExecution(String execution) {
+		this.execution = execution;
+	}
+
+	public String getActivity_name() {
+		return activity_name;
+	}
+
+	public void setActivity_name(String activity_name) {
+		this.activity_name = activity_name;
+	}
+
+	public String getStart() {
+		return start;
+	}
+
+	public void setStart(String start) {
+		this.start = start;
+	}
+
+	public String getEnd() {
+		return end;
+	}
+
+	public void setEnd(String end) {
+		this.end = end;
+	}
+
+	public String getTransition() {
+		return transition;
+	}
+
+	public void setTransition(String transition) {
+		this.transition = transition;
+	}
+
 	
-	public LONG getDbid_() {
-		return dbid_;
+	public Long getDbid() {
+		return dbid;
 	}
-	public void setDbid_(LONG dbid_) {
-		this.dbid_ = dbid_;
+
+	public void setDbid(Long dbid) {
+		this.dbid = dbid;
 	}
-	public String getType_() {
-		return type_;
+
+	public Long getHtask() {
+		return htask;
 	}
-	public void setType_(String type_) {
-		this.type_ = type_;
+
+	public void setHtask(Long htask) {
+		this.htask = htask;
 	}
-	public String getExecution_() {
-		return execution_;
-	}
-	public void setExecution_(String execution_) {
-		this.execution_ = execution_;
-	}
-	public String getActivity_name_() {
-		return activity_name_;
-	}
-	public void setActivity_name_(String activity_name_) {
-		this.activity_name_ = activity_name_;
-	}
-	public String getStart_() {
-		return start_;
-	}
-	public void setStart_(String start_) {
-		this.start_ = start_;
-	}
-	public String getEnd_() {
-		return end_;
-	}
-	public void setEnd_(String end_) {
-		this.end_ = end_;
-	}
-	public String getTransition_() {
-		return transition_;
-	}
-	public void setTransition_(String transition_) {
-		this.transition_ = transition_;
-	}
-	public LONG getHtask_() {
-		return htask_;
-	}
-	public void setHtask_(LONG htask_) {
-		this.htask_ = htask_;
-	}
+
 	public Integer getRn() {
 		return rn;
 	}
+
 	public void setRn(Integer rn) {
 		this.rn = rn;
 	}
+	
 	
 	
 	

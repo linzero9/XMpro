@@ -114,9 +114,9 @@ public class TModelTimedayDAO extends SqlMapClientDao implements ITModelTimedayD
 
 
 	@Override
-	public List queryOperatorname(Map<String, Object> map2) {
-		List list = queryForList("T_MODEL_TIMEDAY_SqlMap.queryOperatorname", map2);
-        return list;
+	public Object queryOperatorname(Map<String, Object> map2) {
+		Object object = queryForObject("T_MODEL_TIMEDAY_SqlMap.queryOperatorname", map2);
+        return object;
 	}
 
 
@@ -134,8 +134,8 @@ public class TModelTimedayDAO extends SqlMapClientDao implements ITModelTimedayD
 
 
 	@Override
-	public List queryOverTimeReport(OverTimeReport overTimeReport , Page page) {
-		List list = queryForList("T_MODEL_TIMEDAY_SqlMap.queryOverTimeReport", overTimeReport, page);
+	public List queryOverTimeReportWithPage(Map<String, Object> map , Page page) {
+		List list = queryForList("T_MODEL_TIMEDAY_SqlMap.queryOverTimeReport", map, page);
         return list;
 	}
 
@@ -147,8 +147,8 @@ public class TModelTimedayDAO extends SqlMapClientDao implements ITModelTimedayD
 
 
 	@Override
-	public List queryOverTimeReport(OverTimeReport overTimeReport) {
-		List list = queryForList("T_MODEL_TIMEDAY_SqlMap.queryOverTimeReport", overTimeReport);
+	public List queryOverTimeReport(Map<String, Object> map) {
+		List list = queryForList("T_MODEL_TIMEDAY_SqlMap.queryOverTimeReport", map);
         return list;
 	}
 

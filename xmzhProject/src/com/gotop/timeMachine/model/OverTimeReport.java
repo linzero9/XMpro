@@ -24,6 +24,7 @@ public class OverTimeReport  implements Serializable{
 	
 	private Long request_id ; //请求标识， 用于识别 每次的action请求
 	
+	private String process_name; //流程名称
 	
 	private String reportStarttime; //报单开始时间（只用于JSP页面的查询项）
 	private String reportEndtime; //报单结束时间（只用于JSP页面的查询项）
@@ -128,6 +129,14 @@ public class OverTimeReport  implements Serializable{
 
 	public void setRequest_id(Long request_id) {
 		this.request_id = request_id;
+	}
+
+	public String getProcess_name() {
+		return process_name;
+	}
+
+	public void setProcess_name(String process_name) {
+		this.process_name = process_name;
 	}
 
 	

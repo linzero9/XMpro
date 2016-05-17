@@ -121,9 +121,9 @@ public class TModelTimedayService implements ITModelTimedayService {
 	}
 
 	@Override
-	public List queryOperatorname(Map<String, Object> map2) {
-		List list = tModelTimedayDAO.queryOperatorname(map2);
-        return list;
+	public Object queryOperatorname(Map<String, Object> map2) {
+		Object object = tModelTimedayDAO.queryOperatorname(map2);
+        return object;
 	}
 
 	@Override
@@ -138,8 +138,22 @@ public class TModelTimedayService implements ITModelTimedayService {
 	}
 
 	@Override
-	public List<OverTimeReport> queryOverTimeReport(OverTimeReport overTimeReport, Page page) {
-		List list = this.tModelTimedayDAO.queryOverTimeReport(overTimeReport, page);
+	public List<OverTimeReport> queryOverTimeReportWithPage(OverTimeReport overTimeReport, Page page) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		if(overTimeReport != null){
+			if(overTimeReport.getRequest_id() != null && !"".equals(overTimeReport.getRequest_id())){
+				map.put("request_id", overTimeReport.getRequest_id());
+			}
+			
+			if(overTimeReport.getReportStarttime() != null && !"".equals(overTimeReport.getReportStarttime())){
+				map.put("reportStarttime", overTimeReport.getReportStarttime());
+			}
+			if(overTimeReport.getReportEndtime()!= null && !"".equals(overTimeReport.getReportEndtime())){
+				map.put("reportEndtime", overTimeReport.getReportEndtime());
+			}
+		}
+		List list = this.tModelTimedayDAO.queryOverTimeReportWithPage(map, page);
 		return list;
 	}
 
@@ -151,7 +165,21 @@ public class TModelTimedayService implements ITModelTimedayService {
 	@Override
 	public List<OverTimeReport> queryOverTimeReport(
 			OverTimeReport overTimeReport) {
-		List list = this.tModelTimedayDAO.queryOverTimeReport(overTimeReport);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		if(overTimeReport != null){
+			if(overTimeReport.getRequest_id() != null && !"".equals(overTimeReport.getRequest_id())){
+				map.put("request_id", overTimeReport.getRequest_id());
+			}
+			
+			if(overTimeReport.getReportStarttime() != null && !"".equals(overTimeReport.getReportStarttime())){
+				map.put("reportStarttime", overTimeReport.getReportStarttime());
+			}
+			if(overTimeReport.getReportEndtime()!= null && !"".equals(overTimeReport.getReportEndtime())){
+				map.put("reportEndtime", overTimeReport.getReportEndtime());
+			}
+		}
+		List list = this.tModelTimedayDAO.queryOverTimeReport(map);
 		return list;
 	}
 

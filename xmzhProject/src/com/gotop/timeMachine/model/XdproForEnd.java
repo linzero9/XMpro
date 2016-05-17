@@ -11,6 +11,8 @@ public class XdproForEnd  implements Serializable{
 
 	private String flow_id;  //流程id
 	private String definition_id;   //流程模版id
+	private String process_name; //流程名称
+	
 	public String getFlow_id() {
 		return flow_id;
 	}
@@ -22,6 +24,12 @@ public class XdproForEnd  implements Serializable{
 	}
 	public void setDefinition_id(String definition_id) {
 		this.definition_id = definition_id;
+	}
+	public String getProcess_name() {
+		return process_name;
+	}
+	public void setProcess_name(String process_name) {
+		this.process_name = process_name;
 	}
 	
 	

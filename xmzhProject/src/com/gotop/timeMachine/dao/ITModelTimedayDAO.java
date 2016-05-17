@@ -37,16 +37,16 @@ public interface ITModelTimedayDAO {
 
 	List queryModelThree(Map<String, Object> map);
 
-	List queryOperatorname(Map<String, Object> map2);
+	Object queryOperatorname(Map<String, Object> map2);
 
 	void insertOverTime(OverTimeReport overTimeReport);
 
 	Object queryRequestId();
 
-	List queryOverTimeReport(OverTimeReport overTimeReport, Page page);
+	List queryOverTimeReportWithPage(Map<String, Object> map, Page page);  //分页查询 超限报表
 
 	void deleteOverTimeReport(OverTimeReport overTimeReport);
 
-	List queryOverTimeReport(OverTimeReport overTimeReport);
+	List queryOverTimeReport(Map<String, Object> map); //无分页 查询 超限报表
 
 }

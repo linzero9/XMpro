@@ -56,15 +56,15 @@ public interface ITModelTimedayService {
 
 	List<ProcessModelThree> queryModelThree(Map<String, Object> map);
 
-	List queryOperatorname(Map<String, Object> map2);
+	Object queryOperatorname(Map<String, Object> map2);
 
 	void insertOverTime(OverTimeReport overTimeReport);
 
 	Object queryRequestId();
 
-	List<OverTimeReport> queryOverTimeReport(OverTimeReport overTimeReport, Page page);
+	List<OverTimeReport> queryOverTimeReportWithPage(OverTimeReport overTimeReport, Page page); //分页查询 超限报表
 
 	void deleteOverTimeReport(OverTimeReport overTimeReport);
 
-	List<OverTimeReport> queryOverTimeReport(OverTimeReport overTimeReport);
+	List<OverTimeReport> queryOverTimeReport(OverTimeReport overTimeReport); //无分页查询 超限报表
 }

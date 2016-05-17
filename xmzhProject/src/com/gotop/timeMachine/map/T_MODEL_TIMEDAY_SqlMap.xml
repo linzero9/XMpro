@@ -27,17 +27,18 @@
    <resultMap id="XdproForEnd_Result" class="com.gotop.timeMachine.model.XdproForEnd" >
     <result column="FLOW_ID" property="flow_id" jdbcType="VARCHAR" />
     <result column="DEFINITION_ID" property="definition_id" jdbcType="VARCHAR" />
+    <result column="PROCESS_NAME" property="process_name" jdbcType="VARCHAR" />
   </resultMap>
   
   <resultMap id="HistActinst_Result" class="com.gotop.timeMachine.model.HistActinst" >
-    <result column="DBID_" property="dbid_" jdbcType="DECIMAL" />
-    <result column="TYPE_" property="type_" jdbcType="VARCHAR" />
-    <result column="EXECUTION_" property="execution_" jdbcType="VARCHAR" />
-    <result column="ACTIVITY_NAME_" property="activity_name_" jdbcType="VARCHAR" />
-    <result column="START_" property="start_" jdbcType="VARCHAR" />
-    <result column="END_" property="end_" jdbcType="VARCHAR" />
-    <result column="TRANSITION_" property="transition_" jdbcType="VARCHAR" />
-    <result column="HTASK_" property="htask_" jdbcType="DECIMAL" />
+    <result column="DBID_" property="dbid" jdbcType="DECIMAL" />
+    <result column="TYPE_" property="type" jdbcType="VARCHAR" />
+    <result column="EXECUTION_" property="execution" jdbcType="VARCHAR" /> 
+    <result column="ACTIVITY_NAME_" property="activity_name" jdbcType="VARCHAR" />
+    <result column="START_" property="start" jdbcType="VARCHAR" />
+    <result column="END_" property="end" jdbcType="VARCHAR" />
+    <result column="TRANSITION_" property="transition" jdbcType="VARCHAR" />
+    <result column="HTASK_" property="htask" jdbcType="DECIMAL" />
     <result column="RN" property="rn" jdbcType="DECIMAL" />
   </resultMap>
   
@@ -67,6 +68,7 @@
     <result column="OVERTIME" property="overtime" jdbcType="DECIMAL" />
     <result column="REMARK" property="remark" jdbcType="VARCHAR" />
     <result column="REQUEST_ID" property="request_id" jdbcType="DECIMAL" />
+    <result column="PROCESS_NAME" property="process_name" jdbcType="VARCHAR" />
   </resultMap>
 
   
@@ -123,7 +125,7 @@
   
  <!--  查询出所有的信贷流程，当前节点必须为“结束 -->
   <select id="queryXdproForEnd" resultMap="XdproForEnd_Result" >
-    select t5.execution_id as flow_id, t5.procdefid_ as definition_id
+    select t5.execution_id as flow_id, t5.procdefid_ as definition_id, t6.process_name
   from (select t3.*, t4.procdefid_ 
           from (select t2.*
                   from (select t.*,
@@ -132,21 +134,19 @@
                  where t2.rn = 1
                    and t2.next_activity_name = '结束') t3,
                JBPM4_HIST_PROCINST t4
-         where t3.execution_id = t4.id_) t5
- where t5.procdefid_ in
-       (select definition_id
-          from T_PROCESS_CONFIG
-         where business_type = '88')
+         where t3.execution_id = t4.id_) t5, T_PROCESS_CONFIG t6
+  where t5.procdefid_ = t6.definition_id
+ and t6.business_type = '88'
  order by t5.execution_id
   </select>
   
   <!-- 查询信贷流程走过的所有节点 -->
   <select id="queryHistActinst" resultMap="HistActinst_Result" parameterClass="java.util.HashMap" >
-    select t.dbid_ , t.type_ , t.execution_ , t.activity_name_ , 
-   to_char(t.start_ , 'yyyymmddhh24miss') AS start_,
-   to_char(t.end_ , 'yyyymmddhh24miss') AS end_,
-    t.transition_ , t.htask_ ,
-    row_number() over(partition by t.activity_name_ order by t.start_ asc) as rn
+    select t.DBID_, t.TYPE_, t.EXECUTION_, t.ACTIVITY_NAME_, 
+   to_char(t.START_, 'yyyymmddhh24miss') AS START_,
+   to_char(t.END_, 'yyyymmddhh24miss') AS END_,
+    t.TRANSITION_, t.HTASK_,
+    row_number() over(partition by t.ACTIVITY_NAME_ order by t.START_ asc) as rn
     from JBPM4_HIST_ACTINST t  
 	where t.execution_= '$flow_id$'
   </select> 
@@ -170,9 +170,9 @@ and taskname = '$activity_name$'
   </select> 
   
    <!-- 查询超限 员工名-->
-  <select id="queryOperatorname" resultClass="java.util.HashMap" parameterClass="java.util.HashMap" >
+  <select id="queryOperatorname" resultClass="java.lang.String" parameterClass="java.util.HashMap" >
 select operatorname from ac_operator where operatorid =
-	(select assignee_ from  JBPM4_HIST_TASK where dbid_= '$htask_$')
+	(select assignee_ from  JBPM4_HIST_TASK where dbid_= '$htask$')
   </select> 
   
   <!-- 插入 超限时间报表 的临时表 里 -->
@@ -180,8 +180,8 @@ select operatorname from ac_operator where operatorid =
        <selectKey resultClass="long" keyProperty="id" >
 		SELECT SEQ_T_MODEL_OVERTIMEREPORT.NEXTVAL AS VALUE FROM DUAL
 		</selectKey>
-    insert into T_MODEL_TIMEDAY(ID, REPORTTIME, TASKNAME, CUSTNAME, LOANCATEGORY_NAME, ORGNAME, EMPNAME, OVERTIME, REMARK, REQUEST_ID )
-    values (#id:DECIMAL:-9999#, #reportTime:VARCHAR#, #taskName:VARCHAR#, #custName:VARCHAR#, #loanCategory_name:VARCHAR#, #orgname:VARCHAR#, #empname:VARCHAR#, #overtime:DOUBLE#, #remark:VARCHAR#, #request_id:DECIMAL:-9999#)
+    insert into t_model_overtimeReport(ID, REPORTTIME, TASKNAME, CUSTNAME, LOANCATEGORY_NAME, ORGNAME, EMPNAME, OVERTIME, REMARK, REQUEST_ID, PROCESS_NAME )
+    values (#id:DECIMAL:-9999#, #reportTime:VARCHAR#, #taskName:VARCHAR#, #custName:VARCHAR#, #loanCategory_name:VARCHAR#, #orgname:VARCHAR#, #empname:VARCHAR#, #overtime:DOUBLE#, #remark:VARCHAR#, #request_id:DECIMAL:-9999#, #process_name:VARCHAR#)
   </insert>
   
    <!-- 查询 自增序列 用于 action请求标识-->
@@ -190,7 +190,7 @@ select operatorname from ac_operator where operatorid =
 </select> 
 
 <!-- 查询 超限报表 临时表-->
-  <select id="queryOverTimeReport" resultMap="OverTimeReport_Result" parameterClass="com.gotop.timeMachine.model.OverTimeReport" >
+  <select id="queryOverTimeReport" resultMap="OverTimeReport_Result" parameterClass="java.util.HashMap" >
 	select * from t_model_overtimeReport
 	where request_id = #request_id:DECIMAL:-9999#
 	<isNotNull prepend="and" property="reportStarttime" >
@@ -199,6 +199,7 @@ select operatorname from ac_operator where operatorid =
 	<isNotNull prepend="and" property="reportEndtime" >
 	<![CDATA[  reportTime <= #reportEndtime:VARCHAR# ]]>
 	</isNotNull>
+	order by process_name
   </select> 
   
   <!-- 删除 超限报表 临时表-->

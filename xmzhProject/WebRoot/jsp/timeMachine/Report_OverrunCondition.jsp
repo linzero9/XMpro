@@ -14,6 +14,7 @@
 		<w:panel id="panel1" title="查询条件">
 			<table align="center" border="0" width="100%" class="form_table">
 				
+				<h:hidden id="request_id" property="overTimeReport.request_id" />
 				<tr>
 					<td class="form_label" align="right" width="20%">报单日期：</td>
 					<td colspan="1" width="30%">
@@ -29,7 +30,7 @@
 					        <h:text size="2" property="page.length" value="10" validateAttr="minValue=1;maxValue=100;type=integer;isNull=true" />
 					        <input type="hidden" name="page.begin" value="0">
 					        <input type="hidden" name="page.isCount" value="true">
-							<input id="querys" type="submit" value="查 询" class="button" >
+							<input id="querys" type="submit" value="查 询" class="button"  >
 							<input type="button" value="清 空" class="button" onclick="clears();">
                                                         <input id="downexl" type="button" class="button" value="导出列表" onclick="downExl();"></td>
 					</tr>			
@@ -41,7 +42,8 @@
 				<viewlist id="e2c61865-3b56-470d-bd42-fff792fb9493">
 				<h:form name="page_form"
 					action="/timeMachine/tModelTimedayAction_queryOvertimeReport.action" method="post">
-			 <h:hiddendata property="xdProcessTaskAssignee"/>  
+					
+			 <h:hiddendata property="overTimeReport"/>  
 
             <h:hidden property="page.begin"/>
 		    <h:hidden property="page.length"/>
@@ -59,6 +61,9 @@
 								报单时间
 							</th>
 							<th nowrap="nowrap">
+								流程名称
+							</th>
+							<th nowrap="nowrap">
 								超限环节
 							</th>
 							<th nowrap="nowrap">
@@ -73,10 +78,10 @@
 					       <th nowrap="nowrap">
 								超限人员
 							</th>
-                                                 <th nowrap="nowrap">
-								超限时长
+                             <th nowrap="nowrap">
+								超限时长(单位:小时)
 							</th>
-                                                 <th nowrap="nowrap">
+                             <th nowrap="nowrap">
 								备注
 							</th>
 						</tr>
@@ -89,6 +94,9 @@
 								</td> --%>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1"    property="reportTime" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1"    property="process_name" />
 								</td>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1"    property="taskName" />
@@ -171,18 +179,13 @@
 		}
 
 		function downExl() {
-
+			var request_id = $id("request_id").value;
 			var reportStarttime = $id("reportStarttime_input").value;
 			var reportEndtime = $id("reportEndtime_input").value;
 			
 			var url = "/timeMachine/tModelTimedayAction_queryOvertimeReportExcel.action?";
-			if(reportStarttime != null){
-     		url = url+"overTimeReport.reportStarttime="+reportStarttime;
-			}
-			if(reportEndtime != null){
-     		url = url+"&overTimeReport.reportEndtime="+reportEndtime;
-			}
-			
+     		url = url+"overTimeReport.request_id="+request_id+"&overTimeReport.reportStarttime="+reportStarttime+"&overTimeReport.reportEndtime="+reportEndtime;
+
 			window.location.href=url; 
 		}    
 		</script>
