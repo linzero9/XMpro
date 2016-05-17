@@ -22,7 +22,8 @@ public interface IDeviceManagementService {
 	
 	//统计机构下所有物品
 	List<DevicePo> sumUpDevicePos(DevicePo device,String orgcode, Page page);
-
+	//导出EXCEL
+	List<DevicePo> sumUpDevicePosExcel(DevicePo device, String orgcodeTemp);
 	DevicePo getDeviceByDeviceId(DevicePo device);
 
 	void save(DevicePo device, MUOUserSession muoUserSession);

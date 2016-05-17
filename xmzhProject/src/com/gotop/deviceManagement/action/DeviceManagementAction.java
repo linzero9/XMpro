@@ -280,7 +280,7 @@ public class DeviceManagementAction  extends BaseAction    {
 	    	}
 	    	  MUOUserSession muo=getCurrentOnlineUser();
 	    	  orgcodeTemp = muo.getOrgcode();
-	    	  devices = deviceManagermentService.sumUpDevicePos(device,orgcodeTemp,this.getPage());
+	    	  devices = deviceManagermentService.sumUpDevicePosExcel(device, orgcodeTemp);
 	    	//this.setSums(devices);
 	    	this.setDevices(devices);
 	    	return "exportExcelsumUp";

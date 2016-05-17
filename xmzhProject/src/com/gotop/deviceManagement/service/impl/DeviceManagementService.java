@@ -128,7 +128,7 @@ public class DeviceManagementService implements IDeviceManagementService{
 		}
 		map.put("orgcodeTemp", orgcodeTemp);
 		
-		List list = deviceManagementDAO.sumUpList(map, null);
+		List list = deviceManagementDAO.sumUpList(map, page);
         return list;
 	}
 	
@@ -431,6 +431,95 @@ public class DeviceManagementService implements IDeviceManagementService{
 		List list  =deviceManagementDAO.queryType(map);
 		return list;
 	}
-
-	
+//导出EXCEL
+	@Override
+	public List<DevicePo> sumUpDevicePosExcel(DevicePo device, String orgcodeTemp) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		if(device != null){
+			if( device.getOrgcode() != null && !"".equals(device.getOrgcode())){
+				map.put("orgcode", device.getOrgcode());
+			}
+			if( device.getDeviceName() != null && !"".equals(device.getDeviceName())){
+				map.put("deviceName", device.getDeviceName());
+			}
+			if( device.getDeviceModel() != null && !"".equals(device.getDeviceModel())){
+				map.put("deviceModel", device.getDeviceModel());
+			}
+			if( device.getDeviceState() != null && !"".equals(device.getDeviceState())){
+				map.put("deviceState", device.getDeviceState());
+			}
+			if( device.getMemoryMin() != null && !"".equals(device.getMemoryMin())){
+				map.put("memoryMin", device.getMemoryMin());
+			}
+			if( device.getMemoryMax() != null && !"".equals(device.getMemoryMax())){
+				map.put("memoryMax", device.getMemoryMax());
+			}
+			if( device.getHardDiskMin() != null && !"".equals(device.getHardDiskMin())){
+				map.put("hardDiskMin", device.getHardDiskMin());
+			}
+			if( device.getHardDiskMax() != null && !"".equals(device.getHardDiskMax())){
+				map.put("hardDiskMax", device.getHardDiskMax());
+			}
+			
+				
+				if( device.getOsVersion() != null && !"".equals(device.getOsVersion())){
+					map.put("osVersion", device.getOsVersion());
+				
+			}
+			if( device.getSoftwareVersion() != null && !"".equals(device.getSoftwareVersion())){
+				map.put("softwareVersion", device.getSoftwareVersion());
+			}
+			if( device.getIeVersion() != null && !"".equals(device.getIeVersion())){
+				map.put("ieVersion", device.getIeVersion());
+			}
+			if( device.getUseful() != null && !"".equals(device.getUseful())){
+				//map.put("useful", device.getUseful());
+				
+				String sql_useful ="";
+				String[] arr_useful = device.getUseful().split(", ");
+				for(int i=0; i<arr_useful.length; i++){//最后拼接得到的SQL如：sql_otherInfo2 = "t.OTHERINFO_2 like '%01%' or t.OTHERINFO_2 like '%02%'";只要数据库里含用户所选的一项，都要选出来
+					if(i == 0){
+						sql_useful += "t.USEFUL like  " + "'%" + arr_useful[i] + "%'";
+					}else{
+						sql_useful += " or " +  "t.USEFUL like  " + "'%" + arr_useful[i] + "%'";
+					}
+				}
+				map.put("useful", sql_useful );
+			}
+			
+			if( device.getPlugIn() != null && !"".equals(device.getPlugIn())){
+				//map.put("plugIn", device.getPlugIn());
+				
+				String sql_plugIn ="";
+				String[] arr_plugIn = device.getPlugIn().split(", ");
+				for(int i=0; i<arr_plugIn.length; i++){//最后拼接得到的SQL如：sql_otherInfo2 = "t.OTHERINFO_2 like '%01%' or t.OTHERINFO_2 like '%02%'";只要数据库里含用户所选的一项，都要选出来
+					if(i == 0){
+						sql_plugIn += "t.PLUGIN like  " + "'%" + arr_plugIn[i] + "%'";
+					}else{
+						sql_plugIn += " or " +  "t.PLUGIN like  " + "'%" + arr_plugIn[i] + "%'";
+					}
+				}
+				map.put("plugIn", sql_plugIn );
+			}
+			
+			if( device.getPeripheral() != null && !"".equals(device.getPeripheral())){
+				//map.put("peripheral", device.getPeripheral());
+				
+				String sql_peripheral ="";
+				String[] arr_peripheral = device.getPeripheral().split(", ");
+				for(int i=0; i<arr_peripheral.length; i++){//最后拼接得到的SQL如：sql_otherInfo2 = "t.OTHERINFO_2 like '%01%' or t.OTHERINFO_2 like '%02%'";只要数据库里含用户所选的一项，都要选出来
+					if(i == 0){
+						sql_peripheral += "t.PERIPHERAL like  " + "'%" + arr_peripheral[i] + "%'";
+					}else{
+						sql_peripheral += " or " +  "t.PERIPHERAL like  " + "'%" + arr_peripheral[i] + "%'";
+					}
+				}
+				map.put("peripheral", sql_peripheral );
+			}
+		}
+		map.put("orgcodeTemp", orgcodeTemp);
+		
+		List list = deviceManagementDAO.sumUpListExcel(map);
+        return list;
+	}
 }
