@@ -216,10 +216,10 @@
     	    				if(endTime!=null){
     	    					strUrl=strUrl+"&errorStatistic.endTime="+endTime;
     	        				} 
+    				if(custName!=null){strUrl=strUrl+"&errorStatistic.custName="+custName;}
+    				if(custName!=null){strUrl=strUrl+"&errorStatistic.taskName="+taskName;}
+    	    		
     				
-    				
-    				+"&errorStatistic.custName="+custName
-    				+"&errorStatistic.taskName="+taskName
     				window.location.href=strUrl;
     			}
 		
