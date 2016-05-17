@@ -76,7 +76,16 @@ public class OperateLogService implements IOperateLogService {
 			}
 			if (operateLog.getActivityName() != null
 					&& !"".equals(operateLog.getActivityName())) {
-				map.put("activityName", operateLog.getActivityName());
+				
+				
+				String[] activityNames=operateLog.getActivityName().split(",");
+				String activityName="";
+				try {
+					activityName = Obj2StrUtils.join(activityNames, String.class, ",");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				map.put("activityName", activityName);
 			}
 			if (operateLog.getCustName()!= null
 					&& !"".equals(operateLog.getCustName())) {
