@@ -22,11 +22,10 @@
   
 	<select id="listNodName"  parameterClass="java.util.HashMap"  resultMap="JobWorkload1">
         <!--  SELECT distinct ACTIVITY_NAME from t_process_task_exe_config where TASK_ASS_TYPE='05' -->
-           SELECT distinct t1.ACTIVITY_NAME
-			  from t_process_task_exe_config t1 left join T_PROCESS_CONFIG t2
-			  on t1.definition_id = t2.definition_id
-			 where t1.TASK_ASS_TYPE = '05'
-			  and t2.state = '01'   
+SELECT DISTINCT ACTIVITY_NAME FROM t_process_task_exe_config t1
+where DEFINITION_ID in (
+    SELECT DEFINITION_ID FROM T_PROCESS_CONFIG t2 where business_type='88'
+)
 	</select>
   
   
