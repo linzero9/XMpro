@@ -99,7 +99,7 @@ FROM
 				WHERE
 					end_ IS NOT NULL
 						    <isNotNull prepend="and" property="appTimeStrat" >
-                                        REPORTTIME  >=(#appTimeStrat#)
+                                        <![CDATA[REPORTTIME  >= #appTimeStrat#]]>
                               </isNotNull>
                              <isNotNull prepend="and" property="appTimeEnd" >                                    
                                         <![CDATA[REPORTTIME  <=(#appTimeEnd#)]]>
