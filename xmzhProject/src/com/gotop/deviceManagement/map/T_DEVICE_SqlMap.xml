@@ -279,7 +279,7 @@ where t.orgcode = o.orgcode
       <isNotNull prepend="and" property="peripheral" >
         ($peripheral$)
       </isNotNull>
-  order by t.orgcode ,t.deviceName,t.deviceModel
+  order by t.ipAdress,t.deviceName,t.deviceModel
   </select>
   
   <!--通过主键查询一条数据-->

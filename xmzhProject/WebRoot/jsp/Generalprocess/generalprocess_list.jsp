@@ -156,7 +156,7 @@
 			</table>
 		</w:panel>
 	</h:form>
-	<DIV class="divList" style="height: 380px">
+	<DIV class="divList" style="overflow:auto;width:100%; style="height: 380px">
 		<w:panel id="panel" width="100%" title="查询结果">
 			<viewlist id="e2c61865-3b56-470d-bd42-fff792fb9493"> <h:form
 				name="page_form"
