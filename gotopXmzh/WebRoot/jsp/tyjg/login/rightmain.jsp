@@ -331,7 +331,7 @@
 	  }else{
 		  strUrl = "/jbpm/jbpmDemoAction_handle.action?taskAssgineeDto.businessTitle="+businessTitle+"&taskAssgineeDto.businessKey="+businessKey+"&taskAssgineeDto.processName="+processName+"&taskAssgineeDto.nextTaskId="+nextTaskId+"&taskAssgineeDto.executionId="+executionId+"&taskAssgineeDto.businessType="+businessType+"&taskAssgineeDto.taskAssingee="+preTaskAssingee+"&taskAssgineeDto.preTaskAssingee="+assignee+"&taskAssgineeDto.processTaskAssigneeId="+processTaskAssigneeId+"&taskAssgineeDto.parentId="+parentId+"&taskAssgineeDto.isChild="+isChild;
 	  }
-	  showModalCenter(encodeURI(strUrl), null, callBack, clientX*0.8, clientY*0.65, '详情');
+	  showModalCenter(encodeURI(strUrl), null, callBack, clientX*0.95, clientY*0.9, '详情');
 	  }
   function viewMettingDetail(recId,status,mettingId){
 	  var strUrl = "/mettingApply/tMettingApplyAction_info.action?meet.recId="+recId+"&meet.status="+status+"&meet.mettingId="+mettingId;

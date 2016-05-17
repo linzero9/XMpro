@@ -369,7 +369,7 @@
 				/**
 				 * 2014.9.1 改为弹出框
 				 **/
-				showModalCenter(encodeURI(strUrl), null, callBack, 1050, 520,
+				showModalCenter(encodeURI(strUrl), null, callBack, clientX*0.95, clientY*0.9,
 						'已办详情');
 			}
 		}
