@@ -31,44 +31,23 @@ where DEFINITION_ID in (
   
   <!-- 岗位工作量统计 -->
   	<select id="jobWorkloadtList" parameterClass="java.util.HashMap" resultMap="JobWorkload">
-SELECT
-	ONECATEGORY,
-	LOANCATEGORY,
-	ACTIVITY_NAME_,
-	OPERATORNAME,
-	CASE
-WHEN cnt >= 1 THEN
-	1
-ELSE
-	0
-END businessNumberOne,
- CASE
-WHEN cnt >= 2 THEN
-	1
-ELSE
-	0
-END businessNumberTwo,
- CASE
-WHEN cnt >= 3 THEN
-	1
-ELSE
-	0
-END businessNumberThree,
- CASE
-WHEN cnt >= 4 THEN
-	1
-ELSE
-	0
-END businessNumberFour,
- CASE
-WHEN cnt >= 5 THEN
-	1
-ELSE
-	0
-END businessNumberFive
+SELECT 
+ONECATEGORY,  LOANCATEGORY,  ACTIVITY_NAME_,  OPERATORNAME,
+sum(businessNumberOne) businessNumberOne,sum(businessNumberTwo) businessNumberTwo,sum(businessNumberThree) businessNumberThree,
+sum(businessNumberFour) businessNumberFour,sum(businessNumberFive)businessNumberFive
+from 
+(
+
+SELECT  ONECATEGORY,  LOANCATEGORY,  ACTIVITY_NAME_,  OPERATORNAME, 
+CASE WHEN cnt >= 1 THEN  1 ELSE  0 END businessNumberOne,  
+CASE WHEN cnt >= 2 THEN  1 ELSE  0 END businessNumberTwo,  
+CASE WHEN cnt >= 3 THEN  1 ELSE  0 END businessNumberThree,  
+CASE WHEN cnt >= 4 THEN  1 ELSE  0 END businessNumberFour,  
+CASE WHEN cnt >= 5 THEN  1 ELSE  0 END businessNumberFive 
 FROM
 	(
 		SELECT
+      EXECUTION_,
 			ONECATEGORY,
 			LOANCATEGORY,
 			ACTIVITY_NAME_,
@@ -77,6 +56,7 @@ FROM
 		FROM
 			(
 				SELECT
+          EXECUTION_,
 					ACTIVITY_NAME_,
 					END_,
 					OPERATORNAME,
@@ -129,11 +109,16 @@ FROM
                               </isNotNull>
 			)
 		GROUP BY
+      EXECUTION_,
 			ONECATEGORY,
 			LOANCATEGORY,
 			ACTIVITY_NAME_,
 			OPERATORNAME
-	)
+)
+)
+GROUP BY
+ONECATEGORY,  LOANCATEGORY,  ACTIVITY_NAME_,  OPERATORNAME
+
   
 	</select>
 	
