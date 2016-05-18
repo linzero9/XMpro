@@ -4,6 +4,8 @@ import com.gotop.Generalprocess.model.ProcessModelOne;
 import com.gotop.Generalprocess.model.ProcessModelThree;
 import com.gotop.jbpm.model.NodeTimeLimitBean;
 import com.gotop.jbpm.model.ProTimeModelBean;
+import com.gotop.jbpm.model.WorkTimeMainBean;
+import com.gotop.jbpm.model.WorkTimeSideBean;
 import com.gotop.timeMachine.dao.ITModelTimedayDAO;
 import com.gotop.timeMachine.model.HistActinst;
 import com.gotop.timeMachine.model.OverTimeReport;
@@ -67,4 +69,8 @@ public interface ITModelTimedayService {
 	void deleteOverTimeReport(OverTimeReport overTimeReport);
 
 	List<OverTimeReport> queryOverTimeReport(OverTimeReport overTimeReport); //无分页查询 超限报表
+
+	List<WorkTimeMainBean> queryWorkTimeMain();
+
+	List<WorkTimeSideBean> queryWorkTimeSide(Map<String, Object> map);
 }

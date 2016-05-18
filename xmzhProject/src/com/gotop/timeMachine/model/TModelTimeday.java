@@ -34,8 +34,6 @@ public class TModelTimeday implements Serializable {
      */
     private String status;
     
-    private   Long mainID;
-    
     private  String  type;
     
     private String remark;
@@ -44,9 +42,10 @@ public class TModelTimeday implements Serializable {
     
     private String empname;
     
-    private String startDate;
+    private String startDate; //开始日期，给页面查询项用
     
-    private String endDate;
+    private String endDate; //结束日期，给页面查询项用
+    
     
 	public String getType() {
 		return type;
@@ -108,14 +107,6 @@ public class TModelTimeday implements Serializable {
 
 	public void setEmpid(Long empid) {
 		this.empid = empid;
-	}
-
-	public Long getMainID() {
-		return mainID;
-	}
-
-	public void setMainID(Long mainID) {
-		this.mainID = mainID;
 	}
 
 	/**

@@ -4,6 +4,8 @@ import com.gotop.Generalprocess.model.ProcessModelOne;
 import com.gotop.Generalprocess.model.ProcessModelThree;
 import com.gotop.jbpm.model.NodeTimeLimitBean;
 import com.gotop.jbpm.model.ProTimeModelBean;
+import com.gotop.jbpm.model.WorkTimeMainBean;
+import com.gotop.jbpm.model.WorkTimeSideBean;
 import com.gotop.timeMachine.dao.ITModelTimedayDAO;
 import com.gotop.timeMachine.model.HistActinst;
 import com.gotop.timeMachine.model.OverTimeReport;
@@ -52,7 +54,17 @@ public class TModelTimedayService implements ITModelTimedayService {
      * @abatorgenerated
      */
     public List queryWorkDayListWithPage(TModelTimeday day, Page page) throws Exception {
-        List list = tModelTimedayDAO.queryWorkDayListWithPage(day,page);
+    	
+    	Map<String, Object> map = new HashMap<String, Object>();
+		if(day != null){
+			if(day.getStartDate()!= null && !"".equals(day.getStartDate())){
+				map.put("startDate", day.getStartDate());
+			}
+			if(day.getEndDate() != null && !"".equals(day.getEndDate())){
+				map.put("endDate", day.getEndDate());
+			}
+		}
+        List list = tModelTimedayDAO.queryWorkDayListWithPage(map,page);
         return list;
     }
 
@@ -180,6 +192,18 @@ public class TModelTimedayService implements ITModelTimedayService {
 			}
 		}
 		List list = this.tModelTimedayDAO.queryOverTimeReport(map);
+		return list;
+	}
+
+	@Override
+	public List<WorkTimeMainBean> queryWorkTimeMain() {
+		List list = this.tModelTimedayDAO.queryWorkTimeMain();
+		return list;
+	}
+
+	@Override
+	public List<WorkTimeSideBean> queryWorkTimeSide(Map<String, Object> map) {
+		List list = this.tModelTimedayDAO.queryWorkTimeSide(map);
 		return list;
 	}
 

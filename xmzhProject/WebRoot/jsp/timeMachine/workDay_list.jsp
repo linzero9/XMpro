@@ -6,35 +6,34 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<title>工作日配置列表</title>
+		<title>节假日配置列表</title>
 	</head>
 	<body topmargin="0" leftmargin="0">
 	<h:form name="query_form"	action="/timeMachine/tModelTimedayAction_queryWorkDayList.action" method="post">
-	<h:hiddendata property="day"/>
-		<%-- <w:panel id="panel1" title="查询条件">
+		<w:panel id="panel1" title="查询条件">
 			<table align="center" border="0" width="100%" class="form_table">
 				<tr>
-					<td class="form_label" align="right" width="40%">有效日范围：</td>
-					<td ><w:date id="query_startDate" property="time.query_startDate"/> 
-					至<w:date id="query_endDate" property="time.query_endDate"/>
-					&nbsp; 注：日期包前不包后
+					<td class="form_label" align="right" width="40%">时间范围：</td>
+					<td ><w:date id="startDate" property="day.startDate"  submitFormat="yyyy/MM/dd"  srcFormat="yyyy/MM/dd"  /> 
+					至<w:date id="endDate" property="day.endDate"  submitFormat="yyyy/MM/dd"  srcFormat="yyyy/MM/dd" />
 					</td>
 				</tr>
 					<tr>
 							<td colspan="2" class="form_bottom">
 							每页显示
 							<h:text size="2" property="page.length" value="10"
-								validateAttr="minValue=1;maxValue=100;type=integer;isNull=true" /> --%>
+								validateAttr="minValue=1;maxValue=100;type=integer;isNull=true" />
 							<input type="hidden" name="page.begin" value="0">
 							<input type="hidden" name="page.isCount" value="true">
-							<%-- <input type="submit" id="btn" class="button" value='查询' >
+							<input type="submit" id="btn" class="button" value='查询' >
 							<input type="button" id="btn" class="button" value='清空' onclick="clears();">
 						</td>
 			</tr>
 			</table>
-		</w:panel> --%>
+		</w:panel>
 	</h:form>
 	<DIV class="divList">
+			<w:panel id="panel" width="100%" title="维护列表">
 				<viewlist id="e2c61865-3b56-470d-bd42-fff792fb9493">
 				<h:form name="page_form"
 					action="/timeMachine/tModelTimedayAction_queryWorkDayList.action" method="post">
@@ -47,12 +46,6 @@
 						<tr>
 							<th align="center" nowrap="nowrap">
 								<b:message key="l_select"></b:message>
-							</th>
-							<th nowrap="nowrap">
-								有效日开始日期
-							</th>
-							<th nowrap="nowrap">
-								有效日结束日期
 							</th>
 							<th nowrap="nowrap">
 								时间
@@ -68,6 +61,9 @@
 							</th>
 							<th nowrap="nowrap">
 								维护人员
+							</th>
+							<th nowrap="nowrap">
+								备注
 							</th>
 						</tr>
 					
@@ -90,12 +86,6 @@
 								</td>
 								
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="startDate" />
-								</td>
-								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="endDate" />
-								</td>
-								<td nowrap="nowrap"> 
 									<b:write iterateId="id1"    property="time"   />
 								</td>
 								<td nowrap="nowrap"> 
@@ -110,6 +100,9 @@
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1" property="empname" />
 								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="remark" />
+								</td>
 							</tr>
 						</l:iterate>
 					</w:radioGroup>
@@ -119,6 +112,7 @@
 							<div class="h3">
 							<l:greaterThan property="page.count" targetValue="0" compareType="number" >
 								&nbsp; &nbsp;
+								<input type="button" class="button" value="新增" onclick="addWorkDay();" />
 								<input type="button" class="button" value="修改" onclick="uptWorkDay();" />
 								<input type="button" class="button" value="删除" onclick="delWorkDay();" />
 									</l:greaterThan>
@@ -150,8 +144,25 @@
 					</table>
 				</h:form>
 				</viewlist>
+			</w:panel>
 		</DIV>
 		<script type="text/javascript">
+		function clears(){
+			//让JSP页面的时间输入框 清空
+			$("#startDate_input").val("");
+			$("#endDate_input").val("");
+
+			//让时间传入后台的值 清空
+			$name("day.startDate").value = "";
+			$name("day.endDate").value = "";
+			}
+		
+		function addWorkDay(){
+    			
+				var strUrl = "/timeMachine/tModelTimedayAction_toAddWorkDay.action";
+	  			showModalCenter(strUrl, null, callBackFunc, 800, 400, '新增');  
+	  		}
+	  		
 		function uptWorkDay(){
 			var gop = $id("group1");
 	  		var len = gop.getSelectLength();

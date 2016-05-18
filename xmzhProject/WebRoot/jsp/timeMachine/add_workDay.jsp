@@ -12,27 +12,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>维护工作日</title>
-
-
 </head>
-
-
 
 <body topmargin="0" leftmargin="0">
 <h:form name="data_form"  id="data_form" action="/timeMachine/tModelTimedayAction_saveWorkDay.action"   method="post" >
 		
-		<h:hidden property="day.mainID" />
-		
 		<table align="center" border="0" width="100%" class="form_table">
-			<tr>
-				<td class="form_label" align="right"  width="30%">工作日有效期：</td>
-				<td colspan="1" width="60%"> 
-					<%-- 开始日期 <w:date id="startDate" property="day.startDate"  readonly="true" />	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					结束日期 <w:date id="endDate" property="day.endDate"  readonly="true" />	 --%>
-					开始日期<h:text property="day.startDate"  readonly="true"/> 
-					结束日期<h:text property="day.endDate"  readonly="true" />
-				</td>
-			</tr>
 			<tr>
 				<td class="form_label" align="right"  width="30%">类型：</td>
 				<td colspan="1" width="60%"> 
@@ -91,12 +76,8 @@
 			return;
 		}
 
-		var a1 = $name("day.time").value;
-		var b1 = $("#time").val("");
 		$name("day.time").value == "";//每次点保存，都要先清除之前的值，再赋值，以免检验不通过时多次点保存，导致重复赋值！
 		$("#time").val("");
-		 a1 = $name("day.time").value;
-		b1 = $("#time").val("");
 
 		var date = "";	
 		for(var i=0; i<a; i++){
@@ -104,17 +85,11 @@
 			
 			//日期内容不为空的时候，才将值拼接起来
 			if(date != ""){
-				if(date < $name("day.startDate").value || date >= $name("day.endDate").value){
-					alert(date +"不在 工作日有效期 之内！请重新设置日期！");
-					return;
-			 	}
-			 	
+				
 				//日期内容不为空的时候，才将值拼接起来
 					$("#time").val( $("#time").val()+ date + "," ); 
-
 			}
-			
-			 
+						 
 		}
 
 		if($("#time").val() != ""){
@@ -146,7 +121,7 @@
 				    	  if (data.indexOf("notExist") >= 0) {
 				    		//继续下一个时间校验
 						}else if (data.indexOf("exist") >= 0) {
-							alert(date+"已存在，请重新设置日期！");
+							alert(date+"该日期已维护，请重新配置！");
 							flag = false;
 						} else if (data.indexOf("fails") >= 0) {
 							alert("日期校验失败！");

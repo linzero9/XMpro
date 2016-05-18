@@ -16,15 +16,6 @@
 		
 		<table align="center" border="0" width="100%" class="form_table">
 			<tr>
-				<td class="form_label" align="right"  width="30%">工作日有效期：</td>
-				<td colspan="1" width="60%"> 
-					<%-- 开始日期 <w:date id="startDate" property="day.startDate"  readonly="true" />	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					结束日期 <w:date id="endDate" property="day.endDate"  readonly="true" />	 --%>
-					开始日期<h:text property="day.startDate"  readonly="true"/> 
-					结束日期<h:text property="day.endDate"  readonly="true" />
-				</td>
-			</tr>
-			<tr>
 				<td class="form_label" align="right"  width="30%">类型：</td>
 				<td colspan="1" width="60%"> 
 					<d:select dictTypeId="TIMEDAY_TYPE"  property="day.type"  nullLabel="请选择"></d:select>
@@ -81,11 +72,6 @@
 			return;
 		}
 
-		if($name("day.time").value < $name("day.startDate").value || $name("day.time").value>= $name("day.endDate").value){
-			alert("非工作日必须在工作日有效期之内！");
-			return;
-		}
-		
 		var time =$name("day.time").value;
 		
 		$.ajax({
@@ -99,7 +85,7 @@
 		    	  if (data.indexOf("notExist") >= 0) {
 		    		  ajaxsubmitO();
 				}else if (data.indexOf("exist") >= 0) {
-					alert("该 非工作日 日期已存在，请重新配置！");
+					alert("该日期已维护，请重新配置！");
 				} else if (data.indexOf("fails") >= 0) {
 					alert("日期校验失败！");
 				} else {

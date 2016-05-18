@@ -33,8 +33,8 @@ public class TModelTimedayDAO extends SqlMapClientDao implements ITModelTimedayD
      * 分页查询信息
      * @abatorgenerated
      */
-    public List queryWorkDayListWithPage(TModelTimeday day, Page page) throws Exception {
-        List list = queryForList("T_MODEL_TIMEDAY_SqlMap.queryWorkDayListWithPage", day, page);
+    public List queryWorkDayListWithPage(Map<String, Object> map, Page page) throws Exception {
+        List list = queryForList("T_MODEL_TIMEDAY_SqlMap.queryWorkDayListWithPage", map, page);
         return list;
     }
 
@@ -149,6 +149,20 @@ public class TModelTimedayDAO extends SqlMapClientDao implements ITModelTimedayD
 	@Override
 	public List queryOverTimeReport(Map<String, Object> map) {
 		List list = queryForList("T_MODEL_TIMEDAY_SqlMap.queryOverTimeReport", map);
+        return list;
+	}
+
+
+	@Override
+	public List queryWorkTimeMain() {
+		List list = queryForList("T_MODEL_TIMEDAY_SqlMap.queryWorkTimeMain", null);
+        return list;
+	}
+
+
+	@Override
+	public List queryWorkTimeSide(Map<String, Object> map) {
+		List list = queryForList("T_MODEL_TIMEDAY_SqlMap.queryWorkTimeSide", map);
         return list;
 	}
 

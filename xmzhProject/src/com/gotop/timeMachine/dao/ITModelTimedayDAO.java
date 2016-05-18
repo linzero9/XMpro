@@ -13,7 +13,7 @@ public interface ITModelTimedayDAO {
      * 分页查询信息
      * @abatorgenerated
      */
-    List queryWorkDayListWithPage(TModelTimeday day, Page page) throws Exception;
+    List queryWorkDayListWithPage(Map<String, Object> map, Page page) throws Exception;
 
 	List checkDayTime(TModelTimeday day);
 
@@ -48,5 +48,9 @@ public interface ITModelTimedayDAO {
 	void deleteOverTimeReport(OverTimeReport overTimeReport);
 
 	List queryOverTimeReport(Map<String, Object> map); //无分页 查询 超限报表
+
+	List queryWorkTimeMain();
+
+	List queryWorkTimeSide(Map<String, Object> map);
 
 }

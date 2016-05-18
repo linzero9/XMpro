@@ -96,8 +96,8 @@
 								<input type="button" class="button" value="删除有效日" onclick="delValidDay();" />
 								<input type="button" class="button" value="维护工作时间" onclick="addWorkTime();" />
 								<input type="button" class="button" value="查看工作时间" onclick="queryWorkTimeList();" />
-								<input type="button" class="button" value="维护工作日" onclick="addWorkDay();" />
-								<input type="button" class="button" value="查看工作日" onclick="queryWorkDayList();" />
+								<!-- <input type="button" class="button" value="维护工作日" onclick="addWorkDay();" />
+								<input type="button" class="button" value="查看工作日" onclick="queryWorkDayList();" /> -->
 							</l:greaterThan>
 							</div>
 							<div class="h4">
@@ -164,7 +164,7 @@
 	  		}
 		}
 
-		function addWorkDay(){
+		/* function addWorkDay(){
 			var gop = $id("group1");
 	  		var len = gop.getSelectLength();
 	  		if(len == 0){
@@ -180,7 +180,7 @@
 				strUrl += "&day.startDate="+startDate+"&day.endDate="+endDate;
 	  			showModalCenter(strUrl, null, '', 800, 400, '新增');  
 	  		}
-		}
+		} */
 		
 		function callBackFunc(){
 	        var frm = $name("query_form");
@@ -236,7 +236,7 @@
 	  		}
 		}
 
-	  	function queryWorkDayList(){
+	  	/* function queryWorkDayList(){
 			var gop = $id("group1");
 	  		var len = gop.getSelectLength();
 	  		if(len == 0){
@@ -248,7 +248,7 @@
 				var strUrl = "/timeMachine/tModelTimedayAction_queryWorkDayList.action?day.mainID="+id;
 	  			showModalCenter(strUrl, null, '', 1000, 400, '工作日列表');  
 	  		}
-		}
+		} */
 	  	
 		</script>
 	</body>

@@ -7,6 +7,7 @@ import com.gotop.crm.util.MUO;
 import com.gotop.jbpm.model.NodeTimeLimitBean;
 import com.gotop.jbpm.model.ProTimeModelBean;
 import com.gotop.jbpm.model.TimeBean;
+import com.gotop.jbpm.model.WorkTimeMainBean;
 import com.gotop.jbpm.model.WorkTimeSideBean;
 import com.gotop.timeMachine.model.HistActinst;
 import com.gotop.timeMachine.model.OverTimeReport;
@@ -19,6 +20,8 @@ import com.opensymphony.xwork2.ActionContext;
 import com.primeton.utils.AjaxParam;
 import com.primeton.utils.Page;
 import com.primeton.utils.pageCondExpand;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -92,10 +95,14 @@ public class TModelTimedayAction extends BaseAction {
 	}
 
 	/**
-     * 查询 工作日列表
+	 * @author liaomeiting
+     * @desc 查询 节假日维护列表
      * @return
      */
     public String queryWorkDayList() throws Exception {
+    	if(day == null){
+    		day = new TModelTimeday();
+    	}
     	 List<TModelTimeday>  days = this.tModelTimedayService.queryWorkDayListWithPage(day,this.getPage());
     	 this.setDays(days);
         return "workDay_list";
@@ -173,10 +180,10 @@ public class TModelTimedayAction extends BaseAction {
 	    		//循环每一个节点，得到开始时间和结束时间
 	    		for (HistActinst histActinst : histActinsts) {
 	    			// 3.循环JBPM4_HIST_ACTINST的所有及节点，将 结束时间 - 开始时间 =时间差，在用时间差-非工作日时间=共消耗的时间
-	    			String starttime = histActinst.getStart();
-	    			String endtime = histActinst.getEnd();
+	    			String start = histActinst.getStart();
+	    			String end = histActinst.getEnd();
 	    			String activity_name = histActinst.getActivity_name();
-	    			Double expendtime = getExpendTime(starttime, endtime); //计算得到消耗的时间
+	    			Double expendtime = getExpendTime(start, end); //计算得到消耗的时间
 	    			
 	    			//查询节点配置的时限，判断是否超限
 					Map<String, Object> map2 = new HashMap<String, Object>();
@@ -198,11 +205,6 @@ public class TModelTimedayAction extends BaseAction {
 						
 						map2.put("htask", histActinst.getHtask());
 						operatorname  = (String) this.tModelTimedayService.queryOperatorname(map2);
-						/*if(list2.size() == 0){
-							operatorname = "";
-						}else{
-							operatorname = ((HashMap<String,String>) list2.get(0)).get("operatorname");
-						}*/
 					}
 					
 					OverTimeReport overTimeReport = new OverTimeReport();
@@ -338,8 +340,41 @@ public class TModelTimedayAction extends BaseAction {
     	return "Report_OverrunCondition_excel";
     }
     
-    public Double  getExpendTime(String starttime, String endtime){
+    public Double  getExpendTime(String start, String end){
     	//消耗时间 = 结束时间-开始时间-期间的非工作日
+    	
+    	String my_startD = start.substring(0, 8); //节点开始日期。不包含第8位
+    	String my_endD = end.substring(0, 8); //节点结束日期
+    	String my_startT =  start.substring(8, 14);  //节点开始时间
+    	String my_endT = end.substring(8, 14);  //节点结束时间
+    	
+    	Map<String, Object> map = new HashMap<String, Object>();
+
+    	//得到所有的有效日配置列表
+    	List<WorkTimeMainBean> workTimeMainBeans = this.tModelTimedayService.queryWorkTimeMain();  	
+    	
+    	List<WorkTimeSideBean> workTimeSideBeans = new ArrayList<WorkTimeSideBean>();
+    	
+    	for (WorkTimeMainBean workTimeMainBean : workTimeMainBeans) {
+			String startDate = workTimeMainBean.getStartDate();
+			String endDate = workTimeMainBean.getEndDate();
+			
+			if( Long.valueOf(my_startD) >= Long.valueOf(startDate) && Long.valueOf(my_endD) < Long.valueOf(endDate) ){
+				map.put("mainID", workTimeMainBean.getId());
+				//查询该有效日对应的工作时间配置
+				workTimeSideBeans = this.tModelTimedayService.queryWorkTimeSide(map);  
+				if(workTimeSideBeans.size() > 0){
+					String startTime  = workTimeSideBeans.get(0).getStartTime();
+					String endTime = workTimeSideBeans.get(0).getEndTime();
+				}
+				break;
+				
+			}else if( Long.valueOf(my_startD) >= Long.valueOf(startDate) && Long.valueOf(my_endD) < Long.valueOf(endDate)){
+				
+			}else{
+				
+			}
+    	}  	
     	Double expendtime = (double) 8;
     	return expendtime;
     }
