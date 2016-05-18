@@ -19,10 +19,10 @@
                                         <td class="form_label" align="right" width="20%">报单日期：</td>
 					<td colspan="1" width="30%">
 					从
-					<w:date  format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="stratdate" name="reportRefusalrate.stratdate" 
+					<w:date  format="yyyy-MM-dd" submitFormat="yyyy-MM-dd" id="stratdate" name="reportRefusalrate.stratdate" 
 					property="reportRefusalrate.stratdate" /> 
 					到
-					<w:date format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="enddate" name="reportRefusalrate.enddate" 
+					<w:date format="yyyy-MM-dd" submitFormat="yyyy-MM-dd" id="enddate" name="reportRefusalrate.enddate" 
 					property="reportRefusalrate.enddate" /></td>
 
 					
