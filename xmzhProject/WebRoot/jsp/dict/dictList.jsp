@@ -189,10 +189,7 @@
   			return;
   		}else{
   			var rows=gop.getSelectRow();
-  			alert(rows);
   			$id("dictTypeId").value = rows.getParam("dictTypeId");
-
-  			alert( rows.getParam("dictTypeId"));
   			var frm = $name("formx_list");
   		 	frm.submit();
 	  	}
@@ -208,8 +205,7 @@
   			var rows=gop.getSelectRow();
   			//$id("dictTypeId").value = rows.getParam("dictTypeId");
   			var dictTypeId=rows.getParam("dictTypeId");
-            alert(dictTypeId);
-  			var strUrl = "/dict/eosDictEntryAction_toUpdateName.action";//?dictType.dictTypeId="+dictTypeId;
+  			var strUrl = "/dict/eosDictEntryAction_toUpdateName.action?dictType.dictTypeId="+dictTypeId;
   			showModalCenter(strUrl, null, callBackFunc, 400, 200, '修改属性名称');  
 	  	}
 	}

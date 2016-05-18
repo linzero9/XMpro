@@ -128,8 +128,8 @@ public class EosDictEntryAction extends BaseAction {
     }
 	//去更新属性名称页面
 	public String toUpdateName(){
-/*		dictType =eosDictEntryService.getEosDictTypeBydictTypeId(dictType);
-    	this.setDictType(dictType);*/
+		dictType =eosDictEntryService.getEosDictTypeBydictTypeId(dictType);
+    	this.setDictType(dictType);
     	return "toUpdateName";
     }
 	public void insertItem() throws Exception{
