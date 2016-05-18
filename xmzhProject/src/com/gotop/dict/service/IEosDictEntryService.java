@@ -27,7 +27,8 @@ public interface IEosDictEntryService {
     List<EosDictEntry> queryDictEntryBydictTypeId(EosDictEntry dictEntry);
 
 	EosDictEntry getDictEntryById(EosDictEntry dictEntry);
-
+	//根据dictTypeId查询属性
+	EosDictType getEosDictTypeBydictTypeId(EosDictType dictType);
 	void insert(EosDictEntry dictEntry);
 	
 	void update(EosDictEntry dictEntry);

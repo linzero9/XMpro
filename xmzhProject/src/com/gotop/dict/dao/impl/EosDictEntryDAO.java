@@ -2,6 +2,7 @@ package com.gotop.dict.dao.impl;
 
 import com.gotop.dict.dao.IEosDictEntryDAO;
 import com.gotop.dict.model.EosDictEntry;
+import com.gotop.dict.model.EosDictType;
 import com.gotop.util.dataSource.SqlMapClientDao;
 import com.primeton.utils.Page;
 import java.util.List;
@@ -76,6 +77,12 @@ public class EosDictEntryDAO extends SqlMapClientDao implements IEosDictEntryDAO
 		}else{
 			return count.intValue();
 		}
+	}
+	//根据dictTypeId查询属性
+	@Override
+	public EosDictType getEosDictTypeBydictTypeId(EosDictType dictType) {
+
+		return (EosDictType) queryForObject("EOS_DICT_ENTRY_SqlMap.getEosDictTypeBydictTypeId", dictType);
 	}
 
 }

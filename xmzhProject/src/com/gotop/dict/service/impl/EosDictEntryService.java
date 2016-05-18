@@ -95,5 +95,11 @@ public class EosDictEntryService implements IEosDictEntryService {
 		int count = eosDictEntryDAO.queryIsExist(dictEntry);
 		return count;
 	}
+	//根据dictTypeId查询属性
+	@Override
+	public EosDictType getEosDictTypeBydictTypeId(EosDictType dictType) {
+		
+		return eosDictEntryDAO.getEosDictTypeBydictTypeId(dictType);
+	}
 
 }

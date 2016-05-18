@@ -96,7 +96,7 @@ public class EosDictEntryAction extends BaseAction {
 	public void setDictEntrys(List<EosDictEntry> dictEntrys) {
 		this.dictEntrys = dictEntrys;
 	}
-
+  //设备属性列表
 	public String dictTypeList(){
 	   if(dictType == null){
 		   dictType = new EosDictType();
@@ -120,13 +120,18 @@ public class EosDictEntryAction extends BaseAction {
     	this.setDictEntry(dictEntry);
     	return "toInsert";
     }
-	
+	//更新项名称
 	public String toUpdate(){
     	dictEntry = eosDictEntryService.getDictEntryById(dictEntry);
     	this.setDictEntry(dictEntry);
     	return "toUpdate";
     }
-	
+	//去更新属性名称页面
+	public String toUpdateName(){
+/*		dictType =eosDictEntryService.getEosDictTypeBydictTypeId(dictType);
+    	this.setDictType(dictType);*/
+    	return "toUpdateName";
+    }
 	public void insertItem() throws Exception{
     	String info ="success";
     	try {

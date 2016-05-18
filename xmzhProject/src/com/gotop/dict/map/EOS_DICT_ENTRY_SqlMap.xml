@@ -23,7 +23,11 @@
    	select t.DICTTYPEID, t.DICTID, t.DICTNAME from EOS_DICT_ENTRY t
    	where t.DICTTYPEID = #dictTypeId:VARCHAR# 
     </select>
-    
+    <!-- //根据dictTypeId查询属性 -->
+        <select id="getEosDictTypeBydictTypeId" resultMap="eosDictTypeResult" parameterClass="com.gotop.dict.model.EosDictType" >
+    	select t.DICTTYPEID, t.DICTTYPENAME from EOS_DICT_TYPE t
+     	where t.DICTTYPEID = #dictTypeId:VARCHAR# 
+       </select>
     <select id="getDictEntryById" resultMap="eosDictEntryResult" parameterClass="com.gotop.dict.model.EosDictEntry" >
    select t.DICTTYPEID, t.DICTID, t.DICTNAME from EOS_DICT_ENTRY t
    	where t.DICTTYPEID = #dictTypeId:VARCHAR# 

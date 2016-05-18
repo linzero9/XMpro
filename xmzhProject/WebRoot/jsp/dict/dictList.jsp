@@ -61,6 +61,11 @@
 								compareType="number">
 								<input type="button" value="查询属性值" onclick="queryEntry();" class="button">
 							</l:greaterThan>
+							<l:greaterThan property="page.count" targetValue="0"
+									compareType="number">
+							<input type="button" class="button" value="修改属性名称"
+										onclick="uptItemName();" />
+								</l:greaterThan>
 						</div>
 						<div class="h4">
 	                <l:equal property="page.isCount" targetValue="true" >
@@ -175,7 +180,7 @@
 	function clears(){
 		$id("dictTypeName").value="";
 	}
-
+    //查询属性值
 	function queryEntry(){
 		var gop = $id("xgroup1");
   		var len = gop.getSelectLength();
@@ -184,12 +189,30 @@
   			return;
   		}else{
   			var rows=gop.getSelectRow();
+  			alert(rows);
   			$id("dictTypeId").value = rows.getParam("dictTypeId");
+
+  			alert( rows.getParam("dictTypeId"));
   			var frm = $name("formx_list");
   		 	frm.submit();
 	  	}
 	}
-
+	//修改属性名称
+	function uptItemName(){
+		var gop = $id("xgroup1");
+  		var len = gop.getSelectLength();
+  		if(len != 1){
+  			alert("请选择一条记录");
+  			return;
+  		}else{
+  			var rows=gop.getSelectRow();
+  			//$id("dictTypeId").value = rows.getParam("dictTypeId");
+  			var dictTypeId=rows.getParam("dictTypeId");
+            alert(dictTypeId);
+  			var strUrl = "/dict/eosDictEntryAction_toUpdateName.action";//?dictType.dictTypeId="+dictTypeId;
+  			showModalCenter(strUrl, null, callBackFunc, 400, 200, '修改属性名称');  
+	  	}
+	}
 	//新增
 	function addItem(){
 		var dictTypeId=$id("dictTypeId").value;

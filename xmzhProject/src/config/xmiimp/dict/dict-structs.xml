@@ -12,6 +12,9 @@
       <result name="toUpdate">
        /jsp/dict/toUpdate.jsp
       </result>
+     <result name="toUpdateName">
+       /jsp/dict/toUpdateName.jsp
+      </result>
     </action>
   </package>
 </struts>
