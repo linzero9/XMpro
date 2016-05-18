@@ -44,22 +44,22 @@ margin-left:inherit;
 					<td colspan="1"  width="25%" nowrap="nowrap">
 						<h:text id="ipAdress" property="device.ipAdress"  size="15"   />
 					</td>
-					<td class="form_label" align="right" width="10%" nowrap="nowrap">操作系统版本：</td>
+					<td class="form_label" align="right" width="10%" nowrap="nowrap">${sheBeiShuX.DEVICE_OS_VERSION }：</td>
 					<td colspan="1"  width="23%" nowrap="nowrap">
 						<d:select  id="osVersion"  dictTypeId="DEVICE_OS_VERSION" property="device.osVersion" nullLabel="请选择"  ></d:select>
 					</td>
-						<td class="form_label" align="right" width="10%" nowrap="nowrap">其他属性2：</td>
+						<td class="form_label" align="right" width="10%" nowrap="nowrap">${sheBeiShuX.DEVICE_OTHERATTRIBUTE_2 }：</td>
 					<td colspan="1" width="30%" nowrap="nowrap">
 					<d:select id="otherAttribute_2"  dictTypeId="DEVICE_OTHERATTRIBUTE_2" property="device.otherAttribute_2" nullLabel="请选择"></d:select>
 				</td>
-					<td class="form_label" align="right" width="10%" nowrap="nowrap">其他信息2：</td>
+					<td class="form_label" align="right" width="10%" nowrap="nowrap">${sheBeiShuX.DEVICE_OTHERINFO_2 }：</td>
 					<td colspan="1" width="30%" nowrap="nowrap">
 					<d:checkbox perrow="12"  id="otherInfo_2"  dictTypeId="DEVICE_OTHERINFO_2" property="device.otherInfo_2"  seperator=", " />
 				</td>
 					
 				</tr>
 				<tr>
-				<td class="form_label" align="right" width="10%" nowrap="nowrap">设备名称：</td>
+				<td class="form_label" align="right" width="10%" nowrap="nowrap">${sheBeiShuX.DEVICE_NAME }：</td>
 					<td colspan="1"  width="20%" nowrap="nowrap">
 						<d:select  id="deviceName"  dictTypeId="DEVICE_NAME" property="device.deviceName" nullLabel="请选择" onchange="devicename(this.value)"></d:select>
 					</td>
@@ -73,11 +73,11 @@ margin-left:inherit;
 					<td colspan="1" width="30%" nowrap="nowrap"><h:text id="remarks_2"
 						property="device.remarks_2" size="15" validateAttr="maxLength=127;" /></td>
 		
-					<td class="form_label" align="right" width="10%" nowrap="nowrap">其他属性3：</td>
+					<td class="form_label" align="right" width="10%" nowrap="nowrap">${sheBeiShuX.DEVICE_OTHERATTRIBUTE_3 }：</td>
 					<td colspan="1" width="30%" nowrap="nowrap">
 					<d:select id="otherAttribute_3"  dictTypeId="DEVICE_OTHERATTRIBUTE_3" property="device.otherAttribute_3" nullLabel="请选择"></d:select>
 				</td>
-					<td class="form_label" align="right" width="10%" nowrap="nowrap">其他信息3：</td>
+					<td class="form_label" align="right" width="10%" nowrap="nowrap">${sheBeiShuX.DEVICE_OTHERINFO_3 }：</td>
 					<td colspan="1" width="30%" nowrap="nowrap">
 					<d:checkbox     perrow="12"    id="otherInfo_3"  dictTypeId="DEVICE_OTHERINFO_3" property="device.otherInfo_3"  seperator=", " />
 				</td>
@@ -85,9 +85,7 @@ margin-left:inherit;
 				</tr>
 				<tr>
 					<tr>
-						<td class="form_label" align="right" width="10%" nowrap="nowrap">型号
-
-：</td>
+						<td class="form_label" align="right" width="10%" nowrap="nowrap"> ${sheBeiShuX.DEVICE_MODEL} :</td>
 						<td colspan="1" width="30%" nowrap="nowrap">
 						<select
 							id="deviceModels" onchange="changedeviceModel()">
@@ -100,15 +98,15 @@ margin-left:inherit;
 					<td colspan="1" width="30%" nowrap="nowrap">
 					<d:select id="otherAttribute_1"  dictTypeId="DEVICE_OTHERATTRIBUTE_1" property="device.otherAttribute_1" nullLabel="请选择"></d:select>
 				</td>
-					<td class="form_label" align="right" width="10%" nowrap="nowrap">设备状态：</td>
+					<td class="form_label" align="right" width="10%" nowrap="nowrap">${sheBeiShuX.DEVICE_STATE }：</td>
 					<td colspan="1"  width="25%" nowrap="nowrap" >
 						<d:select  id="deviceState"  dictTypeId="DEVICE_STATE" property="device.deviceState" nullLabel="请选择"></d:select>
 					</td>
-					<td class="form_label" align="right" width="10%" nowrap="nowrap">其他属性4：</td>
+					<td class="form_label" align="right" width="10%" nowrap="nowrap">${sheBeiShuX.DEVICE_OTHERATTRIBUTE_4 }：</td>
 					<td colspan="1" width="30%" nowrap="nowrap">
 					<d:select id="otherAttribute_4"  dictTypeId="DEVICE_OTHERATTRIBUTE_4" property="device.otherAttribute_4" nullLabel="请选择"></d:select>
 				</td>
-					<td class="form_label" align="right" width="10%" nowrap="nowrap">其他信息4：</td>
+					<td class="form_label" align="right" width="10%" nowrap="nowrap">${sheBeiShuX.DEVICE_OTHERINFO_4 }：</td>
 					<td colspan="1" width="30%" nowrap="nowrap">
 					<d:checkbox  perrow="12"     id="otherInfo_4"  dictTypeId="DEVICE_OTHERINFO_4" property="device.otherInfo_4"  seperator=", " />
 				</td>
@@ -136,30 +134,30 @@ margin-left:inherit;
 						＜硬盘容量(G)＜
 						<h:text id="hardDiskMax" property="device.hardDiskMax" size="5"  validateAttr="fracDigit=2;type=double;"  />G
 					</td>
-					<td class="form_label" align="right" width="10%" nowrap="nowrap">IE版本：</td>
+					<td class="form_label" align="right" width="10%" nowrap="nowrap"> ${sheBeiShuX.DEVICE_IE_VERSION} :</td>
 					<td colspan="1"  width="24%" nowrap="nowrap">
 						<d:select  id="ieVersion"  dictTypeId="DEVICE_IE_VERSION" property="device.ieVersion" nullLabel="请选择"></d:select>
 					</td>
-					<td class="form_label" align="right" width="10%" nowrap="nowrap">操作系统版本：</td>
+					<td class="form_label" align="right" width="10%" nowrap="nowrap">${sheBeiShuX.DEVICE_OS_VERSION }：</td>
 					<td colspan="1"  width="23%" nowrap="nowrap">
 						<d:select  id="osVersion"  dictTypeId="DEVICE_OS_VERSION" property="device.osVersion" nullLabel="请选择"  ></d:select>
 					</td>
 				</tr>
 								<tr>
-					<td class="form_label" align="right" width="10%" nowrap="nowrap">用途：</td>
+					<td class="form_label" align="right" width="10%" nowrap="nowrap">${sheBeiShuX.DEVICE_USEFUL }：</td>
 					<td colspan="10"  width="90%" nowrap="nowrap">
 					<d:checkbox perrow="12" id="useful"  name="device.useful" dictTypeId="DEVICE_USEFUL" property="device.useful"  seperator=", "  />
 					</td>
 				</tr>
 				<tr>
-					<td class="form_label" align="right" width="10%" nowrap="nowrap">安装的插件：</td>
+					<td class="form_label" align="right" width="10%" nowrap="nowrap">${sheBeiShuX.DEVICE_PLUGIN }：</td>
 					<td colspan="10"  width="90%" nowrap="nowrap">
 						<d:checkbox perrow="12" id="plugIn"  name="device.plugIn" dictTypeId="DEVICE_PLUGIN" property="device.plugIn"   seperator=", " />
 					</td>
 				
 				</tr>
 				<tr>
-					<td class="form_label" align="right" width="10%" nowrap="nowrap">对应的外设：</td>
+					<td class="form_label" align="right" width="10%" nowrap="nowrap">${sheBeiShuX.DEVICE_PERIPHERAL }：</td>
 					<td colspan="10"  width="90%" nowrap="nowrap">
 						<d:checkbox perrow="12" id="peripheral"  name="device.peripheral"  dictTypeId="DEVICE_PERIPHERAL" property="device.peripheral"   seperator=", "  />
 					</td>

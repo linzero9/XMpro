@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.gotop.deviceManagement.model.DevicePo;
+import com.gotop.dict.model.EosDictType;
 import com.primeton.utils.Page;
 
 public interface IDeviceManagementDAO {
@@ -30,4 +31,7 @@ public interface IDeviceManagementDAO {
 	List queryType(Map<String, String> map);
     //合计
 	List heJi(Map<String, Object> map);
+	//属性名称查询
+	String getEosDictTypeBydictTypeId(EosDictType eosDictType);
+	
 }

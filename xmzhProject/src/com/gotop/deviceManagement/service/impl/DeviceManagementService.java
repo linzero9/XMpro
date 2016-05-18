@@ -13,6 +13,7 @@ import com.gotop.deviceManagement.model.DevicePo;
 import com.gotop.deviceManagement.model.HeJi;
 import com.gotop.deviceManagement.model.Sum;
 import com.gotop.deviceManagement.service.IDeviceManagementService;
+import com.gotop.dict.model.EosDictType;
 import com.gotop.util.export.ExcelTemplate;
 import com.gotop.vo.system.MUOUserSession;
 import com.primeton.utils.Page;
@@ -614,5 +615,12 @@ public class DeviceManagementService implements IDeviceManagementService{
 		
 		List list = deviceManagementDAO.heJi(map);
         return list;
+	}
+//属性名称
+	@Override
+	public String getEosDictTypeBydictTypeId(String eosDictTypeId) {
+		EosDictType eosDictType=new EosDictType();
+		eosDictType.setDictTypeId(eosDictTypeId);
+		return deviceManagementDAO.getEosDictTypeBydictTypeId(eosDictType);
 	}
 }

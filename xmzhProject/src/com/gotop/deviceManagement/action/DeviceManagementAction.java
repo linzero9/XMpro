@@ -16,6 +16,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -69,6 +70,7 @@ import com.gotop.deviceManagement.model.Org;
 import com.gotop.deviceManagement.service.IDeviceManDetailService;
 import com.gotop.deviceManagement.service.IDeviceManagementService;
 import com.gotop.dict.model.EosDictEntry;
+import com.gotop.dict.model.EosDictType;
 import com.gotop.dict.service.IEosDictEntryService;
 import com.gotop.util.Struts2Utils;
 import com.gotop.util.time.TimeUtil;
@@ -90,8 +92,18 @@ public class DeviceManagementAction  extends BaseAction    {
 	private List<Sum> sums;
 	private List<HeJi> heJis;
 	private String deviceName;
+	
+	private Map<String, String> sheBeiShuX=new HashMap<String, String>();
 
 	
+	public Map<String, String> getSheBeiShuX() {
+		return sheBeiShuX;
+	}
+
+	public void setSheBeiShuX(Map<String, String> sheBeiShuX) {
+		this.sheBeiShuX = sheBeiShuX;
+	}
+
 	public List<HeJi> getHeJis() {
 		return heJis;
 	}
@@ -252,8 +264,63 @@ public class DeviceManagementAction  extends BaseAction    {
 	public String toImportExcel(){
 		return "importExcel";
 	}
-	
+	//设备信息管理
 	public String deviceList(){
+		//设备IE版本
+		String DEVICE_IE_VERSION=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_IE_VERSION");
+		sheBeiShuX.put("DEVICE_IE_VERSION", DEVICE_IE_VERSION);
+		//设备型号
+		String DEVICE_MODEL=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_MODEL");
+		sheBeiShuX.put("DEVICE_MODEL", DEVICE_MODEL);
+        //设备名称
+		String DEVICE_NAME=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_NAME");
+		sheBeiShuX.put("DEVICE_NAME",DEVICE_NAME);
+		//设备操作系统版本
+		String DEVICE_OS_VERSION=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OS_VERSION");
+		sheBeiShuX.put("DEVICE_OS_VERSION",DEVICE_OS_VERSION);
+		//设备其他属性1
+		String DEVICE_OTHERATTRIBUTE_1=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERATTRIBUTE_1");
+		sheBeiShuX.put("DEVICE_OTHERATTRIBUTE_1",DEVICE_OTHERATTRIBUTE_1);
+		//设备其他属性2
+		String DEVICE_OTHERATTRIBUTE_2=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERATTRIBUTE_2");
+		sheBeiShuX.put("DEVICE_OTHERATTRIBUTE_2",DEVICE_OTHERATTRIBUTE_2);
+		//设备其他属性3
+		String DEVICE_OTHERATTRIBUTE_3=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERATTRIBUTE_3");
+		sheBeiShuX.put("DEVICE_OTHERATTRIBUTE_3",DEVICE_OTHERATTRIBUTE_3);
+		//设备其他属性4
+		String DEVICE_OTHERATTRIBUTE_4=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERATTRIBUTE_4");
+		sheBeiShuX.put("DEVICE_OTHERATTRIBUTE_4",DEVICE_OTHERATTRIBUTE_4);
+		//设备其他属性5
+		String DEVICE_OTHERATTRIBUTE_5=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERATTRIBUTE_5");
+		sheBeiShuX.put("DEVICE_OTHERATTRIBUTE_5",DEVICE_OTHERATTRIBUTE_5);
+		///应用系统
+		String DEVICE_OTHERINFO_1=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERINFO_1");
+		sheBeiShuX.put("DEVICE_OTHERINFO_1",DEVICE_OTHERINFO_1);
+		//设备其他信息2
+		String DEVICE_OTHERINFO_2=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERINFO_2");
+		sheBeiShuX.put("DEVICE_OTHERINFO_2",DEVICE_OTHERINFO_2);
+		//设备其他信息3
+		String DEVICE_OTHERINFO_3=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERINFO_3");
+		sheBeiShuX.put("DEVICE_OTHERINFO_3",DEVICE_OTHERINFO_3);
+		//设备其他信息4
+		String DEVICE_OTHERINFO_4=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERINFO_4");
+		sheBeiShuX.put("DEVICE_OTHERINFO_4",DEVICE_OTHERINFO_4);
+		//设备其他信息5
+		String DEVICE_OTHERINFO_5=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERINFO_5");
+		sheBeiShuX.put("DEVICE_OTHERINFO_5",DEVICE_OTHERINFO_5);
+		//设备对应的外设
+		String DEVICE_PERIPHERAL=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_PERIPHERAL");
+		sheBeiShuX.put("DEVICE_PERIPHERAL",DEVICE_PERIPHERAL);
+		//设备安装的插件
+		String DEVICE_PLUGIN=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_PLUGIN");
+		sheBeiShuX.put("DEVICE_PLUGIN",DEVICE_PLUGIN);
+		//设备状态
+		String DEVICE_STATE=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_STATE");
+		sheBeiShuX.put("DEVICE_STATE",DEVICE_STATE);
+		//设备用途
+		String DEVICE_USEFUL=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_USEFUL");
+		sheBeiShuX.put("DEVICE_USEFUL",DEVICE_USEFUL);
+		
 
     	if(device == null){
     		device = new DevicePo();

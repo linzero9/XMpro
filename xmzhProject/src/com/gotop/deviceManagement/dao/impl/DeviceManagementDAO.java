@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 
 import com.gotop.deviceManagement.dao.IDeviceManagementDAO;
 import com.gotop.deviceManagement.model.DevicePo;
+import com.gotop.dict.model.EosDictType;
 import com.gotop.util.dataSource.SqlMapClientDao;
 import com.primeton.utils.Page;
 
@@ -124,5 +125,15 @@ public class DeviceManagementDAO extends SqlMapClientDao implements IDeviceManag
 	public List heJi(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		return queryForList("T_DEVICE_SqlMap.querySumList2",map);
+	}
+
+	//属性名称查询
+	@Override
+	public String getEosDictTypeBydictTypeId(EosDictType eosDictType) {
+		//String dictTypeName=  getEosDictTypeNameBydictTypeId
+		//EosDictType dictType=(EosDictType) getSqlMapClientTemplate().queryForObject(dictTypeId);
+		EosDictType dictType=(EosDictType) queryForObject("T_DEVICE_SqlMap.getEosDictTypeNameBydictTypeId", eosDictType);
+		String dictTypeName=dictType.getDictTypeName();
+		return dictTypeName;
 	}
 }

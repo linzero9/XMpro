@@ -7,6 +7,7 @@ import com.gotop.deviceManagement.model.DeviceDetail;
 import com.gotop.deviceManagement.model.DevicePo;
 import com.gotop.deviceManagement.model.HeJi;
 import com.gotop.deviceManagement.model.Sum;
+import com.gotop.dict.model.EosDictType;
 import com.gotop.vo.system.MUOUserSession;
 import com.primeton.utils.Page;
 
@@ -43,4 +44,6 @@ public interface IDeviceManagementService {
 	List<DevicePo> queryType(String deviceName);
    //合计
 	 List<HeJi> heJi(DevicePo device, String orgcodeTemp);
+	 //属性名称
+	 String getEosDictTypeBydictTypeId(String eosDictTypeId);
 }

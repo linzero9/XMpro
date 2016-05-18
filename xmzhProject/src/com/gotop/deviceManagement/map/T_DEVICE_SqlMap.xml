@@ -63,6 +63,17 @@
     <!--Bean方式返回全表-->
     <result column="heji" property="heJi" jdbcType="DECIMAL" />
   </resultMap>
+    <!-- 设备属性名称查询18个-->
+  	<resultMap id="eosDictTypeResult" class="com.gotop.dict.model.EosDictType" >
+    <result column="DICTTYPEID" property="dictTypeId" jdbcType="VARCHAR" />
+    <result column="DICTTYPENAME" property="dictTypeName" jdbcType="VARCHAR" />
+  </resultMap>
+      <!-- //根据dictTypeId查询属性名称 -->
+        <select id="getEosDictTypeNameBydictTypeId" resultMap="eosDictTypeResult" parameterClass="com.gotop.dict.model.EosDictType" >
+    	select t.DICTTYPEID, t.DICTTYPENAME from EOS_DICT_TYPE t
+     	where t.DICTTYPEID = #dictTypeId:VARCHAR# 
+       </select>
+  
   <!-- 查询设备名称下的设备型号 -->
     <select id="queryType" resultMap="model" parameterClass="java.util.HashMap" >
  	select b.dictid, b.dictname
