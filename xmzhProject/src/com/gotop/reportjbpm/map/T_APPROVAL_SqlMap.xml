@@ -172,11 +172,11 @@
            ON A10.EXECUTION_=Z.FLOW_ID
             where 1=1
    <isNotNull prepend="and" property="repTimeStrat">
-   <![CDATA[uptime>=#repTimeStrat#]]>
+   <![CDATA[Z.REPORTTIME>=#repTimeStrat#]]>
    </isNotNull>
    
    <isNotNull prepend="and" property="repTimeEnd">
-   <![CDATA[uptime<=#repTimeEnd#]]>
+   <![CDATA[Z.REPORTTIME<=#repTimeEnd#]]>
    </isNotNull>
       
       <isNotNull prepend="and" property="appTimeStrat" >

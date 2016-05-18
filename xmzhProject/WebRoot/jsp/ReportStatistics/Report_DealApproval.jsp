@@ -15,7 +15,7 @@
 			<table align="center" border="0" width="100%" class="form_table">
 				
 				<tr>
-                                        <td class="form_label" align="right" width="20%">上报日期：</td>
+                                        <td class="form_label" align="right" width="20%">报单日期：</td>
 					<td colspan="1" width="30%">
 					从
 					<w:date  format="yyyy-MM-dd" submitFormat="yyyy-MM-dd" id="repTimeStrat" name="approval.repTimeStrat" 
