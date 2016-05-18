@@ -144,7 +144,19 @@ public class EosDictEntryAction extends BaseAction {
 		}
 		Struts2Utils.renderText(info);
     }
-	
+	//保存设备名称修改
+	public void updateItemName() throws Exception{
+    	String info ="success";
+    	try {
+    		this.eosDictEntryService.updateItemName(dictType);
+    	} catch (Exception e) {
+			info="fails";
+			log.error("[保存设备信息失败！]", e);
+			throw e;
+		}finally{	
+		}
+		Struts2Utils.renderText(info);
+    }
 	public void updateItem() throws Exception{
     	String info ="success";
     	try {

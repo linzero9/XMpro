@@ -101,5 +101,11 @@ public class EosDictEntryService implements IEosDictEntryService {
 		
 		return eosDictEntryDAO.getEosDictTypeBydictTypeId(dictType);
 	}
+//修改属性名称
+	@Override
+	public void updateItemName(EosDictType dictType) {
+		eosDictEntryDAO.updateItemNameBydictTypeId(dictType);
+		
+	}
 
 }

@@ -85,4 +85,10 @@ public class EosDictEntryDAO extends SqlMapClientDao implements IEosDictEntryDAO
 		return (EosDictType) queryForObject("EOS_DICT_ENTRY_SqlMap.getEosDictTypeBydictTypeId", dictType);
 	}
 
+	@Override
+	public int updateItemNameBydictTypeId(EosDictType dictType) {
+		 int rows = getSqlMapClientTemplate().update("EOS_DICT_ENTRY_SqlMap.updateItemNameBydictTypeId", dictType);
+	        return rows;
+	}
+
 }

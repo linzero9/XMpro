@@ -28,6 +28,13 @@
     	select t.DICTTYPEID, t.DICTTYPENAME from EOS_DICT_TYPE t
      	where t.DICTTYPEID = #dictTypeId:VARCHAR# 
        </select>
+        <!-- //根据dictTypeId修改属性名称-->
+         <update id="updateItemNameBydictTypeId" parameterClass="com.gotop.dict.model.EosDictType" >
+    update EOS_DICT_TYPE t
+    set t.DICTTYPENAME = #dictTypeName:VARCHAR#
+    where t.DICTTYPEID = #dictTypeId:VARCHAR# 
+        </update>
+       
     <select id="getDictEntryById" resultMap="eosDictEntryResult" parameterClass="com.gotop.dict.model.EosDictEntry" >
    select t.DICTTYPEID, t.DICTID, t.DICTNAME from EOS_DICT_ENTRY t
    	where t.DICTTYPEID = #dictTypeId:VARCHAR# 

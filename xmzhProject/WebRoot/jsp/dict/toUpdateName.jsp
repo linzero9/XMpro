@@ -9,7 +9,7 @@
 <title>修改属性名称</title>
 </head>
 <body topmargin="0" leftmargin="0">
-<h:form name="data_form"  id="data_form" action="/dict/eosDictEntryAction_updateItem.action"  enctype="multipart/form-data" method="post" >
+<h:form name="data_form"  id="data_form" action="/dict/eosDictEntryAction_updateItemName.action"  enctype="multipart/form-data" method="post" >
 		<table align="center" border="0" width="100%" class="form_table">
 			<h:hidden id="dictTypeId" property="dictType.dictTypeId"  name="dictType.dictTypeId"/>		
 			<tr>	
