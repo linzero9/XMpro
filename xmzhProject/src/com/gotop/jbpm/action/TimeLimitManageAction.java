@@ -652,30 +652,7 @@ public class TimeLimitManageAction extends BaseAction {
 	 * @return
 	 */
 	public String toAddWorkTime(){
-		TimeBean timeBean = new TimeBean();
-		timeBean.setMianID(workTimeMainBean.getId());
-		
-		List<WorkTimeSideBean> workTimeSideBeans = this.timeLimitManageService.queryWorkTimeList(workTimeMainBean);
-		for (WorkTimeSideBean workTimeSideBean : workTimeSideBeans) {
-			if("1".equals(workTimeSideBean.getTimeType())){
-				timeBean.setId1(workTimeSideBean.getId());
-				timeBean.setStartTime1(workTimeSideBean.getStartTime());
-				timeBean.setEndTime1(workTimeSideBean.getEndTime());
-			}
-			if("2".equals(workTimeSideBean.getTimeType())){
-				timeBean.setId2(workTimeSideBean.getId());
-				timeBean.setStartTime2(workTimeSideBean.getStartTime());
-				timeBean.setEndTime2(workTimeSideBean.getEndTime());
-			}
-			if("3".equals(workTimeSideBean.getTimeType())){
-				timeBean.setId3(workTimeSideBean.getId());
-				timeBean.setStartTime3(workTimeSideBean.getStartTime());
-				timeBean.setEndTime3(workTimeSideBean.getEndTime());
-			}
-		}
-		
-		this.setTimeBean(timeBean);
-		this.setWorkTimeMainBean(workTimeMainBean);
+		//System.out.println(workTimeSideBean.getMainID());
 		return "add_workTime";
 	}
 	
@@ -735,56 +712,59 @@ public class TimeLimitManageAction extends BaseAction {
 		String info ="success";
 		
     	try {
-    		WorkTimeSideBean workTimeSideBean = new WorkTimeSideBean();
-    		workTimeSideBean.setMainID(timeBean.getMianID());
-    		
-    		workTimeSideBean.setTimeType("1");
-			workTimeSideBean.setStartTime(timeBean.getStartTime1());
-			workTimeSideBean.setEndTime(timeBean.getEndTime1());
-    		if(timeBean.getId1() == null){
-    			
-    			//插入一条 上午 的配置信息
+    		String[] types = 	workTimeSideBean.getTimeType().split(",");
+    		String[] starts = workTimeSideBean.getStartTime().split(",");
+    		String[] ends = workTimeSideBean.getEndTime().split(",");
+    		for (int i = 0; i < types.length; i++) {
+				workTimeSideBean.setTimeType(types[i]);
+				workTimeSideBean.setStartTime(starts[i]);
+				workTimeSideBean.setEndTime(ends[i]);
+				
+				//插入一条 时间 的配置信息
     			this.timeLimitManageService.saveWorkTimeIntoTimeSide(workTimeSideBean);
-    		}else{
-    			workTimeSideBean.setId(timeBean.getId1());
-    			//修改一条 上午 的配置信息
+    			
+    			/*//修改一条 晚上 的配置信息
     			this.timeLimitManageService.updateWorkTimeById(workTimeSideBean);
-    		}
-    		
-    		workTimeSideBean.setTimeType("2");
-    		workTimeSideBean.setStartTime(timeBean.getStartTime2());
-    		workTimeSideBean.setEndTime(timeBean.getEndTime2());
-    		if(timeBean.getId2() == null){
-    			
-    			//插入一条 下午 的配置信息
-        		this.timeLimitManageService.saveWorkTimeIntoTimeSide(workTimeSideBean);
-    		}else{
-    			workTimeSideBean.setId(timeBean.getId2());
-    			//修改一条 下午 的配置信息
-    			this.timeLimitManageService.updateWorkTimeById(workTimeSideBean);
-    		}
-    		
-    		workTimeSideBean.setTimeType("3");
-			workTimeSideBean.setStartTime(timeBean.getStartTime3());
-			workTimeSideBean.setEndTime( timeBean.getEndTime3());
-    		if(timeBean.getId3() == null){
-    			
-    			//插入一条 晚上 的配置信息
-    			if(!("null".equals( timeBean.getStartTime3()))  && !("null".equals(timeBean.getEndTime3()) )){
-    				this.timeLimitManageService.saveWorkTimeIntoTimeSide(workTimeSideBean);
-    			}
-    		}else{
-    			workTimeSideBean.setId(timeBean.getId3());
-    			
-    			//修改一条 晚上 的配置信息
-    			if(!("null".equals( timeBean.getStartTime3()))  && !("null".equals(timeBean.getEndTime3()) )){
-    				this.timeLimitManageService.updateWorkTimeById(workTimeSideBean);
-    			}
     			//删除一条 晚上 的配置信息
-    			if(("null".equals( timeBean.getStartTime3()))  && ("null".equals(timeBean.getEndTime3()) )){
-    				this.timeLimitManageService.deleteWorkTimeById(workTimeSideBean);
-    			}
+    			this.timeLimitManageService.deleteWorkTimeById(workTimeSideBean);*/
+			}
+    	} catch (Exception e) {
+			info="fails";
+			log.error("[失败！]", e);
+			throw e;
+		}finally{	
+			Struts2Utils.renderText(info);
+		}
+	}
+	
+	public void delWorkTime() {
+		String info ="success";
+		try {
+			this.timeLimitManageService.deleteWorkTimeById(workTimeSideBean);
+    	} catch (Exception e) {
+			info="fails";
+			log.error("[失败！]", e);
+		}finally{	
+			Struts2Utils.renderText(info);
+		}
+		
+	}
+	
+	/**
+	 * @author iaomeiting
+	 * 校验 日期不能在之前配过的时间范围内
+	 * @throws Exception
+	 */
+	public void checkDate() throws Exception{
+		String info ="";
+    	try {
+    		List list = this.timeLimitManageService.checkDate(time);
+    		if(list.size() > 0){
+    			info = "exist";
+    		}else{
+    			info = "notExist";
     		}
+    		
     	} catch (Exception e) {
 			info="fails";
 			log.error("[失败！]", e);
@@ -795,13 +775,14 @@ public class TimeLimitManageAction extends BaseAction {
 	}
 	
 	/**
-	 * 校验 时间不能在之前配过的时间范围内
+	 * @author liaomeiting
+	 * 校验 工作时间不能在之前配过的时间范围内
 	 * @throws Exception
 	 */
-	public void checkDate() throws Exception{
+	public void checkWorkTime() throws Exception{
 		String info ="";
     	try {
-    		List list = this.timeLimitManageService.checkDate(time);
+    		List list = this.timeLimitManageService.checkWorkTime(time);
     		if(list.size() > 0){
     			info = "exist";
     		}else{

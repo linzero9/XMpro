@@ -158,7 +158,7 @@
     			var startDate = row.getParam("startDate");
     			var endDate = row.getParam("endDate");
     			
-				var strUrl = "/jbpm/timeLimitManageAction_toAddWorkTime.action?workTimeMainBean.id="+id;
+				var strUrl = "/jbpm/timeLimitManageAction_toAddWorkTime.action?workTimeSideBean.mainID="+id;
 				strUrl += "&workTimeMainBean.startDate="+startDate+"&workTimeMainBean.endDate="+endDate;
 	  			showModalCenter(strUrl, null, '', 800, 400, '维护工作时间');  
 	  		}

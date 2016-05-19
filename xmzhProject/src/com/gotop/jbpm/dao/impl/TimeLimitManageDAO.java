@@ -175,7 +175,11 @@ public class TimeLimitManageDAO extends SqlMapClientDao  implements ITimeLimitMa
 	}
 
 
+	@Override
+	public List checkWorkTime(Map<String, String> time) {
+		List list = this.queryForList("TimeLimitManage_SqlMap.checkWorkTime", time);
+		return list;
+	}
 
-	
 
 }

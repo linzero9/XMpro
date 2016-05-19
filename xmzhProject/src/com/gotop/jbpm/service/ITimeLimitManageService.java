@@ -69,7 +69,11 @@ public interface ITimeLimitManageService {
 
 	void deleteWorkTimeById(WorkTimeSideBean workTimeSideBean);
 
+
 	List<ProLoanBean> queryOneCategorylist1(ProLoanBean proLoanBean);
 
 	List<ProLoanBean> queryLoanCategorylist1(ProLoanBean proLoanBean);
+
+	List checkWorkTime(Map<String, String> time);
+
 }

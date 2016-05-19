@@ -10,6 +10,8 @@
 	</head>
 	<body topmargin="0" leftmargin="0">
 	
+	<h:hidden id="mainID"   property="workTimeMainBean.id"  />
+	
 	<DIV class="divList">
 			<w:panel id="panel" width="100%" title="工作时间配置列表">
 				<viewlist id="e2c61865-3b56-470d-bd42-fff792fb9493">
@@ -22,9 +24,9 @@
 					<h:hiddendata property="time"/>
 					<table align="center" border="0" width="100%" class="EOS_table">
 						<tr>
-							<%-- <th align="center" nowrap="nowrap">
+							<th align="center" nowrap="nowrap">
 								<b:message key="l_select"></b:message>
-							</th> --%>
+							</th>
 							<th nowrap="nowrap">
 								时间类型
 							</th>
@@ -46,13 +48,14 @@
 					 	<w:radioGroup id="group1">
 					 	<l:iterate property="workTimeSideBeans" id="id1">
 							<tr class="<l:output evenOutput='EOS_table_row' oddOutput='EOS_table_row_o'  />">
-								<%-- <td align="center" nowrap="nowrap" width="5%">
+								<td align="center" nowrap="nowrap" width="10%">
 								<w:rowRadio>
 										<h:param name='id' iterateId='id1' property='id' />
+										<h:param name='mainID' iterateId='id1' property='mainID' />
 									</w:rowRadio>
-								</td> --%>
+								</td>
 								<td nowrap="nowrap"> 
-									<d:write iterateId="id1" dictTypeId="TIMELIMIT_TIMETYPE"  property="timeType"   />
+									<b:write iterateId="id1" property="timeType"   />
 								</td>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1" property="startTime" />
@@ -67,13 +70,13 @@
                           
 						<tr>
               <td colspan="23" class="command_sort_area">
-							<%-- <div class="h3">
+							<div class="h3">
 								&nbsp; &nbsp;
-							<l:greaterThan property="page.count" targetValue="0" compareType="number" >
+							<l:notEqual property="workTimeSideBeans.size"  targetValue="0">
 								&nbsp; &nbsp;
 								<input type="button" class="button" value="删除" onclick="del();" />
-							</l:greaterThan>
-							</div> --%>
+							</l:notEqual>
+							</div>
 							<%-- <div class="h4">
 	                <l:equal property="page.isCount" targetValue="true" >
 	                  <b:message key="l_total"></b:message>
@@ -104,6 +107,46 @@
 			</w:panel>		
 		</DIV>
 		<script type="text/javascript">
+		function del(){
+	  		var gop = $id("group1");
+	  		var len = gop.getSelectLength();
+	  		if(len == 0){
+	  			alert("请选择一条记录");
+	  			return;
+	  		}else{
+	  		  if(confirm("确定要删除该项吗？")){
+	    			var row=gop.getSelectRow();
+	    			var id = row.getParam("id");
+		    			
+		  	  		$.ajax({
+		  			      url: "/jbpm/timeLimitManageAction_delWorkTime.action",
+		  			      async: false,
+		  			      type: 'post',
+		  			      data: "workTimeSideBean.id="+id,
+		  			      timeout: 60000,
+		  			      dataType:"text",
+		  			      success: function (data) {
+		  			    	  if (data.indexOf("success") >= 0) {
+		  			    		  alert("删除成功");
+		  			    		  callBackFunc();
+		  					} else if (data.indexOf("fails") >= 0) {
+		  						alert("删除失败!");
+		  					} else {
+		  						alert("操作失败!");
+		  					}
+		  							  	
+		  			      }
+		  			}); 
+		    	}
+	  				
+		  	}
+		 }
+
+		function callBackFunc(){
+			var mainID = $id("mainID").value;
+			var strUrl = "/jbpm/timeLimitManageAction_queryWorkTimeList.action?workTimeMainBean.id="+mainID;
+			window.location.href=strUrl; 
+	    }
 		</script>
 	</body>
 </html>

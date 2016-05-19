@@ -276,6 +276,11 @@ public class TimeLimitManageService implements ITimeLimitManageService {
 	}
 
 
+	@Override
+	public List checkWorkTime(Map<String, String> time) {
+		List list = this.timeLimitManageDAO.checkWorkTime(time);
+		return list;
+	}
 
 	
 	

@@ -63,8 +63,12 @@ public interface ITimeLimitManageDAO {
 
 	void deleteWorkTimeById(WorkTimeSideBean workTimeSideBean);
 
+
 	List queryOneCategorylist1(Map<String, Object> map);
 
 	List queryLoanCategorylist1(Map<String, Object> map);
+
+	List checkWorkTime(Map<String, String> time);
+
 
 }

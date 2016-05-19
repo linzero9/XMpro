@@ -285,10 +285,10 @@ ORDER  BY  credit_type  DESC
  select t.*
   from t_model_timeSide t
  where t.mainid = '$id$'
- order by t.timeType
+ order by t.startTime
  </select>
  
-   <!--校验 时间不能在之前配过的时间范围内 -->
+   <!--校验 日期不能在之前配过的时间范围内 -->
   <select id="checkDate" resultClass="java.util.HashMap" parameterClass="java.util.HashMap" >
  select *
   from t_model_timeMain
@@ -297,6 +297,17 @@ ORDER  BY  credit_type  DESC
   <![CDATA[  (startDate <= to_date('$startDate$','yyyy/MM/dd') and endDate > to_date('$startDate$','yyyy/MM/dd'))
     or (startDate < to_date('$endDate$','yyyy/MM/dd') and endDate >= to_date('$endDate$','yyyy/MM/dd'))
     or (startDate >= to_date('$startDate$','yyyy/MM/dd') and endDate <= to_date('$endDate$','yyyy/MM/dd'))   ]]>
+ )
+ </select>
+ 
+ <!--校验 时间不能在之前配过的时间范围内 -->
+  <select id="checkWorkTime" resultClass="java.util.HashMap" parameterClass="java.util.HashMap" >
+  select *   from t_model_timeSide
+ where 1=1 and
+ (
+  <![CDATA[  (startTime <= '$startTime$' and endTime >= '$startTime$')
+    or (startTime <= '$endTime$' and endTime >= '$endTime$')
+    or (startTime >= '$startTime$' and endTime <= '$endTime$')   ]]>
  )
  </select>
  
