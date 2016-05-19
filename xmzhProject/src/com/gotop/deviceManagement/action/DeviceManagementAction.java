@@ -247,6 +247,8 @@ public class DeviceManagementAction  extends BaseAction    {
 	//输出统计
 	public String sumUpDevice(){
 
+		
+		
     	if(device == null){
     		device = new DevicePo();
     	}
@@ -266,62 +268,8 @@ public class DeviceManagementAction  extends BaseAction    {
 	}
 	//设备信息管理
 	public String deviceList(){
-		//设备IE版本
-		String DEVICE_IE_VERSION=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_IE_VERSION");
-		sheBeiShuX.put("DEVICE_IE_VERSION", DEVICE_IE_VERSION);
-		//设备型号
-		String DEVICE_MODEL=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_MODEL");
-		sheBeiShuX.put("DEVICE_MODEL", DEVICE_MODEL);
-        //设备名称
-		String DEVICE_NAME=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_NAME");
-		sheBeiShuX.put("DEVICE_NAME",DEVICE_NAME);
-		//设备操作系统版本
-		String DEVICE_OS_VERSION=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OS_VERSION");
-		sheBeiShuX.put("DEVICE_OS_VERSION",DEVICE_OS_VERSION);
-		//设备其他属性1
-		String DEVICE_OTHERATTRIBUTE_1=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERATTRIBUTE_1");
-		sheBeiShuX.put("DEVICE_OTHERATTRIBUTE_1",DEVICE_OTHERATTRIBUTE_1);
-		//设备其他属性2
-		String DEVICE_OTHERATTRIBUTE_2=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERATTRIBUTE_2");
-		sheBeiShuX.put("DEVICE_OTHERATTRIBUTE_2",DEVICE_OTHERATTRIBUTE_2);
-		//设备其他属性3
-		String DEVICE_OTHERATTRIBUTE_3=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERATTRIBUTE_3");
-		sheBeiShuX.put("DEVICE_OTHERATTRIBUTE_3",DEVICE_OTHERATTRIBUTE_3);
-		//设备其他属性4
-		String DEVICE_OTHERATTRIBUTE_4=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERATTRIBUTE_4");
-		sheBeiShuX.put("DEVICE_OTHERATTRIBUTE_4",DEVICE_OTHERATTRIBUTE_4);
-		//设备其他属性5
-		String DEVICE_OTHERATTRIBUTE_5=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERATTRIBUTE_5");
-		sheBeiShuX.put("DEVICE_OTHERATTRIBUTE_5",DEVICE_OTHERATTRIBUTE_5);
-		///应用系统
-		String DEVICE_OTHERINFO_1=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERINFO_1");
-		sheBeiShuX.put("DEVICE_OTHERINFO_1",DEVICE_OTHERINFO_1);
-		//设备其他信息2
-		String DEVICE_OTHERINFO_2=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERINFO_2");
-		sheBeiShuX.put("DEVICE_OTHERINFO_2",DEVICE_OTHERINFO_2);
-		//设备其他信息3
-		String DEVICE_OTHERINFO_3=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERINFO_3");
-		sheBeiShuX.put("DEVICE_OTHERINFO_3",DEVICE_OTHERINFO_3);
-		//设备其他信息4
-		String DEVICE_OTHERINFO_4=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERINFO_4");
-		sheBeiShuX.put("DEVICE_OTHERINFO_4",DEVICE_OTHERINFO_4);
-		//设备其他信息5
-		String DEVICE_OTHERINFO_5=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERINFO_5");
-		sheBeiShuX.put("DEVICE_OTHERINFO_5",DEVICE_OTHERINFO_5);
-		//设备对应的外设
-		String DEVICE_PERIPHERAL=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_PERIPHERAL");
-		sheBeiShuX.put("DEVICE_PERIPHERAL",DEVICE_PERIPHERAL);
-		//设备安装的插件
-		String DEVICE_PLUGIN=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_PLUGIN");
-		sheBeiShuX.put("DEVICE_PLUGIN",DEVICE_PLUGIN);
-		//设备状态
-		String DEVICE_STATE=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_STATE");
-		sheBeiShuX.put("DEVICE_STATE",DEVICE_STATE);
-		//设备用途
-		String DEVICE_USEFUL=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_USEFUL");
-		sheBeiShuX.put("DEVICE_USEFUL",DEVICE_USEFUL);
-		
-
+		//设备属性名称 在页面上的显示
+		sheBeiShuXName();
     	if(device == null){
     		device = new DevicePo();
     	}
@@ -341,60 +289,8 @@ public class DeviceManagementAction  extends BaseAction    {
 	
 	//设备列表 导出Excel
 	public String exportExcel(){
-		//设备IE版本
-		String DEVICE_IE_VERSION=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_IE_VERSION");
-		sheBeiShuX.put("DEVICE_IE_VERSION", DEVICE_IE_VERSION);
-		//设备型号
-		String DEVICE_MODEL=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_MODEL");
-		sheBeiShuX.put("DEVICE_MODEL", DEVICE_MODEL);
-        //设备名称
-		String DEVICE_NAME=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_NAME");
-		sheBeiShuX.put("DEVICE_NAME",DEVICE_NAME);
-		//设备操作系统版本
-		String DEVICE_OS_VERSION=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OS_VERSION");
-		sheBeiShuX.put("DEVICE_OS_VERSION",DEVICE_OS_VERSION);
-		//设备其他属性1
-		String DEVICE_OTHERATTRIBUTE_1=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERATTRIBUTE_1");
-		sheBeiShuX.put("DEVICE_OTHERATTRIBUTE_1",DEVICE_OTHERATTRIBUTE_1);
-		//设备其他属性2
-		String DEVICE_OTHERATTRIBUTE_2=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERATTRIBUTE_2");
-		sheBeiShuX.put("DEVICE_OTHERATTRIBUTE_2",DEVICE_OTHERATTRIBUTE_2);
-		//设备其他属性3
-		String DEVICE_OTHERATTRIBUTE_3=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERATTRIBUTE_3");
-		sheBeiShuX.put("DEVICE_OTHERATTRIBUTE_3",DEVICE_OTHERATTRIBUTE_3);
-		//设备其他属性4
-		String DEVICE_OTHERATTRIBUTE_4=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERATTRIBUTE_4");
-		sheBeiShuX.put("DEVICE_OTHERATTRIBUTE_4",DEVICE_OTHERATTRIBUTE_4);
-		//设备其他属性5
-		String DEVICE_OTHERATTRIBUTE_5=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERATTRIBUTE_5");
-		sheBeiShuX.put("DEVICE_OTHERATTRIBUTE_5",DEVICE_OTHERATTRIBUTE_5);
-		///应用系统
-		String DEVICE_OTHERINFO_1=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERINFO_1");
-		sheBeiShuX.put("DEVICE_OTHERINFO_1",DEVICE_OTHERINFO_1);
-		//设备其他信息2
-		String DEVICE_OTHERINFO_2=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERINFO_2");
-		sheBeiShuX.put("DEVICE_OTHERINFO_2",DEVICE_OTHERINFO_2);
-		//设备其他信息3
-		String DEVICE_OTHERINFO_3=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERINFO_3");
-		sheBeiShuX.put("DEVICE_OTHERINFO_3",DEVICE_OTHERINFO_3);
-		//设备其他信息4
-		String DEVICE_OTHERINFO_4=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERINFO_4");
-		sheBeiShuX.put("DEVICE_OTHERINFO_4",DEVICE_OTHERINFO_4);
-		//设备其他信息5
-		String DEVICE_OTHERINFO_5=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERINFO_5");
-		sheBeiShuX.put("DEVICE_OTHERINFO_5",DEVICE_OTHERINFO_5);
-		//设备对应的外设
-		String DEVICE_PERIPHERAL=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_PERIPHERAL");
-		sheBeiShuX.put("DEVICE_PERIPHERAL",DEVICE_PERIPHERAL);
-		//设备安装的插件
-		String DEVICE_PLUGIN=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_PLUGIN");
-		sheBeiShuX.put("DEVICE_PLUGIN",DEVICE_PLUGIN);
-		//设备状态
-		String DEVICE_STATE=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_STATE");
-		sheBeiShuX.put("DEVICE_STATE",DEVICE_STATE);
-		//设备用途
-		String DEVICE_USEFUL=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_USEFUL");
-		sheBeiShuX.put("DEVICE_USEFUL",DEVICE_USEFUL);
+		//设备属性名称 在页面上的显示
+		sheBeiShuXName();
 		
     	if(device == null){
     		device = new DevicePo();
@@ -1809,12 +1705,60 @@ private HashMap checkData_maxLength(String str, String colName, int i, String ms
 	//批量修改导出 下载
 	public InputStream getDownloadFile2() throws Exception{
 		System.out.println("getDownloadFile2() start.... ");
-
-		String[] headers = {"设备ID", "机构号(请参照机构号对照表)", "*设备名称(单选)", "*型号(单选)", "IP地址", "生产机器名称", "CPU型号", "内存容量(G)", "硬盘容量(G)", "*操作系统版本(单选)", 
+		//设备IE版本
+		String DEVICE_IE_VERSION=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_IE_VERSION");
+		//设备型号
+		String DEVICE_MODEL=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_MODEL");
+        //设备名称
+		String DEVICE_NAME=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_NAME");
+		//设备操作系统版本
+		String DEVICE_OS_VERSION=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OS_VERSION");
+		//设备其他属性1 是否在用
+		String DEVICE_OTHERATTRIBUTE_1=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERATTRIBUTE_1");
+		//设备其他属性2
+		String DEVICE_OTHERATTRIBUTE_2=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERATTRIBUTE_2");
+		//设备其他属性3
+		String DEVICE_OTHERATTRIBUTE_3=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERATTRIBUTE_3");
+		//设备其他属性4
+		String DEVICE_OTHERATTRIBUTE_4=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERATTRIBUTE_4");
+		//设备其他属性5
+		String DEVICE_OTHERATTRIBUTE_5=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERATTRIBUTE_5");
+		///应用系统 设备其他信息1
+		String DEVICE_OTHERINFO_1=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERINFO_1");
+		//设备其他信息2
+		String DEVICE_OTHERINFO_2=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERINFO_2");
+		//设备其他信息3
+		String DEVICE_OTHERINFO_3=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERINFO_3");
+		//设备其他信息4
+		String DEVICE_OTHERINFO_4=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERINFO_4");
+		//设备其他信息5
+		String DEVICE_OTHERINFO_5=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERINFO_5");
+		//设备对应的外设
+		String DEVICE_PERIPHERAL=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_PERIPHERAL");
+		//设备安装的插件
+		String DEVICE_PLUGIN=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_PLUGIN");
+		//设备状态
+		String DEVICE_STATE=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_STATE");
+		//设备用途
+		String DEVICE_USEFUL=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_USEFUL");
+/*		String[] headers = {"设备ID", "机构号(请参照机构号对照表)", "*设备名称(单选)", "*型号(单选)", "IP地址", "生产机器名称", "CPU型号", "内存容量(G)", "硬盘容量(G)", "*操作系统版本(单选)", 
 				"内置软件版本", "*IE版本(单选)", "*用途(多选)", "终端号", "使用人", "*安装的插件(多选)", "*对应的外设(多选)", 
 				"*是否在用(单选)", "*其他属性2(单选)", "*其他属性3(单选)", "*其他属性4(单选)", "*其他属性5(单选)", 
 				"*应用系统(多选)", "*其他信息2(多选)", "*其他信息3(多选)", "*其他信息4(多选)", "*其他信息5(多选)", 
-				"任务标记", "备注2", "备注3", "备注4", "备注5", "*设备状态(单选)"};
+				"任务标记", "备注2", "备注3", "备注4", "备注5", "*设备状态(单选)"};*/
+		String[] headers = {"设备ID", "机构号(请参照机构号对照表)", "*"+DEVICE_NAME+"(单选)", "*"+DEVICE_MODEL+"(单选)", 
+				"IP地址", "生产机器名称", "CPU型号", "内存容量(G)", "硬盘容量(G)", "*"+DEVICE_OS_VERSION+"(单选)", 
+				"内置软件版本", "*"+DEVICE_IE_VERSION+"(单选)", "*"+DEVICE_USEFUL+"(多选)", "终端号", "使用人", "*"+DEVICE_PLUGIN+"(多选)", "*"+DEVICE_PERIPHERAL+"(多选)", 
+				"*"+DEVICE_OTHERATTRIBUTE_1+"(单选)", "*"+DEVICE_OTHERATTRIBUTE_2+"(单选)", "*"+DEVICE_OTHERATTRIBUTE_3+"(单选)",
+				"*"+DEVICE_OTHERATTRIBUTE_4+"(单选)", "*"+DEVICE_OTHERATTRIBUTE_5+"(单选)", 
+				"*"+DEVICE_OTHERINFO_1+"(多选)", "*"+DEVICE_OTHERINFO_2+"(多选)", "*"+DEVICE_OTHERINFO_3+"(多选)", "*"+DEVICE_OTHERINFO_4+"(多选)", 
+				"*"+DEVICE_OTHERINFO_5+"(多选)", 
+				"备注1", "备注2", "备注3", "备注4", "备注5", "*"+DEVICE_STATE+"(单选)"};
+		
+		
+		
+		
+		
 		List<DevicePo> dataset = new ArrayList<DevicePo>();  
 		String[] deviceIdsArr=deviceIds.split(",");
 		Long deviceId ;
@@ -1870,11 +1814,58 @@ private HashMap checkData_maxLength(String str, String colName, int i, String ms
 		public InputStream getDownloadFile3() throws Exception{
 			System.out.println("getDownloadFile3() start.... ");
 
-			String[] headers = {"设备ID", "机构号(请参照机构号对照表)", "*设备名称(单选)", "*型号(单选)", "IP地址", "生产机器名称", "CPU型号", "内存容量(G)", "硬盘容量(G)", "*操作系统版本(单选)", 
+/*			String[] headers = {"设备ID", "机构号(请参照机构号对照表)", "*设备名称(单选)", "*型号(单选)", "IP地址", "生产机器名称", "CPU型号", "内存容量(G)", "硬盘容量(G)", "*操作系统版本(单选)", 
 					"内置软件版本", "*IE版本(单选)", "*用途(多选)", "终端号", "使用人", "*安装的插件(多选)", "*对应的外设(多选)", 
 					"*是否在用(单选)", "*其他属性2(单选)", "*其他属性3(单选)", "*其他属性4(单选)", "*其他属性5(单选)", 
 					"*应用系统(多选)", "*其他信息2(多选)", "*其他信息3(多选)", "*其他信息4(多选)", "*其他信息5(多选)", 
-					"任务标记", "备注2", "备注3", "备注4", "备注5", "*设备状态(单选)"};
+					"任务标记", "备注2", "备注3", "备注4", "备注5", "*设备状态(单选)"};*/
+			
+			System.out.println("getDownloadFile2() start.... ");
+			//设备IE版本
+			String DEVICE_IE_VERSION=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_IE_VERSION");
+			//设备型号
+			String DEVICE_MODEL=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_MODEL");
+	        //设备名称
+			String DEVICE_NAME=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_NAME");
+			//设备操作系统版本
+			String DEVICE_OS_VERSION=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OS_VERSION");
+			//设备其他属性1 是否在用
+			String DEVICE_OTHERATTRIBUTE_1=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERATTRIBUTE_1");
+			//设备其他属性2
+			String DEVICE_OTHERATTRIBUTE_2=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERATTRIBUTE_2");
+			//设备其他属性3
+			String DEVICE_OTHERATTRIBUTE_3=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERATTRIBUTE_3");
+			//设备其他属性4
+			String DEVICE_OTHERATTRIBUTE_4=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERATTRIBUTE_4");
+			//设备其他属性5
+			String DEVICE_OTHERATTRIBUTE_5=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERATTRIBUTE_5");
+			///应用系统 设备其他信息1
+			String DEVICE_OTHERINFO_1=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERINFO_1");
+			//设备其他信息2
+			String DEVICE_OTHERINFO_2=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERINFO_2");
+			//设备其他信息3
+			String DEVICE_OTHERINFO_3=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERINFO_3");
+			//设备其他信息4
+			String DEVICE_OTHERINFO_4=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERINFO_4");
+			//设备其他信息5
+			String DEVICE_OTHERINFO_5=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERINFO_5");
+			//设备对应的外设
+			String DEVICE_PERIPHERAL=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_PERIPHERAL");
+			//设备安装的插件
+			String DEVICE_PLUGIN=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_PLUGIN");
+			//设备状态
+			String DEVICE_STATE=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_STATE");
+			//设备用途
+			String DEVICE_USEFUL=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_USEFUL");
+			
+			String[] headers = {"设备ID", "机构号(请参照机构号对照表)", "*"+DEVICE_NAME+"(单选)", "*"+DEVICE_MODEL+"(单选)", 
+					"IP地址", "生产机器名称", "CPU型号", "内存容量(G)", "硬盘容量(G)", "*"+DEVICE_OS_VERSION+"(单选)", 
+					"内置软件版本", "*"+DEVICE_IE_VERSION+"(单选)", "*"+DEVICE_USEFUL+"(多选)", "终端号", "使用人", "*"+DEVICE_PLUGIN+"(多选)", "*"+DEVICE_PERIPHERAL+"(多选)", 
+					"*"+DEVICE_OTHERATTRIBUTE_1+"(单选)", "*"+DEVICE_OTHERATTRIBUTE_2+"(单选)", "*"+DEVICE_OTHERATTRIBUTE_3+"(单选)",
+					"*"+DEVICE_OTHERATTRIBUTE_4+"(单选)", "*"+DEVICE_OTHERATTRIBUTE_5+"(单选)", 
+					"*"+DEVICE_OTHERINFO_1+"(多选)", "*"+DEVICE_OTHERINFO_2+"(多选)", "*"+DEVICE_OTHERINFO_3+"(多选)", "*"+DEVICE_OTHERINFO_4+"(多选)", 
+					"*"+DEVICE_OTHERINFO_5+"(多选)", 
+					"备注1", "备注2", "备注3", "备注4", "备注5", "*"+DEVICE_STATE+"(单选)"};
 			
 			DevicePo devicePo = new DevicePo();
 			List<DevicePo> dataset = deviceManagermentService.deviceList(devicePo);
@@ -2031,5 +2022,63 @@ private HashMap checkData_maxLength(String str, String colName, int i, String ms
 			this.setDevices(devices);
 			return "devices";
 		}
+		
+	   public Map<String, String> sheBeiShuXName(){
+			//设备IE版本
+			String DEVICE_IE_VERSION=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_IE_VERSION");
+			sheBeiShuX.put("DEVICE_IE_VERSION", DEVICE_IE_VERSION);
+			//设备型号
+			String DEVICE_MODEL=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_MODEL");
+			sheBeiShuX.put("DEVICE_MODEL", DEVICE_MODEL);
+	        //设备名称
+			String DEVICE_NAME=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_NAME");
+			sheBeiShuX.put("DEVICE_NAME",DEVICE_NAME);
+			//设备操作系统版本
+			String DEVICE_OS_VERSION=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OS_VERSION");
+			sheBeiShuX.put("DEVICE_OS_VERSION",DEVICE_OS_VERSION);
+			//设备其他属性1
+			String DEVICE_OTHERATTRIBUTE_1=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERATTRIBUTE_1");
+			sheBeiShuX.put("DEVICE_OTHERATTRIBUTE_1",DEVICE_OTHERATTRIBUTE_1);
+			//设备其他属性2
+			String DEVICE_OTHERATTRIBUTE_2=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERATTRIBUTE_2");
+			sheBeiShuX.put("DEVICE_OTHERATTRIBUTE_2",DEVICE_OTHERATTRIBUTE_2);
+			//设备其他属性3
+			String DEVICE_OTHERATTRIBUTE_3=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERATTRIBUTE_3");
+			sheBeiShuX.put("DEVICE_OTHERATTRIBUTE_3",DEVICE_OTHERATTRIBUTE_3);
+			//设备其他属性4
+			String DEVICE_OTHERATTRIBUTE_4=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERATTRIBUTE_4");
+			sheBeiShuX.put("DEVICE_OTHERATTRIBUTE_4",DEVICE_OTHERATTRIBUTE_4);
+			//设备其他属性5
+			String DEVICE_OTHERATTRIBUTE_5=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERATTRIBUTE_5");
+			sheBeiShuX.put("DEVICE_OTHERATTRIBUTE_5",DEVICE_OTHERATTRIBUTE_5);
+			///应用系统
+			String DEVICE_OTHERINFO_1=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERINFO_1");
+			sheBeiShuX.put("DEVICE_OTHERINFO_1",DEVICE_OTHERINFO_1);
+			//设备其他信息2
+			String DEVICE_OTHERINFO_2=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERINFO_2");
+			sheBeiShuX.put("DEVICE_OTHERINFO_2",DEVICE_OTHERINFO_2);
+			//设备其他信息3
+			String DEVICE_OTHERINFO_3=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERINFO_3");
+			sheBeiShuX.put("DEVICE_OTHERINFO_3",DEVICE_OTHERINFO_3);
+			//设备其他信息4
+			String DEVICE_OTHERINFO_4=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERINFO_4");
+			sheBeiShuX.put("DEVICE_OTHERINFO_4",DEVICE_OTHERINFO_4);
+			//设备其他信息5
+			String DEVICE_OTHERINFO_5=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERINFO_5");
+			sheBeiShuX.put("DEVICE_OTHERINFO_5",DEVICE_OTHERINFO_5);
+			//设备对应的外设
+			String DEVICE_PERIPHERAL=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_PERIPHERAL");
+			sheBeiShuX.put("DEVICE_PERIPHERAL",DEVICE_PERIPHERAL);
+			//设备安装的插件
+			String DEVICE_PLUGIN=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_PLUGIN");
+			sheBeiShuX.put("DEVICE_PLUGIN",DEVICE_PLUGIN);
+			//设备状态
+			String DEVICE_STATE=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_STATE");
+			sheBeiShuX.put("DEVICE_STATE",DEVICE_STATE);
+			//设备用途
+			String DEVICE_USEFUL=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_USEFUL");
+			sheBeiShuX.put("DEVICE_USEFUL",DEVICE_USEFUL);
+		return sheBeiShuX;				   
+	   }
 			
 }
