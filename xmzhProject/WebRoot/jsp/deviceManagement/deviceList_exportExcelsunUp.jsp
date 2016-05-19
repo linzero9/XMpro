@@ -22,15 +22,15 @@
 		<td colspan="2">&nbsp;机构/部门：
 		<b:write property="device.orgname" />
 		</td>
-		<td colspan="2">&nbsp;设备名称：
+		<td colspan="2">&nbsp;${sheBeiShuX.DEVICE_NAME}：
 		<d:write property="device.deviceName" dictTypeId="DEVICE_NAME" />
 		</td>
 	</tr>
 	<tr style="font-size:10.0pt">
-		<td colspan="2">&nbsp;设备型号：
+		<td colspan="2">&nbsp;${sheBeiShuX.DEVICE_MODEL}：
 		<d:write property="device.deviceModel" dictTypeId="DEVICE_MODEL"/>
 		</td>
-		<td colspan="2">&nbsp;设备状态：
+		<td colspan="2">&nbsp;${sheBeiShuX.DEVICE_STATE}：
 		<d:write property="device.deviceState"  dictTypeId="DEVICE_STATE"/>
 		</td>
 	</tr>
@@ -49,7 +49,7 @@
 		</td>
 	</tr>
 		<tr style="font-size:10.0pt">
-		<td colspan="2">&nbsp;操作系统版本：
+		<td colspan="2">&nbsp;${sheBeiShuX.DEVICE_OS_VERSION}：
 		<d:write property="device.osVersion" dictTypeId="DEVICE_OS_VERSION"/>
 		</td>
 		<td colspan="2">&nbsp;内置软件版本：
@@ -57,18 +57,18 @@
 		</td>
 	</tr>
 		<tr style="font-size:10.0pt">
-		<td colspan="2">&nbsp;IE版本：
+		<td colspan="2">&nbsp;${sheBeiShuX.DEVICE_IE_VERSION}：
 		<d:write property="device.ieVersion" dictTypeId="DEVICE_IE_VERSION"/>
 		</td>
-		<td colspan="2">&nbsp;用途：
+		<td colspan="2">&nbsp;${sheBeiShuX.DEVICE_USEFUL}：
 		<d:write property="device.useful" dictTypeId="DEVICE_USEFUL" seperator=", "/>
 		</td>
 	</tr>
 	<tr style="font-size:10.0pt">
-		<td colspan="2">&nbsp;安装的插件：
+		<td colspan="2">&nbsp;${sheBeiShuX.DEVICE_PLUGIN}：
 		<d:write property="device.plugIn" dictTypeId="DEVICE_PLUGIN" seperator=", "/>
 		</td>
-		<td colspan="2">&nbsp;对应的外设：
+		<td colspan="2">&nbsp;${sheBeiShuX.DEVICE_PERIPHERAL}：
 		<d:write property="device.peripheral" dictTypeId="DEVICE_PERIPHERAL" seperator=", "/>
 		</td>
 	</tr>
@@ -76,8 +76,8 @@
 <table width="98%" border="1" cellspacing="1" cellpadding="1">
 		<tr height="34">
 		  <th height="34" width="100" align="center" class="form_label">机构/部门</th>
-		  <th height="34" width="100" align="center" class="form_label">设备名称</th>
-		  <th height="34" width="100" align="center" class="form_label">型号</th>
+		  <th height="34" width="100" align="center" class="form_label">${sheBeiShuX.DEVICE_NAME}</th>
+		  <th height="34" width="100" align="center" class="form_label">${sheBeiShuX.DEVICE_MODEL}</th>
 		  <th height="34" width="100" align="center" class="form_label">设备数量</th>
 		</tr>
 			<l:iterate property="devices" id="id1">

@@ -244,10 +244,10 @@ public class DeviceManagementAction  extends BaseAction    {
 	public void setReadFile(File readFile) {
 		this.readFile = readFile;
 	}
-	//输出统计
+	//输出统计页面
 	public String sumUpDevice(){
 
-		
+		sheBeiShuXName();
 		
     	if(device == null){
     		device = new DevicePo();
@@ -304,6 +304,7 @@ public class DeviceManagementAction  extends BaseAction    {
 	//设备列表 导出Excel 数量统计
 		public String exportExcelsumUp(){
 			
+			sheBeiShuXName();
 	    	if(device == null){
 	    		device = new DevicePo();
 	    	}
