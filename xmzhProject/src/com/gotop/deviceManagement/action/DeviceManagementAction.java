@@ -1287,8 +1287,44 @@ private HashMap checkData_maxLength(String str, String colName, int i, String ms
 	}
 	
 	public void exportExcelFuntion(String title, String[] headers,   List<DevicePo> dataset) throws Exception{
-		List[] lists = new List[19];
 		
+		//设备IE版本
+		String DEVICE_IE_VERSION=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_IE_VERSION");
+		//设备型号
+		String DEVICE_MODEL=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_MODEL");
+        //设备名称
+		String DEVICE_NAME=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_NAME");
+		//设备操作系统版本
+		String DEVICE_OS_VERSION=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OS_VERSION");
+		//设备其他属性1  是否在用
+		String DEVICE_OTHERATTRIBUTE_1=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERATTRIBUTE_1");
+		//设备其他属性2
+		String DEVICE_OTHERATTRIBUTE_2=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERATTRIBUTE_2");
+		//设备其他属性3
+		String DEVICE_OTHERATTRIBUTE_3=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERATTRIBUTE_3");
+		//设备其他属性4
+		String DEVICE_OTHERATTRIBUTE_4=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERATTRIBUTE_4");
+		//设备其他属性5
+		String DEVICE_OTHERATTRIBUTE_5=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERATTRIBUTE_5");
+		///应用系统 设备其他信息1
+		String DEVICE_OTHERINFO_1=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERINFO_1");
+		//设备其他信息2
+		String DEVICE_OTHERINFO_2=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERINFO_2");
+		//设备其他信息3
+		String DEVICE_OTHERINFO_3=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERINFO_3");
+		//设备其他信息4
+		String DEVICE_OTHERINFO_4=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERINFO_4");
+		//设备其他信息5
+		String DEVICE_OTHERINFO_5=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_OTHERINFO_5");
+		//设备对应的外设
+		String DEVICE_PERIPHERAL=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_PERIPHERAL");
+		//设备安装的插件
+		String DEVICE_PLUGIN=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_PLUGIN");
+		//设备状态
+		String DEVICE_STATE=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_STATE");
+		//设备用途
+		String DEVICE_USEFUL=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_USEFUL");
+		List[] lists = new List[19];
 		//List存放为Org类型
 		lists[0] = this.deviceManagermentService.queryOrgList();
 		
@@ -1428,19 +1464,22 @@ private HashMap checkData_maxLength(String str, String colName, int i, String ms
         		//	 infos[list.indexOf(entry)] = entry.getDictId()+"--"+entry.getDictName();
         			 
         			 infos.append(entry.getDictId()+"--"+entry.getDictName()).append(",");
-        			 
+        	 
         			 if( (entry.getDictTypeId()).equals("DEVICE_NAME") ){
         				 colnum = colnum+1;
-        				 dicnameby="设备名称";
+        				// dicnameby="设备名称22222";
+        				 dicnameby=DEVICE_NAME;
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_MODEL") ){
         				 colnum = colnum+2;
-        				 dicnameby="设备型号";
+        				 //dicnameby="设备型号";
+        				 dicnameby=DEVICE_MODEL;
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_OS_VERSION") ){
         				 colnum = colnum+8;
         				 dicnameby="操作系统版本";
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_IE_VERSION") ){
         				 colnum = colnum+10;
-        				 dicnameby="IE版本";
+        				 //dicnameby="IE版本";
+        				 dicnameby=DEVICE_IE_VERSION;
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_USEFUL") ){
         				 colnum = colnum+11;
         				 dicnameby="用途";
@@ -1451,34 +1490,44 @@ private HashMap checkData_maxLength(String str, String colName, int i, String ms
         				 colnum = colnum+15;
         				 dicnameby="对应的外设";
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_OTHERATTRIBUTE_1") ){
-        				 dicnameby="其他属性1";
+        				// dicnameby="其他属性1";
+        				 dicnameby=DEVICE_OTHERATTRIBUTE_1;
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_OTHERATTRIBUTE_2") ){
         				 colnum = colnum+17;
-        				 dicnameby="其他属性2";
+        				 //dicnameby="其他属性2";
+        				 dicnameby=DEVICE_OTHERATTRIBUTE_2;
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_OTHERATTRIBUTE_3") ){
         				 colnum = colnum+18;
-        				 dicnameby="其他属性3";
+        				 //dicnameby="其他属性3";
+        				 dicnameby=DEVICE_OTHERATTRIBUTE_3;
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_OTHERATTRIBUTE_4") ){
         				 colnum = colnum+19;
-        				 dicnameby="其他属性4";
+        				 //dicnameby="其他属性4";
+        				 dicnameby=DEVICE_OTHERATTRIBUTE_4;
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_OTHERATTRIBUTE_5") ){
         				 colnum = colnum+20;
-        				 dicnameby="其他属性5";
+        				 //dicnameby="其他属性5";
+        				 dicnameby=DEVICE_OTHERATTRIBUTE_5;
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_OTHERINFO_1") ){
         				 colnum = colnum+21;
-        				 dicnameby="应用系统";
+        				// dicnameby="应用系统";其他信息1
+        				 dicnameby=DEVICE_OTHERINFO_1;
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_OTHERINFO_2") ){
         				 colnum = colnum+22;
-        				 dicnameby="其他信息2";
+        				 //dicnameby="其他信息2";
+        				 dicnameby=DEVICE_OTHERINFO_2;
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_OTHERINFO_3") ){
         				 colnum = colnum+23;
-        				 dicnameby="其他信息3";
+        				 //dicnameby="其他信息3";
+        				 dicnameby=DEVICE_OTHERINFO_3;
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_OTHERINFO_4") ){
         				 colnum = colnum+24;
-        				 dicnameby="其他信息4";
+        				// dicnameby="其他信息4";
+        				 dicnameby=DEVICE_OTHERINFO_4;
         			 }else if( (entry.getDictTypeId() ).equals("DEVICE_OTHERINFO_5") ){
         				 colnum = colnum+25;
-        				 dicnameby="其他信息5";
+        				 //dicnameby="其他信息5";
+        				 dicnameby=DEVICE_OTHERINFO_5;
         			 }else if( (entry.getDictTypeId() ).equals( "DEVICE_STATE") ){
         				 colnum = colnum+31;
         				 dicnameby="设备状态";
