@@ -68,4 +68,8 @@ public interface ITimeLimitManageService {
 	void updateWorkTimeById(WorkTimeSideBean workTimeSideBean);
 
 	void deleteWorkTimeById(WorkTimeSideBean workTimeSideBean);
+
+	List<ProLoanBean> queryOneCategorylist1(ProLoanBean proLoanBean);
+
+	List<ProLoanBean> queryLoanCategorylist1(ProLoanBean proLoanBean);
 }

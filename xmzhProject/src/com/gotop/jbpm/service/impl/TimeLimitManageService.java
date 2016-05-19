@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.apache.struts.tiles.xmlDefinition.I18nFactorySet;
 
 import com.gotop.jbpm.dao.ITimeLimitManageDAO;
 import com.gotop.jbpm.model.NodeTimeLimitBean;
@@ -81,6 +82,20 @@ public class TimeLimitManageService implements ITimeLimitManageService {
 		List list = this.timeLimitManageDAO.queryOneCategorylist(map);
 		return list;
 	}
+	
+	@Override
+	public List<ProLoanBean> queryOneCategorylist1(ProLoanBean proLoanBean) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		if(proLoanBean!=null){
+		if (proLoanBean.getProcessName()!=null&&!"".equals(proLoanBean.getProcessName())) {
+			
+			map.put("processName", proLoanBean.getProcessName());
+		}
+		}
+		List list = this.timeLimitManageDAO.queryOneCategorylist1(map);
+		return list;
+	}
+	
 
 	@Override
 	public List<ProLoanBean> queryLoanCategorylist(ProLoanBean proLoanBean) {
@@ -91,6 +106,23 @@ public class TimeLimitManageService implements ITimeLimitManageService {
 			}
 		}
 		List list = this.timeLimitManageDAO.queryLoanCategorylist(map);
+		return list;
+	}
+	
+	@Override
+	public List<ProLoanBean> queryLoanCategorylist1(ProLoanBean proLoanBean) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		if(proLoanBean != null){
+			if (proLoanBean.getProcessName()!=null&&!"".equals(proLoanBean.getProcessName())) {
+				map.put("processName", proLoanBean.getProcessName());
+			}
+		}
+		if(proLoanBean != null){
+			if (proLoanBean.getOneCategory_name()!=null&&!"".equals(proLoanBean.getOneCategory_name())) {
+				map.put("oneCategory_name", proLoanBean.getOneCategory_name());
+			}
+		}
+		List list = this.timeLimitManageDAO.queryLoanCategorylist1(map);
 		return list;
 	}
 
@@ -242,6 +274,9 @@ public class TimeLimitManageService implements ITimeLimitManageService {
 	public void deleteWorkTimeById(WorkTimeSideBean workTimeSideBean) {
 		this.timeLimitManageDAO.deleteWorkTimeById(workTimeSideBean);
 	}
+
+
+
 	
 	
 }

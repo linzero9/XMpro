@@ -25,6 +25,7 @@
 			 
 			 <h:hidden property="proTimeModelBean.c_id"  id="c_id" />
 			 <h:hidden property="proTimeModelBean.time_modelName"  id="time_modelName" />
+			 <h:hidden property="proLoanBean.processName"  id="processName1" />
 			 
 			<tr>	
 				<td class="form_label" align="right" width="15%">流程名称：</td>
@@ -126,9 +127,10 @@ function setOneSelect(oneCategorysN,oneCategoryM,loanCategorysN,loanCategoryM,on
 	$("#"+oneCategorysN).html("");
 	//var selecthtml=$("#oneCategorys").html();
 	var selecthtml=$("#"+oneCategorysN).html();
-
+	var processName=$id("processName1").value;
+	
 	 $.ajax({
-	        url: "/jbpm/timeLimitManageAction_queryOneCategorylist.action",
+	        url: "/jbpm/timeLimitManageAction_queryOneCategorylist1.action?proLoanBean.processName="+encodeURI(processName),
 	        async: false,
 	        type: 'post',
 	        data: "",
@@ -174,8 +176,9 @@ function setLcselect(arg, loanCategorysN, loanCategoryM, loanCategory_name){
 	$("#"+loanCategorysN).html("");
 	//var selecthtml=$("#loanCategorys").html();
 	var selecthtml=$("#"+loanCategorysN).html();
+	var processName=$id("processName1").value;
 	 $.ajax({
-	        url: "/jbpm/timeLimitManageAction_queryLoanCategorylist.action?proLoanBean.oneCategory_name="+encodeURI(arg),
+	        url: "/jbpm/timeLimitManageAction_queryLoanCategorylist1.action?proLoanBean.oneCategory_name="+encodeURI(arg)+"&proLoanBean.processName="+encodeURI(processName),
 	        async: false,
 	        type: 'post',
 	        data: "",

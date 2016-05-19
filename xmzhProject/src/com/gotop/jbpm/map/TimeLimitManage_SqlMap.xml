@@ -30,8 +30,15 @@
     <result column="ONECATEGORY_NAME" property="oneCategory_name" jdbcType="VARCHAR" />
   </resultMap>
   
+  <resultMap id="oneCategory_HashMapResult1" class="java.util.HashMap" >
+    <result column="FIRST_CLASS" property="oneCategory_name" jdbcType="VARCHAR" />
+  </resultMap>
+  
    <resultMap id="loanCategory_HashMapResult" class="java.util.HashMap" >
     <result column="LOANCATEGORY_NAME" property="loanCategory_name" jdbcType="VARCHAR" />
+  </resultMap>
+   <resultMap id="loanCategory_HashMapResult1" class="java.util.HashMap" >
+    <result column="CREDIT_TYPE" property="loanCategory_name" jdbcType="VARCHAR" />
   </resultMap>
   
   <resultMap id="nodeTimeLimitList_HashMapResult" class="com.gotop.jbpm.model.NodeTimeLimitBean" >
@@ -93,6 +100,16 @@
   order by ONECATEGORY_NAME
   </select>
   
+  <select id="queryOneCategorylist1" resultMap="oneCategory_HashMapResult1" parameterClass="java.util.HashMap" >
+  SELECT  *  FROM  (
+
+SELECT  t.first_class   FROM  t_generalprocess_cdtype    t  WHERE 1=1
+<isNotNull prepend="and" property="processName" >
+  t.process_name=#processName:VARCHAR#
+</isNotNull>
+GROUP BY  t.first_class) ORDER  BY  first_class  DESC
+  </select>
+  
   <select id="queryLoanCategorylist" resultMap="loanCategory_HashMapResult" parameterClass="java.util.HashMap" >
   select distinct LOANCATEGORY_NAME from t_model_oneAndLoanCategory
   <dynamic prepend="where" >
@@ -101,6 +118,20 @@
       		</isNotNull>
       </dynamic>
       order by LOANCATEGORY_NAME
+  </select>
+  
+  <select id="queryLoanCategorylist1" resultMap="loanCategory_HashMapResult1" parameterClass="java.util.HashMap" >
+   SELECT   credit_type  FROM  (
+
+SELECT *  FROM  t_generalprocess_cdtype    t  WHERE 1=1
+<isNotNull prepend="and" property="processName" >
+  t.process_name=#processName:VARCHAR#
+</isNotNull>
+GROUP BY  t.credit_type)  where 1=1 
+<isNotNull prepend="and" property="oneCategory_name" >
+first_class=#oneCategory_name:VARCHAR#
+</isNotNull>
+ORDER  BY  credit_type  DESC
   </select>
   
   <!-- 插入 流程时限模版表 t_model_proTimeLimitModel -->

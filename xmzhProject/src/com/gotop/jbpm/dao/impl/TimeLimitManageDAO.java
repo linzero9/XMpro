@@ -56,10 +56,21 @@ public class TimeLimitManageDAO extends SqlMapClientDao  implements ITimeLimitMa
 		List list = queryForList("TimeLimitManage_SqlMap.queryOneCategorylist", map);
 		return list;
 	}
+	
+	@Override
+	public List queryOneCategorylist1(Map<String, Object> map) {
+		List list = queryForList("TimeLimitManage_SqlMap.queryOneCategorylist1", map);
+		return list;
+	}
 
 	@Override
 	public List queryLoanCategorylist(Map<String, Object> map) {
 		List list = queryForList("TimeLimitManage_SqlMap.queryLoanCategorylist", map);
+		return list;
+	}
+	@Override
+	public List queryLoanCategorylist1(Map<String, Object> map) {
+		List list = queryForList("TimeLimitManage_SqlMap.queryLoanCategorylist1", map);
 		return list;
 	}
 
@@ -162,5 +173,9 @@ public class TimeLimitManageDAO extends SqlMapClientDao  implements ITimeLimitMa
 	public void deleteWorkTimeById(WorkTimeSideBean workTimeSideBean) {
 		getSqlMapClientTemplate().delete("TimeLimitManage_SqlMap.deleteWorkTimeById", workTimeSideBean);
 	}
+
+
+
+	
 
 }
