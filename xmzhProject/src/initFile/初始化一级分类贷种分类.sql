@@ -60,7 +60,7 @@ end;
 /
 
     
-    
+   drop trigger tib_t_model_oneandloancategory  
     
     
     
