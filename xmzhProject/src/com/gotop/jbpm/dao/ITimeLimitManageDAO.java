@@ -70,5 +70,9 @@ public interface ITimeLimitManageDAO {
 
 	List checkWorkTime(Map<String, String> time);
 
+	List queryValidDayById(WorkTimeMainBean workTimeMainBean);
+
+	void uptValidDayById(WorkTimeMainBean workTimeMainBean);
+
 
 }

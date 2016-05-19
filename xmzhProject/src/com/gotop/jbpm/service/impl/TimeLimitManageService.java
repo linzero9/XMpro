@@ -282,6 +282,20 @@ public class TimeLimitManageService implements ITimeLimitManageService {
 		return list;
 	}
 
+	@Override
+	public List queryValidDayById(
+			WorkTimeMainBean workTimeMainBean) {
+		
+		List list = this.timeLimitManageDAO.queryValidDayById(workTimeMainBean);
+		return list;
+	}
+
+	@Override
+	public void uptValidDayById(WorkTimeMainBean workTimeMainBean) {
+		
+		this.timeLimitManageDAO.uptValidDayById(workTimeMainBean);
+	}
+
 	
 	
 }

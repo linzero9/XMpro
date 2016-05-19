@@ -181,5 +181,19 @@ public class TimeLimitManageDAO extends SqlMapClientDao  implements ITimeLimitMa
 		return list;
 	}
 
+	@Override
+	public List queryValidDayById(WorkTimeMainBean workTimeMainBean) {
+		
+		List list = this.queryForList("TimeLimitManage_SqlMap.queryValidDayById", workTimeMainBean);
+		return list;
+	}
+
+	@Override
+	public void uptValidDayById(WorkTimeMainBean workTimeMainBean) {
+		
+		getSqlMapClientTemplate().update("TimeLimitManage_SqlMap.uptValidDayById", workTimeMainBean);
+		
+	}
+
 
 }

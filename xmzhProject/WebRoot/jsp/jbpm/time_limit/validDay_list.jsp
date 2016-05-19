@@ -93,6 +93,7 @@
 								<input type="button" class="button" value="新增有效日" onclick="addValidDay();" />
 							<l:greaterThan property="page.count" targetValue="0" compareType="number" >
 								&nbsp; &nbsp;
+								<input type="button" class="button" value="修改有效日" onclick="uptValidDay();" />
 								<input type="button" class="button" value="删除有效日" onclick="delValidDay();" />
 								<input type="button" class="button" value="维护工作时间" onclick="addWorkTime();" />
 								<input type="button" class="button" value="查看工作时间" onclick="queryWorkTimeList();" />
@@ -161,6 +162,21 @@
 				var strUrl = "/jbpm/timeLimitManageAction_toAddWorkTime.action?workTimeSideBean.mainID="+id;
 				strUrl += "&workTimeMainBean.startDate="+startDate+"&workTimeMainBean.endDate="+endDate;
 	  			showModalCenter(strUrl, null, '', 800, 400, '维护工作时间');  
+	  		}
+		}
+
+		function uptValidDay(){
+			var gop = $id("group1");
+	  		var len = gop.getSelectLength();
+	  		if(len == 0){
+	  			alert("请选择一条记录");
+	  			return;
+	  		}else{
+	  			var row=gop.getSelectRow();
+    			var id = row.getParam("id");
+    			
+				var strUrl = "/jbpm/timeLimitManageAction_toUptValidDay.action?workTimeMainBean.id="+id;
+	  			showModalCenter(strUrl, null, callBackFunc, 500, 200, '修改有效日');  
 	  		}
 		}
 

@@ -639,7 +639,9 @@ public class TimeLimitManageAction extends BaseAction {
 		return "workTime_list";
 	}
 	
+
 	/**
+	 * @author liaomeiting
 	 * 跳转到有效日维护新增页面
 	 * @return
 	 */
@@ -648,6 +650,7 @@ public class TimeLimitManageAction extends BaseAction {
 	}
 	
 	/**
+	 * @author liaomeiting
 	 * 跳转到工作时间维护新增页面
 	 * @return
 	 */
@@ -657,13 +660,57 @@ public class TimeLimitManageAction extends BaseAction {
 	}
 	
 	/**
-	 * 跳转到工作日维护新增页面
+	 * @author liaomeiting
+	 * @desc 跳转到工作日维护新增页面
 	 * @return
 	 */
 	public String toAddWorkDay(){
 		return "add_workDay";
 	}
 	
+	
+	/**
+	 * @author liaomeiting
+	 * @desc 跳转到工作日修改页面
+	 * @return
+	 */
+	public String toUptValidDay(){
+		List list = this.timeLimitManageService.queryValidDayById(workTimeMainBean);
+		if(list.size() == 1){
+			Map<String, String> map = (Map<String, String>) list.get(0);
+			workTimeMainBean.setStartDate(map.get("STARTDATE"));
+			workTimeMainBean.setEndDate(map.get("ENDDATE"));
+			this.setWorkTimeMainBean(workTimeMainBean);
+		}
+		return "upt_validDay";
+	}
+	
+	/**
+	 * @author liaomeiting
+	 * @desc 有效日修改
+	 * @return
+	 */
+	public void uptValidDayById() throws Exception{
+		String info ="success";
+    	try {
+    		workTimeMainBean.setOrgcode(this.getCurrentOnlineUser().getOrgcode());
+    		workTimeMainBean.setEmpid(this.getCurrentOnlineUser().getEmpid());
+    		 this.timeLimitManageService.uptValidDayById(workTimeMainBean);
+    		
+    	} catch (Exception e) {
+			info="fails";
+			log.error("[失败！]", e);
+			throw e;
+		}finally{	
+			Struts2Utils.renderText(info);
+		}
+	}
+	
+	/**
+	 * @author liaomeiting
+	 * @desc 删除有效日
+	 * @return
+	 */
 	public void deleteValidDay() throws Exception{
 		String info ="success";
     	try {

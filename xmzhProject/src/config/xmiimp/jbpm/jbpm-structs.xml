@@ -292,6 +292,9 @@
       	<result name="add_validDay">
      		/jsp/jbpm/time_limit/add_validDay.jsp
       	</result>
+      	<result name="upt_validDay">
+     		/jsp/jbpm/time_limit/upt_validDay.jsp
+      	</result>
       	<result name="add_workTime">
      		/jsp/jbpm/time_limit/add_workTime.jsp
       	</result>

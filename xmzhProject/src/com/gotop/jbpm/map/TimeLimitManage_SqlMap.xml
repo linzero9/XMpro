@@ -250,7 +250,7 @@ ORDER  BY  credit_type  DESC
     values (#id:DECIMAL:-9999#, #timeType:VARCHAR#, #startTime:VARCHAR#, #endTime:VARCHAR# , #mainID:DECIMAL:-9999#)
   </insert>
   
-  <!-- 查询 工作时间配置列表 -->
+  <!-- 查询 有效日配置列表 -->
   <select id="queryValidDayList" resultMap="workTimeMain_Result" parameterClass="java.util.HashMap" >
  select t1.id, to_char(t1.startDate, 'yyyy/MM/dd') as startDate , to_char(t1.endDate, 'yyyy/MM/dd') as endDate,
     t2.orgname, t3.empname
@@ -266,6 +266,25 @@ ORDER  BY  credit_type  DESC
  </isNotNull>
  order by t1.startDate
   </select>
+  
+  
+   <!-- 通过id 查询 有效日配置列表 -->
+  <select id="queryValidDayById" resultClass="java.util.HashMap" parameterClass="com.gotop.jbpm.model.WorkTimeMainBean" >
+ select t1.id, to_char(t1.startDate, 'yyyy-MM-dd') as startDate, to_char(t1.endDate, 'yyyy-MM-dd') as endDate
+  from t_model_timeMain t1
+ where t1.id = #id:DECIMAL:-9999#
+  </select>
+  
+  <!-- 修改 有效日-->
+  <update id="uptValidDayById" parameterClass="com.gotop.jbpm.model.WorkTimeMainBean" >
+    update t_model_timeMain t
+    set t.startDate = to_date(#startDate:VARCHAR# , 'yyyy/MM/dd' ),
+    t.endDate = to_date(#endDate:VARCHAR#, 'yyyy/MM/dd' ),
+    t.orgcode = #orgcode:VARCHAR#,
+    t.empid = #empid:DECIMAL#,
+    t.createTime = sysdate
+    where t.id = #id:DECIMAL:-9999# 
+  </update>
   
   <!-- 修改 时间主表 删除状态-->
   <update id="updateTimeMain_delState" parameterClass="com.gotop.jbpm.model.WorkTimeMainBean" >
@@ -298,6 +317,9 @@ ORDER  BY  credit_type  DESC
     or (startDate < to_date('$endDate$','yyyy/MM/dd') and endDate >= to_date('$endDate$','yyyy/MM/dd'))
     or (startDate >= to_date('$startDate$','yyyy/MM/dd') and endDate <= to_date('$endDate$','yyyy/MM/dd'))   ]]>
  )
+ <isNotNull prepend="and" property="id" >
+    <![CDATA[  id <> '$id$' ]]>
+ </isNotNull>
  </select>
  
  <!--校验 时间不能在之前配过的时间范围内 -->
