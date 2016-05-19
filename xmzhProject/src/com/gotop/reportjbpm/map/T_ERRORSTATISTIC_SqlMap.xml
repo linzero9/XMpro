@@ -22,7 +22,8 @@
   </resultMap>
   
   	<select id="querytaskNameList" parameterClass="java.util.HashMap" resultMap="ErrorStatistic1">
-	select distinct taskname from T_GENERALPROCESS_MODELFOUR
+	select distinct taskname from T_GENERALPROCESS_MODELFOUR order by nlssort(taskname,'NLS_SORT=SCHINESE_PINYIN_M')
+
 	</select>
 	
 	<!-- 查询差错情况统计 -->
