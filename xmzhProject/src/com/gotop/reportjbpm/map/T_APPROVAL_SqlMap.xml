@@ -55,6 +55,56 @@
   	<!-- 查询受理审批台账 -->
 	<select id="queryApprovalList" parameterClass="java.util.HashMap" resultMap="approval">
 	
+	select  max(Z.UPTIME) AS UPTIME,
+      max( Z.LOOKTIME)AS LOOKTIME,
+     max(  Z.REPORTTIME)AS REPORTTIME,
+     max(  Z.ISURGENT)AS ISURGENT,
+     max(  Z.CUST_NAME)AS CUST_NAME,
+     max(  Z.OLD_CUST)AS OLD_CUST,
+     max(  Z.ONECATEGORY)AS ONECATEGORY,
+      max( Z.LOANCATEGORY)AS LOANCATEGORY, 
+      max( Z.CURRENCY)AS CURRENCY,
+      max( Z.APPLY_BAL)AS APPLY_BAL,
+      max( Z.ORGNAMEONE)AS ORGNAMEONE,
+       
+      max( Z.YXRY)AS YXRY,
+      max( Z.NEXT_OPR_NAME)AS NEXT_OPR_NAME,
+      max( Z.FDXDY)AS FDXDY,
+     max(  Z.APP_WAY)AS APP_WAY,
+    max(   Z.SURVEY_TIME)AS SURVEY_TIME,
+     max(  Z.POL_NO)AS POL_NO,
+     max(  Z.MEETING_COUNT)AS MEETING_COUNT,
+     max(  Z.VOTE_NO)AS VOTE_NO,
+     max(  Z.APP_TIME)AS APP_TIME,
+     max(  Z.CON_MATTER)AS CON_MATTER,
+     max(  Z.DS_MS_ONE)AS DS_MS_ONE,
+    max(   Z.DS_MS_TWO)AS DS_MS_TWO,
+     max(  Z.DY_APP)AS DY_APP,
+     max(  Z.DE_APP)AS DE_APP,
+     max(  Z.HY_ZR_NAME)AS HY_ZR_NAME,
+     max(  Z.HY_WY_ONE)AS HY_WY_ONE,
+    max(   Z.SH_ADDR)AS SH_ADDR,
+    max(   Z.FX_TYPE)AS FX_TYPE,
+    max(   Z.SP_TYPE)AS SP_TYPE,
+    max(   Z.YBJ_NUM)AS YBJ_NUM,
+    max(   Z.HY_SY_JL)AS HY_SY_JL,
+     max(  Z.PJ_JL)AS PJ_JL,
+   max(    Z.FX_ED)AS FX_ED,
+    max(   Z.SX_ED)AS SX_ED,
+     max(  Z.YW_ED)AS YW_ED,
+     max(  Z.NEXTORGNAME)AS NEXTORGNAME,
+     max( Z.ORGNAMETWO)AS ORGNAMETWO,
+     max(  Z.APPROVALTIME)AS APPROVALTIME,
+     max( Z.CHECKTIME)AS CHECKTIME,
+      max(Z.REPLYTIME)AS REPLYTIME,
+     max( Z.CHECKONE)AS CHECKONE,
+     max( Z.CHECKTWO)AS CHECKTWO,
+    max( Z.RECEIVETIME)AS RECEIVETIME,
+    max( Z.RETURNTIME)AS RETURNTIME,
+     max(Z.REPORTEDTIME)AS REPORTEDTIME
+
+from (
+	
 	SELECT 
       A7.UPTIME,
        A8.LOOKTIME,
@@ -186,6 +236,7 @@
       <isNotNull prepend="and" property="appTimeEnd" >
        <![CDATA[LOOKTIME <= #appTimeEnd#]]>
       </isNotNull>
+      ) Z group by Z.FLOW_ID
 	</select>
      
 	 
