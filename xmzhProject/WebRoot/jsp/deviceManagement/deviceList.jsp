@@ -230,7 +230,7 @@ margin-left:inherit;
               </div>
 
 	</div>
-	<DIV class="divList"  style="overflow:auto;width:100%; height: 410;">
+	<DIV class="divList"  style="overflow:auto;width:100%; height: 340;">
 			<w:panel id="panel" width="100%" title="查询结果">
 				<viewlist id="e2c61865-3b56-470d-bd42-fff792fb9493">
 				<h:form name="page_form"
