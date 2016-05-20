@@ -524,6 +524,23 @@ public class TGeneralprocessModelfourAction extends BaseAction {
 			map.put("timees", timees);
 			map.put("rectifications", rectification);
 			
+			
+			if((modelFour.getProcessModelId()==null)||("".equals(modelFour.getProcessModelId()))){
+				
+				
+				ProcessModelFour processModelFour = this.tGeneralprocessModelfourService.queryProceeModelId(modelFour, taskAssgineeDto);
+				if (processModelFour.getProcessModelId()!=null&&!"".equals(processModelFour.getProcessModelId())) {
+					
+					this.modelFour.setProcessModelId(processModelFour.getProcessModelId());
+				}
+				
+			}
+			
+			
+			
+			
+
+			
 			try {
 				this.tGeneralprocessModelfourService.handleModelFour(muo, modelFour, map, taskAssgineeDto, files2, files2FileName);
 			} catch (Exception e) {
