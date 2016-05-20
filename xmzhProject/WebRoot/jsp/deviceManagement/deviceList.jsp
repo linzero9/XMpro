@@ -176,7 +176,61 @@ margin-left:inherit;
 		</w:panel>
 	</h:form>
 	</DIV>
-	<DIV class="divList"  style="overflow:auto;width:100%; height: 310;">
+	<div class="EOS_table"  style="overflow:auto;margin:1px;height: 45;">
+							<div class="h3">
+							<input type="button" class="button" value="新增"
+										onclick="add();" />
+								<l:greaterThan property="page.count" targetValue="0"
+									compareType="number">
+							<input type="button" class="button" value="修改"
+										onclick="upt();" />
+								</l:greaterThan>
+								<l:greaterThan property="page.count" targetValue="0"
+									compareType="number">
+							<input type="button" class="button" value="删除"
+										onclick="del();" />
+								</l:greaterThan>
+								<l:greaterThan property="page.count" targetValue="0"
+									compareType="number">
+							<input type="button" class="button" value="维护明细查询"
+										onclick="detail_search();" />
+								</l:greaterThan>
+								<l:greaterThan property="page.count" targetValue="0"
+									compareType="number">
+							<input type="button" class="button" value="批量修改导出"
+										onclick="batchUpdate_export();" />
+								</l:greaterThan>
+								<l:greaterThan property="page.count" targetValue="0"
+									compareType="number">
+							<input type="button" class="button" value="批量修改导出全部"
+										onclick="batchUpdate_exportAll();" />
+								</l:greaterThan>
+							</div>
+							<div class="h4">
+	                <l:equal property="page.isCount" targetValue="true" >
+	                  <b:message key="l_total"></b:message>
+	                  <b:write property="page.count" />
+	                  <b:message key="l_recordNO."></b:message>
+	                  <b:write property="page.currentPage" />
+	                  <b:message key="l_page"></b:message>
+	                  <b:write property="page.totalPage" />
+	                  <b:message key="l_page"></b:message>
+	                </l:equal>
+	                <l:equal property="page.isCount" targetValue="false" >
+	                  <b:message key="l_NO."></b:message>
+	                  <b:write property="page.currentPage" />
+	                  <b:message key="l_page"></b:message>
+	                </l:equal>
+	                <input type="button" class="button" onclick="firstPage('page', '', null, null, 'page_form');" value='<b:message key="l_firstPage"></b:message>'  <l:equal property="page.isFirst"  targetValue="true">disabled</l:equal> >
+	                <input type="button" class="button" onclick="prevPage('page', '', null, null, 'page_form');" value='<b:message key="l_upPage"></b:message>' <l:equal property="page.isFirst"  targetValue="true">disabled</l:equal> >
+	                <input type="button" class="button" onclick="nextPage('page', '', null, null, 'page_form');" value='<b:message key="l_nextPage"></b:message>' <l:equal property="page.isLast"  targetValue="true">disabled</l:equal> >
+	                <l:equal property="page.isCount" targetValue="true">
+	                  <input type="button" class="button" onclick="lastPage('page', '', null, null, 'page_form');" value='<b:message key="l_lastPage"></b:message>' <l:equal property="page.isLast"  targetValue="true">disabled</l:equal> >
+	                </l:equal>
+              </div>
+
+	</div>
+	<DIV class="divList"  style="overflow:auto;width:100%; height: 410;">
 			<w:panel id="panel" width="100%" title="查询结果">
 				<viewlist id="e2c61865-3b56-470d-bd42-fff792fb9493">
 				<h:form name="page_form"
@@ -187,7 +241,7 @@ margin-left:inherit;
 		    <h:hidden property="page.isCount"/>
 		    <h:hiddendata property="device" />
 					<table align="center" border="0" width="100%" class="EOS_table">
-						<tr>
+						<tr >
 							<th align="center" nowrap="nowrap">
 								<l:greaterThan property="page.count" targetValue="0" compareType="number">
 	                 					<h:checkbox id="selectBox" onclick="allItem();"/>
@@ -515,61 +569,6 @@ margin-left:inherit;
 							</l:equal>
 						</l:iterate>
 					</w:checkGroup>
-							<tr>
-              <td colspan="33" class="command_sort_area">
-							<div class="h3">
-							<input type="button" class="button" value="新增"
-										onclick="add();" />
-								<l:greaterThan property="page.count" targetValue="0"
-									compareType="number">
-							<input type="button" class="button" value="修改"
-										onclick="upt();" />
-								</l:greaterThan>
-								<l:greaterThan property="page.count" targetValue="0"
-									compareType="number">
-							<input type="button" class="button" value="删除"
-										onclick="del();" />
-								</l:greaterThan>
-								<l:greaterThan property="page.count" targetValue="0"
-									compareType="number">
-							<input type="button" class="button" value="维护明细查询"
-										onclick="detail_search();" />
-								</l:greaterThan>
-								<l:greaterThan property="page.count" targetValue="0"
-									compareType="number">
-							<input type="button" class="button" value="批量修改导出"
-										onclick="batchUpdate_export();" />
-								</l:greaterThan>
-								<l:greaterThan property="page.count" targetValue="0"
-									compareType="number">
-							<input type="button" class="button" value="批量修改导出全部"
-										onclick="batchUpdate_exportAll();" />
-								</l:greaterThan>
-							</div>
-							<div class="h4">
-	                <l:equal property="page.isCount" targetValue="true" >
-	                  <b:message key="l_total"></b:message>
-	                  <b:write property="page.count" />
-	                  <b:message key="l_recordNO."></b:message>
-	                  <b:write property="page.currentPage" />
-	                  <b:message key="l_page"></b:message>
-	                  <b:write property="page.totalPage" />
-	                  <b:message key="l_page"></b:message>
-	                </l:equal>
-	                <l:equal property="page.isCount" targetValue="false" >
-	                  <b:message key="l_NO."></b:message>
-	                  <b:write property="page.currentPage" />
-	                  <b:message key="l_page"></b:message>
-	                </l:equal>
-	                <input type="button" class="button" onclick="firstPage('page', '', null, null, 'page_form');" value='<b:message key="l_firstPage"></b:message>'  <l:equal property="page.isFirst"  targetValue="true">disabled</l:equal> >
-	                <input type="button" class="button" onclick="prevPage('page', '', null, null, 'page_form');" value='<b:message key="l_upPage"></b:message>' <l:equal property="page.isFirst"  targetValue="true">disabled</l:equal> >
-	                <input type="button" class="button" onclick="nextPage('page', '', null, null, 'page_form');" value='<b:message key="l_nextPage"></b:message>' <l:equal property="page.isLast"  targetValue="true">disabled</l:equal> >
-	                <l:equal property="page.isCount" targetValue="true">
-	                  <input type="button" class="button" onclick="lastPage('page', '', null, null, 'page_form');" value='<b:message key="l_lastPage"></b:message>' <l:equal property="page.isLast"  targetValue="true">disabled</l:equal> >
-	                </l:equal>
-              </div>
-              </td>
-            </tr>
 					</table>
 				</h:form>
 				</viewlist>
