@@ -141,8 +141,8 @@
                I.YW_ED,
                O2.NEXTORGNAME
           from T_GENERALPROCESS_MODELONE O
+          left join T_GENERALPROCESS_MODELTHREE T on O.FLOW_ID = T.FLOW_ID
           left join T_GENERALPROCESS_MODELFIVE I  on O.FLOW_ID = I.FLOW_ID
-          left join T_GENERALPROCESS_MODELTHREE T on T.FLOW_ID = I.FLOW_ID
           left join OM_EMPLOYEE P                 on O.CREATOR = P.EMPID                   
           left join OM_ORGANIZATION N             on N.ORGCODE = O.ORGCODEONE
           left join (SELECT O.ORGNAME AS NEXTORGNAME, T.FLOW_ID FROM T_GENERALPROCESS_MODELONE T ,OM_ORGANIZATION O WHERE O.ORGCODE = T.ORGCODEONE) O2 on O2.FLOW_ID = O.FLOW_ID ) Z

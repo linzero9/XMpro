@@ -1,18 +1,12 @@
 package com.gotop.deviceManagement.action;
 
-import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -20,39 +14,14 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
-import sun.awt.geom.AreaOp.SubOp;
-
-import javax.servlet.http.HttpServletResponse;
-import javax.swing.filechooser.FileSystemView;
-
-import org.apache.derby.tools.sysinfo;
-import org.apache.poi.hssf.usermodel.DVConstraint;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFDataFormat;
-import org.apache.poi.hssf.usermodel.HSSFDataValidation;
 import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.usermodel.HSSFRichTextString;
 import org.apache.poi.hssf.util.CellRangeAddress;
-import org.apache.poi.hssf.util.CellRangeAddressList;
 import org.apache.poi.hssf.util.HSSFColor;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Name;
-import org.apache.poi.ss.usermodel.Row;
 import org.apache.struts2.ServletActionContext;
-//import org.apache.poi.hssf.usermodel.HSSFCell;
-//import org.apache.poi.hssf.usermodel.HSSFDataValidation;
-//import org.apache.poi.hssf.usermodel.HSSFRow;
-//import org.apache.poi.hssf.usermodel.HSSFSheet;
-//import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-//import org.apache.poi.hssf.util.CellRangeAddressList;
 
-
-import com.fr.report.core.A.E;
-import com.fr.report.core.A.T;
-import com.fr.third.org.apache.poi.hssf.record.cf.CellRange;
-
-import com.fr.third.org.apache.poi.hssf.record.formula.functions.Trim;
 import com.fr.third.org.apache.poi.hssf.usermodel.HSSFCell;
 import com.fr.third.org.apache.poi.hssf.usermodel.HSSFRow;
 import com.fr.third.org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -62,19 +31,20 @@ import com.gotop.crm.util.BaseAction;
 import com.gotop.deviceManagement.model.DeviceDetail;
 import com.gotop.deviceManagement.model.DevicePo;
 import com.gotop.deviceManagement.model.HeJi;
-
-import com.gotop.deviceManagement.model.Sum;
-
 import com.gotop.deviceManagement.model.Org;
-
+import com.gotop.deviceManagement.model.Sum;
 import com.gotop.deviceManagement.service.IDeviceManDetailService;
 import com.gotop.deviceManagement.service.IDeviceManagementService;
 import com.gotop.dict.model.EosDictEntry;
-import com.gotop.dict.model.EosDictType;
 import com.gotop.dict.service.IEosDictEntryService;
 import com.gotop.util.Struts2Utils;
-import com.gotop.util.time.TimeUtil;
 import com.gotop.vo.system.MUOUserSession;
+//import org.apache.poi.hssf.usermodel.HSSFCell;
+//import org.apache.poi.hssf.usermodel.HSSFDataValidation;
+//import org.apache.poi.hssf.usermodel.HSSFRow;
+//import org.apache.poi.hssf.usermodel.HSSFSheet;
+//import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+//import org.apache.poi.hssf.util.CellRangeAddressList;
 
 public class DeviceManagementAction  extends BaseAction    {
 
