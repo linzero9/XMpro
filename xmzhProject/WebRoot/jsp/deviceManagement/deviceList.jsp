@@ -6,7 +6,12 @@
 <script type="text/javascript" src="/js/commonUtil.js"></script>
 <style>
 
-
+		.fixedHead { 
+		
+background:#FDF7F7;
+position: relative; 
+top:expression(this.offsetParent.scrollTop-30); 
+} 
 #_panel1_panel_table{
 table-layout: fixed;
 }
@@ -230,7 +235,7 @@ margin-left:inherit;
               </div>
 
 	</div>
-	<DIV class="divList"  style="overflow:auto;width:100%; height: 340;">
+	<DIV id="divv" class="divList"  style="overflow:auto;width:100%; height: 340;">
 			<w:panel id="panel" width="100%" title="查询结果">
 				<viewlist id="e2c61865-3b56-470d-bd42-fff792fb9493">
 				<h:form name="page_form"
@@ -240,8 +245,8 @@ margin-left:inherit;
 		    <h:hidden property="page.count"/>
 		    <h:hidden property="page.isCount"/>
 		    <h:hiddendata property="device" />
-					<table align="center" border="0" width="100%" class="EOS_table">
-						<tr >
+					<table align="center" border="0" width="100%" >
+						<tr class="fixedHead" > 
 							<th align="center" nowrap="nowrap">
 								<l:greaterThan property="page.count" targetValue="0" compareType="number">
 	                 					<h:checkbox id="selectBox" onclick="allItem();"/>
@@ -575,6 +580,17 @@ margin-left:inherit;
 			</w:panel>		
 		</DIV>
 		<script type="text/javascript">
+
+		//$("html,body").animate({"scrollTop": "100px"}, 1000); 
+		 $(function () {              
+
+			 $("#divv").animate({"scrollTop": "30px"}, 1000); 
+	            //绑定滚动条事件  
+	              //绑定滚动条事件  
+	            $("#divv").bind("scroll", function () {  
+                          //alert("sssssssss");
+	            });  
+	        })
 		$(function (){
 			
 			if($("#deviceName").val()!=0){
