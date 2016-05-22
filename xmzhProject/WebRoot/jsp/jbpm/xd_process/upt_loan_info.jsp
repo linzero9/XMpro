@@ -62,7 +62,12 @@
 					<h:text property="xdProcessTaskAssignee.coorganization" id="coOrganization"  style="width:130px;" />
 				</td>
 			</tr>
-			
+			      <tr>
+      	<td class="form_label" align="right" style="width:10%;" >报单次数：</td>
+      	<td>
+      		<h:text id="reportcnt" property="xdProcessTaskAssignee.reportcnt" validateAttr="type=naturalNumber;minValue=1;allowNull=false;" style="width:130px;" /><font style="color: red">*</font>
+      	</td>
+      </tr>
 			<tr>
 				<td colspan="2" style="text-align: center"><input type="button" value="保存"
 					onclick="save();"  class="button"> <input type="button" value="关闭"

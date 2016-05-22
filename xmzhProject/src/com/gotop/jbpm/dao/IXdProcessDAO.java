@@ -34,6 +34,8 @@ public interface IXdProcessDAO {
 	void insertWater(WaterInfo waterInfo);
 
 	int uptModelOneInfo(XdProcessTaskAssignee xdProcessTaskAssignee);
+	//修改模式三的报单次数
+	int uptModelThreeInfo(XdProcessTaskAssignee xdProcessTaskAssignee);
 
 	List<WaterInfo> queryLoanUptWater(Map<String, Object> map, Page page);
 

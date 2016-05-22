@@ -83,6 +83,9 @@
 					       <th nowrap="nowrap">
 								合作机构
 							</th>
+							<th nowrap="nowrap" style="display: none">
+								报单次数
+							</th>
 						</tr>
 						<w:radioGroup id="group1">
                            <l:iterate property="xdProcessTaskAssignees" id="id1">
@@ -96,6 +99,7 @@
 										<h:param name='oneCategory' iterateId='id1' property='oneCategory' />
 										<h:param name='loanCategory' iterateId='id1' property='loanCategory' />
 										<h:param name='coorganization' iterateId='id1' property='coorganization' />
+										<h:param name='reportcnt' iterateId='id1' property='reportcnt' />
 									</w:rowRadio>
 								</td>
 								<td nowrap="nowrap"> 
@@ -115,6 +119,9 @@
 								</td>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1" property="coorganization" />
+								</td>
+								<td nowrap="nowrap"  style="display: none"> 
+									<b:write iterateId="id1" property="reportcnt" />
 								</td>
 							</tr>
 						</l:iterate>
@@ -188,13 +195,15 @@
 		  		var oneCategory = row.getParam("oneCategory");
 		  		var loanCategory = row.getParam("loanCategory");
 		  		var coorganization = row.getParam("coorganization");
+		  		var reportcnt = row.getParam("reportcnt");
 
 	            var strUrl = "/jbpm/xdProcessAction_toUptLoanInfo.action?xdProcessTaskAssignee.executionId="+executionId+"&xdProcessTaskAssignee.processName="+processName;
 	            strUrl = strUrl+"&xdProcessTaskAssignee.custName="+custName
 	            +"&xdProcessTaskAssignee.apply_bal="+apply_bal
 	            +"&xdProcessTaskAssignee.oneCategory="+oneCategory
 	            +"&xdProcessTaskAssignee.loanCategory="+loanCategory
-	            +"&xdProcessTaskAssignee.coorganization="+coorganization;
+	            +"&xdProcessTaskAssignee.coorganization="+coorganization
+	            +"&xdProcessTaskAssignee.reportcnt="+reportcnt;
 	            
 				  showModalCenter(encodeURI(strUrl), null,callBack, 500, 300, '修改贷款信息');
 				  

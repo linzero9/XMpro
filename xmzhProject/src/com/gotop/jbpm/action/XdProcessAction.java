@@ -474,7 +474,8 @@ public class XdProcessAction   extends BaseAction {
 		String info ="success";
     	try {
 				int count = this.xdProcessService.uptModelOneInfo(xdProcessTaskAssignee);
-				if(count > 0){
+			   this.xdProcessService.uptModelThreeInfo(xdProcessTaskAssignee);
+				if(count > 0 ){
 					if(waterInfo==null){
 						waterInfo = new WaterInfo();
 					}

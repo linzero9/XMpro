@@ -127,6 +127,12 @@ public class XdProcessDAO  extends SqlMapClientDao  implements IXdProcessDAO{
 		int count = getSqlMapClientTemplate().update("XD_PROCESS_SqlMap.updateWorkTime", workTimeBean);
 		return count;
 	}
+//修改模式三保单次数
+	@Override
+	public int uptModelThreeInfo(XdProcessTaskAssignee xdProcessTaskAssignee) {
+		int count = getSqlMapClientTemplate().update("XD_PROCESS_SqlMap.uptModelThreeInfo", xdProcessTaskAssignee);
+		return count;
+	}
 
 
 }

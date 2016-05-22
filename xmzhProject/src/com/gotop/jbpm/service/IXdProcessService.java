@@ -40,7 +40,8 @@ public interface IXdProcessService {
 			String relationids, XdProcessTaskAssignee xdProcessTaskAssignee, Page page);
 
 	int uptModelOneInfo(XdProcessTaskAssignee xdProcessTaskAssignee);
-
+	//修改模式三保单次数
+	int uptModelThreeInfo(XdProcessTaskAssignee xdProcessTaskAssignee);
 	void insertWater(WaterInfo waterInfo);
 
 	List<WaterInfo> queryLoanUptWater(WaterInfo waterInfo, Page page);

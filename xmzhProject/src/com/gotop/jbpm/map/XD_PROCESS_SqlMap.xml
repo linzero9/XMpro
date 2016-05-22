@@ -59,6 +59,7 @@
      <result column="LOANCATEGORY" property="loanCategory" jdbcType="VARCHAR" />
      <result column="APPLY_BAL" property="apply_bal" jdbcType="VARCHAR" />
      <result column="COORGANIZATION" property="coorganization" jdbcType="VARCHAR" />
+     <result column="REPORTCNT" property="reportcnt" jdbcType="VARCHAR" />
   </resultMap>
   
   <resultMap id="abatorgenerated_WaterInfo_HashMapResult" class="java.util.HashMap" >
@@ -244,59 +245,28 @@
        T11.ONECATEGORY,
        T11.LOANCATEGORY,
        T11.APPLY_BAL,
-       T11.COORGANIZATION
-  from (select T9.*,               
-               T10.CUST_NAME,
-               T10.ONECATEGORY,
-               T10.LOANCATEGORY,
-               T10.APPLY_BAL,
-               T10.COORGANIZATION
-          from (SELECT T1.ID,
-                       T7.EXECUTION_ID_ as EXECUTION_ID,
-                       t2.task_assignee_id as assignee,
-                       T1.TASK_ID,
-                       T1.PRE_TASK_ID,
-                       T1.PRE_TASK_ASSINGEE,
-                       T1.PRE_TASK_ORG,
-                       to_char(TO_DATE(T1.PRE_TASK_TIME,
-                                       'yyyy/MM/dd hh24:mi:ss'),
-                               'yyyy-mm-dd hh24:mi:ss') AS PRE_TASK_TIME,
-                       T1.NEXT_TASK_ID,
-                       T1.BUSINESS_KEY,
-                       T3.EMPNAME AS preTaskAssingeeName,
-                       T4.ORGNAME AS preTaskOrgName,
-                       T6.PROCESS_NAME AS processName,
-                       T6.BUSINESS_TYPE AS BUSINESS_TYPE,
-                       T2.PROCESS_TASK_ASSIGNEE_ID,
-                       T2.PARENT_ID,
-                       T2.ISCHILD,
-                       T8.business_title as BUSINESS_TITLE,
-                       a.dictname AS BUSINESS_NAME
-                  FROM T_PROCESS_TASK_ASSIGNEE        T1,
-                       T_PROCESS_TASK_ASSIGNEE_PERSON T2,
-                       OM_EMPLOYEE                    T3,
-                       OM_ORGANIZATION                T4,
-                       JBPM4_EXECUTION                T5,
-                       T_PROCESS_CONFIG               T6,
-                       JBPM4_TASK                     T7,
-                       T_PROCESS_BUSINESS             T8,
-                       eos_dict_entry                 a,
-                       eos_dict_type                  b
-                 where T1.ID = T2.PROCESS_TASK_ASSIGNEE_ID
-                   AND T1.PRE_TASK_ASSINGEE = T3.EMPID
-                   AND T1.PRE_TASK_ORG = T4.ORGID
-                   AND T5.PROCDEFID_ = T6.DEFINITION_ID
-                   AND T5.ID_ = T7.EXECUTION_ID_
-                   AND T2.TASK_ID = T7.DBID_
-                   AND T7.STATE_ = 'open'
-                   AND T1.EXECUTION_ID = T8.EXECUTION_ID
-                   AND T1.Business_Type = a.dictid
-                   AND a.dicttypeid = b.dicttypeid
-                   AND b.dicttypeid = 'ZHPT_BUSINESS_TYPE'
-                   AND T2.TASK_ASSIGNEE_ID IN ($relationids$)                       
-                   and T8.business_type = '88') T9
-          left join T_GENERALPROCESS_MODELONE T10
-            on T9.EXECUTION_ID = T10.FLOW_ID) T11
+       T11.COORGANIZATION,
+       T11.REPORTCNT
+  from (
+SELECT T1.EXECUTION_ID,
+      t3.PROCESS_NAME as processName,
+      t4.CUST_NAME,
+			t4.ONECATEGORY,
+			t4.LOANCATEGORY,
+			t4.APPLY_BAL,
+			t4.COORGANIZATION,
+      t5.REPORTCNT
+
+from 
+(
+SELECT EXECUTION_ID from T_PROCESS_BUSINESS where BUSINESS_TYPE='88'
+)t1 
+LEFT JOIN JBPM4_HIST_PROCINST t2 on T2.ID_=T1.EXECUTION_ID
+LEFT JOIN T_PROCESS_CONFIG t3 on t3.DEFINITION_ID=t2.PROCDEFID_
+LEFT JOIN T_GENERALPROCESS_MODELONE t4 ON T1.EXECUTION_ID = t4.FLOW_ID
+LEFT JOIN T_GENERALPROCESS_MODELTHREE t5 on T1.EXECUTION_ID = t5.FLOW_ID
+
+) T11
     <dynamic prepend="where" >
    <isNotNull prepend="and" property="custName" >
            T11.CUST_NAME like '%'||'$custName$'||'%'
@@ -310,7 +280,7 @@
            	 and dic.dictid in($loanCategoryId$))
       		</isNotNull>
       		</dynamic>
-      		 order by T11.PRE_TASK_TIME desc
+ORDER BY REPORTCNT desc
   </select>
   
   <!--修改 模式一 的内容-->
@@ -321,6 +291,12 @@
 	ONECATEGORY =  #oneCategory:VARCHAR#,
 	LOANCATEGORY = #loanCategory:VARCHAR#,
 	COORGANIZATION = #coorganization:VARCHAR#
+	where  FLOW_ID = #executionId:VARCHAR#
+  </update>
+    <!--修改 模式三 的报单次数-->
+  <update id="uptModelThreeInfo" parameterClass="com.gotop.jbpm.model.XdProcessTaskAssignee" >
+    update T_GENERALPROCESS_MODELTHREE 
+	set REPORTCNT= #reportcnt:VARCHAR#
 	where  FLOW_ID = #executionId:VARCHAR#
   </update>
   <!--修改流程标题-->

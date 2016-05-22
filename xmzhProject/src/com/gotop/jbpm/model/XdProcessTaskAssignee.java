@@ -131,10 +131,23 @@ public class XdProcessTaskAssignee implements Serializable {
      */
     private String coorganization;
     
+    /**
+     * 报单次数
+     */
+    private String reportcnt;
+    
     /*
      * 流程标题
      */
     
+	public String getReportcnt() {
+		return reportcnt;
+	}
+
+	public void setReportcnt(String reportcnt) {
+		this.reportcnt = reportcnt;
+	}
+
 	public String getApply_bal() {
 		return apply_bal;
 	}

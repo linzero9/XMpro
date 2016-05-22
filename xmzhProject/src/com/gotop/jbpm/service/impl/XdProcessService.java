@@ -214,6 +214,13 @@ public class XdProcessService implements IXdProcessService {
 		 this.xdProcessDAO.updateWorkTime(workTimeBean);
 	}
 	
+	//修改模式三保单次数
+	@Override
+	public int uptModelThreeInfo(XdProcessTaskAssignee xdProcessTaskAssignee) {
+		int count = this.xdProcessDAO.uptModelThreeInfo(xdProcessTaskAssignee);
+		return count;
+	}
+	
 	
 
 	
