@@ -202,8 +202,14 @@ public class TModelTimedayService implements ITModelTimedayService {
 	}
 
 	@Override
-	public List<WorkTimeSideBean> queryWorkTimeSide(Map<String, Object> map) {
-		List list = this.tModelTimedayDAO.queryWorkTimeSide(map);
+	public List<WorkTimeSideBean> queryWorkTimeSide(WorkTimeMainBean workTimeMainBean) {
+		List list = this.tModelTimedayDAO.queryWorkTimeSide(workTimeMainBean);
+		return list;
+	}
+
+	@Override
+	public List<TModelTimeday> queryWorkDayList(Map<String, Object> map) {
+		List list = this.tModelTimedayDAO.queryWorkDayList(map);
 		return list;
 	}
 

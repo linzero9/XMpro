@@ -65,15 +65,21 @@
     <result column="OVERTIME" property="overtime" jdbcType="DECIMAL" />
     <result column="REMARK" property="remark" jdbcType="VARCHAR" />
     <result column="REQUEST_ID" property="request_id" jdbcType="DECIMAL" />
+    
     <result column="PROCESS_NAME" property="process_name" jdbcType="VARCHAR" />
+    <result column="FLOW_ID" property="flow_id" jdbcType="VARCHAR" />
+    <result column="STARTTIME" property="starttime" jdbcType="VARCHAR" />
+    <result column="ENDTIME" property="endtime" jdbcType="VARCHAR" />
+    <result column="TIMELIMITONE" property="timeLimitOne" jdbcType="DOUBLE" />
+    <result column="TIMELIMITTWO" property="timeLimitTwo" jdbcType="DOUBLE" />
+    <result column="RN" property="rn" jdbcType="DECIMAL" />
+    <result column="EXPENDTIME" property="expendtime" jdbcType="DOUBLE" />
   </resultMap>
 
  <resultMap id="workTimeMain_Result" class="com.gotop.jbpm.model.WorkTimeMainBean" >
     <result column="ID" property="id" jdbcType="DECIMAL" />
     <result column="STARTDATE" property="startDate" jdbcType="VARCHAR" />
      <result column="ENDDATE" property="endDate" jdbcType="VARCHAR" />
-    <!--  <result column="ORGNAME" property="orgname" jdbcType="VARCHAR" />
-     <result column="EMPNAME" property="empname" jdbcType="VARCHAR" /> -->
   </resultMap>
   
   <resultMap id="workTimeSide_Result" class="com.gotop.jbpm.model.WorkTimeSideBean" >
@@ -84,7 +90,7 @@
      <result column="ENDTIME" property="endTime" jdbcType="VARCHAR" />
   </resultMap>
   
-  <!-- 查询工作日列表  T_MODEL_TIMEDAY-->
+  <!-- 分页查询工作日列表  T_MODEL_TIMEDAY-->
   <select id="queryWorkDayListWithPage" resultMap="workDay_Result" parameterClass="java.util.HashMap" >
     select t1.*, t2.orgname, t3.empname
     from T_MODEL_TIMEDAY t1, om_organization t2, om_employee t3
@@ -99,11 +105,20 @@
    order by t1.time
   </select>
   
+  <!-- 查询在传入日期范围之间的节假日、工作日 T_MODEL_TIMEDAY-->
+  <select id="queryWorkDayList" resultMap="workDay_Result2"  parameterClass="java.util.HashMap">
+    select t1.* from T_MODEL_TIMEDAY t1  
+    where t1.time >= '$startD$'
+ <![CDATA[    and t1.time <= '$endD$'   ]]>
+    order by t1.time
+  </select>
+  
   <!-- 校验 非工作日是否已存在 -->
   <select id="checkDayTime" resultMap="workDay_Result2" parameterClass="com.gotop.timeMachine.model.TModelTimeday" >
     select t1.*
     from T_MODEL_TIMEDAY t1
     where  t1.time = #time:VARCHAR#
+    <![CDATA[  and t1.id <> #id:DECIMAL:-9999#  ]]>
   </select>
   
   <!-- 插入 一条 非工作日记录 -->
@@ -196,8 +211,14 @@ select operatorname from ac_operator where operatorid =
        <selectKey resultClass="long" keyProperty="id" >
 		SELECT SEQ_T_MODEL_OVERTIMEREPORT.NEXTVAL AS VALUE FROM DUAL
 		</selectKey>
-    insert into t_model_overtimeReport(ID, REPORTTIME, TASKNAME, CUSTNAME, LOANCATEGORY_NAME, ORGNAME, EMPNAME, OVERTIME, REMARK, REQUEST_ID, PROCESS_NAME )
-    values (#id:DECIMAL:-9999#, #reportTime:VARCHAR#, #taskName:VARCHAR#, #custName:VARCHAR#, #loanCategory_name:VARCHAR#, #orgname:VARCHAR#, #empname:VARCHAR#, #overtime:DOUBLE#, #remark:VARCHAR#, #request_id:DECIMAL:-9999#, #process_name:VARCHAR#)
+    insert into t_model_overtimeReport(ID, REPORTTIME, TASKNAME, CUSTNAME, LOANCATEGORY_NAME, 
+    ORGNAME, EMPNAME, OVERTIME, REMARK, REQUEST_ID, PROCESS_NAME, FLOW_ID, STARTTIME, ENDTIME,
+    TIMELIMITONE, TIMELIMITTWO, RN, EXPENDTIME)
+    values (#id:DECIMAL:-9999#, #reportTime:VARCHAR#, #taskName:VARCHAR#, #custName:VARCHAR#, 
+    #loanCategory_name:VARCHAR#, #orgname:VARCHAR#, #empname:VARCHAR#, #overtime:DOUBLE#, 
+    #remark:VARCHAR#, #request_id:DECIMAL:-9999#, #process_name:VARCHAR#, #flow_id:VARCHAR#, 
+    #starttime:VARCHAR#, #endtime:VARCHAR#, #timeLimitOne:DOUBLE#, #timeLimitTwo:DOUBLE#, 
+    #rn:DECIMAL:-9999#, #expendtime:DOUBLE#)
   </insert>
   
    <!-- 查询 自增序列 用于 action请求标识-->
@@ -226,12 +247,18 @@ select operatorname from ac_operator where operatorid =
 
 <!-- 查询工作日维护 表-->
   <select id="queryWorkTimeMain" resultMap="workTimeMain_Result" >
-	select ID, STARTDATE, ENDDATE from t_model_timeMain
+	select id, 
+		to_char(startDate, 'yyyyMMdd') as startDate, 
+		to_char(endDate, 'yyyyMMdd') as endDate 
+	from t_model_timeMain
+	where delState = '0'
+	order by startDate
   </select> 
   
   <!-- 查询工作时间维护 表-->
-  <select id="queryWorkTimeSide" resultMap="workTimeSide_Result"   parameterClass="java.util.HashMap" >
+  <select id="queryWorkTimeSide" resultMap="workTimeSide_Result"   parameterClass="com.gotop.jbpm.model.WorkTimeMainBean" >
 	select * from t_model_timeSide
-	where mainID = '$mainID$'
+	where mainID = '$id$'
+	order by startTime
   </select> 
 </sqlMap>

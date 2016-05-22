@@ -72,5 +72,7 @@ public interface ITModelTimedayService {
 
 	List<WorkTimeMainBean> queryWorkTimeMain();
 
-	List<WorkTimeSideBean> queryWorkTimeSide(Map<String, Object> map);
+	List<WorkTimeSideBean> queryWorkTimeSide(WorkTimeMainBean workTimeMainBean);
+
+	List<TModelTimeday> queryWorkDayList(Map<String, Object> map);
 }

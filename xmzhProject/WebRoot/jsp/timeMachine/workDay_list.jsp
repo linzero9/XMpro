@@ -27,6 +27,7 @@
 							<input type="hidden" name="page.isCount" value="true">
 							<input type="submit" id="btn" class="button" value='查询' >
 							<input type="button" id="btn" class="button" value='清空' onclick="clears();">
+							<a href="/timeMachine/tModelTimedayAction_test.action">test</a>
 						</td>
 			</tr>
 			</table>
@@ -51,7 +52,7 @@
 								时间
 							</th>
 							<th nowrap="nowrap">
-								类型(周末/节假日/自定义节假日)
+								类型(节假日/工作日)
 							</th>
 							<th nowrap="nowrap">
 								是否在用

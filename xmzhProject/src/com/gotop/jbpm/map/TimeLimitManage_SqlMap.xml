@@ -262,7 +262,7 @@ ORDER  BY  credit_type  DESC
       t1.startDate >= to_date('$query_startDate$','yyyy/MM/dd')
  </isNotNull>
  <isNotNull prepend="and" property="query_endDate" >
-    <![CDATA[  t1.endDate < to_date('$query_endDate$','yyyy/MM/dd')  ]]>
+    <![CDATA[  t1.endDate <= to_date('$query_endDate$','yyyy/MM/dd')  ]]>
  </isNotNull>
  order by t1.startDate
   </select>
@@ -307,6 +307,16 @@ ORDER  BY  credit_type  DESC
  order by t.startTime
  </select>
  
+   <!--通过id 查询 时间副表，并将时间转化为一定的格式 -->
+  <select id="queryWorkTimeSide"  resultMap="workTimeSide_Result"  parameterClass="com.gotop.jbpm.model.WorkTimeMainBean" >
+ select t.id, t.mainID, t.timeType, 
+ to_char(to_date(t.startTime, 'hh24:mi:ss'), 'hh24miss') as startTime, 
+ to_char(to_date(t.endTime, 'hh24:mi:ss'), 'hh24miss') as endTime
+  from t_model_timeSide t
+ where t.mainid = '$id$'
+ order by t.startTime
+ </select>
+ 
    <!--校验 日期不能在之前配过的时间范围内 -->
   <select id="checkDate" resultClass="java.util.HashMap" parameterClass="java.util.HashMap" >
  select *
@@ -325,7 +335,9 @@ ORDER  BY  credit_type  DESC
  <!--校验 时间不能在之前配过的时间范围内 -->
   <select id="checkWorkTime" resultClass="java.util.HashMap" parameterClass="java.util.HashMap" >
   select *   from t_model_timeSide
- where 1=1 and
+ where 1=1 
+ and mainID = '$mainID$'
+ and
  (
   <![CDATA[  (startTime <= '$startTime$' and endTime >= '$startTime$')
     or (startTime <= '$endTime$' and endTime >= '$endTime$')

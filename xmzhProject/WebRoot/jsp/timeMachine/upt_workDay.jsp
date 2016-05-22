@@ -12,7 +12,7 @@
 <body topmargin="0" leftmargin="0">
 <h:form name="data_form"  id="data_form" action="/timeMachine/tModelTimedayAction_updateWorkDay.action"   method="post" >
 		
-		<h:hidden property="day.id" />
+		<h:hidden id="id" property="day.id" />
 		
 		<table align="center" border="0" width="100%" class="form_table">
 			<tr>
@@ -73,12 +73,13 @@
 		}
 
 		var time =$name("day.time").value;
+		var id = $name("day.id").value;
 		
 		$.ajax({
 		      url: "/timeMachine/tModelTimedayAction_checkDayTime.action",
 		      async: false,
 		      type: 'post',
-		      data: "day.time="+time,
+		      data: "day.time="+time+"&day.id="+id,
 		      timeout: 60000,
 		      dataType:"text",
 		      success: function (data) {

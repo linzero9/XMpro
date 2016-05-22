@@ -13,7 +13,7 @@
 </head>
 <body topmargin="0" leftmargin="0">
 <h:form name="data_form"  id="data_form" action="/jbpm/timeLimitManageAction_saveWorkTime.action"   method="post" >
-		<h:hidden id="mianID"  property="workTimeSideBean.mainID" />
+		<h:hidden id="mainID"  property="workTimeSideBean.mainID" />
 		<table align="center" border="0" width="100%" class="form_table" id="tab">
 			<tr>
 				<td class="form_label" align="right"  width="30%">工作日有效期：</td>
@@ -180,6 +180,7 @@
 	for(var i=0; i<a; i++){
 		start = $("#startTime"+i).val();
 		end = $("#endTime"+i).val();
+		mainID = $("#mainID").val();
 
 		if(start != "" && end != "" && start != undefined && end != undefined){
 
@@ -187,7 +188,7 @@
 		      url: "/jbpm/timeLimitManageAction_checkWorkTime.action",
 		      async: false,
 		      type: 'post',
-		      data: "time.startTime="+start+"&time.endTime="+end,
+		      data: "time.startTime="+start+"&time.endTime="+end+"&time.mainID="+mainID,
 		      timeout: 60000,
 		      dataType:"text",
 		      success: function (data) {

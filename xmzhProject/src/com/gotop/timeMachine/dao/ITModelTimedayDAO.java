@@ -1,5 +1,6 @@
 package com.gotop.timeMachine.dao;
 
+import com.gotop.jbpm.model.WorkTimeMainBean;
 import com.gotop.timeMachine.model.OverTimeReport;
 import com.gotop.timeMachine.model.TModelTimeday;
 import com.primeton.utils.Page;
@@ -51,6 +52,8 @@ public interface ITModelTimedayDAO {
 
 	List queryWorkTimeMain();
 
-	List queryWorkTimeSide(Map<String, Object> map);
+	List queryWorkTimeSide(WorkTimeMainBean workTimeMainBean);
+
+	List queryWorkDayList(Map<String, Object> map);
 
 }

@@ -1,5 +1,6 @@
 package com.gotop.timeMachine.dao.impl;
 
+import com.gotop.jbpm.model.WorkTimeMainBean;
 import com.gotop.timeMachine.dao.ITModelTimedayDAO;
 import com.gotop.timeMachine.model.OverTimeReport;
 import com.gotop.timeMachine.model.TModelTimeday;
@@ -161,8 +162,15 @@ public class TModelTimedayDAO extends SqlMapClientDao implements ITModelTimedayD
 
 
 	@Override
-	public List queryWorkTimeSide(Map<String, Object> map) {
-		List list = queryForList("T_MODEL_TIMEDAY_SqlMap.queryWorkTimeSide", map);
+	public List queryWorkTimeSide(WorkTimeMainBean workTimeMainBean) {
+		List list = queryForList("T_MODEL_TIMEDAY_SqlMap.queryWorkTimeSide", workTimeMainBean);
+        return list;
+	}
+
+
+	@Override
+	public List queryWorkDayList(Map<String, Object> map) {
+		List list = queryForList("T_MODEL_TIMEDAY_SqlMap.queryWorkDayList", map);
         return list;
 	}
 
