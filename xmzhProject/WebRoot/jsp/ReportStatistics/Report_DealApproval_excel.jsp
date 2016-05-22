@@ -26,6 +26,7 @@
 		<th height="34" width="100" align="center" class="form_label"  rowspan="2">区支行</th>
 		<th height="34" width="100" align="center" class="form_label"  rowspan="2">受理支行</th>
 		<th height="34" width="100" align="center" class="form_label"  rowspan="2">营销人员</th>
+		<th height="34" width="100" align="center" class="form_label"  rowspan="2">营销人员机构</th>
 		<th height="34" width="200" align="center" class="form_label"  rowspan="2">主调信贷员</th>
 		<th height="34" width="100" align="center" class="form_label"  rowspan="2">辅调信贷员</th>
 		<th height="34" width="100" align="center" class="form_label"  rowspan="2">审查人</th>
@@ -117,6 +118,9 @@
 								</td>
 								<td style="vnd.ms-excel.numberformat:@"> 
 									<b:write iterateId="id1" property="yxry" />
+								</td>
+								<td style="vnd.ms-excel.numberformat:@"> 
+									<b:write iterateId="id1" property="yxryjg" />
 								</td>
 								<td style="vnd.ms-excel.numberformat:@"> 
 									<b:write iterateId="id1"    property="nextOprName" />

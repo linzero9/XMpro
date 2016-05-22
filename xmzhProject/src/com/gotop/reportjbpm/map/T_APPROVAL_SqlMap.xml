@@ -48,6 +48,7 @@
     <result column="RECEIVETIME" property="receiveTime" jdbcType="VARCHAR" />
     <result column="RETURNTIME" property="returnTime" jdbcType="VARCHAR" />
     <result column="REPORTEDTIME" property="reportedTime" jdbcType="VARCHAR" />
+    <result column="YXRYJG" property="yxryjg" jdbcType="VARCHAR" />
   </resultMap>
   
   
@@ -68,6 +69,7 @@
       max( Z.ORGNAMEONE)AS ORGNAMEONE,
        
       max( Z.YXRY)AS YXRY,
+      max( Z.YXRYJG)AS YXRYJG,
       max( Z.NEXT_OPR_NAME)AS NEXT_OPR_NAME,
       max( Z.FDXDY)AS FDXDY,
      max(  Z.APP_WAY)AS APP_WAY,
@@ -119,6 +121,7 @@ from (
        Z.ORGNAMEONE,
        Z.FLOW_ID,
        Z.YXRY,
+       Z.YXRYJG,
        Z.NEXT_OPR_NAME,
        Z.FDXDY,
        Z.APP_WAY,
@@ -166,6 +169,7 @@ from (
                         ORGNAMEONE,
                         EXECUTION_ID as flow_id,
                         YXRY,
+                        YXRYJG,
                         NEXT_OPR_NAME,
                         FDXDY,
                         SURVEY_TIME,
@@ -212,6 +216,7 @@ from (
                                               N.ORGNAME       AS ORGNAMEONE,
                                               O.FLOW_ID,
                                               O.YXRY,
+                                              O.YXRYJG,
                                               P.EMPNAME       AS NEXT_OPR_NAME,
                                               O.FDXDY,
                                               O.SURVEY_TIME,

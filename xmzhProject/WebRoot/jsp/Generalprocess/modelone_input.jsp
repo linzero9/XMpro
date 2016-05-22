@@ -306,7 +306,7 @@
 
 				} else {
 					$.each(json,function(key, value) {
-					alert(value.yxryjgs);
+				
 					$("#yxryjg").val(value.yxryjgs);
 					
 						

@@ -9,7 +9,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<title>受理审批台账列表</title>
 	</head>
-	<body topmargin="0" leftmargin="0">
+	<body topmargin="0" leftmargin="0"   >
 	<h:form name="appQuery"	action="/reportjbpm/approvalAction_queryApprovalList.action" method="post">
 		<w:panel id="panel1" title="查询条件">
 			<table align="center" border="0" width="100%" class="form_table">
@@ -64,7 +64,7 @@
 			</table>
 		</w:panel>
 	</h:form>
-	<DIV class="divList">
+	<DIV class="divList"   style="overflow-y:scroll;height: 75%"   >
 			<w:panel id="panel" width="100%" title="受理审批台账列表">
 				<viewlist id="e2c61865-3b56-470d-bd42-fff792fb9493">
 				<h:form name="page_form"
@@ -96,6 +96,8 @@
 			   			 <th nowrap="nowrap" rowspan="2">区支行</th>
 			   			 <th nowrap="nowrap" rowspan="2">受理支行</th>
 			   			 <th nowrap="nowrap" rowspan="2">营销人员</th>
+			   			 <th nowrap="nowrap" rowspan="2">营销人员机构</th>
+			   			 
 			   			 <th nowrap="nowrap" rowspan="2">主调</th>
 			   			 <th nowrap="nowrap" rowspan="2">辅调</th>
 			   			 <th nowrap="nowrap" rowspan="2">审查人</th>
@@ -187,6 +189,9 @@
 								</td>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1" property="yxry" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="yxryjg" />
 								</td>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1"    property="nextOprName" />

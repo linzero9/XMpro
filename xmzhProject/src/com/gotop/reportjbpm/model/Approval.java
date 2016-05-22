@@ -45,7 +45,9 @@ public class Approval implements Serializable {
 	private String repTimeEnd;
 	private String appTimeStrat;
 	private String appTimeEnd;
-//审批日期
+	private String yxryjg;
+
+	//审批日期
 	private String approvalTime;
 //	审查人
 	private String checkOne;
@@ -468,6 +470,11 @@ public class Approval implements Serializable {
 		this.ywEd = ywEd;
 	}
 	
-	
+	public String getYxryjg() {
+		return yxryjg;
+	}
+	public void setYxryjg(String yxryjg) {
+		this.yxryjg = yxryjg;
+	}
  
 }
