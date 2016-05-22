@@ -15,7 +15,23 @@
 			<table align="center" border="0" width="100%" class="form_table">
 				
 				<tr>
-                                        <td class="form_label" align="right" width="20%">报单日期：</td>
+				
+				<td class="form_label" align="right" >一级分类：</td>
+					<td >
+			     		<h:hidden id="oneCategoryId" />  
+						<h:text id="oneCategory" property="approval.oneCategory" readonly="true"/>
+						<a href="#" onclick="showoneCategory();">选择</a>
+					</td>
+					
+					<td class="form_label" align="right" >贷种分类：</td>
+					<td >
+						<h:hidden id="loanCategoryId"/>
+						<h:text id="loanCategory" property="approval.loanCategory" readonly="true"/>
+						<a href="#" onclick="showloanCategory();">选择</a>
+					</td>
+                   
+					<tr>
+					                     <td class="form_label" align="right" width="20%">报单日期：</td>
 					<td colspan="1" width="30%">
 					从
 					<w:date  format="yyyy-MM-dd" submitFormat="yyyy-MM-dd" id="repTimeStrat" name="approval.repTimeStrat" 
@@ -33,7 +49,7 @@
 					<w:date format="yyyy-MM-dd" submitFormat="yyyy-MM-dd" id="appTimeEnd" name="approval.appTimeEnd" 
 					property="approval.appTimeEnd" /></td>
 					
-					
+					</tr>
 				</tr>
 				<tr class="form_bottom">
 						<td colspan="6" class="form_bottom">
@@ -416,6 +432,33 @@
 			  	}
 		  	}
 
+	  	function showoneCategory() {
+			var oneCategoryId=document.getElementById("oneCategoryId").value;
+			strUrl ="/Generalprocess/tGeneralprocessCdtypeAction_oneCategoryDic.action?cdtypeJson="+oneCategoryId,
+			showModalCenter(strUrl,'',showoneCategory_callback1 ,800,430,'一级分类选择'); 
+		} 
+		function showoneCategory_callback1(args){
+			if(args!=''){
+			var array;
+			array = args.split(":");
+			 document.getElementById("oneCategoryId").value = array[0];
+			 document.getElementById("oneCategory").value = array[1];
+			}
+		}	
+
+		function showloanCategory() {
+			var loanCategoryId=document.getElementById("loanCategoryId").value;
+			strUrl ="/Generalprocess/tGeneralprocessCdtypeAction_loanCategoryDic.action?cdtypeJson="+loanCategoryId,
+			showModalCenter(strUrl,'',showloanCategory_callback1 ,800,500,'贷种选择'); 
+		} 
+		function showloanCategory_callback1(args){
+			if(args!=''){
+			var array;
+			array = args.split(":");
+			 document.getElementById("loanCategoryId").value = array[0];
+			 document.getElementById("loanCategory").value = array[1];
+			}
+		}
 	  	
 		
 		</script>

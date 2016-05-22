@@ -154,48 +154,107 @@ from (
        A9.RETURNTIME,
        A10.REPORTEDTIME
   FROM (
-     select   T.REPORTTIME,
-               T.ISURGENT,
-               O.CUST_NAME,
-               O.OLD_CUST,
-               O.ONECATEGORY,
-               O.LOANCATEGORY,
-               O.CURRENCY,
-               O.APPLY_BAL,
-               N.ORGNAME AS ORGNAMEONE,
-               O.FLOW_ID,
-               O.YXRY,
-               P.EMPNAME       AS NEXT_OPR_NAME,
-               O.FDXDY,
-               O.SURVEY_TIME,
-               I.APP_WAY,
-               I.POL_NO,
-               I.MEETING_COUNT,
-               I.VOTE_NO,
-               I.APP_TIME,
-               I.CON_MATTER,
-               I.DS_MS_ONE,
-               I.DS_MS_TWO,
-               I.DY_APP,
-               I.DE_APP,
-               I.HY_ZR_NAME,
-               I.HY_WY_ONE,
-               I.SH_ADDR,
-               I.FX_TYPE,
-               I.SP_TYPE,
-               I.YBJ_NUM,
-               I.HY_SY_JL,
-               I.PJ_JL,
-               I.FX_ED,
-               I.SX_ED,
-               I.YW_ED,
-               O2.NEXTORGNAME
-          from T_GENERALPROCESS_MODELONE O
-          left join T_GENERALPROCESS_MODELTHREE T on O.FLOW_ID = T.FLOW_ID
-          left join T_GENERALPROCESS_MODELFIVE I  on O.FLOW_ID = I.FLOW_ID
-          left join OM_EMPLOYEE P                 on O.CREATOR = P.EMPID                   
-          left join OM_ORGANIZATION N             on N.ORGCODE = O.ORGCODEONE
-          left join (SELECT O.ORGNAME AS NEXTORGNAME, T.FLOW_ID FROM T_GENERALPROCESS_MODELONE T ,OM_ORGANIZATION O WHERE O.ORGCODE = T.ORGCODEONE) O2 on O2.FLOW_ID = O.FLOW_ID ) Z
+                
+                select REPORTTIME,
+                        ISURGENT,
+                        CUST_NAME,
+                        OLD_CUST,
+                        ONECATEGORY,
+                        LOANCATEGORY,
+                        CURRENCY,
+                        APPLY_BAL,
+                        ORGNAMEONE,
+                        EXECUTION_ID as flow_id,
+                        YXRY,
+                        NEXT_OPR_NAME,
+                        FDXDY,
+                        SURVEY_TIME,
+                        APP_WAY,
+                        POL_NO,
+                        MEETING_COUNT,
+                        VOTE_NO,
+                        APP_TIME,
+                        CON_MATTER,
+                        DS_MS_ONE,
+                        DS_MS_TWO,
+                        DY_APP,
+                        DE_APP,
+                        HY_ZR_NAME,
+                        HY_WY_ONE,
+                        SH_ADDR,
+                        FX_TYPE,
+                        SP_TYPE,
+                        YBJ_NUM,
+                        HY_SY_JL,
+                        PJ_JL,
+                        FX_ED,
+                        SX_ED,
+                        YW_ED,
+                        NEXTORGNAME
+                  from (
+                         
+                         select ll.*, jj.EXECUTION_ID
+                           from (
+                                  
+                                  SELECT EXECUTION_ID
+                                    from T_PROCESS_BUSINESS
+                                   where BUSINESS_TYPE = '88') jj
+                           left join (
+                                      
+                                      select T.REPORTTIME,
+                                              T.ISURGENT,
+                                              O.CUST_NAME,
+                                              O.OLD_CUST,
+                                              O.ONECATEGORY,
+                                              O.LOANCATEGORY,
+                                              O.CURRENCY,
+                                              O.APPLY_BAL,
+                                              N.ORGNAME       AS ORGNAMEONE,
+                                              O.FLOW_ID,
+                                              O.YXRY,
+                                              P.EMPNAME       AS NEXT_OPR_NAME,
+                                              O.FDXDY,
+                                              O.SURVEY_TIME,
+                                              I.APP_WAY,
+                                              I.POL_NO,
+                                              I.MEETING_COUNT,
+                                              I.VOTE_NO,
+                                              I.APP_TIME,
+                                              I.CON_MATTER,
+                                              I.DS_MS_ONE,
+                                              I.DS_MS_TWO,
+                                              I.DY_APP,
+                                              I.DE_APP,
+                                              I.HY_ZR_NAME,
+                                              I.HY_WY_ONE,
+                                              I.SH_ADDR,
+                                              I.FX_TYPE,
+                                              I.SP_TYPE,
+                                              I.YBJ_NUM,
+                                              I.HY_SY_JL,
+                                              I.PJ_JL,
+                                              I.FX_ED,
+                                              I.SX_ED,
+                                              I.YW_ED,
+                                              O2.NEXTORGNAME
+                                        from T_GENERALPROCESS_MODELONE O
+                                        left join T_GENERALPROCESS_MODELTHREE T
+                                          on O.FLOW_ID = T.FLOW_ID
+                                        left join T_GENERALPROCESS_MODELFIVE I
+                                          on O.FLOW_ID = I.FLOW_ID
+                                        left join OM_EMPLOYEE P
+                                          on O.CREATOR = P.EMPID
+                                        left join OM_ORGANIZATION N
+                                          on N.ORGCODE = O.ORGCODEONE
+                                        left join (SELECT O.ORGNAME AS NEXTORGNAME,
+                                                          T.FLOW_ID
+                                                     FROM T_GENERALPROCESS_MODELONE T,
+                                                          OM_ORGANIZATION           O
+                                                    WHERE O.ORGCODE = T.ORGCODEONE) O2
+                                          on O2.FLOW_ID = O.FLOW_ID） ll on
+                                       jj.EXECUTION_ID = ll.FLOW_ID)
+                         
+                          ) Z
            LEFT JOIN (SELECT O.ORGNAME AS ORGNAMETWO,T.FLOW_ID FROM T_GENERALPROCESS_MODELONE T ,OM_ORGANIZATION O WHERE O.ORGCODE=T.ORGCODETWO)O1
            ON O1.FLOW_ID=Z.FLOW_ID
            LEFT JOIN (select q.execution_,to_char(max(q.end_),'yyyy-mm-dd hh24:mi:ss ') as APPROVALTIME from jbpm4_hist_actinst q where q.activity_name_='发起合同预审' group by q.execution_)A1
@@ -221,6 +280,12 @@ from (
            LEFT JOIN (select t.execution_,wm_concat(to_char(t.create_, 'yyyy-mm-dd hh24:mi:ss')) reportedTime from (select *from JBPM4_HIST_TASK k where k.outcome_ ='提交收单派单' order by k.execution_, k.create_) T group by t.execution_) A10
            ON A10.EXECUTION_=Z.FLOW_ID
             where 1=1
+   <isNotNull prepend="and" property="oneCategory">
+   Z.ONECATEGORY in ($oneCategory$)
+   </isNotNull>
+   <isNotNull prepend="and" property="loanCategory">
+  Z.LOANCATEGORY in ($loanCategory$)
+   </isNotNull>
    <isNotNull prepend="and" property="repTimeStrat">
    <![CDATA[Z.REPORTTIME>=#repTimeStrat#]]>
    </isNotNull>

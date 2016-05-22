@@ -529,7 +529,7 @@ public class TGeneralprocessModelfourAction extends BaseAction {
 				
 				
 				ProcessModelFour processModelFour = this.tGeneralprocessModelfourService.queryProceeModelId(modelFour, taskAssgineeDto);
-				if (processModelFour.getProcessModelId()!=null&&!"".equals(processModelFour.getProcessModelId())) {
+				if (processModelFour!=null&&processModelFour.getProcessModelId()!=null&&!"".equals(processModelFour.getProcessModelId())) {
 					
 					this.modelFour.setProcessModelId(processModelFour.getProcessModelId());
 				}

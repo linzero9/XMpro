@@ -21,19 +21,19 @@ public class ProcessModelFour extends ProcessModel  implements  Serializable{
 	 * 是否电话核实.
 	 * @abatorgenerated
 	 */
-	@GeneralprocessField(name="是否电话核实",type="text",hidden=false)
+	@GeneralprocessField(name="是否电话核实",type="dic",dicname="ABF_PHONECHECK")
 	private String dhhs;
 	/**
 	 * 终审币别.
 	 * @abatorgenerated
 	 */
-	@GeneralprocessField(name="终审币别",type="text",hidden=false)
+	@GeneralprocessField(name="终审币别",type="dic",dicname="PROCESS_method")
 	private String zscurrency;
 	/**
 	 * 终审金额 .
 	 * @abatorgenerated
 	 */
-	@GeneralprocessField(name="终审金额",type="text",hidden=false)
+	@GeneralprocessField(name="终审金额",type="text")
 	private String zsmoney;
 	
 

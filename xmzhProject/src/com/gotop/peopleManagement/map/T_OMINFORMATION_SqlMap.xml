@@ -76,10 +76,10 @@
 	</select>
 	 	<!-- 查询业务角色 -->
 	<select id="queryRoleName" parameterClass="java.util.HashMap" resultMap="OmInformationVo2">
-	select distinct ROLENAME from ac_role
+	select distinct ROLENAME from ac_role order by nlssort(ROLENAME,'NLS_SORT=SCHINESE_PINYIN_M')
 	</select>
 	 	<!-- 查询岗位-->
 	<select id="queryPosiName" parameterClass="java.util.HashMap" resultMap="OmInformationVo3">
-	select distinct POSINAME from om_position
+	select distinct POSINAME from om_position order by nlssort(POSINAME,'NLS_SORT=SCHINESE_PINYIN_M')
 	</select>
 </sqlMap>
