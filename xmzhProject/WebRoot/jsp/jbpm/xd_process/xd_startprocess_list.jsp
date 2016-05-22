@@ -83,7 +83,13 @@
 					       <th nowrap="nowrap">
 								合作机构
 							</th>
-							<th nowrap="nowrap" style="display: none">
+						   <th nowrap="nowrap" >
+								营销人员
+							</th>
+						   <th nowrap="nowrap" >
+								营销人员机构
+							</th>
+							<th nowrap="nowrap" >
 								报单次数
 							</th>
 						</tr>
@@ -99,6 +105,8 @@
 										<h:param name='oneCategory' iterateId='id1' property='oneCategory' />
 										<h:param name='loanCategory' iterateId='id1' property='loanCategory' />
 										<h:param name='coorganization' iterateId='id1' property='coorganization' />
+										<h:param name='yxry' iterateId='id1' property='yxry' />
+										<h:param name='yxryjg' iterateId='id1' property='yxryjg' />
 										<h:param name='reportcnt' iterateId='id1' property='reportcnt' />
 									</w:rowRadio>
 								</td>
@@ -120,7 +128,13 @@
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1" property="coorganization" />
 								</td>
-								<td nowrap="nowrap"  style="display: none"> 
+								<td nowrap="nowrap" > 
+									<b:write iterateId="id1" property="yxry" />
+								</td>
+								<td nowrap="nowrap"  > 
+									<b:write iterateId="id1" property="yxryjg" />
+								</td>
+								<td nowrap="nowrap"  > 
 									<b:write iterateId="id1" property="reportcnt" />
 								</td>
 							</tr>
@@ -195,6 +209,8 @@
 		  		var oneCategory = row.getParam("oneCategory");
 		  		var loanCategory = row.getParam("loanCategory");
 		  		var coorganization = row.getParam("coorganization");
+		  		var yxry = row.getParam("yxry");
+		  		var yxryjg = row.getParam("yxryjg");
 		  		var reportcnt = row.getParam("reportcnt");
 
 	            var strUrl = "/jbpm/xdProcessAction_toUptLoanInfo.action?xdProcessTaskAssignee.executionId="+executionId+"&xdProcessTaskAssignee.processName="+processName;
@@ -203,6 +219,8 @@
 	            +"&xdProcessTaskAssignee.oneCategory="+oneCategory
 	            +"&xdProcessTaskAssignee.loanCategory="+loanCategory
 	            +"&xdProcessTaskAssignee.coorganization="+coorganization
+	            +"&xdProcessTaskAssignee.yxry="+yxry
+	            +"&xdProcessTaskAssignee.yxryjg="+yxryjg
 	            +"&xdProcessTaskAssignee.reportcnt="+reportcnt;
 	            
 				  showModalCenter(encodeURI(strUrl), null,callBack, 500, 300, '修改贷款信息');

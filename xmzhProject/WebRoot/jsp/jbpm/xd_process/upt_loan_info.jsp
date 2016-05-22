@@ -62,10 +62,23 @@
 					<h:text property="xdProcessTaskAssignee.coorganization" id="coOrganization"  style="width:130px;" />
 				</td>
 			</tr>
-			      <tr>
+			<tr>
+		<td class="form_label" align="right" style="width:10%;" >营销人员：</td>
+      	<td>
+      		<h:text id="yxry" property="xdProcessTaskAssignee.yxry" />
+      	</td>
+		  </tr>
+		  <tr>
+      	     <td class="form_label" align="right" style="width:10%;" >营销人员机构：</td>
+      	  <td>
+      		<h:text id="yxryjg" property="xdProcessTaskAssignee.yxryjg"  />
+      	</td>
+			</tr>
+			
+			  <tr>
       	<td class="form_label" align="right" style="width:10%;" >报单次数：</td>
       	<td>
-      		<h:text id="reportcnt" property="xdProcessTaskAssignee.reportcnt" validateAttr="type=naturalNumber;minValue=1;allowNull=false;" style="width:130px;" /><font style="color: red">*</font>
+      		<h:text id="reportcnt" property="xdProcessTaskAssignee.reportcnt" />
       	</td>
       </tr>
 			<tr>

@@ -132,6 +132,14 @@ public class XdProcessTaskAssignee implements Serializable {
     private String coorganization;
     
     /**
+     * 营销人员
+     */
+    private String yxry;
+    /**
+     * 营销人员机构
+     */
+    private String yxryjg;
+    /**
      * 报单次数
      */
     private String reportcnt;
@@ -142,6 +150,22 @@ public class XdProcessTaskAssignee implements Serializable {
     
 	public String getReportcnt() {
 		return reportcnt;
+	}
+
+	public String getYxry() {
+		return yxry;
+	}
+
+	public void setYxry(String yxry) {
+		this.yxry = yxry;
+	}
+
+	public String getYxryjg() {
+		return yxryjg;
+	}
+
+	public void setYxryjg(String yxryjg) {
+		this.yxryjg = yxryjg;
 	}
 
 	public void setReportcnt(String reportcnt) {

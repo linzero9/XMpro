@@ -59,6 +59,8 @@
      <result column="LOANCATEGORY" property="loanCategory" jdbcType="VARCHAR" />
      <result column="APPLY_BAL" property="apply_bal" jdbcType="VARCHAR" />
      <result column="COORGANIZATION" property="coorganization" jdbcType="VARCHAR" />
+     <result column="YXRY" property="yxry" jdbcType="VARCHAR" />
+     <result column="YXRYJG" property="yxryjg" jdbcType="VARCHAR" />
      <result column="REPORTCNT" property="reportcnt" jdbcType="VARCHAR" />
   </resultMap>
   
@@ -246,6 +248,8 @@
        T11.LOANCATEGORY,
        T11.APPLY_BAL,
        T11.COORGANIZATION,
+        T11.YXRY,
+       T11.YXRYJG,
        T11.REPORTCNT
   from (
 SELECT T1.EXECUTION_ID,
@@ -255,6 +259,8 @@ SELECT T1.EXECUTION_ID,
 			t4.LOANCATEGORY,
 			t4.APPLY_BAL,
 			t4.COORGANIZATION,
+			 t4.YXRY,
+      t4.YXRYJG,
       t5.REPORTCNT
 
 from 
@@ -290,7 +296,9 @@ ORDER BY REPORTCNT desc
 	APPLY_BAL= #apply_bal:VARCHAR#,
 	ONECATEGORY =  #oneCategory:VARCHAR#,
 	LOANCATEGORY = #loanCategory:VARCHAR#,
-	COORGANIZATION = #coorganization:VARCHAR#
+	COORGANIZATION = #coorganization:VARCHAR#,
+	YXRY = #yxry:VARCHAR#,
+	YXRYJG = #yxryjg:VARCHAR#
 	where  FLOW_ID = #executionId:VARCHAR#
   </update>
     <!--修改 模式三 的报单次数-->
