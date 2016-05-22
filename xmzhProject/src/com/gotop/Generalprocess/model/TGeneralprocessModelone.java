@@ -176,7 +176,20 @@ public class TGeneralprocessModelone implements Serializable {
     private String comBorrSpouseUnit;
     
 
+    private String yxryjg;
     
+    
+    
+    
+    
+	public String getYxryjg() {
+		return yxryjg;
+	}
+
+	public void setYxryjg(String yxryjg) {
+		this.yxryjg = yxryjg;
+	}
+
 	public String getComBorrSpouseUnit() {
 		return comBorrSpouseUnit;
 	}

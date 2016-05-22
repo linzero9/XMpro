@@ -63,6 +63,9 @@ public class ProcessModelOne extends ProcessModel  implements  Serializable {
 	@GeneralprocessField(name="营销人员",type="text")
 	private String  yxry;
 	
+	@GeneralprocessField(name="营销人员机构",type="text")
+	private String   yxryjg;
+	
 	
 	
 	@GeneralprocessField(name="客户名称",type="text")
@@ -343,6 +346,13 @@ public class ProcessModelOne extends ProcessModel  implements  Serializable {
 	}
 	public void setLast_up_name(String last_up_name) {
 		this.last_up_name = last_up_name;
+	}
+	public String getYxryjg() {
+		return yxryjg;
+	}
+
+	public void setYxryjg(String yxryjg) {
+		this.yxryjg = yxryjg;
 	}
 	
 	

@@ -176,4 +176,5 @@ public class TGeneralprocessModeloneAction extends BaseAction {
 		}
 		Struts2Utils.renderText(info);
 	}
+	
 }

@@ -38,6 +38,25 @@
        <result column="SUPPORT_CATEGORY" property="supportCategory" jdbcType="VARCHAR" />
   </resultMap>
   
+  	
+  
+  
+  	<!-- 查询营销人员机构 -->
+  	<select id="queryyxryjg" resultClass="java.util.HashMap" parameterClass="java.util.HashMap">
+  	
+  	select g.orgname as yxryjg
+  from om_organization G, om_employee O, ac_operator A
+
+ WHERE G.ORGID = O.ORGID
+   AND O.EMPID = A.EMPID
+   
+      <isNotNull prepend="and" property="yxry" >
+              a.operatorname = #yxry#
+      		</isNotNull>
+  
+  	
+  	</select>
+  	
   	<!-- 根据员工号查询出其所属机构名称 -->
   	<select id="queryOrgName" resultClass="java.util.HashMap" parameterClass="String">
   		select b.orgname from om_emporg a,om_organization b where a.empid in($empIds$) and b.orgid = a.orgid

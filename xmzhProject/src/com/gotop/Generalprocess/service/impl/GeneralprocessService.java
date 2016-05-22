@@ -1,9 +1,7 @@
 package com.gotop.Generalprocess.service.impl;
 
 import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
@@ -808,6 +806,18 @@ public class GeneralprocessService implements IGeneralprocessService {
 		}
 		
 		return generalprocessDtos;
+	}
+/**
+ * 查询营销人员机构
+ */
+	@Override
+	public List queryyxryjg(String yxry) {
+		Map<String, Object>map =new HashMap<String, Object>();
+		
+			map.put("yxry", yxry);
+			return this.generalProcessDAO.queryyxryjg(map);
+		
+		
 	}
 
 }

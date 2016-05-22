@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import net.sf.json.JSONArray;
+
 import com.gotop.Generalprocess.annonation.GeneralprocessFieldBean;
 import com.gotop.Generalprocess.model.GeneralprocessDto;
 import com.gotop.Generalprocess.model.ProcessMistake;
@@ -28,7 +29,6 @@ import com.gotop.opinion.service.ITDefaultOpinionService;
 import com.gotop.util.Struts2Utils;
 import com.gotop.vo.system.MUOUserSession;
 import com.gotop.vo.tyjg.Omorganization;
-import com.informix.util.stringUtil;
 
 /****
  * 
@@ -60,6 +60,22 @@ public class GeneralprocessAction extends BaseAction {
 
 	
 	
+	private String yxry;
+	public String getYxry() {
+		return yxry;
+	}
+
+	public void setYxry(String yxry) {
+		this.yxry = yxry;
+	}
+
+
+
+
+
+
+
+
 	private ProcessMistake processMistake;
 	private List<ProcessMistake> processMistakeList = new ArrayList<ProcessMistake>();
 	/**
@@ -671,6 +687,9 @@ public class GeneralprocessAction extends BaseAction {
     	}
     }
     
+    
+    
+    
     //文件操作
 	private File[] files;
 	private String[] filesFileName;
@@ -727,5 +746,35 @@ public class GeneralprocessAction extends BaseAction {
 	public void setModeType(String modeType) {
 		this.modeType = modeType;
 	}
+/**
+ * 查询营销人员机构	
+ * @return
+ */
+	
+	
+	private    	List< ?>  orgnameList;
+	
+	
+	
+public List<?> getOrgnameList() {
+	return orgnameList;
+}
+
+public void setOrgnameList(List<?> orgnameList) {
+	this.orgnameList = orgnameList;
+}
+
+public String queryyxryjg(){
+	if (yxry!=null&!"".equals(yxry)) {
+		
+		orgnameList=this.generalProcessService.queryyxryjg(yxry);
+		
+		
+		
+		
+	}
+	return"yxryjgs";
+	}
+	
 	
 }

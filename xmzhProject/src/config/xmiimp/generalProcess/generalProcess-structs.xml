@@ -15,6 +15,10 @@
       <result name="generalprocess_export">
         /jsp/Generalprocess/generalprocess_export.jsp
       </result>
+      
+        <result name="yxryjgs" type="json">
+		   <param name="root">orgnameList</param>
+	  </result>
     </action>
     
     <action class="tGeneralprocessMainAction" method="{1}" name="tGeneralprocessMainAction_*">

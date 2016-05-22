@@ -96,9 +96,9 @@
 	     	 <h:text property="modelOne.cust_Name" id="cust_Name" validateAttr="allowNull=false" style="width:250px;" />
 	     	 <font style="color: red;">*</font>
      	</td>
-     	<td class="form_label" align="right" style="width:120px;">合作机构：</td>
+     	<td class="form_label" align="right" style="width:120px;">营销人员机构：</td>
      	<td>
-	     	 <h:text property="modelOne.coOrganization" id="coOrganization" validateAttr="allowNull=ture" style="width:130px;" />
+	     	 <h:text property="modelOne.yxryjg" id="yxryjg" validateAttr="allowNull=ture" style="width:130px;"  />
      	</td>
       </tr>
       <tr>
@@ -110,7 +110,11 @@
 			    
 			</h:select> 
 		</td>
-      
+		
+      	<td class="form_label" align="right" style="width:120px;">合作机构：</td>
+     	<td>
+	     	 <h:text property="modelOne.coOrganization" id="coOrganization" validateAttr="allowNull=ture" style="width:130px;" />
+     	</td>
       </tr>
       
       <tr>
@@ -265,7 +269,52 @@
   </body>
  <script type="text/javascript">
 
+ $("#yxry").blur(function(){
+	 
+	 var yxry =$("#yxry").val();
+	
+		$.ajax({
+			url : "/Generalprocess//generalProcessAction_queryyxryjg.action",
+			async : false,
+			type : 'post',
+			data : "yxry=" + yxry,
+			timeout : 60000,
+			dataType : 'json',
+			success : function(json) {
 
+				
+
+				 $.each(eval(json), function (n, value) {
+
+
+
+					 if(n==0){
+						 var  orgname = value.YXRYJG;
+
+						 $("#yxryjg").val(orgname);
+						 
+					
+						 }
+					
+	              });
+
+				
+
+
+				
+				if (json == "") {
+
+				} else {
+					$.each(json,function(key, value) {
+					alert(value.yxryjgs);
+					$("#yxryjg").val(value.yxryjgs);
+					
+						
+					});
+				}
+			}
+		});
+ });
  function remove(id){
 	 $("#"+id).val("");
 	

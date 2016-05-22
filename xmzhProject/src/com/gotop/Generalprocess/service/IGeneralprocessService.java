@@ -1,7 +1,6 @@
 package com.gotop.Generalprocess.service;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 import com.gotop.Generalprocess.model.GeneralprocessDto;
@@ -51,5 +50,7 @@ public interface IGeneralprocessService {
 
 	public List<GeneralprocessDto> queryGeneralprocessList(MUOUserSession muo,
 			GeneralprocessDto generalprocessDto, Page page);
+
+	public List queryyxryjg(String yxry);
 
 }

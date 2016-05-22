@@ -9,7 +9,6 @@ import org.apache.log4j.Logger;
 import com.gotop.Generalprocess.dao.IGeneralprocessDAO;
 import com.gotop.Generalprocess.model.GeneralprocessDto;
 import com.gotop.euipApply.dao.impl.TApplyEuipDAO;
-import com.gotop.jbpm.model.TProcessTaskAssignee;
 import com.gotop.util.dataSource.SqlMapClientDao;
 import com.gotop.vo.tyjg.Omorganization;
 import com.primeton.utils.Page;
@@ -62,6 +61,13 @@ public class GeneralprocessDAO extends SqlMapClientDao implements IGeneralproces
 			Page page) {
 		List list = queryForList("GENERAL_PROCESS_SqlMap.myStartGeneralProcessList", map,page);
 		return list;
+	}
+
+	@Override
+	public List queryyxryjg(Map<String, Object> map) {
+		List list = queryForList("GENERAL_PROCESS_SqlMap.queryyxryjg", map);
+		return list;
+		
 	}
 
 }

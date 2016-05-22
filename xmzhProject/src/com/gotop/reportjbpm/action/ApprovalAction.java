@@ -3,6 +3,8 @@ package com.gotop.reportjbpm.action;
 import java.util.ArrayList;
 import java.util.List;
 
+import sun.print.resources.serviceui;
+
 import com.gotop.crm.util.BaseAction;
 import com.gotop.reportjbpm.model.Approval;
 import com.gotop.reportjbpm.service.IApprovalService;
@@ -49,6 +51,9 @@ public class ApprovalAction extends BaseAction {
 		this.setApprovalList(approvalList);
 		return  "queryApprovalListForExcel";
 	}
+	
+	
+	
 	
 
 }
