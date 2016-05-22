@@ -146,7 +146,7 @@ public class TGeneralprocessModelfiveService implements
 		modelFive.setConMatter(conMatter);
 		if (modelFive.getProcessModelId() != null
 				&& !"".equals(modelFive.getProcessModelId())) {
-			// 修改模式五表单内容
+			// 保存模式五表单内容
 			this.tGeneralprocessModelfiveDAO.uptModelFive(modelFive);
 	        //////////////////////////////////////////////附件保存////////////////////////////////////////////////////
 				if(files!=null){
@@ -184,11 +184,11 @@ public class TGeneralprocessModelfiveService implements
 		 		       	 }
 				}
 		} else {
-			// 保存模式五表单内容
+			// 新怎
 			
 			this.tGeneralprocessModelfiveDAO.addModelFive(modelFive);
 	        //////////////////////////////////////////////附件保存////////////////////////////////////////////////////
-				if(files!=null){
+/*				if(files!=null){
 					TModelFile	obj=new TModelFile();
 		 	    	 String suffixStr = null;
 		 	    	 String address="";
@@ -221,7 +221,7 @@ public class TGeneralprocessModelfiveService implements
 								tModelFileService.insert(obj);
 				
 		 		       	 }
-				}
+				}*/
 		}
 
 		modelFive.setOpinion(modelFive.getOptionNew());

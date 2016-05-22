@@ -291,7 +291,7 @@ public class TGeneralprocessModelsixService implements ITGeneralprocessModelsixS
 				// 修改模式6表单内容
 				this.tGeneralprocessModelsixDAO.uptModelSix(Six);
 		          //////////////////////////////////////////////附件上传////////////////////////////////////////////////////
-				if(files!=null){
+/*				if(files!=null){
 					TModelFile	obj=new TModelFile();
 		 	    	 String suffixStr = null;
 		 	    	 String address="";
@@ -325,7 +325,7 @@ public class TGeneralprocessModelsixService implements ITGeneralprocessModelsixS
 								tModelFileService.insert(obj);
 				
 		 		       	 }
-				}
+				}*/
 				
 			}else{
 				// 保存模式6表单内容
