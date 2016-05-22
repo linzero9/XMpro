@@ -27,7 +27,7 @@ public interface IGeneralprocessService {
 	 * @param taskAssgineeDto
 	 */
 	public void handleModelOne(MUOUserSession muo, ProcessModelOne modelOne,
-			TaskAssgineeDto taskAssgineeDto,File[] files,String[] filesFileName,String modeId,String modeType) throws Exception ;
+			TaskAssgineeDto taskAssgineeDto,File[] files,String[] filesFileName) throws Exception ;
 
 	/**
 	 * 新增模式二表单内容,完成模式二节点

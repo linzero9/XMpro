@@ -161,7 +161,7 @@ public class GeneralprocessService implements IGeneralprocessService {
 
 	@Override
 	public void handleModelOne(MUOUserSession muo, ProcessModelOne modelOne,
-			TaskAssgineeDto taskAssgineeDto,File[] files,String[] filesFileName,String modeId,String modeType) throws Exception {
+			TaskAssgineeDto taskAssgineeDto,File[] files,String[] filesFileName) throws Exception {
 	
 		
 		// 当前节点id
@@ -221,7 +221,7 @@ public class GeneralprocessService implements IGeneralprocessService {
 		 		       		 suffixStr = filesFileName[i].substring(filesFileName[i].indexOf("."), filesFileName[i].length());//获取后缀名      		 
 		 			       		obj.setExecutionId(modelOne.getFlow_Id());
 		 			       		obj.setModeId(String.valueOf(modelOne.getProcessModelId()));
-		 			       		obj.setModeType(modeType);
+		 			       		obj.setModeType("mod1");
 		 			       		byte[] content = FileCopyUtils.copyToByteArray(files[i]);
 								obj.setModeFiles(content);
 				       			       		
@@ -289,7 +289,7 @@ public class GeneralprocessService implements IGeneralprocessService {
 		 		       		 suffixStr = filesFileName[i].substring(filesFileName[i].indexOf("."), filesFileName[i].length());//获取后缀名      		 
 		 			       		obj.setExecutionId(modelOne.getFlow_Id());
 		 			       		obj.setModeId(String.valueOf(modelOne.getProcessModelId()));
-		 			       		obj.setModeType(modeType);
+		 			       		obj.setModeType("mod1");
 		 			       		byte[] content = FileCopyUtils.copyToByteArray(files[i]);
 								obj.setModeFiles(content);
 				       			       		
@@ -381,7 +381,7 @@ public class GeneralprocessService implements IGeneralprocessService {
 					modelOne, ProcessModelOne.class);
 			}
           //////////////////////////////////////////////附件上传////////////////////////////////////////////////////
-			if(files!=null){
+/*			if(files!=null){
 				TModelFile	obj=new TModelFile();
 	 	    	 String suffixStr = null;
 	 	    	 String address="";
@@ -404,7 +404,7 @@ public class GeneralprocessService implements IGeneralprocessService {
 	 		       		 suffixStr = filesFileName[i].substring(filesFileName[i].indexOf("."), filesFileName[i].length());//获取后缀名      		 
 	 			       		obj.setExecutionId(newDto.getExecutionId());
 	 			       		obj.setModeId(String.valueOf(modelOne.getProcessModelId()));
-	 			       		obj.setModeType(modeType);
+	 			       		obj.setModeType("mod1");
 	 			       		byte[] content = FileCopyUtils.copyToByteArray(files[i]);
 							obj.setModeFiles(content);
 			       			       		
@@ -415,7 +415,7 @@ public class GeneralprocessService implements IGeneralprocessService {
 							tModelFileService.insert(obj);
 			
 	 		       	 }
-			}
+			}*/
 	    	    
 			
 		}

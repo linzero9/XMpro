@@ -564,7 +564,7 @@ public class GeneralprocessAction extends BaseAction {
 		MUOUserSession muo = getCurrentOnlineUser();
 		modeType="mod1";
 		try {
-			this.generalProcessService.handleModelOne(muo, modelOne, taskAssgineeDto, files, filesFileName, modeId, modeType);
+			this.generalProcessService.handleModelOne(muo, modelOne, taskAssgineeDto, files, filesFileName);
 			this.updateProcessMistakes();
 		} catch (Exception e) {
 			info = "fails";
