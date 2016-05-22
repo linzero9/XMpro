@@ -362,10 +362,7 @@ public class TModelTimedayAction extends BaseAction {
     	return "Report_OverrunCondition_excel";
     }
   
-    public double  getExpendTime2(String start, String end) throws ParseException{
-    	double a = 8;
-    	return a;
-    }
+    
     /**
      * @author liaomeiting
      * @desc 计算两节点消耗的工作时长

@@ -27,7 +27,6 @@
 							<input type="hidden" name="page.isCount" value="true">
 							<input type="submit" id="btn" class="button" value='查询' >
 							<input type="button" id="btn" class="button" value='清空' onclick="clears();">
-							<a href="/timeMachine/tModelTimedayAction_test.action">test</a>
 						</td>
 			</tr>
 			</table>
