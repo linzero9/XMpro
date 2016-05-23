@@ -273,7 +273,7 @@ select operatorname from ac_operator where operatorid =
   <!-- 修改 非工作日  -->
   <update id="updateOverTime"  parameterClass="com.gotop.timeMachine.model.OverTimeReport">
     update t_model_overtimeReport t
-    set t.end_status = 'T',
+    set t.end_status = 'T'
     where t.request_id = #request_id:DECIMAL:-9999#
   </update>
   
