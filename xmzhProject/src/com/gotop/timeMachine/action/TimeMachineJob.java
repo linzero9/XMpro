@@ -56,7 +56,7 @@ public class TimeMachineJob  extends  QuartzJobBean {
 
 		// 目前只有值，需要加入加入 @ 注解的 值
 
-		Method thismethod = classes.getDeclaredMethod("queryOvertimeReport");
+		Method thismethod = classes.getDeclaredMethod("handleTimeReport");
 
 		// bean
 		String  back = (String) thismethod.invoke(bean);
