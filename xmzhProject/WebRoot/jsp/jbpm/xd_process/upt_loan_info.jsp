@@ -65,7 +65,7 @@
 			<tr>
 		<td class="form_label" align="right" style="width:10%;" >营销人员：</td>
       	<td>
-      		<h:text id="yxry" property="xdProcessTaskAssignee.yxry" />
+      		<h:text id="yxry" property="xdProcessTaskAssignee.yxry"  onblur="yxryjgname();"/>
       	</td>
 		  </tr>
 		  <tr>
@@ -89,6 +89,33 @@
 		</table>
 	</h:form>
 <script type="text/javascript">
+//eventManager.add(window, "load", init); //一进JSP页面自动调用初始化函数
+
+function yxryjgname(){
+	 var yxry =$("#yxry").val();
+		$.ajax({
+			url : "/Generalprocess/generalProcessAction_queryyxryjg.action",
+			async : false,
+			type : 'post',
+			data : "yxry=" + yxry,
+			timeout : 60000,
+			dataType : 'json',
+			success : function(json) {
+				 $.each(eval(json), function (n, value) {
+					 if(n==0){
+						 var  orgname = value.YXRYJG;
+						 $("#yxryjg").val(orgname);		
+						 }	
+	              });
+
+			}
+		});
+	
+}
+
+
+
+
 //页面一旦加载读取时，就初始化
 $(document).ready(function(){
 	 setOneSelect('${xdProcessTaskAssignee.processName}');

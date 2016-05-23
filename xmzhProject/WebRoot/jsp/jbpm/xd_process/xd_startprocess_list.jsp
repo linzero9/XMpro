@@ -244,6 +244,8 @@
 	  			alert("请选择一条流程信息");
 	  			return;
 	  		}else{
+                
+	            
 	  			var rows=gop.getSelectRow();
 		  		var executionId = rows.getParam("executionId");
 		  		var strUrl = "/jbpm/xdProcessAction_queryLoanUptWater.action?waterInfo.flow_id="+executionId;
