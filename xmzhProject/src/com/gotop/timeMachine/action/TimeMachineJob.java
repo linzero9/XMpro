@@ -13,7 +13,7 @@ import com.gotop.Generalprocess.util.SpringContextUtil;
 
 
 
-public class TimeMachineJob  extends  QuartzJobBean {
+public class TimeMachineJob   {
 	
 	
 	
@@ -41,9 +41,8 @@ public class TimeMachineJob  extends  QuartzJobBean {
  
 	}
 
-	@Override
-	protected void executeInternal(JobExecutionContext paramJobExecutionContext)
-			throws JobExecutionException {
+	
+	private void executeInternal() {
 		// TODO Auto-generated method stub
 		
 		try {

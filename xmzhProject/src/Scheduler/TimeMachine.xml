@@ -13,8 +13,7 @@
 		   http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
 		   http://www.springframework.org/schema/tx
 		   http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
-	
-	
+
 	
 	
 	 <!-- Scheduler task   加入bean -->
@@ -26,28 +25,33 @@
    <!-- Scheduler job   定时的类 以及注入的依赖对象 -->
    <bean name="TimeJob"
 	   class="org.springframework.scheduling.quartz.JobDetailBean">
+	   
+
  
      <property name="jobClass" value="com.gotop.timeMachine.action.TimeMachineJob" />
- 
+
    </bean>
  
-   <!-- Cron Trigger     设置定时器的时间-->
+   <!-- Cron Trigger     设置定时器的时间-->   
    <bean id="TimeTrigger"
 	class="org.springframework.scheduling.quartz.CronTriggerBean">
+	
+ 
  
 	<property name="jobDetail" ref="TimeJob" />
-	<property name="cronExpression" value="0 0/30 * * ?" />
+	<property name="cronExpression" value="0 0/30 * * * ?" />
  
    </bean>
  
-<!-- 开启配置 -->
+<!-- 开启配置
    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+
 	<property name="jobDetails">
 	   <list>
 	      <ref bean="TimeJob" />
 	   </list>
 	</property>
- 
+
 	<property name="triggers">
 	    <list>
 		<ref bean="TimeTrigger" />
@@ -56,7 +60,7 @@
    </bean>
 
 	
-	
+	 -->
 	
 	
 	
