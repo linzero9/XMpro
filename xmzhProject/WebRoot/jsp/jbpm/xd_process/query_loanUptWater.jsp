@@ -45,6 +45,15 @@
 								合作机构
 							</th>
 							 <th nowrap="nowrap">
+								营销人员
+							</th>
+						    <th nowrap="nowrap">
+								营销人员所属机构
+							</th>
+						    <th nowrap="nowrap">
+								报单次数
+							</th>
+							 <th nowrap="nowrap">
 								修改人
 							</th>
 							 <th nowrap="nowrap">
@@ -74,6 +83,15 @@
 								</td>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1" property="coorganization" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="cyxry" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="cyxryjg" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="creportcnt" />
 								</td>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1" property="uptEmpname" />

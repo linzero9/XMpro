@@ -18,6 +18,30 @@ public class WaterInfo implements Serializable {
 	private String uptEmpname;
 	private String uptOrgname;
 	
+	private String cyxry;
+	private String cyxryjg;
+	private String creportcnt;
+	
+	
+	
+	public String getCyxry() {
+		return cyxry;
+	}
+	public void setCyxry(String cyxry) {
+		this.cyxry = cyxry;
+	}
+	public String getCyxryjg() {
+		return cyxryjg;
+	}
+	public void setCyxryjg(String cyxryjg) {
+		this.cyxryjg = cyxryjg;
+	}
+	public String getCreportcnt() {
+		return creportcnt;
+	}
+	public void setCreportcnt(String creportcnt) {
+		this.creportcnt = creportcnt;
+	}
 	public Long getWaterId() {
 		return waterId;
 	}

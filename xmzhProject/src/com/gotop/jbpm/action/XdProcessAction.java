@@ -488,6 +488,9 @@ public class XdProcessAction   extends BaseAction {
 					waterInfo.setCoorganization(xdProcessTaskAssignee.getCoorganization());
 					waterInfo.setUptEmpid(this.getCurrentOnlineUser().getEmpid());
 					waterInfo.setUptOrgcode(this.getCurrentOnlineUser().getOrgcode());
+					waterInfo.setCyxry(xdProcessTaskAssignee.getYxry());
+					waterInfo.setCyxryjg(xdProcessTaskAssignee.getYxryjg());
+					waterInfo.setCreportcnt(xdProcessTaskAssignee.getReportcnt());
 					
 					this.xdProcessService.updateTitle(xdProcessTaskAssignee);
 					this.xdProcessService.insertWater(waterInfo);

@@ -79,6 +79,9 @@
      <result column="UPT_TIME" property="uptTime" jdbcType="VARCHAR" />
       <result column="UPT_EMPNAME" property="uptEmpname" jdbcType="VARCHAR" />
      <result column="UPT_ORGNAME" property="uptOrgname" jdbcType="VARCHAR" />
+     <result column="CYXRY" property="cyxry" jdbcType="VARCHAR" />
+     <result column="CYXRYJG" property="cyxryjg" jdbcType="VARCHAR" />
+     <result column="CREPORTCNT" property="creportcnt" jdbcType="VARCHAR" />
   </resultMap>
   
     <resultMap id="abatorgenerated_WorkTime_HashMapResult" class="java.util.HashMap" >
@@ -321,14 +324,15 @@ ORDER BY EXECUTION_ID,processName,CUST_NAME,ONECATEGORY,LOANCATEGORY,APPLY_BAL,C
 		SELECT t_model_loanUpdateWater_seq.NEXTVAL AS VALUE FROM DUAL
 		</selectKey>
    insert into t_model_loanUpdateWater(WATER_ID,FLOW_ID,PROCESS_NAME,CUST_NAME,APPLY_BAL,
-ONECATEGORY,LOANCATEGORY,COORGANIZATION,UPT_EMPID,UPT_ORGCODE,UPT_TIME)
+ONECATEGORY,LOANCATEGORY,COORGANIZATION,UPT_EMPID,UPT_ORGCODE,UPT_TIME,CYXRY,CYXRYJG,CREPORTCNT)
 values(#waterId:DECIMAL:-9999#,  #flow_id:VARCHAR#,  #processName:VARCHAR#,  #custName:VARCHAR#, #apply_bal:VARCHAR#
-,  #oneCategory:VARCHAR#,  #loanCategory:VARCHAR#, #coorganization:VARCHAR#,  #uptEmpid:DECIMAL:-9999#, #uptOrgcode:VARCHAR#, sysdate)
+,  #oneCategory:VARCHAR#,  #loanCategory:VARCHAR#, #coorganization:VARCHAR#,  #uptEmpid:DECIMAL:-9999#, #uptOrgcode:VARCHAR#, 
+sysdate,#cyxry:VARCHAR#,#cyxryjg:VARCHAR#,#creportcnt:VARCHAR#)
   </insert>
   
    <!--查询 贷款 信息(模式一)修改 流水 记录-->
   <select id="queryLoanUptWater" resultMap="abatorgenerated_WaterInfo_HashMapResult" parameterClass="java.util.HashMap" >
- select t1.WATER_ID, t1.FLOW_ID, t1.PROCESS_NAME, t1.CUST_NAME, t1.APPLY_BAL, t1.ONECATEGORY, 
+ select t1.CYXRY,T1.CYXRYJG,T1.CREPORTCNT,t1.WATER_ID, t1.FLOW_ID, t1.PROCESS_NAME, t1.CUST_NAME, t1.APPLY_BAL, t1.ONECATEGORY, 
   t1.LOANCATEGORY, t1.COORGANIZATION, t1.UPT_EMPID, t1.UPT_ORGCODE, t2.empname as UPT_EMPNAME , 
   t3.orgname as UPT_ORGNAME, to_char(t1.UPT_TIME,'yyyy-MM-dd hh24:mm:ss') as UPT_TIME
 from t_model_loanUpdateWater t1,om_employee t2, om_organization t3
