@@ -42,7 +42,7 @@
  
    </bean>
  
-<!-- 开启配置 -->
+<!-- 开启配置 
    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 	<property name="jobDetails">
 	   <list>
@@ -57,7 +57,7 @@
 	</property>
    </bean>
 
-	
+	-->
 	
 	
 	

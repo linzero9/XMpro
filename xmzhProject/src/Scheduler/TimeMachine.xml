@@ -18,7 +18,8 @@
 	
 	
 	 <!-- Scheduler task   加入bean -->
-   <bean name="TimeMachineJob" class="com.gotop.timeMachine.action.TimeMachineJob" />
+
+	 
    
    
  
@@ -28,11 +29,6 @@
  
      <property name="jobClass" value="com.gotop.timeMachine.action.TimeMachineJob" />
  
-     <property name="jobDataAsMap">
-	    <map>
-	      <entry key="TimedayAction" value-ref="tModelTimedayAction" />
-	     </map>
-      </property>
    </bean>
  
    <!-- Cron Trigger     设置定时器的时间-->

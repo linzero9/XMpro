@@ -1,14 +1,19 @@
 package com.gotop.timeMachine.action;
 
+import java.lang.reflect.Method;
+
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
+import org.springframework.scheduling.quartz.QuartzJobBean;
+
+import com.gotop.Generalprocess.util.SpringContextUtil;
 
 
 
 
 
 
-public class TimeMachineJob {
+public class TimeMachineJob  extends  QuartzJobBean {
 	
 	
 	
@@ -34,6 +39,42 @@ public class TimeMachineJob {
 			System.out.println("执行超限时长报表 出错  ERROR!!");
 		}
  
+	}
+
+	@Override
+	protected void executeInternal(JobExecutionContext paramJobExecutionContext)
+			throws JobExecutionException {
+		// TODO Auto-generated method stub
+		
+		try {
+			
+			System.out.println("+++++++++++++开始执行 超限时长报表  START+++++++++++");
+			
+		Object bean = SpringContextUtil.getBean("tModelTimedayaction"); 
+		
+		Class<?> classes = Class.forName("com.gotop.timeMachine.action.TModelTimedayAction");
+
+		// 目前只有值，需要加入加入 @ 注解的 值
+
+		Method thismethod = classes.getDeclaredMethod("queryOvertimeReport");
+
+		// bean
+		String  back = (String) thismethod.invoke(bean);
+		
+		
+		
+		
+		System.out.println("+++++++++++++ 超限时长报表   END+++++++++++");
+		
+		
+		
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+			// TODO: handle exception
+		}
+
+		
 	}
 	
 	
