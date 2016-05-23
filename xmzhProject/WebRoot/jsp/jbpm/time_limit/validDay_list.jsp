@@ -95,7 +95,6 @@
 								&nbsp; &nbsp;
 								<input type="button" class="button" value="修改有效日" onclick="uptValidDay();" />
 								<input type="button" class="button" value="删除有效日" onclick="delValidDay();" />
-								<input type="button" class="button" value="维护工作时间" onclick="addWorkTime();" />
 								<input type="button" class="button" value="查看工作时间" onclick="queryWorkTimeList();" />
 								<!-- <input type="button" class="button" value="维护工作日" onclick="addWorkDay();" />
 								<input type="button" class="button" value="查看工作日" onclick="queryWorkDayList();" /> -->
@@ -147,23 +146,6 @@
   			showModalCenter(strUrl, null, callBackFunc, 500, 200, '新增有效日');  
 		}
 
-		function addWorkTime(){
-			var gop = $id("group1");
-	  		var len = gop.getSelectLength();
-	  		if(len == 0){
-	  			alert("请选择一条记录");
-	  			return;
-	  		}else{
-	  			var row=gop.getSelectRow();
-    			var id = row.getParam("id");
-    			var startDate = row.getParam("startDate");
-    			var endDate = row.getParam("endDate");
-    			
-				var strUrl = "/jbpm/timeLimitManageAction_toAddWorkTime.action?workTimeSideBean.mainID="+id;
-				strUrl += "&workTimeMainBean.startDate="+startDate+"&workTimeMainBean.endDate="+endDate;
-	  			showModalCenter(strUrl, null, '', 800, 400, '维护工作时间');  
-	  		}
-		}
 
 		function uptValidDay(){
 			var gop = $id("group1");
@@ -247,7 +229,10 @@
 	  		}else{
 	  			var row=gop.getSelectRow();
     			var id = row.getParam("id");
+    			var startDate = row.getParam("startDate");
+    			var endDate = row.getParam("endDate");
 				var strUrl = "/jbpm/timeLimitManageAction_queryWorkTimeList.action?workTimeMainBean.id="+id;
+				strUrl += "&workTimeMainBean.startDate="+startDate+"&workTimeMainBean.endDate="+endDate;
 	  			showModalCenter(strUrl, null, '', 800, 400, '工作时间列表');  
 	  		}
 		}

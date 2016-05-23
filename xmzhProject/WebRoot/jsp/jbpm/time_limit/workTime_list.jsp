@@ -11,6 +11,8 @@
 	<body topmargin="0" leftmargin="0">
 	
 	<h:hidden id="mainID"   property="workTimeMainBean.id"  />
+	<h:hidden id="startDate"   property="workTimeMainBean.startDate"  />
+	<h:hidden id="endDate"   property="workTimeMainBean.endDate"  />
 	
 	<DIV class="divList">
 			<w:panel id="panel" width="100%" title="工作时间配置列表">
@@ -51,7 +53,7 @@
 								<td align="center" nowrap="nowrap" width="10%">
 								<w:rowRadio>
 										<h:param name='id' iterateId='id1' property='id' />
-										<h:param name='mainID' iterateId='id1' property='mainID' />
+										<%-- <h:param name='mainID' iterateId='id1' property='mainID' /> --%>
 									</w:rowRadio>
 								</td>
 								<td nowrap="nowrap"> 
@@ -72,6 +74,7 @@
               <td colspan="23" class="command_sort_area">
 							<div class="h3">
 								&nbsp; &nbsp;
+								<input type="button" class="button" value="新增" onclick="addWorkTime();" />
 							<l:notEqual property="workTimeSideBeans.size"  targetValue="0">
 								&nbsp; &nbsp;
 								<input type="button" class="button" value="删除" onclick="del();" />
@@ -107,6 +110,17 @@
 			</w:panel>		
 		</DIV>
 		<script type="text/javascript">
+
+		function addWorkTime(){
+    			var mainID = $("#mainID").val();
+    			var startDate = $("#startDate").val();
+    			var endDate = $("#endDate").val();
+    			
+				var strUrl = "/jbpm/timeLimitManageAction_toAddWorkTime.action?workTimeSideBean.mainID="+mainID;
+				strUrl += "&workTimeMainBean.startDate="+startDate+"&workTimeMainBean.endDate="+endDate;
+	  			showModalCenter(strUrl, null, callBackFunc, 800, 400, '维护工作时间');  
+		}
+		
 		function del(){
 	  		var gop = $id("group1");
 	  		var len = gop.getSelectLength();
