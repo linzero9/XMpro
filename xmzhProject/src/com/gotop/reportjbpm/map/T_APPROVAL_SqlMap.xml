@@ -200,9 +200,8 @@ from (
                          select ll.*, jj.EXECUTION_ID
                            from (
                                   
-                                  SELECT EXECUTION_ID
-                                    from T_PROCESS_BUSINESS
-                                   where BUSINESS_TYPE = '88') jj
+                                     select t1.execution_id from T_PROCESS_CONFIG t,t_process_business t1, JBPM4_HIST_PROCINST t2
+where t.definition_id=t2.procdefid_ and t2.id_=t1.execution_id and t1.business_type='88'and t.state='01') jj
                            left join (
                                       
                                       select T.REPORTTIME,
