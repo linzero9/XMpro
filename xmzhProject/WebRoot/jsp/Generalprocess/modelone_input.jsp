@@ -96,10 +96,13 @@
 	     	 <h:text property="modelOne.cust_Name" id="cust_Name" validateAttr="allowNull=false" style="width:250px;" />
 	     	 <font style="color: red;">*</font>
      	</td>
-     	<td class="form_label" align="right" style="width:120px;">营销人员机构：</td>
-     	<td>
-	     	 <h:text property="modelOne.yxryjg" id="yxryjg" validateAttr="allowNull=ture" style="width:130px;"  />
-     	</td>
+     	
+     	  <td class="form_label" align="right" style="width:120px;">营销人员机构：</td>
+     	<td colspan="1">
+       <h:text property="modelOne.yxryjg" id="yxryjg" validateAttr="allowNull=ture" style="width:130px;" readonly="false"  />
+		<h:hidden id="orgCodeTwo" property="modelOne.orgCodeTwo" />
+	    <a href="#" onclick="open_slzhej_fun1()">选择</a>
+     	
       </tr>
       <tr>
            	<td class="form_label" align="right" style="width:120px;">是否老顾客：</td>
@@ -676,6 +679,38 @@ function initPlanCell20(){
 		    	}
 			}
 
+
+		//选择	营销人员机构
+		function open_slzhej_fun1(){
+			var strUrl ="";
+			var objName="";
+			var peArgument = [];
+			var startOrgid=$("#startOrgid").val();
+			strUrl ="/tree/initMainTree_mainTree.action?changeTree.showTabOrg=1&changeTree.orgType=4&changeTree.showSelBox=1&changeTree.checkcount=1&changeTree.startOrgid="+startOrgid;
+			objName="选择受理支行";  
+			var paramEntity = new ParamEntity('Organization');
+				paramEntity.setProperty('orgname',$id("yxryjg").value);
+				paramEntity.setProperty('orgcode',$id("orgCodeTwo").value);
+				peArgument[3]=[paramEntity,'orgname','orgcode',"orgid"];			
+			showModalCenter(strUrl,peArgument,open_slzhej_callback1,600,430,objName); 
+			}
+		
+		//选择	营销人员机构	回调方法
+		function open_slzhej_callback1(arg){//回调方法
+				if(arg!=''){
+		    	if(arg['Organization']){ //原写法无需判断是否为空
+				  		var sorgidArra  = arg['Organization'].slice(0);//人员数组
+				  		argRes=[[],[],[],[]];
+						for(var i=0;i<sorgidArra.length;i++){
+							argRes[0].push(sorgidArra[i].getProperty("orgcode"));
+							argRes[1].push(sorgidArra[i].getProperty("orgname"));
+						}
+						$id("yxryjg").value = argRes[1];
+						$id("orgCodeTwo").value = argRes[0];
+					}
+		    	}
+			}
+		
 		/* function open_yjfl_fun(){
 			var strUrl ="";
 			var objName="";
