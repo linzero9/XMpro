@@ -18,26 +18,28 @@
 	
 	
 	 <!-- Scheduler task   加入bean -->
-   <bean name="schedulerTask" class="com.gotop.Scheduler.SchedulerTask" />
+   <bean name="TimeMachineJob" class="com.gotop.timeMachine.action.TimeMachineJob" />
+   
+   
  
    <!-- Scheduler job   定时的类 以及注入的依赖对象 -->
-   <bean name="schedulerJob"
+   <bean name="TimeJob"
 	   class="org.springframework.scheduling.quartz.JobDetailBean">
  
-     <property name="jobClass" value="com.gotop.Scheduler.SchedulerJob" />
+     <property name="jobClass" value="com.gotop.timeMachine.action.TimeMachineJob" />
  
      <property name="jobDataAsMap">
 	    <map>
-	      <entry key="schedulerTask" value-ref="schedulerTask" />
+	      <entry key="TimedayAction" value-ref="tModelTimedayAction" />
 	     </map>
       </property>
    </bean>
  
    <!-- Cron Trigger     设置定时器的时间-->
-   <bean id="cronTrigger"
+   <bean id="TimeTrigger"
 	class="org.springframework.scheduling.quartz.CronTriggerBean">
  
-	<property name="jobDetail" ref="schedulerJob" />
+	<property name="jobDetail" ref="TimeJob" />
 	<property name="cronExpression" value="0/10 * * * * ?" />
  
    </bean>
@@ -46,13 +48,13 @@
    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 	<property name="jobDetails">
 	   <list>
-	      <ref bean="schedulerJob" />
+	      <ref bean="TimeJob" />
 	   </list>
 	</property>
  
 	<property name="triggers">
 	    <list>
-		<ref bean="cronTrigger" />
+		<ref bean="TimeTrigger" />
 	    </list>
 	</property>
    </bean>
