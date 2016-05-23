@@ -27,7 +27,7 @@ public class ProcessModelFour extends ProcessModel  implements  Serializable{
 	 * 终审币别.
 	 * @abatorgenerated
 	 */
-	@GeneralprocessField(name="终审币别",type="dic",dicname="PROCESS_method")
+	@GeneralprocessField(name="终审币别",type="dic",dicname="PROCESS_MONEY")
 	private String zscurrency;
 	/**
 	 * 终审金额 .
