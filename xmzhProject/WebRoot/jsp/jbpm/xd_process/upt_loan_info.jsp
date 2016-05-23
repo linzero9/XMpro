@@ -72,6 +72,7 @@
       	     <td class="form_label" align="right" style="width:10%;" >营销人员机构：</td>
       	  <td>
       		<h:text id="yxryjg" property="xdProcessTaskAssignee.yxryjg"  />
+      		<a href="#" onclick="open_slzhej_fun1()">选择</a>
       	</td>
 			</tr>
 			
@@ -90,7 +91,45 @@
 	</h:form>
 <script type="text/javascript">
 //eventManager.add(window, "load", init); //一进JSP页面自动调用初始化函数
+		//选择	营销人员机构
 
+
+		
+
+		//选择	营销人员机构
+		function open_slzhej_fun1(){
+			var strUrl ="";
+			var objName="";
+			var peArgument = [];
+		//	var startOrgid=$("#startOrgid").val();
+			strUrl ="/tree/initMainTree_mainTree.action?changeTree.showTabOrg=1&changeTree.orgType=4&changeTree.showSelBox=1&changeTree.checkcount=1";
+			objName="选择受理支行";  
+			var paramEntity = new ParamEntity('Organization');
+				paramEntity.setProperty('orgname',$id("yxryjg").value);
+	//		paramEntity.setProperty('orgcode',$id("orgCodeTwo").value);
+				peArgument[3]=[paramEntity];			
+			showModalCenter(strUrl,peArgument,open_slzhej_callback1,600,430,objName); 
+			}
+		
+		//选择	营销人员机构	回调方法
+		function open_slzhej_callback1(arg){//回调方法
+				if(arg!=''){
+		    	if(arg['Organization']){ //原写法无需判断是否为空
+				  		var sorgidArra  = arg['Organization'].slice(0);//人员数组
+				  		argRes=[[],[],[],[]];
+						for(var i=0;i<sorgidArra.length;i++){
+							argRes[0].push(sorgidArra[i].getProperty("orgcode"));
+							argRes[1].push(sorgidArra[i].getProperty("orgname"));
+						}
+						$id("yxryjg").value = argRes[1];
+					}
+		    	}
+			}
+		
+		
+		
+		
+		
 function yxryjgname(){
 	 var yxry =$("#yxry").val();
 		$.ajax({
