@@ -40,6 +40,8 @@ public class OverTimeReport  implements Serializable{
 	
 	private Double expendtime;//节点消耗时长
 	
+	private String end_status;//节点消耗时长
+	
 	private String reportStarttime; //报单开始时间（只用于JSP页面的查询项）
 	private String reportEndtime; //报单结束时间（只用于JSP页面的查询项）
 	
@@ -209,6 +211,14 @@ public class OverTimeReport  implements Serializable{
 
 	public void setExpendtime(Double expendtime) {
 		this.expendtime = expendtime;
+	}
+
+	public String getEnd_status() {
+		return end_status;
+	}
+
+	public void setEnd_status(String end_status) {
+		this.end_status = end_status;
 	}
 
 	

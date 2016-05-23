@@ -75,4 +75,6 @@ public interface ITModelTimedayService {
 	List<WorkTimeSideBean> queryWorkTimeSide(WorkTimeMainBean workTimeMainBean);
 
 	List<TModelTimeday> queryWorkDayList(Map<String, Object> map);
+
+	void updateOverTime(OverTimeReport overTimeReport2);
 }

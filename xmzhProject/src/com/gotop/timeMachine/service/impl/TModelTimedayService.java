@@ -213,4 +213,10 @@ public class TModelTimedayService implements ITModelTimedayService {
 		return list;
 	}
 
+	@Override
+	public void updateOverTime(OverTimeReport overTimeReport) {
+		
+		 this.tModelTimedayDAO.updateOverTime(overTimeReport);
+	}
+
 }

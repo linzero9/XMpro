@@ -56,4 +56,6 @@ public interface ITModelTimedayDAO {
 
 	List queryWorkDayList(Map<String, Object> map);
 
+	void updateOverTime(OverTimeReport overTimeReport);
+
 }

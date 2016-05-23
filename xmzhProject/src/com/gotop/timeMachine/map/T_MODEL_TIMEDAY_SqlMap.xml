@@ -74,6 +74,7 @@
     <result column="TIMELIMITTWO" property="timeLimitTwo" jdbcType="DOUBLE" />
     <result column="RN" property="rn" jdbcType="DECIMAL" />
     <result column="EXPENDTIME" property="expendtime" jdbcType="DOUBLE" />
+    <result column="END_STATUS" property="end_status" jdbcType="VARCHAR" />
   </resultMap>
 
  <resultMap id="workTimeMain_Result" class="com.gotop.jbpm.model.WorkTimeMainBean" >
@@ -229,7 +230,14 @@ select operatorname from ac_operator where operatorid =
 <!-- 查询 超限报表 临时表-->
   <select id="queryOverTimeReport" resultMap="OverTimeReport_Result" parameterClass="java.util.HashMap" >
 	select * from t_model_overtimeReport
-	where request_id = #request_id:DECIMAL:-9999#
+	where request_id = (
+		select max(request_id)
+  from (select request_id
+          from t_model_overtimeReport
+         where end_status = 'T'
+         group by request_id)
+	)
+	
 	<isNotNull prepend="and" property="reportStarttime" >
 	reportTime >= #reportStarttime:VARCHAR#
 	</isNotNull>
@@ -261,4 +269,12 @@ select operatorname from ac_operator where operatorid =
 	where mainID = '$id$'
 	order by startTime
   </select> 
+  
+  <!-- 修改 非工作日  -->
+  <update id="updateOverTime"  parameterClass="com.gotop.timeMachine.model.OverTimeReport">
+    update t_model_overtimeReport t
+    set t.end_status = 'T',
+    where t.request_id = #request_id:DECIMAL:-9999#
+  </update>
+  
 </sqlMap>

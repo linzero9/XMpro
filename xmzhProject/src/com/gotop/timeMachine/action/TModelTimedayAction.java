@@ -131,7 +131,9 @@ public class TModelTimedayAction extends BaseAction {
      * 6.查询当次请求request_id的临时表信息 ，显示到页面 
      * 7.删除当次请求request_id的临时表记录
      */
-    public void handleTimeReport(Long request_id) throws Exception {
+    public void handleTimeReport() throws Exception {
+    	
+    	Long request_id = (Long) this.tModelTimedayService.queryRequestId();
     	
       // 1.查询出所有的信贷流程，当前节点必须为“结束
     	List<XdproForEnd> xdproForEnds = this.tModelTimedayService.queryXdproForEnd();
@@ -292,6 +294,10 @@ public class TModelTimedayAction extends BaseAction {
 			
 		}
     	
+    	OverTimeReport overTimeReport2 = new OverTimeReport();
+    	overTimeReport2.setRequest_id(request_id);
+    	//更新超限报表，将定时执行调度状态，F改为T，表示调度结束
+    	this.tModelTimedayService.updateOverTime(overTimeReport2);
        
     }
     
@@ -307,13 +313,13 @@ public class TModelTimedayAction extends BaseAction {
     	if(overTimeReport == null){
     		overTimeReport = new OverTimeReport();
     		
-    		//得到当次请求的id
+    	/*	//得到当次请求的id
     		Long request_id = (Long) this.tModelTimedayService.queryRequestId();
     		
    //（1）首次发起请求，查询超限报表的相关内容insert到临时表里，以供后面的查询使用
     		handleTimeReport(request_id);
     		
-    		overTimeReport.setRequest_id(request_id);
+    		overTimeReport.setRequest_id(request_id);*/
     	}
     	
     	
@@ -340,13 +346,13 @@ public class TModelTimedayAction extends BaseAction {
     	if(overTimeReport == null){
     		overTimeReport = new OverTimeReport();
     		
-    		//得到当次请求的id
+    		/*//得到当次请求的id
     		Long request_id = (Long) this.tModelTimedayService.queryRequestId();
     		
    //（1）首次发起请求，查询超限报表的相关内容insert到临时表里，以供后面的查询使用
     		handleTimeReport(request_id);
     		
-    		overTimeReport.setRequest_id(request_id);
+    		overTimeReport.setRequest_id(request_id);*/
     	}
     	
     	
