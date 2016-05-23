@@ -286,7 +286,7 @@ LEFT JOIN T_GENERALPROCESS_MODELTHREE t5 on T1.EXECUTION_ID = t5.FLOW_ID
            	 and dic.dictid in($loanCategoryId$))
       		</isNotNull>
       		</dynamic>
-ORDER BY REPORTCNT desc
+ORDER BY EXECUTION_ID,processName,CUST_NAME,ONECATEGORY,LOANCATEGORY,APPLY_BAL,COORGANIZATION,YXRY, YXRYJG,REPORTCNT asc
   </select>
   
   <!--修改 模式一 的内容-->
