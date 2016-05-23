@@ -44,10 +44,27 @@
 					</tr>
 					
 					<tr>
-						<td class="form_label" align="right">机构名称：</td>
+					
+					<td class="form_label" align="right" width="10%" nowrap="nowrap">机构/部门：</td>
+					<td colspan="1"  width="25%" nowrap="nowrap">
+						<h:text id="orgname" property="omInformation.orgName"   readonly="true"  style="width:148px;" />
+			            <h:hidden id="orgcode" property="omInformation.orgcode" />
+			      		<a href="#" onclick="open_orgcode_tree(1);">选择部室</a>
+			      		<a href="#" onclick="open_orgcode_tree(2);">选择支行</a>
+					</td>
+					
+						<!--<td class="form_label" align="right">机构名称：</td>
 						<td colspan="1">
-							<h:text id="orgName" property="omInformation.orgName" style="width:148px;" />
-							<a href="#" onclick="showErrorlink1()">选择</a>
+						
+						 <h:text id="orgNameOne" property="omInformation.orgName"   readonly="true"  style="width:148px;" />
+			                  <h:hidden id="orgCodeOne" property="omInformation.orgCodeOne" />
+			                  <h:hidden id="orgidOne" property="omInformation.orgidOne" />
+			                  <a href="#" onclick="open_newyw_tree_fun1()">选择</a>
+			                
+			  
+							<!-- 	<h:text id="orgName" property="omInformation.orgName" style="width:148px;" />
+							<a href="#" onclick="showErrorlink1()">选择</a>-->
+							
 						</td>
 						<td class="form_label"  align="right">业务角色：</td>
 						<td colspan="1">
@@ -59,7 +76,7 @@
 					<tr>
 						<td class="form_label" align="right">岗位名称：</td>
 						<td colspan="1">
-							<h:text id="posiName" property="omInformation.posiName" style="width:148px;" />
+					 	<h:text id="posiName" property="omInformation.posiName" style="width:148px;" />
 							<a href="#" onclick="showErrorlink3()">选择</a>
 						</td>
 					</tr>
@@ -195,7 +212,51 @@
           </h:form> 
         <script type="text/javascript">
         	
-		        
+
+    	//选择 部门/机构
+		function open_orgcode_tree(flag) {//方法名
+			//strUrl = "/deviceManagement/myMainTreeAction_initMainTree.action?changeTree.showTabOrg=1&changeTree.checkcount=1&changeTree.orgType=4&changeTree.showSelBox=4";
+
+			strUrl = "/deviceManagement/myMainTreeAction_initMainTree.action?changeTree.showTabOrg=1&changeTree.orgType=4&changeTree.showSelBox=4";//changeTree.checkcount=1为多选框可选个数，为1表示只能单选，若不指定选的个数，则需去掉
+			if (flag == "1") {
+				strUrl += "&orgflag=1";
+			} else if (flag == "2") {
+				strUrl += "&orgflag=2";
+			}
+			var peArgument = [];
+			//机构
+			var paramEntity = new ParamEntity('Organization');
+			paramEntity.setProperty('orgcode', $id("orgcode").value);
+			paramEntity.setProperty('orgname', $id("orgname").value);
+			/* paramEntity.setProperty('orgid',$id("orgid").value);
+			peArgument[3]=[paramEntity,'orgname','orgcode','orgid'];  */
+			peArgument[3] = [ paramEntity, 'orgname', 'orgcode' ];
+
+			//调用并传参
+			strUrl += "&time=" + new Date().getTime();
+			showModalCenter(strUrl, peArgument, openNewEmpTreeCallBack1,
+					500,430, '选择机构');
+		}
+
+		function openNewEmpTreeCallBack1(arg) {//回调方法
+			if (arg['Organization']) { //原写法无需判断是否为空
+				var sorgidArra = arg['Organization'].slice(0);//人员数组
+				argRes = [ [], [], [], [] ];
+				for ( var i = 0; i < sorgidArra.length; i++) {
+					argRes[0].push(sorgidArra[i].getProperty("orgcode"));
+					argRes[1].push(sorgidArra[i].getProperty("orgname"));
+					//argRes[2].push(sorgidArra[i].getProperty("orgid"));
+				}
+				$id("orgcode").value = argRes[0];
+				$id("orgname").value = argRes[1];
+				//$id("orgid").value = argRes[2];
+			} else {
+				$id("orgcode").value = "";
+				$id("orgname").value = "";
+				//$id("orgid").value = "";
+			}
+		}
+        
 		        //所属机构的修改维护
 		        function updateRecord2(){
 		        	var gop = $id("group1");

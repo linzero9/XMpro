@@ -16,7 +16,23 @@ public class OmInformation implements Serializable{
 	private String empStatus;
 	private String gender;
 	private String mobileNo;
+	private String orgcode;
+	private String orgidOne;
 	
+
+	public String getOrgcode() {
+		return orgcode;
+	}
+	public void setOrgcode(String orgcode) {
+		this.orgcode = orgcode;
+	}
+	
+	public String getOrgidOne() {
+		return orgidOne;
+	}
+	public void setOrgidOne(String orgidOne) {
+		this.orgidOne = orgidOne;
+	}
 	public String getEmpid() {
 		return empid;
 	}
