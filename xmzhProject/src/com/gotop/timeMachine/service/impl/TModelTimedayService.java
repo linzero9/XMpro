@@ -219,4 +219,11 @@ public class TModelTimedayService implements ITModelTimedayService {
 		 this.tModelTimedayDAO.updateOverTime(overTimeReport);
 	}
 
+	@Override
+	public Object queryReportUpdatetime() {
+		
+		Object object = this.tModelTimedayDAO.queryReportUpdatetime();
+		return object;
+	}
+
 }

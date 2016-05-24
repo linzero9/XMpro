@@ -49,7 +49,19 @@ public class TModelTimedayAction extends BaseAction {
     
     private List<OverTimeReport> overTimeReports;
     
-    public TModelTimeday getDay() {
+    private String update_time;
+    
+    
+    
+    public String getUpdate_time() {
+		return update_time;
+	}
+
+	public void setUpdate_time(String update_time) {
+		this.update_time = update_time;
+	}
+
+	public TModelTimeday getDay() {
 		return day;
 	}
 
@@ -298,6 +310,8 @@ public class TModelTimedayAction extends BaseAction {
     	overTimeReport2.setRequest_id(request_id);
     	//更新超限报表，将定时执行调度状态，F改为T，表示调度结束
     	this.tModelTimedayService.updateOverTime(overTimeReport2);
+    	
+    	
        
     }
     
@@ -328,6 +342,10 @@ public class TModelTimedayAction extends BaseAction {
     	//6.分页 查询当次请求request_id的临时表信息 ，显示到页面 
     	List<OverTimeReport> overTimeReports = this.tModelTimedayService.queryOverTimeReportWithPage(overTimeReport, this.getPage());
     	this.setOverTimeReports(overTimeReports);
+    	
+    	//查询超限报表更新时间，显示在页面
+    	String update_time =  (String) this.tModelTimedayService.queryReportUpdatetime();
+    	this.setUpdate_time(update_time);
     	
     	//7.删除当次的请求id的临时表记录
     	 /*this.tModelTimedayService.deleteOverTimeReport(overTimeReport);*/

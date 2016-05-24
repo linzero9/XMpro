@@ -58,4 +58,6 @@ public interface ITModelTimedayDAO {
 
 	void updateOverTime(OverTimeReport overTimeReport);
 
+	Object queryReportUpdatetime();
+
 }

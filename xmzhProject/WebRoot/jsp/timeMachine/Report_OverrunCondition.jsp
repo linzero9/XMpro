@@ -33,6 +33,12 @@
 							<input id="querys" type="submit" value="查 询" class="button"  >
 							<input type="button" value="清 空" class="button" onclick="clears();">
                                                         <input id="downexl" type="button" class="button" value="导出列表" onclick="downExl();"></td>
+					</tr>
+					<tr>
+						<td colspan="6">
+								<font style="color: blue">最近更新时间：<b:write property="update_time" /> </font> &nbsp;&nbsp;&nbsp;
+								<!-- <font style="color: red"> 注：该报表存在半小时延时。</font> -->
+						</td>
 					</tr>			
 			</table>
 		</w:panel>

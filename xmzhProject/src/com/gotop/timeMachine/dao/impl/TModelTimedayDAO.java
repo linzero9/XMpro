@@ -181,4 +181,11 @@ public class TModelTimedayDAO extends SqlMapClientDao implements ITModelTimedayD
 		getSqlMapClientTemplate().update("T_MODEL_TIMEDAY_SqlMap.updateOverTime", overTimeReport);
 	}
 
+
+	@Override
+	public Object queryReportUpdatetime() {
+		Object object = queryForObject("T_MODEL_TIMEDAY_SqlMap.queryReportUpdatetime");
+		return  object;
+	}
+
 }

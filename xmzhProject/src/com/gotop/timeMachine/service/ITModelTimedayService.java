@@ -77,4 +77,6 @@ public interface ITModelTimedayService {
 	List<TModelTimeday> queryWorkDayList(Map<String, Object> map);
 
 	void updateOverTime(OverTimeReport overTimeReport2);
+
+	Object queryReportUpdatetime();
 }
