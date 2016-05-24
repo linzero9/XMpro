@@ -110,9 +110,9 @@
 						<tr>
               <td colspan="23" class="command_sort_area">
 							<div class="h3">
+								<input type="button" class="button" value="新增" onclick="addWorkDay();" />
 							<l:greaterThan property="page.count" targetValue="0" compareType="number" >
 								&nbsp; &nbsp;
-								<input type="button" class="button" value="新增" onclick="addWorkDay();" />
 								<input type="button" class="button" value="修改" onclick="uptWorkDay();" />
 								<input type="button" class="button" value="删除" onclick="delWorkDay();" />
 									</l:greaterThan>

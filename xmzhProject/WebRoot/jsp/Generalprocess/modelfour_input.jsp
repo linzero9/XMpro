@@ -51,7 +51,7 @@
                                                    终审币别：
         </td>
 					<td colspan="1">
-						<d:select  id="zscurrency"  dictTypeId="PROCESS_MONEY" property="modelFour.zscurrency"></d:select>    <font style="color: red">*</font>	
+						<d:select  id="zscurrency"  dictTypeId="PROCESS_MONEY" property="modelFour.zscurrency"  nullLabel="请选择"></d:select>    <!-- <font style="color: red">*</font> -->	
 					</td>
 					
 					
