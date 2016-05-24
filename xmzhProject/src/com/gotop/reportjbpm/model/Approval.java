@@ -13,7 +13,7 @@ public class Approval implements Serializable {
 	private String oneCategory;
 	private String loanCategory;
 	private String currency;
-	private String applyBal;
+	private Double applyBal;
 	private String orgNameOne;
 	private String orgNameTwo;
 	private String yxry;
@@ -301,10 +301,10 @@ public class Approval implements Serializable {
 	public void setCurrency(String currency) {
 		this.currency = currency;
 	}
-	public String getApplyBal() {
+	public Double getApplyBal() {
 		return applyBal;
 	}
-	public void setApplyBal(String applyBal) {
+	public void setApplyBal(Double applyBal) {
 		this.applyBal = applyBal;
 	}
 	public String getOrgNameOne() {

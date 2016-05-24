@@ -56,7 +56,7 @@
   	<!-- 查询受理审批台账 -->
 	<select id="queryApprovalList" parameterClass="java.util.HashMap" resultMap="approval">
 	
-	select  max(Z.UPTIME) AS UPTIME,
+select  max(Z.UPTIME) AS UPTIME,
       max( Z.LOOKTIME)AS LOOKTIME,
      max(  Z.REPORTTIME)AS REPORTTIME,
      max(  Z.ISURGENT)AS ISURGENT,
@@ -129,12 +129,13 @@ from (
        Z.POL_NO,
        Z.MEETING_COUNT,
        Z.VOTE_NO,
-       Z.APP_TIME,
+        to_char(
+              to_date( Z.APP_TIME,'YYYY-mm-DD'),'YYYY-mm-DD') as APP_TIME,
        Z.CON_MATTER,
        Z.DS_MS_ONE,
        Z.DS_MS_TWO,
-       Z.DY_APP,
-       Z.DE_APP,
+       (case when Z.DY_APP is null then D1.dyApp1 else Z.DY_APP end) as DY_APP,
+       (case when Z.DE_APP is null then D2.deApp1 else Z.DE_APP end) as DE_APP,
        Z.HY_ZR_NAME,
        Z.HY_WY_ONE,
        Z.SH_ADDR,
@@ -146,6 +147,7 @@ from (
        Z.FX_ED,
        Z.SX_ED,
        Z.YW_ED,
+       
        Z.NEXTORGNAME,
        O1.ORGNAMETWO,
        A1.APPROVALTIME,
@@ -211,7 +213,7 @@ where t.definition_id=t2.procdefid_ and t2.id_=t1.execution_id and t1.business_t
                                               O.ONECATEGORY,
                                               O.LOANCATEGORY,
                                               O.CURRENCY,
-                                              O.APPLY_BAL,
+                                             TRUNC (O.APPLY_BAL/10000,2) as APPLY_BAL ,
                                               N.ORGNAME       AS ORGNAMEONE,
                                               O.FLOW_ID,
                                               O.YXRY,
@@ -263,15 +265,36 @@ where t.definition_id=t2.procdefid_ and t2.id_=t1.execution_id and t1.business_t
            ON O1.FLOW_ID=Z.FLOW_ID
            LEFT JOIN (select q.execution_,to_char(max(q.end_),'yyyy-mm-dd hh24:mi:ss ') as APPROVALTIME from jbpm4_hist_actinst q where q.activity_name_='发起合同预审' group by q.execution_)A1
            ON A1.EXECUTION_=Z.FLOW_ID
-           LEFT JOIN (select q.execution_ ,to_char(max(q.start_),'yyyy-mm-dd') as CHECKTIME from jbpm4_hist_actinst q  where q.activity_name_='审查一' group by q.execution_)A2
+           LEFT JOIN (select t1.execution_,
+       (case
+         when T1.CHECKTIME1 IS NULL THEN
+          t2.CHECKTIME2
+         else
+          t1.CHECKTIME1
+       end) as CHECKTIME
+  from (select t.execution_, to_char(min(t.end_), 'yyyy-mm-dd') as CHECKTIME1
+          from (select *
+                  from JBPM4_HIST_TASK k
+                 where k.outcome_ = '提交审批一'
+                 order by k.execution_, k.end_) T
+         group by t.execution_) T1
+  left join (select t.execution_,
+                    to_char(min(t.end_), 'yyyy-mm-dd') as CHECKTIME2
+               from (select *
+                       from JBPM4_HIST_TASK k
+                      where k.outcome_ = '提交审批安排'
+                      order by k.execution_, k.end_) T
+              group by t.execution_) T2
+    on t1.execution_ = t2.execution_
+)A2
            ON A2.EXECUTION_=Z.FLOW_ID
            LEFT JOIN (select A.EXECUTION_,(CASE WHEN T.YQ_APP_TIME IS NULL THEN A.REPLYTIME ELSE to_char(TO_DATE(t.yq_app_time, 'yyyy/MM/dd hh24:mi:ss'), 'yyyy-mm-dd hh24:mi:ss') END) AS REPLYTIME  from t_generalprocess_modelfive T,(select t.outcome_,to_char(q.start_ ,'yyyy-mm-dd hh24:mi:ss ') as REPLYTIME,t.execution_ from JBPM4_HIST_TASK t，jbpm4_hist_actinst q where t.outcome_='提交发起合同预审' and q.htask_=t.dbid_)A WHERE T.FLOW_ID=A.EXECUTION_)A3
            ON A3.EXECUTION_=Z.FLOW_ID
-           LEFT JOIN （select t.execution_,o.empname as CHECKONE from jbpm4_hist_actinst q,JBPM4_HIST_TASK t,om_employee o WHERE q.activity_name_='审批一'and q.htask_=t.dbid_ and o.empid=t.assignee_ group by t.execution_,o.empname)A4
+           LEFT JOIN （select min(q.start_),t.execution_, o.operatorname as CHECKONE from jbpm4_hist_actinst q, JBPM4_HIST_TASK t, ac_operator o  WHERE q.activity_name_ = '审查一' and q.htask_ = t.dbid_ and t.assignee_ =o.operatorid group by t.execution_, o.operatorname )A4
            ON A4.EXECUTION_=Z.FLOW_ID
-           LEFT JOIN (select t.execution_,o.empname as CHECKTWO from jbpm4_hist_actinst q,JBPM4_HIST_TASK t,om_employee o WHERE q.activity_name_='审批二'and q.htask_=t.dbid_ and o.empid=t.assignee_ group by t.execution_,o.empname)A5
+           LEFT JOIN (select min(q.start_), t.execution_, o.operatorname as CHECKTWO from jbpm4_hist_actinst q, JBPM4_HIST_TASK t, ac_operator o  WHERE q.activity_name_ = '审查二' and q.htask_ = t.dbid_ and t.assignee_ =o.operatorid group by t.execution_, o.operatorname)A5
            ON A5.EXECUTION_=Z.FLOW_ID
-           LEFT JOIN (select t.execution_, wm_concat(to_char(t.start_,'yyyy-mm-dd hh24:mi:ss')) RECEIVETIME from (select *from jbpm4_hist_actinst q where q.activity_name_ = '审查一' order by q.execution_, q.start_)T group by t.execution_)A6
+           LEFT JOIN (select t.execution_,wm_concat(to_char(t.end_, 'yyyy-mm-dd hh24:mi:ss')) RECEIVETIME from (select *from JBPM4_HIST_TASK k where k.outcome_ ='提交审查一' order by k.execution_, k.end_) T group by t.execution_)A6
            ON A6.EXECUTION_=Z.FLOW_ID
             LEFT JOIN(
            SELECT    execution_ ,TO_CHAR (MIN (T .start_),'yyyy-mm-dd') uptime FROM   JBPM4_HIST_ACTINST  t  WHERE   t.activity_name_='收单派单'  GROUP  BY  t.execution_
@@ -279,11 +302,16 @@ where t.definition_id=t2.procdefid_ and t2.id_=t1.execution_id and t1.business_t
            LEFT JOIN(
            SELECT    execution_ ,TO_CHAR (MIN (T .start_),'yyyy-mm-dd') looktime  FROM   JBPM4_HIST_ACTINST  t  WHERE   t.activity_name_='发起合同预审'  GROUP  BY  t.execution_
            ) A8 on A8.EXECUTION_=Z.FLOW_ID 
-           LEFT JOIN (select t.execution_,wm_concat(to_char(t.create_, 'yyyy-mm-dd hh24:mi:ss')) returnTime from (select *from JBPM4_HIST_TASK k where k.outcome_ ='退回收单派单' order by k.execution_, k.create_) T group by t.execution_) A9 
+           LEFT JOIN (select t.execution_,wm_concat(to_char(t.end_, 'yyyy-mm-dd hh24:mi:ss')) returnTime from (select *from JBPM4_HIST_TASK k where k.outcome_ ='退回收单派单' order by k.execution_, k.create_) T group by t.execution_) A9 
            ON A9.EXECUTION_=Z.FLOW_ID
-           LEFT JOIN (select t.execution_,wm_concat(to_char(t.create_, 'yyyy-mm-dd hh24:mi:ss')) reportedTime from (select *from JBPM4_HIST_TASK k where k.outcome_ ='提交收单派单' order by k.execution_, k.create_) T group by t.execution_) A10
+           LEFT JOIN (select t.execution_,wm_concat(to_char(t.end_, 'yyyy-mm-dd hh24:mi:ss')) reportedTime from (select *from JBPM4_HIST_TASK k where k.outcome_ ='提交收单派单'and k.execution_='grswdklf75g.778835'  order by k.execution_, k.end_) T group by t.execution_) A10
            ON A10.EXECUTION_=Z.FLOW_ID
-            where 1=1
+           
+           left join (select min(q.start_), t.execution_, o.operatorname as dyApp1 from jbpm4_hist_actinst q, JBPM4_HIST_TASK t, ac_operator o  WHERE q.activity_name_ = '审批一' and q.htask_ = t.dbid_ and t.assignee_ =o.operatorid group by t.execution_, o.operatorname )D1
+           on D1.EXECUTION_=Z.FLOW_ID
+            left join (select min(q.start_), t.execution_, o.operatorname as deApp1 from jbpm4_hist_actinst q, JBPM4_HIST_TASK t, ac_operator o  WHERE q.activity_name_ = '审批二' and q.htask_ = t.dbid_ and t.assignee_ =o.operatorid group by t.execution_, o.operatorname )D2
+           on D2.EXECUTION_=Z.FLOW_ID
+           where 1=1  
    <isNotNull prepend="and" property="oneCategory">
    Z.ONECATEGORY in ($oneCategory$)
    </isNotNull>

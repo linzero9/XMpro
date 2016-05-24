@@ -179,7 +179,8 @@
 								<d:write iterateId="id1" property="currency" dictTypeId="PROCESS_MONEY"/>
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="applyBal" />
+									<b:write iterateId="id1"  property="applyBal" />
+							
 								</td>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1" property="orgNameOne" />
