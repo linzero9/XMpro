@@ -11,7 +11,11 @@ import com.gotop.Generalprocess.util.SpringContextUtil;
 
 
 
-
+/**
+ * 
+ * @author WUJIAJUN
+ * @desc   to  Job
+ */
 
 public class TimeMachineJob   {
 	

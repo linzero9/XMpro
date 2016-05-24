@@ -12,7 +12,7 @@
 		   http://www.springframework.org/schema/tx
 		   http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
 
-
+    <!--Create   by  wujiajun   -->
 	<!-- 声明一个MethodInvokingJobDetailFactoryBean，有两个关键属性：targetObject指定任务类，targetMethod指定运行的方法。 -->
 
 	<bean id="job2"
@@ -33,7 +33,7 @@
 	<bean id="simpleTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
 		<property name="jobDetail" ref="job2" />
 		<property name="startDelay" value="0" /><!-- 调度工厂实例化后，经过0秒开始执行调度 -->
-		<property name="repeatInterval" value="1800000" /><!-- 每30分调度一次 -->
+		<property name="repeatInterval" value="3600000" /><!-- 每30分调度一次 -->
 	</bean>
 
 
@@ -49,7 +49,7 @@
 
 
 
-	<!-- 配置调度工厂 
+	<!-- 配置调度工厂 -->
 
 	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 		<property name="triggers">
@@ -59,7 +59,7 @@
 		</property>
 	</bean>
 
--->
+
 
 
 

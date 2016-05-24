@@ -21,7 +21,7 @@
 	 
    
    
- 
+    <!--Create   by  wujiajun   -->
    <!-- Scheduler job   定时的类 以及注入的依赖对象 -->
    <bean name="TimeJob"
 	   class="org.springframework.scheduling.quartz.JobDetailBean">
