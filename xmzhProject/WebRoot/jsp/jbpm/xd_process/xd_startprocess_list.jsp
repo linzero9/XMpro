@@ -222,7 +222,7 @@
 				        timeout: 60000,
 				        success: function (data) {
 					    	  if (data.indexOf("success") >= 0) {
-					    		  alert("已在修改明细内增加一条原始数据！");
+					    		  //alert("已在修改明细内增加一条原始数据！");
 								} else if (data.indexOf("fails") >= 0) {
 									//alert("有多条数据");
 								} else {
