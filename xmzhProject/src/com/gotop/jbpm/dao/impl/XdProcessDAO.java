@@ -95,6 +95,12 @@ public class XdProcessDAO  extends SqlMapClientDao  implements IXdProcessDAO{
 		getSqlMapClientTemplate().insert("XD_PROCESS_SqlMap.insertWater", waterInfo);
 		
 	}
+	//插入 第一条贷款 信息修改 时间为null
+	@Override
+	public void insertWaterOne(WaterInfo waterInfo) {
+		getSqlMapClientTemplate().insert("XD_PROCESS_SqlMap.insertWaterOne", waterInfo);
+		
+	}
 	/**
 	 * 更新流程标题
 	 */
@@ -138,6 +144,12 @@ public class XdProcessDAO  extends SqlMapClientDao  implements IXdProcessDAO{
 	public int selectIsfirst(Map<String, String> map ) {
 		int cnt=(Integer) this.getSqlMapClientTemplate().queryForObject("XD_PROCESS_SqlMap.selectIsfirst", map);
 		return cnt;
+	}
+
+	@Override
+	public XdProcessTaskAssignee getxdProcessTaskAssigneeById(
+			XdProcessTaskAssignee xdProcessTaskAssignee) {
+		return (XdProcessTaskAssignee) this.getSqlMapClientTemplate().queryForObject("XD_PROCESS_SqlMap.query22", xdProcessTaskAssignee);
 	}
 
 

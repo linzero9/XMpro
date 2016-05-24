@@ -213,7 +213,7 @@
 		  		var yxryjg = row.getParam("yxryjg");
 		  		var reportcnt = row.getParam("reportcnt");
 	  		//如果数据是第一跳，则在修改明细表中插入一条原始数据
-	 			 $.ajax({
+/* 	 			 $.ajax({
 					    url: '/jbpm/xdProcessAction_selectcnt.action',
 				        async: false,
 				        type: 'post',
@@ -229,7 +229,7 @@
 									alert("出错啦！");						
 								} 
 				        }
-			 }); 
+			 }); */ 
 		  		
 
 	            var strUrl = "/jbpm/xdProcessAction_toUptLoanInfo.action?xdProcessTaskAssignee.executionId="+executionId+"&xdProcessTaskAssignee.processName="+processName;

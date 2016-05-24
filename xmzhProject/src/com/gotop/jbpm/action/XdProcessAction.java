@@ -472,7 +472,29 @@ public class XdProcessAction   extends BaseAction {
 	 */
 	public void saveUptInfo() throws Exception{
 		String info ="success";
+		
     	try {
+    		String flowid=xdProcessTaskAssignee.getExecutionId();
+    		//查询修改明细表的数据，如果没数据0，则自动插入一条原始数据
+			int cnt = this.xdProcessService.selectIsfirst(flowid);		
+			if(cnt == 0 ){	//没数据
+				XdProcessTaskAssignee isfirst=xdProcessService.getxdProcessTaskAssigneeById(xdProcessTaskAssignee.getExecutionId());
+				WaterInfo waterInfo2 = new WaterInfo();
+				waterInfo2.setFlow_id(xdProcessTaskAssignee.getExecutionId());
+				waterInfo2.setProcessName(isfirst.getProcessName());
+				waterInfo2.setCustName(isfirst.getCustName());
+				waterInfo2.setApply_bal(isfirst.getApply_bal());
+				waterInfo2.setOneCategory(isfirst.getOneCategory());
+				waterInfo2.setLoanCategory(isfirst.getLoanCategory());
+				waterInfo2.setCoorganization(isfirst.getCoorganization());
+				waterInfo2.setUptEmpid(this.getCurrentOnlineUser().getEmpid());
+				waterInfo2.setUptOrgcode(this.getCurrentOnlineUser().getOrgcode());
+				waterInfo2.setCyxry(isfirst.getYxry());
+				waterInfo2.setCyxryjg(isfirst.getYxryjg());
+				waterInfo2.setCreportcnt(isfirst.getReportcnt());
+				
+				this.xdProcessService.insertWaterOne(waterInfo2);
+			}
 				int count = this.xdProcessService.uptModelOneInfo(xdProcessTaskAssignee);
 			   this.xdProcessService.uptModelThreeInfo(xdProcessTaskAssignee);
 				if(count > 0 ){
@@ -495,6 +517,7 @@ public class XdProcessAction   extends BaseAction {
 					this.xdProcessService.updateTitle(xdProcessTaskAssignee);
 					this.xdProcessService.insertWater(waterInfo);
 				}
+				
     	} catch (Exception e) {
 			info="fails";
 			log.error("[保存设备信息失败！]", e);

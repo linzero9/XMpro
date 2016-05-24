@@ -25,7 +25,7 @@
      <result column="CUST_NAME" property="custName" jdbcType="VARCHAR" />
      <result column="ONECATEGORY" property="oneCategory" jdbcType="VARCHAR" />
      <result column="LOANCATEGORY" property="loanCategory" jdbcType="VARCHAR" />
-     <result column="REPORTCNT" property="reportCnt" jdbcType="VARCHAR" />
+     <result column="REPORTCNT" property="reportcnt" jdbcType="VARCHAR" />
      <result column="REPORTTIME" property="reportTime" jdbcType="VARCHAR" />
           
   </resultMap>
@@ -92,6 +92,9 @@
      <result column="OP_EMPID" property="op_empid" jdbcType="DECIMAL" />
      <result column="OP_ORGCODE" property="op_orgcode" jdbcType="VARCHAR" />
      <result column="OP_TIME" property="op_time" jdbcType="VARCHAR" />
+  </resultMap>
+      <resultMap id="abatorgenerated_HashMapResult" class="com.gotop.jbpm.model.XdProcessTaskAssignee" >
+    <result column="flow_id" property="executionId" jdbcType="VARCHAR" />
   </resultMap>
   
   <!--查询信贷流程 待办事项列表-->
@@ -330,7 +333,17 @@ values(#waterId:DECIMAL:-9999#,  #flow_id:VARCHAR#,  #processName:VARCHAR#,  #cu
 ,  #oneCategory:VARCHAR#,  #loanCategory:VARCHAR#, #coorganization:VARCHAR#,  #uptEmpid:DECIMAL:-9999#, #uptOrgcode:VARCHAR#, 
 sysdate,#cyxry:VARCHAR#,#cyxryjg:VARCHAR#,#creportcnt:VARCHAR#)
   </insert>
-  
+     <!--插入 第一条贷款 信息修改 流水表-->
+  <insert id="insertWaterOne" parameterClass="com.gotop.jbpm.model.WaterInfo" >
+       <selectKey resultClass="long" keyProperty="waterId">
+		SELECT t_model_loanUpdateWater_seq.NEXTVAL AS VALUE FROM DUAL
+		</selectKey>
+   insert into t_model_loanUpdateWater(WATER_ID,FLOW_ID,PROCESS_NAME,CUST_NAME,APPLY_BAL,
+ONECATEGORY,LOANCATEGORY,COORGANIZATION,UPT_EMPID,UPT_ORGCODE,UPT_TIME,CYXRY,CYXRYJG,CREPORTCNT)
+values(#waterId:DECIMAL:-9999#,  #flow_id:VARCHAR#,  #processName:VARCHAR#,  #custName:VARCHAR#, #apply_bal:VARCHAR#
+,  #oneCategory:VARCHAR#,  #loanCategory:VARCHAR#, #coorganization:VARCHAR#,  #uptEmpid:DECIMAL:-9999#, #uptOrgcode:VARCHAR#, 
+null,#cyxry:VARCHAR#,#cyxryjg:VARCHAR#,#creportcnt:VARCHAR#)
+  </insert>
    <!--查询 贷款 信息(模式一)修改 流水 记录-->
   <select id="queryLoanUptWater" resultMap="abatorgenerated_WaterInfo_HashMapResult" parameterClass="java.util.HashMap" >
  select t1.CYXRY,T1.CYXRYJG,T1.CREPORTCNT,t1.WATER_ID, t1.FLOW_ID, t1.PROCESS_NAME, t1.CUST_NAME, t1.APPLY_BAL, t1.ONECATEGORY, 
@@ -366,12 +379,59 @@ values(#id:DECIMAL:-9999#,  #model_tableName:VARCHAR#,  #workTime:DOUBLE#,  #op_
 	OP_TIME = sysdate
 	where  MODEL_TABLENAME = #model_tableName:VARCHAR#
   </update>
-  
+    <!--查询修改明细-->
   <select id="selectIsfirst" resultClass="int" parameterClass="java.util.HashMap">
  select count(*) 
 from t_model_loanUpdateWater 
 where 
  flow_id = #flow_id:VARCHAR#
 </select>
-  
+     <!--查询 贷款 信息(模式一)修改 流水 记录-->
+  <select id="query22" parameterClass="com.gotop.jbpm.model.XdProcessTaskAssignee"  resultClass="com.gotop.jbpm.model.XdProcessTaskAssignee">
+
+SELECT
+	T11.EXECUTION_ID as executionId,
+	T11.processName,
+	T11.CUST_NAME as custName,
+	T11.ONECATEGORY as oneCategory,
+	T11.LOANCATEGORY as loanCategory,
+	T11.APPLY_BAL as apply_bal,
+	T11.COORGANIZATION as coorganization,
+	T11.YXRY as yxry,
+	T11.YXRYJG as yxryjg,
+	T11.REPORTCNT 
+FROM
+	(
+		SELECT
+			T1.EXECUTION_ID,
+			t3.PROCESS_NAME AS processName,
+			t4.CUST_NAME,
+			t4.ONECATEGORY,
+			t4.LOANCATEGORY,
+			t4.APPLY_BAL,
+			t4.COORGANIZATION,
+			t4.YXRY,
+			t4.YXRYJG,
+			t5.REPORTCNT
+		FROM
+			(
+				SELECT
+					EXECUTION_ID
+				FROM
+					T_PROCESS_CONFIG T,
+					t_process_business t1,
+					JBPM4_HIST_PROCINST t2
+				WHERE
+					T .definition_id = t2.procdefid_
+				AND t2.id_ = t1.execution_id
+				AND t1.business_type = '88'
+				AND T .state = '01'
+			) t1
+		LEFT JOIN JBPM4_HIST_PROCINST t2 ON T2.ID_ = T1.EXECUTION_ID
+		LEFT JOIN T_PROCESS_CONFIG t3 ON t3.DEFINITION_ID = t2.PROCDEFID_
+		LEFT JOIN T_GENERALPROCESS_MODELONE t4 ON T1.EXECUTION_ID = t4.FLOW_ID
+		LEFT JOIN T_GENERALPROCESS_MODELTHREE t5 ON T1.EXECUTION_ID = t5.FLOW_ID
+	) T11
+	where EXECUTION_ID=#executionId:VARCHAR#
+  </select>
 </sqlMap>

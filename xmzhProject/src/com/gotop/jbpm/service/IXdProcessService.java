@@ -44,8 +44,12 @@ public interface IXdProcessService {
 	int  selectIsfirst(String executionId);
 	//修改模式三保单次数
 	int uptModelThreeInfo(XdProcessTaskAssignee xdProcessTaskAssignee);
+	//根据id 获取最原始的数据，只有修改明细中没有记录的才调用
+	XdProcessTaskAssignee getxdProcessTaskAssigneeById(String executionId);
+	
 	void insertWater(WaterInfo waterInfo);
-
+	//插入 第一条贷款 信息修改 时间为null
+	void insertWaterOne(WaterInfo waterInfo);
 	List<WaterInfo> queryLoanUptWater(WaterInfo waterInfo, Page page);
 
 	List<WorkTimeBean> queryWorkTime(WorkTimeBean workTimeBean);

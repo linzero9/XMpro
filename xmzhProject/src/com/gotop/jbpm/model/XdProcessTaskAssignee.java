@@ -111,10 +111,7 @@ public class XdProcessTaskAssignee implements Serializable {
      */
     private String loanCategory;
     
-    /*
-     * 上报次数
-     */
-    private String reportCnt;
+
     
     /*
      * 上报时间
@@ -386,13 +383,7 @@ public class XdProcessTaskAssignee implements Serializable {
 		this.loanCategory = loanCategory;
 	}
 
-	public String getReportCnt() {
-		return reportCnt;
-	}
 
-	public void setReportCnt(String reportCnt) {
-		this.reportCnt = reportCnt;
-	}
 
 	public String getReportTime() {
 		return reportTime;

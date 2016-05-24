@@ -166,6 +166,10 @@ public class XdProcessService implements IXdProcessService {
 	public void insertWater(WaterInfo waterInfo) {
 		 this.xdProcessDAO.insertWater(waterInfo);
 	}
+	@Override
+	public void insertWaterOne(WaterInfo waterInfo) {
+		 this.xdProcessDAO.insertWaterOne(waterInfo);
+	}
 	/**
 	 * 更新流程标题
 	 */
@@ -230,6 +234,15 @@ public class XdProcessService implements IXdProcessService {
 		}
 		int cnt= this.xdProcessDAO.selectIsfirst(map);
 		return cnt;
+	}
+	//根据id 获取最原始的数据，只有修改明细中没有记录的才调用
+	@Override
+	public XdProcessTaskAssignee getxdProcessTaskAssigneeById(
+			String executionId) {
+		XdProcessTaskAssignee xdProcessTaskAssignee=new XdProcessTaskAssignee();
+		xdProcessTaskAssignee.setExecutionId(executionId);
+		XdProcessTaskAssignee isfirst=xdProcessDAO.getxdProcessTaskAssigneeById(xdProcessTaskAssignee);
+		return isfirst;
 	}
 	
 	

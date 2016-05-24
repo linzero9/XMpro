@@ -32,12 +32,15 @@ public interface IXdProcessDAO {
 			Map<String, Object> map, Page page);
 
 	void insertWater(WaterInfo waterInfo);
-
+	//插入 第一条贷款 信息修改 时间为null
+	void insertWaterOne(WaterInfo waterInfo);
 	int uptModelOneInfo(XdProcessTaskAssignee xdProcessTaskAssignee);
 	//根据executionId查询修改明细表是否有数据0
 	int selectIsfirst(Map<String, String> map);
 	//修改模式三的报单次数
 	int uptModelThreeInfo(XdProcessTaskAssignee xdProcessTaskAssignee);
+	//根据id 获取最原始的数据，只有修改明细中没有记录的才调用
+	XdProcessTaskAssignee getxdProcessTaskAssigneeById(XdProcessTaskAssignee xdProcessTaskAssignee);
 
 	List<WaterInfo> queryLoanUptWater(Map<String, Object> map, Page page);
 
