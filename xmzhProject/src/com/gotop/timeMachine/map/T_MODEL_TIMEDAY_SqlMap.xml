@@ -65,16 +65,16 @@
     <result column="OVERTIME" property="overtime" jdbcType="DECIMAL" />
     <result column="REMARK" property="remark" jdbcType="VARCHAR" />
     <result column="REQUEST_ID" property="request_id" jdbcType="DECIMAL" />
-    
     <result column="PROCESS_NAME" property="process_name" jdbcType="VARCHAR" />
-    <result column="FLOW_ID" property="flow_id" jdbcType="VARCHAR" />
+    
+    <!-- <result column="FLOW_ID" property="flow_id" jdbcType="VARCHAR" />
     <result column="STARTTIME" property="starttime" jdbcType="VARCHAR" />
     <result column="ENDTIME" property="endtime" jdbcType="VARCHAR" />
     <result column="TIMELIMITONE" property="timeLimitOne" jdbcType="DOUBLE" />
     <result column="TIMELIMITTWO" property="timeLimitTwo" jdbcType="DOUBLE" />
     <result column="RN" property="rn" jdbcType="DECIMAL" />
     <result column="EXPENDTIME" property="expendtime" jdbcType="DOUBLE" />
-    <result column="END_STATUS" property="end_status" jdbcType="VARCHAR" />
+    <result column="END_STATUS" property="end_status" jdbcType="VARCHAR" /> -->
   </resultMap>
 
  <resultMap id="workTimeMain_Result" class="com.gotop.jbpm.model.WorkTimeMainBean" >
@@ -229,7 +229,9 @@ select operatorname from ac_operator where operatorid =
 
 <!-- 查询 超限报表 临时表-->
   <select id="queryOverTimeReport" resultMap="OverTimeReport_Result" parameterClass="java.util.HashMap" >
-	select * from t_model_overtimeReport
+    
+	select ID, REPORTTIME ,TASKNAME, CUSTNAME, LOANCATEGORY_NAME, ORGNAME, EMPNAME, trunc(OVERTIME, 2) as OVERTIME, REMARK, REQUEST_ID, PROCESS_NAME
+	from t_model_overtimeReport
 	where request_id = (
 		select max(request_id)
   from (select request_id

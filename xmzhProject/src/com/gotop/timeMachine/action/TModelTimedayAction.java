@@ -737,7 +737,7 @@ public class TModelTimedayAction extends BaseAction {
     	
     	long diff = endT.getTime() - startT.getTime();
     	double between_hours = diff * 1.0 / (1000 * 60 * 60);  //单位为小时
-    	return (double)Math.round(between_hours*100)/100; //四舍五入保留两位小数
+    	return between_hours;
     }
 
     
