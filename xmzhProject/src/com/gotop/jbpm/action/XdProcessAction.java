@@ -503,24 +503,27 @@ public class XdProcessAction   extends BaseAction {
 		}
 		Struts2Utils.renderText(info);
 	}
-	
+	/**
+	 * 查询修改明细表的数据，如果没数据0，则自动插入一条原始数据
+	 * 吴前贵  2016-05-24
+	 * @throws Exception
+	 */
 	public void selectcnt() throws Exception{
 		       String info ="success";
 		       if(waterInfo==null){
 		    	   waterInfo=new WaterInfo();
 		       }
+		       //当前修改人名称，所属机构（根据empid,orgcode获取，sql中有写）
 				waterInfo.setUptEmpid(this.getCurrentOnlineUser().getEmpid());
 				waterInfo.setUptOrgcode(this.getCurrentOnlineUser().getOrgcode());
+				
 				int count = this.xdProcessService.selectIsfirst(waterInfo.getFlow_id());
-				if(count == 0 ){
+				
+				if(count == 0 ){	//没数据
 					this.xdProcessService.insertWater(waterInfo);
-					//没数据
 					info ="success";
-				}else
-				{
-					//有数据
+				}else{//有数据	
 					info="fails";
-					//this.xdProcessService.insertWater(waterInfo);
 				}
 
 		Struts2Utils.renderText(info);

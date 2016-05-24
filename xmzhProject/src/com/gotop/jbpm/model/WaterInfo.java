@@ -17,7 +17,7 @@ public class WaterInfo implements Serializable {
 	private String uptTime;
 	private String uptEmpname;
 	private String uptOrgname;
-	
+	//营销人员，机构，报单次数  wqg新增
 	private String cyxry;
 	private String cyxryjg;
 	private String creportcnt;

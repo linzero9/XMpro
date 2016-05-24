@@ -34,7 +34,7 @@ public interface IXdProcessDAO {
 	void insertWater(WaterInfo waterInfo);
 
 	int uptModelOneInfo(XdProcessTaskAssignee xdProcessTaskAssignee);
-	//查询是否为第一条
+	//根据executionId查询修改明细表是否有数据0
 	int selectIsfirst(Map<String, String> map);
 	//修改模式三的报单次数
 	int uptModelThreeInfo(XdProcessTaskAssignee xdProcessTaskAssignee);

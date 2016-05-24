@@ -220,16 +220,15 @@ public class XdProcessService implements IXdProcessService {
 		int count = this.xdProcessDAO.uptModelThreeInfo(xdProcessTaskAssignee);
 		return count;
 	}
+	
+	//根据executionId查询修改明细表是否有数据 0 没数据 
 	@Override
 	public int selectIsfirst(String executionId) {
-		
-
 		Map<String, String> map =new HashMap<String, String>();
 		if (executionId !=null) {
 			map.put("flow_id", executionId);
 		}
 		int cnt= this.xdProcessDAO.selectIsfirst(map);
-
 		return cnt;
 	}
 	

@@ -133,11 +133,9 @@ public class XdProcessDAO  extends SqlMapClientDao  implements IXdProcessDAO{
 		int count = getSqlMapClientTemplate().update("XD_PROCESS_SqlMap.uptModelThreeInfo", xdProcessTaskAssignee);
 		return count;
 	}
-
+	//根据executionId查询修改明细表是否有数据 0 没数据
 	@Override
 	public int selectIsfirst(Map<String, String> map ) {
-		//int count=queryForCount("XD_PROCESS_SqlMap.selectIsfirst", waterInfo);
-		//int cnt=queryForCount("XD_PROCESS_SqlMap.selectIsfirst", map);
 		int cnt=(Integer) this.getSqlMapClientTemplate().queryForObject("XD_PROCESS_SqlMap.selectIsfirst", map);
 		return cnt;
 	}

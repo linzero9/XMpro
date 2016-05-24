@@ -212,7 +212,7 @@
 		  		var yxry = row.getParam("yxry");
 		  		var yxryjg = row.getParam("yxryjg");
 		  		var reportcnt = row.getParam("reportcnt");
-	  		
+	  		//如果数据是第一跳，则在修改明细表中插入一条原始数据
 	 			 $.ajax({
 					    url: '/jbpm/xdProcessAction_selectcnt.action',
 				        async: false,
