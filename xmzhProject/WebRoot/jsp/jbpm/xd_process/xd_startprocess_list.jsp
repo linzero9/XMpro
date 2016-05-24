@@ -217,7 +217,7 @@
 					    url: '/jbpm/xdProcessAction_selectcnt.action',
 				        async: false,
 				        type: 'post',
-				        data: "waterInfo.flow_id="+executionId+"&waterInfo.processName="+processName+"&waterInfo.custName="+custName+"&waterInfo.apply_bal="+apply_bal+"&waterInfo.oneCategory"+oneCategory+"&waterInfo.loanCategory="+loanCategory+"&waterInfo.coorganization="+coorganization+"&waterInfo.yxry="+yxry+"&waterInfo.yxryjg="+yxryjg+"&waterInfo.reportcnt="+reportcnt,
+				        data: "waterInfo.flow_id="+executionId+"&waterInfo.processName="+processName+"&waterInfo.custName="+custName+"&waterInfo.apply_bal="+apply_bal+"&waterInfo.oneCategory="+oneCategory+"&waterInfo.loanCategory="+loanCategory+"&waterInfo.coorganization="+coorganization+"&waterInfo.cyxry="+yxry+"&waterInfo.cyxryjg="+yxryjg+"&waterInfo.creportcnt="+reportcnt,
 				        dataType: "test",
 				        timeout: 60000,
 				        success: function (data) {
