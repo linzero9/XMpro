@@ -503,6 +503,28 @@ public class XdProcessAction   extends BaseAction {
 		}
 		Struts2Utils.renderText(info);
 	}
+	
+	public void selectcnt() throws Exception{
+		       String info ="success";
+		       if(waterInfo==null){
+		    	   waterInfo=new WaterInfo();
+		       }
+				waterInfo.setUptEmpid(this.getCurrentOnlineUser().getEmpid());
+				waterInfo.setUptOrgcode(this.getCurrentOnlineUser().getOrgcode());
+				int count = this.xdProcessService.selectIsfirst(waterInfo.getFlow_id());
+				if(count == 0 ){
+					this.xdProcessService.insertWater(waterInfo);
+					//没数据
+					info ="success";
+				}else
+				{
+					//有数据
+					info="fails";
+					//this.xdProcessService.insertWater(waterInfo);
+				}
+
+		Struts2Utils.renderText(info);
+	}
 
 	/**
 	 * 查询贷款修改流水

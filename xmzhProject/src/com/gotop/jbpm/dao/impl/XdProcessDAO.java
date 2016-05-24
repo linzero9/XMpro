@@ -134,5 +134,13 @@ public class XdProcessDAO  extends SqlMapClientDao  implements IXdProcessDAO{
 		return count;
 	}
 
+	@Override
+	public int selectIsfirst(Map<String, String> map ) {
+		//int count=queryForCount("XD_PROCESS_SqlMap.selectIsfirst", waterInfo);
+		//int cnt=queryForCount("XD_PROCESS_SqlMap.selectIsfirst", map);
+		int cnt=(Integer) this.getSqlMapClientTemplate().queryForObject("XD_PROCESS_SqlMap.selectIsfirst", map);
+		return cnt;
+	}
+
 
 }

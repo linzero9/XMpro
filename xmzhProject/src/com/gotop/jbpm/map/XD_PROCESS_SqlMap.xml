@@ -367,4 +367,11 @@ values(#id:DECIMAL:-9999#,  #model_tableName:VARCHAR#,  #workTime:DOUBLE#,  #op_
 	where  MODEL_TABLENAME = #model_tableName:VARCHAR#
   </update>
   
+  <select id="selectIsfirst" resultClass="int" parameterClass="java.util.HashMap">
+ select count(*) 
+from t_model_loanUpdateWater 
+where 
+ flow_id = #flow_id:VARCHAR#
+</select>
+  
 </sqlMap>

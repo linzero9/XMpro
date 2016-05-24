@@ -40,6 +40,8 @@ public interface IXdProcessService {
 			String relationids, XdProcessTaskAssignee xdProcessTaskAssignee, Page page);
 
 	int uptModelOneInfo(XdProcessTaskAssignee xdProcessTaskAssignee);
+	//查询是否为第一条
+	int  selectIsfirst(String executionId);
 	//修改模式三保单次数
 	int uptModelThreeInfo(XdProcessTaskAssignee xdProcessTaskAssignee);
 	void insertWater(WaterInfo waterInfo);

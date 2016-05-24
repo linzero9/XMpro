@@ -212,6 +212,25 @@
 		  		var yxry = row.getParam("yxry");
 		  		var yxryjg = row.getParam("yxryjg");
 		  		var reportcnt = row.getParam("reportcnt");
+	  		
+	 			 $.ajax({
+					    url: '/jbpm/xdProcessAction_selectcnt.action',
+				        async: false,
+				        type: 'post',
+				        data: "waterInfo.flow_id="+executionId+"&waterInfo.processName="+processName+"&waterInfo.custName="+custName+"&waterInfo.apply_bal="+apply_bal+"&waterInfo.oneCategory"+oneCategory+"&waterInfo.loanCategory="+loanCategory+"&waterInfo.coorganization="+coorganization+"&waterInfo.yxry="+yxry+"&waterInfo.yxryjg="+yxryjg+"&waterInfo.reportcnt="+reportcnt,
+				        dataType: "test",
+				        timeout: 60000,
+				        success: function (data) {
+					    	  if (data.indexOf("success") >= 0) {
+					    		  alert("已在修改明细内增加一条原始数据！");
+								} else if (data.indexOf("fails") >= 0) {
+									//alert("有多条数据");
+								} else {
+									alert("出错啦！");						
+								} 
+				        }
+			 }); 
+		  		
 
 	            var strUrl = "/jbpm/xdProcessAction_toUptLoanInfo.action?xdProcessTaskAssignee.executionId="+executionId+"&xdProcessTaskAssignee.processName="+processName;
 	            strUrl = strUrl+"&xdProcessTaskAssignee.custName="+custName

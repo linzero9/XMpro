@@ -220,6 +220,18 @@ public class XdProcessService implements IXdProcessService {
 		int count = this.xdProcessDAO.uptModelThreeInfo(xdProcessTaskAssignee);
 		return count;
 	}
+	@Override
+	public int selectIsfirst(String executionId) {
+		
+
+		Map<String, String> map =new HashMap<String, String>();
+		if (executionId !=null) {
+			map.put("flow_id", executionId);
+		}
+		int cnt= this.xdProcessDAO.selectIsfirst(map);
+
+		return cnt;
+	}
 	
 	
 
