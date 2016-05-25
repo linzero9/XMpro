@@ -22,6 +22,18 @@ public class MyMainTreeAction extends BaseAction{
 	private IMainTreeService mainTreeService;
 	private IMyMainTreeService myMainTreeService;
 	
+	private String loginOrgSeq;
+	
+	
+	
+	public String getLoginOrgSeq() {
+		return loginOrgSeq;
+	}
+
+	public void setLoginOrgSeq(String loginOrgSeq) {
+		this.loginOrgSeq = loginOrgSeq;
+	}
+
 	
 	public IMyMainTreeService getMyMainTreeService() {
 		return myMainTreeService;
@@ -81,12 +93,12 @@ public class MyMainTreeAction extends BaseAction{
 		}
 		//topID为空或小于1显示行政树
 		if(isAdmin || falg){//行政树
-			paramBuffer.append("/deviceManagement/myMainTreeAction_initAdminTree.action?_ts="); //改成调用我的方法，原来的是/tree/initAdminTree_mainTree.action
+			paramBuffer.append("/deviceManagement/myMainTreeAction_initAdminTree.action?_ts=1"); //改成调用我的方法，原来的是/tree/initAdminTree_mainTree.action
 		}else{
 			//业务树
 			paramBuffer.append("/tree/initBusessTree_mainTree.action?_ts=");
 		}
-		paramBuffer.append(new Date());
+	//	paramBuffer.append(new Date());
 		if(StringUtils.isNotBlank(changeTree.getCheckcount())){
 			paramBuffer.append("&changeTree.checkcount=").append(changeTree.getCheckcount());
 		}
@@ -154,7 +166,13 @@ public class MyMainTreeAction extends BaseAction{
 	public String initAdminTree() throws Exception{
 		this.getMainTreeService().initAdminTree(changeTree);
 		this.getOrgflag();
+		
+		//查询登录人员的机构序列，如：厦门分行是.5425.   一类支行是.5425.5478.  用于将机构树展开到当前登入机构那一级
+		loginOrgSeq = this.getCurrentOnlineUser().getOrgseq();
+		this.setLoginOrgSeq(loginOrgSeq);
+		
 		return "my_adminTree";
+		/*return queryOrg();*/
 	}
 	
 	/**
@@ -164,10 +182,10 @@ public class MyMainTreeAction extends BaseAction{
 	 */
 	public String selectAdminTreeRoot() throws Exception{
 		HashMap<String, String> hmp = XmlConvert.getParamsAjax();
-		String orgflag = String.valueOf(hmp.get("orgflag"));
+		/*String orgflag = String.valueOf(hmp.get("orgflag"));
 		if("2".equals(orgflag)){
 			hmp.put("parentid", "5478");  //5478为一类支行，表示“选择支行”时一进机构树就显示一类支行下的所有支行
-		}
+		}*/
 		List<Organization> orgList = this.getMyMainTreeService().selectAdminTreeNode(hmp, orgflag);
 		String xml = XmlConvert.getXmlListBean(orgList);
 		this.write(xml);
@@ -208,4 +226,5 @@ public class MyMainTreeAction extends BaseAction{
 		this.write(xml);
 		return null;
 	}
+	
 }

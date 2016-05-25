@@ -346,18 +346,20 @@
     		return;
     	}
     	var children = node.getChildren();
-    	if(!node.isExpanded()){
+    	if(!node.isExpanded()){//判断节点是否展开
+        	//节点未展开
 	    	window.setTimeout(findLoginOrg,100,node);
 			return;
     	}
-    	
+
+    	/* //原来的代码，默认不展开全部节点，点一次展开一级：
     	for(var i=0;i<children.length;i++){
     		var tempNode = children[i];
     		var orgseq = tempNode.getProperty("orgseq");
     		if(orgtempseq==orgseq){
     			tempNode.select();
     			return;
-    		}else if(orgtempseq.test('^'+orgseq)){
+    		}else if(orgtempseq.test('^'+orgseq)){//判断orgtempseq是否以orgseq开头，'^'是正则表达式，表示以什么开头
 		    	if(!tempNode.hasChildNode()){
 		    		return;
 		    	}
@@ -366,7 +368,30 @@
 				return;
 			}
     	}
-    	node.select();
+    	node.select(); */
+
+    	//**********************************************************************
+    	//后期修改的代码，默认展开所有节点
+    	//节点展开  则执行以下内容：
+    	for(var i=0;i<children.length;i++){
+    		var tempNode = children[i];
+    		var orgseq = tempNode.getProperty("orgseq");
+    		if(orgtempseq==orgseq){
+    			tempNode.select();
+    			//return;
+    		}	
+    		
+    		if(!tempNode.hasChildNode()){
+		    		return;
+		    	} 
+		    	tempNode.expandNode();
+				findLoginOrg(tempNode);
+				//return;
+			
+    	}
+
+
+    	
     }
 	eventManager.add(window,"load",custInit);
 </script>
