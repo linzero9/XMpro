@@ -618,11 +618,14 @@ function my_relase(){
 		//$("html,body").animate({"scrollTop": "100px"}, 1000); 
 		 $(function () {              
 
-			 $("#divv").animate({"scrollTop": "30px"}, 1000); 
+			 $("#divv").animate({"scrollTop": "30px"}, 0); 
 	            //绑定滚动条事件  
 	              //绑定滚动条事件  
 	            $("#divv").bind("scroll", function () {  
                           //alert("sssssssss");
+	            	var hh=$("#divv").scrollTop();
+
+	            	//alert(hh);
 	            });  
 	        })
 		$(function (){

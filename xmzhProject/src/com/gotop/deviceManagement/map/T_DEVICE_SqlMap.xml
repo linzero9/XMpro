@@ -99,45 +99,75 @@ select  t.orgcode,o.orgname, T.DEVICENAME,T.DEVICEMODEL,t.DEVICE_STATE,t.MEMORY 
 t.HARDDISK,t.OSVERSION,t.SOFTWAREVERSION,t.IEVERSION, t.USEFUL, t.PLUGIN,t.PERIPHERAL
   from  t_new_deviceManagement t , om_organization o
   where t.orgcode = o.orgcode
-  <isNotNull prepend="and" property="orgcode" >      
-         t.ORGCODE in  
+    <isNotNull prepend="and" property="orgcode" >      
+        t.ORGCODE in  
         (select regexp_substr(#orgcode#,'[^,]+',1,rownum) from dual  
 <![CDATA[  connect by rownum<=length(#orgcode#)-length(replace(#orgcode#,','))+1  )   ]]>
       </isNotNull>
-   <isNotNull prepend="and" property="deviceName" >
+      <isNotNull prepend="and" property="deviceName" >
         t.DEVICENAME = #deviceName#
       </isNotNull>
-      <isNotNull prepend="and" property="deviceModel" >
-        t.DEVICEMODEL = #deviceModel#
+       <isNotNull prepend="and" property="ipAdress" >
+        t.IPADRESS like '%'|| #ipAdress# ||'%'
+      </isNotNull>
+      <isNotNull prepend="and" property="otherAttribute_2" >
+        t.OTHERATTRIBUTE_2 = #otherAttribute_2#
       </isNotNull>
       <isNotNull prepend="and" property="deviceState" >
          t.DEVICE_STATE = #deviceState#
       </isNotNull>
-      <isNotNull prepend="and" property="memoryMin" >
+      <isNotNull prepend="and" property="otherInfo_2" >
+      ($otherInfo_2$)
+      </isNotNull>
+      <isNotNull prepend="and" property="remarks_1" >
+      		 t.REMARKS_1 like '%'|| #remarks_1# ||'%'
+      </isNotNull>
+      <isNotNull prepend="and" property="remarks_2" >
+         t.REMARKS_2 like '%'|| #remarks_2# ||'%'
+      </isNotNull>
+      <isNotNull prepend="and" property="otherAttribute_3" >
+         t.OTHERATTRIBUTE_3 = #otherAttribute_3# 
+      </isNotNull>
+       <isNotNull prepend="and" property="osVersion" >
+         t.OSVERSION = #osVersion#
+      </isNotNull>
+      <isNotNull prepend="and" property="otherInfo_3" >
+       ($otherInfo_3$)
+      </isNotNull>
+      <isNotNull prepend="and" property="deviceModel" >
+         t.DEVICEMODEL = #deviceModel#
+      </isNotNull>
+      <isNotNull prepend="and" property="otherAttribute_1" >
+        t.OTHERATTRIBUTE_1 = #otherAttribute_1# 
+      </isNotNull>
+      <isNotNull prepend="and" property="otherAttribute_4" >
+         t.OTHERATTRIBUTE_4  = #otherAttribute_4# 
+      </isNotNull>
+      <isNotNull prepend="and" property="otherInfo_4" >
+        ($otherInfo_4$)
+      </isNotNull>
+            <isNotNull prepend="and" property="memoryMin" >
          t.MEMORY > #memoryMin#
       </isNotNull>
       <isNotNull prepend="and" property="memoryMax" >
       		<![CDATA[  t.MEMORY < #memoryMax# ]]>
       </isNotNull>
-      <isNotNull prepend="and" property="hardDiskMin" >
+            <isNotNull prepend="and" property="hardDiskMin" >
          t.HARDDISK > #hardDiskMin#
       </isNotNull>
       <isNotNull prepend="and" property="hardDiskMax" >
          <![CDATA[  t.HARDDISK < #hardDiskMax# ]]>
       </isNotNull>
-       <isNotNull prepend="and" property="osVersion" >
-         t.OSVERSION = #osVersion#
-      </isNotNull>
       <isNotNull prepend="and" property="softwareVersion" >
         t.SOFTWAREVERSION like '%'|| #softwareVersion# ||'%'
       </isNotNull>
-      <isNotNull prepend="and" property="ieVersion" >
+        <isNotNull prepend="and" property="ieVersion" >
          t.IEVERSION = #ieVersion#
       </isNotNull>
-      <isNotNull prepend="and" property="useful" >
+       <isNotNull prepend="and" property="useful" >
         ($useful$)
       </isNotNull>
-      <isNotNull prepend="and" property="plugIn" >
+            <isNotNull prepend="and" property="plugIn" >
          ($plugIn$)
       </isNotNull>
       <isNotNull prepend="and" property="peripheral" >
@@ -160,48 +190,78 @@ t.HARDDISK,t.OSVERSION,t.SOFTWAREVERSION,t.IEVERSION, t.USEFUL, t.PLUGIN,t.PERIP
         (select regexp_substr(#orgcode#,'[^,]+',1,rownum) from dual  
 <![CDATA[  connect by rownum<=length(#orgcode#)-length(replace(#orgcode#,','))+1  )   ]]>
       </isNotNull>
-   <isNotNull prepend="and" property="deviceName" >
+      <isNotNull prepend="and" property="deviceName" >
         t.DEVICENAME = #deviceName#
       </isNotNull>
-      <isNotNull prepend="and" property="deviceModel" >
-        t.DEVICEMODEL = #deviceModel#
+       <isNotNull prepend="and" property="ipAdress" >
+        t.IPADRESS like '%'|| #ipAdress# ||'%'
+      </isNotNull>
+      <isNotNull prepend="and" property="otherAttribute_2" >
+        t.OTHERATTRIBUTE_2 = #otherAttribute_2#
       </isNotNull>
       <isNotNull prepend="and" property="deviceState" >
          t.DEVICE_STATE = #deviceState#
       </isNotNull>
-      <isNotNull prepend="and" property="memoryMin" >
+      <isNotNull prepend="and" property="otherInfo_2" >
+      ($otherInfo_2$)
+      </isNotNull>
+      <isNotNull prepend="and" property="remarks_1" >
+      		 t.REMARKS_1 like '%'|| #remarks_1# ||'%'
+      </isNotNull>
+      <isNotNull prepend="and" property="remarks_2" >
+         t.REMARKS_2 like '%'|| #remarks_2# ||'%'
+      </isNotNull>
+      <isNotNull prepend="and" property="otherAttribute_3" >
+         t.OTHERATTRIBUTE_3 = #otherAttribute_3# 
+      </isNotNull>
+       <isNotNull prepend="and" property="osVersion" >
+         t.OSVERSION = #osVersion#
+      </isNotNull>
+      <isNotNull prepend="and" property="otherInfo_3" >
+       ($otherInfo_3$)
+      </isNotNull>
+      <isNotNull prepend="and" property="deviceModel" >
+         t.DEVICEMODEL = #deviceModel#
+      </isNotNull>
+      <isNotNull prepend="and" property="otherAttribute_1" >
+        t.OTHERATTRIBUTE_1 = #otherAttribute_1# 
+      </isNotNull>
+      <isNotNull prepend="and" property="otherAttribute_4" >
+         t.OTHERATTRIBUTE_4  = #otherAttribute_4# 
+      </isNotNull>
+      <isNotNull prepend="and" property="otherInfo_4" >
+        ($otherInfo_4$)
+      </isNotNull>
+            <isNotNull prepend="and" property="memoryMin" >
          t.MEMORY > #memoryMin#
       </isNotNull>
       <isNotNull prepend="and" property="memoryMax" >
       		<![CDATA[  t.MEMORY < #memoryMax# ]]>
       </isNotNull>
-      <isNotNull prepend="and" property="hardDiskMin" >
+            <isNotNull prepend="and" property="hardDiskMin" >
          t.HARDDISK > #hardDiskMin#
       </isNotNull>
       <isNotNull prepend="and" property="hardDiskMax" >
          <![CDATA[  t.HARDDISK < #hardDiskMax# ]]>
       </isNotNull>
-       <isNotNull prepend="and" property="osVersion" >
-         t.OSVERSION = #osVersion#
-      </isNotNull>
       <isNotNull prepend="and" property="softwareVersion" >
         t.SOFTWAREVERSION like '%'|| #softwareVersion# ||'%'
       </isNotNull>
-      <isNotNull prepend="and" property="ieVersion" >
+        <isNotNull prepend="and" property="ieVersion" >
          t.IEVERSION = #ieVersion#
       </isNotNull>
-      <isNotNull prepend="and" property="useful" >
+       <isNotNull prepend="and" property="useful" >
         ($useful$)
       </isNotNull>
-      <isNotNull prepend="and" property="plugIn" >
-        ($plugIn$)
+            <isNotNull prepend="and" property="plugIn" >
+         ($plugIn$)
       </isNotNull>
       <isNotNull prepend="and" property="peripheral" >
         ($peripheral$)
       </isNotNull>
       
       
-
+ORDER BY orgname,DEVICENAME,DEVICEMODEL
 )
 group by orgname,DEVICENAME,DEVICEMODEL
   </select>
