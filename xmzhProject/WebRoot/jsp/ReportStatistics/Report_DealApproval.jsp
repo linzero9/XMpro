@@ -81,11 +81,9 @@
 		    
 						<tr>
 							
-                                                        <th nowrap="nowrap" rowspan="2">
-								机构名称
-							</th>
-
-                                                        <th nowrap="nowrap" rowspan="2">报单时间</th>
+                          <th nowrap="nowrap" rowspan="2">标题</th>
+                          <th nowrap="nowrap" rowspan="2">机构名称</th>
+                          <th nowrap="nowrap" rowspan="2">报单时间</th>
 			   			 <th nowrap="nowrap" rowspan="2">是否加急</th>
 			   			 <th nowrap="nowrap" rowspan="2">客户姓名</th>
 			   			 <th nowrap="nowrap" rowspan="2">是否老客户</th>
@@ -153,6 +151,9 @@
                            <l:iterate property="approvalList" id="id1">
 							<tr class="<l:output evenOutput='EOS_table_row' oddOutput='EOS_table_row_o'  />">
 								
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1"    property="title" />
+								</td>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1"    property="nextOrgName" />
 								</td>

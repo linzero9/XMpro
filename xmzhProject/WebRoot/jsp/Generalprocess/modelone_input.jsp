@@ -685,13 +685,13 @@ function initPlanCell20(){
 			var strUrl ="";
 			var objName="";
 			var peArgument = [];
-			var startOrgid=$("#startOrgid").val();
-			strUrl ="/tree/initMainTree_mainTree.action?changeTree.showTabOrg=1&changeTree.orgType=4&changeTree.showSelBox=1&changeTree.checkcount=1&changeTree.startOrgid="+startOrgid;
+		//	var startOrgid=$("#startOrgid").val();
+			strUrl ="/tree/initMainTree_mainTree.action?changeTree.showTabOrg=1&changeTree.orgType=4&changeTree.showSelBox=1&changeTree.checkcount=1";
 			objName="选择受理支行";  
 			var paramEntity = new ParamEntity('Organization');
 				paramEntity.setProperty('orgname',$id("yxryjg").value);
-				paramEntity.setProperty('orgcode',$id("orgCodeTwo").value);
-				peArgument[3]=[paramEntity,'orgname','orgcode',"orgid"];			
+	//		paramEntity.setProperty('orgcode',$id("orgCodeTwo").value);
+				peArgument[3]=[paramEntity];			
 			showModalCenter(strUrl,peArgument,open_slzhej_callback1,600,430,objName); 
 			}
 		
@@ -706,7 +706,6 @@ function initPlanCell20(){
 							argRes[1].push(sorgidArra[i].getProperty("orgname"));
 						}
 						$id("yxryjg").value = argRes[1];
-						$id("orgCodeTwo").value = argRes[0];
 					}
 		    	}
 			}

@@ -93,7 +93,13 @@ public class Approval implements Serializable {
 	private String reportedFour;
 	//五次上报
 	private String reportedFive;
-	
+	private String title;
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
 	public String getReturnTime() {
 		return returnTime;
 	}

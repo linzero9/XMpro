@@ -49,6 +49,7 @@
     <result column="RETURNTIME" property="returnTime" jdbcType="VARCHAR" />
     <result column="REPORTEDTIME" property="reportedTime" jdbcType="VARCHAR" />
     <result column="YXRYJG" property="yxryjg" jdbcType="VARCHAR" />
+    <result column="TITLE" property="title" jdbcType="VARCHAR" />
   </resultMap>
   
   
@@ -83,6 +84,7 @@ select  max(Z.UPTIME) AS UPTIME,
     max(   Z.DS_MS_TWO)AS DS_MS_TWO,
      max(  Z.DY_APP)AS DY_APP,
      max(  Z.DE_APP)AS DE_APP,
+      max(  Z.title)AS TITLE,
      max(  Z.HY_ZR_NAME)AS HY_ZR_NAME,
      max(  Z.HY_WY_ONE)AS HY_WY_ONE,
     max(   Z.SH_ADDR)AS SH_ADDR,
@@ -136,6 +138,7 @@ from (
        Z.DS_MS_TWO,
        (case when Z.DY_APP is null then D1.dyApp1 else Z.DY_APP end) as DY_APP,
        (case when Z.DE_APP is null then D2.deApp1 else Z.DE_APP end) as DE_APP,
+       d3.business_title as title,
        Z.HY_ZR_NAME,
        Z.HY_WY_ONE,
        Z.SH_ADDR,
@@ -348,6 +351,8 @@ where t.definition_id=t2.procdefid_ and t2.id_=t1.execution_id and t1.business_t
            on D1.EXECUTION_=Z.FLOW_ID
             left join (select min(q.start_), t.execution_, o.operatorname as deApp1 from jbpm4_hist_actinst q, JBPM4_HIST_TASK t, ac_operator o  WHERE q.activity_name_ = '审批二' and q.htask_ = t.dbid_ and t.assignee_ =o.operatorid group by t.execution_, o.operatorname )D2
            on D2.EXECUTION_=Z.FLOW_ID
+              LEFT JOIN T_PROCESS_BUSINESS D3
+            on d3.execution_id=Z.FLOW_ID
            where 1=1  
    <isNotNull prepend="and" property="oneCategory">
    Z.ONECATEGORY in ($oneCategory$)

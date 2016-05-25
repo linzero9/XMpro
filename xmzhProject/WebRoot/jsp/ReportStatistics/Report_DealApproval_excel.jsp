@@ -14,6 +14,7 @@
 %>
 <table width="98%" border="1" cellspacing="1" cellpadding="1">
 	<tr height="34">
+		<th height="34" width="100" align="center" class="form_label"  rowspan="2">标题</th>
 		<th height="34" width="100" align="center" class="form_label"  rowspan="2">机构名称</th>
 		<th height="34" width="100" align="center" class="form_label"  rowspan="2">报单时间</th>
 		<th height="34" width="200" align="center" class="form_label"  rowspan="2">是否加急</th>
@@ -82,6 +83,9 @@
 	<l:iterate property="approvalList" id="id1">
 			<tr class="<l:output evenOutput='EOS_table_row' />" id="id1">
 			  
+			 					<td style="vnd.ms-excel.numberformat:@"> 
+									<b:write iterateId="id1"    property="title" />
+								</td>
 			 					<td style="vnd.ms-excel.numberformat:@"> 
 									<b:write iterateId="id1"    property="nextOrgName" />
 								</td>
