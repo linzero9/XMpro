@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="DeviceNameAndModel_SqlMap" >
+  
+    <resultMap id="deviceNameAndModel_Result" class="com.gotop.deviceManagement.model.DeviceNameAndModel" >
+    <!--Bean方式返回全表-->
+    <result column="ID" property="id" jdbcType="DECIMAL" />
+     <result column="DEVICENAME_ID" property="devicename_id" jdbcType="VARCHAR" />
+    <result column="DEVICENAME" property="devicename" jdbcType="VARCHAR" />
+    <result column="DEVICEMODEL_ID" property="devicemodel_id" jdbcType="VARCHAR" />
+    <result column="DEVICEMODEL" property="devicemodel" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+  <select id="queryDeviceNameAndModelList" resultMap="deviceNameAndModel_Result" parameterClass="java.util.HashMap" >
+ 	select * from t_model_deviceNameAndModel
+  <dynamic prepend="where" >
+      		<isNotNull prepend="and" property="devicename_id" >
+           	devicename_id in ($devicename_id$)
+      		</isNotNull>
+      		 <isNotNull prepend="and" property="devicemodel_id" >
+           	 devicemodel_id in ($devicemodel_id$)
+      		</isNotNull>
+      		</dynamic>
+</select>
+
+</sqlMap>
