@@ -275,39 +275,55 @@ where t.definition_id=t2.procdefid_ and t2.id_=t1.execution_id and t1.business_t
          else
           t1.CHECKTIME1
        end) as CHECKTIME
-  from (select t.execution_, to_char(min(t.end_), 'yyyy-mm-dd') as CHECKTIME1
+  from (select t.execution_, to_char(max(t.end_), 'yyyy-mm-dd hh24:mi:ss') as CHECKTIME1
           from (select *
                   from JBPM4_HIST_TASK k
                  where k.outcome_ = '提交审批一'
-                 order by k.execution_, k.end_) T
+                 order by k.execution_) T
          group by t.execution_) T1
-  left join (select t.execution_,
-                    to_char(min(t.end_), 'yyyy-mm-dd') as CHECKTIME2
+full outer join (select t.execution_,
+                    to_char(max(t.end_), 'yyyy-mm-dd hh24:mi:ss') as CHECKTIME2
                from (select *
                        from JBPM4_HIST_TASK k
                       where k.outcome_ = '提交审批安排'
-                      order by k.execution_, k.end_) T
+                      order by k.execution_) T
               group by t.execution_) T2
     on t1.execution_ = t2.execution_
 )A2
            ON A2.EXECUTION_=Z.FLOW_ID
-           LEFT JOIN ( SELECT * FROM(
- select A.EXECUTION_,
-        (CASE
-          WHEN T.YQ_APP_TIME IS NULL THEN
-           A.REPLYTIME
-          ELSE
-           to_char(TO_DATE(t.yq_app_time, 'yyyy/MM/dd hh24:mi:ss'),
-                   'yyyy-mm-dd hh24:mi:ss')
-        END) AS REPLYTIME
-   from t_generalprocess_modelfive T,
-        (select t.outcome_,
-                to_char(q.end_, 'yyyy-mm-dd hh24:mi:ss ') as REPLYTIME,
-                t.execution_
-           from JBPM4_HIST_TASK t，jbpm4_hist_actinst q
-          where t.outcome_ = '提交发起合同预审'
-            and q.htask_ = t.dbid_ ) A
-)A  GROUP BY A.EXECUTION_,A.REPLYTIME)A3
+           LEFT JOIN ( 
+select (case
+         when aa.flow_id is not null then
+          aa.flow_id
+         else
+          bb.execution_
+       end) EXECUTION_,
+       
+       (case
+         when aa.yq_app_time is not null then
+          aa.yq_app_time
+         else
+          bb.replytime
+       end) replytime
+
+  from (
+        
+        select flow_id, yq_app_time from t_generalprocess_modelfive t
+        
+        ) aa
+  full outer join (
+                   
+                   select execution_, max(REPLYTIME) as replytime
+                     from (
+                            
+                            select t.outcome_,
+                                    to_char(t.end_, 'yyyy-mm-dd hh24:mi:ss ') as REPLYTIME,
+                                    t.execution_
+                              from JBPM4_HIST_TASK t
+                             where t.outcome_ = '提交发起合同预审')
+                    group by execution_) bb
+
+    on aa.flow_id = bb.execution_)A3
            ON A3.EXECUTION_=Z.FLOW_ID
            LEFT JOIN （select min(q.start_),t.execution_, o.operatorname as CHECKONE from jbpm4_hist_actinst q, JBPM4_HIST_TASK t, ac_operator o  WHERE q.activity_name_ = '审查一' and q.htask_ = t.dbid_ and t.assignee_ =o.operatorid group by t.execution_, o.operatorname )A4
            ON A4.EXECUTION_=Z.FLOW_ID
