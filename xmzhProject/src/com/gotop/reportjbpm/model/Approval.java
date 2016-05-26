@@ -1,6 +1,7 @@
 package com.gotop.reportjbpm.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import com.informix.util.stringUtil;
 
@@ -13,7 +14,7 @@ public class Approval implements Serializable {
 	private String oneCategory;
 	private String loanCategory;
 	private String currency;
-	private Double applyBal;
+	private BigDecimal applyBal;
 	private String orgNameOne;
 	private String orgNameTwo;
 	private String yxry;
@@ -307,10 +308,10 @@ public class Approval implements Serializable {
 	public void setCurrency(String currency) {
 		this.currency = currency;
 	}
-	public Double getApplyBal() {
+	public BigDecimal getApplyBal() {
 		return applyBal;
 	}
-	public void setApplyBal(Double applyBal) {
+	public void setApplyBal(BigDecimal applyBal) {
 		this.applyBal = applyBal;
 	}
 	public String getOrgNameOne() {
@@ -482,5 +483,10 @@ public class Approval implements Serializable {
 	public void setYxryjg(String yxryjg) {
 		this.yxryjg = yxryjg;
 	}
- 
+
+	
+	
+	public static void main(String[] args) {
+		System.out.println(Double.MAX_VALUE) ;
+	}
 }
