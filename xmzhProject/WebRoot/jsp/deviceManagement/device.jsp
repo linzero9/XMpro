@@ -19,6 +19,8 @@ margin-left:inherit;
 <h:form name="data_form"  id="data_form" action="/deviceManagement/deviceManagementAction_save.action"  enctype="multipart/form-data" method="post" >
 		<table align="center" border="0" width="100%" class="form_table">
 			<h:hidden id="deviceId" property="device.deviceId"  name="device.deviceId"/>
+			<h:hidden id="currentPages"  property="page.currentPage"/>
+			<h:hidden id="gdzhi"  value="${gdzhi }"/>
 			<tr>
 				<td class="form_label" align="right" nowrap="nowrap">机构/部门：</td>
 				 <td colspan="1" nowrap="nowrap">
@@ -211,12 +213,17 @@ margin-left:inherit;
 							&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
 					<input type="button" value="保存" onclick="save();"  class="button"> 
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<input type="button" value="关闭" onclick="window.close();" class="button"></td>
+					<input type="button" value="关闭" onclick="closes();" class="button"></td>
 			</tr>
 		</table>
 	</h:form>
 	</DIV>
 <script type="text/javascript">
+
+function closes(){
+	returnValue();
+	window.close();
+}
 
 	function save(){
 		var frm=$name("data_form");
@@ -237,6 +244,7 @@ margin-left:inherit;
 					if (data.indexOf("success") >= 0) {
 						alert("保存成功!");
 						unMaskTop();
+						returnValue();
 						window.close();
 					} else if (data.indexOf("fails") >= 0) {
 						alert("保存失败!");
@@ -289,6 +297,14 @@ function openNewEmpTreeCallBack1(arg){//回调方法
 		//$id("orgid").value = "";
 	}
 }
+
+function returnValue(){
+  	var deviceId=$id("deviceId").value;
+  	var currentPages=$id("currentPages").value;
+  	var gdzhi=$id("gdzhi").value;
+  	  window.returnValue=[deviceId,currentPages,gdzhi];
+  	  //window.close();
+  }
 
 </script>
 </body>

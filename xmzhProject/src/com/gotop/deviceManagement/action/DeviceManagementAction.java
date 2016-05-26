@@ -14,6 +14,8 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFDataFormat;
 import org.apache.poi.hssf.usermodel.HSSFFont;
@@ -39,6 +41,7 @@ import com.gotop.dict.model.EosDictEntry;
 import com.gotop.dict.service.IEosDictEntryService;
 import com.gotop.util.Struts2Utils;
 import com.gotop.vo.system.MUOUserSession;
+import com.primeton.utils.Page;
 //import org.apache.poi.hssf.usermodel.HSSFCell;
 //import org.apache.poi.hssf.usermodel.HSSFDataValidation;
 //import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -65,7 +68,39 @@ public class DeviceManagementAction  extends BaseAction    {
 	
 	private Map<String, String> sheBeiShuX=new HashMap<String, String>();
 
-	
+	//设备id
+	private String isid;
+	//分页参数
+	private String currentPages;
+   
+	//滚动条高度
+	private String gdzhi;
+
+
+	public String getGdzhi() {
+		return gdzhi;
+	}
+
+	public void setGdzhi(String gdzhi) {
+		this.gdzhi = gdzhi;
+	}
+
+	public String getCurrentPages() {
+		return currentPages;
+	}
+
+	public void setCurrentPages(String currentPages) {
+		this.currentPages = currentPages;
+	}
+
+	public String getIsid() {
+		return isid;
+	}
+
+	public void setIsid(String isid) {
+		this.isid = isid;
+	}
+
 	public Map<String, String> getSheBeiShuX() {
 		return sheBeiShuX;
 	}
@@ -243,7 +278,21 @@ public class DeviceManagementAction  extends BaseAction    {
     	if(device == null){
     		device = new DevicePo();
     	}
-    	devices = deviceManagermentService.deviceList(device,this.getPage());
+    	Page package1=this.getPage();
+    	if(!"undefined".equals(currentPages) && currentPages!=null){
+    		int p=Integer.parseInt(currentPages) ;
+        	package1.setCurrentPage(p);
+        	package1.setBegin(p*100-100);
+    	}
+    	
+/*    	HttpServletRequest request=ServletActionContext.getRequest();
+    	pcnt=request.getParameter("pcnt"); */
+    
+    	devices = deviceManagermentService.deviceList(device,package1);
+    	if(device.getDeviceId()!=null){
+    		isid=device.getDeviceId().toString();
+    	}
+    
     	this.setDevices(devices);
     	return "deviceList";
     }
@@ -302,6 +351,8 @@ public class DeviceManagementAction  extends BaseAction    {
 	public String toDevice(){
     	if(device != null){
     		device = deviceManagermentService.getDeviceByDeviceId(device);
+        	HttpServletRequest request=ServletActionContext.getRequest();
+        	gdzhi=request.getParameter("gdzhi"); 
     	}
     	this.setDevice(device);
     	return "device";

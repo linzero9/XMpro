@@ -67,6 +67,9 @@ function my_relase(){
 	<h:form name="query_form"	action="/deviceManagement/deviceManagementAction_deviceList.action" method="post">
 		<w:panel id="panel1" title="查询条件">
 		<table align="center" border="0" width="100%" class="form_table"  >
+			   <h:hidden id="isid" value=" ${isid}" />
+			   <h:hidden id="pageid" value=" ${currentPages}" />
+			   <h:hidden id="gdzhi" value=" ${gdzhi}" />
 				<tr>
 					<td class="form_label" align="right" width="10%" nowrap="nowrap">机构/部门</td>
 					<td colspan="1"  width="25%" nowrap="nowrap">
@@ -195,8 +198,9 @@ function my_relase(){
 				</tr>
 				<tr class="form_bottom" >
 						<td colspan="6" class="form_bottom" style="text-align: left;">
+						
 						    <b:message key="l_display_per_page"></b:message> 
-					        <h:text size="3" property="page.length"  value="100" validateAttr="minValue=1;maxValue=100;type=integer;isNull=true" />
+					        <h:text id="pcnt" size="3" property="page.length"  value="100" validateAttr="minValue=1;maxValue=100;type=integer;isNull=true" />
 					        
 					        <input type="hidden" name="page.begin" value="0">
 					        <input type="hidden" name="page.isCount" value="true">
@@ -247,15 +251,17 @@ function my_relase(){
 							</div>
 							<div class="h4">
 	                <l:equal property="page.isCount" targetValue="true" >
+	                
 	                  <b:message key="l_total"></b:message>
 	                  <b:write property="page.count" />
 	                  <b:message key="l_recordNO."></b:message>
 	                  <b:write property="page.currentPage" />
+	                  <h:hidden id="currentPage" property="page.currentPage"  />
 	                  <b:message key="l_page"></b:message>
 	                  <b:write property="page.totalPage" />
 	                  <b:message key="l_page"></b:message>
 	                </l:equal>
-	                <l:equal property="page.isCount" targetValue="false" >
+	                <l:equal property="page.isCount" targetValue="false" >	        
 	                  <b:message key="l_NO."></b:message>
 	                  <b:write property="page.currentPage" />
 	                  <b:message key="l_page"></b:message>
@@ -615,17 +621,73 @@ function my_relase(){
 		</DIV>
 		<script type="text/javascript">
 
+		//修改
+		function upt() {
+
+			var gop = $id("group1");
+			var len = gop.getSelectLength();
+			if (len != 1) {
+				alert("请选择一条记录");
+				return;
+			} else {
+				var rows = gop.getSelectRows();
+				var deviceId = rows[0].getParam("deviceId");
+				var currentPages = $("#currentPage").val();
+				var gdzhi=$("#divv").scrollTop();
+				
+				var strUrl = "/deviceManagement/deviceManagementAction_toDevice.action?device.deviceId="+ deviceId+"&page.currentPage="+currentPages+"&gdzhi="+gdzhi;
+				showModalCenter(strUrl, null, showErrorlink_callback1, 700, 550,
+						'修改设备');
+			}
+		}
+
+		function showErrorlink_callback1(returnValue){
+			var did=returnValue[0];
+			var currentPages=returnValue[1];
+			var gdzhi=returnValue[2];
+
+			document.query_form.action="/deviceManagement/deviceManagementAction_deviceList.action?isid="+did+"&currentPages="+currentPages+"&gdzhi="+gdzhi;
+			document.query_form.submit();
+		}
+		function checkid()
+		{         
+			//页面重选修改的哪行
+			var isids=$("#isid").val();
+			var isidss= $.trim(isids);	
+				//获得每行的值，然后，用checkArray[i]和他们匹配，如果有，则说明他应被选中
+				var rows = $id("group1").getRows();//获得所有的行
+				for(var j=0; j<rows.length; j++){
+	 				var deviceId2 = rows[j].getParam("deviceId");
+	 				
+	 				if (deviceId2 ==isidss) {
+	 					 rows[j].setSelected();
+	 				}
+				}
+				//页面滚动条定位到修改哪行
+				var gdzhi=$("#gdzhi").val();
+				if(gdzhi !=" "){
+					 $("#divv").animate({"scrollTop": gdzhi}, 0); 	
+				}
+			}
+
+		eventManager.add(window, "load", checkid); //一进JSP页面自动调用初始化函数
+
 		//$("html,body").animate({"scrollTop": "100px"}, 1000); 
-		 $(function () {              
-
-			 $("#divv").animate({"scrollTop": "30px"}, 0); 
-	            //绑定滚动条事件  
-	              //绑定滚动条事件  
+		 $(function () {       
+			 //固定表格栏，滚动后会多出空白位置，设置滚动条位置掩盖      
+			    $("#divv").animate({"scrollTop": "30px"}, 0); 
+			    var hh=$("#divv").scrollTop();
+			    if(hh==0){
+				    //alert("00000000000000");
+				    //:expression(this.offsetParent.scrollTop-30); 
+			    	document.getElementByClassName("fixedHead").style.top="0px";
+				    }
 	            $("#divv").bind("scroll", function () {  
-                          //alert("sssssssss");
 	            	var hh=$("#divv").scrollTop();
+	            	if(hh<30){
+	       			      $("#divv").animate({"scrollTop": "30px"}, 0); 
+		            	}
 
-	            	//alert(hh);
 	            });  
 	        })
 		$(function (){
@@ -685,8 +747,12 @@ function my_relase(){
 
 			//提交
 			function mysubmit() {
-				var frm = $name("query_form");
-				frm.submit();
+ 				var frm = $name("query_form");
+				frm.submit();            //?page.currentPage="+currentPages
+/* 				var pcnt = $("#pcnt").val();
+				alert(pcnt);
+				document.query_form.action="/deviceManagement/deviceManagementAction_deviceList.action?pcnt="+pcnt;
+				document.query_form.submit(); */
 			}
 
 			//清空
@@ -749,26 +815,13 @@ function my_relase(){
 				showModalCenter(url, null, callBackFunc, 700, 550, '新增设备');
 			}
 
-			//修改
-			function upt() {
-				var gop = $id("group1");
-				var len = gop.getSelectLength();
-				if (len != 1) {
-					alert("请选择一条记录");
-					return;
-				} else {
-					var rows = gop.getSelectRows();
-					var deviceId = rows[0].getParam("deviceId");
-					var strUrl = "/deviceManagement/deviceManagementAction_toDevice.action?device.deviceId="
-							+ deviceId;
-					showModalCenter(strUrl, null, callBackFunc, 700, 550,
-							'修改设备');
-				}
-			}
+
+
 
 			function callBackFunc() {
 				var frm = $name("query_form");
 				frm.submit();
+				
 			}
 
 			//删除
