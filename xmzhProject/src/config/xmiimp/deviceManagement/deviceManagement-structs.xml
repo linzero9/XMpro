@@ -77,8 +77,15 @@
 	    <result name="deviceNameAndModel_list" >
 	        /jsp/deviceManagement/deviceNameAndModel/deviceNameAndModel_list.jsp
 	      </result>
-	      <result name="bb" >
-	        /jsp/deviceManagement/My_admin_tree.jsp
+	      <result name="add_deviceNameAndModel" >
+	        /jsp/deviceManagement/deviceNameAndModel/add_deviceNameAndModel.jsp
+	      </result>
+	      
+	      <result name="show_devicenameDic" >
+	        /jsp/deviceManagement/deviceNameAndModel/show_devicenameDic.jsp
+	      </result>
+	      <result name="show_devicemodelDic" >
+	        /jsp/deviceManagement/deviceNameAndModel/show_devicemodelDic.jsp
 	      </result>
     </action>
 

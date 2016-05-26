@@ -11,6 +11,35 @@ margin-left:inherit;
 }
 </style>
 
+<script type="text/javascript">
+var down = 0;
+var out = 1;
+function movestart()
+{
+ lineborder.setCapture();
+ down = 1;
+ out = 1;
+}
+
+function moving()
+{
+ if(down && out){
+	query_div.style.height =  event.y;
+ //  lineborder.style.width = (xx = event.x - lineborder.offsetLeft) > -1 ? xx : lineborder.style.width;
+ //  lineborder.style.width = (yy = event.y - lineborder.offsetTop) > -1 ? yy : lineborder.style.height;
+ }
+}
+
+function moveend()
+{
+ down = 0;
+ lineborder.releaseCapture();
+}
+
+function my_relase(){
+	lineborder.releaseCapture();
+}
+</script>
 
 <html>
 	<head>
@@ -18,7 +47,7 @@ margin-left:inherit;
 		<title>设备列表</title>
 	</head>
 	<body topmargin="0" leftmargin="0">
-	<DIV class="divList"  style="overflow:auto;width:100%; height:250;">  
+	<DIV class="divList"   id="query_div"  style="overflow:auto;width:100%; height:250;">  
 	<h:form name="query_form"	action="/deviceManagement/deviceManagementAction_sumUpDevice.action" method="post">
 		<w:panel id="panel1" title="设备列表">
 		<table align="center" border="0" width="100%" class="form_table"  >
@@ -151,8 +180,8 @@ margin-left:inherit;
 						<d:checkbox perrow="12" id="peripheral"  name="device.peripheral"  dictTypeId="DEVICE_PERIPHERAL" property="device.peripheral"   seperator=", "  />
 					</td>
 				</tr>
-				<tr class="form_bottom">
-						<td colspan="6" class="form_bottom"  style="text-align: center">
+				<tr class="form_bottom"  >
+						<td colspan="6" class="form_bottom"  style="text-align: left">
 						    <b:message key="l_display_per_page"></b:message>
 					        <h:text size="2" property="page.length" value="10" validateAttr="minValue=1;maxValue=100;type=integer;isNull=true" />
 					        <input type="hidden" name="page.begin" value="0">
@@ -166,6 +195,11 @@ margin-left:inherit;
 		</w:panel>
 	</h:form>
 	</DIV>
+	
+	<!-- 该div用于将将鼠放到div边框上，鼠标变成可拉动调节div高度 ，该div位于滚动条下方-->
+	<div id="lineborder" style="font-size:0px; width:100%; height:0px;  border-bottom:1px solid white;  cursor :n-resize;"  onmousedown="movestart()" onmousemove="moving()" onmouseup="moveend()">
+	</div>
+	
 	<DIV class="divList"  style="overflow:auto;width:100%; height: 310;">
 			<w:panel id="panel" width="100%" title="查询结果">
 				<viewlist id="e2c61865-3b56-470d-bd42-fff792fb9493">
@@ -263,13 +297,14 @@ $(function (){
 			if($("#deviceName").val()!=0){
 				devicename($("#deviceName").val());
 				}else{	
-				$("deviceModels").html("");
+				$("#deviceModels").html("");
 				var selecthtml=$("#deviceModels").html();
 				selecthtml = selecthtml+"<option value='' >请选择</option>";
 				$("#deviceModels").html(selecthtml);}
 			
 			});
 			function devicename(value) {
+				var deviceModel = $("#deviceModel").val();
 				
 				$("#deviceModels").html("");
 				var selecthtml=$("#deviceModels").html();
@@ -288,19 +323,12 @@ $(function (){
 
 								} else {
 									$.each(json,function(key, value) {
-														selecthtml = 
-
-	selecthtml
-																
-
-	+ "<option value="+value.deviceModel+">"
-																
-
-	+ value.deviceModelName
-																
-
-	+ "</option>";
-													});
+										if(deviceModel != null && deviceModel == value.deviceModel ){
+											selecthtml = selecthtml+ "<option value="+value.deviceModel+" selected='selected' "+">"+ value.deviceModelName+ "</option>";
+								        }else{
+								        	selecthtml = selecthtml+ "<option value="+value.deviceModel+">"+ value.deviceModelName+ "</option>";
+									     }
+									});
 								}
 							}
 						});
@@ -337,6 +365,12 @@ $(function (){
 				$id("orgname").value = "";
 				$id("deviceName").value = "";
 				$id("deviceModel").value = "";
+
+				$("#deviceModels").html("");
+				var selecthtml=$("#deviceModels").html();
+				selecthtml = selecthtml+"<option value='' >请选择</option>";
+				$("#deviceModels").html(selecthtml);
+				
 				$id("deviceState").value = "";
 				$id("ipAdress").value = "";
 

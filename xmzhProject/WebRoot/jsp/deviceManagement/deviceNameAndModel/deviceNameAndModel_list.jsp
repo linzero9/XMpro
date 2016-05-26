@@ -19,14 +19,14 @@
 					<td >
 			     		<h:hidden id="devicename_id" property="deviceNameAndModel.devicename_id" />  
 						<h:text id="devicename" property="deviceNameAndModel.devicename" readonly="true"/>
-						<a href="#" onclick="show_devicename();">选择</a>
+						<a href="#" onclick="showDevicenameDic();">选择</a>
 					</td>
 					
 					<td class="form_label" align="right" >设备型号：</td>
 					<td >
 						<h:hidden id="devicemodel_id" property="deviceNameAndModel.devicemodel_id" />
 						<h:text id="devicemodel" property="deviceNameAndModel.devicemodel" readonly="true"/>
-						<a href="#" onclick="show_devicemodel();">选择</a>
+						<a href="#" onclick="showDevicemodelDic();">选择</a>
 					</td>
 				</tr>
 				<tr class="form_bottom">
@@ -71,7 +71,7 @@
 							<tr class="<l:output evenOutput='EOS_table_row' oddOutput='EOS_table_row_o'  />">
 								<td align="center" nowrap="nowrap">
 									<w:rowCheckbox>
-										<h:param name='d_id' iterateId='id1' property='id' />
+										<h:param name='id' iterateId='id1' property='id' />
 									</w:rowCheckbox>
 								</td>
 								<td nowrap="nowrap"> 
@@ -127,16 +127,16 @@
 
 		//清空
 		function clears(){
-			$id("oneCategory").value="";
-			$id("oneCategoryId").value="";
-			$id("loanCategory").value="";
-			$id("loanCategoryId").value="";
+			$id("devicename_id").value="";
+			$id("devicename").value="";
+			$id("devicemodel_id").value="";
+			$id("devicemodel").value="";
 		}
 		
 		//新增
 		function add(){
-			  var url="/jbpm/timeLimitManageAction_toAddOneAndLoan.action";
-			  showModalCenter(url, null,callBackFunc, 500, 300, '新增一级/贷种分类对应关系');
+			  var url="/deviceManagement/deviceNameAndModelAction_toAddItem.action";
+			  showModalCenter(url, null,callBackFunc, 500, 300, '新增设备名称/型号对应关系');
 		}
 
 		//删除
@@ -151,12 +151,12 @@
 	  			var rows=gop.getSelectRows();
 	  			var ids="";
 	  			for(var i=0;i<rows.length;i++){
-	  				ids += rows[i].getParam("d_id")+",";
+	  				ids += rows[i].getParam("id")+",";
 	  			}
 	  			if(ids != ""){
 	  				ids=ids.substring(0,ids.length-1);
 		  		$.ajax({
-				      url: "/jbpm/timeLimitManageAction_delOneAndLoan.action",
+				      url: "/deviceManagement/deviceNameAndModelAction_deleteItem.action",
 				      async: false,
 				      type: 'post',
 				      data: "ids="+ids,
@@ -185,33 +185,35 @@
 			//  location.reload(); //就算页面直接关闭，也会重新加载页面
 			}
 
-	  	function showoneCategory() {
-			var oneCategoryId=document.getElementById("oneCategoryId").value;
-			strUrl ="/Generalprocess/tGeneralprocessCdtypeAction_oneCategoryDic.action?cdtypeJson="+oneCategoryId,
-			showModalCenter(strUrl,'',showoneCategory_callback1 ,800,430,'一级分类选择'); 
+		// 数据字典 多选按钮显示页面
+		function showDevicenameDic() {
+			var devicename_id=document.getElementById("devicename_id").value;
+			strUrl ="/deviceManagement/deviceNameAndModelAction_showDevicenameDic.action?deviceJson="+devicename_id,
+			showModalCenter(strUrl,'',showDevicenameDic_callback ,800,430,'设备名称选择'); 
 		} 
-		function showoneCategory_callback1(args){
+		function showDevicenameDic_callback(args){
 			if(args!=''){
 			var array;
 			array = args.split(":");
-			 document.getElementById("oneCategoryId").value = array[0];
-			 document.getElementById("oneCategory").value = array[1];
-			}
-		}	
-
-		function showloanCategory() {
-			var loanCategoryId=document.getElementById("loanCategoryId").value;
-			strUrl ="/Generalprocess/tGeneralprocessCdtypeAction_loanCategoryDic.action?cdtypeJson="+loanCategoryId,
-			showModalCenter(strUrl,'',showloanCategory_callback1 ,800,500,'贷种选择'); 
-		} 
-		function showloanCategory_callback1(args){
-			if(args!=''){
-			var array;
-			array = args.split(":");
-			 document.getElementById("loanCategoryId").value = array[0];
-			 document.getElementById("loanCategory").value = array[1];
+			 document.getElementById("devicename_id").value = array[0];
+			 document.getElementById("devicename").value = array[1];
 			}
 		}
+
+		// 数据字典 多选按钮显示页面
+		function showDevicemodelDic() {
+			var devicemodel_id=document.getElementById("devicemodel_id").value;
+			strUrl ="/deviceManagement/deviceNameAndModelAction_showDevicemodelDic.action?deviceJson="+devicemodel_id,
+			showModalCenter(strUrl,'',showDevicemodelDic_callback ,800,500,'设备型号选择'); 
+		} 
+		function showDevicemodelDic_callback(args){
+			if(args!=''){
+			var array;
+			array = args.split(":");
+			 document.getElementById("devicemodel_id").value = array[0];
+			 document.getElementById("devicemodel").value = array[1];
+			}
+		}	
 		</script>
 		
 	</body>

@@ -10,4 +10,11 @@ public interface IDeviceNameAndModelService {
 	List<DeviceNameAndModel> queryDeviceNameAndModelList(
 			DeviceNameAndModel deviceNameAndModel, Page page);
 
+	void deleteItem(DeviceNameAndModel deviceNameAndModel);
+
+	void addItem(DeviceNameAndModel deviceNameAndModel);
+
+	List<DeviceNameAndModel> checkDeviceNameAndModel(
+			DeviceNameAndModel deviceNameAndModel);
+
 }

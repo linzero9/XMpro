@@ -17,4 +17,26 @@ public class DeviceNameAndModelDao extends SqlMapClientDao implements IDeviceNam
 		return list;
 	}
 
+	@Override
+	public int deleteItem(DeviceNameAndModel deviceNameAndModel) {
+		int rows = getSqlMapClientTemplate().delete("DeviceNameAndModel_SqlMap.deleteItem", deviceNameAndModel);
+        return rows;
+		
+	}
+
+	@Override
+	public void addItem(DeviceNameAndModel deviceNameAndModel) {
+		
+		getSqlMapClientTemplate().insert("DeviceNameAndModel_SqlMap.addItem", deviceNameAndModel);
+		
+		
+	}
+
+	@Override
+	public List checkDeviceNameAndModel(Map<String, Object> map) {
+		
+		List list = queryForList("DeviceNameAndModel_SqlMap.checkDeviceNameAndModel", map);
+		return list;
+	}
+
 }

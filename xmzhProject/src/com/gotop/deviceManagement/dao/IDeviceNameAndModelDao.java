@@ -11,4 +11,10 @@ public interface IDeviceNameAndModelDao {
 	List queryDeviceNameAndModelList(Map<String, Object> map,
 			Page page);
 
+	int deleteItem(DeviceNameAndModel deviceNameAndModel);
+
+	void addItem(DeviceNameAndModel deviceNameAndModel);
+
+	List checkDeviceNameAndModel(Map<String, Object> map);
+
 }

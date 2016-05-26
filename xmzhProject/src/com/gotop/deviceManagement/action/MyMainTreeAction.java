@@ -93,12 +93,12 @@ public class MyMainTreeAction extends BaseAction{
 		}
 		//topID为空或小于1显示行政树
 		if(isAdmin || falg){//行政树
-			paramBuffer.append("/deviceManagement/myMainTreeAction_initAdminTree.action?_ts=1"); //改成调用我的方法，原来的是/tree/initAdminTree_mainTree.action
+			paramBuffer.append("/deviceManagement/myMainTreeAction_initAdminTree.action?_ts="); //改成调用我的方法，原来的是/tree/initAdminTree_mainTree.action
 		}else{
 			//业务树
 			paramBuffer.append("/tree/initBusessTree_mainTree.action?_ts=");
 		}
-	//	paramBuffer.append(new Date());
+		paramBuffer.append(new Date());
 		if(StringUtils.isNotBlank(changeTree.getCheckcount())){
 			paramBuffer.append("&changeTree.checkcount=").append(changeTree.getCheckcount());
 		}

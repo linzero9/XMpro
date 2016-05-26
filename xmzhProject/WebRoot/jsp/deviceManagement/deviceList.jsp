@@ -215,6 +215,7 @@ function my_relase(){
 		</w:panel>
 	</h:form>
 	</DIV>
+	
 	<!-- 该div用于将将鼠放到div边框上，鼠标变成可拉动调节div高度 ，该div位于滚动条下方-->
 	<div id="lineborder" style="font-size:0px; width:100%; height:0px;  border-bottom:1px solid white;  cursor :n-resize;"  onmousedown="movestart()" onmousemove="moving()" onmouseup="moveend()">
 	</div>
@@ -689,19 +690,20 @@ function my_relase(){
 		            	}
 
 	            });  
-	        })
+	        });
 		$(function (){
-			
-			if($("#deviceName").val()!=0){
-				devicename($("#deviceName").val());
-				}else{	
-				$("deviceModels").html("");
+			if($("#deviceName").val() != "" ){
+				devicename($("#deviceName").val());  //调用devicename的onchange函数，初始化设备型号下拉框
+			}else{	
+				$("#deviceModels").html("");
 				var selecthtml=$("#deviceModels").html();
 				selecthtml = selecthtml+"<option value='' >请选择</option>";
-				$("#deviceModels").html(selecthtml);}
+				$("#deviceModels").html(selecthtml);
+			}
 			
-			});
+		});
 			function devicename(value) {
+				var deviceModel = $("#deviceModel").val();
 				
 				$("#deviceModels").html("");
 				var selecthtml=$("#deviceModels").html();
@@ -719,8 +721,13 @@ function my_relase(){
 
 								} else {
 									$.each(json,function(key, value) {
-			selecthtml = selecthtml+ "<option value="+value.deviceModel+">"+ value.deviceModelName+ "</option>";
-													});
+										if(deviceModel != null && deviceModel == value.deviceModel ){
+											selecthtml = selecthtml+ "<option value="+value.deviceModel+" selected='selected' "+">"+ value.deviceModelName+ "</option>";
+								        }else{
+								        	selecthtml = selecthtml+ "<option value="+value.deviceModel+">"+ value.deviceModelName+ "</option>";
+									     }
+											
+									});
 								}
 							}
 						});
@@ -761,6 +768,12 @@ function my_relase(){
 				$id("orgname").value = "";
 				$id("deviceName").value = "";
 				$id("deviceModel").value = "";
+
+				$("#deviceModels").html("");
+				var selecthtml=$("#deviceModels").html();
+				selecthtml = selecthtml+"<option value='' >请选择</option>";
+				$("#deviceModels").html(selecthtml);
+				
 				$id("deviceState").value = "";
 				$id("ipAdress").value = "";
 

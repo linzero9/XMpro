@@ -24,4 +24,28 @@
       		</dynamic>
 </select>
 
+<delete id="deleteItem" parameterClass="com.gotop.deviceManagement.model.DeviceNameAndModel" >
+    delete from t_model_deviceNameAndModel t
+    where t.id = #id:DECIMAL:-9999# 
+  </delete>
+
+<insert id="addItem" parameterClass="com.gotop.deviceManagement.model.DeviceNameAndModel" >
+       <selectKey resultClass="long" keyProperty="id">
+		SELECT SEQ_T_MODEL_DEVICENAMEANDMODEL.NEXTVAL AS VALUE FROM DUAL
+		</selectKey>
+    insert into t_model_deviceNameAndModel(ID, DEVICENAME_ID, DEVICENAME, DEVICEMODEL_ID, DEVICEMODEL)
+    values (#id:DECIMAL:-9999#,  #devicename_id:VARCHAR#, #devicename:VARCHAR#, #devicemodel_id:VARCHAR#, #devicemodel:VARCHAR#)
+  </insert>
+
+<select id="checkDeviceNameAndModel" resultMap="deviceNameAndModel_Result" parameterClass="java.util.HashMap" >
+  select * from t_model_deviceNameAndModel
+  <dynamic prepend="where" >
+      		<isNotNull prepend="and" property="devicename" >
+           	devicename = '$devicename$'
+      		</isNotNull>
+      		 <isNotNull prepend="and" property="devicemodel" >
+           	 devicemodel = '$devicemodel$'
+      		</isNotNull>
+      		</dynamic>
+  </select>
 </sqlMap>

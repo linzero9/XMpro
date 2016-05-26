@@ -40,6 +40,39 @@ public class DeviceNameAndModelService implements IDeviceNameAndModelService {
 		List list = this.deviceNameAndModelDao.queryDeviceNameAndModelList(map, page);
 		return list;
 	}
+
+	@Override
+	public void deleteItem(DeviceNameAndModel deviceNameAndModel) {
+		
+		this.deviceNameAndModelDao.deleteItem(deviceNameAndModel);
+	}
+
+	@Override
+	public void addItem(DeviceNameAndModel deviceNameAndModel) {
+		
+		this.deviceNameAndModelDao.addItem(deviceNameAndModel);
+		
+	}
+
+	@Override
+	public List<DeviceNameAndModel> checkDeviceNameAndModel(
+			DeviceNameAndModel deviceNameAndModel) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		if(deviceNameAndModel != null){
+			if(deviceNameAndModel.getDevicename() != null && !"".equals(deviceNameAndModel.getDevicename())){
+				map.put("devicename", deviceNameAndModel.getDevicename());
+			}
+			
+			if(deviceNameAndModel.getDevicemodel() != null && !"".equals(deviceNameAndModel.getDevicemodel())){
+				map.put("devicemodel", deviceNameAndModel.getDevicemodel());
+			}
+		}
+		List list = this.deviceNameAndModelDao.checkDeviceNameAndModel(map);
+		return list;
+		
+		
+	}
 	
 	
 }
