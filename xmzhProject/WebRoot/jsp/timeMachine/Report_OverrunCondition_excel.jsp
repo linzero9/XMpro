@@ -19,7 +19,8 @@
 		<th height="34"  align="center" class="form_label" nowrap="nowrap">超限环节</th>
 		<th height="34"  align="center" class="form_label" nowrap="nowrap">客户名称</th>
 		<th height="34"  align="center" class="form_label" nowrap="nowrap">贷种</th>
-		<th height="34"  align="center" class="form_label" nowrap="nowrap">机构</th>
+		<th height="34"  align="center" class="form_label" nowrap="nowrap">受理支行（一级）</th>
+		<th height="34"  align="center" class="form_label" nowrap="nowrap">受理支行（二级）</th>
 		<th height="34"  align="center" class="form_label" nowrap="nowrap">超限人员</th>
 		<th height="34"  align="center" class="form_label" nowrap="nowrap">超限时长(单位:小时)</th>
 		<th height="34"  align="center" class="form_label" nowrap="nowrap">备注</th>
@@ -42,7 +43,10 @@
 			   		<b:write iterateId="id1" property="loanCategory_name" />							
 			  </td>
 			  <td style="vnd.ms-excel.numberformat:@">
-			 		<b:write iterateId="id1" property="orgname" />
+			 		<b:write iterateId="id1" property="orgname_one" />
+			  </td>
+			  <td style="vnd.ms-excel.numberformat:@">
+			 		<b:write iterateId="id1" property="orgname_two" />
 			  </td>
 			  <td style="vnd.ms-excel.numberformat:@">
 			  	 	<b:write iterateId="id1" property="empname" />

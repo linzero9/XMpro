@@ -165,6 +165,9 @@ public class TModelTimedayAction extends BaseAction {
 			String coOrg = "";
 			String oneCategory_name = "";
 			String loanCategory_name = "";
+			String survey_time = "";
+			String orgname_one = "";
+			String orgname_two = "";
 			
 			if(processModelOnes.size() == 0){
 				continue;
@@ -173,7 +176,9 @@ public class TModelTimedayAction extends BaseAction {
 				coOrg = processModelOnes.get(0).getCoOrganization(); //合作机构
 				oneCategory_name = processModelOnes.get(0).getOneCategory();  //一级分类
 				loanCategory_name = processModelOnes.get(0).getLoanCategory();  //贷种分类
-				
+				survey_time = processModelOnes.get(0).getSurvey_Time();  //调查日期
+				orgname_one = processModelOnes.get(0).getOrgNameOne();  //受理支行（一级选项）
+				orgname_two = processModelOnes.get(0).getOrgNameTwo();  //受理支行（二级选项）
 			}
 			
 			//通过flow_id，查询获取模式三的相关信息
@@ -200,9 +205,20 @@ public class TModelTimedayAction extends BaseAction {
 	    		//循环每一个节点，得到开始时间和结束时间
 	    		for (HistActinst histActinst : histActinsts) {
 	    			// 3.循环JBPM4_HIST_ACTINST的所有及节点，将 结束时间 - 开始时间 =时间差，在用时间差-非工作日时间=共消耗的时间
-	    			String start = histActinst.getStart();
-	    			String end = histActinst.getEnd();
+	    			
 	    			String activity_name = histActinst.getActivity_name();
+	    			String start ="" ;
+	    			if("受理调查".equals(activity_name) && histActinst.getRn() == 1){
+	    				SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+	    				Date d = sdf1.parse(survey_time); //因为原来的survey_time是yyyy-MM-dd格式，如：2016-02-17
+	    				SimpleDateFormat sdf2 = new SimpleDateFormat("yyyyMMddHHmmss");
+	    				survey_time = sdf2.format(d);  //此时的survey_time格式为yyyyMMddHHmmss， 如：20160217000000
+	    				start = survey_time;
+	    			}else{
+	    				start = histActinst.getStart();
+	    			}
+	    			
+	    			String end = histActinst.getEnd();
 	    			Double expendtime = getExpendTime(start, end); //计算得到消耗的时间
 	    			
 	    			//查询节点配置的时限，判断是否超限
@@ -242,6 +258,8 @@ public class TModelTimedayAction extends BaseAction {
 								overTimeReport.setCustName(custName);
 								overTimeReport.setLoanCategory_name(loanCategory_name);
 								overTimeReport.setOrgname(coOrg);
+								overTimeReport.setOrgname_one(orgname_one);
+								overTimeReport.setOrgname_two(orgname_two);
 								overTimeReport.setEmpname(operatorname);
 								overTimeReport.setOvertime(overtime);
 								//overTimeReport.setRemark(remark);
@@ -276,6 +294,8 @@ public class TModelTimedayAction extends BaseAction {
 								overTimeReport.setCustName(custName);
 								overTimeReport.setLoanCategory_name(loanCategory_name);
 								overTimeReport.setOrgname(coOrg);
+								overTimeReport.setOrgname_one(orgname_one);
+								overTimeReport.setOrgname_two(orgname_two);
 								overTimeReport.setEmpname(operatorname);
 								overTimeReport.setOvertime(overtime);
 								//overTimeReport.setRemark(remark);

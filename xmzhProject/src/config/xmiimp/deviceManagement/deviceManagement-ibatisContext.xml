@@ -11,4 +11,7 @@
     <property name="sqlMapClient" ref="sqlMapClient" />
   </bean>
   
+  <bean id="deviceNameAndModelDao" class="com.gotop.deviceManagement.dao.impl.DeviceNameAndModelDao" >
+    <property name="sqlMapClient" ref="sqlMapClient" />
+  </bean>
 </beans>

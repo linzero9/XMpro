@@ -11,4 +11,8 @@
     <property name="mainTreeService" ref="mainTreeService" />
     <property name="myMainTreeService" ref="myMainTreeService" />
   </bean>
+  
+   <bean name="deviceNameAndModelAction" id="deviceNameAndModelAction" class="com.gotop.deviceManagement.action.DeviceNameAndModelAction" singleton="false" >
+    <property name="deviceNameAndModelService" ref="deviceNameAndModelService" />
+  </bean>
 </beans>

@@ -12,4 +12,8 @@
   	<property name="mainTreeDao" ref="mainTreeDao" />
   	<property name="myMainTreeDao" ref="myMainTreeDao" />
   </bean>
+  
+  <bean id="deviceNameAndModelService" class="com.gotop.deviceManagement.service.impl.DeviceNameAndModelService" >
+  	<property name="deviceNameAndModelDao" ref="deviceNameAndModelDao" />
+  </bean>
 </beans>

@@ -43,7 +43,7 @@
 			</table>
 		</w:panel>
 	</h:form>
-	<DIV class="divList">
+	<DIV class="divList"  style="overflow:auto;width:100%; height:355px;">
 			<w:panel id="panel" width="100%" title="超限情况统计列表">
 				<viewlist id="e2c61865-3b56-470d-bd42-fff792fb9493">
 				<h:form name="page_form"
@@ -79,7 +79,10 @@
 								贷种
 							</th>
 							<th nowrap="nowrap">
-								机构
+								受理支行（一级）
+					       </th>
+					       <th nowrap="nowrap">
+								受理支行（二级）
 					       </th>
 					       <th nowrap="nowrap">
 								超限人员
@@ -114,7 +117,10 @@
 									<b:write iterateId="id1" property="loanCategory_name" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="orgname" />
+									<b:write iterateId="id1" property="orgname_one" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="orgname_two" />
 								</td>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1" property="empname" />

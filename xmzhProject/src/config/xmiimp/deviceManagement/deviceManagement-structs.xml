@@ -73,6 +73,14 @@
 	      </result>
     </action>
     
+    <action name="deviceNameAndModelAction_*" class="deviceNameAndModelAction" method="{1}" >
+	    <result name="deviceNameAndModel_list" >
+	        /jsp/deviceManagement/deviceNameAndModel/deviceNameAndModel_list.jsp
+	      </result>
+	      <result name="bb" >
+	        /jsp/deviceManagement/My_admin_tree.jsp
+	      </result>
+    </action>
 
   </package>
 </struts>

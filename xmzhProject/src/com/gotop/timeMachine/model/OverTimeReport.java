@@ -14,7 +14,11 @@ public class OverTimeReport  implements Serializable{
 	
 	private String loanCategory_name;//贷种分类 名称
 	
-	private String orgname;//机构名
+	private String orgname;//合作机构
+	
+	private String orgname_one;//受理支行（一级选项）
+	
+	private String orgname_two;//受理支行（二级选项）
 	
 	private String empname;//超限人员
 	
@@ -219,6 +223,22 @@ public class OverTimeReport  implements Serializable{
 
 	public void setEnd_status(String end_status) {
 		this.end_status = end_status;
+	}
+
+	public String getOrgname_one() {
+		return orgname_one;
+	}
+
+	public void setOrgname_one(String orgname_one) {
+		this.orgname_one = orgname_one;
+	}
+
+	public String getOrgname_two() {
+		return orgname_two;
+	}
+
+	public void setOrgname_two(String orgname_two) {
+		this.orgname_two = orgname_two;
 	}
 
 	
