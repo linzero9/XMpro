@@ -44,7 +44,7 @@
     <dynamic>
       <isNotEmpty property="oracleStart">
         <isNotEmpty property="oracleEnd">
-          <![CDATA[) row_) where rownum_ > #oracleStart# and rownum_ <= #oracleEnd# and rownum <= ($oracleEnd$-$oracleStart$)]]>
+          <![CDATA[) row_) where rownum_ > #oracleStart# and rownum_ <= #oracleEnd# and rownum_ <= ($oracleEnd$-$oracleStart$)]]>
         </isNotEmpty>
       </isNotEmpty>
     </dynamic>

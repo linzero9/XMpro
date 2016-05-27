@@ -177,7 +177,8 @@ public class SqlExecutor_Ext {
     	sbr.append(sql);
     	sbr.append(") row_) where rownum_ > "+skipResults);
     	sbr.append(" and rownum_ <= "+(skipResults+maxResults));
-    	sbr.append(" and rownum <= "+maxResults);
+    	//吴佳俊，解决重复的分页问题导致 很慢
+    //	sbr.append(" and rownum <= "+maxResults);
     	sql = sbr.toString();
     	skipResults=0;
     	maxResults = SqlExecutor.NO_MAXIMUM_RESULTS;
