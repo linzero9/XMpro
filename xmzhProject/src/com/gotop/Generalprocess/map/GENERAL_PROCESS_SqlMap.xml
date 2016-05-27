@@ -128,7 +128,22 @@
            AND T9.BUSINESS_TYPE=88
            and t8.htask_ = t1.pre_task_id
            <isNotNull prepend="and" property="empId" >
-              t9.submit_id= $empId$
+              t9.submit_id in (
+              select t3.empid　from om_emporg t2,
+                                               om_employee    t3 where t2.empid = t3.empid and t2.orgid in (select orgid
+                                                                                                              from om_organization
+                                                                                                             start with orgid =
+                                                                                                                        (select a1.orgid
+                                                                                                                           from om_organization a1
+                                                                                                                          where a1.orgid =
+                                                                                                                                (select t1.parentorgid 　from om_organization t1,
+                                                                                                                                        om_emporg      t2,
+                                                                                                                                        om_employee    t3 where t1.orgid = t2.orgid and t2.empid = t3.empid and t3.empid = $empId$))
+                                                                                                            connect by prior
+                                                                                                                        orgid =
+                                                                                                                        parentorgid)
+              
+              )
       		</isNotNull>
            )
  where rn = 1
