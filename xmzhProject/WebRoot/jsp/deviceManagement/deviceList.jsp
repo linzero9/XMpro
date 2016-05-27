@@ -287,7 +287,8 @@ function my_relase(){
 		    <h:hidden property="page.isCount"/>
 		    <h:hiddendata property="device" />
 					<table align="center" border="0" width="100%" >
-						<tr class="fixedHead" > 
+
+						<tr id="fixedHead1"  style="background:  FDF7F7;position: relative;top: expression(this.offsetParent.scrollTop-30);"> 
 							<th align="center" nowrap="nowrap">
 								<l:greaterThan property="page.count" targetValue="0" compareType="number">
 	                 					<h:checkbox id="selectBox" onclick="allItem();"/>
@@ -679,9 +680,7 @@ function my_relase(){
 			    $("#divv").animate({"scrollTop": "30px"}, 0); 
 			    var hh=$("#divv").scrollTop();
 			    if(hh==0){
-				    //alert("00000000000000");
-				    //:expression(this.offsetParent.scrollTop-30); 
-			    	document.getElementByClassName("fixedHead").style.top="0px";
+			    	document.getElementById("fixedHead1").style.top = "0px"; 
 				    }
 	            $("#divv").bind("scroll", function () {  
 	            	var hh=$("#divv").scrollTop();
