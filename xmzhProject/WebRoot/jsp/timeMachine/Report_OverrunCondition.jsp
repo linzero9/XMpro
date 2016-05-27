@@ -14,14 +14,31 @@
 		<w:panel id="panel1" title="查询条件">
 			<table align="center" border="0" width="100%" class="form_table">
 				
-				<h:hidden id="request_id" property="overTimeReport.request_id" />
+				<%-- <h:hidden id="request_id" property="overTimeReport.request_id" /> --%>
+				<tr>
+					<td class="form_label" align="right" width="20%">客户名称：</td>
+					<td colspan="1" width="30%">
+						<h:text   id="custName" property="overTimeReport.custName" />
+					</td>
+					
+					<td class="form_label" align="right" width="20%">超限人员：</td>
+					<td colspan="1" width="30%">
+						<h:text   id="empname" property="overTimeReport.empname" />
+					</td>
+				</tr>
 				<tr>
 					<td class="form_label" align="right" width="20%">报单日期：</td>
-					<td colspan="1" width="30%">
+					<td  width="30%">
 						从
 						<w:date  id="reportStarttime"  property="overTimeReport.reportStarttime" /> 
 						到
 						<w:date id="reportEndtime"  property="overTimeReport.reportEndtime" />
+					</td>
+					
+					<td class="form_label" align="right" width="20%">超限环节：</td>
+					<td colspan="1" width="30%">
+						<h:text   id="taskName" property="overTimeReport.taskName"   readonly="true"/>
+						<a href="#" onclick="select_taskname();">选择</a>
 					</td>					
 				</tr>
 				<tr class="form_bottom">
@@ -181,6 +198,10 @@
 
 		//清空
 		function clears(){
+			$id("custName").value="";
+			$id("empname").value="";
+			$id("taskName").value="";
+			
 			//清除JSP页面时间控件的值
 			$id("reportStarttime_input").value="";
 			$id("reportEndtime_input").value="";
@@ -191,15 +212,36 @@
 		}
 
 		function downExl() {
-			var request_id = $id("request_id").value;
 			var reportStarttime = $id("reportStarttime_input").value;
 			var reportEndtime = $id("reportEndtime_input").value;
+
+			var custName = $id("custName").value;
+			var empname = $id("empname").value;
+			var taskName = $id("taskName").value;
 			
 			var url = "/timeMachine/tModelTimedayAction_queryOvertimeReportExcel.action?";
-     		url = url+"overTimeReport.request_id="+request_id+"&overTimeReport.reportStarttime="+reportStarttime+"&overTimeReport.reportEndtime="+reportEndtime;
-
+     		url += "overTimeReport.reportStarttime="+reportStarttime+"&overTimeReport.reportEndtime="+reportEndtime;
+			url += "&overTimeReport.custName="+custName+"&overTimeReport.empname="+empname+"&overTimeReport.taskName="+taskName;
 			window.location.href=url; 
-		}    
+		} 
+
+		function select_taskname(){
+	  		var taskName = $id("taskName").value;
+	  		strUrl ="/timeMachine/tModelTimedayAction_selectTaskname.action?overTimeReport.taskName="+taskName;
+
+			showModalCenter(encodeURI(strUrl),'',select_taskname_callback ,900,380,'流程节点选择'); 
+		} 
+
+		function select_taskname_callback(returnValue){
+			if(returnValue == ""){
+				//点击右上角关闭时,returnValue为null
+				//不做操作
+				$id("taskName").value="";
+			}else{
+				$id("taskName").value= returnValue[0];
+			
+			}
+		}  
 		</script>
 		
 	</body>

@@ -79,4 +79,6 @@ public interface ITModelTimedayService {
 	void updateOverTime(OverTimeReport overTimeReport2);
 
 	Object queryReportUpdatetime();
+
+	List<OverTimeReport> listNodName();
 }

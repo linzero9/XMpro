@@ -60,4 +60,6 @@ public interface ITModelTimedayDAO {
 
 	Object queryReportUpdatetime();
 
+	List listNodName();
+
 }

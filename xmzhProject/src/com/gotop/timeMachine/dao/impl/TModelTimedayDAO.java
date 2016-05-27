@@ -188,4 +188,11 @@ public class TModelTimedayDAO extends SqlMapClientDao implements ITModelTimedayD
 		return  object;
 	}
 
+
+	@Override
+	public List listNodName() {
+		List list = queryForList("T_MODEL_TIMEDAY_SqlMap.listNodName", null);
+        return list;
+	}
+
 }

@@ -335,6 +335,12 @@ public class TModelTimedayAction extends BaseAction {
        
     }
     
+    public String selectTaskname(){
+    	overTimeReports = this.tModelTimedayService.listNodName();
+    	this.setOverTimeReports(overTimeReports);
+    	return "proNodeName_list";
+    }
+    
     /**
      * @author liaomeiting
      * @desc查询超限报表

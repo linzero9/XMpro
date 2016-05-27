@@ -12,6 +12,7 @@ import com.gotop.timeMachine.model.OverTimeReport;
 import com.gotop.timeMachine.model.TModelTimeday;
 import com.gotop.timeMachine.model.XdproForEnd;
 import com.gotop.timeMachine.service.ITModelTimedayService;
+import com.gotop.util.string.Obj2StrUtils;
 import com.primeton.utils.Page;
 import java.util.HashMap;
 import java.util.List;
@@ -154,15 +155,39 @@ public class TModelTimedayService implements ITModelTimedayService {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		if(overTimeReport != null){
-			if(overTimeReport.getRequest_id() != null && !"".equals(overTimeReport.getRequest_id())){
+			/*if(overTimeReport.getRequest_id() != null && !"".equals(overTimeReport.getRequest_id())){
 				map.put("request_id", overTimeReport.getRequest_id());
-			}
+			}*/
 			
+			//报单查询开始日期
 			if(overTimeReport.getReportStarttime() != null && !"".equals(overTimeReport.getReportStarttime())){
 				map.put("reportStarttime", overTimeReport.getReportStarttime());
 			}
+			//报单查询结束日期
 			if(overTimeReport.getReportEndtime()!= null && !"".equals(overTimeReport.getReportEndtime())){
 				map.put("reportEndtime", overTimeReport.getReportEndtime());
+			}
+			
+			//客户名称
+			if(overTimeReport.getCustName()!= null && !"".equals(overTimeReport.getCustName())){
+				map.put("custName", overTimeReport.getCustName());
+			}
+			//超限人员
+			if(overTimeReport.getEmpname()!= null && !"".equals(overTimeReport.getEmpname())){
+				map.put("empname", overTimeReport.getEmpname());
+			}
+			//超限环节
+			if(overTimeReport.getTaskName()!= null && !"".equals(overTimeReport.getTaskName())){
+				String[] taskName_arr=overTimeReport.getTaskName().split(",");
+				String taskName="";
+				try {
+					//把对象数组的内容用引号与指定分隔符连接,即："A,B,C"  变成  'A','B','C'
+					taskName = Obj2StrUtils.join(taskName_arr, String.class, ",");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+				map.put("taskName", taskName);
 			}
 		}
 		List list = this.tModelTimedayDAO.queryOverTimeReportWithPage(map, page);
@@ -180,17 +205,42 @@ public class TModelTimedayService implements ITModelTimedayService {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		if(overTimeReport != null){
-			if(overTimeReport.getRequest_id() != null && !"".equals(overTimeReport.getRequest_id())){
+			/*if(overTimeReport.getRequest_id() != null && !"".equals(overTimeReport.getRequest_id())){
 				map.put("request_id", overTimeReport.getRequest_id());
-			}
+			}*/
 			
+			//报单查询开始日期
 			if(overTimeReport.getReportStarttime() != null && !"".equals(overTimeReport.getReportStarttime())){
 				map.put("reportStarttime", overTimeReport.getReportStarttime());
 			}
+			//报单查询结束日期
 			if(overTimeReport.getReportEndtime()!= null && !"".equals(overTimeReport.getReportEndtime())){
 				map.put("reportEndtime", overTimeReport.getReportEndtime());
 			}
+			
+			//客户名称
+			if(overTimeReport.getCustName()!= null && !"".equals(overTimeReport.getCustName())){
+				map.put("custName", overTimeReport.getCustName());
+			}
+			//超限人员
+			if(overTimeReport.getEmpname()!= null && !"".equals(overTimeReport.getEmpname())){
+				map.put("empname", overTimeReport.getEmpname());
+			}
+			//超限环节
+			if(overTimeReport.getTaskName()!= null && !"".equals(overTimeReport.getTaskName())){
+				String[] taskName_arr=overTimeReport.getTaskName().split(",");
+				String taskName="";
+				try {
+					//把对象数组的内容用引号与指定分隔符连接,即："A,B,C"  变成  'A','B','C'
+					taskName = Obj2StrUtils.join(taskName_arr, String.class, ",");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+				map.put("taskName", taskName);
+			}
 		}
+		
 		List list = this.tModelTimedayDAO.queryOverTimeReport(map);
 		return list;
 	}
@@ -224,6 +274,13 @@ public class TModelTimedayService implements ITModelTimedayService {
 		
 		Object object = this.tModelTimedayDAO.queryReportUpdatetime();
 		return object;
+	}
+
+	@Override
+	public List<OverTimeReport> listNodName() {
+		
+		List list = this.tModelTimedayDAO.listNodName();
+		return list;
 	}
 
 }
