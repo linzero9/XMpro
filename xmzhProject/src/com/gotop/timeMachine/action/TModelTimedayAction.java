@@ -256,6 +256,7 @@ public class TModelTimedayAction extends BaseAction {
 								overTimeReport.setReportTime(reportTime);
 								overTimeReport.setTaskName(activity_name);
 								overTimeReport.setCustName(custName);
+								overTimeReport.setOneCategory_name(oneCategory_name);
 								overTimeReport.setLoanCategory_name(loanCategory_name);
 								overTimeReport.setOrgname(coOrg);
 								overTimeReport.setOrgname_one(orgname_one);
@@ -292,6 +293,7 @@ public class TModelTimedayAction extends BaseAction {
 								overTimeReport.setReportTime(reportTime);
 								overTimeReport.setTaskName(activity_name);
 								overTimeReport.setCustName(custName);
+								overTimeReport.setOneCategory_name(oneCategory_name);
 								overTimeReport.setLoanCategory_name(loanCategory_name);
 								overTimeReport.setOrgname(coOrg);
 								overTimeReport.setOrgname_one(orgname_one);

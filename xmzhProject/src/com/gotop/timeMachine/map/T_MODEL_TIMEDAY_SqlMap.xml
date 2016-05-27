@@ -57,16 +57,19 @@
   <resultMap id="OverTimeReport_Result" class="com.gotop.timeMachine.model.OverTimeReport" >
     <result column="ID" property="id" jdbcType="DECIMAL" />
     <result column="REPORTTIME" property="reportTime" jdbcType="VARCHAR" />
-    <result column="TASKNAME" property="taskName" jdbcType="VARCHAR" />
+    <result column="PROCESS_NAME" property="process_name" jdbcType="VARCHAR" />
     <result column="CUSTNAME" property="custName" jdbcType="VARCHAR" />
-    <result column="LOANCATEGORY_NAME" property="loanCategory_name" jdbcType="VARCHAR" />
     <result column="ORGNAME_ONE" property="orgname_one" jdbcType="VARCHAR" />
-     <result column="ORGNAME_TWO" property="orgname_two" jdbcType="VARCHAR" />
+    <result column="ORGNAME_TWO" property="orgname_two" jdbcType="VARCHAR" />
+    <result column="ONECATEGORY_NAME" property="oneCategory_name" jdbcType="VARCHAR" />
+    <result column="LOANCATEGORY_NAME" property="loanCategory_name" jdbcType="VARCHAR" />
+    <result column="TASKNAME" property="taskName" jdbcType="VARCHAR" />
     <result column="EMPNAME" property="empname" jdbcType="VARCHAR" />
     <result column="OVERTIME" property="overtime" jdbcType="DECIMAL" />
+    <result column="STARTTIME" property="starttime" jdbcType="VARCHAR" />
+    <result column="ENDTIME" property="endtime" jdbcType="VARCHAR" />
     <result column="REMARK" property="remark" jdbcType="VARCHAR" />
     <result column="REQUEST_ID" property="request_id" jdbcType="DECIMAL" />
-    <result column="PROCESS_NAME" property="process_name" jdbcType="VARCHAR" />
     
   </resultMap>
 
@@ -211,15 +214,16 @@ select operatorname from ac_operator where operatorid =
        <selectKey resultClass="long" keyProperty="id" >
 		SELECT SEQ_T_MODEL_OVERTIMEREPORT.NEXTVAL AS VALUE FROM DUAL
 		</selectKey>
-    insert into t_model_overtimeReport(ID, REPORTTIME, TASKNAME, CUSTNAME, LOANCATEGORY_NAME, 
-    ORGNAME, EMPNAME, OVERTIME, REMARK, REQUEST_ID, PROCESS_NAME, FLOW_ID, STARTTIME, ENDTIME,
-    TIMELIMITONE, TIMELIMITTWO, RN, EXPENDTIME, ORGNAME_ONE, ORGNAME_TWO)
+    insert into t_model_overtimeReport
+    (ID, REPORTTIME, TASKNAME, CUSTNAME, ONECATEGORY_NAME, 
+    LOANCATEGORY_NAME, ORGNAME, EMPNAME, OVERTIME, REMARK, 
+    REQUEST_ID, PROCESS_NAME, FLOW_ID, STARTTIME, ENDTIME,
+    TIMELIMITONE, TIMELIMITTWO, RN,  EXPENDTIME, ORGNAME_ONE, ORGNAME_TWO)
     
-    values (#id:DECIMAL:-9999#, #reportTime:VARCHAR#, #taskName:VARCHAR#, #custName:VARCHAR#, 
-    #loanCategory_name:VARCHAR#, #orgname:VARCHAR#, #empname:VARCHAR#, #overtime:DOUBLE#, 
-    #remark:VARCHAR#, #request_id:DECIMAL:-9999#, #process_name:VARCHAR#, #flow_id:VARCHAR#, 
-    #starttime:VARCHAR#, #endtime:VARCHAR#, #timeLimitOne:DOUBLE#, #timeLimitTwo:DOUBLE#, 
-    #rn:DECIMAL:-9999#, #expendtime:DOUBLE#, #orgname_one:VARCHAR#, #orgname_two:VARCHAR#)
+    values (#id:DECIMAL:-9999#, #reportTime:VARCHAR#, #taskName:VARCHAR#, #custName:VARCHAR#,  #oneCategory_name:VARCHAR#, 
+    #loanCategory_name:VARCHAR#, #orgname:VARCHAR#, #empname:VARCHAR#, #overtime:DOUBLE#, #remark:VARCHAR#, 
+    #request_id:DECIMAL:-9999#, #process_name:VARCHAR#, #flow_id:VARCHAR#, #starttime:VARCHAR#, #endtime:VARCHAR#, 
+    #timeLimitOne:DOUBLE#, #timeLimitTwo:DOUBLE#, #rn:DECIMAL:-9999#, #expendtime:DOUBLE#, #orgname_one:VARCHAR#, #orgname_two:VARCHAR#)
   </insert>
   
    <!-- 查询 自增序列 用于 action请求标识-->
@@ -230,9 +234,12 @@ select operatorname from ac_operator where operatorid =
 <!-- 查询 超限报表 临时表-->
   <select id="queryOverTimeReport" resultMap="OverTimeReport_Result" parameterClass="java.util.HashMap" >
     
-	select ID, REPORTTIME ,TASKNAME, CUSTNAME, LOANCATEGORY_NAME, 
+	select ID, REPORTTIME ,TASKNAME, CUSTNAME, ONECATEGORY_NAME,LOANCATEGORY_NAME, 
 		ORGNAME_ONE, ORGNAME_TWO, EMPNAME, trunc(OVERTIME, 2) as OVERTIME, 
-		REMARK, REQUEST_ID, PROCESS_NAME
+		REMARK, REQUEST_ID, PROCESS_NAME, 
+		to_char(to_date(STARTTIME, 'yyyyMMddhh24miss') , 'yyyy-MM-dd hh24:mi:ss') as STARTTIME, 
+		to_char(to_date(ENDTIME, 'yyyyMMddhh24miss') , 'yyyy-MM-dd hh24:mi:ss') as ENDTIME
+
 	from t_model_overtimeReport
 	where request_id = (
 		select max(request_id)
@@ -257,7 +264,7 @@ select operatorname from ac_operator where operatorid =
 	<isNotNull prepend="and" property="taskName" >
 		taskName in ($taskName$)
 	</isNotNull>
-	order by REPORTTIME, PROCESS_NAME
+	order by REPORTTIME, PROCESS_NAME, CUSTNAME, STARTTIME, ENDTIME
   </select> 
   
   <!-- 删除 超限报表 临时表-->

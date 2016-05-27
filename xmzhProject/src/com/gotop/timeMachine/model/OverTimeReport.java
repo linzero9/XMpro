@@ -12,6 +12,8 @@ public class OverTimeReport  implements Serializable{
 	
 	private String custName;//客户名称
 	
+	private String oneCategory_name;//一级分类 名称
+	
 	private String loanCategory_name;//贷种分类 名称
 	
 	private String orgname;//合作机构
@@ -239,6 +241,14 @@ public class OverTimeReport  implements Serializable{
 
 	public void setOrgname_two(String orgname_two) {
 		this.orgname_two = orgname_two;
+	}
+
+	public String getOneCategory_name() {
+		return oneCategory_name;
+	}
+
+	public void setOneCategory_name(String oneCategory_name) {
+		this.oneCategory_name = oneCategory_name;
 	}
 
 	
