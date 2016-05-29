@@ -42,19 +42,19 @@
 			  			  <td style="vnd.ms-excel.numberformat:@">
 			    <b:write iterateId="id1" property="orgNameTwo"/>
 			  </td>
-			  			  <td style="vnd.ms-excel.numberformat:@">
+			  	<td>
 			    <b:write iterateId="id1" property="passNumber"/>
 			  </td>
-			  			  <td style="vnd.ms-excel.numberformat:@">
+			  	<td>
 			    <b:write iterateId="id1" property="backOne"/>
 			  </td>
-			  			  <td style="vnd.ms-excel.numberformat:@">
+			  	<td>
 			    <b:write iterateId="id1" property="backTwo"/>
 			  </td>
-			  			  <td style="vnd.ms-excel.numberformat:@">
+			  	<td>
 			    <b:write iterateId="id1" property="backThree"/>
 			  </td>
-			  			  <td style="vnd.ms-excel.numberformat:@">
+			  	<td>
 			    <b:write iterateId="id1" property="backFour"/>
 			  </td>
 			</tr>

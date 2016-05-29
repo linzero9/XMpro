@@ -86,7 +86,7 @@
 			 					<td style="vnd.ms-excel.numberformat:@"> 
 									<b:write iterateId="id1"    property="title" />
 								</td>
-			 					<td style="vnd.ms-excel.numberformat:@"> 
+			 					<td> 
 									<b:write iterateId="id1"    property="nextOrgName" />
 								</td>
 								<td style="vnd.ms-excel.numberformat:@"> 
@@ -111,7 +111,7 @@
 								<td style="vnd.ms-excel.numberformat:@">
 								<d:write iterateId="id1" property="currency" dictTypeId="PROCESS_MONEY"/>
 								</td>
-								<td style="vnd.ms-excel.numberformat:@"> 
+								<td> 
 									<b:write iterateId="id1" property="applyBal" />
 								</td>
 								<td style="vnd.ms-excel.numberformat:@"> 
@@ -193,7 +193,7 @@
 								<td style="vnd.ms-excel.numberformat:@"> 
 									<b:write iterateId="id1" property="polNo" />
 								</td>
-								<td style="vnd.ms-excel.numberformat:@"> 
+								<td> 
 									<b:write iterateId="id1" property="meetingCount" />
 								</td>
 								<td style="vnd.ms-excel.numberformat:@"> 
@@ -235,7 +235,7 @@
 								<td style="vnd.ms-excel.numberformat:@">
 								<d:write iterateId="id1" property="spType" dictTypeId="PROCESS_approve"/>
 								</td>
-								<td style="vnd.ms-excel.numberformat:@"> 
+								<td> 
 									<b:write iterateId="id1" property="ybjNum" />
 								</td>
 								
@@ -245,13 +245,13 @@
 								<td style="vnd.ms-excel.numberformat:@"> 
 									<b:write iterateId="id1" property="pjJl" />
 								</td>
-								<td style="vnd.ms-excel.numberformat:@"> 
+								<td> 
 									<b:write iterateId="id1" property="fxEd" />
 								</td>
-								<td style="vnd.ms-excel.numberformat:@"> 
+								<td> 
 									<b:write iterateId="id1" property="sxEd" />
 								</td>
-								<td style="vnd.ms-excel.numberformat:@"> 
+								<td> 
 									<b:write iterateId="id1" property="ywEd" />
 								</td>
 								<td style="vnd.ms-excel.numberformat:@"> 

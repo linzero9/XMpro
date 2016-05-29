@@ -57,7 +57,7 @@
 			  <td style="vnd.ms-excel.numberformat:@">
 			  	 	<b:write iterateId="id1" property="empname" />
 			  </td>
-			  <td style="vnd.ms-excel.numberformat:@">
+			  <td>
 			  		<b:write iterateId="id1" property="overtime" />
 			  </td>
 			  <td style="vnd.ms-excel.numberformat:@">

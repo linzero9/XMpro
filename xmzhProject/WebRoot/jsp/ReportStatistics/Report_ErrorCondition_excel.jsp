@@ -51,10 +51,10 @@
 			    <td style="vnd.ms-excel.numberformat:@">
 			   <b:write iterateId="id1" property="mistakeContent"/>
 			  </td>
-			   <td style="vnd.ms-excel.numberformat:@">
+			   <td>
 			   <b:write iterateId="id1" property="punishBal"/>
 			  </td>
-			   <td style="vnd.ms-excel.numberformat:@">
+			   <td>
 			    <b:write iterateId="id1" property="mistakeNumber"/>
 			  </td>
 			   <td style="vnd.ms-excel.numberformat:@">

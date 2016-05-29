@@ -106,10 +106,8 @@ function my_relase(){
 					<tr>
 						<td class="form_label" align="right" width="10%" nowrap="nowrap"> ${sheBeiShuX.DEVICE_MODEL}：</td>
 						<td colspan="1" width="30%" nowrap="nowrap">
-						<select
-							id="deviceModels" onchange="changedeviceModel()">
-								
-						</select> <h:hidden property="device.deviceModel" id="deviceModel" /> 
+							<select  id="deviceModels" onchange="changedeviceModel()"></select> 
+							<h:hidden property="device.deviceModel" id="deviceModel" /> 
 
 <!-- <d:select  id="deviceModel"  dictTypeId="DEVICE_MODEL" property="device.deviceModel" nullLabel="请选择"></d:select> -->
 						</td>

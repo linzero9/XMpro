@@ -15,7 +15,7 @@
 <table width="98%" border="1" cellspacing="1" cellpadding="1">
 	<tr>
 		<td colspan="4"
-			style="height: 14.25pt; width: 506pt; font-weight: 700; text-align: center; color: windowtext; font-size: 12.0pt; font-style: normal; text-decoration: none; font-family: 宋体; vertical-align: middle; white-space: nowrap; border: medium none; padding: 0px"><a
+			style="height: 14.25pt; width: 1000pt; font-weight: 700; text-align: center; color: windowtext; font-size: 12.0pt; font-style: normal; text-decoration: none; font-family: 宋体; vertical-align: middle; white-space: nowrap; border: medium none; padding: 0px"><a
 			name="RANGE!A1">机构设备数量统计</a></td>
 	</tr>
 	<tr style="font-size:10.0pt" >
@@ -91,7 +91,7 @@
 			  <td style="vnd.ms-excel.numberformat:@">
 			    <d:write iterateId="id1" property="deviceModel"  dictTypeId="DEVICE_MODEL"  />   
 			  </td>
-			  <td style="vnd.ms-excel.numberformat:@">
+			  <td >
 			    <b:write iterateId="id1" property="tot" />
 			  </td>
 			</tr>

@@ -36,13 +36,13 @@
 			  <td style="vnd.ms-excel.numberformat:@">
 			    <b:write iterateId="id1" property="orgnametwo"/>
 			  </td>
-			   <td style="vnd.ms-excel.numberformat:@">
+			   <td>
 			   <b:write iterateId="id1" property="EA_number"/>
 			  </td>
-			    <td style="vnd.ms-excel.numberformat:@">
+			    <td>
 			   <b:write iterateId="id1" property="rejection_number"/>
 			  </td>
-			   <td style="vnd.ms-excel.numberformat:@">
+			   <td>
 			   <b:write iterateId="id1" property="refusalrate"/>
 			  </td>
 			   
