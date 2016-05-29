@@ -398,7 +398,7 @@ function my_relase(){
 						<w:checkGroup id="group1">
                             <l:iterate property="devices" id="id1">
                             
-                             <l:equal  property="deviceState"  targetValue="0"  iterateId="id1">
+                             <l:notEqual  property="deviceState"  targetValue="1"  iterateId="id1">
 							 <tr class="<l:output oddOutput="EOS_table_row_o" evenOutput='EOS_table_row' />">
 								<td align="center" nowrap="nowrap">
 									<w:rowCheckbox>
@@ -505,7 +505,7 @@ function my_relase(){
 										<d:write  iterateId="id1"  dictTypeId="DEVICE_STATE" property="deviceState" />
 								</td>
 							</tr>
-							</l:equal>
+							</l:notEqual>
 						    <l:equal  property="deviceState"  targetValue="1"  iterateId="id1">
 							 <tr bgcolor="#FFFF00">
 								<td align="center" nowrap="nowrap">

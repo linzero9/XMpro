@@ -366,7 +366,7 @@ where a.orgcode = b.orgcode
      ,  #otherAttribute_1:VARCHAR# ,  #otherAttribute_2:VARCHAR#  ,  #otherAttribute_3:VARCHAR#  ,  #otherAttribute_4:VARCHAR#  ,  #otherAttribute_5:VARCHAR# 
      ,  #otherInfo_1:VARCHAR#  ,  #otherInfo_2:VARCHAR#  ,  #otherInfo_3:VARCHAR#  ,  #otherInfo_4:VARCHAR#  ,  #otherInfo_5:VARCHAR#
      ,  #remarks_1:VARCHAR#  ,  #remarks_2:VARCHAR#  ,  #remarks_3:VARCHAR#  ,  #remarks_4:VARCHAR#  ,  #remarks_5:VARCHAR# 
-     ,  #orgcode:VARCHAR# ,  #deviceState:CHAR# )
+     ,  #orgcode:VARCHAR# ,  '0' )
   </insert>
   
   <!--通过主键更新一条全部字段内容-->
