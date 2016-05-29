@@ -294,18 +294,19 @@ function my_relase(){
 
 $(function (){
 			
-			if($("#deviceName").val()!=0){
+			/* if($("#deviceName").val()!=0){ */
 				devicename($("#deviceName").val());
-				}else{	
+			/* 	}else{	
 				$("#deviceModels").html("");
 				var selecthtml=$("#deviceModels").html();
 				selecthtml = selecthtml+"<option value='' >请选择</option>";
-				$("#deviceModels").html(selecthtml);}
+				$("#deviceModels").html(selecthtml);} */
 			
 			});
 			function devicename(value) {
 				var deviceModel = $("#deviceModel").val();
-				
+
+				$("#deviceModel").val("");
 				$("#deviceModels").html("");
 				var selecthtml=$("#deviceModels").html();
 				selecthtml = selecthtml+"<option value='' >请选择</option>";

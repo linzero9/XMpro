@@ -82,8 +82,15 @@
   <isNotNull prepend="and" property="deviceName" >
         DEVICENAME_ID = #deviceName#
       </isNotNull>
-     
 </select>
+
+  <!-- 查找数据字典的所有 设备型号 的数据项 -->
+    <select id="queryType2" resultMap="devicemodel_result" parameterClass="java.util.HashMap" >
+ 	select t.DICTID as DEVICEMODEL_ID,  t.DICTNAME as DEVICEMODEL   from eos_dict_entry t      
+  		where t.DICTTYPEID = 'DEVICE_MODEL'
+</select>
+
+
   <!-- 查询机构下设备合计 -->
     <select id="querySumList2" resultMap="tSum2" parameterClass="java.util.HashMap">
     SELECT count(*) heji

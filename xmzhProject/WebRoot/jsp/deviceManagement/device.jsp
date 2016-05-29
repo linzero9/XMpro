@@ -32,13 +32,16 @@ margin-left:inherit;
 			<tr>
 				<td class="form_label" align="right" width="15%" nowrap="nowrap">设备名称：</td>
 				<td colspan="1" width="30%" nowrap="nowrap">
-					<d:select  id="deviceName"  dictTypeId="DEVICE_NAME" property="device.deviceName" nullLabel="请选择"  ></d:select>
+					<d:select  id="deviceName"  dictTypeId="DEVICE_NAME" property="device.deviceName" nullLabel="请选择"  onchange="devicename(this.value)"></d:select>
 				</td>
 			</tr>
 			<tr>
 				<td class="form_label" align="right" width="15%" nowrap="nowrap">设备型号：</td>
 				<td colspan="1" width="30%" nowrap="nowrap">
-					<d:select  id="deviceModel"  dictTypeId="DEVICE_MODEL" property="device.deviceModel" nullLabel="请选择"></d:select>
+					<select  id="deviceModels" onchange="changedeviceModel()"></select> 
+					<h:hidden property="device.deviceModel" id="deviceModel" />
+							
+				<%-- 	<d:select  id="deviceModel"  dictTypeId="DEVICE_MODEL" property="device.deviceModel" nullLabel="请选择"></d:select> --%>
 				</td>
 			</tr>
 			<tr>	
@@ -219,6 +222,61 @@ margin-left:inherit;
 	</h:form>
 	</DIV>
 <script type="text/javascript">
+$(function (){
+	
+	devicename($("#deviceName").val());
+});
+
+function devicename(value) {
+	var deviceModel = $("#deviceModel").val();
+
+	$("#deviceModel").val("");
+	$("#deviceModels").html("");
+	var selecthtml=$("#deviceModels").html();
+	selecthtml = selecthtml+"<option value='' >请选择</option>";
+	
+			$.ajax({
+				url : "/deviceManagement/deviceManagementAction_queryType.action",
+				async : false,
+				type : 'post',
+				data : "deviceName=" + value,
+				timeout : 60000,
+				dataType : 'json',
+				success : function(json) {
+
+					if (json == "") {
+
+					} else {
+						$.each(json,function(key, value) {
+							if(deviceModel != null && deviceModel == value.deviceModel ){
+								selecthtml = selecthtml+ "<option value="+value.deviceModel+" selected='selected' "+">"+ value.deviceModelName+ "</option>";
+					        }else{
+					        	selecthtml = selecthtml+ "<option value="+value.deviceModel+">"+ value.deviceModelName+ "</option>";
+						     }
+						});
+					}
+				}
+			});
+			
+			$("#deviceModels").html(selecthtml);
+	if ($id("deviceModel").value == '') {
+		$("#deviceModel").val(
+				$('#deviceModels option:selected').val());
+	} else {
+		var all_options = document.getElementById("deviceModels").options;
+		for ( var i = 0; i < all_options.length; i++) {
+			if (all_options[i].value == $id("deviceModels").value
+
+			) // 根据option标签的ID来进行判断 测试的代码这里是两个等号
+			{
+				all_options[i].selected = true;
+			}
+		}
+	}
+}
+function changedeviceModel() {
+	$("#deviceModel").val($('#deviceModels option:selected').val());
+}
 
 function closes(){
 	returnValue();

@@ -1,5 +1,6 @@
 package com.gotop.deviceManagement.dao.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -110,7 +111,12 @@ public class DeviceManagementDAO extends SqlMapClientDao implements IDeviceManag
 	@Override
 	public List queryType(Map<String, String> map) {
 		
-		List list = queryForList("T_DEVICE_SqlMap.queryType", map);
+		List list = new ArrayList();
+		if(map.get("deviceName") == null){//若页面没有选择设备名称，则显示数据字典里配置的所有设备型号
+			list =  queryForList("T_DEVICE_SqlMap.queryType2", map);
+		}else{//若页面有选择设备名称，则显示 设备名称和设备型号关系表 里配置的设备型号
+			list =  queryForList("T_DEVICE_SqlMap.queryType", map);
+		}
 		return list;
 	}
 

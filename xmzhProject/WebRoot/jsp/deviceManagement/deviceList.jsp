@@ -125,12 +125,11 @@ function my_relase(){
 					<tr>
 						<td class="form_label" align="right" width="10%" nowrap="nowrap"> ${sheBeiShuX.DEVICE_MODEL}：</td>
 						<td colspan="1" width="30%" nowrap="nowrap">
-						<select
-							id="deviceModels" onchange="changedeviceModel()">
-								
-						</select> <h:hidden property="device.deviceModel" id="deviceModel" /> 
-
-<!-- <d:select  id="deviceModel"  dictTypeId="DEVICE_MODEL" property="device.deviceModel" nullLabel="请选择"></d:select> -->
+						
+							<select id="deviceModels" onchange="changedeviceModel()"></select> 
+							<h:hidden property="device.deviceModel" id="deviceModel" /> 
+							
+							<%-- <d:select  id="deviceModel"  dictTypeId="DEVICE_MODEL" property="device.deviceModel" nullLabel="请选择"></d:select> --%>
 						</td>
 					<td class="form_label" align="right" width="10%" nowrap="nowrap">${sheBeiShuX.DEVICE_OTHERATTRIBUTE_1}：</td>
 					<td colspan="1" width="30%" nowrap="nowrap">
@@ -691,19 +690,20 @@ function my_relase(){
 	            });  
 	        });
 		$(function (){
-			if($("#deviceName").val() != "" ){
+		/* 	if($("#deviceName").val() != "" ){ */
 				devicename($("#deviceName").val());  //调用devicename的onchange函数，初始化设备型号下拉框
-			}else{	
+		/* 	}else{	
 				$("#deviceModels").html("");
 				var selecthtml=$("#deviceModels").html();
 				selecthtml = selecthtml+"<option value='' >请选择</option>";
 				$("#deviceModels").html(selecthtml);
-			}
+			} */
 			
 		});
 			function devicename(value) {
 				var deviceModel = $("#deviceModel").val();
-				
+
+				$("#deviceModel").val("");
 				$("#deviceModels").html("");
 				var selecthtml=$("#deviceModels").html();
 				selecthtml = selecthtml+"<option value='' >请选择</option>";
