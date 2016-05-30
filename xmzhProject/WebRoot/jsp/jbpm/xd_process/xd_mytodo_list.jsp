@@ -127,7 +127,7 @@
 									<b:write iterateId="id1" property="loanCategory" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="reportCnt" />
+									<b:write iterateId="id1" property="reportcnt" />
 								</td>
 									<td nowrap="nowrap">
 									<b:write iterateId="id1" property="preTaskAssingeeName" />
