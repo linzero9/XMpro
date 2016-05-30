@@ -100,7 +100,6 @@
      	  <td class="form_label" align="right" style="width:120px;">营销人员机构：</td>
      	<td colspan="1">
        <h:text property="modelOne.yxryjg" id="yxryjg" validateAttr="allowNull=ture" style="width:130px;" readonly="false"  />
-		<h:hidden id="orgCodeTwo" property="modelOne.orgCodeTwo" />
 	    <a href="#" onclick="open_slzhej_fun1()">选择</a>
      	
       </tr>
