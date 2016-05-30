@@ -17,6 +17,17 @@
 
   </head>
   <body>
+  <w:panel id="panel1" title="筛选条件">
+			<table align="center" border="0" width="100%" class="form_table">
+				<tr>
+					<td align="center">
+						关键字：<h:text   id="my_filterStr"  property="my_filterStr" />
+						<input type="button"  value="过滤" onclick="filter_fun();">
+					</td>
+				</tr>
+			</table>
+		</w:panel>
+		
 	<DIV class="divList">
 			<w:panel id="panel" width="100%" title="设备型号">
 				<viewlist id="e2c61865-3b56-470d-bd42-fff792fb9493">
@@ -24,7 +35,8 @@
 						 <h:hidden id="deviceJson" property="deviceJson" name="deviceJson"/>
 						<tr>
 						<td>
-							<d:checkbox perrow="4" id="devicemodel"    name="deviceNameAndModel.devicemodel" dictTypeId="DEVICE_MODEL" property="deviceNameAndModel.devicemodel"  seperator=","  />
+							<d:checkbox perrow="4" id="devicemodel"    name="deviceNameAndModel.devicemodel" dictTypeId="DEVICE_MODEL"  property="deviceNameAndModel.devicemodel"  seperator=","    
+								filterOp="like"   filterStr="%${my_filterStr}%"   filterField="dictname"  />
 						</td>
 						</tr>
 						<tr>
@@ -106,5 +118,13 @@
 			          $(this).attr("checked",false);
 			      });	
 			 }
+
+			
+			 function filter_fun(){
+			var my_filterStr = $("#my_filterStr").val();
+				
+				var url = "/deviceManagement/deviceNameAndModelAction_showDevicemodelDic.action?my_filterStr="+my_filterStr;
+				window.location.href = encodeURI(url);
+			}
 		</script>
 </html>

@@ -120,8 +120,9 @@
 	// 数据字典 多选按钮显示页面
 	function showDevicemodelDic() {
 		var devicemodel_id=document.getElementById("devicemodel_id").value;
-		strUrl ="/deviceManagement/deviceNameAndModelAction_showDevicemodelDic.action?deviceJson="+devicemodel_id,
-		showModalCenter(strUrl,'',showDevicemodelDic_callback ,800,500,'选择'); 
+		strUrl ="/deviceManagement/deviceNameAndModelAction_showDevicemodelDic.action?deviceJson="+devicemodel_id;
+
+		showModalCenter(encodeURI(strUrl),'',showDevicemodelDic_callback ,800,500,'选择'); 
 	} 
 	function showDevicemodelDic_callback(args){
 		if(args!=''){

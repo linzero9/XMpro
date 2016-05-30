@@ -18,11 +18,20 @@ public class DeviceNameAndModelAction extends BaseAction {
 	
 	private String deviceJson;
 	
+	private String my_filterStr;
+	
 	protected IDeviceNameAndModelService deviceNameAndModelService;
 
 	
 	
-	
+	public String getMy_filterStr() {
+		return my_filterStr;
+	}
+
+	public void setMy_filterStr(String my_filterStr) {
+		this.my_filterStr = my_filterStr;
+	}
+
 	public String getDeviceJson() {
 		return deviceJson;
 	}
@@ -186,6 +195,8 @@ public class DeviceNameAndModelAction extends BaseAction {
 	 */
 	public String showDevicemodelDic(){
 		System.out.println(deviceJson);
+		System.out.println(my_filterStr);
+		
 		return "show_devicemodelDic";
 	}
 	
