@@ -391,7 +391,7 @@ select (case
       <isNotNull prepend="and" property="appTimeEnd" >
        <![CDATA[LOOKTIME <= #appTimeEnd#]]>
       </isNotNull>
-      ) Z group by Z.FLOW_ID
+      ) Z group by Z.FLOW_ID ORDER BY REPORTEDTIME 
 	</select>
      
 	 

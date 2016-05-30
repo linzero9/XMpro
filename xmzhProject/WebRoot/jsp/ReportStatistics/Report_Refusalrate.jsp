@@ -81,7 +81,7 @@
 								二级支行
 							</th>
 							<th nowrap="nowrap">
-								上报审批笔数
+								审批通过笔数
 							</th>
 							<th nowrap="nowrap">
 								拒贷笔数

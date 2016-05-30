@@ -18,7 +18,7 @@
 		<th height="34" width="100" align="center" class="form_label">贷种</th>
 		<th height="34" width="200" align="center" class="form_label">区支行</th>
 		<th height="34" width="100" align="center" class="form_label">二级支行</th>
-		<th height="34" width="100" align="center" class="form_label">上报审批笔数</th>
+		<th height="34" width="100" align="center" class="form_label">审批通过笔数</th>
 		<th height="34" width="100" align="center" class="form_label">拒贷笔数</th>
 		<th height="34" width="100" align="center" class="form_label">拒贷率</th>
 		

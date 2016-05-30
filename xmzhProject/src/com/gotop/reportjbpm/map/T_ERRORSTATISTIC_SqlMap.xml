@@ -70,7 +70,7 @@
       <isNotNull prepend="and" property="endTime" >
        <![CDATA[A1.REPORTTIME<=#endTime#]]>
       </isNotNull>
-     
+    ORDER BY  REPORTTIME, LOANCATEGORY,CUST_NAME,ADD_TIME ASC
 	</select>
 
 </sqlMap>
