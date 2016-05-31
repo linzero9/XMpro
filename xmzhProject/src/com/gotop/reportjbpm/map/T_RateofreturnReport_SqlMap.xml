@@ -9,19 +9,19 @@
     <result column="ORGNAME" property="orgNameOne" jdbcType="VARCHAR" />
     <result column="ORGNAMETWO" property="orgNameTwo" jdbcType="VARCHAR" />
         <result column="passNumber" property="passNumber" jdbcType="VARCHAR" />
-    <result column="backOne" property="backOne" jdbcType="VARCHAR" />
-    <result column="backTwo" property="backTwo" jdbcType="VARCHAR" />
-    <result column="backThree" property="backThree" jdbcType="VARCHAR" />
-    <result column="backFour" property="backFour" jdbcType="VARCHAR" />
+    <result column="backOne" property="backOne" jdbcType="FLOAT" />
+    <result column="backTwo" property="backTwo" jdbcType="FLOAT" />
+    <result column="backThree" property="backThree" jdbcType="FLOAT" />
+    <result column="backFour" property="backFour" jdbcType="FLOAT" />
   </resultMap>
   
 <!-- 查询退单率合计 -->
 	 <resultMap id="RateofreturnReport2" class="com.gotop.reportjbpm.model.RateofreturnReport" >
     <result column="heJi" property="heJi" jdbcType="VARCHAR" />
-        <result column="backOne" property="backOne" jdbcType="VARCHAR" />
-    <result column="backTwo" property="backTwo" jdbcType="VARCHAR" />
-    <result column="backThree" property="backThree" jdbcType="VARCHAR" />
-    <result column="backFour" property="backFour" jdbcType="VARCHAR" />
+        <result column="backOne" property="backOne" jdbcType="FLOAT" />
+    <result column="backTwo" property="backTwo" jdbcType="FLOAT" />
+    <result column="backThree" property="backThree" jdbcType="FLOAT" />
+    <result column="backFour" property="backFour" jdbcType="FLOAT" />
   </resultMap>
   
   
@@ -34,15 +34,10 @@ SELECT
 	ORGNAME,
 	ORGNAMETWO,
 	M passNumber,
-	DECODE (backOne, '%', '0', backOne) backOne,
-	DECODE (backTwo, '%', '0', backTwo) backTwo,
-	DECODE (
-		backThree,
-		'%',
-		'0',
-		backThree
-	) backThree,
-	DECODE (backFour, '%', '0', backFour) backFour
+ backOne,
+backTwo,
+ backThree,
+backFour
 FROM
 	(
 		SELECT
@@ -51,10 +46,10 @@ FROM
 			ORGNAMETWO,
 			M,
 			ONECATEGORY,
-			backOne,
-			backTwo,
-			backThree,
-			backFour
+			nvl(backOne,'0') as  backOne,
+			nvl(	backTwo,'0') backTwo ,
+			nvl(	backThree,'0') backThree,
+			nvl(	backFour,'0') backFour
 		FROM
 			(
 				SELECT
@@ -63,10 +58,10 @@ FROM
 					tm.ORGNAMETWO,
 					tm. M,
 					tm.ONECATEGORY,
-					(ROUND(tn1.n1 / tm. M * 100, 2)) || '%' backOne,
-					(ROUND(tn2.n2 / tm. M * 100, 2)) || '%' backTwo,
-					(ROUND(tn3.n3 / tm. M * 100, 2)) || '%' backThree,
-					(ROUND(tn4.n4 / tm. M * 100, 2)) || '%' backFour
+					(ROUND(tn1.n1 / tm. M * 100, 2)) || '' backOne,
+					(ROUND(tn2.n2 / tm. M * 100, 2)) || '' backTwo,
+					(ROUND(tn3.n3 / tm. M * 100, 2)) || '' backThree,
+					(ROUND(tn4.n4 / tm. M * 100, 2)) || '' backFour
 				FROM
 					(
 						SELECT
@@ -1275,17 +1270,17 @@ FROM
 	<!-- 查询退单率合计 -->
 		<select id="RateofreturnReportListSum" resultMap="RateofreturnReport2" parameterClass="java.util.HashMap">
 SELECT heji,			
-      DECODE (backOne, '%', '0', backOne) backOne,
-			DECODE (backTwo, '%', '0', backTwo) backTwo,
-			DECODE (backThree,'%','0',backThree) backThree,
-			DECODE (backFour, '%', '0', backFour) backFour
+backOne,
+	backTwo,
+backThree,
+	 backFour
 from
 (		
 SELECT heji,			
-      (ROUND(backOne / heji * 100, 2)) || '%' backOne,
-			(ROUND(backTwo / heji * 100, 2)) || '%' backTwo,
-			(ROUND(backThree / heji * 100, 2)) || '%' backThree,
-			(ROUND(backFour / heji * 100, 2)) || '%' backFour
+      (ROUND(backOne / heji * 100, 2)) || '' backOne,
+			(ROUND(backTwo / heji * 100, 2)) || '' backTwo,
+			(ROUND(backThree / heji * 100, 2)) || '' backThree,
+			(ROUND(backFour / heji * 100, 2)) || '' backFour
 from 
 (
 SELECT sum(M) heji,sum(backOne) backOne,sum(backTwo) backTwo,sum(backThree) backThree,sum(backFour) backFour

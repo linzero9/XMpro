@@ -33,16 +33,16 @@ public class RateofreturnReport {
 	private String passNumber;
 	
 	//1次退单率
-	private String backOne;
+	private Float backOne;
 	
 	//2次退单率
-	private String backTwo;
+	private Float backTwo;
 	
 	//3次退单率
-	private String backThree;
+	private Float backThree;
 	
 	//4次退单率
-	private String backFour;
+	private Float backFour;
 	
 	//合计
 	private String heJi;
@@ -100,28 +100,28 @@ public class RateofreturnReport {
 	public void setPassNumber(String passNumber) {
 		this.passNumber = passNumber;
 	}
-	public String getBackOne() {
+	public Float getBackOne() {
 		return backOne;
 	}
-	public void setBackOne(String backOne) {
+	public void setBackOne(Float backOne) {
 		this.backOne = backOne;
 	}
-	public String getBackTwo() {
+	public Float getBackTwo() {
 		return backTwo;
 	}
-	public void setBackTwo(String backTwo) {
+	public void setBackTwo(Float backTwo) {
 		this.backTwo = backTwo;
 	}
-	public String getBackThree() {
+	public Float getBackThree() {
 		return backThree;
 	}
-	public void setBackThree(String backThree) {
+	public void setBackThree(Float backThree) {
 		this.backThree = backThree;
 	}
-	public String getBackFour() {
+	public Float getBackFour() {
 		return backFour;
 	}
-	public void setBackFour(String backFour) {
+	public void setBackFour(Float backFour) {
 		this.backFour = backFour;
 	}
 	
