@@ -160,7 +160,9 @@
 								</td>
 								<td nowrap="nowrap"> 
 						
-								
+								<!--     如果是字符串的话 也可以转换！   可以绑定到 var上
+								       <fmt:parseDate value="${list.a}" var="wujiajun"></fmt:parseDate>
+    	                               <fmt:formatDate value="${wujiajun }" pattern="yyyy 年 MM 月 dd 日"/> -->
 									
 									<fmt:formatDate value="${id1.reportTime}" pattern="yyyy年MM月dd日"/>
 								</td>
