@@ -131,16 +131,31 @@
 							</tr>
 						</l:iterate>
 						</w:radioGroup>
-						                      <tr>				
+						             			
+
+					<l:iterate property="listsum" id="id1">
 							<th align="center" nowrap="nowrap" colspan="4">
-								审批通过笔数合计
+								退单率合计
 							</th>
-						   <th align="center" nowrap="nowrap" colspan="5">
-								<l:iterate property="listsum" id="id1">
-								    <b:write iterateId="id1" property="heJi"/>
-								</l:iterate>																								
+							<th>
+							  <b:write iterateId="id1" property="heJi"/>
+							</th>													
+							<th>
+							  <b:write iterateId="id1" property="backOne"/>
+							</th>							
+							<th>
+							  <b:write iterateId="id1" property="backTwo"/>
+							</th>							
+							<th>
+							  <b:write iterateId="id1" property="backThree"/>
+							</th>						
+						<th>
+							  <b:write iterateId="id1" property="backFour"/>
 							</th>
-						</tr>
+								    
+					</l:iterate>																								
+						
+			
 							<tr>
               <td colspan="23" class="command_sort_area">		
                 <div class="h4">
