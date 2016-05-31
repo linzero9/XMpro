@@ -58,10 +58,10 @@ FROM
 					tm.ORGNAMETWO,
 					tm. M,
 					tm.ONECATEGORY,
-					(ROUND(tn1.n1 / tm. M * 100, 2)) || '' backOne,
-					(ROUND(tn2.n2 / tm. M * 100, 2)) || '' backTwo,
-					(ROUND(tn3.n3 / tm. M * 100, 2)) || '' backThree,
-					(ROUND(tn4.n4 / tm. M * 100, 2)) || '' backFour
+					(ROUND(tn1.n1 / tm. M * 100, 2)) backOne,
+					(ROUND(tn2.n2 / tm. M * 100, 2)) backTwo,
+					(ROUND(tn3.n3 / tm. M * 100, 2))  backThree,
+					(ROUND(tn4.n4 / tm. M * 100, 2))  backFour
 				FROM
 					(
 						SELECT
@@ -663,10 +663,10 @@ FROM
 				ORGNAMETWO,
 				M,
 				ONECATEGORY,
-				backOne,
-				backTwo,
-				backThree,
-				backFour
+			nvl(backOne,'0') as  backOne,
+			nvl(	backTwo,'0') backTwo ,
+			nvl(	backThree,'0') backThree,
+			nvl(	backFour,'0') backFour
 			FROM
 				(
 					SELECT
@@ -675,10 +675,10 @@ FROM
 						tm.ORGNAMETWO,
 						tm. M,
 						tm.ONECATEGORY,
-						(ROUND(tn1.n1 / tm. M * 100, 2)) || '%' backOne,
-						(ROUND(tn2.n2 / tm. M * 100, 2)) || '%' backTwo,
-						(ROUND(tn3.n3 / tm. M * 100, 2)) || '%' backThree,
-						(ROUND(tn4.n4 / tm. M * 100, 2)) || '%' backFour
+						(ROUND(tn1.n1 / tm. M * 100, 2)) backOne,
+						(ROUND(tn2.n2 / tm. M * 100, 2)) backTwo,
+						(ROUND(tn3.n3 / tm. M * 100, 2))  backThree,
+						(ROUND(tn4.n4 / tm. M * 100, 2)) backFour
 					FROM
 						(
 							SELECT
@@ -1270,17 +1270,17 @@ FROM
 	<!-- 查询退单率合计 -->
 		<select id="RateofreturnReportListSum" resultMap="RateofreturnReport2" parameterClass="java.util.HashMap">
 SELECT heji,			
-backOne,
-	backTwo,
-backThree,
-	 backFour
+	 		nvl(backOne,'0') as  backOne,
+			nvl(	backTwo,'0') backTwo ,
+			nvl(	backThree,'0') backThree,
+			nvl(	backFour,'0') backFour
 from
 (		
 SELECT heji,			
-      (ROUND(backOne / heji * 100, 2)) || '' backOne,
-			(ROUND(backTwo / heji * 100, 2)) || '' backTwo,
-			(ROUND(backThree / heji * 100, 2)) || '' backThree,
-			(ROUND(backFour / heji * 100, 2)) || '' backFour
+      (ROUND(backOne / heji * 100, 2))  backOne,
+			(ROUND(backTwo / heji * 100, 2))  backTwo,
+			(ROUND(backThree / heji * 100, 2))  backThree,
+			(ROUND(backFour / heji * 100, 2))  backFour
 from 
 (
 SELECT sum(M) heji,sum(backOne) backOne,sum(backTwo) backTwo,sum(backThree) backThree,sum(backFour) backFour

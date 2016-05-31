@@ -46,16 +46,16 @@
 			    <b:write iterateId="id1" property="passNumber"/>
 			  </td>
 			  	<td>
-			    <b:write iterateId="id1" property="backOne"/>
+			    <b:write iterateId="id1" property="backOne"/>%
 			  </td>
 			  	<td>
-			    <b:write iterateId="id1" property="backTwo"/>
+			    <b:write iterateId="id1" property="backTwo"/>%
 			  </td>
 			  	<td>
-			    <b:write iterateId="id1" property="backThree"/>
+			    <b:write iterateId="id1" property="backThree"/>%
 			  </td>
 			  	<td>
-			    <b:write iterateId="id1" property="backFour"/>
+			    <b:write iterateId="id1" property="backFour"/>%
 			  </td>
 			</tr>
 			
@@ -69,16 +69,16 @@
 							  <b:write iterateId="id1" property="heJi"/>
 							</th>													
 							<th>
-							  <b:write iterateId="id1" property="backOne"/>
+							  <b:write iterateId="id1" property="backOne"/>%
 							</th>							
 							<th>
-							  <b:write iterateId="id1" property="backTwo"/>
+							  <b:write iterateId="id1" property="backTwo"/>%
 							</th>							
 							<th>
-							  <b:write iterateId="id1" property="backThree"/>
+							  <b:write iterateId="id1" property="backThree"/>%
 							</th>						
 						<th>
-							  <b:write iterateId="id1" property="backFour"/>
+							  <b:write iterateId="id1" property="backFour"/>%
 							</th>
 			</l:iterate>																				
 		
