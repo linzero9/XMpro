@@ -216,6 +216,26 @@ public class ApprovalService implements IApprovalService {
 		if (approval.getAppTimeEnd() !=null&&!"".equals(approval.getAppTimeEnd())) {
 			map.put("appTimeEnd", approval.getAppTimeEnd());
 		}
+		if (approval.getOneCategory()!=null&&!"".equals(approval.getOneCategory())) {
+			String[] oneCategorys=approval.getOneCategory().split(", ");
+			String oneCategory="";
+			try {
+				oneCategory = Obj2StrUtils.join(oneCategorys, String.class, ",");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			map.put("oneCategory", oneCategory);
+		}
+		if (approval.getLoanCategory() !=null&&!"".equals(approval.getLoanCategory() )) {
+			String[] loanCategorys=approval.getLoanCategory().split(", ");
+			String loanCategory="";
+			try {
+				loanCategory = Obj2StrUtils.join(loanCategorys, String.class, ",");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			 map.put("loanCategory",loanCategory);
+		}
 		
 		approvalList =approvalDao.queryApprovalListForExcel(map);
 		for (int i = 0; i < approvalList.size(); i++) {

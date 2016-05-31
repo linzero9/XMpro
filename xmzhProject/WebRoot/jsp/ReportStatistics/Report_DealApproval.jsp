@@ -395,9 +395,10 @@
     				var appTimeStrat = $id("appTimeStrat").value;
     				//审批结束日期
     				var appTimeEnd = $id("appTimeEnd").value;
-    			
-    				
-    				
+    				//一级分类
+    				var oneCategory = $id("oneCategory").value;
+    				var loanCategory = $id("loanCategory").value;
+    				//贷种分类
     				var strUrl = "/reportjbpm/approvalAction_queryApprovalListForExcel.action?";
     					  if(repTimeStrat!=null){
     	                    	 strUrl=strUrl+"&approval.repTimeStrat="+repTimeStrat;
@@ -413,6 +414,12 @@
     	    				
     	    				if(appTimeEnd!=null){
     	    					strUrl=strUrl+"&approval.appTimeEnd="+appTimeEnd;
+    	        				} 
+    	    				if(oneCategory!=null){
+    	    					strUrl=strUrl+"&approval.oneCategory="+oneCategory;
+    	        				} 
+    	    				if(appTimeEnd!=null){
+    	    					strUrl=strUrl+"&approval.loanCategory="+loanCategory;
     	        				} 
     				
     				window.location.href=strUrl;
