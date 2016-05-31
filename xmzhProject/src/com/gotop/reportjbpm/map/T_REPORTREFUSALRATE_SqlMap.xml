@@ -15,6 +15,7 @@
   <resultMap id="ReportRefusalrate2" class="com.gotop.reportjbpm.model.ReportRefusalrate" >
     <result column="upnum" property="upnum" jdbcType="VARCHAR" />
     <result column="downnum" property="downnum" jdbcType="VARCHAR" />
+    <result column="dowup" property="dowup" jdbcType="VARCHAR" />
   </resultMap>
 	
 	<!-- 查询拒贷信息 -->
@@ -183,6 +184,18 @@ SELECT JJ.*,
 	</select>
 		<!-- 查询拒贷信息 -->
 	<select id="queryReportRefusalRate2" parameterClass="java.util.HashMap" resultMap="ReportRefusalrate2">
+	SELECT upnum,downnum,
+DECODE (dowup, '%', '0', dowup) dowup
+FROM
+(
+SELECT upnum,downnum,
+			(
+				ROUND (
+					downnum / (upnum+downnum)  * 100,
+					2
+				)
+			) || '%' AS dowup
+from(
 	SELECT sum(EA_NUMBER)  upnum,sum(REJECTION_NUMBER)  downnum
 from(
 SELECT JJ.*,
@@ -347,6 +360,7 @@ SELECT JJ.*,
            	     JJ.LOANCATEGORY in($loanCategory$)
       	</isNotNull>
    )
+   ))
 	</select>
 
 </sqlMap>

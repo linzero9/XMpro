@@ -47,21 +47,27 @@
 			  </td>
 			   
 			</tr>
-			</l:iterate>
-						     <table align="center" border="0" width="100%" class="EOS_table">
-                      <tr>				
-                       <th height="34" width="100" align="center" class="form_label">合计</th>
-						   <th align="center" nowrap="nowrap">
+			</l:iterate>					  
+                    			
+                     
 								<l:iterate property="listSum" id="id2">
+								  <tr>	
+							<th align="center" nowrap="nowrap" colspan="3">
+								上报审批笔数合计/拒贷笔数合计	/拒贷率合计	
+							</th>
 								 <td nowrap="nowrap"> 
 									<b:write iterateId="id2" property="upnum"/>
 								</td>
-								<td nowrap="nowrap" colspan="2"> 
+								<td nowrap="nowrap" > 
 									<b:write iterateId="id2" property="downnum"/>
 								</td>
+							   <td nowrap="nowrap" > 
+									<b:write iterateId="id2" property="dowup"/>
+								</td>
+						     	</tr>
 								</l:iterate>																					
-							</th>
-						</tr>
-                      </table>
+						
+					
+
 		</table>
    
