@@ -14,8 +14,13 @@
     <result column="backThree" property="backThree" jdbcType="VARCHAR" />
     <result column="backFour" property="backFour" jdbcType="VARCHAR" />
   </resultMap>
-
-	
+  
+<!-- 查询退单率合计 -->
+	 <resultMap id="RateofreturnReport2" class="com.gotop.reportjbpm.model.RateofreturnReport" >
+    <result column="heJi" property="heJi" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  
 	<!-- 查询退单率列表 -->
 	<select id="RateofreturnReportList" resultMap="RateofreturnReport" parameterClass="java.util.HashMap">
 
@@ -1263,4 +1268,1251 @@ FROM
 
 	</select>
 	
+	<!-- 查询退单率合计 -->
+		<select id="RateofreturnReportListSum" resultMap="RateofreturnReport2" parameterClass="java.util.HashMap">
+SELECT sum(passNumber) heji
+from (
+SELECT
+	ONECATEGORY,
+	LOANCATEGORY,
+	ORGNAME,
+	ORGNAMETWO,
+	M passNumber,
+	DECODE (backOne, '%', '0', backOne) backOne,
+	DECODE (backTwo, '%', '0', backTwo) backTwo,
+	DECODE (
+		backThree,
+		'%',
+		'0',
+		backThree
+	) backThree,
+	DECODE (backFour, '%', '0', backFour) backFour
+FROM
+	(
+		SELECT
+			LOANCATEGORY,
+			ORGNAME,
+			ORGNAMETWO,
+			M,
+			ONECATEGORY,
+			backOne,
+			backTwo,
+			backThree,
+			backFour
+		FROM
+			(
+				SELECT
+					tm.LOANCATEGORY,
+					tm.ORGNAME,
+					tm.ORGNAMETWO,
+					tm. M,
+					tm.ONECATEGORY,
+					(ROUND(tn1.n1 / tm. M * 100, 2)) || '%' backOne,
+					(ROUND(tn2.n2 / tm. M * 100, 2)) || '%' backTwo,
+					(ROUND(tn3.n3 / tm. M * 100, 2)) || '%' backThree,
+					(ROUND(tn4.n4 / tm. M * 100, 2)) || '%' backFour
+				FROM
+					(
+						SELECT
+							COUNT (*) M,
+							LOANCATEGORY,
+							ORGNAME,
+							ORGNAMETWO,
+							ONECATEGORY
+						FROM
+							(
+								SELECT
+									t1.LOANCATEGORY,
+									t1.ONECATEGORY,
+									t2.ORGNAME,
+									t3.ORGNAMETWO,
+									t5.end_
+								FROM
+									(
+										SELECT
+											flow_id,
+											ORGCODEONE,
+											ORGCODETWO,
+											LOANCATEGORY,
+											ONECATEGORY
+										FROM
+											T_GENERALPROCESS_MODELONE
+									) t1
+								JOIN (
+									SELECT
+										ORGCODE,
+										ORGNAME
+									FROM
+										OM_ORGANIZATION
+								) t2 ON t1.ORGCODEONE = t2.ORGCODE
+								LEFT JOIN (
+									SELECT
+										ORGCODE AS ORGCODETWO,
+										ORGNAME AS ORGNAMETWO
+									FROM
+										OM_ORGANIZATION
+								) t3 ON t1.ORGCODETWO = t3.ORGCODETWO
+								JOIN (
+									SELECT
+										A .execution_ f_id
+									FROM
+										jbpm4_hist_actinst A
+									WHERE
+										A .transition_   like '%结束%'
+									AND A .execution_ IN (
+										SELECT
+											T .execution_
+										FROM
+											jbpm4_hist_actinst T
+										WHERE
+											T .ACTIVITY_NAME_ LIKE '%发起合同预审'
+									) 
+								) t4 ON t1.flow_id = t4.f_id
+								JOIN (
+									SELECT
+										execution_,
+										MAX (TO_CHAR(end_, 'yyyy-mm-dd')) end_
+									FROM
+										jbpm4_hist_actinst T
+									WHERE
+										T .ACTIVITY_NAME_ LIKE '%发起合同预审'
+									AND execution_ IN (
+										SELECT
+											execution_
+										FROM
+											jbpm4_hist_actinst A
+										WHERE
+											A .transition_ like '%结束%'
+									) 
+									GROUP BY
+										execution_
+								) t5 ON t1.flow_id = t5.execution_
+							)
+						WHERE
+							ORGNAMETWO IS NOT NULL
+		<isNotNull prepend="and" property="appTimeStrat" >
+                  end_  >=(#appTimeStrat#)
+        </isNotNull>
+       <isNotNull prepend="and" property="appTimeEnd" >                                    
+                <![CDATA[end_  <=(#appTimeEnd#)]]>
+      </isNotNull>
+      <isNotNull prepend="and" property="oneCategory" >
+                 ONECATEGORY  in($oneCategory$)
+      </isNotNull>
+      <isNotNull prepend="and" property="loanCategory" >
+                 LOANCATEGORY in($loanCategory$)
+      </isNotNull>
+						GROUP BY
+							LOANCATEGORY,
+							ORGNAME,
+							ORGNAMETWO,
+							ONECATEGORY
+					) tm
+				LEFT JOIN (
+					SELECT
+						COUNT (*) n1,
+						LOANCATEGORY,
+						ORGNAME,
+						ORGNAMETWO,
+						reportcnt,
+						ONECATEGORY
+					FROM
+						(
+							SELECT
+								ttn.LOANCATEGORY,
+								ttn.ORGNAME,
+								ttn.ORGNAMETWO,
+								ttn.reportcnt,
+								ttn.flow_id,
+								ttn.end_,
+								ttn.ONECATEGORY
+							FROM
+								(
+									SELECT
+										t1.flow_id,
+										t1.LOANCATEGORY,
+										t1.ONECATEGORY,
+										t2.ORGNAME,
+										t3.ORGNAMETWO,
+										t5.reportcnt,
+										t6.end_
+									FROM
+										(
+											SELECT
+												flow_id,
+												ORGCODEONE,
+												ORGCODETWO,
+												LOANCATEGORY,
+												ONECATEGORY
+											FROM
+												T_GENERALPROCESS_MODELONE
+										) t1
+									JOIN (
+										SELECT
+											ORGCODE,
+											ORGNAME
+										FROM
+											OM_ORGANIZATION
+									) t2 ON t1.ORGCODEONE = t2.ORGCODE
+									LEFT JOIN (
+										SELECT
+											ORGCODE AS ORGCODETWO,
+											ORGNAME AS ORGNAMETWO
+										FROM
+											OM_ORGANIZATION
+									) t3 ON t1.ORGCODETWO = t3.ORGCODETWO
+									JOIN (
+										SELECT
+											A .execution_ f_id
+										FROM
+											jbpm4_hist_actinst A
+										WHERE
+											A .transition_ like '%结束%'
+										AND A .execution_ IN (
+											SELECT
+												T .execution_
+											FROM
+												jbpm4_hist_actinst T
+											WHERE
+												T .ACTIVITY_NAME_ LIKE '%发起合同预审'
+										)
+									) t4 ON t1.flow_id = t4.f_id
+									JOIN (
+										SELECT
+											reportcnt,
+											flow_id
+										FROM
+											T_GENERALPROCESS_MODELTHREE
+									) t5 ON t1.flow_id = t5.flow_id
+									JOIN (
+										SELECT
+											execution_,
+											MAX (TO_CHAR(end_, 'yyyy-mm-dd')) end_
+										FROM
+											jbpm4_hist_actinst T
+										WHERE
+											T .ACTIVITY_NAME_ LIKE '%发起合同预审'
+										AND execution_ IN (
+											SELECT
+												execution_
+											FROM
+												jbpm4_hist_actinst A
+											WHERE
+												A .transition_ like '%结束%'
+										)
+										GROUP BY
+											execution_
+									) t6 ON t6.execution_ = t1.flow_id
+								) ttn
+						)
+					WHERE
+						reportcnt = '2'
+		<isNotNull prepend="and" property="appTimeStrat" >
+                  end_  >=(#appTimeStrat#)
+        </isNotNull>
+       <isNotNull prepend="and" property="appTimeEnd" >                                    
+                <![CDATA[end_  <=(#appTimeEnd#)]]>
+      </isNotNull>
+      <isNotNull prepend="and" property="oneCategory" >
+                 ONECATEGORY  in($oneCategory$)
+      </isNotNull>
+      <isNotNull prepend="and" property="loanCategory" >
+                 LOANCATEGORY in($loanCategory$)
+      </isNotNull>
+					GROUP BY
+						LOANCATEGORY,
+						ORGNAME,
+						ORGNAMETWO,
+						reportcnt,
+						ONECATEGORY
+				) tn1 ON tm.LOANCATEGORY = tn1.LOANCATEGORY
+				AND tm.ORGNAME = tn1.ORGNAME
+				AND tm.ONECATEGORY = tn1.ONECATEGORY
+				AND (
+					tn1.ORGNAMETWO IS NOT NULL
+					AND tm.ORGNAMETWO = tn1.ORGNAMETWO
+				)
+				LEFT JOIN (
+					SELECT
+						COUNT (*) n2,
+						LOANCATEGORY,
+						ORGNAME,
+						ORGNAMETWO,
+						reportcnt,
+						ONECATEGORY
+					FROM
+						(
+							SELECT
+								ttn.LOANCATEGORY,
+								ttn.ORGNAME,
+								ttn.ORGNAMETWO,
+								ttn.reportcnt,
+								ttn.flow_id,
+								ttn.end_,
+								ttn.ONECATEGORY
+							FROM
+								(
+									SELECT
+										t1.flow_id,
+										t1.LOANCATEGORY,
+										t1.ONECATEGORY,
+										t2.ORGNAME,
+										t3.ORGNAMETWO,
+										t5.reportcnt,
+										t6.end_
+									FROM
+										(
+											SELECT
+												flow_id,
+												ORGCODEONE,
+												ORGCODETWO,
+												LOANCATEGORY,
+												ONECATEGORY
+											FROM
+												T_GENERALPROCESS_MODELONE
+										) t1
+									JOIN (
+										SELECT
+											ORGCODE,
+											ORGNAME
+										FROM
+											OM_ORGANIZATION
+									) t2 ON t1.ORGCODEONE = t2.ORGCODE
+									LEFT JOIN (
+										SELECT
+											ORGCODE AS ORGCODETWO,
+											ORGNAME AS ORGNAMETWO
+										FROM
+											OM_ORGANIZATION
+									) t3 ON t1.ORGCODETWO = t3.ORGCODETWO
+									JOIN (
+										SELECT
+											A .execution_ f_id
+										FROM
+											jbpm4_hist_actinst A
+										WHERE
+											A .transition_  like '%结束%'
+										AND A .execution_ IN (
+											SELECT
+												T .execution_
+											FROM
+												jbpm4_hist_actinst T
+											WHERE
+												T .ACTIVITY_NAME_ LIKE '%发起合同预审'
+										)
+									) t4 ON t1.flow_id = t4.f_id
+									JOIN (
+										SELECT
+											reportcnt,
+											flow_id
+										FROM
+											T_GENERALPROCESS_MODELTHREE
+									) t5 ON t1.flow_id = t5.flow_id
+									JOIN (
+										SELECT
+											execution_,
+											MAX (TO_CHAR(end_, 'yyyy-mm-dd')) end_
+										FROM
+											jbpm4_hist_actinst T
+										WHERE
+											T .ACTIVITY_NAME_ LIKE '%发起合同预审'
+										AND execution_ IN (
+											SELECT
+												execution_
+											FROM
+												jbpm4_hist_actinst A
+											WHERE
+												A .transition_  like '%结束%'
+										)
+										GROUP BY
+											execution_
+									) t6 ON t6.execution_ = t1.flow_id
+								) ttn
+						)
+					WHERE
+						reportcnt = '3'
+		<isNotNull prepend="and" property="appTimeStrat" >
+                  end_  >=(#appTimeStrat#)
+        </isNotNull>
+       <isNotNull prepend="and" property="appTimeEnd" >                                    
+                <![CDATA[end_  <=(#appTimeEnd#)]]>
+      </isNotNull>
+      <isNotNull prepend="and" property="oneCategory" >
+                 ONECATEGORY  in($oneCategory$)
+      </isNotNull>
+      <isNotNull prepend="and" property="loanCategory" >
+                 LOANCATEGORY in($loanCategory$)
+      </isNotNull>
+					GROUP BY
+						LOANCATEGORY,
+						ORGNAME,
+						ORGNAMETWO,
+						reportcnt,
+						ONECATEGORY
+				) tn2 ON tm.LOANCATEGORY = tn2.LOANCATEGORY
+				AND tm.ORGNAME = tn2.ORGNAME
+				AND tm.ONECATEGORY = tn2.ONECATEGORY
+				AND (
+					tn2.ORGNAMETWO IS NOT NULL
+					AND tm.ORGNAMETWO = tn2.ORGNAMETWO
+				)
+				LEFT JOIN (
+					SELECT
+						COUNT (*) n3,
+						LOANCATEGORY,
+						ORGNAME,
+						ORGNAMETWO,
+						reportcnt,
+						ONECATEGORY
+					FROM
+						(
+							SELECT
+								ttn.LOANCATEGORY,
+								ttn.ORGNAME,
+								ttn.ORGNAMETWO,
+								ttn.reportcnt,
+								ttn.flow_id,
+								ttn.end_,
+								ttn.ONECATEGORY
+							FROM
+								(
+									SELECT
+										t1.flow_id,
+										t1.LOANCATEGORY,
+										t1.ONECATEGORY,
+										t2.ORGNAME,
+										t3.ORGNAMETWO,
+										t5.reportcnt,
+										t6.end_
+									FROM
+										(
+											SELECT
+												flow_id,
+												ORGCODEONE,
+												ORGCODETWO,
+												LOANCATEGORY,
+												ONECATEGORY
+											FROM
+												T_GENERALPROCESS_MODELONE
+										) t1
+									JOIN (
+										SELECT
+											ORGCODE,
+											ORGNAME
+										FROM
+											OM_ORGANIZATION
+									) t2 ON t1.ORGCODEONE = t2.ORGCODE
+									LEFT JOIN (
+										SELECT
+											ORGCODE AS ORGCODETWO,
+											ORGNAME AS ORGNAMETWO
+										FROM
+											OM_ORGANIZATION
+									) t3 ON t1.ORGCODETWO = t3.ORGCODETWO
+									JOIN (
+										SELECT
+											A .execution_ f_id
+										FROM
+											jbpm4_hist_actinst A
+										WHERE
+											A .transition_  like '%结束%'
+										AND A .execution_ IN (
+											SELECT
+												T .execution_
+											FROM
+												jbpm4_hist_actinst T
+											WHERE
+												T .ACTIVITY_NAME_ LIKE '%发起合同预审'
+										)
+									) t4 ON t1.flow_id = t4.f_id
+									JOIN (
+										SELECT
+											reportcnt,
+											flow_id
+										FROM
+											T_GENERALPROCESS_MODELTHREE
+									) t5 ON t1.flow_id = t5.flow_id
+									JOIN (
+										SELECT
+											execution_,
+											MAX (TO_CHAR(end_, 'yyyy-mm-dd')) end_
+										FROM
+											jbpm4_hist_actinst T
+										WHERE
+											T .ACTIVITY_NAME_ LIKE '%发起合同预审'
+										AND execution_ IN (
+											SELECT
+												execution_
+											FROM
+												jbpm4_hist_actinst A
+											WHERE
+												A .transition_  like '%结束%'
+										)
+										GROUP BY
+											execution_
+									) t6 ON t6.execution_ = t1.flow_id
+								) ttn
+						)
+					WHERE
+						reportcnt = '4'
+		<isNotNull prepend="and" property="appTimeStrat" >
+                  end_  >=(#appTimeStrat#)
+        </isNotNull>
+       <isNotNull prepend="and" property="appTimeEnd" >                                    
+                <![CDATA[end_  <=(#appTimeEnd#)]]>
+      </isNotNull>
+      <isNotNull prepend="and" property="oneCategory" >
+                 ONECATEGORY  in($oneCategory$)
+      </isNotNull>
+      <isNotNull prepend="and" property="loanCategory" >
+                 LOANCATEGORY in($loanCategory$)
+      </isNotNull>
+					GROUP BY
+						LOANCATEGORY,
+						ORGNAME,
+						ORGNAMETWO,
+						reportcnt,
+						ONECATEGORY
+				) tn3 ON tm.LOANCATEGORY = tn3.LOANCATEGORY
+				AND tm.ORGNAME = tn3.ORGNAME
+				AND tm.ONECATEGORY = tn3.ONECATEGORY
+				AND (
+					tn3.ORGNAMETWO IS NOT NULL
+					AND tm.ORGNAMETWO = tn3.ORGNAMETWO
+				)
+				LEFT JOIN (
+					SELECT
+						COUNT (*) n4,
+						LOANCATEGORY,
+						ORGNAME,
+						ORGNAMETWO,
+						reportcnt,
+						ONECATEGORY
+					FROM
+						(
+							SELECT
+								ttn.LOANCATEGORY,
+								ttn.ORGNAME,
+								ttn.ORGNAMETWO,
+								ttn.reportcnt,
+								ttn.flow_id,
+								ttn.end_,
+								ttn.ONECATEGORY
+							FROM
+								(
+									SELECT
+										t1.flow_id,
+										t1.LOANCATEGORY,
+										t1.ONECATEGORY,
+										t2.ORGNAME,
+										t3.ORGNAMETWO,
+										t5.reportcnt,
+										t6.end_
+									FROM
+										(
+											SELECT
+												flow_id,
+												ORGCODEONE,
+												ORGCODETWO,
+												LOANCATEGORY,
+												ONECATEGORY
+											FROM
+												T_GENERALPROCESS_MODELONE
+										) t1
+									JOIN (
+										SELECT
+											ORGCODE,
+											ORGNAME
+										FROM
+											OM_ORGANIZATION
+									) t2 ON t1.ORGCODEONE = t2.ORGCODE
+									LEFT JOIN (
+										SELECT
+											ORGCODE AS ORGCODETWO,
+											ORGNAME AS ORGNAMETWO
+										FROM
+											OM_ORGANIZATION
+									) t3 ON t1.ORGCODETWO = t3.ORGCODETWO
+									JOIN (
+										SELECT
+											A .execution_ f_id
+										FROM
+											jbpm4_hist_actinst A
+										WHERE
+											A .transition_  like '%结束%'
+										AND A .execution_ IN (
+											SELECT
+												T .execution_
+											FROM
+												jbpm4_hist_actinst T
+											WHERE
+												T .ACTIVITY_NAME_ LIKE '%发起合同预审'
+										)
+									) t4 ON t1.flow_id = t4.f_id
+									JOIN (
+										SELECT
+											reportcnt,
+											flow_id
+										FROM
+											T_GENERALPROCESS_MODELTHREE
+									) t5 ON t1.flow_id = t5.flow_id
+									JOIN (
+										SELECT
+											execution_,
+											MAX (TO_CHAR(end_, 'yyyy-mm-dd')) end_
+										FROM
+											jbpm4_hist_actinst T
+										WHERE
+											T .ACTIVITY_NAME_ LIKE '%发起合同预审'
+										AND execution_ IN (
+											SELECT
+												execution_
+											FROM
+												jbpm4_hist_actinst A
+											WHERE
+												A .transition_   like '%结束%'
+										)
+										GROUP BY
+											execution_
+									) t6 ON t6.execution_ = t1.flow_id
+								) ttn
+						)
+					WHERE
+						reportcnt = '5'
+		<isNotNull prepend="and" property="appTimeStrat" >
+                  end_  >=(#appTimeStrat#)
+        </isNotNull>
+       <isNotNull prepend="and" property="appTimeEnd" >                                    
+                <![CDATA[end_  <=(#appTimeEnd#)]]>
+      </isNotNull>
+      <isNotNull prepend="and" property="oneCategory" >
+                 ONECATEGORY  in($oneCategory$)
+      </isNotNull>
+      <isNotNull prepend="and" property="loanCategory" >
+                 LOANCATEGORY in($loanCategory$)
+      </isNotNull>
+					GROUP BY
+						LOANCATEGORY,
+						ORGNAME,
+						ORGNAMETWO,
+						reportcnt,
+						ONECATEGORY
+				) tn4 ON tm.LOANCATEGORY = tn4.LOANCATEGORY
+				AND tm.ORGNAME = tn4.ORGNAME
+				AND tm.ONECATEGORY = tn4.ONECATEGORY
+				AND (
+					tn4.ORGNAMETWO IS NOT NULL
+					AND tm.ORGNAMETWO = tn4.ORGNAMETWO
+				)
+			)
+		UNION
+			SELECT
+				LOANCATEGORY,
+				ORGNAME,
+				ORGNAMETWO,
+				M,
+				ONECATEGORY,
+				backOne,
+				backTwo,
+				backThree,
+				backFour
+			FROM
+				(
+					SELECT
+						tm.LOANCATEGORY,
+						tm.ORGNAME,
+						tm.ORGNAMETWO,
+						tm. M,
+						tm.ONECATEGORY,
+						(ROUND(tn1.n1 / tm. M * 100, 2)) || '%' backOne,
+						(ROUND(tn2.n2 / tm. M * 100, 2)) || '%' backTwo,
+						(ROUND(tn3.n3 / tm. M * 100, 2)) || '%' backThree,
+						(ROUND(tn4.n4 / tm. M * 100, 2)) || '%' backFour
+					FROM
+						(
+							SELECT
+								COUNT (*) M,
+								LOANCATEGORY,
+								ORGNAME,
+								ORGNAMETWO,
+								ONECATEGORY
+							FROM
+								(
+									SELECT
+										t1.LOANCATEGORY,
+										t1.ONECATEGORY,
+										t2.ORGNAME,
+										t3.ORGNAMETWO,
+										t5.end_
+									FROM
+										(
+											SELECT
+												flow_id,
+												ORGCODEONE,
+												ORGCODETWO,
+												LOANCATEGORY,
+												ONECATEGORY
+											FROM
+												T_GENERALPROCESS_MODELONE
+										) t1
+									JOIN (
+										SELECT
+											ORGCODE,
+											ORGNAME
+										FROM
+											OM_ORGANIZATION
+									) t2 ON t1.ORGCODEONE = t2.ORGCODE
+									LEFT JOIN (
+										SELECT
+											ORGCODE AS ORGCODETWO,
+											ORGNAME AS ORGNAMETWO
+										FROM
+											OM_ORGANIZATION
+									) t3 ON t1.ORGCODETWO = t3.ORGCODETWO
+									JOIN (
+										SELECT
+											A .execution_ f_id
+										FROM
+											jbpm4_hist_actinst A
+										WHERE
+											A .transition_  like '%结束%'
+										AND A .execution_ IN (
+											SELECT
+												T .execution_
+											FROM
+												jbpm4_hist_actinst T
+											WHERE
+												T .ACTIVITY_NAME_ LIKE '%发起合同预审'
+										) 
+									) t4 ON t1.flow_id = t4.f_id
+									JOIN (
+										SELECT
+											execution_,
+											MAX (TO_CHAR(end_, 'yyyy-mm-dd')) end_
+										FROM
+											jbpm4_hist_actinst T
+										WHERE
+											T .ACTIVITY_NAME_ LIKE '%发起合同预审'
+										AND execution_ IN (
+											SELECT
+												execution_
+											FROM
+												jbpm4_hist_actinst A
+											WHERE
+												A .transition_  like '%结束%'
+										) 
+										GROUP BY
+											execution_
+									) t5 ON t1.flow_id = t5.execution_
+								)
+							WHERE
+								ORGNAMETWO IS NULL
+		<isNotNull prepend="and" property="appTimeStrat" >
+                  end_  >=(#appTimeStrat#)
+        </isNotNull>
+       <isNotNull prepend="and" property="appTimeEnd" >                                    
+                <![CDATA[end_  <=(#appTimeEnd#)]]>
+      </isNotNull>
+      <isNotNull prepend="and" property="oneCategory" >
+                 ONECATEGORY  in($oneCategory$)
+      </isNotNull>
+      <isNotNull prepend="and" property="loanCategory" >
+                 LOANCATEGORY in($loanCategory$)
+      </isNotNull>
+							GROUP BY
+								LOANCATEGORY,
+								ORGNAME,
+								ORGNAMETWO,
+								ONECATEGORY
+						) tm
+					LEFT JOIN (
+						SELECT
+							COUNT (*) n1,
+							LOANCATEGORY,
+							ORGNAME,
+							ORGNAMETWO,
+							reportcnt,
+							ONECATEGORY
+						FROM
+							(
+								SELECT
+									ttn.LOANCATEGORY,
+									ttn.ORGNAME,
+									ttn.ORGNAMETWO,
+									ttn.reportcnt,
+									ttn.flow_id,
+									ttn.end_,
+									ttn.ONECATEGORY
+								FROM
+									(
+										SELECT
+											t1.flow_id,
+											t1.LOANCATEGORY,
+											t1.ONECATEGORY,
+											t2.ORGNAME,
+											t3.ORGNAMETWO,
+											t5.reportcnt,
+											t6.end_
+										FROM
+											(
+												SELECT
+													flow_id,
+													ORGCODEONE,
+													ORGCODETWO,
+													LOANCATEGORY,
+													ONECATEGORY
+												FROM
+													T_GENERALPROCESS_MODELONE
+											) t1
+										JOIN (
+											SELECT
+												ORGCODE,
+												ORGNAME
+											FROM
+												OM_ORGANIZATION
+										) t2 ON t1.ORGCODEONE = t2.ORGCODE
+										LEFT JOIN (
+											SELECT
+												ORGCODE AS ORGCODETWO,
+												ORGNAME AS ORGNAMETWO
+											FROM
+												OM_ORGANIZATION
+										) t3 ON t1.ORGCODETWO = t3.ORGCODETWO
+										JOIN (
+											SELECT
+												A .execution_ f_id
+											FROM
+												jbpm4_hist_actinst A
+											WHERE
+												A .transition_  like '%结束%'
+											AND A .execution_ IN (
+												SELECT
+													T .execution_
+												FROM
+													jbpm4_hist_actinst T
+												WHERE
+													T .ACTIVITY_NAME_ LIKE '%发起合同预审'
+											)
+										) t4 ON t1.flow_id = t4.f_id
+										JOIN (
+											SELECT
+												reportcnt,
+												flow_id
+											FROM
+												T_GENERALPROCESS_MODELTHREE
+										) t5 ON t1.flow_id = t5.flow_id
+										JOIN (
+											SELECT
+												execution_,
+												MAX (TO_CHAR(end_, 'yyyy-mm-dd')) end_
+											FROM
+												jbpm4_hist_actinst T
+											WHERE
+												T .ACTIVITY_NAME_ LIKE '%发起合同预审'
+											AND execution_ IN (
+												SELECT
+													execution_
+												FROM
+													jbpm4_hist_actinst A
+												WHERE
+													A .transition_  like '%结束%'
+											)
+											GROUP BY
+												execution_
+										) t6 ON t6.execution_ = t1.flow_id
+									) ttn
+							)
+						WHERE
+							reportcnt = '2'
+
+		<isNotNull prepend="and" property="appTimeStrat" >
+                  end_  >=(#appTimeStrat#)
+        </isNotNull>
+       <isNotNull prepend="and" property="appTimeEnd" >                                    
+                <![CDATA[end_  <=(#appTimeEnd#)]]>
+      </isNotNull>
+      <isNotNull prepend="and" property="oneCategory" >
+                 ONECATEGORY  in($oneCategory$)
+      </isNotNull>
+      <isNotNull prepend="and" property="loanCategory" >
+                 LOANCATEGORY in($loanCategory$)
+      </isNotNull>
+						GROUP BY
+							LOANCATEGORY,
+							ORGNAME,
+							ORGNAMETWO,
+							reportcnt,
+							ONECATEGORY
+					) tn1 ON tm.LOANCATEGORY = tn1.LOANCATEGORY
+					AND tm.ORGNAME = tn1.ORGNAME
+					AND tm.ONECATEGORY = tn1.ONECATEGORY
+					AND tn1.ORGNAMETWO IS NULL
+					LEFT JOIN (
+						SELECT
+							COUNT (*) n2,
+							LOANCATEGORY,
+							ORGNAME,
+							ORGNAMETWO,
+							reportcnt,
+							ONECATEGORY
+						FROM
+							(
+								SELECT
+									ttn.LOANCATEGORY,
+									ttn.ORGNAME,
+									ttn.ORGNAMETWO,
+									ttn.reportcnt,
+									ttn.flow_id,
+									ttn.end_,
+									ttn.ONECATEGORY
+								FROM
+									(
+										SELECT
+											t1.flow_id,
+											t1.LOANCATEGORY,
+											t1.ONECATEGORY,
+											t2.ORGNAME,
+											t3.ORGNAMETWO,
+											t5.reportcnt,
+											t6.end_
+										FROM
+											(
+												SELECT
+													flow_id,
+													ORGCODEONE,
+													ORGCODETWO,
+													LOANCATEGORY,
+													ONECATEGORY
+												FROM
+													T_GENERALPROCESS_MODELONE
+											) t1
+										JOIN (
+											SELECT
+												ORGCODE,
+												ORGNAME
+											FROM
+												OM_ORGANIZATION
+										) t2 ON t1.ORGCODEONE = t2.ORGCODE
+										LEFT JOIN (
+											SELECT
+												ORGCODE AS ORGCODETWO,
+												ORGNAME AS ORGNAMETWO
+											FROM
+												OM_ORGANIZATION
+										) t3 ON t1.ORGCODETWO = t3.ORGCODETWO
+										JOIN (
+											SELECT
+												A .execution_ f_id
+											FROM
+												jbpm4_hist_actinst A
+											WHERE
+												A .transition_  like '%结束%'
+											AND A .execution_ IN (
+												SELECT
+													T .execution_
+												FROM
+													jbpm4_hist_actinst T
+												WHERE
+													T .ACTIVITY_NAME_ LIKE '%发起合同预审'
+											)
+										) t4 ON t1.flow_id = t4.f_id
+										JOIN (
+											SELECT
+												reportcnt,
+												flow_id
+											FROM
+												T_GENERALPROCESS_MODELTHREE
+										) t5 ON t1.flow_id = t5.flow_id
+										JOIN (
+											SELECT
+												execution_,
+												MAX (TO_CHAR(end_, 'yyyy-mm-dd')) end_
+											FROM
+												jbpm4_hist_actinst T
+											WHERE
+												T .ACTIVITY_NAME_ LIKE '%发起合同预审'
+											AND execution_ IN (
+												SELECT
+													execution_
+												FROM
+													jbpm4_hist_actinst A
+												WHERE
+													A .transition_  like '%结束%'
+											)
+											GROUP BY
+												execution_
+										) t6 ON t6.execution_ = t1.flow_id
+									) ttn
+							)
+						WHERE
+							reportcnt = '3'
+		<isNotNull prepend="and" property="appTimeStrat" >
+                  end_  >=(#appTimeStrat#)
+        </isNotNull>
+       <isNotNull prepend="and" property="appTimeEnd" >                                    
+                <![CDATA[end_  <=(#appTimeEnd#)]]>
+      </isNotNull>
+      <isNotNull prepend="and" property="oneCategory" >
+                 ONECATEGORY  in($oneCategory$)
+      </isNotNull>
+      <isNotNull prepend="and" property="loanCategory" >
+                 LOANCATEGORY in($loanCategory$)
+      </isNotNull>
+						GROUP BY
+							LOANCATEGORY,
+							ORGNAME,
+							ORGNAMETWO,
+							reportcnt,
+							ONECATEGORY
+					) tn2 ON tm.LOANCATEGORY = tn2.LOANCATEGORY
+					AND tm.ORGNAME = tn2.ORGNAME
+					AND tm.ONECATEGORY = tn2.ONECATEGORY
+					AND tn2.ORGNAMETWO IS NULL
+					LEFT JOIN (
+						SELECT
+							COUNT (*) n3,
+							LOANCATEGORY,
+							ORGNAME,
+							ORGNAMETWO,
+							reportcnt,
+				
+							ONECATEGORY
+						FROM
+							(
+								SELECT
+									ttn.LOANCATEGORY,
+									ttn.ORGNAME,
+									ttn.ORGNAMETWO,
+									ttn.reportcnt,
+									ttn.flow_id,
+									ttn.end_,
+									ttn.ONECATEGORY
+								FROM
+									(
+										SELECT
+											t1.flow_id,
+											t1.LOANCATEGORY,
+											t1.ONECATEGORY,
+											t2.ORGNAME,
+											t3.ORGNAMETWO,
+											t5.reportcnt,
+											t6.end_
+										FROM
+											(
+												SELECT
+													flow_id,
+													ORGCODEONE,
+													ORGCODETWO,
+													LOANCATEGORY,
+													ONECATEGORY
+												FROM
+													T_GENERALPROCESS_MODELONE
+											) t1
+										JOIN (
+											SELECT
+												ORGCODE,
+												ORGNAME
+											FROM
+												OM_ORGANIZATION
+										) t2 ON t1.ORGCODEONE = t2.ORGCODE
+										LEFT JOIN (
+											SELECT
+												ORGCODE AS ORGCODETWO,
+												ORGNAME AS ORGNAMETWO
+											FROM
+												OM_ORGANIZATION
+										) t3 ON t1.ORGCODETWO = t3.ORGCODETWO
+										JOIN (
+											SELECT
+												A .execution_ f_id
+											FROM
+												jbpm4_hist_actinst A
+											WHERE
+												A .transition_  like '%结束%'
+											AND A .execution_ IN (
+												SELECT
+													T .execution_
+												FROM
+													jbpm4_hist_actinst T
+												WHERE
+													T .ACTIVITY_NAME_ LIKE '%发起合同预审'
+											)
+										) t4 ON t1.flow_id = t4.f_id
+										JOIN (
+											SELECT
+												reportcnt,
+												flow_id
+											FROM
+												T_GENERALPROCESS_MODELTHREE
+										) t5 ON t1.flow_id = t5.flow_id
+										JOIN (
+											SELECT
+												execution_,
+												MAX (TO_CHAR(end_, 'yyyy-mm-dd')) end_
+											FROM
+												jbpm4_hist_actinst T
+											WHERE
+												T .ACTIVITY_NAME_ LIKE '%发起合同预审'
+											AND execution_ IN (
+												SELECT
+													execution_
+												FROM
+													jbpm4_hist_actinst A
+												WHERE
+													A .transition_  like '%结束%'
+											)
+											GROUP BY
+												execution_
+										) t6 ON t6.execution_ = t1.flow_id
+									) ttn
+							)
+						WHERE
+							reportcnt = '4'
+		<isNotNull prepend="and" property="appTimeStrat" >
+                  end_  >=(#appTimeStrat#)
+        </isNotNull>
+       <isNotNull prepend="and" property="appTimeEnd" >                                    
+                <![CDATA[end_  <=(#appTimeEnd#)]]>
+      </isNotNull>
+      <isNotNull prepend="and" property="oneCategory" >
+                 ONECATEGORY  in($oneCategory$)
+      </isNotNull>
+      <isNotNull prepend="and" property="loanCategory" >
+                 LOANCATEGORY in($loanCategory$)
+      </isNotNull>
+						GROUP BY
+							LOANCATEGORY,
+							ORGNAME,
+							ORGNAMETWO,
+							reportcnt,
+							ONECATEGORY
+					) tn3 ON tm.LOANCATEGORY = tn3.LOANCATEGORY
+					AND tm.ORGNAME = tn3.ORGNAME
+					AND tm.ONECATEGORY = tn3.ONECATEGORY
+					AND tn3.ORGNAMETWO IS NULL
+					LEFT JOIN (
+						SELECT
+							COUNT (*) n4,
+							LOANCATEGORY,
+							ORGNAME,
+							ORGNAMETWO,
+							reportcnt,
+							ONECATEGORY
+						FROM
+							(
+								SELECT
+									ttn.LOANCATEGORY,
+									ttn.ORGNAME,
+									ttn.ORGNAMETWO,
+									ttn.reportcnt,
+									ttn.flow_id,
+									ttn.end_,
+									ttn.ONECATEGORY
+								FROM
+									(
+										SELECT
+											t1.flow_id,
+											t1.LOANCATEGORY,
+											t1.ONECATEGORY,
+											t2.ORGNAME,
+											t3.ORGNAMETWO,
+											t5.reportcnt,
+											t6.end_
+										FROM
+											(
+												SELECT
+													flow_id,
+													ORGCODEONE,
+													ORGCODETWO,
+													LOANCATEGORY,
+													ONECATEGORY
+												FROM
+													T_GENERALPROCESS_MODELONE
+											) t1
+										JOIN (
+											SELECT
+												ORGCODE,
+												ORGNAME
+											FROM
+												OM_ORGANIZATION
+										) t2 ON t1.ORGCODEONE = t2.ORGCODE
+										LEFT JOIN (
+											SELECT
+												ORGCODE AS ORGCODETWO,
+												ORGNAME AS ORGNAMETWO
+											FROM
+												OM_ORGANIZATION
+										) t3 ON t1.ORGCODETWO = t3.ORGCODETWO
+										JOIN (
+											SELECT
+												A .execution_ f_id
+											FROM
+												jbpm4_hist_actinst A
+											WHERE
+												A .transition_  like '%结束%'
+											AND A .execution_ IN (
+												SELECT
+													T .execution_
+												FROM
+													jbpm4_hist_actinst T
+												WHERE
+													T .ACTIVITY_NAME_ LIKE '%发起合同预审'
+											)
+										) t4 ON t1.flow_id = t4.f_id
+										JOIN (
+											SELECT
+												reportcnt,
+												flow_id
+											FROM
+												T_GENERALPROCESS_MODELTHREE
+										) t5 ON t1.flow_id = t5.flow_id
+										JOIN (
+											SELECT
+												execution_,
+												MAX (TO_CHAR(end_, 'yyyy-mm-dd')) end_
+											FROM
+												jbpm4_hist_actinst T
+											WHERE
+												T .ACTIVITY_NAME_ LIKE '%发起合同预审'
+											AND execution_ IN (
+												SELECT
+													execution_
+												FROM
+													jbpm4_hist_actinst A
+												WHERE
+													A .transition_ like '%结束%'
+											)
+											GROUP BY
+												execution_
+										) t6 ON t6.execution_ = t1.flow_id
+									) ttn
+							)
+						WHERE
+							reportcnt = '5'
+		<isNotNull prepend="and" property="appTimeStrat" >
+                  end_  >=(#appTimeStrat#)
+        </isNotNull>
+       <isNotNull prepend="and" property="appTimeEnd" >                                    
+                <![CDATA[end_  <=(#appTimeEnd#)]]>
+      </isNotNull>
+      <isNotNull prepend="and" property="oneCategory" >
+                 ONECATEGORY  in($oneCategory$)
+      </isNotNull>
+      <isNotNull prepend="and" property="loanCategory" >
+                 LOANCATEGORY in($loanCategory$)
+      </isNotNull>
+						GROUP BY
+							LOANCATEGORY,
+							ORGNAME,
+							ORGNAMETWO,
+							reportcnt,
+							ONECATEGORY
+					) tn4 ON tm.LOANCATEGORY = tn4.LOANCATEGORY
+					AND tm.ORGNAME = tn4.ORGNAME
+					AND tm.ONECATEGORY = tn4.ONECATEGORY
+					AND tn4.ORGNAMETWO IS NULL
+				)
+	)
+)
+	</select>
 </sqlMap>

@@ -44,8 +44,20 @@ public class RateofreturnReport {
 	//4次退单率
 	private String backFour;
 	
+	//合计
+	private String heJi;
 	
 	
+	
+	
+	
+
+	public String getHeJi() {
+		return heJi;
+	}
+	public void setHeJi(String heJi) {
+		this.heJi = heJi;
+	}
 	public String getAppTimeStrat() {
 		return appTimeStrat;
 	}

@@ -30,6 +30,16 @@ public class ReportRefusalrateDao extends SqlMapClientDao implements TReportRefu
 	public List<ReportRefusalrate> queryReportRefusalrateForExcel(Map<String, Object> map) {
 		return queryForList("T_REPORTREFUSALRATE_SqlMap.queryReportRefusalRate",map);
 	}
+
+/**
+ * 拒贷率合计
+ */
+	@Override
+	public List<ReportRefusalrate> selectReportRefusalRateSum(
+			Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return queryForList("T_REPORTREFUSALRATE_SqlMap.queryReportRefusalRate2", map);
+	}
 	
 	
 	

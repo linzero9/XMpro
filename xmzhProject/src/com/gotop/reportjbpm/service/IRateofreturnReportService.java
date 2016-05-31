@@ -29,6 +29,14 @@ public interface IRateofreturnReportService {
 	List<RateofreturnReport> rateofreturnReportList(RateofreturnReport rateofreturnReport,Page page);
 	
 	/**
+	 * 退单率查询合计
+	 * @param refusalrateReport
+	 * @param page
+	 * @return
+	 */
+	List<RateofreturnReport> rateofreturnReportListSum(RateofreturnReport rateofreturnReport);
+	
+	/**
 	 * 导出Excel
 	 * @param rateofreturnReport
 	 * @param page

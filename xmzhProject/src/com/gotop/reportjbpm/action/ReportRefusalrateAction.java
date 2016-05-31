@@ -18,8 +18,16 @@ public class ReportRefusalrateAction extends BaseAction {
 	private ReportRefusalrate reportRefusalrate;
 	private List<ReportRefusalrate> list = new ArrayList<ReportRefusalrate>();
 	private TReportRefusalrateService reportRefusalRateService;
-
-
+//合计
+	private List<ReportRefusalrate> listSum = new ArrayList<ReportRefusalrate>();
+    
+	
+	public List<ReportRefusalrate> getListSum() {
+		return listSum;
+	}
+	public void setListSum(List<ReportRefusalrate> listSum) {
+		this.listSum = listSum;
+	}
 	public ReportRefusalrate getReportRefusalrate() {
 		return reportRefusalrate;
 	}
@@ -46,7 +54,8 @@ public class ReportRefusalrateAction extends BaseAction {
 	 */
 	public String queryReportRefusalRate(){
 		list=reportRefusalRateService.selectReportRefusalRate(reportRefusalrate,this.getPage());
-	
+		listSum=reportRefusalRateService.selectReportRefusalRateSum(reportRefusalrate);
+		this.setListSum(listSum);
 		this.setList(list);
 		return"queryReportRefusalRate";
 	}
@@ -59,7 +68,8 @@ public class ReportRefusalrateAction extends BaseAction {
 		if(reportRefusalrate==null){
 			reportRefusalrate=new ReportRefusalrate();
 		}
-		
+		listSum=reportRefusalRateService.selectReportRefusalRateSum(reportRefusalrate);
+		this.setListSum(listSum);
 		list = reportRefusalRateService.queryReportRefusalrateExcel(reportRefusalrate);
 		this.setList(list);
 		return "queryReportRefusalrateExcel";

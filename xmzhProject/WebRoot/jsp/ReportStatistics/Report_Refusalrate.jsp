@@ -116,6 +116,22 @@
 							</tr>
 						</l:iterate>
 						</w:radioGroup>
+						
+						  <tr>				
+							<th align="center" nowrap="nowrap" colspan="3">
+								上报审批笔数合计/拒贷笔数合计		
+							</th>
+						   <th align="center" nowrap="nowrap" >
+								<l:iterate property="listSum" id="id2" >
+								 
+									<b:write iterateId="id2" property="upnum"/>
+								
+								<th colspan="2">
+									<b:write iterateId="id2" property="downnum"/>
+								</th>
+								</l:iterate>																								
+							</th>
+						</tr>
 							<tr>
               <td colspan="23" class="command_sort_area">
               	<!--  <div class="h3"> 

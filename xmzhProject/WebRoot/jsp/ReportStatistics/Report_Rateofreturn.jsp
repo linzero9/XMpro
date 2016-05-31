@@ -131,6 +131,16 @@
 							</tr>
 						</l:iterate>
 						</w:radioGroup>
+						                      <tr>				
+							<th align="center" nowrap="nowrap" colspan="4">
+								审批通过笔数合计
+							</th>
+						   <th align="center" nowrap="nowrap" colspan="5">
+								<l:iterate property="listsum" id="id1">
+								    <b:write iterateId="id1" property="heJi"/>
+								</l:iterate>																								
+							</th>
+						</tr>
 							<tr>
               <td colspan="23" class="command_sort_area">		
                 <div class="h4">

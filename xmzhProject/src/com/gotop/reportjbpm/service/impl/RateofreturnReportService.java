@@ -124,6 +124,56 @@ public class RateofreturnReportService implements IRateofreturnReportService {
 		
 		return list;
 	}
+	
+	/**
+	 * 退单率查询合计
+	 */
+	@Override
+	public List<RateofreturnReport> rateofreturnReportListSum(
+			RateofreturnReport rateofreturnReport) {
+		Map<String, Object> map=new HashMap<String, Object>();
+		
+		if(rateofreturnReport!=null){
+
+			   if(!"".equals(rateofreturnReport.getAppTimeStrat()) && rateofreturnReport.getAppTimeStrat()!=null){
+
+				   String appTimeStrat=rateofreturnReport.getAppTimeStrat();
+					map.put("appTimeStrat", appTimeStrat);
+				}
+			
+		   if(!"".equals(rateofreturnReport.getAppTimeEnd()) && rateofreturnReport.getAppTimeEnd()!=null){
+
+			   String appTimeEnd=rateofreturnReport.getAppTimeEnd();
+				map.put("appTimeEnd", appTimeEnd);
+			}
+			if(!"".equals(rateofreturnReport.getOneCategory())){
+				String[] oneCategorys=rateofreturnReport.getOneCategory().split(", ");
+				String oneCategory="";
+				try {
+					oneCategory = Obj2StrUtils.join(oneCategorys, String.class, ",");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				map.put("oneCategory", oneCategory);
+			}
+			if(!"".equals(rateofreturnReport.getLoanCategory())){
+				String[] loanCategorys=rateofreturnReport.getLoanCategory().split(", ");
+				String loanCategory="";
+				try {
+					loanCategory = Obj2StrUtils.join(loanCategorys, String.class, ",");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				 map.put("loanCategory",loanCategory);
+			
+			}
+			
+		}
+		
+		List listsum=rateofreturnReportDao.rateofreturnReportListSum(map);
+		
+		return listsum;
+	}
 
 
 

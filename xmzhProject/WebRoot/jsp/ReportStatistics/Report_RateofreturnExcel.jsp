@@ -60,5 +60,16 @@
 			</tr>
 			
 			</l:iterate>
+						     <table align="center" border="0" width="100%" class="EOS_table">
+                      <tr>				
+                       <th height="34" width="100" align="center" class="form_label">合计</th>
+						   <th align="center" nowrap="nowrap">
+								<l:iterate property="listsum" id="id1">
+								    <b:write iterateId="id1" property="heJi"/>
+								</l:iterate>																				
+							</th>
+						</tr>
+                      </table>
+			
 		</table>
    

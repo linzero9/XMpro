@@ -48,5 +48,20 @@
 			   
 			</tr>
 			</l:iterate>
+						     <table align="center" border="0" width="100%" class="EOS_table">
+                      <tr>				
+                       <th height="34" width="100" align="center" class="form_label">合计</th>
+						   <th align="center" nowrap="nowrap">
+								<l:iterate property="listSum" id="id2">
+								 <td nowrap="nowrap"> 
+									<b:write iterateId="id2" property="upnum"/>
+								</td>
+								<td nowrap="nowrap" colspan="2"> 
+									<b:write iterateId="id2" property="downnum"/>
+								</td>
+								</l:iterate>																					
+							</th>
+						</tr>
+                      </table>
 		</table>
    

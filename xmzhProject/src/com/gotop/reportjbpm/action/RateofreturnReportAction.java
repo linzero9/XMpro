@@ -24,9 +24,15 @@ public class RateofreturnReportAction extends BaseAction {
 	
 	private  List<RateofreturnReport> list;
 
-	
+	private  List<RateofreturnReport> listsum;
 	
 
+	public List<RateofreturnReport> getListsum() {
+		return listsum;
+	}
+	public void setListsum(List<RateofreturnReport> listsum) {
+		this.listsum = listsum;
+	}
 	public List<RateofreturnReport> getList() {
 		return list;
 	}
@@ -57,7 +63,9 @@ public class RateofreturnReportAction extends BaseAction {
 	public String rateofreturnReportList(){
 		
 		list=rateofreturnReportService.rateofreturnReportList(rateofreturnReport, this.getPage());
-		this.setList(list);
+		listsum=rateofreturnReportService.rateofreturnReportListSum(rateofreturnReport);
+		this.setListsum(listsum);
+		this.setList(list);		
 		return "rateofreturnReportlist";
 	}
 	
@@ -70,7 +78,8 @@ public class RateofreturnReportAction extends BaseAction {
 		if(rateofreturnReport==null){
 			rateofreturnReport=new RateofreturnReport();
 		}
-		
+		listsum=rateofreturnReportService.rateofreturnReportListSum(rateofreturnReport);
+		this.setListsum(listsum);
 		list=rateofreturnReportService.rateofreturnReportListExcel(rateofreturnReport);
 		this.setList(list);
 		return "exportExcel";

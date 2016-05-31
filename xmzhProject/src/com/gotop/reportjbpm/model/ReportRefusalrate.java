@@ -17,8 +17,24 @@ public class ReportRefusalrate implements Serializable{
 	private String rejection_number;
 	private String refusalrate;
 	
+	//上报合计
+	private String upnum;
+	//拒贷笔数
+	private String downnum;
 	
-	
+
+	public String getUpnum() {
+		return upnum;
+	}
+	public void setUpnum(String upnum) {
+		this.upnum = upnum;
+	}
+	public String getDownnum() {
+		return downnum;
+	}
+	public void setDownnum(String downnum) {
+		this.downnum = downnum;
+	}
 	public String getOneCategory() {
 		return oneCategory;
 	}

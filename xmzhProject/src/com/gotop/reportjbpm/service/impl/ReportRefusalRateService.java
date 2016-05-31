@@ -115,6 +115,49 @@ public class ReportRefusalRateService implements TReportRefusalrateService{
 			
 
 	
+	}
+/**
+ * 拒贷率合计
+ */
+
+	@Override
+	public List<ReportRefusalrate> selectReportRefusalRateSum(
+			ReportRefusalrate reportRefusalrate) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		if (reportRefusalrate != null) {
+			if (reportRefusalrate.getStratdate() !=null&&!"".equals(reportRefusalrate.getStratdate())) {
+				map.put("stratdate", reportRefusalrate.getStratdate());
+			}
+			if (reportRefusalrate.getEnddate() != null&&!"".equals(reportRefusalrate.getEnddate())) {
+				map.put("enddate", reportRefusalrate.getEnddate());
+			}
+		
+			if(reportRefusalrate.getOneCategoryTxt()!=null && !"".equals(reportRefusalrate.getOneCategoryTxt())){
+				String[] oneCategorys=reportRefusalrate.getOneCategoryTxt().split(", ");
+				String oneCategory="";
+				try {
+					oneCategory = Obj2StrUtils.join(oneCategorys, String.class, ",");
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				map.put("oneCategory",oneCategory);
+			}
+			if(reportRefusalrate.getLoanCategory()!=null && !"".equals(reportRefusalrate.getLoanCategory())){
+				String[] loanCategorys=reportRefusalrate.getLoanCategoryTxt().split(", ");
+				String loanCategory="";
+				try {
+					loanCategory = Obj2StrUtils.join(loanCategorys, String.class, ",");
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				map.put("loanCategory",loanCategory);
+			}
+			
+		}
+		
+		return reportRefusalrateDao.selectReportRefusalRateSum(map);
 	}	
 	
 	

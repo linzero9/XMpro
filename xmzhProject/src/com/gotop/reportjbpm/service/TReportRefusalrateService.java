@@ -14,6 +14,8 @@ public interface TReportRefusalrateService {
 	void setReportRefusalrateDao( TReportRefusalrateDao reportRefusalrateDao);
 	
 	List<ReportRefusalrate> selectReportRefusalRate(ReportRefusalrate reportRefusalrate,Page page);
+	//拒贷率合计
+	List<ReportRefusalrate> selectReportRefusalRateSum(ReportRefusalrate reportRefusalrate);
 
 	List<ReportRefusalrate> queryReportRefusalrateExcel(ReportRefusalrate reportRefusalrate);
 

@@ -35,5 +35,13 @@ public class RateofreturnReportDao extends SqlMapClientDao implements IRateofret
 
 			return queryForList("T_RateofreturnReport_SqlMap.RateofreturnReportList", map);
 	}
+
+	/**
+	 * 查询退单率合计
+	 */
+@Override
+public List rateofreturnReportListSum(Map<String, Object> map) {
+	return queryForList("T_RateofreturnReport_SqlMap.RateofreturnReportListSum", map);
+}
 	
 }
