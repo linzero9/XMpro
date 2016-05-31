@@ -56,10 +56,12 @@
   
   	<!-- 查询受理审批台账 -->
 	<select id="queryApprovalList" parameterClass="java.util.HashMap" resultMap="approval">
+	select   * from    (
+	
 	
 select  max(Z.UPTIME) AS UPTIME,
       max( Z.LOOKTIME)AS LOOKTIME,
-     max(  Z.REPORTTIME)AS REPORTTIME,
+       to_date( max(  Z.REPORTTIME)   ,'yyyy-mm-dd' ) AS REPORTTIME,
      max(  Z.ISURGENT)AS ISURGENT,
      max(  Z.CUST_NAME)AS CUST_NAME,
      max(  Z.OLD_CUST)AS OLD_CUST,
@@ -391,8 +393,10 @@ select (case
       <isNotNull prepend="and" property="appTimeEnd" >
        <![CDATA[LOOKTIME <= #appTimeEnd#]]>
       </isNotNull>
-      ) Z group by Z.FLOW_ID ORDER BY REPORTEDTIME 
+      ) Z group by Z.FLOW_ID
+         )  order  by   REPORTTIME  ASC
 	</select>
+  
      
 	 
 

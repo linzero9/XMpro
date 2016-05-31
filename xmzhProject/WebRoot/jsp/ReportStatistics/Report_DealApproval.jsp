@@ -1,5 +1,6 @@
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@include file="/common/common.jsp"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@include file="/common/skins/skin0/component.jsp"%>
 <h:css href="/css/style1/style-custom.css" />
 <script src="<%=request.getContextPath() %>/common/gotop/jquery.min.js"></script>
@@ -158,7 +159,10 @@
 									<b:write iterateId="id1"    property="nextOrgName" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="reportTime" />
+						
+								
+									
+									<fmt:formatDate value="${id1.reportTime}" pattern="yyyy年MM月dd日"/>
 								</td>
 								<td nowrap="nowrap">
 								<d:write iterateId="id1" property="isurgent" dictTypeId="ZHPT_ISURGENT" />
