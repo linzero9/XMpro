@@ -19,8 +19,6 @@ margin-left:inherit;
 <h:form name="data_form"  id="data_form" action="/deviceManagement/deviceManagementAction_save.action"  enctype="multipart/form-data" method="post" >
 		<table align="center" border="0" width="100%" class="form_table">
 			<h:hidden id="deviceId" property="device.deviceId"  name="device.deviceId"/>
-			<h:hidden id="currentPages"  property="page.currentPage"/>
-			<h:hidden id="gdzhi"  value="${gdzhi }"/>
 			<tr>
 				<td class="form_label" align="right" nowrap="nowrap">机构/部门：</td>
 				 <td colspan="1" nowrap="nowrap">
@@ -279,7 +277,7 @@ function changedeviceModel() {
 }
 
 function closes(){
-	returnValue();
+
 	window.close();
 }
 
@@ -357,11 +355,11 @@ function openNewEmpTreeCallBack1(arg){//回调方法
 }
 
 function returnValue(){
-  	var deviceId=$id("deviceId").value;
+/*   	var deviceId=$id("deviceId").value;
   	var currentPages=$id("currentPages").value;
-  	var gdzhi=$id("gdzhi").value;
-  	  window.returnValue=[deviceId,currentPages,gdzhi];
-  	  //window.close();
+  	var gdzhi=$id("gdzhi").value; */
+  	  //window.returnValue=[deviceId,currentPages,gdzhi];
+  	  window.close();
   }
 
 </script>

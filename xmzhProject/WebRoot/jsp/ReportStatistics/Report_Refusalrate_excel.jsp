@@ -43,7 +43,7 @@
 			   <b:write iterateId="id1" property="rejection_number"/>
 			  </td>
 			   <td>
-			   <b:write iterateId="id1" property="refusalrate"/>
+			   <b:write iterateId="id1" property="refusalrate"/>%
 			  </td>
 			   
 			</tr>
@@ -62,7 +62,7 @@
 									<b:write iterateId="id2" property="downnum"/>
 								</td>
 							   <td nowrap="nowrap" > 
-									<b:write iterateId="id2" property="dowup"/>
+									<b:write iterateId="id2" property="dowup"/>%
 								</td>
 						     	</tr>
 								</l:iterate>																					

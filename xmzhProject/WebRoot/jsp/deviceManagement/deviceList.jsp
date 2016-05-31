@@ -633,19 +633,40 @@ function my_relase(){
 			} else {
 				var rows = gop.getSelectRows();
 				var deviceId = rows[0].getParam("deviceId");
-				var currentPages = $("#currentPage").val();
-				var gdzhi=$("#divv").scrollTop();
+				//var currentPages = $("#currentPage").val();
+				//var gdzhi=$("#divv").scrollTop();
 				
-				var strUrl = "/deviceManagement/deviceManagementAction_toDevice.action?device.deviceId="+ deviceId+"&page.currentPage="+currentPages+"&gdzhi="+gdzhi;
+				//var strUrl = "/deviceManagement/deviceManagementAction_toDevice.action?device.deviceId="+ deviceId+"&page.currentPage="+currentPages+"&gdzhi="+gdzhi;
+				var strUrl = "/deviceManagement/deviceManagementAction_toDevice.action?device.deviceId="+ deviceId;
 				showModalCenter(strUrl, null, showErrorlink_callback1, 700, 550,
 						'修改设备');
 			}
 		}
 
 		function showErrorlink_callback1(returnValue){
-			var did=returnValue[0];
+			
+/* 			var did=returnValue[0];
 			var currentPages=returnValue[1];
-			var gdzhi=returnValue[2];
+			var gdzhi=returnValue[2]; */
+			var gop = $id("group1");
+			var rows = gop.getSelectRows();
+			var deviceId = rows[0].getParam("deviceId");
+			var did=trim(deviceId);
+			var currentPages = $("#currentPage").val();
+			var gdzhi=$("#divv").scrollTop();		
+			
+			if(did==null){		
+				var gop = $id("group1");
+				var rows = gop.getSelectRows();
+				var deviceId = rows[0].getParam("deviceId");
+				var aa=trim(deviceId);
+				var pp = $("#currentPage").val();
+				var gg=$("#divv").scrollTop();
+				var strUrl = "/deviceManagement/deviceManagementAction_deviceList.action?isid="+aa+"&currentPages="+pp+"&gdzhi="+gg;
+				document.query_form.action=strUrl;
+				document.query_form.submit();
+				return;
+				}
 
 			document.query_form.action="/deviceManagement/deviceManagementAction_deviceList.action?isid="+did+"&currentPages="+currentPages+"&gdzhi="+gdzhi;
 			document.query_form.submit();

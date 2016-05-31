@@ -9,19 +9,19 @@
     <result column="ORGNAMETWO" property="orgnametwo" jdbcType="VARCHAR" />
     <result column="EA_NUMBER" property="EA_number" jdbcType="VARCHAR" />
     <result column="REJECTION_NUMBER" property="rejection_number" jdbcType="VARCHAR" />
-    <result column="REFUSALRATE" property="refusalrate" jdbcType="VARCHAR" />
+    <result column="REFUSALRATE" property="refusalrate" jdbcType="Float" />
   </resultMap>
       <!--拒贷合计-->
   <resultMap id="ReportRefusalrate2" class="com.gotop.reportjbpm.model.ReportRefusalrate" >
     <result column="upnum" property="upnum" jdbcType="VARCHAR" />
     <result column="downnum" property="downnum" jdbcType="VARCHAR" />
-    <result column="dowup" property="dowup" jdbcType="VARCHAR" />
+    <result column="dowup" property="dowup" jdbcType="Float" />
   </resultMap>
 	
 	<!-- 查询拒贷信息 -->
 	<select id="queryReportRefusalRate" parameterClass="java.util.HashMap" resultMap="ReportRefusalrate">
 SELECT JJ.*,
-       (ROUND(REJECTION_NUMBER / (EA_NUMBER + REJECTION_NUMBER) * 100, 2)) || '%' AS REFUSALRATE 
+       (ROUND(REJECTION_NUMBER / (EA_NUMBER + REJECTION_NUMBER) * 100, 2)) AS REFUSALRATE 
   FROM (
         
         SELECT ONECATEGORY,
@@ -185,7 +185,7 @@ SELECT JJ.*,
 		<!-- 查询拒贷信息 -->
 	<select id="queryReportRefusalRate2" parameterClass="java.util.HashMap" resultMap="ReportRefusalrate2">
 	SELECT upnum,downnum,
-DECODE (dowup, '%', '0', dowup) dowup
+   nvl(dowup,'0') dowup
 FROM
 (
 SELECT upnum,downnum,
@@ -194,7 +194,7 @@ SELECT upnum,downnum,
 					downnum / (upnum+downnum)  * 100,
 					2
 				)
-			) || '%' AS dowup
+			) dowup
 from(
 	SELECT sum(EA_NUMBER)  upnum,sum(REJECTION_NUMBER)  downnum
 from(

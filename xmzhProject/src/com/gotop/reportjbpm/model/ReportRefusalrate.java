@@ -22,14 +22,15 @@ public class ReportRefusalrate implements Serializable{
 	//拒贷笔数
 	private String downnum;
 	//拒贷率合计
-	private String dowup;
+	private Float dowup;
 	
 	
 
-	public String getDowup() {
+
+	public Float getDowup() {
 		return dowup;
 	}
-	public void setDowup(String dowup) {
+	public void setDowup(Float dowup) {
 		this.dowup = dowup;
 	}
 	public String getUpnum() {

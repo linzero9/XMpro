@@ -351,8 +351,6 @@ public class DeviceManagementAction  extends BaseAction    {
 	public String toDevice(){
     	if(device != null){
     		device = deviceManagermentService.getDeviceByDeviceId(device);
-        	HttpServletRequest request=ServletActionContext.getRequest();
-        	gdzhi=request.getParameter("gdzhi"); 
     	}
     	this.setDevice(device);
     	return "device";
