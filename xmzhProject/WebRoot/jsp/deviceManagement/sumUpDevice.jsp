@@ -47,6 +47,17 @@ function my_relase(){
 		<title>设备列表</title>
 	</head>
 	<body topmargin="0" leftmargin="0">
+	<div class="EOS_table"  >
+         <div style="text-align: center;">	
+			 <b:message key="l_display_per_page"></b:message>
+			<h:text size="2" property="page.length" value="10" validateAttr="minValue=1;maxValue=100;type=integer;isNull=true" />
+			<input type="hidden" name="page.begin" value="0">
+			 <input type="hidden" name="page.isCount" value="true">
+			<input id="querys" type="button" value="查 询" class="button" onclick="mysubmit();">
+			<input type="button" value="清 空" class="button" onclick="clears();">
+			<input id=" exportExcel" type="button" class="button" value="导出列表" onclick="export_Excel();">
+		</div>
+	</div>
 	<DIV class="divList"   id="query_div"  style="overflow:auto;width:100%; height:250;">  
 	<h:form name="query_form"	action="/deviceManagement/deviceManagementAction_sumUpDevice.action" method="post">
 		<w:panel id="panel1" title="设备列表">
@@ -177,18 +188,7 @@ function my_relase(){
 					<td colspan="10"  width="90%" nowrap="nowrap">
 						<d:checkbox perrow="12" id="peripheral"  name="device.peripheral"  dictTypeId="DEVICE_PERIPHERAL" property="device.peripheral"   seperator=", "  />
 					</td>
-				</tr>
-				<tr class="form_bottom"  >
-						<td colspan="6" class="form_bottom"  style="text-align: left">
-						    <b:message key="l_display_per_page"></b:message>
-					        <h:text size="2" property="page.length" value="10" validateAttr="minValue=1;maxValue=100;type=integer;isNull=true" />
-					        <input type="hidden" name="page.begin" value="0">
-					        <input type="hidden" name="page.isCount" value="true">
-							<input id="querys" type="button" value="查 询" class="button" onclick="mysubmit();">
-							<input type="button" value="清 空" class="button" onclick="clears();">
-							<input id=" exportExcel" type="button" class="button" value="导出列表" onclick="export_Excel();">
-						</td>
-					</tr>			
+				</tr>		
 			</table>
 		</w:panel>
 	</h:form>
@@ -196,6 +196,30 @@ function my_relase(){
 	
 	<!-- 该div用于将将鼠放到div边框上，鼠标变成可拉动调节div高度 ，该div位于滚动条下方-->
 	<div id="lineborder" style="font-size:0px; width:100%; height:0px;  border-bottom:1px solid white;  cursor :n-resize;"  onmousedown="movestart()" onmousemove="moving()" onmouseup="moveend()">
+	</div>
+	<div class="EOS_table" >
+	        <div style="text-align: center;">
+	                <l:equal property="page.isCount" targetValue="true" >
+	                  <b:message key="l_total"></b:message>
+	                  <b:write property="page.count" />
+	                  <b:message key="l_recordNO."></b:message>
+	                  <b:write property="page.currentPage" />
+	                  <b:message key="l_page"></b:message>
+	                  <b:write property="page.totalPage" />
+	                  <b:message key="l_page"></b:message>
+	                </l:equal>
+	                <l:equal property="page.isCount" targetValue="false" >
+	                  <b:message key="l_NO."></b:message>
+	                  <b:write property="page.currentPage" />
+	                  <b:message key="l_page"></b:message>
+	                </l:equal>
+	                <input type="button" class="button" onclick="firstPage('page', '', null, null, 'page_form');" value='<b:message key="l_firstPage"></b:message>'  <l:equal property="page.isFirst"  targetValue="true">disabled</l:equal> >
+	                <input type="button" class="button" onclick="prevPage('page', '', null, null, 'page_form');" value='<b:message key="l_upPage"></b:message>' <l:equal property="page.isFirst"  targetValue="true">disabled</l:equal> >
+	                <input type="button" class="button" onclick="nextPage('page', '', null, null, 'page_form');" value='<b:message key="l_nextPage"></b:message>' <l:equal property="page.isLast"  targetValue="true">disabled</l:equal> >
+	                <l:equal property="page.isCount" targetValue="true">
+	                  <input type="button" class="button" onclick="lastPage('page', '', null, null, 'page_form');" value='<b:message key="l_lastPage"></b:message>' <l:equal property="page.isLast"  targetValue="true">disabled</l:equal> >
+	                </l:equal>
+	                </div>
 	</div>
 	
 	<DIV class="divList"  style="overflow:auto;width:100%; height: 310;">
@@ -256,33 +280,7 @@ function my_relase(){
 							</th>
 						</tr>
                       </table>					
-							<tr>
-              <td colspan="23" class="command_sort_area">
-							
-							<div class="h4">
-	                <l:equal property="page.isCount" targetValue="true" >
-	                  <b:message key="l_total"></b:message>
-	                  <b:write property="page.count" />
-	                  <b:message key="l_recordNO."></b:message>
-	                  <b:write property="page.currentPage" />
-	                  <b:message key="l_page"></b:message>
-	                  <b:write property="page.totalPage" />
-	                  <b:message key="l_page"></b:message>
-	                </l:equal>
-	                <l:equal property="page.isCount" targetValue="false" >
-	                  <b:message key="l_NO."></b:message>
-	                  <b:write property="page.currentPage" />
-	                  <b:message key="l_page"></b:message>
-	                </l:equal>
-	                <input type="button" class="button" onclick="firstPage('page', '', null, null, 'page_form');" value='<b:message key="l_firstPage"></b:message>'  <l:equal property="page.isFirst"  targetValue="true">disabled</l:equal> >
-	                <input type="button" class="button" onclick="prevPage('page', '', null, null, 'page_form');" value='<b:message key="l_upPage"></b:message>' <l:equal property="page.isFirst"  targetValue="true">disabled</l:equal> >
-	                <input type="button" class="button" onclick="nextPage('page', '', null, null, 'page_form');" value='<b:message key="l_nextPage"></b:message>' <l:equal property="page.isLast"  targetValue="true">disabled</l:equal> >
-	                <l:equal property="page.isCount" targetValue="true">
-	                  <input type="button" class="button" onclick="lastPage('page', '', null, null, 'page_form');" value='<b:message key="l_lastPage"></b:message>' <l:equal property="page.isLast"  targetValue="true">disabled</l:equal> >
-	                </l:equal>
-              </div>
-              </td>
-            </tr>
+
 					</table>
 				</h:form>
 				</viewlist>

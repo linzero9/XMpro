@@ -62,7 +62,19 @@ function my_relase(){
 		<title>设备列表</title>
 	</head>
 	<body topmargin="0" leftmargin="0">
-
+	<div class="EOS_table"  >
+		<div style="text-align: center;">				     
+			 <b:message key="l_display_per_page"></b:message> 
+			 <h:text id="pcnt" size="3" property="page.length"  value="100" validateAttr="minValue=1;maxValue=100;type=integer;isNull=true" />					        
+			<input type="hidden" name="page.begin" value="0">
+			<input type="hidden" name="page.isCount" value="true">
+			<input id="querys" type="button" value="查 询" class="button" onclick="mysubmit();">
+			<input type="button" value="清 空" class="button" onclick="clears();">
+			<input id=" exportExcel" type="button" class="button" value="导出列表" onclick="export_Excel();">
+			<input id="importExcel"  type="button" class="button" value="批量导入" onclick="import_Excel();">
+			<input id="importExcel"  type="button" class="button" value="批量修改导入" onclick="batchUpdate_import_view();">
+		</div>
+	</div>
 	<DIV class="divList"  id="query_div" style="overflow:auto;width:100%; height:168px;    cursor :default;"  onmouseover="out=0"; onmousedown="out=0" onmouseup="out=1" onmouseout="out=1">  
 	<h:form name="query_form"	action="/deviceManagement/deviceManagementAction_deviceList.action" method="post">
 		<w:panel id="panel1" title="查询条件">
@@ -195,21 +207,7 @@ function my_relase(){
 						<d:checkbox perrow="12" id="peripheral"  name="device.peripheral"  dictTypeId="DEVICE_PERIPHERAL" property="device.peripheral"   seperator=", "  />
 					</td>
 				</tr>
-				<tr class="form_bottom" >
-						<td colspan="6" class="form_bottom" style="text-align: left;">
-						
-						    <b:message key="l_display_per_page"></b:message> 
-					        <h:text id="pcnt" size="3" property="page.length"  value="100" validateAttr="minValue=1;maxValue=100;type=integer;isNull=true" />
-					        
-					        <input type="hidden" name="page.begin" value="0">
-					        <input type="hidden" name="page.isCount" value="true">
-							<input id="querys" type="button" value="查 询" class="button" onclick="mysubmit();">
-							<input type="button" value="清 空" class="button" onclick="clears();">
-							<input id=" exportExcel" type="button" class="button" value="导出列表" onclick="export_Excel();">
-							<input id="importExcel"  type="button" class="button" value="批量导入" onclick="import_Excel();">
-							<input id="importExcel"  type="button" class="button" value="批量修改导入" onclick="batchUpdate_import_view();">
-						</td>
-					</tr>
+
 			</table>
 		</w:panel>
 	</h:form>
