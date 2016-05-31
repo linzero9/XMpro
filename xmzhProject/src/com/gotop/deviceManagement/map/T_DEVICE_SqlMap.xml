@@ -179,13 +179,23 @@ t.HARDDISK,t.OSVERSION,t.SOFTWAREVERSION,t.IEVERSION, t.USEFUL, t.PLUGIN,t.PERIP
     </select>
   <!-- 查询机构下设备总数 -->
   <select id="querySumList" resultMap="tSum" parameterClass="java.util.HashMap">
-SELECT 
-orgname,DEVICENAME,DEVICEMODEL,count(*) as tot
-from(
-select  t.orgcode,o.orgname, T.DEVICENAME,T.DEVICEMODEL,t.DEVICE_STATE,t.MEMORY ,
-t.HARDDISK,t.OSVERSION,t.SOFTWAREVERSION,t.IEVERSION, t.USEFUL, t.PLUGIN,t.PERIPHERAL
-  from  t_new_deviceManagement t , om_organization o
-  where t.orgcode = o.orgcode
+select  *  from   (
+SELECT orgname, DEVICENAME, DEVICEMODEL, count(*) as tot
+  from (select t.orgcode,
+               o.orgname,
+               T.DEVICENAME,
+               T.DEVICEMODEL,
+               t.DEVICE_STATE,
+               t.MEMORY,
+               t.HARDDISK,
+               t.OSVERSION,
+               t.SOFTWAREVERSION,
+               t.IEVERSION,
+               t.USEFUL,
+               t.PLUGIN,
+               t.PERIPHERAL
+          from t_new_deviceManagement t, om_organization o
+         where t.orgcode = o.orgcode
     <isNotNull prepend="and" property="orgcode" >      
         t.ORGCODE in  
         (select regexp_substr(#orgcode#,'[^,]+',1,rownum) from dual  
@@ -262,9 +272,12 @@ t.HARDDISK,t.OSVERSION,t.SOFTWAREVERSION,t.IEVERSION, t.USEFUL, t.PLUGIN,t.PERIP
       </isNotNull>
       
       
-ORDER BY orgname,DEVICENAME,DEVICEMODEL
-)
-group by orgname,DEVICENAME,DEVICEMODEL
+
+   ) 
+ group by orgname, DEVICENAME, DEVICEMODEL)   uu
+   left join (select  *　from   eos_dict_entry  t   where  t.dicttypeid='DEVICE_NAME') T1
+   on uu.DEVICENAME = T1.DICTID
+       order by nlssort(orgname, 'NLS_SORT=SCHINESE_PINYIN_M'),nlssort( dictname, 'NLS_SORT=SCHINESE_PINYIN_M'),DEVICEMODEL
   </select>
   
   <!-- 查询设备列表 -->
