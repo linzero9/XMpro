@@ -2,13 +2,12 @@ package com.gotop.reportjbpm.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
 
 import com.informix.util.stringUtil;
 
 public class Approval implements Serializable {
 	private String nextOrgName;
-	private Date reportTime;
+	private String reportTime;
 	private String isurgent;
 	private String custName;
 	private String oldCust;
@@ -264,10 +263,10 @@ public class Approval implements Serializable {
 	public void setNextOrgName(String nextOrgName) {
 		this.nextOrgName = nextOrgName;
 	}
-	public Date getReportTime() {
+	public String getReportTime() {
 		return reportTime;
 	}
-	public void setReportTime(Date reportTime) {
+	public void setReportTime(String reportTime) {
 		this.reportTime = reportTime;
 	}
 	
