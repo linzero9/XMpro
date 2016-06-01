@@ -32,5 +32,7 @@ public interface IGeneralprocessDAO {
 
 	public List queryyxryjg(Map<String, Object> map);
 
+	public List<Omorganization> isOneOrg(Map<String, Object> map2);
+
 
 }

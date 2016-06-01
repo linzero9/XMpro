@@ -33,10 +33,10 @@
 			    <b:write iterateId="id1" property="businessTitle"/>
 			  </td>
 			  <td style="vnd.ms-excel.numberformat:@">
-			    <b:write iterateId="id1" property="beginEmpname"/>
+			    <b:write iterateId="id1" property="beginOrgname"/>
 			  </td>
 			  <td style="vnd.ms-excel.numberformat:@">
-			    <b:write iterateId="id1" property="beginOrgname" />
+			    <b:write iterateId="id1" property="beginEmpname" />
 			  </td>
 			  <td style="vnd.ms-excel.numberformat:@">
 			    <b:write iterateId="id1" property="cust_Name" />
@@ -50,7 +50,7 @@
 		       <td style="vnd.ms-excel.numberformat:@">
 			   <d:write iterateId="id1" property="currency"  dictTypeId="PROCESS_MONEY"/>
 		      </td>
-			  <td style="vnd.ms-excel.numberformat:@">
+			  <td>
 			   <b:write iterateId="id1" property="apply_bal" />
 		      </td>
 		      <td style="vnd.ms-excel.numberformat:@">
@@ -63,7 +63,7 @@
 			   <b:write iterateId="id1" property="currentAssingee" />
 		      </td>
 		      <td style="vnd.ms-excel.numberformat:@">
-			   <b:write iterateId="id1" property="preTaskOrgName" />
+			   <b:write iterateId="id1" property="currentAssingeeOrgname" />
 		      </td>
 			</tr>
 			</l:iterate>

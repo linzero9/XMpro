@@ -901,12 +901,35 @@ public class GeneralprocessService implements IGeneralprocessService {
 			}
 		}
 		List<GeneralprocessDto> generalprocessDtos=null;
-		String orgcode=muo.getOrgcode();
-		String parentOrgId = this.isHaveParentOrgId(orgcode);
-		Omorganization om = null;
-		String empId = String.valueOf(muo.getEmpid());
-		String[] positionIdArray = muo.getPosiCode();
-		if(Arrays.asList(positionIdArray).contains("xdkhjl")){
+	//	String orgcode=muo.getOrgcode();
+	//	String parentOrgId = this.isHaveParentOrgId(orgcode);
+		
+	//	String empId = String.valueOf(muo.getEmpid());
+	//	String[] positionIdArray = muo.getPosiCode();
+		Long orgid = muo.getOrgid();
+		Map<String, Object> map2 = new HashMap<String, Object>();
+		map2.put("orgid", orgid);
+		
+		//判断当前登录的机构是否属于 一类支行的本级及下级机构
+		List<Omorganization> oms = this.generalProcessDAO.isOneOrg(map2);
+		if(oms.size() > 0){ //属于 一类支行的本级机下级机构
+			
+			if(orgid == 5478){ //当前登录机构就是 一类支行
+				map.put("org_flag", 1);  /*信贷流程查询提交机构是本级及下级的机构 */
+				map.put("orgid", orgid);
+			}else if(oms.get(0).getParentOrgId() == 5478){ //当前登录机构是 一类支行 的区支行
+				map.put("org_flag", 1);  /*信贷流程查询提交机构是当前登录机构的本级及下级的机构 */
+				map.put("orgid", orgid);
+			}else{ //当前登录机构是 一类支行 的区支行 下级的支行
+				map.put("org_flag", 2);  /*信贷流程查询提交机构是当前登录机构的父类机构的本级及下级的机构 */
+				map.put("orgid", orgid);
+			}
+			
+		}
+		
+		generalprocessDtos=this.generalProcessDAO.queryGeneralprocessList2(map,page);
+		
+		/*if(Arrays.asList(positionIdArray).contains("xdkhjl")){
 			map.put("empId", empId);
 			generalprocessDtos=this.generalProcessDAO.queryGeneralprocessList2(map,page);
 		}else if(parentOrgId != null){
@@ -914,7 +937,7 @@ public class GeneralprocessService implements IGeneralprocessService {
 		generalprocessDtos=this.generalProcessDAO.queryGeneralprocessList2(map,page);
 		}else {
 			generalprocessDtos=this.generalProcessDAO.queryGeneralprocessList2(map,page);
-		}
+		}*/
 		
 		return generalprocessDtos;
 	}

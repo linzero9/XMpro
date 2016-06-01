@@ -53,6 +53,23 @@
     <result column="CURRENTACTIVITYNAME" property="currentActivityName" jdbcType="VARCHAR" />
     <result column="CURRENTASSINGEE" property="currentAssingee" jdbcType="VARCHAR" />
     <result column="CURRENTASSINGEEORGNAME" property="currentAssingeeOrgname" jdbcType="VARCHAR" />
+    
+    <result column="BUSINESS_TYPE" property="businessType" jdbcType="VARCHAR" />
+    <result column="pre_task_id" property="preTaskId" jdbcType="VARCHAR" />
+    <result column="activityName" property="activityName" jdbcType="VARCHAR" />
+    
+    <result column="pre_task_assingee" property="preTaskAssingee" jdbcType="VARCHAR" />
+    <result column="orgCodeOne" property="orgCodeOne" jdbcType="VARCHAR" />
+    <result column="orgCodeTwo" property="orgCodeTwo" jdbcType="VARCHAR" />
+    <result column="fdxdy" property="fdxdy" jdbcType="VARCHAR" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+    <result column="definition_id" property="definition_id" jdbcType="VARCHAR" />
+    <result column="process_name" property="processName" jdbcType="VARCHAR" />
+    <result column="reporttime" property="reporttime" jdbcType="VARCHAR" />
+    <result column="begin_orgid" property="beginEmpId" jdbcType="VARCHAR" />
+    <result column="begin_empid" property="beginOrgId" jdbcType="VARCHAR" />
+    <result column="operator_type" property="operator_type" jdbcType="VARCHAR" />
+    <result column="operater_date" property="operater_date" jdbcType="VARCHAR" />
 </resultMap>
   
   	<!-- 查询营销人员机构 -->
@@ -232,7 +249,7 @@
            	 and dic.dictid in($oneCategory$))
       		</isNotNull>
       		 <isNotNull prepend="and" property="loanCategory" >
-           	 v.onecategory in(select dic.dictname from eos_dict_entry dic where dic.dicttypeid='PROCESS_credit_type' 
+           	 v.loancategory in(select dic.dictname from eos_dict_entry dic where dic.dicttypeid='PROCESS_credit_type' 
            	 and dic.dictid in($loanCategory$))
       		</isNotNull>
 		<isNotNull prepend="and" property="dyApp" >
@@ -268,74 +285,218 @@
   	
   	  <!-- 信贷流程查询 将t_process_business作为查询主表 -->
   <select id="queryGeneralprocessList2" resultMap="TGeneralProcess_HashMapResult2" parameterClass="java.util.HashMap">
-SELECT t9.*,
-       t10.next_opr_name as currentAssingee,
-       t10.next_org_name as currentAssingeeOrgname
+SELECT t17.*,
+       t18.reporttime
 FROM
-  (SELECT t7.*,
-          t8.next_activity_name as currentActivityName
+  (SELECT t15.*,
+          t16.process_name
    FROM
-     (SELECT t5.*,
-             t6.support_category
+     (SELECT t13.*,
+             t14.procdefid_ AS definition_id
       FROM
-        (SELECT t3.*,
-                t4.cust_name,
-                t4.onecategory,
-                t4.loancategory,
-                t4.currency,
-                t4.apply_bal/10000 as apply_bal
+        (SELECT t11.*,
+                t12.activity_name_ AS activityName
          FROM
-           (SELECT t1.*,
-                   t2.orgname AS beginOrgname,
-                   t2.empname AS beginEmpname
-            FROM (/* t_process_business为查询主表,查询流程id、标题 */
-                  SELECT execution_id, business_title
-                  FROM t_process_business
-                  WHERE business_type = '88') t1
-            LEFT JOIN (/* 1.查询（流程发起人）客户经理empname 以及 (发起机构)所在机构名称orgname*/
-                       SELECT t.business_id,
-                              o.orgname,
-                              e.empname
-                       FROM T_GENERALPROCESS_MAIN t,
-                            om_organization o,
-                            om_employee e
-                       WHERE t.begin_orgid = o.orgid
-                         AND t.begin_empid = e.empid) t2 ON t1.execution_id = t2.business_id) t3
-         LEFT JOIN ( /* 2.查询客户名称、一级分类、贷种分类、币种、申请金额*/
-                    SELECT g1.flow_id,
-                           decode(g1.cust_name, NULL, g6.cust_name, g1.cust_name) AS cust_name,
-                           decode(g1.onecategory, NULL, g6.onecategory, g1.onecategory) AS onecategory,
-                           decode(g1.loancategory, NULL, g6.loancategory, g1.loancategory) AS loancategory,
-                           decode(g1.currency, NULL, g6.support_moneytype, g1.currency) AS currency,
-                           decode(g1.apply_bal, NULL, g6.support_money, g1.apply_bal) AS apply_bal
-                    FROM t_generalprocess_modelone g1,
-                         t_generalprocess_modelsix g6
-                    WHERE g1.flow_id = g6.flow_id) t4 ON t3.execution_id = t4.flow_id) t5
-      LEFT JOIN /* 3.查询 支用类别 */ t_generalprocess_modelsix t6 ON t5.execution_id = t6.flow_id) t7
-   LEFT JOIN ( /* 4.查询 当前节点名称next_activity_name */
-              SELECT *
-              FROM
-                (SELECT execution_id,
-                        next_activity_name,
-                        row_number() over(partition BY execution_id
-                                          ORDER BY pre_task_time DESC) AS rn
-                 FROM t_Process_Task_Assignee
-                 WHERE business_type = '88')
-              WHERE rn = 1) t8 ON t7.execution_id = t8.execution_id) t9
-LEFT JOIN ( /* 5.查询 当前节点办理人next_opr_name、当前处理人机构next_org_name */
-           SELECT *
-           FROM
-             (SELECT flow_id,
-                     next_opr_name,
-                     next_org_name,
-                     row_number() over(partition BY flow_id
-                                       ORDER BY task_time DESC) AS rn
-              FROM
-                (SELECT gp.*,
-                        (operater_date || operater_time) AS task_time
-                 FROM T_APPROVE_OPNINION_GP gp)
-              WHERE resource_type = '88')
-           WHERE rn = 1) t10 ON t9.execution_id = t10.flow_id
+           (SELECT t9.*,
+                   t10.next_opr_name AS currentAssingee,
+                   t10.next_org_name AS currentAssingeeOrgname,
+                   t10.operator_type,
+                   t10.operater_date
+            FROM
+              (SELECT t7.*,
+                      t8.pre_task_id,
+                      t8.pre_task_assingee,
+                      t8.next_activity_name AS currentActivityName
+               FROM
+                 (SELECT t5.*,
+                         t6.support_category
+                  FROM
+                    (SELECT t3.*,
+                            t4.cust_name,
+                            t4.onecategory,
+                            t4.loancategory,
+                            t4.currency,
+                            t4.apply_bal/10000 AS apply_bal,
+                            t4.orgcodeOne,
+                            t4.orgcodeTwo,
+                            t4.creator,
+                            t4.fdxdy
+                     FROM
+                       (SELECT t1.*,
+                               t2.begin_orgid,
+                               t2.begin_empid,
+                               t2.orgname AS beginOrgname,
+                               t2.empname AS beginEmpname
+                        FROM (/* t_process_business为查询主表,查询流程id、标题， 业务类型 */
+                              SELECT execution_id,
+                                     business_title,
+                                     business_type
+                              FROM t_process_business
+                              WHERE business_type = '88') t1
+                        LEFT JOIN (/* 1.查询（流程发起人）客户经理empname 以及 (发起机构)所在机构名称orgname*/
+                                   SELECT t.business_id,
+                                          t.begin_orgid,
+                                          t.begin_empid,
+                                          o.orgname,
+                                          e.empname
+                                   FROM T_GENERALPROCESS_MAIN t,
+                                        om_organization o,
+                                        om_employee e
+                                   WHERE t.begin_orgid = o.orgid
+                                     AND t.begin_empid = e.empid) t2 ON t1.execution_id = t2.business_id) t3
+                     LEFT JOIN (/* 2.查询客户名称、一级分类、贷种分类、币种、申请金额 */
+                                SELECT g1.flow_id,
+                                       decode(g1.cust_name, NULL, g6.cust_name, g1.cust_name) AS cust_name,
+                                       decode(g1.onecategory, NULL, g6.onecategory, g1.onecategory) AS onecategory,
+                                       decode(g1.loancategory, NULL, g6.loancategory, g1.loancategory) AS loancategory,
+                                       decode(g1.currency, NULL, g6.support_moneytype, g1.currency) AS currency,
+                                       decode(g1.apply_bal, NULL, g6.support_money, g1.apply_bal) AS apply_bal,
+                                       g1.orgcodeOne,
+                                       g1.orgcodeTwo,
+                                       g1.fdxdy,
+                                       e.empname AS creator
+                                FROM t_generalprocess_modelone g1,
+                                     t_generalprocess_modelsix g6,
+                                     om_employee e
+                                WHERE g1.flow_id = g6.flow_id
+                                  AND g1.creator = e.empid) t4 ON t3.execution_id = t4.flow_id) t5
+                  LEFT JOIN /* 3.查询 支用类别 */ t_generalprocess_modelsix t6 ON t5.execution_id = t6.flow_id) t7
+               LEFT JOIN (/* 4.查询 当前节点名称next_activity_name，pre_task_id为上个节点id */
+                          SELECT *
+                          FROM
+                            (SELECT execution_id,
+                                    pre_task_id,
+                                    pre_task_assingee,
+                                    next_activity_name,
+                                    row_number() over(partition BY execution_id
+                                                      ORDER BY pre_task_time DESC) AS rn
+                             FROM t_Process_Task_Assignee
+                             WHERE business_type = '88')
+                          WHERE rn = 1) t8 ON t7.execution_id = t8.execution_id) t9
+            LEFT JOIN (/* 5.查询 当前节点办理人next_opr_name、当前处理人机构next_org_name */
+                       SELECT *
+                       FROM
+                         (SELECT flow_id,
+                                 next_opr_name,
+                                 next_org_name,
+                                 operator_type,
+                                 operater_date,
+                                 row_number() over(partition BY flow_id
+                                                   ORDER BY task_time DESC) AS rn
+                          FROM
+                            (SELECT gp.*,
+                                    (operater_date || operater_time) AS task_time
+                             FROM T_APPROVE_OPNINION_GP gp)
+                          WHERE resource_type = '88')
+                       WHERE rn = 1) t10 ON t9.execution_id = t10.flow_id ) t11
+         LEFT JOIN /*查找 上个节点名称 activity_name_*/ JBPM4_HIST_ACTINST t12 ON t11.pre_task_id = t12.htask_) t13
+      LEFT JOIN /*查找 对应的流程模板id definition_id */ JBPM4_HIST_PROCINST t14 ON t13.execution_id = t14.id_) t15
+   LEFT JOIN /*查找 流程名称process_name */ T_PROCESS_CONFIG t16 ON t15.definition_id = t16.definition_id) t17
+LEFT JOIN /*查找 上报时间reporttime */ t_generalprocess_modelthree t18 ON t17.execution_id = t18.flow_id
+                       
+where beginOrgname is not null 
+	and beginEmpname is not null 
+	and cust_name is not null
+ <isNotNull property="orgid" >
+ 		<isEqual  prepend="and" property="org_flag"  compareValue="1" >
+ 		t17.begin_orgid in (
+ 		select orgid from  om_organization 
+     			start with orgid = $orgid$
+    			connect by prior orgid = parentorgid )
+ 		</isEqual>
+ 		<isEqual  prepend="and" property="org_flag"  compareValue="2" >
+ 		t17.begin_orgid in (
+ 		select orgid  from  om_organization 
+     			start with orgid = (select parentorgid from om_organization where orgid = $orgid$)
+    			connect by prior orgid = parentorgid )
+ 		</isEqual>
+ </isNotNull>
+ <isNotNull prepend="and" property="appTimeStrat" >
+           	<![CDATA[
+           		t17.operator_type = '提交发起合同预审' 
+           		and t17.operater_date >= '$appTimeStrat$'
+               ]]>
+      		</isNotNull>
+           <isNotNull prepend="and" property="appTimeEnd" >
+           	<![CDATA[
+            	t17.operator_type = '提交发起合同预审' 
+           		and t17.operater_date <= '$appTimeEnd$'
+               ]]>
+      		</isNotNull>
+           <isNotNull prepend="and" property="reporttimeStrat" >
+           	 <![CDATA[
+            	t18.reporttime>='$reporttimeStrat$'
+               ]]>
+      		</isNotNull>
+           <isNotNull prepend="and" property="reporttimeEnd" >
+           	<![CDATA[
+            	t18.reporttime<='$reporttimeEnd$'
+               ]]>
+      		</isNotNull>
+           <isNotNull prepend="and" property="orgCodeOne" >
+           	t17.orgCodeOne='$orgCodeOne$'
+      		</isNotNull>
+           <isNotNull prepend="and" property="orgCodeTwo" >
+           	t17.orgCodeTwo='$orgCodeTwo$'
+      		</isNotNull>
+           <isNotNull prepend="and" property="cust_Name" >
+           	t17.cust_Name like '%'||'$cust_Name$'||'%'
+      		</isNotNull>
+           <isNotNull prepend="and" property="isEnd" >
+           	<isEqual property="isEnd" compareValue="0">
+           		<![CDATA[
+           	   t17.currentActivityName <> '结束'
+           	     ]]>
+           	</isEqual>
+           	<isEqual property="isEnd" compareValue="1">
+           	    t17.currentActivityName = '结束'
+           	</isEqual>
+      		</isNotNull>
+           <isNotNull prepend="and" property="creator" >
+           	t17.creator='$creator$'
+      		</isNotNull>
+           <isNotNull prepend="and" property="fdxdy" >
+           	t17.fdxdy='$fdxdy$'
+      		</isNotNull>
+           <isNotNull prepend="and" property="supportCategory" >
+           t17.support_category in($supportCategory$)
+      		</isNotNull>
+           <isNotNull prepend="and" property="oneCategory" >
+           	 t17.onecategory in(select dic.dictname from eos_dict_entry dic where dic.dicttypeid='PROCESS_onecategory' 
+           	 and dic.dictid in($oneCategory$))
+      		</isNotNull>
+      		 <isNotNull prepend="and" property="loanCategory" >
+           	 t17.loancategory in(select dic.dictname from eos_dict_entry dic where dic.dicttypeid='PROCESS_credit_type' 
+           	 and dic.dictid in($loanCategory$))
+      		</isNotNull>
+		<isNotNull prepend="and" property="dyApp" >
+			t17.activityName = '审批一' 
+			and t17.pre_task_assingee in (select empid from om_employee where empname = '$dyApp$')
+      		</isNotNull>
+           <isNotNull prepend="and" property="deApp" >
+           t17.activityName = '审批二' 
+			and t17.pre_task_assingee in (select empid from om_employee where empname = '$deApp$')
+      		</isNotNull>
+           <isNotNull prepend="and" property="dyCheck" >
+           t17.activityName = '审查一' 
+			and t17.pre_task_assingee in (select empid from om_employee where empname = '$dyCheck$')
+      		</isNotNull>
+           <isNotNull prepend="and" property="deCheck" >
+           	 t17.activityName = '审查二' 
+			and t17.pre_task_assingee in (select empid from om_employee where empname = '$deCheck$')
+      		</isNotNull>
+           <isNotNull prepend="and" property="processName" >
+           t17.process_name like '%'||'$processName$'||'%'
+      		</isNotNull>
+      	order by t17.beginOrgname, t17.beginEmpname, t17.cust_name
   </select>
-  	
+  
+  <!-- 查询当前登录的机构是否属于 一类支行（5478）的本级及下级机构 -->
+  	<select id="isOneOrg" resultClass="com.gotop.vo.tyjg.Omorganization" parameterClass="java.util.HashMap">
+select orgid, orgcode, orgname, parentorgid from (
+select * from om_organization 
+     			start with orgid = 5478
+    			connect by prior orgid = parentorgid)
+ where orgid = #orgid#
+  	</select>	
 </sqlMap>

@@ -89,4 +89,11 @@ public class GeneralprocessDAO extends SqlMapClientDao implements IGeneralproces
 		
 	}
 
+	@Override
+	public List<Omorganization> isOneOrg(Map<String, Object> map2) {
+		
+		List list = queryForList("GENERAL_PROCESS_SqlMap.isOneOrg", map2);
+		return list;
+	}
+
 }

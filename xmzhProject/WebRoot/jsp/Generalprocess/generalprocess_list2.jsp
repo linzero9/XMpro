@@ -19,16 +19,16 @@
 			<table align="center" border="0" width="100%" class="form_table">
 			<tr>
 					
-					<td class="form_label" align="right" width="20%">审批时间：</td>
-					<td colspan="1" width="30%">
+					<td class="form_label" align="right" width="15%">审批时间：</td>
+					<td colspan="1" width="35%">
 					从
 					<w:date  format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="appTimeStrat" name="generalprocessDto.appTimeStrat" 
 					property="generalprocessDto.appTimeStrat" /> 
 					到
 					<w:date format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="appTimeEnd" name="generalprocessDto.appTimeEnd" 
 					property="generalprocessDto.appTimeEnd" /></td>
-					<td class="form_label" align="right" width="20%">上报时间：</td>
-					<td colspan="1" width="30%">
+					<td class="form_label" align="right" width="15%">上报时间：</td>
+					<td colspan="1" width="35%">
 					从
 					<w:date format="yyyy-MM-dd" submitFormat="yyyy-MM-dd" id="reporttimeStrat" name="generalprocessDto.reporttimeStrat" 
 					property="generalprocessDto.reporttimeStrat" /> 
@@ -54,8 +54,8 @@
 				     </td>        
 				</tr>
 				<tr>
-					<td class="form_label" align="right" width="20%">客户姓名：</td>
-					<td colspan="1" width="30%"><h:text id="cust_Name" property="generalprocessDto.cust_Name" />
+					<td class="form_label" align="right" >客户姓名：</td>
+					<td colspan="1" ><h:text id="cust_Name" property="generalprocessDto.cust_Name" />
 					</td>
 					<td class="form_label" align="right">流程状态：</td>
 						<td colspan="1">
@@ -65,27 +65,27 @@
 				</tr>
 				
 				<tr>
-					<td class="form_label" align="right" width="20%">主调信贷员：</td>
-					<td colspan="1" width="30%"><h:text id="creator" property="generalprocessDto.creator" />
+					<td class="form_label" align="right" >主调信贷员：</td>
+					<td colspan="1" ><h:text id="creator" property="generalprocessDto.creator" />
 					</td>
-					<td class="form_label" align="right" width="20%">辅调信贷员：</td>
-					<td colspan="1" width="30%"><h:text id="fdxdy" property="generalprocessDto.fdxdy" />
-					</td>
-				</tr>
-				<tr>
-					<td class="form_label" align="right" width="20%">第一审批人：</td>
-					<td colspan="1" width="30%"><h:text id="dyApp" property="generalprocessDto.dyApp" />
-					</td>
-					<td class="form_label" align="right" width="20%">第二审批人：</td>
-					<td colspan="1" width="30%"><h:text id="deApp" property="generalprocessDto.deApp" />
+					<td class="form_label" align="right" >辅调信贷员：</td>
+					<td colspan="1" ><h:text id="fdxdy" property="generalprocessDto.fdxdy" />
 					</td>
 				</tr>
 				<tr>
-					<td class="form_label" align="right" width="20%">第一审查人：</td>
-					<td colspan="1" width="30%"><h:text id="dyCheck" property="generalprocessDto.dyCheck" />
+					<td class="form_label" align="right" >第一审批人：</td>
+					<td colspan="1" ><h:text id="dyApp" property="generalprocessDto.dyApp" />
 					</td>
-					<td class="form_label" align="right" width="20%">第二审查人：</td>
-					<td colspan="1" width="30%"><h:text id="deCheck" property="generalprocessDto.deCheck" />
+					<td class="form_label" align="right" >第二审批人：</td>
+					<td colspan="1" ><h:text id="deApp" property="generalprocessDto.deApp" />
+					</td>
+				</tr>
+				<tr>
+					<td class="form_label" align="right" >第一审查人：</td>
+					<td colspan="1" ><h:text id="dyCheck" property="generalprocessDto.dyCheck" />
+					</td>
+					<td class="form_label" align="right" >第二审查人：</td>
+					<td colspan="1" ><h:text id="deCheck" property="generalprocessDto.deCheck" />
 					</td>
 				</tr>
 				<%-- <tr>
@@ -97,14 +97,14 @@
 					</td>
 				</tr> --%>
 				<tr>
-				<td class="form_label" align="right" width="20%">一级分类：</td>
-					<td colspan="1" width="30%">
+				<td class="form_label" align="right" >一级分类：</td>
+					<td colspan="1" >
 					<h:hidden id="oneCategory" property="generalprocessDto.oneCategory" />
 					<h:text id="oneCategoryTxt" property="generalprocessDto.oneCategoryTxt" readonly="true"/>
 					<a href="#" onclick="showoneCategory();">选择</a>
 					</td>
-					<td class="form_label" align="right" width="20%">贷种分类：</td>
-					<td colspan="1" width="30%">
+					<td class="form_label" align="right" >贷种分类：</td>
+					<td colspan="1" >
 					<h:hidden id="loanCategory" property="generalprocessDto.loanCategory" />
 					<h:text id="loanCategoryTxt" property="generalprocessDto.loanCategoryTxt" readonly="true"/>
 					<a href="#" onclick="showloanCategory();">选择</a>
@@ -119,14 +119,14 @@
 					到
 					<w:date format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="minoperaterDateEnd" name="generalprocessDto.minoperaterDateEnd" 
 					property="generalprocessDto.minoperaterDateEnd" /></td> --%>
-					<td class="form_label" align="right" style="width:20%;" >
+					<td class="form_label" align="right" >
 						流程名称：</td>
 					<td colspan="1">
 						<h:text id="processName" property="generalprocessDto.processName"/>
 					</td>
-					<td class="form_label" align="right" style="width:20%;" >
+					<td class="form_label" align="right" >
 						支用类别：</td>
-						<td colspan="1" width="30%">
+						<td colspan="1" >
 						<h:hidden id="supportCategory" property="generalprocessDto.supportCategory" />
 						<h:text id="supportCategoryTxt" property="generalprocessDto.supportCategoryTxt" readonly="true"/>
 						<a href="#" onclick="showsupportCategory();">选择</a>
@@ -205,6 +205,12 @@
 						<th nowrap="nowrap">当前节点名称</th>
 						<th nowrap="nowrap">当前节点办理人</th>
 						<th nowrap="nowrap">当前处理人机构</th>
+						<!-- <th nowrap="nowrap">流程名称</th> -->
+						<!-- <th nowrap="nowrap">主调信贷员</th> -->
+						<!-- <th nowrap="nowrap">辅调信贷员</th> -->
+						<!-- <th nowrap="nowrap">一级支行机构ID</th> -->
+						<!-- <th nowrap="nowrap">二级支行机构ID</th> -->
+						<!-- <th nowrap="nowrap">上报时间</th> -->
 						<!-- <th nowrap="nowrap">
 								提交时间
 							</th> -->
@@ -214,22 +220,20 @@
 							<tr
 								class="<l:output oddOutput="EOS_table_row_o" evenOutput='EOS_table_row' />">
 								<td align="center" nowrap="nowrap"><w:rowRadio>
-										<h:param name='id' iterateId='id1' property='id' />
+									<%-- 	<h:param name='id' iterateId='id1' property='id' /> --%>
 										<h:param name='executionId' iterateId='id1'
 											property='executionId' />
 										<h:param name='activityName' iterateId='id1'
 											property='activityName' />
-										<h:param name='currentActivityName' iterateId='id1'
-											property='currentActivityName' />
-										<h:param name='processName' iterateId='id1'
-											property='processName' />
 										<h:param name='preTaskId' iterateId='id1' property='preTaskId' />
 										<h:param name='businessType' iterateId='id1'
 											property='businessType' />
+										<%-- <h:param name='currentActivityName' iterateId='id1'
+											property='currentActivityName' />
+										<h:param name='processName' iterateId='id1'
+											property='processName' />
 										<h:param name='businessKey' iterateId='id1'
 											property='businessKey' />
-										<h:param name='activityName' iterateId='id1'
-											property='activityName' />
 										<h:param name='preTaskAssingee' iterateId='id1'
 											property='preTaskAssingee' />
 										<h:param name='nextTaskId' iterateId='id1'
@@ -243,7 +247,7 @@
 										<h:param name='nextTaskId' iterateId='id1'
 											property='nextTaskId' />
 										<h:param name='oldTaskId' iterateId='id1'
-											property='oldTaskId' />
+											property='oldTaskId' /> --%>
 									</w:rowRadio></td>
 									
 									
@@ -269,6 +273,13 @@
 								<td nowrap="nowrap"><b:write iterateId="id1" property="currentActivityName" /></td>
 								<td nowrap="nowrap"><b:write iterateId="id1" property="currentAssingee" /></td>
 								<td nowrap="nowrap"><b:write iterateId="id1" property="currentAssingeeOrgname" /></td>
+								
+								<%-- <td nowrap="nowrap"><b:write iterateId="id1" property="processName" /></td> --%>
+								<%-- <td nowrap="nowrap"><b:write iterateId="id1" property="creator" /></td> --%>
+								<%-- <td nowrap="nowrap"><b:write iterateId="id1" property="fdxdy" /></td> --%>
+								<%-- <td nowrap="nowrap"><b:write iterateId="id1" property="orgCodeOne" /></td> --%>
+								<%-- <td nowrap="nowrap"><b:write iterateId="id1" property="orgCodeTwo" /></td> --%>
+								<%-- <td nowrap="nowrap"><b:write iterateIdperty="reporttime" /></td> --%>
 							</tr>
 						</l:iterate>
 					</w:radioGroup>
@@ -350,7 +361,7 @@
 			}
 		}
 
-		function handleTask() {
+		/* function handleTask() {
 			var gop = $id("group1");
 			var len = gop.getSelectLength();
 			var rows = gop.getSelectRow();
@@ -406,10 +417,10 @@
 						+ '0'
 						+"&taskAssgineeDto.isC="
 						+'1';
-				/* parent.window.frames["mainFrame"].location.href = encodeURI(strUrl); */
-				/**
-				 * 2014.9.1 改为弹出框
-				 **/
+				// parent.window.frames["mainFrame"].location.href = encodeURI(strUrl); 
+				
+				 // 2014.9.1 改为弹出框
+				 
 				showModalCenter(encodeURI(strUrl), null, callBack,
 						clientX * 0.8, clientY * 0.65, '待办详情');
 				
@@ -419,7 +430,8 @@
 				alert("该流程已结束");
 				return;
 			}
-		}
+		} */
+		
 		function callBack() {
 			location.reload();
 		}
@@ -433,13 +445,14 @@
 				return;
 			} else {
 				var rows = gop.getSelectRow();
+				
 				var executionId = rows.getParam("executionId");
 				var activityName = rows.getParam("activityName");
-				var currentActivityName = rows.getParam("currentActivityName");
+			//	var currentActivityName = rows.getParam("currentActivityName");
 				var preTaskId = rows.getParam("preTaskId");
-				var processName = rows.getParam("processName");
+			//	var processName = rows.getParam("processName");
 				var businessType = rows.getParam("businessType");
-				var activityName = rows.getParam("activityName");
+			//	var activityName = rows.getParam("activityName");
 
 				var strUrl = "/jbpm/jbpmDemoAction_viewBussinessDetail.action?isView="
 						+ 1
@@ -598,6 +611,7 @@
 			$id("loanCategoryTxt").value="";
 			$id("supportCategory").value="";
 			$id("supportCategoryTxt").value="";
+			$id("processName").value="";
 		}
 	</script>
 </body>
