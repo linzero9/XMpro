@@ -55,6 +55,23 @@ public class GeneralprocessDAO extends SqlMapClientDao implements IGeneralproces
 		}
 		return list;
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<GeneralprocessDto> queryGeneralprocessList2(
+			Map<String, Object> map, Page page) {
+		// TODO Auto-generated method stub
+		List<GeneralprocessDto> list=null;
+		if(page!=null){
+			list = (List<GeneralprocessDto>)queryForList("GENERAL_PROCESS_SqlMap.queryGeneralprocessList2", map,page);
+			//list = (List<GeneralprocessDto>)queryForList("GENERAL_PROCESS_SqlMap.myStartGeneralProcessList", map,page);
+		}
+		else {
+			list = (List<GeneralprocessDto>)queryForList("GENERAL_PROCESS_SqlMap.queryGeneralprocessList2", map);
+		}
+		return list;
+	}
+	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public List<GeneralprocessDto> myStartGeneralProcessList(Map<String, Object> map,
@@ -62,6 +79,8 @@ public class GeneralprocessDAO extends SqlMapClientDao implements IGeneralproces
 		List list = queryForList("GENERAL_PROCESS_SqlMap.myStartGeneralProcessList", map,page);
 		return list;
 	}
+	
+	
 
 	@Override
 	public List queryyxryjg(Map<String, Object> map) {

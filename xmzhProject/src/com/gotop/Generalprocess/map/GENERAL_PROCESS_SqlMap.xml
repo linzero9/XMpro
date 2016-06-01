@@ -39,7 +39,21 @@
   </resultMap>
   
   	
-  
+<resultMap id="TGeneralProcess_HashMapResult2" class="java.util.HashMap" >
+    <result column="EXECUTION_ID" property="executionId" jdbcType="VARCHAR" />
+    <result column="BUSINESS_TITLE" property="businessTitle" jdbcType="VARCHAR" />
+    <result column="BEGINORGNAME" property="beginOrgname" jdbcType="VARCHAR" />
+    <result column="BEGINEMPNAME" property="beginEmpname" jdbcType="VARCHAR" />
+    <result column="CUST_NAME" property="cust_Name" jdbcType="VARCHAR" />
+    <result column="ONECATEGORY" property="oneCategory" jdbcType="VARCHAR" />
+    <result column="LOANCATEGORY" property="loanCategory" jdbcType="VARCHAR" />
+    <result column="CURRENCY" property="currency" jdbcType="VARCHAR" />
+    <result column="APPLY_BAL" property="apply_bal" jdbcType="VARCHAR" />
+    <result column="SUPPORT_CATEGORY" property="supportCategory" jdbcType="VARCHAR" />
+    <result column="CURRENTACTIVITYNAME" property="currentActivityName" jdbcType="VARCHAR" />
+    <result column="CURRENTASSINGEE" property="currentAssingee" jdbcType="VARCHAR" />
+    <result column="CURRENTASSINGEEORGNAME" property="currentAssingeeOrgname" jdbcType="VARCHAR" />
+</resultMap>
   
   	<!-- 查询营销人员机构 -->
   	<select id="queryyxryjg" resultClass="java.util.HashMap" parameterClass="java.util.HashMap">
@@ -89,8 +103,8 @@
                v.loancategory,
                v.support_category,
                 T10.NEXT_ORG_NAME AS preTaskOrgName,
-               v.orgname as beginEmpname,
-               v.empname as beginOrgname FROM 
+               v.orgname as beginOrgname,
+               v.empname as beginEmpname FROM 
                (select *
   from (select T1.ID,
                T1.EXECUTION_ID,
@@ -250,5 +264,78 @@
   order by END_ desc
   	</select> 
   	
+  	
+  	
+  	  <!-- 信贷流程查询 将t_process_business作为查询主表 -->
+  <select id="queryGeneralprocessList2" resultMap="TGeneralProcess_HashMapResult2" parameterClass="java.util.HashMap">
+SELECT t9.*,
+       t10.next_opr_name as currentAssingee,
+       t10.next_org_name as currentAssingeeOrgname
+FROM
+  (SELECT t7.*,
+          t8.next_activity_name as currentActivityName
+   FROM
+     (SELECT t5.*,
+             t6.support_category
+      FROM
+        (SELECT t3.*,
+                t4.cust_name,
+                t4.onecategory,
+                t4.loancategory,
+                t4.currency,
+                t4.apply_bal/10000 as apply_bal
+         FROM
+           (SELECT t1.*,
+                   t2.orgname AS beginOrgname,
+                   t2.empname AS beginEmpname
+            FROM (/* t_process_business为查询主表,查询流程id、标题 */
+                  SELECT execution_id, business_title
+                  FROM t_process_business
+                  WHERE business_type = '88') t1
+            LEFT JOIN (/* 1.查询（流程发起人）客户经理empname 以及 (发起机构)所在机构名称orgname*/
+                       SELECT t.business_id,
+                              o.orgname,
+                              e.empname
+                       FROM T_GENERALPROCESS_MAIN t,
+                            om_organization o,
+                            om_employee e
+                       WHERE t.begin_orgid = o.orgid
+                         AND t.begin_empid = e.empid) t2 ON t1.execution_id = t2.business_id) t3
+         LEFT JOIN ( /* 2.查询客户名称、一级分类、贷种分类、币种、申请金额*/
+                    SELECT g1.flow_id,
+                           decode(g1.cust_name, NULL, g6.cust_name, g1.cust_name) AS cust_name,
+                           decode(g1.onecategory, NULL, g6.onecategory, g1.onecategory) AS onecategory,
+                           decode(g1.loancategory, NULL, g6.loancategory, g1.loancategory) AS loancategory,
+                           decode(g1.currency, NULL, g6.support_moneytype, g1.currency) AS currency,
+                           decode(g1.apply_bal, NULL, g6.support_money, g1.apply_bal) AS apply_bal
+                    FROM t_generalprocess_modelone g1,
+                         t_generalprocess_modelsix g6
+                    WHERE g1.flow_id = g6.flow_id) t4 ON t3.execution_id = t4.flow_id) t5
+      LEFT JOIN /* 3.查询 支用类别 */ t_generalprocess_modelsix t6 ON t5.execution_id = t6.flow_id) t7
+   LEFT JOIN ( /* 4.查询 当前节点名称next_activity_name */
+              SELECT *
+              FROM
+                (SELECT execution_id,
+                        next_activity_name,
+                        row_number() over(partition BY execution_id
+                                          ORDER BY pre_task_time DESC) AS rn
+                 FROM t_Process_Task_Assignee
+                 WHERE business_type = '88')
+              WHERE rn = 1) t8 ON t7.execution_id = t8.execution_id) t9
+LEFT JOIN ( /* 5.查询 当前节点办理人next_opr_name、当前处理人机构next_org_name */
+           SELECT *
+           FROM
+             (SELECT flow_id,
+                     next_opr_name,
+                     next_org_name,
+                     row_number() over(partition BY flow_id
+                                       ORDER BY task_time DESC) AS rn
+              FROM
+                (SELECT gp.*,
+                        (operater_date || operater_time) AS task_time
+                 FROM T_APPROVE_OPNINION_GP gp)
+              WHERE resource_type = '88')
+           WHERE rn = 1) t10 ON t9.execution_id = t10.flow_id
+  </select>
   	
 </sqlMap>

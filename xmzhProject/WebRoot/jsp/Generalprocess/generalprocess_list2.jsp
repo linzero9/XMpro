@@ -11,7 +11,7 @@
 </head>
 <body topmargin="0" leftmargin="0">
 	<h:form name="appQuery"
-		action="/Generalprocess/generalProcessAction_queryGeneralprocessList.action"
+		action="/Generalprocess/generalProcessAction_queryGeneralprocessList2.action"
 		method="post" >
 		<h:hidden property="nameString" id="nameString" />
 		<h:hidden property="isExport" id="isExport"/>
@@ -160,7 +160,7 @@
 		<w:panel id="panel" width="100%" title="查询结果">
 			<viewlist id="e2c61865-3b56-470d-bd42-fff792fb9493"> <h:form
 				name="page_form"
-				action="/Generalprocess/generalProcessAction_queryGeneralprocessList.action"
+				action="/Generalprocess/generalProcessAction_queryGeneralprocessList2.action"
 				method="post">
 				<h:hiddendata property="generalprocessDto.appTimeStrat" />
 				<h:hiddendata property="generalprocessDto.appTimeEnd" />
@@ -268,7 +268,7 @@
 								</td>
 								<td nowrap="nowrap"><b:write iterateId="id1" property="currentActivityName" /></td>
 								<td nowrap="nowrap"><b:write iterateId="id1" property="currentAssingee" /></td>
-								<td nowrap="nowrap"><b:write iterateId="id1" property="preTaskOrgName" /></td>
+								<td nowrap="nowrap"><b:write iterateId="id1" property="currentAssingeeOrgname" /></td>
 							</tr>
 						</l:iterate>
 					</w:radioGroup>

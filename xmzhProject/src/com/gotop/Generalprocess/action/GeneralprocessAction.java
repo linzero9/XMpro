@@ -687,7 +687,35 @@ public class GeneralprocessAction extends BaseAction {
     	}
     }
     
-    
+    /**
+     * @author lmt
+     * @return 
+     * @throws Exception
+     * @creattime 2016-06-01上午00:34:45
+     */
+    public String queryGeneralprocessList2() throws Exception{
+    	
+    	MUOUserSession muo = getCurrentOnlineUser();
+    	if("1".equals(this.getIsExport())){
+    		try {
+    			List<GeneralprocessDto> generalprocessDtos=this.generalProcessService.queryGeneralprocessList2(muo,generalprocessDto,null);
+        		this.setGeneralprocessDtos(generalprocessDtos);
+        		return "generalprocess_export2";
+			} catch (Exception e) {
+				return e.toString();
+			}
+    		
+    	}else{
+    		try {
+    			List<GeneralprocessDto> generalprocessDtos=this.generalProcessService.queryGeneralprocessList2(muo,generalprocessDto,this.getPage());
+        		this.setGeneralprocessDtos(generalprocessDtos);
+        		return "generalprocess_list2";
+			} catch (Exception e) {
+				return e.toString();
+			}
+    		
+    	}
+    }
     
     
     //文件操作

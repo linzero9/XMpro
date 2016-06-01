@@ -23,6 +23,10 @@ public interface IGeneralprocessDAO {
 
 	public List<GeneralprocessDto> queryGeneralprocessList(
 			Map<String, Object> map, Page page);
+	
+	public List<GeneralprocessDto> queryGeneralprocessList2(
+			Map<String, Object> map, Page page);
+	
 	public List<GeneralprocessDto> myStartGeneralProcessList(
 			Map<String, Object> map, Page page);
 

@@ -807,6 +807,118 @@ public class GeneralprocessService implements IGeneralprocessService {
 		
 		return generalprocessDtos;
 	}
+	
+	@SuppressWarnings("unused")
+	@Override
+	public List<GeneralprocessDto> queryGeneralprocessList2(MUOUserSession muo,
+			GeneralprocessDto generalprocessDto, Page page) {
+		// TODO Auto-generated method stub
+		Map<String, Object> map = new HashMap<String, Object>();
+		if(generalprocessDto!=null){
+			if(generalprocessDto.getOneCategory()!=null && !"".equals(generalprocessDto.getOneCategory())){
+				String[] oneCategorys=generalprocessDto.getOneCategory().split(", ");
+				String oneCategory="";
+				try {
+					oneCategory = Obj2StrUtils.join(oneCategorys, String.class, ",");
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				map.put("oneCategory",oneCategory);
+			}
+			if(generalprocessDto.getLoanCategory()!=null && !"".equals(generalprocessDto.getLoanCategory())){
+				String[] loanCategorys=generalprocessDto.getLoanCategory().split(", ");
+				String loanCategory="";
+				try {
+					loanCategory = Obj2StrUtils.join(loanCategorys, String.class, ",");
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				map.put("loanCategory",loanCategory);
+			}
+			if(generalprocessDto.getMinoperaterDateStrat()!=null && !"".equals(generalprocessDto.getMinoperaterDateStrat())){
+				map.put("minoperaterDateStrat", generalprocessDto.getMinoperaterDateStrat());
+			}
+			if(generalprocessDto.getMinoperaterDateEnd()!=null && !"".equals(generalprocessDto.getMinoperaterDateEnd())){
+				map.put("minoperaterDateEnd", generalprocessDto.getMinoperaterDateEnd());
+			}
+			if(generalprocessDto.getAppTimeStrat()!=null && !"".equals(generalprocessDto.getAppTimeStrat())){
+				map.put("appTimeStrat", generalprocessDto.getAppTimeStrat());
+			}
+			if(generalprocessDto.getSupportCategory()!=null && !"".equals(generalprocessDto.getSupportCategory())){
+				String[] supportCategorys=generalprocessDto.getSupportCategory().split(", ");
+				String supportCategory="";
+				try {
+					supportCategory = Obj2StrUtils.join(supportCategorys, String.class, ",");
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				map.put("supportCategory",supportCategory);
+			}
+			if(generalprocessDto.getAppTimeEnd()!=null && !"".equals(generalprocessDto.getAppTimeEnd())){
+				map.put("appTimeEnd", generalprocessDto.getAppTimeEnd());
+			}
+			if(generalprocessDto.getReporttimeStrat()!=null && !"".equals(generalprocessDto.getReporttimeStrat())){
+				map.put("reporttimeStrat", generalprocessDto.getReporttimeStrat());
+			}
+			if(generalprocessDto.getReporttimeEnd()!=null && !"".equals(generalprocessDto.getReporttimeEnd())){
+				map.put("reporttimeEnd", generalprocessDto.getReporttimeEnd());
+			}
+			if(generalprocessDto.getOrgCodeOne()!=null && !"".equals(generalprocessDto.getOrgCodeOne())){
+				map.put("orgCodeOne", generalprocessDto.getOrgCodeOne());
+			}
+			if(generalprocessDto.getOrgCodeTwo()!=null && !"".equals(generalprocessDto.getOrgCodeTwo())){
+				map.put("orgCodeTwo", generalprocessDto.getOrgCodeTwo());
+			}
+			if(generalprocessDto.getCust_Name()!=null && !"".equals(generalprocessDto.getCust_Name())){
+				map.put("cust_Name", generalprocessDto.getCust_Name());
+			}
+			if(generalprocessDto.getIsEnd()!=null && !"".equals(generalprocessDto.getIsEnd())){
+				map.put("isEnd", generalprocessDto.getIsEnd());
+			}
+			if(generalprocessDto.getCreator()!=null && !"".equals(generalprocessDto.getCreator())){
+				map.put("creator", generalprocessDto.getCreator());
+			}
+			if(generalprocessDto.getFdxdy()!=null && !"".equals(generalprocessDto.getFdxdy())){
+				map.put("fdxdy", generalprocessDto.getFdxdy());
+			}
+			if(generalprocessDto.getDyApp()!=null && !"".equals(generalprocessDto.getDyApp())){
+				map.put("dyApp", generalprocessDto.getDyApp());
+			}
+			if(generalprocessDto.getDeApp()!=null && !"".equals(generalprocessDto.getDeApp())){
+				map.put("deApp", generalprocessDto.getDeApp());
+			}
+			if(generalprocessDto.getDyCheck()!=null && !"".equals(generalprocessDto.getDyCheck())){
+				map.put("dyCheck", generalprocessDto.getDyCheck());
+			}
+			if(generalprocessDto.getDeCheck()!=null && !"".equals(generalprocessDto.getDeCheck())){
+				map.put("deCheck", generalprocessDto.getDeCheck());
+			}
+			if(generalprocessDto.getProcessName()!=null && !"".equals(generalprocessDto.getProcessName())){
+				map.put("processName", generalprocessDto.getProcessName());
+			}
+		}
+		List<GeneralprocessDto> generalprocessDtos=null;
+		String orgcode=muo.getOrgcode();
+		String parentOrgId = this.isHaveParentOrgId(orgcode);
+		Omorganization om = null;
+		String empId = String.valueOf(muo.getEmpid());
+		String[] positionIdArray = muo.getPosiCode();
+		if(Arrays.asList(positionIdArray).contains("xdkhjl")){
+			map.put("empId", empId);
+			generalprocessDtos=this.generalProcessDAO.queryGeneralprocessList2(map,page);
+		}else if(parentOrgId != null){
+		map.put("orgcode", orgcode);
+		generalprocessDtos=this.generalProcessDAO.queryGeneralprocessList2(map,page);
+		}else {
+			generalprocessDtos=this.generalProcessDAO.queryGeneralprocessList2(map,page);
+		}
+		
+		return generalprocessDtos;
+	}
+	
 /**
  * 查询营销人员机构
  */

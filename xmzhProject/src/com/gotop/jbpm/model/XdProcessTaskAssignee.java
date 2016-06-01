@@ -142,7 +142,7 @@ public class XdProcessTaskAssignee implements Serializable {
     private String reportcnt;
     
     /*
-     * 流程标题
+     * 流程标题 
      */
     
 	public String getReportcnt() {

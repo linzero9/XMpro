@@ -16,6 +16,13 @@
         /jsp/Generalprocess/generalprocess_export.jsp
       </result>
       
+      <result name="generalprocess_list2">
+        /jsp/Generalprocess/generalprocess_list2.jsp
+      </result>
+      <result name="generalprocess_export2">
+        /jsp/Generalprocess/generalprocess_export2.jsp
+      </result>
+      
         <result name="yxryjgs" type="json">
 		   <param name="root">orgnameList</param>
 	  </result>
