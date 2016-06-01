@@ -48,7 +48,7 @@ function my_relase(){
 	</head>
 	<body topmargin="0" leftmargin="0">
 	<div class="EOS_table"  >
-         <div style="text-align: center;">	
+
 			 <b:message key="l_display_per_page"></b:message>
 			<h:text size="2" property="page.length" value="10" validateAttr="minValue=1;maxValue=100;type=integer;isNull=true" />
 			<input type="hidden" name="page.begin" value="0">
@@ -56,7 +56,7 @@ function my_relase(){
 			<input id="querys" type="button" value="查 询" class="button" onclick="mysubmit();">
 			<input type="button" value="清 空" class="button" onclick="clears();">
 			<input id=" exportExcel" type="button" class="button" value="导出列表" onclick="export_Excel();">
-		</div>
+	
 	</div>
 	<DIV class="divList"   id="query_div"  style="overflow:auto;width:100%; height:250;">  
 	<h:form name="query_form"	action="/deviceManagement/deviceManagementAction_sumUpDevice.action" method="post">
@@ -198,7 +198,7 @@ function my_relase(){
 	<div id="lineborder" style="font-size:0px; width:100%; height:0px;  border-bottom:1px solid white;  cursor :n-resize;"  onmousedown="movestart()" onmousemove="moving()" onmouseup="moveend()">
 	</div>
 	<div class="EOS_table" >
-	        <div style="text-align: center;">
+	       
 	                <l:equal property="page.isCount" targetValue="true" >
 	                  <b:message key="l_total"></b:message>
 	                  <b:write property="page.count" />
@@ -219,7 +219,7 @@ function my_relase(){
 	                <l:equal property="page.isCount" targetValue="true">
 	                  <input type="button" class="button" onclick="lastPage('page', '', null, null, 'page_form');" value='<b:message key="l_lastPage"></b:message>' <l:equal property="page.isLast"  targetValue="true">disabled</l:equal> >
 	                </l:equal>
-	                </div>
+
 	</div>
 	
 	<DIV class="divList"  style="overflow:auto;width:100%; height: 310;">

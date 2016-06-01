@@ -63,7 +63,7 @@ function my_relase(){
 	</head>
 	<body topmargin="0" leftmargin="0">
 	<div class="EOS_table"  >
-		<div style="text-align: center;">				     
+				     
 			 <b:message key="l_display_per_page"></b:message> 
 			 <h:text id="pcnt" size="3" property="page.length"  value="100" validateAttr="minValue=1;maxValue=100;type=integer;isNull=true" />					        
 			<input type="hidden" name="page.begin" value="0">
@@ -73,7 +73,7 @@ function my_relase(){
 			<input id=" exportExcel" type="button" class="button" value="导出列表" onclick="export_Excel();">
 			<input id="importExcel"  type="button" class="button" value="批量导入" onclick="import_Excel();">
 			<input id="importExcel"  type="button" class="button" value="批量修改导入" onclick="batchUpdate_import_view();">
-		</div>
+	
 	</div>
 	<DIV class="divList"  id="query_div" style="overflow:auto;width:100%; height:168px;    cursor :default;"  onmouseover="out=0"; onmousedown="out=0" onmouseup="out=1" onmouseout="out=1">  
 	<h:form name="query_form"	action="/deviceManagement/deviceManagementAction_deviceList.action" method="post">
