@@ -22,7 +22,15 @@
   </resultMap>
   
   	<select id="querytaskNameList" parameterClass="java.util.HashMap" resultMap="ErrorStatistic1">
-	select distinct taskname from T_GENERALPROCESS_MODELFOUR order by nlssort(taskname,'NLS_SORT=SCHINESE_PINYIN_M')
+	select distinct a.taskname
+  from (select *
+          from T_GENERALPROCESS_MODELFOUR t1,
+               T_PROCESS_CONFIG           t2,
+               JBPM4_HIST_PROCINST        t3
+         where t1.flow_id = t3.id_
+           and t3.procdefid_ = t2.definition_id
+           and t2.state = '01') a
+ order by nlssort(a.taskname, 'NLS_SORT=SCHINESE_PINYIN_M')
 
 	</select>
 	

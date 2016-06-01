@@ -312,9 +312,9 @@ select operatorname from ac_operator where operatorid =
  
  <!-- 查询所有信贷流程配置的节点，首字母拼音排序 --> 
   <select id="listNodName"  resultMap="listNodName_result">
-SELECT DISTINCT ACTIVITY_NAME FROM t_process_task_exe_config t1
+ SELECT DISTINCT ACTIVITY_NAME FROM t_process_task_exe_config t1
 where DEFINITION_ID in (
-    SELECT DEFINITION_ID FROM T_PROCESS_CONFIG t2 where business_type='88'
+    SELECT DEFINITION_ID FROM T_PROCESS_CONFIG t2 where business_type='88' and t2.state='01'
 )  order by nlssort(ACTIVITY_NAME,'NLS_SORT=SCHINESE_PINYIN_M')
 	</select>
   
