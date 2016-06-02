@@ -354,12 +354,11 @@ FROM
                                        g1.orgcodeOne,
                                        g1.orgcodeTwo,
                                        g1.fdxdy,
-                                       e.empname AS creator
-                                FROM t_generalprocess_modelone g1,
-                                     t_generalprocess_modelsix g6,
-                                     om_employee e
-                                WHERE g1.flow_id = g6.flow_id
-                                  AND g1.creator = e.empid) t4 ON t3.execution_id = t4.flow_id) t5
+                                       g1.empname as creator
+                                FROM (select m.*, e.empname  from t_generalprocess_modelone m, om_employee e 
+                                			 where m.creator = e.empid
+                                )g1 left join  t_generalprocess_modelsix g6
+                                on g1.flow_id = g6.flow_id) t4 ON t3.execution_id = t4.flow_id) t5
                   LEFT JOIN /* 3.查询 支用类别 */ t_generalprocess_modelsix t6 ON t5.execution_id = t6.flow_id) t7
                LEFT JOIN (/* 4.查询 当前节点名称next_activity_name，pre_task_id为上个节点id */
                           SELECT *
@@ -488,7 +487,7 @@ where beginOrgname is not null
            <isNotNull prepend="and" property="processName" >
            t17.process_name like '%'||'$processName$'||'%'
       		</isNotNull>
-      	order by case t17.currentactivityName when '结束' then '1' else '0' end
+      	order by case t17.currentactivityName when '结束' then 1 else 0 end
   </select>
   
   <!-- 查询当前登录的机构是否属于 一类支行（5478）的本级及下级机构 -->
