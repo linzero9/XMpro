@@ -62,6 +62,7 @@ function my_relase(){
 		<title>设备列表</title>
 	</head>
 	<body topmargin="0" leftmargin="0">
+	<h:form name="query_form"	action="/deviceManagement/deviceManagementAction_deviceList.action" method="post">
 	<div class="EOS_table"  >
 				     
 			 <b:message key="l_display_per_page"></b:message> 
@@ -76,12 +77,7 @@ function my_relase(){
 	
 	</div>
 	<DIV class="divList"  id="query_div" style="overflow:auto;width:100%; height:168px;    cursor :default;"  onmouseover="out=0"; onmousedown="out=0" onmouseup="out=1" onmouseout="out=1">  
-	<h:form name="query_form"	action="/deviceManagement/deviceManagementAction_deviceList.action" method="post">
-		
-			
-			<input type="hidden" name="page.length" value="100">
-			<input type="hidden" name="page.begin" value="0">
-			<input type="hidden" name="page.isCount" value="true">
+	
 		<w:panel id="panel1" title="查询条件">
 		<table align="center" border="0" width="100%" class="form_table"  >
 			   <h:hidden id="isid" value=" ${isid}" />
@@ -215,8 +211,8 @@ function my_relase(){
 
 			</table>
 		</w:panel>
-	</h:form>
 	</DIV>
+	</h:form>
 	
 	<!-- 该div用于将将鼠放到div边框上，鼠标变成可拉动调节div高度 ，该div位于滚动条下方-->
 	<div id="lineborder" style="font-size:0px; width:100%; height:0px;  border-bottom:1px solid white;  cursor :n-resize;"  onmousedown="movestart()" onmousemove="moving()" onmouseup="moveend()">
