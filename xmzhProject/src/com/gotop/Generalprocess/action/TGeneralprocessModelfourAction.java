@@ -570,12 +570,12 @@ public class TGeneralprocessModelfourAction extends BaseAction {
 			
 			
 				tGeneralprocessModelfourService.saveProcessModelFour(modelFour,taskAssgineeDto);
-				processModelFour =this.tGeneralprocessModelfourService.queryProceeModelId(modelFour,taskAssgineeDto);
-				modelFour.setProcessModelId(processModelFour.getProcessModelId());
+			
 				
 			
 		}
-			
+			processModelFour =this.tGeneralprocessModelfourService.queryProceeModelId(modelFour,taskAssgineeDto);
+			modelFour.setProcessModelId(processModelFour.getProcessModelId());
 			this.tGeneralprocessModelfourService.saveMistakeInfo(muo, modelFour, map, taskAssgineeDto);
 		} catch (Exception e) {
 			info = "fails";
