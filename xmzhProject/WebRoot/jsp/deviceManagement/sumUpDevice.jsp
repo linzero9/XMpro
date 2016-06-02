@@ -60,6 +60,10 @@ function my_relase(){
 	</div>
 	<DIV class="divList"   id="query_div"  style="overflow:auto;width:100%; height:250;">  
 	<h:form name="query_form"	action="/deviceManagement/deviceManagementAction_sumUpDevice.action" method="post">
+		
+					<input type="hidden" name="page.length" value="100">
+			<input type="hidden" name="page.begin" value="0">
+			<input type="hidden" name="page.isCount" value="true">
 		<w:panel id="panel1" title="设备列表">
 		<table align="center" border="0" width="100%" class="form_table"  >
 				<tr>

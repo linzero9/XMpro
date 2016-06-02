@@ -77,6 +77,11 @@ function my_relase(){
 	</div>
 	<DIV class="divList"  id="query_div" style="overflow:auto;width:100%; height:168px;    cursor :default;"  onmouseover="out=0"; onmousedown="out=0" onmouseup="out=1" onmouseout="out=1">  
 	<h:form name="query_form"	action="/deviceManagement/deviceManagementAction_deviceList.action" method="post">
+		
+			
+			<input type="hidden" name="page.length" value="100">
+			<input type="hidden" name="page.begin" value="0">
+			<input type="hidden" name="page.isCount" value="true">
 		<w:panel id="panel1" title="查询条件">
 		<table align="center" border="0" width="100%" class="form_table"  >
 			   <h:hidden id="isid" value=" ${isid}" />
@@ -772,6 +777,7 @@ function my_relase(){
 
 			//提交
 			function mysubmit() {
+				
  				var frm = $name("query_form");
 				frm.submit();            //?page.currentPage="+currentPages
 /* 				var pcnt = $("#pcnt").val();
