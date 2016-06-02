@@ -488,7 +488,7 @@ where beginOrgname is not null
            <isNotNull prepend="and" property="processName" >
            t17.process_name like '%'||'$processName$'||'%'
       		</isNotNull>
-      	order by t17.beginOrgname, t17.beginEmpname, t17.cust_name
+      	order by case t17.currentactivityName when '结束' then '1' else '0' end
   </select>
   
   <!-- 查询当前登录的机构是否属于 一类支行（5478）的本级及下级机构 -->
