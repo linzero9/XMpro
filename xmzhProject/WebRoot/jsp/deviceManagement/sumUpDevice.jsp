@@ -47,10 +47,10 @@ function my_relase(){
 		<title>设备列表</title>
 	</head>
 	<body topmargin="0" leftmargin="0">
+<h:form name="query_form"	action="/deviceManagement/deviceManagementAction_sumUpDevice.action" method="post">
 	<div class="EOS_table"  >
-
 			 <b:message key="l_display_per_page"></b:message>
-			<h:text size="2" property="page.length" value="10" validateAttr="minValue=1;maxValue=100;type=integer;isNull=true" />
+			<h:text size="2" property="page.length" value="10" validateAttr="minValue=1;maxValue=1000;type=integer;isNull=true" />
 			<input type="hidden" name="page.begin" value="0">
 			 <input type="hidden" name="page.isCount" value="true">
 			<input id="querys" type="button" value="查 询" class="button" onclick="mysubmit();">
@@ -58,12 +58,8 @@ function my_relase(){
 			<input id=" exportExcel" type="button" class="button" value="导出列表" onclick="export_Excel();">
 	
 	</div>
-	<DIV class="divList"   id="query_div"  style="overflow:auto;width:100%; height:250;">  
-	<h:form name="query_form"	action="/deviceManagement/deviceManagementAction_sumUpDevice.action" method="post">
+	<DIV class="divList"   id="query_div"  style="overflow:auto;width:100%; height:230;">  
 		
-					<input type="hidden" name="page.length" value="100">
-			<input type="hidden" name="page.begin" value="0">
-			<input type="hidden" name="page.isCount" value="true">
 		<w:panel id="panel1" title="设备列表">
 		<table align="center" border="0" width="100%" class="form_table"  >
 				<tr>
@@ -195,8 +191,8 @@ function my_relase(){
 				</tr>		
 			</table>
 		</w:panel>
-	</h:form>
 	</DIV>
+</h:form>
 	
 	<!-- 该div用于将将鼠放到div边框上，鼠标变成可拉动调节div高度 ，该div位于滚动条下方-->
 	<div id="lineborder" style="font-size:0px; width:100%; height:0px;  border-bottom:1px solid white;  cursor :n-resize;"  onmousedown="movestart()" onmousemove="moving()" onmouseup="moveend()">

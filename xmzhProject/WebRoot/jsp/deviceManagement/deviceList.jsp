@@ -62,11 +62,11 @@ function my_relase(){
 		<title>设备列表</title>
 	</head>
 	<body topmargin="0" leftmargin="0">
-	<h:form name="query_form"	action="/deviceManagement/deviceManagementAction_deviceList.action" method="post">
+<h:form name="query_form"	action="/deviceManagement/deviceManagementAction_deviceList.action" method="post">
 	<div class="EOS_table"  >
 				     
 			 <b:message key="l_display_per_page"></b:message> 
-			 <h:text id="pcnt" size="3" property="page.length"  value="100" validateAttr="minValue=1;maxValue=100;type=integer;isNull=true" />					        
+			 <h:text id="pcnt" size="3" property="page.length"  value="100" validateAttr="minValue=1;maxValue=1000;type=integer;isNull=true" />					        
 			<input type="hidden" name="page.begin" value="0">
 			<input type="hidden" name="page.isCount" value="true">
 			<input id="querys" type="button" value="查 询" class="button" onclick="mysubmit();">
