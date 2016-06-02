@@ -18,7 +18,7 @@
 		  <th height="34" width="100" align="center" class="form_label">${sheBeiShuX.DEVICE_NAME}</th>
 		  <th height="34" width="100" align="center" class="form_label">IP地址</th>
 		  <th height="34" width="100" align="center" class="form_label">${sheBeiShuX.DEVICE_OTHERATTRIBUTE_1}</th>
-		  <th height="34" width="100" align="center" class="form_label">任务标记</th>
+		  <th height="34" width="100" align="center" class="form_label">${sheBeiShuX.DEVICE_REMARKS_1}</th>
 		  <th height="34" width="100" align="center" class="form_label">${sheBeiShuX.DEVICE_MODEL}</th>
 		  <th height="34" width="100" align="center" class="form_label">生产机器名称</th>
 		  <th height="34" width="100" align="center" class="form_label">CPU型号</th>
@@ -41,10 +41,10 @@
 		  <th height="34" width="100" align="center" class="form_label">${sheBeiShuX.DEVICE_OTHERINFO_3}</th>
 		  <th height="34" width="100" align="center" class="form_label">${sheBeiShuX.DEVICE_OTHERINFO_4}</th>
 		  <th height="34" width="100" align="center" class="form_label">${sheBeiShuX.DEVICE_OTHERINFO_5}</th>
-		  <th height="34" width="100" align="center" class="form_label">备注2</th>
-		  <th height="34" width="100" align="center" class="form_label">备注3</th>
-		  <th height="34" width="100" align="center" class="form_label">备注4</th>
-		  <th height="34" width="100" align="center" class="form_label">备注5</th>
+		  <th height="34" width="100" align="center" class="form_label">${sheBeiShuX.DEVICE_REMARKS_2}</th>
+		  <th height="34" width="100" align="center" class="form_label">${sheBeiShuX.DEVICE_REMARKS_3}</th>
+		  <th height="34" width="100" align="center" class="form_label">${sheBeiShuX.DEVICE_REMARKS_4}</th>
+		  <th height="34" width="100" align="center" class="form_label">${sheBeiShuX.DEVICE_REMARKS_5}</th>
 		  <th height="34" width="100" align="center" class="form_label">${sheBeiShuX.DEVICE_STATE}</th>
 		</tr>
 			<l:iterate property="devices" id="id1">

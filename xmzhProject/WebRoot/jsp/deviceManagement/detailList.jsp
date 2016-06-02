@@ -60,10 +60,10 @@
 								机构/部门
 							</th>
 							<th nowrap="nowrap">
-								设备名称
+								${sheBeiShuX.DEVICE_NAME}
 							</th>
 							<th nowrap="nowrap">
-								型号
+								${sheBeiShuX.DEVICE_MODEL}
 							</th>
 							<th nowrap="nowrap">
 								IP地址
@@ -81,16 +81,16 @@
 								硬盘容量(T)
 							</th>
 							<th nowrap="nowrap">
-								操作系统版本
+								${sheBeiShuX.DEVICE_OS_VERSION}
 							</th>
 							<th nowrap="nowrap">
 								内置软件版本
 							</th>
 							<th nowrap="nowrap">
-								IE版本
+								${sheBeiShuX.DEVICE_IE_VERSION}
 							</th>
 							<th nowrap="nowrap">
-								用途
+								${sheBeiShuX.DEVICE_USEFUL}
 							</th>
 							<th nowrap="nowrap">
 								终端号
@@ -99,58 +99,58 @@
 								使用人
 							</th>
 							<th nowrap="nowrap">
-								安装的插件
+								${sheBeiShuX.DEVICE_PLUGIN}
 							</th>
 							<th nowrap="nowrap">
-								对应的外设
+								${sheBeiShuX.DEVICE_PERIPHERAL}
 							</th>
 							<th nowrap="nowrap">
-								是否在用
+								${sheBeiShuX.DEVICE_OTHERATTRIBUTE_1}
 							</th>
 							<th nowrap="nowrap">
-								其他属性2
+								${sheBeiShuX.DEVICE_OTHERATTRIBUTE_2}
 							</th>
 							<th nowrap="nowrap">
-								其他属性3
+								${sheBeiShuX.DEVICE_OTHERATTRIBUTE_3}
 							</th>
 							<th nowrap="nowrap">
-								其他属性4
+								${sheBeiShuX.DEVICE_OTHERATTRIBUTE_4}
 							</th>
 							<th nowrap="nowrap">
-								其他属性5
+								${sheBeiShuX.DEVICE_OTHERATTRIBUTE_5}
 							</th>
 							<th nowrap="nowrap">
-								其他信息1
+								${sheBeiShuX.DEVICE_OTHERINFO_1}
 							</th>
 							<th nowrap="nowrap">
-								其他信息2
+								${sheBeiShuX.DEVICE_OTHERINFO_2}
 							</th>
 							<th nowrap="nowrap">
-								其他信息3
+								${sheBeiShuX.DEVICE_OTHERINFO_3}
 							</th>
 							<th nowrap="nowrap">
-								其他信息4
+								${sheBeiShuX.DEVICE_OTHERINFO_4}
 							</th>
 							<th nowrap="nowrap">
-								其他信息5
+								${sheBeiShuX.DEVICE_OTHERINFO_5}
 							</th>
 							<th nowrap="nowrap">
-								任务标记
+								${sheBeiShuX.DEVICE_REMARKS_1}
 							</th>
 							<th nowrap="nowrap">
-								备注2
+								${sheBeiShuX.DEVICE_REMARKS_2}
 							</th>
 							<th nowrap="nowrap">
-								备注3
+								${sheBeiShuX.DEVICE_REMARKS_3}
 							</th>
 							<th nowrap="nowrap">
-								备注4
+								${sheBeiShuX.DEVICE_REMARKS_4}
 							</th>
 							<th nowrap="nowrap">
-								备注5
+								${sheBeiShuX.DEVICE_REMARKS_5}
 							</th>
 							<th nowrap="nowrap">
-								设备状态
+								${sheBeiShuX.DEVICE_STATE}
 							</th>
 						</tr>
                             <l:iterate property="details" id="id1">

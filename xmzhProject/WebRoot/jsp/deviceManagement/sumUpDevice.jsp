@@ -93,12 +93,12 @@ function my_relase(){
 					<td colspan="1"  width="20%" nowrap="nowrap">
 						<d:select  id="deviceName"  dictTypeId="DEVICE_NAME" property="device.deviceName" nullLabel="请选择" onchange="devicename(this.value)"></d:select>
 					</td>
-					<td class="form_label" align="right" width="10%" nowrap="nowrap">任务标记：</td>
+					<td class="form_label" align="right" width="10%" nowrap="nowrap">${sheBeiShuX.DEVICE_REMARKS_1}：</td>
 					
 					<td colspan="1" width="30%" nowrap="nowrap"><h:text id="remarks_1"
 						property="device.remarks_1" size="15" validateAttr="maxLength=127;" /></td>
 			
-					<td class="form_label" align="right" width="10%" nowrap="nowrap">备注2：</td>
+					<td class="form_label" align="right" width="10%" nowrap="nowrap">${sheBeiShuX.DEVICE_REMARKS_2}：</td>
 					
 					<td colspan="1" width="30%" nowrap="nowrap"><h:text id="remarks_2"
 						property="device.remarks_2" size="15" validateAttr="maxLength=127;" /></td>

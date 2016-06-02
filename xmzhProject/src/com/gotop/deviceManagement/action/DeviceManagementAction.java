@@ -298,6 +298,8 @@ public class DeviceManagementAction  extends BaseAction    {
     }
 	
 	public String detailList(){
+		//设备属性名称 在页面上的显示
+		sheBeiShuXName();
 		if(detail == null){
 			detail = new DeviceDetail();
     	}
@@ -339,7 +341,7 @@ public class DeviceManagementAction  extends BaseAction    {
 	
 	//设备明细列表 导出Excel
 	public String exportExcel2(){
-		
+		sheBeiShuXName();
    if(detail == null){
     		detail = new DeviceDetail();
     	}
@@ -352,6 +354,7 @@ public class DeviceManagementAction  extends BaseAction    {
     	if(device != null){
     		device = deviceManagermentService.getDeviceByDeviceId(device);
     	}
+    	sheBeiShuXName();
     	this.setDevice(device);
     	return "device";
     }
@@ -1688,6 +1691,17 @@ private HashMap checkData_maxLength(String str, String colName, int i, String ms
 		//设备用途
 		String DEVICE_USEFUL=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_USEFUL");
 		
+		//任务标记 备注1
+		String DEVICE_REMARKS_1=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_REMARKS_1");
+		//备注2
+		String DEVICE_REMARKS_2=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_REMARKS_2");
+		//备注3
+		String DEVICE_REMARKS_3=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_REMARKS_3");
+		//备注4
+		String DEVICE_REMARKS_4=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_REMARKS_4");
+		//备注5
+		String DEVICE_REMARKS_5=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_REMARKS_5");
+		
 		String[] headers = {"机构号(请参照机构号对照表)", "*"+DEVICE_NAME+"(单选)", "*"+DEVICE_MODEL+"(单选)", 
 				"IP地址", "生产机器名称", "CPU型号", "内存容量(G)", "硬盘容量(G)", "*"+DEVICE_OS_VERSION+"(单选)", 
 				"内置软件版本", "*"+DEVICE_IE_VERSION+"(单选)", "*"+DEVICE_USEFUL+"(多选)", "终端号", "使用人", "*"+DEVICE_PLUGIN+"(多选)", "*"+DEVICE_PERIPHERAL+"(多选)", 
@@ -1695,7 +1709,7 @@ private HashMap checkData_maxLength(String str, String colName, int i, String ms
 				"*"+DEVICE_OTHERATTRIBUTE_4+"(单选)", "*"+DEVICE_OTHERATTRIBUTE_5+"(单选)", 
 				"*"+DEVICE_OTHERINFO_1+"(多选)", "*"+DEVICE_OTHERINFO_2+"(多选)", "*"+DEVICE_OTHERINFO_3+"(多选)", "*"+DEVICE_OTHERINFO_4+"(多选)", 
 				"*"+DEVICE_OTHERINFO_5+"(多选)", 
-				"备注1", "备注2", "备注3", "备注4", "备注5", "*"+DEVICE_STATE+"(单选)"};
+				DEVICE_REMARKS_1,DEVICE_REMARKS_2, DEVICE_REMARKS_3, DEVICE_REMARKS_4, DEVICE_REMARKS_5, "*"+DEVICE_STATE+"(单选)"};
 		
 		
 		
@@ -2007,6 +2021,22 @@ private HashMap checkData_maxLength(String str, String colName, int i, String ms
 			//设备用途
 			String DEVICE_USEFUL=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_USEFUL");
 			sheBeiShuX.put("DEVICE_USEFUL",DEVICE_USEFUL);
+			//任务标记
+			String DEVICE_REMARKS_1=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_REMARKS_1");
+			sheBeiShuX.put("DEVICE_REMARKS_1",DEVICE_REMARKS_1);
+			//备注2
+			String DEVICE_REMARKS_2=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_REMARKS_2");
+			sheBeiShuX.put("DEVICE_REMARKS_2",DEVICE_REMARKS_2);
+			//备注3
+			String DEVICE_REMARKS_3=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_REMARKS_3");
+			sheBeiShuX.put("DEVICE_REMARKS_3",DEVICE_REMARKS_3);
+			//备注4
+			String DEVICE_REMARKS_4=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_REMARKS_4");
+			sheBeiShuX.put("DEVICE_REMARKS_4",DEVICE_REMARKS_4);
+			//备注5
+			String DEVICE_REMARKS_5=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_REMARKS_5");
+			sheBeiShuX.put("DEVICE_REMARKS_5",DEVICE_REMARKS_5);
+			
 		return sheBeiShuX;				   
 	   }
 	   
@@ -2047,6 +2077,16 @@ private HashMap checkData_maxLength(String str, String colName, int i, String ms
 			String DEVICE_STATE=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_STATE");
 			//设备用途
 			String DEVICE_USEFUL=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_USEFUL");
+			//任务标记 备注1
+			String DEVICE_REMARKS_1=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_REMARKS_1");
+			//备注2
+			String DEVICE_REMARKS_2=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_REMARKS_2");
+			//备注3
+			String DEVICE_REMARKS_3=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_REMARKS_3");
+			//备注4
+			String DEVICE_REMARKS_4=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_REMARKS_4");
+			//备注5
+			String DEVICE_REMARKS_5=deviceManagermentService.getEosDictTypeBydictTypeId("DEVICE_REMARKS_5");
 			
 			String[] headers = {"设备ID", "机构号(请参照机构号对照表)", "*"+DEVICE_NAME+"(单选)", "*"+DEVICE_MODEL+"(单选)", 
 					"IP地址", "生产机器名称", "CPU型号", "内存容量(G)", "硬盘容量(G)", "*"+DEVICE_OS_VERSION+"(单选)", 
@@ -2055,7 +2095,7 @@ private HashMap checkData_maxLength(String str, String colName, int i, String ms
 					"*"+DEVICE_OTHERATTRIBUTE_4+"(单选)", "*"+DEVICE_OTHERATTRIBUTE_5+"(单选)", 
 					"*"+DEVICE_OTHERINFO_1+"(多选)", "*"+DEVICE_OTHERINFO_2+"(多选)", "*"+DEVICE_OTHERINFO_3+"(多选)", "*"+DEVICE_OTHERINFO_4+"(多选)", 
 					"*"+DEVICE_OTHERINFO_5+"(多选)", 
-					"备注1", "备注2", "备注3", "备注4", "备注5", "*"+DEVICE_STATE+"(单选)"};
+					DEVICE_REMARKS_1, DEVICE_REMARKS_2,DEVICE_REMARKS_3, DEVICE_REMARKS_4, DEVICE_REMARKS_5, "*"+DEVICE_STATE+"(单选)"};
 		   
 		return headers;   
 	   }
