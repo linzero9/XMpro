@@ -238,10 +238,19 @@
 				        }
 			    }); 
 			 }
+
+		  	  	
+			 /*
+			  * 
+			  已经保存了差错 进入到这个节点  显示的差错  属于回显
+			  */
+
+
 			 
+			     rowId=0;
 			 if('${modelFour.processModelId}'!=""){
 				 var tab,row,td,tdStr,rowId,fId,jeId,timemask
-			 rowId=0;
+			
 		         var tab = $id("ccTable");
 				 var tab1 = $id("tabtest");
 				 var fName = "files";
@@ -265,7 +274,7 @@
 									// atId= hiAddTime+rowId;
 					         		 if('${isView}'!=''){
 					         			row =  tab.insertRow();
-										row.id = "fileRow"+rowId;
+										row.id = "fileRow6"+rowId;
 										td = row.insertCell();
 					         			tdStr= "<textarea   style=\"display:none\"   style=\"width:60%\"  size='70' validateAttr=\"allowNull=false\" readonly=\"true\" >"+item.addTime+"</textarea>";
 										
@@ -277,7 +286,7 @@
 										 rowId = rowId+1; 
 					         		 }else{
 										row =  tab1.insertRow();
-										row.id = "fileRow"+rowId;
+										row.id = "fileRow6"+rowId;
 										td = row.insertCell();
 					         			tdStr="<textarea   style=\"display:none\"  style=\"width:60%\"  size='70'                name=\""+timeName+"\"   id=\""+timemask+"\"   validateAttr=\"allowNull=false\" readonly=\"true\" >"+item.addTime+"</textarea>";
 
@@ -285,10 +294,10 @@
 					         		//	tdStr+=row.id;
 									 	tdStr+="扣罚金额：<input type=\"text\" name=\""+jeName+"\" id=\""+jeId+"\" value=\""+item.punishBal+"\" size='10' validateAttr=\"allowNull=false\">元<br/>";
 					         			tdStr+="整改情况：<textarea  style=\"width:60%\"  size='70'  name=\"rectification\" id=\"rectification\"  >"+item.rectification+"</textarea>";
-									 	tdStr+= "<input type=\"button\" onclick=\"delTr('fileRow"+rowId+"');\" name='button"+rowId+"' value=\"删除\" style=\"margin-left:2px;vertical-align:middle;cursor:hand;\"/>";
-									 	tdStr+= "<input type=\"button\" id='save"+rowId+"' onclick=\"saveMistake('fileRow"+rowId+"');\"  name='button"+rowId+"' value=\"保存\" style=\"margin-left:2px;vertical-align:middle;cursor:hand;\"/>";
+									 	tdStr+= "<input type=\"button\" onclick=\"delTr('fileRow6"+rowId+"');\" name='button"+rowId+"' value=\"删除\" style=\"margin-left:2px;vertical-align:middle;cursor:hand;\"/>";
+									 	tdStr+= "<input type=\"button\" id='save"+rowId+"' onclick=\"saveMistake('fileRow6"+rowId+"');\"  name='button"+rowId+"' value=\"保存\" style=\"margin-left:2px;vertical-align:middle;cursor:hand;\"/>";
 									 	td.innerHTML = tdStr;
-										rowId = rowId+1; 
+										rowId =  rowId+1; 
 					         		 }
 					        	});
 					          	
@@ -375,31 +384,48 @@
 		  			}; 
 		  	  	$("#form1").ajaxSubmit(options);
 		  	  	}
-		 var rowId = 0;  	
+
+
+
+		  	  	
+/*
+ * 
+ 点击新增差错的时候  新增的 差错信息
+ */
+
+		  	  	
+		  var rowId = 0;  
 		 function addMisTake(tabid,varName,varJeName,vartimeName){
+		
 			 var tab,row,td,fName,jeName,fId,jeId,tdStr,timeName;
 			 var zs=$("#tabtest tbody tr").length;
 			 tab = $id(tabid); 
 			 fName = varName;
 			 jeName = varJeName;
 			 timeName=vartimeName;
+
+			 /*
 			   var ididi= $("#tabtest  tr:last").attr("id");
 	             if(ididi!=undefined){
 	             var ids= ididi.split("fileRow");
 	             rowId= ids[1];
-	             rowId=parseInt(rowId)+1;
+	             rowId=rowId+1;
 	             }
+*/
+	             alert(rowId)
 			 fId = varName+rowId;
 			 jeId= varName+"je"+rowId; 
 			 timemask=vartimeName+rowId; 
 			 row =  tab.insertRow();
-			 row.id = "fileRow"+rowId;
+			 row.id = "fileRow5"+rowId;
 			 td = row.insertCell(); 
+
+			 
   			tdStr="<textarea    style=\"display:none\"  style=\"width:60%\"  size='70'                name=\""+timeName+"\" id=\""+timemask+"\"   validateAttr=\"allowNull=false\" readonly=\"true\" ></textarea>"; 
 			 	tdStr="差错内容：<textarea   rows=\"3\" style=\"width:60%\"  name=\""+fName+"\" id=\""+fId+"\" size='70' validateAttr=\"allowNull=false\" onkeyup=\"this.value=this.value.replace(/[\|]/g,'')\"></textarea>";
 			 	tdStr+="扣罚金额：<input type=\"text\" name=\""+jeName+"\" id=\""+jeId+"\" size='10' validateAttr=\"allowNull=false\">元";
-			    tdStr+= "<input type=\"button\" onclick=\"delTr('fileRow"+rowId+"');\" name='button"+rowId+"' value=\"删除\" style=\"margin-left:2px;vertical-align:middle;cursor:hand;\"/>";
-			    tdStr+= "<input type=\"button\" id=\"save"+rowId+"\" onclick=\"saveMistake('fileRow"+rowId+"');\" name='button"+rowId+"' value=\"保存\" style=\"margin-left:2px;vertical-align:middle;cursor:hand;\"/>";
+			    tdStr+= "<input type=\"button\" onclick=\"delTr('fileRow5"+rowId+"');\" name='button"+rowId+"' value=\"删除\" style=\"margin-left:2px;vertical-align:middle;cursor:hand;\"/>";
+			    tdStr+= "<input type=\"button\" id=\"save"+rowId+"\" onclick=\"saveMistake('fileRow5"+rowId+"');\" name='button"+rowId+"' value=\"保存\" style=\"margin-left:2px;vertical-align:middle;cursor:hand;\"/>";
 				    td.innerHTML = tdStr;
 			    rowId = rowId+1;    
 		 }
@@ -421,7 +447,7 @@
 			    tdStr="<input type=\"file\" name=\""+fName+"\" id=\""+fId+"\" onchange=\"CheckUpLoadFile(this,2);\" size='70' class=smallInput validateAttr=\"allowNull=false\">";
 			    tdStr += "<input type=\"button\" onclick=\"delTr('fileRow2"+rowId2+"');\" name='button"+rowId2+"' value=\"删除\" style=\"margin-left:2px;vertical-align:middle;cursor:hand;\"/>";
 			    td.innerHTML = tdStr;
-			    rowId2 = rowId2+1;    
+			    rowId2 =rowId2+1;    
 			}
 
 		 function delTr(id){
@@ -451,7 +477,7 @@
 							    	  if (data.indexOf("success") >= 0) {
 							    		 alert("保存成功");
 							    		 var length=id.length;
-										 var s=id.substring(7,length);
+										 var s=id.substring(8,length);
 											 $("#save"+s).attr("disabled","disabled");
 									} else if (data.indexOf("fails") >= 0) {
 										alert("保存失败!");
