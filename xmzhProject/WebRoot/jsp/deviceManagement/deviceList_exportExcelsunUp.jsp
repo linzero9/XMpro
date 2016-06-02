@@ -72,6 +72,57 @@
 		<d:write property="device.peripheral" dictTypeId="DEVICE_PERIPHERAL" seperator=", "/>
 		</td>
 	</tr>
+	
+	<tr>
+	   <td colspan="2">&nbsp;${sheBeiShuX.DEVICE_OTHERINFO_1}：
+		<d:write property="device.otherInfo_1" dictTypeId="DEVICE_OTHERINFO_1" seperator=", "/>
+		</td>
+		<td colspan="2">&nbsp;${sheBeiShuX.DEVICE_OTHERINFO_2}：
+		<d:write property="device.otherInfo_2" dictTypeId="DEVICE_OTHERINFO_2" seperator=", "/>
+		</td>		
+	</tr>
+		<tr>
+	   <td colspan="2">&nbsp;${sheBeiShuX.DEVICE_OTHERINFO_3}：
+		<d:write property="device.otherInfo_3" dictTypeId="DEVICE_OTHERINFO_3" seperator=", "/>
+		</td>
+		<td colspan="2">&nbsp;${sheBeiShuX.DEVICE_OTHERINFO_4}：
+		<d:write property="device.otherInfo_4" dictTypeId="DEVICE_OTHERINFO_4" seperator=", "/>
+		</td>		
+	</tr>
+		<tr>
+	   <td colspan="2">&nbsp;${sheBeiShuX.DEVICE_OTHERINFO_5}：
+		<d:write property="device.otherInfo_5" dictTypeId="DEVICE_OTHERINFO_5" seperator=", "/>
+		</td>
+	
+	</tr>
+	
+	<tr>
+		<td colspan="2">&nbsp;${sheBeiShuX.DEVICE_REMARKS_1}：
+		<d:write property="device.remarks_1" dictTypeId="DEVICE_REMARKS_1" seperator=", "/>
+		</td>
+		<td colspan="2">&nbsp;${sheBeiShuX.DEVICE_REMARKS_2}：
+		<d:write property="device.remarks_2" dictTypeId="DEVICE_REMARKS_2" seperator=", "/>
+		</td>
+	</tr>
+	<tr>
+			<td colspan="2">&nbsp;${sheBeiShuX.DEVICE_REMARKS_3}：
+		<d:write property="device.remarks_3" dictTypeId="DEVICE_REMARKS_3" seperator=", "/>
+		</td>
+		<td colspan="2">&nbsp;${sheBeiShuX.DEVICE_REMARKS_4}：
+		<d:write property="device.remarks_4" dictTypeId="DEVICE_REMARKS_4" seperator=", "/>
+		</td>
+	</tr>
+		<tr>
+			<td colspan="2">&nbsp;${sheBeiShuX.DEVICE_REMARKS_5}：
+		<d:write property="device.remarks_5" dictTypeId="DEVICE_REMARKS_5" seperator=", "/>
+		</td>
+	</tr>
+	
+
+
+
+	
+	
 </table>
 <table width="98%" border="1" cellspacing="1" cellpadding="1">
 		<tr height="34">
