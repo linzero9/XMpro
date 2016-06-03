@@ -271,19 +271,23 @@ SELECT T1.EXECUTION_ID,
 
 from 
 (
-				SELECT
-					EXECUTION_ID
-				FROM
-					T_PROCESS_CONFIG T,
-					t_process_business t1,
-					JBPM4_HIST_PROCINST t2
-
-				WHERE
-					T .definition_id = t2.procdefid_
-				AND t2.id_ = t1.execution_id
- 
-				AND t1.business_type = '88'
-				AND T .state = '01'
+select c.*, d.cust_name
+  from (select a.*, b.begin_orgid, b.begin_empid
+          from (select t1.execution_id
+                  from T_PROCESS_CONFIG    t,
+                       t_process_business  t1,
+                       JBPM4_HIST_PROCINST t2
+                 where t.definition_id = t2.procdefid_
+                   and t2.id_ = t1.execution_id
+                   and t1.business_type = '88'
+                   and t.state = '01') a
+          left join T_GENERALPROCESS_MAIN b
+            on a.execution_id = b.business_id) c
+  left join t_generalprocess_modelone d
+    on c.execution_id = d.flow_id
+ where c.begin_orgid is not null
+   and c.begin_empid is not null
+   and d.cust_name is not null
    
 )t1 
 LEFT JOIN JBPM4_HIST_PROCINST t2 on T2.ID_=T1.EXECUTION_ID
