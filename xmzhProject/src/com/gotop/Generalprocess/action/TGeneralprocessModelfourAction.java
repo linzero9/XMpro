@@ -62,6 +62,18 @@ public class TGeneralprocessModelfourAction extends BaseAction {
 	 */
 	private String hiFiles;
 	
+	
+	private  String  historyFourIDforMis;
+	
+	
+	public String getHistoryFourIDforMis() {
+		return historyFourIDforMis;
+	}
+
+	public void setHistoryFourIDforMis(String historyFourIDforMis) {
+		this.historyFourIDforMis = historyFourIDforMis;
+	}
+
 	/**
 	 * 历史扣款金额
 	 */
@@ -523,6 +535,12 @@ public class TGeneralprocessModelfourAction extends BaseAction {
 			map.put("jees", jees);
 			map.put("timees", timees);
 			map.put("rectifications", rectification);
+			
+			//建议把这个改成 []数组  目前只针对了 只有  2个 模式4 的 历史差错处理  如果出现多个  则会出现问题了
+			map.put("historyFourIDforMis", historyFourIDforMis);
+
+			
+			
 			
 			
 			if((modelFour.getProcessModelId()==null)||("".equals(modelFour.getProcessModelId()))){

@@ -203,17 +203,37 @@ public class TGeneralprocessModelfourService implements ITGeneralprocessModelfou
 			hiRectificationAr = hirectification.split(",");
 		}
 		
-
 		
-		if(hiProFourAr !=null){
-		if(hiProFourAr.length !=0 && hiProFourAr != null){
-			for (int i = 0; i < hiProFourAr.length; i++) {
+		
+		String historyFourIDforMis =null;
+		  String [] historyFourIDforMisAr=null;
+		//历史差错的删除
+		if(!"".equals(map.get("historyFourIDforMis"))){
+		
+
+		   historyFourIDforMis    =(String) map.get("historyFourIDforMis");
+		  historyFourIDforMis=   historyFourIDforMis.replace(" ", "");
+		historyFourIDforMisAr=historyFourIDforMis.split(",");
+		}
+		
+		
+		
+		
+		
+		if(historyFourIDforMisAr !=null){
+		if(historyFourIDforMisAr.length !=0 && historyFourIDforMisAr != null){
+			for (int i = 0; i < historyFourIDforMisAr.length; i++) {
 				ProcessModelFour mf = new ProcessModelFour();
-				mf.setProcessModelId(Long.valueOf(hiProFourAr[i]));
+				mf.setProcessModelId(Long.valueOf(historyFourIDforMisAr[i]));
 				this.tGeneralprocessModelfourDAO.deleteModelFourMistake(mf);
 			}
 		}
 		}
+		
+		
+		
+		
+		
 		
 		if(hiAddTimeAr !=null && hiProFourAr != null && hiTaskNameAr != null && hiEmpIdAr != null && hiFlowIdAr != null && hiJeesAr != null && hiFilesAr != null){
 				for (int i = 0; i < hiAddTimeAr.length; i++) {

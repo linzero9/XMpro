@@ -29,6 +29,8 @@
         <h:hidden id="definitionId" name="taskAssgineeDto.definitionId" property="taskAssgineeDto.definitionId"/>
         
         <h:hidden id="processModelId" name="modelFour.processModelId" property="modelFour.processModelId"/>
+         <h:hidden id="historyFourIDforMis" name="historyFourIDforMis" />
+        
 		<h:hidden id="taskName" name="modelFour.taskName" property="modelFour.taskName"/>
 		
 		<h:hidden id="beginAssingee" name="taskAssgineeDto.beginAssingee" property="taskAssgineeDto.beginAssingee"/>
@@ -178,10 +180,11 @@
 			 }else{
 				 $("#row1").css("display","none");  
 			 }
-			 
+
+
+			 rowId=0;
 			 if('${taskAssgineeDto.executionId}'!=""){
 				 var tab,row,td,tdStr,rowId,fId,jeId,atId,pfId,tnId,epId,flId
-				 rowId=0;
 		         var tab = $id("hiTable");
 				 var hiAddTime = "hiAddTime";
 				 var hiProFour = "hiProFour";
@@ -201,6 +204,7 @@
 				        success: function (files) {
 					        if(files!="" && files !=null){
 					        	$.each(files,function( i,item ){
+
 									 fId = hiFiles+rowId;
 									 jeId= hiJees+"je"+rowId;
 									 atId= hiAddTime+rowId;
@@ -212,8 +216,29 @@
 					         		 if('${isView}'!=''){
 					         			
 					         		 }else{
+
+						         		 //如果有多个模式4的 历史差错的话 要存多个id 然后进行删除
+						                   if((item.processModelIdFour)!=""&&(item.processModelIdFour)!=null){
+
+							                   
+	                                           var historyFourIDforMis;
+	                                           historyFourIDforMis= $("#historyFourIDforMis").val();
+
+	                                           if(historyFourIDforMis==""){
+		                                           historyFourIDforMis=item.processModelIdFour;
+		                                           
+		                                           }else{
+	                                           historyFourIDforMis=historyFourIDforMis+","+item.processModelIdFour;
+		                                           }
+
+	                                           $("#historyFourIDforMis").val(historyFourIDforMis);
+							                   }
+                                           
+							         		 
+
+						         		 
 										row =  tab.insertRow();
-										row.id = "fileRow"+rowId;
+										row.id = "fileRow9"+rowId;
 										td = row.insertCell();
 										tdStr="节点名称："+item.taskName+"&nbsp&nbsp&nbsp&nbsp&nbsp<br/>";
 										tdStr+="<input type=\"hidden\" name=\""+hiAddTime+"\" id=\""+atId+"\" value=\""+item.addTime+"\" >";
@@ -227,6 +252,10 @@
 									 	//历史整改情况
 					         			tdStr+="整改情况：<textarea      rows=\"3\" readonly=\"true\"   style=\"width:60%\"  name=\""+hirectification+"\" id=\""+reId+"\" value=\""+item.rectification+"\" size='70'  onkeyup=\"this.value=this.value.replace(/[\|]/g,'')\">"+item.rectification+"</textarea>";
 									 //	tdStr+= "<input type=\"button\" onclick=\"remove('hirectification"+rowId+"');\" name='button"+rowId+"' value=\"清空\" style=\"margin-left:2px;vertical-align:middle;cursor:hand;\"/>";
+									 	
+					     			 	tdStr+= "<input type=\"button\" onclick=\"delTr('fileRow9"+rowId+"');\" name='button"+rowId+"' value=\"删除\" style=\"margin-left:2px;vertical-align:middle;cursor:hand;\"/>";
+									 	
+									 	
 									 	td.innerHTML = tdStr;
 										rowId = rowId+1; 
 					         		 }
@@ -237,6 +266,7 @@
 					        }    
 				        }
 			    }); 
+
 			 }
 
 		  	  	
@@ -295,7 +325,7 @@
 									 	tdStr+="扣罚金额：<input type=\"text\" name=\""+jeName+"\" id=\""+jeId+"\" value=\""+item.punishBal+"\" size='10' validateAttr=\"allowNull=false\">元<br/>";
 					         			tdStr+="整改情况：<textarea  style=\"width:60%\"  size='70'  name=\"rectification\" id=\"rectification\"  >"+item.rectification+"</textarea>";
 									 	tdStr+= "<input type=\"button\" onclick=\"delTr('fileRow6"+rowId+"');\" name='button"+rowId+"' value=\"删除\" style=\"margin-left:2px;vertical-align:middle;cursor:hand;\"/>";
-									 	tdStr+= "<input type=\"button\" id='save"+rowId+"' onclick=\"saveMistake('fileRow6"+rowId+"');\"  name='button"+rowId+"' value=\"保存\" style=\"margin-left:2px;vertical-align:middle;cursor:hand;\"/>";
+									 	tdStr+= "<input type=\"button\" id='save"+rowId+"' onclick=\"saveMistake('fileRow6"+rowId+"','save"+rowId+"');\"  name='button"+rowId+"' value=\"保存\" style=\"margin-left:2px;vertical-align:middle;cursor:hand;\"/>";
 									 	td.innerHTML = tdStr;
 										rowId =  rowId+1; 
 					         		 }
@@ -425,7 +455,7 @@
 			 	tdStr="差错内容：<textarea   rows=\"3\" style=\"width:60%\"  name=\""+fName+"\" id=\""+fId+"\" size='70' validateAttr=\"allowNull=false\" onkeyup=\"this.value=this.value.replace(/[\|]/g,'')\"></textarea>";
 			 	tdStr+="扣罚金额：<input type=\"text\" name=\""+jeName+"\" id=\""+jeId+"\" size='10' validateAttr=\"allowNull=false\">元";
 			    tdStr+= "<input type=\"button\" onclick=\"delTr('fileRow5"+rowId+"');\" name='button"+rowId+"' value=\"删除\" style=\"margin-left:2px;vertical-align:middle;cursor:hand;\"/>";
-			    tdStr+= "<input type=\"button\" id=\"save"+rowId+"\" onclick=\"saveMistake('fileRow5"+rowId+"');\" name='button"+rowId+"' value=\"保存\" style=\"margin-left:2px;vertical-align:middle;cursor:hand;\"/>";
+			    tdStr+= "<input type=\"button\" id=\"save8"+rowId+"\" onclick=\"save8Mistake('fileRow5"+rowId+"','save8"+rowId+"');\" name='button"+rowId+"' value=\"保存\" style=\"margin-left:2px;vertical-align:middle;cursor:hand;\"/>";
 				    td.innerHTML = tdStr;
 			    rowId = rowId+1;    
 		 }
@@ -453,8 +483,12 @@
 		 function delTr(id){
 			$("#"+id).remove();
 		}
-			function saveMistake(id){
-				
+
+
+
+			//历史保存差错
+			function saveMistake(id,hiddenid){
+				alert(hiddenid);
 				var money = $("#" + id + "   input").val();
 				var time = $("#" + id + "   textarea[name='timees']").val();
 				var files = $("#" + id + "   textarea[name='files']").val();
@@ -476,8 +510,10 @@
 					        	 success: function (data) {
 							    	  if (data.indexOf("success") >= 0) {
 							    		 alert("保存成功");
-							    		 var length=id.length;
-										 var s=id.substring(8,length);
+							    		 var length=hiddenid.length;
+							       
+										 var s=hiddenid.substring(4,length);
+									
 											 $("#save"+s).attr("disabled","disabled");
 									} else if (data.indexOf("fails") >= 0) {
 										alert("保存失败!");
@@ -490,6 +526,47 @@
 				    });	
 			
 			 }
+
+
+			//新增保存差错  --区别 ：就是他们的id 不一样 会出现！  保存错行的情况
+			function save8Mistake(id,hiddenid){
+				alert(hiddenid);
+				var money = $("#" + id + "   input").val();
+				var time = $("#" + id + "   textarea[name='timees']").val();
+				var files = $("#" + id + "   textarea[name='files']").val();
+				if(files==null ||files==""){
+					alert("差错内容不能为空");
+					return;
+					}else if(money==null||money==""){
+						alert("扣罚金额不能为空");
+						return;
+						}
 				
+				$.ajax({//获得当前
+					        url: '/Generalprocess/tGeneralprocessModelFourAction_saveMistakeInfo.action',
+					        async:false,
+					        type: 'post',
+					        data: "modelFour.taskName=${modelFour.taskName}"+"&modelFour.processModelId=${modelFour.processModelId}"+"&taskAssgineeDto.nextTaskId=${taskAssgineeDto.nextTaskId}"+"&taskAssgineeDto.executionId=${taskAssgineeDto.executionId}"+"&misTakeId="+id+"&jees="+money+"&time="+time+"&files="+files,
+					        dataType:"text",
+					        timeout: 60000,
+					        	 success: function (data) {
+							    	  if (data.indexOf("success") >= 0) {
+							    		 alert("保存成功");
+							    		 var length=hiddenid.length;
+							       
+										 var s=hiddenid.substring(4,length);
+										 
+											 $("#save"+s).attr("disabled","disabled");
+									} else if (data.indexOf("fails") >= 0) {
+										alert("保存失败!");
+									} else {
+										alert("操作失败!");
+									}
+											  	
+							      }
+					        
+				    });	
+			
+			 }
  </script>
 </html>
