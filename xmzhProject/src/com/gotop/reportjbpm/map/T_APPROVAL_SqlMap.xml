@@ -56,7 +56,9 @@
   
   	<!-- 查询受理审批台账 -->
 	<select id="queryApprovalList" parameterClass="java.util.HashMap" resultMap="approval">
-	
+	SELECT  *  FROM  (
+
+SELECT  uu.*,to_date(uu.REPORTTIME,'yyyy-MM-dd' )AS ordertime FROM   (
 select  max(Z.UPTIME) AS UPTIME,
       max( Z.LOOKTIME)AS LOOKTIME,
      max(  Z.REPORTTIME)AS REPORTTIME,
@@ -394,11 +396,15 @@ select (case
       <isNotNull prepend="and" property="appTimeEnd" >
        <![CDATA[LOOKTIME <= #appTimeEnd#]]>
       </isNotNull>
-      ) Z where Z.CUST_NAME is not null 
-		and  Z.begin_orgid is not null
-        and    Z.begin_empid is not null      
-       group by Z.FLOW_ID ORDER BY REPORTEDTIME 
+
+      ) Z where Z.CUST_NAME is not null  
+      and  Z.begin_orgid is not null
+        and    Z.begin_empid is not null   
+      
+      group by Z.FLOW_ID 
+       )uu) oo ORDER  BY  oo.ordertime  ASC
 	</select>
+      
      
 	 
 
