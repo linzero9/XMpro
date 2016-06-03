@@ -33,7 +33,7 @@
   	select t.mistakeid, t.mistake_content, t.punish_bal, t.rectification
   from T_GENERALPROCESS_MISTAKE t
  where 1=1
-   
+   and t.processmodelid_four is not null
       <isNotNull prepend="and" property="flowId" >
         t.flow_id = #flowId:VARCHAR#
       </isNotNull>

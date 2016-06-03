@@ -160,7 +160,9 @@ from (
        A5.CHECKTWO,
        A6.RECEIVETIME,
        A9.RETURNTIME,
-       A10.REPORTEDTIME
+       A10.REPORTEDTIME,
+       b.begin_orgid,
+       b.begin_empid
   FROM (
                 
                 select REPORTTIME,
@@ -362,7 +364,8 @@ select (case
                  order by K.EXECUTION_, k.end_ ASC) T)A
  group by A.execution_) A10
            ON A10.EXECUTION_=Z.FLOW_ID
-           
+             left join T_GENERALPROCESS_MAIN b
+             on Z.FLOW_ID=b.business_id
            left join (select min(q.start_), t.execution_, o.operatorname as dyApp1 from jbpm4_hist_actinst q, JBPM4_HIST_TASK t, ac_operator o  WHERE q.activity_name_ = '审批一' and q.htask_ = t.dbid_ and t.assignee_ =o.operatorid group by t.execution_, o.operatorname )D1
            on D1.EXECUTION_=Z.FLOW_ID
             left join (select min(q.start_), t.execution_, o.operatorname as deApp1 from jbpm4_hist_actinst q, JBPM4_HIST_TASK t, ac_operator o  WHERE q.activity_name_ = '审批二' and q.htask_ = t.dbid_ and t.assignee_ =o.operatorid group by t.execution_, o.operatorname )D2
@@ -391,7 +394,10 @@ select (case
       <isNotNull prepend="and" property="appTimeEnd" >
        <![CDATA[LOOKTIME <= #appTimeEnd#]]>
       </isNotNull>
-      ) Z where Z.CUST_NAME is not null  group by Z.FLOW_ID ORDER BY REPORTEDTIME 
+      ) Z where Z.CUST_NAME is not null 
+		and  Z.begin_orgid is not null
+        and    Z.begin_empid is not null      
+       group by Z.FLOW_ID ORDER BY REPORTEDTIME 
 	</select>
      
 	 
