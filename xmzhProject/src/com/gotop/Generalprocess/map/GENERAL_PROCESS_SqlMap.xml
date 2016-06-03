@@ -345,7 +345,17 @@ FROM
                                    WHERE t.begin_orgid = o.orgid
                                      AND t.begin_empid = e.empid) t2 ON t1.execution_id = t2.business_id) t3
                      LEFT JOIN (/* 2.查询客户名称、一级分类、贷种分类、币种、申请金额 */
-                                SELECT g1.flow_id,
+                           select os.flow_id, 
+                           			max(os.cust_name) as cust_name, 
+                           			max(os.onecategory) as onecategory, 
+                           			max(os.loancategory) as loancategory,
+                               		max(os.currency) as currency, 
+                               		max(os.apply_bal) as apply_bal, 
+                               		max(os.orgcodeOne) as orgcodeOne, 
+                               		max(os.orgcodeTwo) as orgcodeTwo,
+                               		max(os.fdxdy) as fdxdy, 
+                               		max(os.creator) as creator
+                           from  (SELECT decode(g1.flow_id, NULL, g6.flow_id, g1.flow_id) AS flow_id,
                                        decode(g1.cust_name, NULL, g6.cust_name, g1.cust_name) AS cust_name,
                                        decode(g1.onecategory, NULL, g6.onecategory, g1.onecategory) AS onecategory,
                                        decode(g1.loancategory, NULL, g6.loancategory, g1.loancategory) AS loancategory,
@@ -357,8 +367,8 @@ FROM
                                        g1.empname as creator
                                 FROM (select m.*, e.empname  from t_generalprocess_modelone m, om_employee e 
                                 			 where m.creator = e.empid
-                                )g1 left join  t_generalprocess_modelsix g6
-                                on g1.flow_id = g6.flow_id) t4 ON t3.execution_id = t4.flow_id) t5
+                                )g1 full join  t_generalprocess_modelsix g6
+                                on g1.flow_id = g6.flow_id) os group by os.flow_id) t4 ON t3.execution_id = t4.flow_id) t5
                   LEFT JOIN /* 3.查询 支用类别 */ t_generalprocess_modelsix t6 ON t5.execution_id = t6.flow_id) t7
                LEFT JOIN (/* 4.查询 当前节点名称next_activity_name，pre_task_id为上个节点id */
                           SELECT *
@@ -390,7 +400,8 @@ FROM
                        WHERE rn = 1) t10 ON t9.execution_id = t10.flow_id ) t11
          LEFT JOIN /*查找 上个节点名称 activity_name_*/ JBPM4_HIST_ACTINST t12 ON t11.pre_task_id = t12.htask_) t13
       LEFT JOIN /*查找 对应的流程模板id definition_id */ JBPM4_HIST_PROCINST t14 ON t13.execution_id = t14.id_) t15
-   LEFT JOIN /*查找 流程名称process_name */ T_PROCESS_CONFIG t16 ON t15.definition_id = t16.definition_id) t17
+   , /*查找 流程名称process_name */ T_PROCESS_CONFIG t16 
+   where t15.definition_id = t16.definition_id and t16.state='01' ) t17
 LEFT JOIN /*查找 上报时间reporttime */ t_generalprocess_modelthree t18 ON t17.execution_id = t18.flow_id
                        
 where beginOrgname is not null 
