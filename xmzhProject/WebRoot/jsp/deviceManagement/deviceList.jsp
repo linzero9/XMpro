@@ -306,7 +306,7 @@ function my_relase(){
 								${sheBeiShuX.DEVICE_OTHERATTRIBUTE_1} 
 							</th>
 							<th nowrap="nowrap">
-								任务标记  
+								${sheBeiShuX.DEVICE_REMARKS_1}
 							</th>
 							<th nowrap="nowrap">
 								${sheBeiShuX.DEVICE_MODEL}
@@ -378,16 +378,16 @@ function my_relase(){
 							</th>
 
 							<th nowrap="nowrap">
-								备注2  
+								${sheBeiShuX.DEVICE_REMARKS_2}
 							</th>
 							<th nowrap="nowrap">
-								备注3  
+								${sheBeiShuX.DEVICE_REMARKS_3}
 							</th>
 							<th nowrap="nowrap">
-								备注4  
+								${sheBeiShuX.DEVICE_REMARKS_4}
 							</th>
 							<th nowrap="nowrap">
-								备注5  
+								${sheBeiShuX.DEVICE_REMARKS_5}
 							</th>
 							<th nowrap="nowrap">
 								${sheBeiShuX.DEVICE_STATE}
