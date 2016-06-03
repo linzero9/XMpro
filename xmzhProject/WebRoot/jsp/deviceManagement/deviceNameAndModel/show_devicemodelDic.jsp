@@ -22,7 +22,7 @@
 				<tr>
 					<td align="center">
 						关键字：<h:text   id="my_filterStr"  property="my_filterStr" />
-						<input type="button"  value="过滤" onclick="filter_fun();">
+						<input type="button"  value="搜索" onclick="filter_fun();">
 					</td>
 				</tr>
 			</table>
