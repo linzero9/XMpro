@@ -298,7 +298,7 @@ LEFT JOIN T_GENERALPROCESS_MODELTHREE t5 on T1.EXECUTION_ID = t5.FLOW_ID
 ) T11
 
     <dynamic prepend="where" >
-     T11.CUST_NAME is not null
+     
    <isNotNull prepend="and" property="custName" >
            T11.CUST_NAME like '%'||'$custName$'||'%'
       		</isNotNull>
