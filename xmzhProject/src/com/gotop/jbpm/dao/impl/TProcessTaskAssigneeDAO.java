@@ -1,6 +1,7 @@
 package com.gotop.jbpm.dao.impl;
 
 import com.gotop.jbpm.dao.ITProcessTaskAssigneeDAO;
+import com.gotop.jbpm.dto.TaskAssgineeDto;
 import com.gotop.jbpm.model.TProcessBusiness;
 import com.gotop.jbpm.model.TProcessConfig;
 import com.gotop.jbpm.model.TProcessTaskAssignee;
@@ -305,5 +306,38 @@ public class TProcessTaskAssigneeDAO extends SqlMapClientDao implements ITProces
 			Map<String, Object> map) {
 		List<TProcessTaskAssignee> tProcessTaskAssignees = this.queryForList("T_PROCESS_TASK_ASSIGNEE_SqlMap.selectByTaskExeConfigId", map);
 		return tProcessTaskAssignees;
+	}
+
+	@Override
+	public List queryTaskAssginee(TaskAssgineeDto taskAssgineeDto) {
+		
+		List list =this.queryForList("T_PROCESS_TASK_ASSIGNEE_SqlMap.queryTaskAssginee", taskAssgineeDto);
+		return list;
+	}
+
+	@Override
+	public void updateTaskAssignee(TaskAssgineeDto taskAssgineeDto) {
+		
+		getSqlMapClientTemplate().update("T_PROCESS_TASK_ASSIGNEE_SqlMap.updateTaskAssignee", taskAssgineeDto);
+	}
+
+	@Override
+	public List queryJBPM4Task(TaskAssgineeDto taskAssgineeDto) {
+		
+		List list =this.queryForList("T_PROCESS_TASK_ASSIGNEE_SqlMap.queryJBPM4Task", taskAssgineeDto);
+		return list;
+	}
+
+	@Override
+	public void updateTaskAssigneePerson(TaskAssgineeDto taskAssgineeDto) {
+		
+		getSqlMapClientTemplate().update("T_PROCESS_TASK_ASSIGNEE_SqlMap.updateTaskAssigneePerson", taskAssgineeDto);
+	}
+	
+	@Override
+	public List queryDefinitionId(String executionId) {
+		
+		List list =  queryForList("T_PROCESS_BUSINESS_SqlMap.queryDefinitionId", executionId);
+		return list;
 	}
 }

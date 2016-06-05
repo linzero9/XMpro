@@ -24,6 +24,7 @@ import com.gotop.jbpm.dto.ActivityDto;
 import com.gotop.jbpm.dto.ProcessDeployDto;
 import com.gotop.jbpm.dto.TaskAssgineeDto;
 import com.gotop.jbpm.model.TProcessBusiness;
+import com.gotop.jbpm.model.TProcessTaskAssignee;
 import com.gotop.jbpm.model.TProcessTaskAssigneePerson;
 import com.gotop.jbpm.model.TProcessTaskExeConfig;
 import com.gotop.tyjg.datadictionary.model.DictEntry;
@@ -326,5 +327,16 @@ public interface JbpmService {
 			TaskAssgineeDto taskAssgineeDto);
 
 	public void deleteBusinessByFlowId(TProcessBusiness tProcessBusiness);
+
+	public List queryDefinitionId(String executionId);
+
+	public List<TProcessTaskAssignee> queryTaskAssginee(
+			TaskAssgineeDto taskAssgineeDto);
+
+	public void updateTaskAssignee(TaskAssgineeDto taskAssgineeDto);
+
+	public List queryJBPM4Task(TaskAssgineeDto taskAssgineeDto);
+
+	public void updateTaskAssigneePerson(TaskAssgineeDto taskAssgineeDto);
 
 }

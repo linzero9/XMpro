@@ -1610,4 +1610,38 @@ public class JbpmServiceImpl implements JbpmService{
 		this.tProcessBusinessDAO.deleteBusinessByFlowId(map);
 	
 	}
+
+	@Override
+	public List queryDefinitionId(String executionId) {
+		
+		List list = this.tProcessTaskAssigneeDAO.queryDefinitionId(executionId);
+		return list;
+	}
+
+	@Override
+	public List<TProcessTaskAssignee> queryTaskAssginee(
+			TaskAssgineeDto taskAssgineeDto) {
+		
+		List list = this.tProcessTaskAssigneeDAO.queryTaskAssginee(taskAssgineeDto);
+		return list;
+	}
+
+	@Override
+	public void updateTaskAssignee(TaskAssgineeDto taskAssgineeDto) {
+		
+		this.tProcessTaskAssigneeDAO.updateTaskAssignee(taskAssgineeDto);
+	}
+
+	@Override
+	public List queryJBPM4Task(TaskAssgineeDto taskAssgineeDto) {
+		
+		List list = this.tProcessTaskAssigneeDAO.queryJBPM4Task(taskAssgineeDto);
+		return list;
+	}
+
+	@Override
+	public void updateTaskAssigneePerson(TaskAssgineeDto taskAssgineeDto) {
+		
+		this.tProcessTaskAssigneeDAO.updateTaskAssigneePerson(taskAssgineeDto);
+	}
 }

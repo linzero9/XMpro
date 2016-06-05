@@ -2736,49 +2736,85 @@ public class JbpmDemoAction extends BaseAction {
  * 6.现在遇到的问题：1.上一个节点的名称获取，2.模板id的获取。3.把流程的下个处理人出现在代办列表中 。直接调用方法即可。处理了这3个问题 即可实现此功能哦。
 
 	 * @return
-	 * @throws UnsupportedEncodingException
+	 * @throws Exception 
 	 */
-	public String backOver() throws UnsupportedEncodingException {
+	public void backOver() throws Exception {
 
-		taskAssgineeDto.setStartFlag("back");
-	
-		
-		//1.查找 模板id
-		ProcessDefinitionImpl pd = (ProcessDefinitionImpl) jbpmService.getProcessEngine().getRepositoryService()
-				.createProcessDefinitionQuery()
-				.processDefinitionId("wujiajunback1223yrv9t-1").uniqueResult();
-				
-				
-				//当前节点     根据pretaskid 和 flowid 查找 T_PROCESS_TASK_ASSIGNEE  的当前节点名称 next task id 和  next task name
-				  ActivityImpl sourceActivity = pd.findActivity("模式六-抵押支用");  
-		           //取得目标的活动定义  
-		           ActivityImpl destActivity=pd.findActivity(taskAssgineeDto.getTaskName());  
-		           //为两个节点创建连接  
-		           
-		           TransitionImpl transition = sourceActivity.createOutgoingTransition();  
-		           
-		           
-		           transition.setName("to" + taskAssgineeDto.getTaskName());  
-		           
-		           
-		           transition.setDestination(destActivity);  
-		           
-		           
-		           sourceActivity.addOutgoingTransition(transition);  
-		           
-		           
-		           System.out.println("sourceActivity.getName() = "+sourceActivity.getName());  
-		           System.out.println("destActivity.getName() = "+destActivity.getName());  
-				
-				
-			 
-			 jbpmService.getProcessEngine().getTaskService().completeTask("1760007",transition.getName(),null);  
-		
-		//把当前流程（已办的） 恢复到待办 中去！  主要是更新 2 张表   T_PROCESS_TASK_ASSIGNEE  和T_PROCESS_TASK_ASSIGNEE_PERSON
-			 //	jbpmService.saceTaskAssignee(newDto);
+		String info ="success";
+    	try {
+    		taskAssgineeDto.setStartFlag("back");
+    		
+    		//1.查找 模板id
+    		List list  = this.jbpmService.queryDefinitionId(taskAssgineeDto.getExecutionId());
+    		String definitionId = (String) list.get(0);
+    		
+    		ProcessDefinitionImpl pd = (ProcessDefinitionImpl) jbpmService.getProcessEngine().getRepositoryService()
+    				.createProcessDefinitionQuery()
+    				.processDefinitionId(definitionId).uniqueResult();
+    		
+    		//当前节点     根据pretaskid 和 flowid 查找 T_PROCESS_TASK_ASSIGNEE  的当前节点名称 next task id 和  next task name
+    		ActivityImpl sourceActivity = pd.findActivity(taskAssgineeDto.getTaskName());  //taskname为JSP 当前节点名称
+    		//取得目标的活动定义  
+    		ActivityImpl destActivity=pd.findActivity(taskAssgineeDto.getActivityName());   //activityname为上个节点名称
+    		//为两个节点创建连接  
+    		
+    		TransitionImpl transition = sourceActivity.createOutgoingTransition();  
+    		
+    		transition.setName("to" + taskAssgineeDto.getActivityName());  
+    		
+    		transition.setDestination(destActivity);  
+    		
+    		sourceActivity.addOutgoingTransition(transition);  
+    		
+    		System.out.println("sourceActivity.getName() = "+sourceActivity.getName());  
+    		System.out.println("destActivity.getName() = "+destActivity.getName());  
+    		
+    		jbpmService.getProcessEngine().getTaskService().completeTask(taskAssgineeDto.getNextTaskId(),transition.getName(),null);  
+    		
+    		
+    		List list2 = this.jbpmService.queryJBPM4Task(taskAssgineeDto);
+    		String nextTaskId = (String)list2.get(0);
+    		
+    		TaskAssgineeDto newDto = new TaskAssgineeDto();
+    		
+    		newDto.setExecutionId(taskAssgineeDto.getExecutionId());
+    		newDto.setNextTaskId(nextTaskId);
+    		newDto.setPreTaskId(taskAssgineeDto.getPreTaskId());
+    		
+    		//把当前流程（已办的） 恢复到待办 中去！  主要是更新 2 张表   T_PROCESS_TASK_ASSIGNEE  和T_PROCESS_TASK_ASSIGNEE_PERSON
+    		this.jbpmService.updateTaskAssignee(newDto);
+    		this.jbpmService.updateTaskAssigneePerson(newDto);
+    		
+    		
+    		/*TaskAssgineeDto newDto = new TaskAssgineeDto();
+    		
+    		newDto.setExecutionId(taskAssgineeDto.getExecutionId());
+    		newDto.setBusinessKey(taskAssgineeDto.getBusinessKey());
+    		newDto.setBusinessType(taskAssgineeDto.getBusinessType());
+    		
+    		//查询T_PROCESS_TASK_ASSIGNEE表 传入execution_id和next_task_id查找对应的记录，只取提交时间最大的一条
+    		List<TProcessTaskAssignee> taskAssginees = this.jbpmService.queryTaskAssginee(taskAssgineeDto);
+    		
+    		newDto.setEmpIds(empIds);
+    		//newDto.setTaskExeAssginee(taskExeAssginee);
+    		newDto.setPreTaskAssingee(Long.valueOf(taskAssginees.get(0).getPreTaskAssingee()));
+    		newDto.setPreTaskId(taskAssginees.get(0).getPreTaskId());
+    		newDto.setPreTaskOrg(taskAssginees.get(0).getPreTaskOrg());
+    		newDto.setPreTaskTime(preTaskTime);
+    		newDto.setNextTaskId(taskAssgineeDto.getPreTaskId());
+    		newDto.setTargetName(taskAssgineeDto.getActivityName());
+    		newDto.setTaskExeConfigId();
+    		
+    		
+    			jbpmService.saceTaskAssignee(newDto);*/
+    	} catch (Exception e) {
+			info="fails";
+			log.error("[流程撤销失败！]", e);
+			throw e;
+		}finally{	
+			Struts2Utils.renderText(info);
+		}
 
-		
-		return "success";
 	}
 	
 	

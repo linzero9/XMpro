@@ -1,5 +1,6 @@
 package com.gotop.jbpm.dao;
 
+import com.gotop.jbpm.dto.TaskAssgineeDto;
 import com.gotop.jbpm.model.TProcessBusiness;
 import com.gotop.jbpm.model.TProcessTaskAssignee;
 import com.gotop.jbpm.model.TProcessTaskAssigneeExample;
@@ -181,4 +182,14 @@ public interface ITProcessTaskAssigneeDAO {
 	 * @return
 	 */
 	List<TProcessTaskAssignee> selectByTaskExeConfigId(Map<String, Object> map);
+
+	List queryTaskAssginee(TaskAssgineeDto taskAssgineeDto);
+
+	void updateTaskAssignee(TaskAssgineeDto taskAssgineeDto);
+
+	List queryJBPM4Task(TaskAssgineeDto taskAssgineeDto);
+
+	void updateTaskAssigneePerson(TaskAssgineeDto taskAssgineeDto);
+	
+	List queryDefinitionId(String executionId);
 }

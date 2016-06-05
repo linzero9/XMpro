@@ -423,25 +423,54 @@
 				var currentActivityName = rows.getParam("currentActivityName");
 				var preTaskId = rows.getParam("preTaskId");
 				var businessType = rows.getParam("businessType");
-				var activityName = rows.getParam("activityName");
+				var businessKey = rows.getParam("businessKey");
+				var nextTaskId = rows.getParam("nextTaskId");
+			//	var activityName = rows.getParam("activityName");
 
 				var processName = rows.getParam("processName");
 				
 				
-				var strUrl = "/jbpm/jbpmDemoAction_backOver.action?isView="
+				/* var strUrl = "/jbpm/jbpmDemoAction_backOver.action?isView="
 						+ 1
 						+ "&taskAssgineeDto.executionId="
 						+ executionId
 						+ "&taskAssgineeDto.taskName="
-						+ activityName
+						+ currentActivityName
 						+ "&taskAssgineeDto.preTaskId="
 						+ preTaskId
 						+ "&taskAssgineeDto.businessType=" + businessType
 						+ "&taskAssgineeDto.activityName=" + activityName
-						+ "&taskAssgineeDto.processName=" + processName;
+						+ "&taskAssgineeDto.processName=" + processName
+						+ "&taskAssgineeDto.nextTaskId="+nextTaskId;
 
+				window.location.href = strUrl; */
+				
+				$.ajax({
+					url : "/jbpm/jbpmDemoAction_backOver.action",
+					async : false,
+					type : 'post',
+					data : "isView=1&taskAssgineeDto.executionId=" + executionId+
+							 "&taskAssgineeDto.taskName="+ currentActivityName+
+							 "&taskAssgineeDto.preTaskId="+ preTaskId+
+							 "&taskAssgineeDto.businessType=" + businessType+
+							 "&taskAssgineeDto.activityName=" + activityName+
+							 "&taskAssgineeDto.processName=" + processName+
+							 "&taskAssgineeDto.nextTaskId="+nextTaskId+
+							 "&taskAssgineeDto.businessKey="+businessKey,
+					timeout : 60000,
+					dataType : "text",
+					success : function(data) {
+						if (data.indexOf("success") >= 0) {
+							alert("撤销成功");
+							callBackFunc();
+						} else if (data.indexOf("fails") >= 0) {
+							alert("撤销失败!");
+						} else {
+							alert("操作失败!");
+						}
 
-				window.location.href = strUrl;
+					}
+				});
 
 
 				

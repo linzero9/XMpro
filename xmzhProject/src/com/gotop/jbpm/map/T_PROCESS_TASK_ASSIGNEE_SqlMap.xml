@@ -133,6 +133,23 @@
     <result column="PRE_TASK_TIME" property="preTaskTime" jdbcType="VARCHAR" />
      <result column="TASK_EXE_CONFIG_ID" property="taskExeConfigId" jdbcType="DECIMAL" />
     </resultMap>
+    
+    
+  <resultMap id="tProcessTaskAssignee_HashMapResult" class="com.gotop.jbpm.model.TProcessTaskAssignee" >
+    <result column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="EXECUTION_ID" property="executionId" jdbcType="VARCHAR" />
+    <result column="PRE_TASK_ID" property="preTaskId" jdbcType="VARCHAR" />
+    <result column="PRE_TASK_ASSINGEE" property="preTaskAssingee" jdbcType="DECIMAL" />
+    <result column="PRE_TASK_ORG" property="preTaskOrg" jdbcType="DECIMAL" />
+    <result column="PRE_TASK_TIME" property="preTaskTime" jdbcType="VARCHAR" />
+     <result column="NEXT_TASK_ID" property="nextTaskId" jdbcType="VARCHAR" />
+    <result column="TASK_ID" property="taskId" jdbcType="VARCHAR" />
+    <result column="BUSINESS_KEY" property="businessKey" jdbcType="VARCHAR" />
+    <result column="BUSINESS_TYPE" property="businessType" jdbcType="VARCHAR" />
+    <result column="NEXT_ACTIVITY_NAME" property="nextActivityName" jdbcType="DECIMAL" />
+    <result column="NEXT_ASSINGEE_NAME" property="nextAssingeeName" jdbcType="DECIMAL" />
+     <result column="TASK_EXE_CONFIG_ID" property="taskExeConfigId" jdbcType="DECIMAL" />
+  </resultMap>
   
     <!--  -->
     <select id="selectByTaskExeConfigId"  resultMap="abatorgenerated_ByTaskExeConfigId"  parameterClass="java.util.HashMap" >
@@ -987,4 +1004,56 @@ SELECT *
  WHERE RN = 1       
  order by COMPLETE_DATE asc
     </select> 
+    
+    
+     <select id="queryTaskAssginee" resultMap="tProcessTaskAssignee_HashMapResult"  parameterClass="com.gotop.jbpm.dto.TaskAssgineeDto">
+     select *
+   from T_PROCESS_TASK_ASSIGNEE
+  where execution_id = '$executionId$'
+    and next_task_id = '$preTaskId$'
+    and pre_task_time = (select max(pre_task_time)
+                           from T_PROCESS_TASK_ASSIGNEE
+                          where execution_id = '$executionId$'
+                            and next_task_id = '$preTaskId$'
+                          group by execution_id)
+     </select>
+     
+     <update id="updateTaskAssignee"  parameterClass="com.gotop.jbpm.dto.TaskAssgineeDto"  >
+     update T_PROCESS_TASK_ASSIGNEE
+     set next_task_id = '$nextTaskId$'
+     where execution_id = '$executionId$'
+    and next_task_id = '$preTaskId$'
+    and pre_task_time = (select max(pre_task_time)
+                           from T_PROCESS_TASK_ASSIGNEE
+                          where execution_id = '$executionId$'
+                            and next_task_id = '$preTaskId$'
+                          group by execution_id)
+     
+     </update>
+     
+       <update id="updateTaskAssigneePerson"  parameterClass="com.gotop.jbpm.dto.TaskAssgineeDto"  >
+      update T_PROCESS_TASK_ASSIGNEE_PERSON
+    set task_id = '$nextTaskId$'
+  where execution_id = '$executionId$'
+    and process_task_assignee_id =
+        (select id
+           from T_PROCESS_TASK_ASSIGNEE
+          where execution_id = '$executionId$'
+            and next_task_id = '$nextTaskId$'
+            and pre_task_time = (select max(pre_task_time)
+                                   from T_PROCESS_TASK_ASSIGNEE
+                                  where execution_id = '$executionId$'
+                                    and next_task_id = '$nextTaskId$'
+                                  group by execution_id))
+     
+     </update>
+     
+     <select id="queryJBPM4Task"  resultClass="java.lang.String"   parameterClass="com.gotop.jbpm.dto.TaskAssgineeDto">
+     select dbid_ from JBPM4_TASK t where execution_id_='$executionId$'
+     </select>
+     
+      <!-- 查询流程实例ID对应的 流程定义ID -->
+    <select id="queryDefinitionId"  resultClass="java.lang.String"  parameterClass="java.lang.String" >
+		select procdefid_ from JBPM4_HIST_PROCINST where id_ = '$executionId$'
+    </select>
   </sqlMap>
