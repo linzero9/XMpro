@@ -189,6 +189,17 @@
 										onclick="handleTask();" />
 								</l:greaterThan>
   -->
+  
+  
+  
+                        <l:greaterThan property="page.count" targetValue="0"
+									compareType="number">
+								&nbsp; &nbsp;
+							<input type="button" class="button" value="流程撤销"
+										onclick="backOver();" />
+								</l:greaterThan>
+								
+								
 								<l:greaterThan property="page.count" targetValue="0"
 									compareType="number">
 								&nbsp; &nbsp;
@@ -395,6 +406,65 @@
 			window.location.href = url;
 
 		}
+
+
+
+//流程回退，撤销
+		function backOver() {
+			var gop = $id("group1");
+			var len = gop.getSelectLength();
+			if (len == 0) {
+				alert("请选择一条流程信息");
+				return;
+			} else {
+				var rows = gop.getSelectRow();
+				var executionId = rows.getParam("executionId");
+				var activityName = rows.getParam("activityName");
+				var currentActivityName = rows.getParam("currentActivityName");
+				var preTaskId = rows.getParam("preTaskId");
+				var businessType = rows.getParam("businessType");
+				var activityName = rows.getParam("activityName");
+
+				var processName = rows.getParam("processName");
+				
+				
+				var strUrl = "/jbpm/jbpmDemoAction_backOver.action?isView="
+						+ 1
+						+ "&taskAssgineeDto.executionId="
+						+ executionId
+						+ "&taskAssgineeDto.taskName="
+						+ activityName
+						+ "&taskAssgineeDto.preTaskId="
+						+ preTaskId
+						+ "&taskAssgineeDto.businessType=" + businessType
+						+ "&taskAssgineeDto.activityName=" + activityName
+						+ "&taskAssgineeDto.processName=" + processName;
+
+
+				window.location.href = strUrl;
+
+
+				
+			}
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
 	</script>
 </body>
 </html>

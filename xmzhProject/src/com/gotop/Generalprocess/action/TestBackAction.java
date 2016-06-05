@@ -104,8 +104,8 @@ public class TestBackAction {
 			.processDefinitionId("wujiajunback1223yrv9t-1").uniqueResult();
 			
 			
-			
-			  ActivityImpl sourceActivity = pd.findActivity("模式四-审查审批");  
+			//当前节点
+			  ActivityImpl sourceActivity = pd.findActivity("");  
 	           //取得目标的活动定义  
 	           ActivityImpl destActivity=pd.findActivity("模式一-受理调查");  
 	           //为两个节点创建连接  
@@ -120,7 +120,16 @@ public class TestBackAction {
 		 
 		 jbpmService.getProcessEngine().getTaskService().completeTask(taskAssgineeDto.getNextTaskId(),transition.getName(),null);  
 		 
- 
+		 
+		 
+		 TaskAssgineeDto  dto = new  TaskAssgineeDto();
+		 
+		 //1.查询处理人
+		 dto.setEmpIds("1,437273,23242");
+		 dto.setExecutionId(businessId);
+		 
+		 
+		 jbpmService.saceTaskAssignee(dto);
 		
 		
 	}
