@@ -96,7 +96,7 @@ public class TestBackAction {
  * 
  * 5.当然 处理人 和代办  也要到上一个人身上哦！
  * 
- * 6.现在遇到的问题：1.上一个节点的名称获取，2.模板id的获取。处理了这2个问题 即可实现此功能哦
+ * 6.现在遇到的问题：1.上一个节点的名称获取，2.模板id的获取。3.把流程的下个处理人出现在代办列表中 。直接调用方法即可。处理了这3个问题 即可实现此功能哦。
  */
 		 
 			ProcessDefinitionImpl pd = (ProcessDefinitionImpl) repositoryService
