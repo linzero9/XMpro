@@ -349,4 +349,6 @@ public interface JbpmService {
 
 	public List getEmpnameByEmpId(Long empid);
 
+	public List queryEmpInfo();
+
 }

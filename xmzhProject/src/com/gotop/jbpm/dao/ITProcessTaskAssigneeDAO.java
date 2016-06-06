@@ -194,4 +194,6 @@ public interface ITProcessTaskAssigneeDAO {
 	void updateTaskAssigneePerson(Map<String, Object> map);
 
 	List getEmpnameByEmpId(Long empid);
+
+	List queryEmpInfo();
 }

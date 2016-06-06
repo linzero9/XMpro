@@ -423,6 +423,7 @@
 			} else {
 				var rows = gop.getSelectRow();
 				var preTaskAssingee = rows.getParam("preTaskAssingee");
+				var preTaskAssingeeName =  rows.getParam("preTaskAssingeeName");
 				
 				var executionId = rows.getParam("executionId");
 				var activityName = rows.getParam("activityName");
@@ -435,18 +436,46 @@
 				var processName = rows.getParam("processName");
 				
 				
-				if(preTaskAssingee != $id("curr_empid").value){
-					alert("您不是上个节点办理人，无权撤销！");
-					return;
+				 if(preTaskAssingeeName.indexOf("开始") != -1 ){ //包含“开始”
+						alert("上个节点为开始节点，无法撤销！");
+						return;
 				}else if(currentActivityName == "结束"){
 					alert("流程已经结束，无法撤销！");
 					return;
-				}else if(preTaskId == ""){
-					alert("当前为流程第一个节点，无法撤销！");
+				}else if(preTaskAssingee != $id("curr_empid").value){
+					alert("您不是上个节点办理人，无权撤销！");
 					return;
 				}else{
 				
-				
+					$.ajax({
+						url : "/jbpm/jbpmDemoAction_backOver.action",
+						async : false,
+						type : 'post',
+						data : "isView=1&taskAssgineeDto.executionId=" + executionId+
+								 "&taskAssgineeDto.taskName="+ currentActivityName+
+								 "&taskAssgineeDto.preTaskId="+ preTaskId+
+								 "&taskAssgineeDto.businessType=" + businessType+
+								 "&taskAssgineeDto.activityName=" + activityName+
+								 "&taskAssgineeDto.processName=" + processName+
+								 "&taskAssgineeDto.nextTaskId="+nextTaskId+
+								 "&taskAssgineeDto.businessKey="+businessKey+
+								 "&taskAssgineeDto.preTaskAssingee="+preTaskAssingee,
+						timeout : 60000,
+						dataType : "text",
+						success : function(data) {
+							if (data.indexOf("success") >= 0) {
+								alert("撤销成功");
+								callBackFunc();
+							} else if (data.indexOf("fails") >= 0) {
+								alert("撤销失败!");
+							} else {
+								alert("操作失败!");
+							}
+
+						}
+					});
+				}
+					
 				/* 	var strUrl = "/jbpm/jbpmDemoAction_backOver.action?isView="
 						+ 1
 						+ "&taskAssgineeDto.executionId="
@@ -461,38 +490,6 @@
 						+ "&taskAssgineeDto.nextTaskId="+nextTaskId;
 
 				window.location.href = strUrl; */
-				
-				$.ajax({
-					url : "/jbpm/jbpmDemoAction_backOver.action",
-					async : false,
-					type : 'post',
-					data : "isView=1&taskAssgineeDto.executionId=" + executionId+
-							 "&taskAssgineeDto.taskName="+ currentActivityName+
-							 "&taskAssgineeDto.preTaskId="+ preTaskId+
-							 "&taskAssgineeDto.businessType=" + businessType+
-							 "&taskAssgineeDto.activityName=" + activityName+
-							 "&taskAssgineeDto.processName=" + processName+
-							 "&taskAssgineeDto.nextTaskId="+nextTaskId+
-							 "&taskAssgineeDto.businessKey="+businessKey+
-							 "&taskAssgineeDto.preTaskAssingee="+preTaskAssingee,
-					timeout : 60000,
-					dataType : "text",
-					success : function(data) {
-						if (data.indexOf("success") >= 0) {
-							alert("撤销成功");
-							callBackFunc();
-						} else if (data.indexOf("fails") >= 0) {
-							alert("撤销失败!");
-						} else {
-							alert("操作失败!");
-						}
-
-					}
-				});
-				}
-				
-
-
 				
 			}
 		}

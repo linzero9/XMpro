@@ -1673,4 +1673,11 @@ public class JbpmServiceImpl implements JbpmService{
 		List list = this.tProcessTaskAssigneeDAO.getEmpnameByEmpId(empid);
 		return list;
 	}
+
+	@Override
+	public List queryEmpInfo() {
+		
+		List list = this.tProcessTaskAssigneeDAO.queryEmpInfo();
+		return list;
+	}
 }

@@ -1048,4 +1048,10 @@ SELECT *
      <select id="getEmpnameByEmpId"  resultClass="java.lang.String"  parameterClass="java.lang.Long" >
 		select empname from om_employee where empid=$empid$
     </select>
+    
+    <select id="queryEmpInfo" resultClass="java.util.HashMap"   >
+    select e.empid, e.empname, eo.orgid from om_employee e, om_emporg eo
+		where e.empid = eo.empid
+		and e.empname like '%开始%'
+    </select>
   </sqlMap>

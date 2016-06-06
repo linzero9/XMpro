@@ -2787,6 +2787,15 @@ public class JbpmDemoAction extends BaseAction {
     			//1.插入到T_PROCESS_TASK_ASSIGNEE表
     			taskAssginee = new TProcessTaskAssignee();
     			taskAssginee.setExecutionId(taskAssgineeDto.getExecutionId());
+    			
+    			List empInfos = this.jbpmService.queryEmpInfo(); //查询节点为开始的员工信息,empname='开始'
+    			HashMap hp = (HashMap) empInfos.get(0);
+    			
+    			taskAssginee.setPreTaskId(nextTaskId);
+    			taskAssginee.setPreTaskAssingee((String)hp.get("empid"));
+    			taskAssginee.setPreTaskOrg((Long)hp.get("orgid"));
+    			taskAssginee.setPreTaskTime(TimeUtil.today()+TimeUtil.now());
+    			
     			taskAssginee.setNextTaskId(nextTaskId);
     			taskAssginee.setBusinessKey(taskAssgineeDto.getBusinessKey());
     			taskAssginee.setBusinessType(taskAssgineeDto.getBusinessType());
