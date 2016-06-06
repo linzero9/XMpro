@@ -282,8 +282,12 @@ SELECT orgname, DEVICENAME, DEVICEMODEL, count(*) as tot
   
   <!-- 查询设备列表 -->
   <select id="queryList" resultMap="tDeviceResult" parameterClass="java.util.HashMap" >
- 	select t.*, o.orgname from  t_new_deviceManagement t , om_organization o
-where t.orgcode = o.orgcode
+ 	select t.*, o.orgname, e.dictname
+  from t_new_deviceManagement t,
+       om_organization o,
+       (select * from eos_dict_entry e where e.dicttypeid = 'DEVICE_NAME') e
+ where t.orgcode = o.orgcode
+   and t.devicename = e.dictid
       <isNotNull prepend="and" property="orgcode" >
         t.ORGCODE in  
         (select regexp_substr(#orgcode#,'[^,]+',1,rownum) from dual  
@@ -358,7 +362,9 @@ where t.orgcode = o.orgcode
       <isNotNull prepend="and" property="peripheral" >
         ($peripheral$)
       </isNotNull>
-  order by t.ipAdress,t.deviceName,t.deviceModel
+  order by nlssort(o.orgname, 'NLS_SORT=SCHINESE_PINYIN_M'),
+          nlssort(e.dictname, 'NLS_SORT=SCHINESE_PINYIN_M'),
+          t.ipadress
   </select>
   
   <!--通过主键查询一条数据-->
