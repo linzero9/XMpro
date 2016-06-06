@@ -332,11 +332,21 @@ public interface JbpmService {
 
 	public List<TProcessTaskAssignee> queryTaskAssginee(
 			TaskAssgineeDto taskAssgineeDto);
-
-	public void updateTaskAssignee(TaskAssgineeDto taskAssgineeDto);
-
+	
 	public List queryJBPM4Task(TaskAssgineeDto taskAssgineeDto);
 
-	public void updateTaskAssigneePerson(TaskAssgineeDto taskAssgineeDto);
+	public List queryTaskAssigneeId(Long id);
+
+	public Long insertTaskAssignee(TProcessTaskAssignee taskAssginee);
+
+	public void updateTaskAssigneePerson(Map<String, Object> map);
+
+	public List<TProcessTaskAssigneePerson> queryTaskAssigneePerson(
+			Map<String, Object> map);
+
+	public void insertTaskAssigneePerson(
+			TProcessTaskAssigneePerson tProcessTaskAssigneePerson);
+
+	public List getEmpnameByEmpId(Long empid);
 
 }

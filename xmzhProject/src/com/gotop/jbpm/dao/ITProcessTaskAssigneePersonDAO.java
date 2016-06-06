@@ -167,4 +167,6 @@ public interface ITProcessTaskAssigneePersonDAO {
 	 */
 	List<TProcessTaskAssigneePerson> getBsUnCompleted(Map<String, Object> map);
 
+	List queryTaskAssigneePerson(Map<String, Object> map);
+
 }

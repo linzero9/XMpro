@@ -1627,12 +1627,6 @@ public class JbpmServiceImpl implements JbpmService{
 	}
 
 	@Override
-	public void updateTaskAssignee(TaskAssgineeDto taskAssgineeDto) {
-		
-		this.tProcessTaskAssigneeDAO.updateTaskAssignee(taskAssgineeDto);
-	}
-
-	@Override
 	public List queryJBPM4Task(TaskAssgineeDto taskAssgineeDto) {
 		
 		List list = this.tProcessTaskAssigneeDAO.queryJBPM4Task(taskAssgineeDto);
@@ -1640,8 +1634,43 @@ public class JbpmServiceImpl implements JbpmService{
 	}
 
 	@Override
-	public void updateTaskAssigneePerson(TaskAssgineeDto taskAssgineeDto) {
+	public List queryTaskAssigneeId(Long id) {
 		
-		this.tProcessTaskAssigneeDAO.updateTaskAssigneePerson(taskAssgineeDto);
+		List list = this.tProcessTaskAssigneeDAO.queryTaskAssigneeId(id);
+		return list;
+	}
+
+	@Override
+	public Long insertTaskAssignee(TProcessTaskAssignee taskAssginee) {
+		Long id = this.tProcessTaskAssigneeDAO.insert(taskAssginee);
+		return id;
+	}
+
+	@Override
+	public void updateTaskAssigneePerson(Map<String, Object> map) {
+		
+		this.tProcessTaskAssigneeDAO.updateTaskAssigneePerson(map);
+	}
+
+	@Override
+	public List<TProcessTaskAssigneePerson> queryTaskAssigneePerson(
+			Map<String, Object> map) {
+		
+		List list = this.tProcessTaskAssigneePersonDAO.queryTaskAssigneePerson(map);
+		return list;
+	}
+
+	@Override
+	public void insertTaskAssigneePerson(
+			TProcessTaskAssigneePerson tProcessTaskAssigneePerson) {
+		
+		this.tProcessTaskAssigneePersonDAO.insert(tProcessTaskAssigneePerson);
+	}
+
+	@Override
+	public List getEmpnameByEmpId(Long empid) {
+		
+		List list = this.tProcessTaskAssigneeDAO.getEmpnameByEmpId(empid);
+		return list;
 	}
 }

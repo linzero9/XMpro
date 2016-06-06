@@ -55,6 +55,7 @@ import com.gotop.jbpm.model.TProcessBusiness;
 import com.gotop.jbpm.model.TProcessConfig;
 import com.gotop.jbpm.model.TProcessConfigPerson;
 import com.gotop.jbpm.model.TProcessTaskAssignee;
+import com.gotop.jbpm.model.TProcessTaskAssigneePerson;
 import com.gotop.jbpm.model.TProcessTaskExeConfig;
 import com.gotop.jbpm.service.ITProcessBusinessService;
 import com.gotop.jbpm.service.ITProcessConfigPersonService;
@@ -2772,41 +2773,106 @@ public class JbpmDemoAction extends BaseAction {
     		jbpmService.getProcessEngine().getTaskService().completeTask(taskAssgineeDto.getNextTaskId(),transition.getName(),null);  
     		
     		
+    		
+    		//查询当前处理节点的taskId
     		List list2 = this.jbpmService.queryJBPM4Task(taskAssgineeDto);
     		String nextTaskId = (String)list2.get(0);
     		
-    		TaskAssgineeDto newDto = new TaskAssgineeDto();
-    		
-    		newDto.setExecutionId(taskAssgineeDto.getExecutionId());
-    		newDto.setNextTaskId(nextTaskId);
-    		newDto.setPreTaskId(taskAssgineeDto.getPreTaskId());
-    		
-    		//把当前流程（已办的） 恢复到待办 中去！  主要是更新 2 张表   T_PROCESS_TASK_ASSIGNEE  和T_PROCESS_TASK_ASSIGNEE_PERSON
-    		this.jbpmService.updateTaskAssignee(newDto);
-    		this.jbpmService.updateTaskAssigneePerson(newDto);
-    		
-    		
-    		/*TaskAssgineeDto newDto = new TaskAssgineeDto();
-    		
-    		newDto.setExecutionId(taskAssgineeDto.getExecutionId());
-    		newDto.setBusinessKey(taskAssgineeDto.getBusinessKey());
-    		newDto.setBusinessType(taskAssgineeDto.getBusinessType());
-    		
-    		//查询T_PROCESS_TASK_ASSIGNEE表 传入execution_id和next_task_id查找对应的记录，只取提交时间最大的一条
+    		//1.查询T_PROCESS_TASK_ASSIGNEE表 传入execution_id和next_task_id查找对应的记录，只取提交时间最大的一条
     		List<TProcessTaskAssignee> taskAssginees = this.jbpmService.queryTaskAssginee(taskAssgineeDto);
     		
-    		newDto.setEmpIds(empIds);
-    		//newDto.setTaskExeAssginee(taskExeAssginee);
-    		newDto.setPreTaskAssingee(Long.valueOf(taskAssginees.get(0).getPreTaskAssingee()));
-    		newDto.setPreTaskId(taskAssginees.get(0).getPreTaskId());
-    		newDto.setPreTaskOrg(taskAssginees.get(0).getPreTaskOrg());
-    		newDto.setPreTaskTime(preTaskTime);
-    		newDto.setNextTaskId(taskAssgineeDto.getPreTaskId());
-    		newDto.setTargetName(taskAssgineeDto.getActivityName());
-    		newDto.setTaskExeConfigId();
+    		TProcessTaskAssignee taskAssginee = null;
+    		if(taskAssginees.size() == 0){
+    			
+    			//1.插入到T_PROCESS_TASK_ASSIGNEE表
+    			taskAssginee = new TProcessTaskAssignee();
+    			taskAssginee.setExecutionId(taskAssgineeDto.getExecutionId());
+    			taskAssginee.setNextTaskId(nextTaskId);
+    			taskAssginee.setBusinessKey(taskAssgineeDto.getBusinessKey());
+    			taskAssginee.setBusinessType(taskAssgineeDto.getBusinessType());
+    			taskAssginee.setNextActivityName(taskAssgineeDto.getActivityName());
+    			
+    			Long empid = taskAssgineeDto.getPreTaskAssingee();
+    			 List emplist= this.jbpmService.getEmpnameByEmpId(empid);
+    			 String nextAssingeeName = (String) emplist.get(0);
+    			 
+    			taskAssginee.setNextAssingeeName(nextAssingeeName);
+    			taskAssginee.setTaskExeConfigId(Long.valueOf(0));
+    			
+    			//得到插入到T_PROCESS_TASK_ASSIGNEE表的新主键ID
+    			Long taskAssigneeId_new = this.jbpmService.insertTaskAssignee(taskAssginee);
+    			
+    			
+    			//2.插入到T_PROCESS_TASK_ASSIGNEE_PERSON表
+    			TProcessTaskAssigneePerson tProcessTaskAssigneePerson = new TProcessTaskAssigneePerson();
+    			tProcessTaskAssigneePerson.setExecutionId(taskAssgineeDto.getExecutionId());
+    			tProcessTaskAssigneePerson.setProcessTaskAssigneeId(taskAssigneeId_new);
+    			tProcessTaskAssigneePerson.setTaskId(nextTaskId);
+    			tProcessTaskAssigneePerson.setTaskAssigneeId(empid);
+    			
+    			this.jbpmService.insertTaskAssigneePerson(tProcessTaskAssigneePerson);
+    			
+    		}else{
+    			
+    			taskAssginee = taskAssginees.get(0);  //旧记录
+    			Long taskAssigneeId_old = taskAssginee.getId();
+    			
+    			
+    			taskAssginee.setPreTaskTime(TimeUtil.today()+TimeUtil.now());
+    			taskAssginee.setNextTaskId(nextTaskId);
+    			
+    			//1.得到插入到T_PROCESS_TASK_ASSIGNEE表的新主键ID
+    			Long taskAssigneeId_new = this.jbpmService.insertTaskAssignee(taskAssginee);
+    			
+    			//2.得到旧记录的T_PROCESS_TASK_ASSIGNEE_PERSON表信息
+    			Map<String, Object> map = new HashMap<String, Object>();
+    			map.put("executionId", taskAssginee.getExecutionId());
+    			map.put("processTaskAssigneeId", taskAssigneeId_old);
+    			
+    			List<TProcessTaskAssigneePerson> taskAssigneePersons= this.jbpmService.queryTaskAssigneePerson(map);
+    				
+    				for (TProcessTaskAssigneePerson tProcessTaskAssigneePerson : taskAssigneePersons) {
+    					tProcessTaskAssigneePerson.setProcessTaskAssigneeId(taskAssigneeId_new);
+    					tProcessTaskAssigneePerson.setTaskId(nextTaskId);
+    					
+    					this.jbpmService.insertTaskAssigneePerson(tProcessTaskAssigneePerson);
+    				}
+    		}
     		
     		
-    			jbpmService.saceTaskAssignee(newDto);*/
+    		
+    		
+    	/*	map.put("processTaskAssigneeId_new", taskAssigneeId);
+    		map.put("taskId", nextTaskId);
+    		
+    		//2.更新TaskAssigneePerson表的信息
+    		this.jbpmService.updateTaskAssigneePerson(map);*/
+    		
+    		
+    	/*	//查找下个节点处理人ID
+    		List list3 = this.jbpmService.queryTaskAssigneeId(taskAssginee.getId());
+    		String task_assignee_id = (String) list3.get(0);
+    	
+    		TaskAssgineeDto newDto = new TaskAssgineeDto();
+    		
+    		taskAssgineeDto.setEmpIds(task_assignee_id);
+    		
+    		taskAssgineeDto.setExecutionId(taskAssginee.getExecutionId());
+    		taskAssgineeDto.setPreTaskAssingee(Long.valueOf(taskAssginee.getPreTaskAssingee()));
+    		taskAssgineeDto.setPreTaskId(taskAssginee.getPreTaskId());
+    		taskAssgineeDto.setPreTaskOrg(taskAssginee.getPreTaskOrg());
+    		taskAssgineeDto.setPreTaskTime(TimeUtil.today()+TimeUtil.now());
+    		taskAssgineeDto.setNextTaskId(nextTaskId);
+    		taskAssgineeDto.setBusinessKey(taskAssginee.getBusinessKey());
+    		taskAssgineeDto.setBusinessType(taskAssginee.getBusinessType());
+    		taskAssgineeDto.setTargetName(taskAssginee.getNextActivityName());
+    		taskAssgineeDto.setTaskExeConfigId(taskAssginee.getTaskExeConfigId());
+    		
+    		
+    		//把当前流程（已办的） 恢复到待办 中去！  主要是insert 2 张表   T_PROCESS_TASK_ASSIGNEE  和T_PROCESS_TASK_ASSIGNEE_PERSON
+    		this.jbpmService.saceTaskAssignee(newDto);  */
+    		
+    		
     	} catch (Exception e) {
 			info="fails";
 			log.error("[流程撤销失败！]", e);

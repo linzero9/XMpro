@@ -1018,36 +1018,6 @@ SELECT *
                           group by execution_id)
      </select>
      
-     <update id="updateTaskAssignee"  parameterClass="com.gotop.jbpm.dto.TaskAssgineeDto"  >
-     update T_PROCESS_TASK_ASSIGNEE
-     set next_task_id = '$nextTaskId$'
-     where execution_id = '$executionId$'
-    and next_task_id = '$preTaskId$'
-    and pre_task_time = (select max(pre_task_time)
-                           from T_PROCESS_TASK_ASSIGNEE
-                          where execution_id = '$executionId$'
-                            and next_task_id = '$preTaskId$'
-                          group by execution_id)
-     
-     </update>
-     
-       <update id="updateTaskAssigneePerson"  parameterClass="com.gotop.jbpm.dto.TaskAssgineeDto"  >
-      update T_PROCESS_TASK_ASSIGNEE_PERSON
-    set task_id = '$nextTaskId$'
-  where execution_id = '$executionId$'
-    and process_task_assignee_id =
-        (select id
-           from T_PROCESS_TASK_ASSIGNEE
-          where execution_id = '$executionId$'
-            and next_task_id = '$nextTaskId$'
-            and pre_task_time = (select max(pre_task_time)
-                                   from T_PROCESS_TASK_ASSIGNEE
-                                  where execution_id = '$executionId$'
-                                    and next_task_id = '$nextTaskId$'
-                                  group by execution_id))
-     
-     </update>
-     
      <select id="queryJBPM4Task"  resultClass="java.lang.String"   parameterClass="com.gotop.jbpm.dto.TaskAssgineeDto">
      select dbid_ from JBPM4_TASK t where execution_id_='$executionId$'
      </select>
@@ -1055,5 +1025,27 @@ SELECT *
       <!-- 查询流程实例ID对应的 流程定义ID -->
     <select id="queryDefinitionId"  resultClass="java.lang.String"  parameterClass="java.lang.String" >
 		select procdefid_ from JBPM4_HIST_PROCINST where id_ = '$executionId$'
+    </select>
+    
+    <!-- 查询当前处理节点的taskId -->
+    <select id="queryTaskAssigneeId"  resultClass="java.lang.String"  parameterClass="java.lang.String" >
+		select wm_concat(task_assignee_id) as task_assignee_id
+  from (select *
+          from T_PROCESS_TASK_ASSIGNEE_PERSON
+         where process_task_assignee_id = '16469'
+         order by id asc)
+    </select>
+    
+    <update id="updateTaskAssigneePerson"  parameterClass="java.util.HashMap">
+    update T_PROCESS_TASK_ASSIGNEE_PERSON
+   set process_task_assignee_id = '$processTaskAssigneeId_new$', 
+   task_id = '$taskId$'
+ where execution_id = '$executionId$'
+   and process_task_assignee_id = '$processTaskAssigneeId_old$'
+    </update>
+    
+    
+     <select id="getEmpnameByEmpId"  resultClass="java.lang.String"  parameterClass="java.lang.Long" >
+		select empname from om_employee where empid=$empid$
     </select>
   </sqlMap>

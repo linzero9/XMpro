@@ -12,6 +12,7 @@ import com.gotop.jbpm.service.impl.TProcessTaskAssigneePersonService;
 import com.gotop.util.Struts2Utils;
 import com.gotop.util.XmlConvert;
 import com.gotop.util.string.Obj2StrUtils;
+import com.gotop.vo.system.MUOUserSession;
 import com.opensymphony.xwork2.inject.ContainerBuilder;
 import com.primeton.utils.AjaxParam;
 import com.primeton.utils.Page;
@@ -55,10 +56,23 @@ public class TProcessTaskAssigneeAction extends BaseAction{
 	private String taskId;
 	private String empids;
 	
+	private MUOUserSession muo;
+	
 	private TaskAssgineeDto taskAssgineeDto;
 	
 	private TProcessTaskAssignee taskAssignee;
 	
+	
+	
+
+	public MUOUserSession getMuo() {
+		return muo;
+	}
+
+	public void setMuo(MUOUserSession muo) {
+		this.muo = muo;
+	}
+
 	public TProcessTaskAssignee getTaskAssignee() {
 		return taskAssignee;
 	}
@@ -285,6 +299,8 @@ public void setNameString(String nameString) {
     	
     	List<TProcessTaskAssignee> tProcessTaskAssignees = this.tProcessTaskAssigneeService.queryMyCompletedTasksList(relationids,empId,taskAssignee,this.getPage());
     	this.setProcessTaskAssignees(tProcessTaskAssignees);
+    	
+    	muo = MUO.getCurrentOnlineUser();
     	return "my_completed_tasks";
     }
     

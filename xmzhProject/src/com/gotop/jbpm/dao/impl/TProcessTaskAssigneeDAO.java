@@ -314,30 +314,38 @@ public class TProcessTaskAssigneeDAO extends SqlMapClientDao implements ITProces
 		List list =this.queryForList("T_PROCESS_TASK_ASSIGNEE_SqlMap.queryTaskAssginee", taskAssgineeDto);
 		return list;
 	}
-
-	@Override
-	public void updateTaskAssignee(TaskAssgineeDto taskAssgineeDto) {
-		
-		getSqlMapClientTemplate().update("T_PROCESS_TASK_ASSIGNEE_SqlMap.updateTaskAssignee", taskAssgineeDto);
-	}
-
+	
 	@Override
 	public List queryJBPM4Task(TaskAssgineeDto taskAssgineeDto) {
 		
 		List list =this.queryForList("T_PROCESS_TASK_ASSIGNEE_SqlMap.queryJBPM4Task", taskAssgineeDto);
 		return list;
 	}
-
-	@Override
-	public void updateTaskAssigneePerson(TaskAssgineeDto taskAssgineeDto) {
-		
-		getSqlMapClientTemplate().update("T_PROCESS_TASK_ASSIGNEE_SqlMap.updateTaskAssigneePerson", taskAssgineeDto);
-	}
 	
 	@Override
 	public List queryDefinitionId(String executionId) {
 		
-		List list =  queryForList("T_PROCESS_BUSINESS_SqlMap.queryDefinitionId", executionId);
+		List list =  queryForList("T_PROCESS_TASK_ASSIGNEE_SqlMap.queryDefinitionId", executionId);
+		return list;
+	}
+
+	@Override
+	public List queryTaskAssigneeId(Long id) {
+		
+		List list =  queryForList("T_PROCESS_TASK_ASSIGNEE_SqlMap.queryTaskAssigneeId", id);
+		return list;
+	}
+
+	@Override
+	public void updateTaskAssigneePerson(Map<String, Object> map) {
+		
+		getSqlMapClientTemplate().update("T_PROCESS_TASK_ASSIGNEE_SqlMap.updateTaskAssigneePerson", map);
+	}
+
+	@Override
+	public List getEmpnameByEmpId(Long empid) {
+		
+		List list =  queryForList("T_PROCESS_TASK_ASSIGNEE_SqlMap.getEmpnameByEmpId", empid);
 		return list;
 	}
 }

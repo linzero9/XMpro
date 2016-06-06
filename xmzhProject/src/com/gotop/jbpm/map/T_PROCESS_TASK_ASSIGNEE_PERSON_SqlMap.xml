@@ -19,6 +19,19 @@
     <result column="TASK_ASSIGNEE_ID" property="taskAssigneeId" jdbcType="DECIMAL" />
       <result column="TASK_ASSIGNEE_STATE" property="taskAssigneeState" jdbcType="DECIMAL" />
   </resultMap>
+  
+  
+  <resultMap id="tProcessTaskAssigneePerson_HashMapResult" class="com.gotop.jbpm.model.TProcessTaskAssigneePerson" >
+    <result column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="PROCESS_TASK_ASSIGNEE_ID" property="processTaskAssigneeId" jdbcType="DECIMAL" />
+    <result column="EXECUTION_ID" property="executionId" jdbcType="VARCHAR" />
+    <result column="TASK_ID" property="taskId" jdbcType="VARCHAR" />
+    <result column="TASK_ASSIGNEE_ID" property="taskAssigneeId" jdbcType="DECIMAL" />
+     <result column="TASK_ASSIGNEE_STATE" property="taskAssigneeState" jdbcType="VARCHAR" />
+     <result column="PARENT_ID" property="parentId" jdbcType="DECIMAL" />
+     <result column="ISCHILD" property="isChild" jdbcType="VARCHAR" />
+  </resultMap>
+  
   <insert id="abatorgenerated_insert" parameterClass="com.gotop.jbpm.model.TProcessTaskAssigneePerson" >
     <!--通过主键更新整条数据-->
     <selectKey resultClass="long" keyProperty="id">
@@ -190,4 +203,10 @@
       </isNotEmpty>
     </dynamic>
   </update>  
+  
+  <select id="queryTaskAssigneePerson"  resultMap="tProcessTaskAssigneePerson_HashMapResult"  parameterClass="java.util.HashMap">
+  select * from T_PROCESS_TASK_ASSIGNEE_PERSON 
+	where execution_id = '$executionId$' 
+	and process_task_assignee_id='$processTaskAssigneeId$'
+  </select>
 </sqlMap>

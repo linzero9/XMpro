@@ -275,4 +275,11 @@ public class TProcessTaskAssigneePersonDAO extends SqlMapClientDao implements IT
 	     return list;
 	}
 
+	@Override
+	public List queryTaskAssigneePerson(Map<String, Object> map) {
+		
+		List list = queryForList("T_PROCESS_TASK_ASSIGNEE_PERSON_SqlMap.queryTaskAssigneePerson", map);
+	     return list;
+	}
+
 }

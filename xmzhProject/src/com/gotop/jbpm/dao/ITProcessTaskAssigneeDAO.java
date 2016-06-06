@@ -183,13 +183,15 @@ public interface ITProcessTaskAssigneeDAO {
 	 */
 	List<TProcessTaskAssignee> selectByTaskExeConfigId(Map<String, Object> map);
 
-	List queryTaskAssginee(TaskAssgineeDto taskAssgineeDto);
+	List queryDefinitionId(String executionId);
 
-	void updateTaskAssignee(TaskAssgineeDto taskAssgineeDto);
+	List queryTaskAssginee(TaskAssgineeDto taskAssgineeDto);
 
 	List queryJBPM4Task(TaskAssgineeDto taskAssgineeDto);
 
-	void updateTaskAssigneePerson(TaskAssgineeDto taskAssgineeDto);
-	
-	List queryDefinitionId(String executionId);
+	List queryTaskAssigneeId(Long id);
+
+	void updateTaskAssigneePerson(Map<String, Object> map);
+
+	List getEmpnameByEmpId(Long empid);
 }

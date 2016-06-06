@@ -4,12 +4,16 @@
 <h:css href="/css/style1/style-custom.css" />
 <script src="<%=request.getContextPath()%>/common/gotop/jquery.min.js"></script>
 <script type="text/javascript" src="/js/commonUtil.js"></script>
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>我的已办</title>
 </head>
 <body topmargin="0" leftmargin="0">
+
+<h:hidden  id="curr_empid"  property="${muo.empid }"/>
+
 	<h:form name="appQuery"
 		action="/jbpm/tProcessTaskAssigneeAction_queryMyCompletedTasksList.action"
 		method="post">
@@ -418,6 +422,8 @@
 				return;
 			} else {
 				var rows = gop.getSelectRow();
+				var preTaskAssingee = rows.getParam("preTaskAssingee");
+				
 				var executionId = rows.getParam("executionId");
 				var activityName = rows.getParam("activityName");
 				var currentActivityName = rows.getParam("currentActivityName");
@@ -426,11 +432,22 @@
 				var businessKey = rows.getParam("businessKey");
 				var nextTaskId = rows.getParam("nextTaskId");
 			//	var activityName = rows.getParam("activityName");
-
 				var processName = rows.getParam("processName");
 				
 				
-				/* var strUrl = "/jbpm/jbpmDemoAction_backOver.action?isView="
+				if(preTaskAssingee != $id("curr_empid").value){
+					alert("您不是上个节点办理人，无权撤销！");
+					return;
+				}else if(currentActivityName == "结束"){
+					alert("流程已经结束，无法撤销！");
+					return;
+				}else if(preTaskId == ""){
+					alert("当前为流程第一个节点，无法撤销！");
+					return;
+				}else{
+				
+				
+				/* 	var strUrl = "/jbpm/jbpmDemoAction_backOver.action?isView="
 						+ 1
 						+ "&taskAssgineeDto.executionId="
 						+ executionId
@@ -456,7 +473,8 @@
 							 "&taskAssgineeDto.activityName=" + activityName+
 							 "&taskAssgineeDto.processName=" + processName+
 							 "&taskAssgineeDto.nextTaskId="+nextTaskId+
-							 "&taskAssgineeDto.businessKey="+businessKey,
+							 "&taskAssgineeDto.businessKey="+businessKey+
+							 "&taskAssgineeDto.preTaskAssingee="+preTaskAssingee,
 					timeout : 60000,
 					dataType : "text",
 					success : function(data) {
@@ -471,29 +489,19 @@
 
 					}
 				});
+				}
+				
 
 
 				
 			}
 		}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		
+		function callBackFunc() {
+			var frm = $name("appQuery");
+			frm.submit();
+			
+		}
 	</script>
 </body>
 </html>
