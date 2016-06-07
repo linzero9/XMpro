@@ -199,7 +199,7 @@
                         <l:greaterThan property="page.count" targetValue="0"
 									compareType="number">
 								&nbsp; &nbsp;
-							<input type="button" class="button" value="流程退回"
+							<input type="button" class="button" value="流程收回"
 										onclick="backOver();" />
 								</l:greaterThan>
 								
@@ -421,8 +421,9 @@
 				alert("请选择一条流程信息");
 				return;
 			} else {
-			if (confirm("确定要退回该流程吗？")) {
 				var rows = gop.getSelectRow();
+				var businessType = rows.getParam("businessType");
+
 				var preTaskAssingee = rows.getParam("preTaskAssingee");
 				var preTaskAssingeeName =  rows.getParam("preTaskAssingeeName");
 				
@@ -430,26 +431,26 @@
 				var activityName = rows.getParam("activityName");
 				var currentActivityName = rows.getParam("currentActivityName");
 				var preTaskId = rows.getParam("preTaskId");
-				var businessType = rows.getParam("businessType");
 				var businessKey = rows.getParam("businessKey");
 				var nextTaskId = rows.getParam("nextTaskId");
 			//	var activityName = rows.getParam("activityName");
 				var processName = rows.getParam("processName");
 				
 				if(businessType == "88"){
-					alert("该流程为信贷流程，不能退回！");
+					alert("该流程为信贷流程，不能收回！");
 					return ;
 				}else if(preTaskAssingeeName.indexOf("开始") != -1 ){ //包含“开始”
-						alert("上个节点为开始节点，无法退回！");
-						return;
-				}else if(currentActivityName == "结束"){
-					alert("流程已经结束，无法退回！");
+					alert("上个节点为开始节点，无法收回！");
 					return;
-				}else if(preTaskAssingee != $id("curr_empid").value){
-					alert("您不是上个节点办理人，无权退回！");
-					return;
-				}else{
-				
+			}else if(currentActivityName == "结束"){
+				alert("流程已经结束，无法收回！");
+				return;
+			}else if(preTaskAssingee != $id("curr_empid").value){
+				alert("您不是上个节点办理人，无权收回！");
+				return;
+			}else{
+				if (confirm("确定要收回该流程吗？")) {
+
 					$.ajax({
 						url : "/jbpm/jbpmDemoAction_backOver.action",
 						async : false,
@@ -467,10 +468,10 @@
 						dataType : "text",
 						success : function(data) {
 							if (data.indexOf("success") >= 0) {
-								alert("撤销成功");
+								alert("收回成功");
 								callBackFunc();
 							} else if (data.indexOf("fails") >= 0) {
-								alert("撤销失败!");
+								alert("收回失败!");
 							} else {
 								alert("操作失败!");
 							}
