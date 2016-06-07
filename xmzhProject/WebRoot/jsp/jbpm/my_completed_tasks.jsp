@@ -199,7 +199,7 @@
                         <l:greaterThan property="page.count" targetValue="0"
 									compareType="number">
 								&nbsp; &nbsp;
-							<input type="button" class="button" value="流程撤销"
+							<input type="button" class="button" value="流程退回"
 										onclick="backOver();" />
 								</l:greaterThan>
 								
@@ -421,6 +421,7 @@
 				alert("请选择一条流程信息");
 				return;
 			} else {
+			if (confirm("确定要退回该流程吗？")) {
 				var rows = gop.getSelectRow();
 				var preTaskAssingee = rows.getParam("preTaskAssingee");
 				var preTaskAssingeeName =  rows.getParam("preTaskAssingeeName");
@@ -435,15 +436,17 @@
 			//	var activityName = rows.getParam("activityName");
 				var processName = rows.getParam("processName");
 				
-				
-				 if(preTaskAssingeeName.indexOf("开始") != -1 ){ //包含“开始”
-						alert("上个节点为开始节点，无法撤销！");
+				if(businessType == "88"){
+					alert("该流程为信贷流程，不能退回！");
+					return ;
+				}else if(preTaskAssingeeName.indexOf("开始") != -1 ){ //包含“开始”
+						alert("上个节点为开始节点，无法退回！");
 						return;
 				}else if(currentActivityName == "结束"){
-					alert("流程已经结束，无法撤销！");
+					alert("流程已经结束，无法退回！");
 					return;
 				}else if(preTaskAssingee != $id("curr_empid").value){
-					alert("您不是上个节点办理人，无权撤销！");
+					alert("您不是上个节点办理人，无权退回！");
 					return;
 				}else{
 				
@@ -493,7 +496,7 @@
 				
 			}
 		}
-
+}
 		function callBackFunc() {
 			var frm = $name("appQuery");
 			frm.submit();
