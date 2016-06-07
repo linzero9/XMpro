@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -2792,8 +2793,8 @@ public class JbpmDemoAction extends BaseAction {
     			HashMap hp = (HashMap) empInfos.get(0);
     			
     			taskAssginee.setPreTaskId(nextTaskId);
-    			taskAssginee.setPreTaskAssingee((String)hp.get("empid"));
-    			taskAssginee.setPreTaskOrg((Long)hp.get("orgid"));
+    			taskAssginee.setPreTaskAssingee(String.valueOf(hp.get("EMPID")));
+    			taskAssginee.setPreTaskOrg(Long.valueOf(String.valueOf( (BigDecimal)hp.get("ORGID"))));
     			taskAssginee.setPreTaskTime(TimeUtil.today()+TimeUtil.now());
     			
     			taskAssginee.setNextTaskId(nextTaskId);
