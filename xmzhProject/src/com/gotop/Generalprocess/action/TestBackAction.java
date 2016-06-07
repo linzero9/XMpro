@@ -62,6 +62,13 @@ import com.gotop.opinion.service.ITDefaultOpinionService;
 import com.gotop.util.Struts2Utils;
 import com.gotop.vo.system.MUOUserSession;
 
+
+/**
+ * 
+ * @author wujiajun  test  
+ * 
+ *
+ */
 public class TestBackAction {
 	
 	private JbpmService jbpmService;
