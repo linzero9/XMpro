@@ -72,11 +72,17 @@ public class DeviceManagementService implements IDeviceManagementService{
 				
 				String sql_otherInfo2 ="";
 				String[] arr_otherInfo2 = device.getOtherInfo_2().split(", ");
-				for(int i=0; i<arr_otherInfo2.length; i++){//最后拼接得到的SQL如：sql_otherInfo2 = "t.OTHERINFO_2 like '%01%' or t.OTHERINFO_2 like '%02%'";只要数据库里含用户所选的一项，都要选出来
-					if(i == 0){
+				for(int i=0; i<arr_otherInfo2.length; i++){//最后拼接得到的SQL如：sql_otherInfo2 = "', '||t.OTHERINFO_2||',' like '%, 01,%' or ', '||t.OTHERINFO_2||',' like '%, 02,%'"; 只要数据库里含用户所选的一项，都要选出来
+					/*if(i == 0){
 						sql_otherInfo2 += "t.OTHERINFO_2 like  " + "'%" + arr_otherInfo2[i] + "%'";
 					}else{
 						sql_otherInfo2 += " or " +  "t.OTHERINFO_2 like  " + "'%" + arr_otherInfo2[i] + "%'";
+					}*/
+					
+					if(i == 0){
+						sql_otherInfo2 += "', '||t.OTHERINFO_2||',' like  " + "'%, " + arr_otherInfo2[i] + ",%'";
+					}else{
+						sql_otherInfo2 += " or " +  "', '||t.OTHERINFO_2||',' like  " + "'%, " + arr_otherInfo2[i] + ",%'";
 					}
 				}
 				map.put("otherInfo_2", sql_otherInfo2 );
@@ -105,10 +111,16 @@ public class DeviceManagementService implements IDeviceManagementService{
 				String sql_otherInfo3 ="";
 				String[] arr_otherInfo3 = device.getOtherInfo_3().split(", ");
 				for(int i=0; i<arr_otherInfo3.length; i++){//最后拼接得到的SQL如：sql_otherInfo2 = "t.OTHERINFO_2 like '%01%' or t.OTHERINFO_2 like '%02%'";只要数据库里含用户所选的一项，都要选出来
-					if(i == 0){
+					/*if(i == 0){
 						sql_otherInfo3 += "t.OTHERINFO_3 like " + "'%" + arr_otherInfo3[i] + "%'";
 					}else{
 						sql_otherInfo3 += " or " +  "t.OTHERINFO_3 like  " + "'%" + arr_otherInfo3[i] + "%'";
+					}*/
+					
+					if(i == 0){
+						sql_otherInfo3 += "', '||t.OTHERINFO_3||',' like  " + "'%, " + arr_otherInfo3[i] + ",%'";
+					}else{
+						sql_otherInfo3 += " or " +  "', '||t.OTHERINFO_3||',' like  " + "'%, " + arr_otherInfo3[i] + ",%'";
 					}
 				}
 				map.put("otherInfo_3", sql_otherInfo3 );
@@ -136,10 +148,16 @@ public class DeviceManagementService implements IDeviceManagementService{
 				String sql_otherInfo4 ="";
 				String[] arr_otherInfo4 = device.getOtherInfo_4().split(", ");
 				for(int i=0; i<arr_otherInfo4.length; i++){//最后拼接得到的SQL如：sql_otherInfo2 = "t.OTHERINFO_2 like '%01%' or t.OTHERINFO_2 like '%02%'";只要数据库里含用户所选的一项，都要选出来
-					if(i == 0){
+					/*if(i == 0){
 						sql_otherInfo4 += "t.OTHERINFO_4 like  " + "'%" + arr_otherInfo4[i] + "%'";
 					}else{
 						sql_otherInfo4 += " or " +  "t.OTHERINFO_4 like  " + "'%" + arr_otherInfo4[i] + "%'";
+					}*/
+					
+					if(i == 0){
+						sql_otherInfo4 += "', '||t.OTHERINFO_4||',' like  " + "'%, " + arr_otherInfo4[i] + ",%'";
+					}else{
+						sql_otherInfo4 += " or " +  "', '||t.OTHERINFO_4||',' like  " + "'%, " + arr_otherInfo4[i] + ",%'";
 					}
 				}
 				map.put("otherInfo_4", sql_otherInfo4 );
@@ -175,10 +193,16 @@ public class DeviceManagementService implements IDeviceManagementService{
 				String sql_useful ="";
 				String[] arr_useful = device.getUseful().split(", ");
 				for(int i=0; i<arr_useful.length; i++){//最后拼接得到的SQL如：sql_otherInfo2 = "t.OTHERINFO_2 like '%01%' or t.OTHERINFO_2 like '%02%'";只要数据库里含用户所选的一项，都要选出来
-					if(i == 0){
+					/*if(i == 0){
 						sql_useful += "t.USEFUL like  " + "'%" + arr_useful[i] + "%'";
 					}else{
 						sql_useful += " or " +  "t.USEFUL like  " + "'%" + arr_useful[i] + "%'";
+					}*/
+					
+					if(i == 0){
+						sql_useful += "', '||t.USEFUL||',' like  " + "'%, " + arr_useful[i] + ",%'";
+					}else{
+						sql_useful += " or " +  "', '||t.USEFUL||',' like  " + "'%, " + arr_useful[i] + ",%'";
 					}
 				}
 				map.put("useful", sql_useful );
@@ -190,10 +214,16 @@ public class DeviceManagementService implements IDeviceManagementService{
 				String sql_plugIn ="";
 				String[] arr_plugIn = device.getPlugIn().split(", ");
 				for(int i=0; i<arr_plugIn.length; i++){//最后拼接得到的SQL如：sql_otherInfo2 = "t.OTHERINFO_2 like '%01%' or t.OTHERINFO_2 like '%02%'";只要数据库里含用户所选的一项，都要选出来
-					if(i == 0){
+					/*if(i == 0){
 						sql_plugIn += "t.PLUGIN like  " + "'%" + arr_plugIn[i] + "%'";
 					}else{
 						sql_plugIn += " or " +  "t.PLUGIN like  " + "'%" + arr_plugIn[i] + "%'";
+					}*/
+					
+					if(i == 0){
+						sql_plugIn += "', '||t.PLUGIN||',' like  " + "'%, " + arr_plugIn[i] + ",%'";
+					}else{
+						sql_plugIn += " or " +  "', '||t.PLUGIN||',' like  " + "'%, " + arr_plugIn[i] + ",%'";
 					}
 				}
 				map.put("plugIn", sql_plugIn );
@@ -205,10 +235,16 @@ public class DeviceManagementService implements IDeviceManagementService{
 				String sql_peripheral ="";
 				String[] arr_peripheral = device.getPeripheral().split(", ");
 				for(int i=0; i<arr_peripheral.length; i++){//最后拼接得到的SQL如：sql_otherInfo2 = "t.OTHERINFO_2 like '%01%' or t.OTHERINFO_2 like '%02%'";只要数据库里含用户所选的一项，都要选出来
-					if(i == 0){
+					/*if(i == 0){
 						sql_peripheral += "t.PERIPHERAL like  " + "'%" + arr_peripheral[i] + "%'";
 					}else{
 						sql_peripheral += " or " +  "t.PERIPHERAL like  " + "'%" + arr_peripheral[i] + "%'";
+					}*/
+					
+					if(i == 0){
+						sql_peripheral += "', '||t.PERIPHERAL||',' like  " + "'%, " + arr_peripheral[i] + ",%'";
+					}else{
+						sql_peripheral += " or " +  "', '||t.PERIPHERAL||',' like  " + "'%, " + arr_peripheral[i] + ",%'";
 					}
 				}
 				map.put("peripheral", sql_peripheral );
@@ -250,11 +286,11 @@ public class DeviceManagementService implements IDeviceManagementService{
 				
 				String sql_otherInfo2 ="";
 				String[] arr_otherInfo2 = device.getOtherInfo_2().split(", ");
-				for(int i=0; i<arr_otherInfo2.length; i++){//最后拼接得到的SQL如：sql_otherInfo2 = "t.OTHERINFO_2 like '%01%' or t.OTHERINFO_2 like '%02%'";只要数据库里含用户所选的一项，都要选出来
+				for(int i=0; i<arr_otherInfo2.length; i++){//最后拼接得到的SQL如：sql_otherInfo2 = "', '||t.OTHERINFO_2||',' like '%, 01,%' or ', '||t.OTHERINFO_2||',' like '%, 02,%'";只要数据库里含用户所选的一项，都要选出来
 					if(i == 0){
-						sql_otherInfo2 += "t.OTHERINFO_2 like  " + "'%" + arr_otherInfo2[i] + "%'";
+						sql_otherInfo2 += "', '||t.OTHERINFO_2||',' like  " + "'%, " + arr_otherInfo2[i] + ",%'";
 					}else{
-						sql_otherInfo2 += " or " +  "t.OTHERINFO_2 like  " + "'%" + arr_otherInfo2[i] + "%'";
+						sql_otherInfo2 += " or " +  "', '||t.OTHERINFO_2||',' like  " + "'%, " + arr_otherInfo2[i] + ",%'";
 					}
 				}
 				map.put("otherInfo_2", sql_otherInfo2 );
@@ -282,11 +318,11 @@ public class DeviceManagementService implements IDeviceManagementService{
 				
 				String sql_otherInfo3 ="";
 				String[] arr_otherInfo3 = device.getOtherInfo_3().split(", ");
-				for(int i=0; i<arr_otherInfo3.length; i++){//最后拼接得到的SQL如：sql_otherInfo2 = "t.OTHERINFO_2 like '%01%' or t.OTHERINFO_2 like '%02%'";只要数据库里含用户所选的一项，都要选出来
+				for(int i=0; i<arr_otherInfo3.length; i++){//最后拼接得到的SQL如：sql_otherInfo2 = "', '||t.OTHERINFO_2||',' like '%, 01,%' or ', '||t.OTHERINFO_2||',' like '%, 02,%'" ;  只要数据库里含用户所选的一项，都要选出来
 					if(i == 0){
-						sql_otherInfo3 += "t.OTHERINFO_3 like " + "'%" + arr_otherInfo3[i] + "%'";
+						sql_otherInfo3 += "', '||t.OTHERINFO_3||',' like  " + "'%, " + arr_otherInfo3[i] + ",%'";
 					}else{
-						sql_otherInfo3 += " or " +  "t.OTHERINFO_3 like  " + "'%" + arr_otherInfo3[i] + "%'";
+						sql_otherInfo3 += " or " +  "', '||t.OTHERINFO_3||',' like  " + "'%, " + arr_otherInfo3[i] + ",%'";
 					}
 				}
 				map.put("otherInfo_3", sql_otherInfo3 );
@@ -313,11 +349,11 @@ public class DeviceManagementService implements IDeviceManagementService{
 				
 				String sql_otherInfo4 ="";
 				String[] arr_otherInfo4 = device.getOtherInfo_4().split(", ");
-				for(int i=0; i<arr_otherInfo4.length; i++){//最后拼接得到的SQL如：sql_otherInfo2 = "t.OTHERINFO_2 like '%01%' or t.OTHERINFO_2 like '%02%'";只要数据库里含用户所选的一项，都要选出来
+				for(int i=0; i<arr_otherInfo4.length; i++){//最后拼接得到的SQL如：sql_otherInfo2 = "', '||t.OTHERINFO_2||',' like '%, 01,%' or ', '||t.OTHERINFO_2||',' like '%, 02,%'";  只要数据库里含用户所选的一项，都要选出来
 					if(i == 0){
-						sql_otherInfo4 += "t.OTHERINFO_4 like  " + "'%" + arr_otherInfo4[i] + "%'";
+						sql_otherInfo4 += "', '||t.OTHERINFO_4||',' like  " + "'%, " + arr_otherInfo4[i] + ",%'";
 					}else{
-						sql_otherInfo4 += " or " +  "t.OTHERINFO_4 like  " + "'%" + arr_otherInfo4[i] + "%'";
+						sql_otherInfo4 += " or " +  "', '||t.OTHERINFO_4||',' like  " + "'%, " + arr_otherInfo4[i] + ",%'";
 					}
 				}
 				map.put("otherInfo_4", sql_otherInfo4 );
@@ -352,11 +388,11 @@ public class DeviceManagementService implements IDeviceManagementService{
 				
 				String sql_useful ="";
 				String[] arr_useful = device.getUseful().split(", ");
-				for(int i=0; i<arr_useful.length; i++){//最后拼接得到的SQL如：sql_otherInfo2 = "t.OTHERINFO_2 like '%01%' or t.OTHERINFO_2 like '%02%'";只要数据库里含用户所选的一项，都要选出来
+				for(int i=0; i<arr_useful.length; i++){//最后拼接得到的SQL如：sql_otherInfo2 = "', '||t.OTHERINFO_2||',' like '%, 01,%' or ', '||t.OTHERINFO_2||',' like '%, 02,%'"; 只要数据库里含用户所选的一项，都要选出来
 					if(i == 0){
-						sql_useful += "t.USEFUL like  " + "'%" + arr_useful[i] + "%'";
+						sql_useful += "', '||t.USEFUL||',' like  " + "'%, " + arr_useful[i] + ",%'";
 					}else{
-						sql_useful += " or " +  "t.USEFUL like  " + "'%" + arr_useful[i] + "%'";
+						sql_useful += " or " +  "', '||t.USEFUL||',' like  " + "'%, " + arr_useful[i] + ",%'";
 					}
 				}
 				map.put("useful", sql_useful );
@@ -367,11 +403,11 @@ public class DeviceManagementService implements IDeviceManagementService{
 				
 				String sql_plugIn ="";
 				String[] arr_plugIn = device.getPlugIn().split(", ");
-				for(int i=0; i<arr_plugIn.length; i++){//最后拼接得到的SQL如：sql_otherInfo2 = "t.OTHERINFO_2 like '%01%' or t.OTHERINFO_2 like '%02%'";只要数据库里含用户所选的一项，都要选出来
+				for(int i=0; i<arr_plugIn.length; i++){//最后拼接得到的SQL如：sql_otherInfo2 = "', '||t.OTHERINFO_2||',' like '%, 01,%' or ', '||t.OTHERINFO_2||',' like '%, 02,%'"; 只要数据库里含用户所选的一项，都要选出来
 					if(i == 0){
-						sql_plugIn += "t.PLUGIN like  " + "'%" + arr_plugIn[i] + "%'";
+						sql_plugIn += "', '||t.PLUGIN||',' like  " + "'%, " + arr_plugIn[i] + ",%'";
 					}else{
-						sql_plugIn += " or " +  "t.PLUGIN like  " + "'%" + arr_plugIn[i] + "%'";
+						sql_plugIn += " or " +  "', '||t.PLUGIN||',' like  " + "'%, " + arr_plugIn[i] + ",%'";
 					}
 				}
 				map.put("plugIn", sql_plugIn );
@@ -382,11 +418,11 @@ public class DeviceManagementService implements IDeviceManagementService{
 				
 				String sql_peripheral ="";
 				String[] arr_peripheral = device.getPeripheral().split(", ");
-				for(int i=0; i<arr_peripheral.length; i++){//最后拼接得到的SQL如：sql_otherInfo2 = "t.OTHERINFO_2 like '%01%' or t.OTHERINFO_2 like '%02%'";只要数据库里含用户所选的一项，都要选出来
+				for(int i=0; i<arr_peripheral.length; i++){//sql_otherInfo2 = "', '||t.OTHERINFO_2||',' like '%, 01,%' or ', '||t.OTHERINFO_2||',' like '%, 02,%'"; 只要数据库里含用户所选的一项，都要选出来
 					if(i == 0){
-						sql_peripheral += "t.PERIPHERAL like  " + "'%" + arr_peripheral[i] + "%'";
+						sql_peripheral += "', '||t.PERIPHERAL||',' like  " + "'%, " + arr_peripheral[i] + ",%'";
 					}else{
-						sql_peripheral += " or " +  "t.PERIPHERAL like  " + "'%" + arr_peripheral[i] + "%'";
+						sql_peripheral += " or " +  "', '||t.PERIPHERAL||',' like  " + "'%, " + arr_peripheral[i] + ",%'";
 					}
 				}
 				map.put("peripheral", sql_peripheral );
