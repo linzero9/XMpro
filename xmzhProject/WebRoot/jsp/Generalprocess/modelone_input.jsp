@@ -1,4 +1,4 @@
-<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
+..<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <%@include file="/common/common.jsp"%>
 <%@include file="/common/skins/skin0/component.jsp"%>
 <%@page import="java.util.*"%>
@@ -40,7 +40,7 @@
 		<table align="center" border="0" width="100%" class="form_table" >
       <tr>
          <td  colspan="4" style="text-align: center;font-weight:bold;font-size:12pt;height:50px;background-color: rgb(145, 186, 221);" >
-        		 ${taskName }
+        		 ${taskName}
         </td>
       </tr>
       <tr>

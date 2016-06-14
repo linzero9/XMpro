@@ -355,4 +355,6 @@ public class TProcessTaskAssigneeDAO extends SqlMapClientDao implements ITProces
 		List list =  queryForList("T_PROCESS_TASK_ASSIGNEE_SqlMap.queryEmpInfo", null);
 		return list;
 	}
+
+
 }

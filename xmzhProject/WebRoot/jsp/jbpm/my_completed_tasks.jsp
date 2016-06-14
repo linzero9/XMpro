@@ -64,6 +64,9 @@
 						</h:select> --%>
 						
 						</td>
+						<td class="form_label" align="right" width="20%">标题：</td>
+					<td colspan="1" width="30%"><h:text id="businessTitle"
+							property="taskAssignee.businessTitle" /></td>
 				</tr>
 				<%-- <tr>
 					<td class="form_label" align="right" width="20%">提交时间</td>
@@ -259,6 +262,24 @@
 		</w:panel>
 	</DIV>
 	<script type="text/javascript">
+	function clears(){
+		
+		$("#assingeeName").val("");
+		$("#orgName").val("");
+		$("#businessType").val("");
+		$("#businessTitle").val("");
+		//清空 时间控件页面显示的值
+		$("#d1_input").val("");
+		$("#d2_input").val("");
+		$("#d3_input").val("");
+		$("#d4_input").val("");
+		//清空时间控件 传入后台的值
+		$name("taskAssignee.startTime").value = "";
+		$name("taskAssignee.endTime").value = "";
+		$name("taskAssignee.startTimeAfter").value = "";
+		$name("taskAssignee.endTimeAfter").value = "";
+
+		}
 		function winclose() {
 			window.close();
 		}
@@ -396,6 +417,7 @@
 			var assingeeName = $("#assingeeName").val();
 			var orgName = $("#orgName").val();
 			var businessType = $("#businessType").val();
+			var businessTitle = $("#businessTitle").val();
 			var startTime1 = $("#d1_input").val().replaceAll("-", "");
 			var endTime1 = $("#d2_input").val().replaceAll("-", "");
 			var startTime2 = $("#d3_input").val().replaceAll("-", "");
@@ -406,6 +428,7 @@
 					+ startTime1 + "&taskAssignee.startTimeAfter=" + endTime1
 					+ "&taskAssignee.endTime=" + startTime2
 					+ "&taskAssignee.endTimeAfter=" + endTime2
+					+ "&taskAssignee.businessTitle=" + businessTitle
 					+ "&taskAssignee.businessType=" + businessType;
 			window.location.href = url;
 

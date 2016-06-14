@@ -237,6 +237,9 @@ public class TProcessTaskAssigneeService implements ITProcessTaskAssigneeService
 			if(taskAssignee.getEndTimeAfter()!=null && !"".equals(taskAssignee.getEndTimeAfter())){
 				map.put("endTimeAfter", taskAssignee.getEndTimeAfter());
 			}
+			if(taskAssignee.getBusinessTitle()!=null && !"".equals(taskAssignee.getBusinessTitle())){
+				map.put("businessTitle", taskAssignee.getBusinessTitle());
+			}
 		}
 		return this.tProcessTaskAssigneeDAO.queryMyCompletedTasksList(map,page);
 	}
@@ -419,6 +422,9 @@ public class TProcessTaskAssigneeService implements ITProcessTaskAssigneeService
 			}
 			if(taskAssignee.getBusinessType()!=null && !"".equals(taskAssignee.getBusinessType())){
 				map.put("businessType", taskAssignee.getBusinessType());
+			}
+			if(taskAssignee.getBusinessTitle()!=null && !"".equals(taskAssignee.getBusinessTitle())){
+				map.put("businessTitle", taskAssignee.getBusinessTitle());
 			}
 			/**
 			 * 20140905 已办开始时间

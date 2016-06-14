@@ -503,6 +503,9 @@ select T1.ID,
             substr(to_char(T8.END_, 'yyyymmddhh24miss') ,0,8) <= '$endTimeAfter$' 
                ]]>
       </isNotNull>
+         <isNotNull prepend="and" property="businessTitle" >
+          t9.business_title LIKE '%$businessTitle$%'
+      </isNotNull>
    </dynamic>
    )
 where rn=1 order by END_ desc
@@ -569,6 +572,9 @@ where rn=1 order by END_ desc
             <![CDATA[
             substr(to_char(T8.END_, 'yyyymmddhh24miss') ,0,8) <= '$endTimeAfter$' 
                ]]>
+      </isNotNull>
+         <isNotNull prepend="and" property="businessTitle" >
+          t9.business_title LIKE '%$businessTitle$%'
       </isNotNull>
    </dynamic>
    )
