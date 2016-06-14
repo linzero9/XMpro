@@ -198,14 +198,14 @@ margin-left:inherit;
 						id="remarks_5" extAttr="class='h80' "  rows="4" style="width:90%;"  validateAttr="maxLength=127;" /> </td>
 			</tr>
 			
-			<l:notEmpty property="device.deviceState" >
+	
 			<tr>	
 				<td class="form_label" align="right" width="15%" nowrap="nowrap">${sheBeiShuX.DEVICE_STATE}：</td>
 				<td colspan="1" width="30%" nowrap="nowrap">
 					<d:select dictTypeId="DEVICE_STATE" property="device.deviceState"  />
 				</td>
 			</tr>
-			</l:notEmpty>
+			
 			
 			<tr>
 				<td colspan="2" style="text-align: left">
