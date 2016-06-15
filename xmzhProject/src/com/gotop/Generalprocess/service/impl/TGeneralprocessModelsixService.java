@@ -24,6 +24,7 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 import java.util.UUID;
 
@@ -484,7 +485,30 @@ public class TGeneralprocessModelsixService implements ITGeneralprocessModelsixS
 			
 			
 		}
+		
+		/*
+		 *  20160614 添加代码，用于 信贷流程收回 时做判断，信贷流程下个节点为“保存”，则不能收回
+		 * author:lmt
+		 */
+		if("88" .equals(taskAssgineeDto.getBusinessType())){//只有信贷流程，才需要处理
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			
+			map.put("flow_id", Six.getFlowId());
+			map.put("taskname", Six.getTaskName());
+			
+			if("1".equals(taskAssgineeDto.getBtnType())){
+				//1表示 点了“保存”按钮
+				map.put("flag", "1");
+			}else{
+				//2表示 点了“提交”按钮
+				map.put("flag", "2");
+			}
+			
+			generalprocessService.xdproTaskDoSave(map);
+		}
 
+		
 	
 	}
     

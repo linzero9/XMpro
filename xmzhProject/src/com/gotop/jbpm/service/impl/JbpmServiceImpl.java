@@ -1680,4 +1680,11 @@ public class JbpmServiceImpl implements JbpmService{
 		List list = this.tProcessTaskAssigneeDAO.queryEmpInfo();
 		return list;
 	}
+
+	@Override
+	public List queryBackoverTaskIsSave(Map<String, Object> map) {
+		
+		List list = this.tProcessTaskAssigneeDAO.queryBackoverTaskIsSave(map);
+		return list;
+	}
 }

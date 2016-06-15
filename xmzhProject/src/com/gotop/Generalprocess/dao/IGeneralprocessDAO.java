@@ -34,5 +34,11 @@ public interface IGeneralprocessDAO {
 
 	public List<Omorganization> isOneOrg(Map<String, Object> map2);
 
+	public List queryBackoverTaskIsSave(Map<String, Object> map);
+
+	public void insertBackoverTaskIsSave(Map<String, Object> map);
+
+	public void uptBackoverTaskIsSave(Map<String, Object> map);
+
 
 }

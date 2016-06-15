@@ -357,4 +357,10 @@ public class TProcessTaskAssigneeDAO extends SqlMapClientDao implements ITProces
 	}
 
 
+	@Override
+	public List queryBackoverTaskIsSave(Map<String, Object> map) {
+		
+		List list = queryForList("GENERAL_PROCESS_SqlMap.queryBackoverTaskIsSave", map);
+		return list;
+	}
 }

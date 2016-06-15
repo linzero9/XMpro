@@ -459,10 +459,7 @@
 			//	var activityName = rows.getParam("activityName");
 				var processName = rows.getParam("processName");
 				
-				if(businessType == "88"){
-					alert("该流程为信贷流程，不能收回！");
-					return ;
-				}else if(preTaskAssingeeName.indexOf("开始") != -1 ){ //包含“开始”
+			if(preTaskAssingeeName.indexOf("开始") != -1 ){ //包含“开始”
 					alert("上个节点为开始节点，无法收回！");
 					return;
 			}else if(currentActivityName == "结束"){
@@ -471,56 +468,84 @@
 			}else if(preTaskAssingee != $id("curr_empid").value){
 				alert("您不是上个节点办理人，无权收回！");
 				return;
-			}else{
-				if (confirm("确定要收回该流程吗？")) {
-
-					$.ajax({
-						url : "/jbpm/jbpmDemoAction_backOver.action",
-						async : false,
-						type : 'post',
-						data : "isView=1&taskAssgineeDto.executionId=" + executionId+
-								 "&taskAssgineeDto.taskName="+ currentActivityName+
-								 "&taskAssgineeDto.preTaskId="+ preTaskId+
-								 "&taskAssgineeDto.businessType=" + businessType+
-								 "&taskAssgineeDto.activityName=" + activityName+
-								 "&taskAssgineeDto.processName=" + processName+
-								 "&taskAssgineeDto.nextTaskId="+nextTaskId+
-								 "&taskAssgineeDto.businessKey="+businessKey+
-								 "&taskAssgineeDto.preTaskAssingee="+preTaskAssingee,
-						timeout : 60000,
-						dataType : "text",
-						success : function(data) {
-							if (data.indexOf("success") >= 0) {
-								alert("收回成功");
-								callBackFunc();
-							} else if (data.indexOf("fails") >= 0) {
-								alert("收回失败!");
-							} else {
-								alert("操作失败!");
-							}
-
+			}else if(businessType == "88"){
+				$.ajax({
+					url : "/jbpm/jbpmDemoAction_judgeXdproTaskIsSave.action",
+					async : false,
+					type : 'post',
+					data : "taskAssgineeDto.executionId=" + executionId+
+							 "&taskAssgineeDto.taskName="+ currentActivityName,
+					timeout : 60000,
+					dataType : "text",
+					success : function(data) {
+						if (data.indexOf("yes") >= 0) {
+								alert("该信贷流程的当前节点办理人已对当前节点进行模式保存操作，无法收回！");
+								return ;
+						} else{
+							operateBackOver();
 						}
-					});
-				}
-					
-				/* 	var strUrl = "/jbpm/jbpmDemoAction_backOver.action?isView="
-						+ 1
-						+ "&taskAssgineeDto.executionId="
-						+ executionId
-						+ "&taskAssgineeDto.taskName="
-						+ currentActivityName
-						+ "&taskAssgineeDto.preTaskId="
-						+ preTaskId
-						+ "&taskAssgineeDto.businessType=" + businessType
-						+ "&taskAssgineeDto.activityName=" + activityName
-						+ "&taskAssgineeDto.processName=" + processName
-						+ "&taskAssgineeDto.nextTaskId="+nextTaskId;
 
-				window.location.href = strUrl; */
+					}
+				});
 				
+			}else{
+				operateBackOver();
 			}
 		}
 }
+
+	function operateBackOver(){
+
+		var gop = $id("group1");
+		var rows = gop.getSelectRow();
+		var businessType = rows.getParam("businessType");
+
+		var preTaskAssingee = rows.getParam("preTaskAssingee");
+		var preTaskAssingeeName =  rows.getParam("preTaskAssingeeName");
+		
+		var executionId = rows.getParam("executionId");
+		var activityName = rows.getParam("activityName");
+		var currentActivityName = rows.getParam("currentActivityName");
+		var preTaskId = rows.getParam("preTaskId");
+		var businessKey = rows.getParam("businessKey");
+		var nextTaskId = rows.getParam("nextTaskId");
+	//	var activityName = rows.getParam("activityName");
+		var processName = rows.getParam("processName");
+		
+		if (confirm("确定要收回该流程吗？")) {
+
+			$.ajax({
+				url : "/jbpm/jbpmDemoAction_backOver.action",
+				async : false,
+				type : 'post',
+				data : "isView=1&taskAssgineeDto.executionId=" + executionId+
+						 "&taskAssgineeDto.taskName="+ currentActivityName+
+						 "&taskAssgineeDto.preTaskId="+ preTaskId+
+						 "&taskAssgineeDto.businessType=" + preTaskId+
+						 "&taskAssgineeDto.activityName=" + activityName+
+						 "&taskAssgineeDto.processName=" + processName+
+						 "&taskAssgineeDto.nextTaskId="+nextTaskId+
+						 "&taskAssgineeDto.businessKey="+businessKey+
+						 "&taskAssgineeDto.preTaskAssingee="+preTaskAssingee,
+				timeout : 60000,
+				dataType : "text",
+				success : function(data) {
+					if (data.indexOf("success") >= 0) {
+						alert("收回成功!");
+						callBackFunc();
+					} else if (data.indexOf("fails") >= 0) {
+						alert("收回失败!");
+					} else {
+						alert("操作失败!");
+					}
+
+				}
+			});
+		}
+		
+	}
+
+	
 		function callBackFunc() {
 			var frm = $name("appQuery");
 			frm.submit();

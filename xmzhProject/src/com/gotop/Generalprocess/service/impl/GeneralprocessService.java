@@ -418,6 +418,51 @@ public class GeneralprocessService implements IGeneralprocessService {
 			
 		}
 		
+		
+		
+		/*
+		 *  20160614 添加代码，用于 信贷流程收回 时做判断，信贷流程下个节点为“保存”，则不能收回
+		 * author:lmt
+		 */
+		if("88" .equals(taskAssgineeDto.getBusinessType())){//只有信贷流程，才需要处理
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			
+			map.put("flow_id", modelOne.getFlow_Id());
+			map.put("taskname", modelOne.getTaskName());
+			
+			if("1".equals(btnType)){
+				//1表示 点了“保存”按钮
+				map.put("flag", "1");
+			}else{
+				//2表示 点了“提交”按钮
+				map.put("flag", "2");
+			}
+			
+			xdproTaskDoSave(map);
+		}
+	
+		
+	}
+	
+	/**
+	 * 信贷流程节点模式 保存还是提交 登记到t_model_backoverTaskIsSave表，用于流程收回判断
+	 * author: lmt局
+	 */
+	@Override
+	public void xdproTaskDoSave(Map<String, Object> map){
+		
+		List list = generalProcessDAO.queryBackoverTaskIsSave(map);
+		
+		if(list.size() == 0){//做insert
+			
+			generalProcessDAO.insertBackoverTaskIsSave(map);
+			
+		}else{//做update
+			generalProcessDAO.uptBackoverTaskIsSave(map);
+		}
+		
+		
 	}
 
 	@Override

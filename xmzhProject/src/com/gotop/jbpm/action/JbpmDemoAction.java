@@ -2718,7 +2718,38 @@ public class JbpmDemoAction extends BaseAction {
 	
 	
 	
-	
+	/**
+	 * 
+	 * @author lmt
+	 * @desc 判断信贷流程节点模式是否为“保存”还是 “提交”
+	 * @return
+	 * @throws Exception
+	 * 
+	 */
+	public void judgeXdproTaskIsSave() throws Exception {
+		String info = "no";
+		try {
+			Map<String, Object> map = new HashMap<String, Object>();
+			
+			map.put("flow_id", taskAssgineeDto.getExecutionId());
+			map.put("taskname", taskAssgineeDto.getTaskName());
+			
+			List list = this.jbpmService.queryBackoverTaskIsSave(map);//正常情况下只会查到一条记录,如果为0条记录，说明节点未被处理
+			if(list.size() >0){
+				HashMap<String, Object> hp = (HashMap<String, Object>) list.get(0);
+				String flag = (String) hp.get("FLAG");
+				if("1".equals(flag)){
+					info = "yes";
+				}
+				
+			}
+		} catch (Exception e) {
+			info = "fails";
+		//	log.error("[提交模式一表单失败！]", e);
+			throw e;
+		}
+		Struts2Utils.renderText(info);
+	}
 	
 	
 	

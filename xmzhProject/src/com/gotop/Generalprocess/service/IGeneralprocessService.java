@@ -2,6 +2,7 @@ package com.gotop.Generalprocess.service;
 
 import java.io.File;
 import java.util.List;
+import java.util.Map;
 
 import com.gotop.Generalprocess.model.GeneralprocessDto;
 import com.gotop.Generalprocess.model.ProcessModel;
@@ -55,5 +56,7 @@ public interface IGeneralprocessService {
 			GeneralprocessDto generalprocessDto, Page page);
 
 	public List queryyxryjg(String yxry);
+
+	public void xdproTaskDoSave(Map<String, Object> map);
 
 }

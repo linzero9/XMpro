@@ -509,4 +509,25 @@ select * from om_organization
     			connect by prior orgid = parentorgid)
  where orgid = #orgid#
   	</select>	
+  	
+  	<select id="queryBackoverTaskIsSave" resultClass="java.util.HashMap"  parameterClass="java.util.HashMap">
+  	select * from t_model_backoverTaskIsSave 
+	where flow_id = '$flow_id$' 
+		and taskname = '$taskname$'
+  	</select>
+  	
+  	<insert id="insertBackoverTaskIsSave"  parameterClass="java.util.HashMap">
+  		<selectKey resultClass="long" keyProperty="id">
+  			select seq_t_model_backoverTaskIsSave.Nextval from dual
+  		</selectKey>
+  	insert into t_model_backoverTaskIsSave(ID, FLOW_ID, TASKNAME, FLAG)
+  	values('$id$', '$flow_id$', '$taskname$', '$flag$')
+  	</insert>
+  	
+  	<update id="uptBackoverTaskIsSave"  parameterClass="java.util.HashMap">
+  	update t_model_backoverTaskIsSave
+  	set flag = '$flag$'
+  	where flow_id = '$flow_id$' 
+		and taskname = '$taskname$'
+  	</update>
 </sqlMap>

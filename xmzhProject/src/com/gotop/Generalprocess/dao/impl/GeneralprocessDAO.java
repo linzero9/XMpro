@@ -96,4 +96,25 @@ public class GeneralprocessDAO extends SqlMapClientDao implements IGeneralproces
 		return list;
 	}
 
+	@Override
+	public List queryBackoverTaskIsSave(Map<String, Object> map) {
+		
+		List list = queryForList("GENERAL_PROCESS_SqlMap.queryBackoverTaskIsSave", map);
+		return list;
+	}
+
+	@Override
+	public void insertBackoverTaskIsSave(Map<String, Object> map) {
+		
+		getSqlMapClientTemplate().insert("GENERAL_PROCESS_SqlMap.insertBackoverTaskIsSave", map);
+		
+	}
+
+	@Override
+	public void uptBackoverTaskIsSave(Map<String, Object> map) {
+		
+		getSqlMapClientTemplate().update("GENERAL_PROCESS_SqlMap.uptBackoverTaskIsSave", map);
+		
+	}
+
 }
