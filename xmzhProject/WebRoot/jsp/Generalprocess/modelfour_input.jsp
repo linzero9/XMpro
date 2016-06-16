@@ -323,7 +323,7 @@
 					         			tdStr+="差错内容：<textarea   rows=\"3\" style=\"width:60%\"   name=\""+fName+"\" id=\""+fId+"\"    validateAttr=\"allowNull=false\" onkeyup=\"this.value=this.value.replace(/[\|]/g,'')\">"+item.mistakeContent+"</textarea>";
 					         		//	tdStr+=row.id;
 									 	tdStr+="扣罚金额：<input type=\"text\" name=\""+jeName+"\" id=\""+jeId+"\" value=\""+item.punishBal+"\" size='10' validateAttr=\"allowNull=false\">元<br/>";
-					         			tdStr+="整改情况：<textarea  style=\"width:60%\"  size='70'  name=\"rectification\" id=\"rectification\"  >"+item.rectification+"</textarea>";
+					         			tdStr+="整改情况：<textarea   rows=\"3\" style=\"width:60%\"  size='70'  name=\"rectification\" id=\"rectification\"  >"+item.rectification+"</textarea>";
 									 	tdStr+= "<input type=\"button\" onclick=\"delTr('fileRow6"+rowId+"');\" name='button"+rowId+"' value=\"删除\" style=\"margin-left:2px;vertical-align:middle;cursor:hand;\"/>";
 									 	//回显的差错 不需要 保存 会导致重复的问题
 										 //	tdStr+= "<input type=\"button\" id='save"+rowId+"' onclick=\"saveMistake('fileRow6"+rowId+"','save"+rowId+"');\"  name='button"+rowId+"' value=\"保存\" style=\"margin-left:2px;vertical-align:middle;cursor:hand;\"/>";
