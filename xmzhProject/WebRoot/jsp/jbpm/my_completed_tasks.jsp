@@ -469,7 +469,10 @@
 				alert("您不是上个节点办理人，无权收回！");
 				return;
 			}else if(businessType == "88"){
-				$.ajax({
+				alert("该流程为信贷流程，无法收回！");
+				return;
+				
+				/* $.ajax({
 					url : "/jbpm/jbpmDemoAction_judgeXdproTaskIsSave.action",
 					async : false,
 					type : 'post',
@@ -486,7 +489,7 @@
 						}
 
 					}
-				});
+				}); */
 				
 			}else{
 				operateBackOver();

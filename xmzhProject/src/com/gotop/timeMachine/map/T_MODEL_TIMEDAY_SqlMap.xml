@@ -231,7 +231,7 @@ select operatorname from ac_operator where operatorid =
 		SELECT SEQ_T_MODEL_REQUESTID.NEXTVAL AS request_id FROM DUAL
 </select> 
 
-<!-- 查询 超限报表 临时表-->
+<!-- 查询 超限报表 临时表(已结束的流程)-->
   <select id="queryOverTimeReport" resultMap="OverTimeReport_Result" parameterClass="java.util.HashMap" >
     
 	select ID, REPORTTIME ,TASKNAME, CUSTNAME, ONECATEGORY_NAME,LOANCATEGORY_NAME, 
@@ -318,4 +318,75 @@ where DEFINITION_ID in (
 )  order by nlssort(ACTIVITY_NAME,'NLS_SORT=SCHINESE_PINYIN_M')
 	</select>
   
+  <!--  查询出所有 未结束 的信贷流程 -->
+  <select id="queryXdproForNotEnd" resultMap="XdproForEnd_Result" >
+  <![CDATA[
+    select t5.execution_id as flow_id, t5.procdefid_ as definition_id, t6.process_name
+  from (select t3.*, t4.procdefid_ 
+          from (select t2.*
+                  from (select t.*,
+                               row_number() over(partition by t.execution_id order by t.id desc) as rn
+                          from T_PROCESS_TASK_ASSIGNEE t) t2
+                 where t2.rn = 1
+                   and t2.next_activity_name <> '结束') t3,
+               JBPM4_HIST_PROCINST t4
+         where t3.execution_id = t4.id_) t5, T_PROCESS_CONFIG t6
+  where t5.procdefid_ = t6.definition_id
+ and t6.business_type = '88'
+ order by t5.execution_id
+ ]]>
+  </select>
+  
+  <!-- 查询 超限报表 临时表(未结束的流程)-->
+  <select id="queryOverTimeReportNotEnd" resultMap="OverTimeReport_Result" parameterClass="java.util.HashMap" >
+    
+	select ID, REPORTTIME ,TASKNAME, CUSTNAME, ONECATEGORY_NAME,LOANCATEGORY_NAME, 
+		ORGNAME_ONE, ORGNAME_TWO, EMPNAME, trunc(OVERTIME, 2) as OVERTIME, 
+		REMARK, REQUEST_ID, PROCESS_NAME, 
+		to_char(to_date(STARTTIME, 'yyyyMMddhh24miss') , 'yyyy-MM-dd hh24:mi:ss') as STARTTIME, 
+		to_char(to_date(ENDTIME, 'yyyyMMddhh24miss') , 'yyyy-MM-dd hh24:mi:ss') as ENDTIME
+
+	from t_model_overtimeReportNotEnd
+	where request_id = '$request_id$'
+	<isNotNull prepend="and" property="reportStarttime" >
+		reportTime >= '$reportStarttime$'
+	</isNotNull>
+	<isNotNull prepend="and" property="reportEndtime" >
+		<![CDATA[  reportTime <= '$reportEndtime$' ]]>
+	</isNotNull>
+	
+	<isNotNull prepend="and" property="custName" >
+		custName like '%' || trim('$custName$') ||'%'
+	</isNotNull>
+	<isNotNull prepend="and" property="empname" >
+		empname like '%' || trim('$empname$') ||'%'
+	</isNotNull>
+	<isNotNull prepend="and" property="taskName" >
+		taskName in ($taskName$)
+	</isNotNull>
+	order by REPORTTIME, PROCESS_NAME, CUSTNAME, STARTTIME, ENDTIME
+  </select> 
+  
+  <!-- 插入 超限时间报表 的临时表 里(未结束流程临时表里) -->
+  <insert id="insertOverTimeNotEnd"  parameterClass="com.gotop.timeMachine.model.OverTimeReport"  >
+       <selectKey resultClass="long" keyProperty="id" >
+		SELECT SEQ_T_MODEL_OVERTIMENOTEND.NEXTVAL AS VALUE FROM DUAL
+		</selectKey>
+    insert into t_model_overtimeReportNotEnd
+    (ID, REPORTTIME, TASKNAME, CUSTNAME, ONECATEGORY_NAME, 
+    LOANCATEGORY_NAME, ORGNAME, EMPNAME, OVERTIME, REMARK, 
+    REQUEST_ID, PROCESS_NAME, FLOW_ID, STARTTIME, ENDTIME,
+    TIMELIMITONE, TIMELIMITTWO, RN,  EXPENDTIME, ORGNAME_ONE, ORGNAME_TWO)
+    
+    values (#id:DECIMAL:-9999#, #reportTime:VARCHAR#, #taskName:VARCHAR#, #custName:VARCHAR#,  #oneCategory_name:VARCHAR#, 
+    #loanCategory_name:VARCHAR#, #orgname:VARCHAR#, #empname:VARCHAR#, #overtime:DOUBLE#, #remark:VARCHAR#, 
+    #request_id:DECIMAL:-9999#, #process_name:VARCHAR#, #flow_id:VARCHAR#, #starttime:VARCHAR#, #endtime:VARCHAR#, 
+    #timeLimitOne:DOUBLE#, #timeLimitTwo:DOUBLE#, #rn:DECIMAL:-9999#, #expendtime:DOUBLE#, #orgname_one:VARCHAR#, #orgname_two:VARCHAR#)
+  </insert>
+  
+  <!-- 删除 超限报表 临时表-->
+  <delete id="deleteOverTimeReportNotEnd" parameterClass="com.gotop.timeMachine.model.OverTimeReport" >
+	delete from t_model_overtimeReportNotend
+	where request_id = #request_id:DECIMAL:-9999#
+  </delete> 
 </sqlMap>

@@ -3,8 +3,7 @@ package com.gotop.timeMachine.model;
 import java.io.Serializable;
 
 /**
- * @desc 用于存当前节点为“结束”的信贷流程
- * @author liaomeiting
+ * @author lmt
  *
  */
 public class XdproForEnd  implements Serializable{

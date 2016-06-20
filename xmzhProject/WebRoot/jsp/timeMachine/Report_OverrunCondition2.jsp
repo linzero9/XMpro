@@ -7,14 +7,15 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<title>超限情况统计列表（已结束流程）</title>
+		<title>超限情况统计列表（未结束流程）</title>
 	</head>
 	<body topmargin="0" leftmargin="0">
-	<h:form name="appQuery"	action="/timeMachine/tModelTimedayAction_queryOvertimeReport.action" method="post">
+	<h:form name="appQuery"	action="/timeMachine/tModelTimedayAction_queryOvertimeReport2.action" method="post">
 		<w:panel id="panel1" title="查询条件">
 			<table align="center" border="0" width="100%" class="form_table">
 				
-				<%-- <h:hidden id="request_id" property="overTimeReport.request_id" /> --%>
+				<h:hidden id="request_id" property="overTimeReport.request_id" />
+				
 				<tr>
 					<td class="form_label" align="right" width="20%">客户名称：</td>
 					<td colspan="1" width="30%">
@@ -51,12 +52,6 @@
 							<input type="button" value="清 空" class="button" onclick="clears();">
                                                         <input id="downexl" type="button" class="button" value="导出列表" onclick="downExl();"></td>
 					</tr>
-					<tr>
-						<td colspan="6">
-								<font style="color: blue">最近更新时间：<b:write property="update_time" /> </font> &nbsp;&nbsp;&nbsp;
-								<!-- <font style="color: red"> 注：该报表存在半小时延时。</font> -->
-						</td>
-					</tr>			
 			</table>
 		</w:panel>
 	</h:form>
@@ -64,9 +59,10 @@
 			<w:panel id="panel" width="100%" title="超限情况统计列表">
 				<viewlist id="e2c61865-3b56-470d-bd42-fff792fb9493">
 				<h:form name="page_form"
-					action="/timeMachine/tModelTimedayAction_queryOvertimeReport.action" method="post">
+					action="/timeMachine/tModelTimedayAction_queryOvertimeReport2.action" method="post">
 					
-			 <h:hiddendata property="overTimeReport"/>  
+			 <h:hiddendata property="overTimeReport"/> 
+			 <h:hidden id="request_id" property="overTimeReport.request_id" />
 
             <h:hidden property="page.begin"/>
 		    <h:hidden property="page.length"/>
@@ -236,10 +232,13 @@
 			var custName = $id("custName").value;
 			var empname = $id("empname").value;
 			var taskName = $id("taskName").value;
+
+			var request_id = $id("request_id").value;
 			
-			var url = "/timeMachine/tModelTimedayAction_queryOvertimeReportExcel.action?";
+			var url = "/timeMachine/tModelTimedayAction_queryOvertimeReportExcel2.action?";
      		url += "overTimeReport.reportStarttime="+reportStarttime+"&overTimeReport.reportEndtime="+reportEndtime;
 			url += "&overTimeReport.custName="+custName+"&overTimeReport.empname="+empname+"&overTimeReport.taskName="+taskName;
+			url += "&overTimeReport.request_id="+request_id;
 			window.location.href=url; 
 		} 
 

@@ -195,4 +195,41 @@ public class TModelTimedayDAO extends SqlMapClientDao implements ITModelTimedayD
         return list;
 	}
 
+
+	@Override
+	public List queryXdproForNotEnd() {
+		
+		List list = queryForList("T_MODEL_TIMEDAY_SqlMap.queryXdproForNotEnd", null);
+        return list;
+	}
+
+
+	@Override
+	public List queryOverTimeReport2(Map<String, Object> map, Page page) {
+		
+		List list;
+		if(page == null){
+			
+			list = queryForList("T_MODEL_TIMEDAY_SqlMap.queryOverTimeReportNotEnd", map);
+		}else{
+			list = queryForList("T_MODEL_TIMEDAY_SqlMap.queryOverTimeReportNotEnd", map, page);
+		}
+        return list;
+	}
+
+
+	@Override
+	public void insertOverTime2(OverTimeReport overTimeReport) {
+		
+		getSqlMapClientTemplate().insert("T_MODEL_TIMEDAY_SqlMap.insertOverTimeNotEnd", overTimeReport);
+	}
+
+
+	@Override
+	public void deleteOverTimeReport2(OverTimeReport overTimeReport) {
+		
+		getSqlMapClientTemplate().delete("T_MODEL_TIMEDAY_SqlMap.deleteOverTimeReportNotEnd", overTimeReport);
+		
+	}
+
 }

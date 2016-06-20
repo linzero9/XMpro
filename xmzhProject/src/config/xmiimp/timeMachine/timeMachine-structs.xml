@@ -21,6 +21,10 @@
         /jsp/timeMachine/Report_OverrunCondition_excel.jsp
       </result>
       
+      <result name="Report_OverrunCondition2" >
+        /jsp/timeMachine/Report_OverrunCondition2.jsp
+      </result>
+      
       <result name="proNodeName_list" >
         /jsp/timeMachine/proNodeName_list.jsp
       </result>

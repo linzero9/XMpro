@@ -62,4 +62,12 @@ public interface ITModelTimedayDAO {
 
 	List listNodName();
 
+	List queryXdproForNotEnd();
+
+	List queryOverTimeReport2(Map<String, Object> map, Page page);
+
+	void insertOverTime2(OverTimeReport overTimeReport);
+
+	void deleteOverTimeReport2(OverTimeReport overTimeReport);
+
 }

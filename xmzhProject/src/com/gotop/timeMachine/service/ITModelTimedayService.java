@@ -81,4 +81,13 @@ public interface ITModelTimedayService {
 	Object queryReportUpdatetime();
 
 	List<OverTimeReport> listNodName();
+
+	List<XdproForEnd> queryXdproForNotEnd();
+
+	List<OverTimeReport> queryOverTimeReport2(
+			OverTimeReport overTimeReport, Page page);
+
+	void insertOverTime2(OverTimeReport overTimeReport);
+
+	void deleteOverTimeReport2(OverTimeReport overTimeReport);
 }

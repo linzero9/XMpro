@@ -17,6 +17,7 @@ import com.gotop.timeMachine.model.XdproForEnd;
 import com.gotop.timeMachine.service.ITModelTimedayService;
 import com.gotop.util.Struts2Utils;
 import com.gotop.util.XmlConvert;
+import com.gotop.util.time.TimeUtil;
 import com.opensymphony.xwork2.ActionContext;
 import com.primeton.utils.AjaxParam;
 import com.primeton.utils.Page;
@@ -51,9 +52,8 @@ public class TModelTimedayAction extends BaseAction {
     
     private String update_time;
     
-    
-    
-    public String getUpdate_time() {
+
+	public String getUpdate_time() {
 		return update_time;
 	}
 
@@ -129,7 +129,7 @@ public class TModelTimedayAction extends BaseAction {
     
     
     /**
-     * 超限时长报表  
+     * 超限时长报表 （未结束的信贷流程） 
      * 
      * @author liaomeiting
      * 
@@ -345,7 +345,7 @@ public class TModelTimedayAction extends BaseAction {
     
     /**
      * @author liaomeiting
-     * @desc查询超限报表
+     * @desc 查询  已结束信贷流程的超限报表（非实时查询）
      * @return
      * @throws Exception
      */
@@ -383,7 +383,7 @@ public class TModelTimedayAction extends BaseAction {
     
     /**
      * @author liaomeiting
-     * @desc导出超限报表
+     * @desc 导出 节点走到结束的流程 超限报表（非实时查询）
      * @return
      * @throws Exception
      */
@@ -912,5 +912,285 @@ public class TModelTimedayAction extends BaseAction {
 			Struts2Utils.renderText(info);
 		}
 	}
+	
+	
+	/**
+     * @author lmt
+     * @desc 查询 未结束流程 的 超限报表（实时查询）
+     * @return
+     * @throws Exception
+     */
+    public String queryOvertimeReport2() throws Exception{
+    	
+    	
+    	if(overTimeReport == null){
+    		overTimeReport = new OverTimeReport();
+    		
+    	}
+    	
+    	//只有第一次点击菜单时才insert让它,其他都是保存之前的request_id直接查询临时表
+    	if(overTimeReport.getRequest_id() == null){  //为null表示 第一次点击菜单
+    		//得到当次请求的id
+    		Long request_id = (Long) this.tModelTimedayService.queryRequestId();
+    		
+    		overTimeReport.setRequest_id(request_id);
+    		handleTimeReport2(request_id);
+    	}
+    	
+    	
+    	//分页 查询当次请求request_id的临时表信息 ，显示到页面 ，查询 未结束信贷流程
+    	List<OverTimeReport> overTimeReports = this.tModelTimedayService.queryOverTimeReport2(overTimeReport, this.getPage());
+    	this.setOverTimeReports(overTimeReports);
+    	
+    	//删除当次的请求id的临时表记录
+    	// this.tModelTimedayService.deleteOverTimeReport2(overTimeReport);
+    	 
+    	 return "Report_OverrunCondition2";
+    }
+    
+    /**
+     * @author lmt
+     * @desc 导出 未结束流程 的超限报表（实时查询）
+     * @return
+     * @throws Exception
+     */
+    public String queryOvertimeReportExcel2() throws Exception{
+    	
+    	if(overTimeReport == null){
+    		overTimeReport = new OverTimeReport();
+    		
+    	}
+    	
+    	//只有第一次点击菜单时才insert让它,其他都是保存之前的request_id直接查询临时表
+    	if(overTimeReport.getRequest_id() == null){  //为null表示 第一次点击菜单
+    		//得到当次请求的id
+    		Long request_id = (Long) this.tModelTimedayService.queryRequestId();
+    		
+    		overTimeReport.setRequest_id(request_id);
+    		handleTimeReport2(request_id);
+    	}
+    	
+    	 	
+    	//查询当次请求request_id的临时表信息 ，显示到页面 
+    List<OverTimeReport> overTimeReports = this.tModelTimedayService.queryOverTimeReport2(overTimeReport, null);
+    	this.setOverTimeReports(overTimeReports);
+    	
+    	//删除当次的请求id的临时表记录
+    //	 this.tModelTimedayService.deleteOverTimeReport(overTimeReport);
+    	 
+    	return "Report_OverrunCondition_excel";
+    }
+    
+    /**
+     * 超限时长报表  （实时查询 未结束的信贷流程）
+     * 
+     * @author lmt
+     * 
+     * @desc  用于处理  超限时长报表 的action
+     * 
+     * 1.查询出所有的信贷流程，必须为还未走到“结束”节点 的流程
+     * 2.循环流程的 flowid 获取到每个流程，然后取到表JBPM4_HIST_ACTINST 的所有记录（就是走过的所有节点）
+     * 3.循环JBPM4_HIST_ACTINST的所有及节点，将 结束时间 - 开始时间 =时间差，在用时间差-非工作日时间=共消耗的时间
+     * 4.消耗的时间-时限表配置的时限， 计算出 是否超时 以及超时时间 （考虑二次提交时限）
+     * 5.计算后的结果insert到 临时表中 
+     * 6.查询当次请求request_id的临时表信息 ，显示到页面 
+     * 7.删除当次请求request_id的临时表记录
+     */
+    public void handleTimeReport2(Long request_id) throws Exception {
+    	
+    	/*Long request_id = (Long) this.tModelTimedayService.queryRequestId();*/
+    	
+      // 1.查询出所有的   未结束的   信贷流程
+    	List<XdproForEnd> xdproForEnds = this.tModelTimedayService.queryXdproForNotEnd();
+    	
+    	//循环每一个信贷流程
+    	for (XdproForEnd xdproForEnd : xdproForEnds) {
+    		//2.循环流程的 flowid 获取到每个流程
+    		Map<String, Object> map = new HashMap<String, Object>();
+    		String flow_id =  xdproForEnd.getFlow_id();
+    		map.put("flow_id",flow_id);
+    		String process_name = xdproForEnd.getProcess_name();
+    		
+    		//通过flow_id，查询获取模式一的相关信息
+			List<ProcessModelOne> processModelOnes = this.tModelTimedayService.queryModelOne(map);
+			
+			String custName = "";
+			String coOrg = "";
+			String oneCategory_name = "";
+			String loanCategory_name = "";
+			String survey_time = "";
+			String orgname_one = "";
+			String orgname_two = "";
+			
+			if(processModelOnes.size() == 0){
+				continue;
+			}else{
+				custName = processModelOnes.get(0).getCust_Name(); //客户姓名
+				coOrg = processModelOnes.get(0).getCoOrganization(); //合作机构
+				oneCategory_name = processModelOnes.get(0).getOneCategory();  //一级分类
+				loanCategory_name = processModelOnes.get(0).getLoanCategory();  //贷种分类
+				survey_time = processModelOnes.get(0).getSurvey_Time();  //调查日期
+				orgname_one = processModelOnes.get(0).getOrgNameOne();  //受理支行（一级选项）
+				orgname_two = processModelOnes.get(0).getOrgNameTwo();  //受理支行（二级选项）
+			}
+			
+			//通过flow_id，查询获取模式三的相关信息
+			List<ProcessModelThree> processModelThrees = this.tModelTimedayService.queryModelThree(map);
+			String reportTime = "";
+			if(processModelThrees.size() != 0){
+				reportTime = processModelThrees.get(0).getReporttime();
+			}
+			
+			
+			//查询 信贷流程的时限配置的贷种的模版
+			map.put("definition_id", xdproForEnd.getDefinition_id());
+			map.put("oneCategory_name", oneCategory_name);
+			map.put("loanCategory_name", loanCategory_name);
+			List<ProTimeModelBean> proTimeModelBeans =  this.tModelTimedayService.queryLoanModel(map);
+			
+			if(proTimeModelBeans.size() == 0){//无记录，说明没有对应的C_ID，故无节点配置时限，故无需判断该flow_id是否超限
+				continue;
+			}else{//只有一条记录，因为definedid和DID对应唯一的cid
+				
+				//通过flow_id，获取到表JBPM4_HIST_ACTINST 的所有记录（就是走过的所有节点）
+	    		List<HistActinst> histActinsts = this.tModelTimedayService.queryHistActinst(map);
+	    		
+	    		//循环每一个节点，得到开始时间和结束时间
+	    		for (HistActinst histActinst : histActinsts) {
+	    			// 3.循环JBPM4_HIST_ACTINST的所有及节点，将 结束时间 - 开始时间 =时间差，在用时间差-非工作日时间=共消耗的时间
+	    			
+	    			String activity_name = histActinst.getActivity_name();
+	    			String start ="" ;
+	    			String end = "" ;
+	    			if("受理调查".equals(activity_name) && histActinst.getRn() == 1){
+	    				SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+	    				Date d = sdf1.parse(survey_time); //因为原来的survey_time是yyyy-MM-dd格式，如：2016-02-17
+	    				SimpleDateFormat sdf2 = new SimpleDateFormat("yyyyMMddHHmmss");
+	    				survey_time = sdf2.format(d);  //此时的survey_time格式为yyyyMMddHHmmss， 如：20160217000000
+	    				start = survey_time;
+	    			}else{
+	    				start = histActinst.getStart();
+	    			}
+	    			
+	    			if("".equals(histActinst.getEnd()) || histActinst.getEnd() == null){
+	    				//说明该节点未被处理，故无结束时间，将当前时间设置为结束时间
+	    				end = TimeUtil.today() + TimeUtil.now();  //格式为yyyyMMddHHmmss
+	    				
+	    			}else{
+	    				
+	    				end = histActinst.getEnd();
+	    			}
+	    			
+	    			Double expendtime = getExpendTime(start, end); //计算得到消耗的时间
+	    			
+	    			//查询节点配置的时限，判断是否超限
+					Map<String, Object> map2 = new HashMap<String, Object>();
+					map2.put("c_id", proTimeModelBeans.get(0).getC_id());	
+					map2.put("activity_name", activity_name);
+					List<NodeTimeLimitBean>  nodeTimeLimitBeans = this.tModelTimedayService.queryNodeTimeLimit(map2);
+					
+					Double timeLimitOne;
+					Double timeLimitTwo;
+					//List list2;
+					String operatorname = "";
+					if(nodeTimeLimitBeans.size() == 0){
+						continue;
+					}else{
+						
+						//得到时间配置表的时限
+						timeLimitOne =  nodeTimeLimitBeans.get(0).getTimeLimit();
+						timeLimitTwo = nodeTimeLimitBeans.get(0).getTwotimeLimit();
+						
+						map2.put("htask", histActinst.getHtask());
+						operatorname  = (String) this.tModelTimedayService.queryOperatorname(map2);
+					}
+					
+					OverTimeReport overTimeReport = new OverTimeReport();
+					
+					//4.消耗的时间-时限表配置的时限， 计算出 是否超时 以及超时时间 （考虑二次提交时限）
+					if(histActinst.getRn() == 1){//说明该节点是首次提交，则只需跟首次提交时限 作比较
+						if(timeLimitOne == null){
+							continue; //若首次提交时限为空，无需进行超限判断
+						}else{
+							if(expendtime > timeLimitOne ){
+								Double overtime = expendtime - timeLimitOne;
+								
+								overTimeReport.setReportTime(reportTime);
+								overTimeReport.setTaskName(activity_name);
+								overTimeReport.setCustName(custName);
+								overTimeReport.setOneCategory_name(oneCategory_name);
+								overTimeReport.setLoanCategory_name(loanCategory_name);
+								overTimeReport.setOrgname(coOrg);
+								overTimeReport.setOrgname_one(orgname_one);
+								overTimeReport.setOrgname_two(orgname_two);
+								overTimeReport.setEmpname(operatorname);
+								overTimeReport.setOvertime(overtime);
+								//overTimeReport.setRemark(remark);
+								overTimeReport.setRequest_id(request_id);
+								
+								overTimeReport.setProcess_name(process_name);
+								overTimeReport.setFlow_id(flow_id);
+								overTimeReport.setStarttime(start); //节点开始时间
+								overTimeReport.setEndtime(end);//节点结束时间
+								overTimeReport.setTimeLimitOne(timeLimitOne);//一次提交时限
+								overTimeReport.setTimeLimitTwo(timeLimitTwo);//二次提交时限
+								overTimeReport.setRn(histActinst.getRn());//标志为一次提交还是二次提交。rn=1表示一次提交,不等于1都为二次提交
+								overTimeReport.setExpendtime(expendtime);//节点消耗时长
+								
+								// 5.计算后的结果insert到 临时表中 
+								this.tModelTimedayService.insertOverTime(overTimeReport);
+							}else{
+								continue;
+							}
+						}
+					}
+					
+					if(histActinst.getRn() != 1){//说明该节点是二次或多次提交，则只需跟二次提交时限 作比较
+						if(timeLimitTwo == null){
+							continue; //若二次提交时限为空，无需进行超限判断
+						}else{
+							if(expendtime > timeLimitTwo ){
+								Double overtime = expendtime - timeLimitTwo;
+								
+								overTimeReport.setReportTime(reportTime);
+								overTimeReport.setTaskName(activity_name);
+								overTimeReport.setCustName(custName);
+								overTimeReport.setOneCategory_name(oneCategory_name);
+								overTimeReport.setLoanCategory_name(loanCategory_name);
+								overTimeReport.setOrgname(coOrg);
+								overTimeReport.setOrgname_one(orgname_one);
+								overTimeReport.setOrgname_two(orgname_two);
+								overTimeReport.setEmpname(operatorname);
+								overTimeReport.setOvertime(overtime);
+								//overTimeReport.setRemark(remark);
+								overTimeReport.setRequest_id(request_id);
+								
+								overTimeReport.setProcess_name(process_name);
+								overTimeReport.setFlow_id(flow_id);
+								overTimeReport.setStarttime(start); //节点开始时间
+								overTimeReport.setEndtime(end);//节点结束时间
+								overTimeReport.setTimeLimitOne(timeLimitOne);//一次提交时限
+								overTimeReport.setTimeLimitTwo(timeLimitTwo);//二次提交时限
+								overTimeReport.setRn(histActinst.getRn());//标志为一次提交还是二次提交。rn=1表示一次提交,不等于1都为二次提交
+								overTimeReport.setExpendtime(expendtime);//节点消耗时长
+								
+								// 5.计算后的结果insert到 临时表中 
+								this.tModelTimedayService.insertOverTime2(overTimeReport);
+							}else{
+								continue;
+							}
+						}
+					}
+					
+					
+					
+				}
+			}
+			
+			
+		}
+    	
+    	   
+    }
 
 }
