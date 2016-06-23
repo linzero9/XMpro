@@ -70,4 +70,6 @@ public interface ITModelTimedayDAO {
 
 	void deleteOverTimeReport2(OverTimeReport overTimeReport);
 
+	List queryHistActinstNotEnd(Map<String, Object> map);
+
 }

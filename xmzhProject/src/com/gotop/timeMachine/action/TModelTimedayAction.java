@@ -1052,8 +1052,8 @@ public class TModelTimedayAction extends BaseAction {
 				continue;
 			}else{//只有一条记录，因为definedid和DID对应唯一的cid
 				
-				//通过flow_id，获取到表JBPM4_HIST_ACTINST 的所有记录（就是走过的所有节点）
-	    		List<HistActinst> histActinsts = this.tModelTimedayService.queryHistActinst(map);
+				//通过flow_id，获取到表JBPM4_HIST_ACTINST 的所有记录（取未处理的节点，即end时间为null的记录）
+	    		List<HistActinst> histActinsts = this.tModelTimedayService.queryHistActinstNotEnd(map);
 	    		
 	    		//循环每一个节点，得到开始时间和结束时间
 	    		for (HistActinst histActinst : histActinsts) {
@@ -1138,7 +1138,7 @@ public class TModelTimedayAction extends BaseAction {
 								overTimeReport.setExpendtime(expendtime);//节点消耗时长
 								
 								// 5.计算后的结果insert到 临时表中 
-								this.tModelTimedayService.insertOverTime(overTimeReport);
+								this.tModelTimedayService.insertOverTime2(overTimeReport);
 							}else{
 								continue;
 							}

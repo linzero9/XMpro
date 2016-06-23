@@ -389,4 +389,16 @@ where DEFINITION_ID in (
 	delete from t_model_overtimeReportNotend
 	where request_id = #request_id:DECIMAL:-9999#
   </delete> 
+  
+   <!-- 查询信贷流程走过的所有节点 -->
+  <select id="queryHistActinstNotEnd" resultMap="HistActinst_Result" parameterClass="java.util.HashMap" >
+    select t.DBID_, t.TYPE_, t.EXECUTION_, t.ACTIVITY_NAME_, 
+   to_char(t.START_, 'yyyymmddhh24miss') AS START_,
+   to_char(t.END_, 'yyyymmddhh24miss') AS END_,
+    t.TRANSITION_, t.HTASK_,
+    row_number() over(partition by t.ACTIVITY_NAME_ order by t.START_ asc) as rn
+    from JBPM4_HIST_ACTINST t  
+	where t.execution_= '$flow_id$'
+	and end_ is null
+  </select> 
 </sqlMap>

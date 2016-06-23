@@ -90,4 +90,6 @@ public interface ITModelTimedayService {
 	void insertOverTime2(OverTimeReport overTimeReport);
 
 	void deleteOverTimeReport2(OverTimeReport overTimeReport);
+
+	List<HistActinst> queryHistActinstNotEnd(Map<String, Object> map);
 }

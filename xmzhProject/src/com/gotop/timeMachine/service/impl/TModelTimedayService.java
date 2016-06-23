@@ -349,4 +349,11 @@ public class TModelTimedayService implements ITModelTimedayService {
 		
 	}
 
+	@Override
+	public List<HistActinst> queryHistActinstNotEnd(Map<String, Object> map) {
+		
+		List list = tModelTimedayDAO.queryHistActinstNotEnd(map);
+        return list;
+	}
+
 }

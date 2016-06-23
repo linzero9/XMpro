@@ -232,4 +232,12 @@ public class TModelTimedayDAO extends SqlMapClientDao implements ITModelTimedayD
 		
 	}
 
+
+	@Override
+	public List queryHistActinstNotEnd(Map<String, Object> map) {
+		
+		List list = queryForList("T_MODEL_TIMEDAY_SqlMap.queryHistActinstNotEnd", map);
+        return list;
+	}
+
 }
