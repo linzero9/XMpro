@@ -29,6 +29,7 @@
 		<h:hiddendata property="page"  />
 	     <table class="EOS_table" width="100%">
 		<tr>
+		  <th nowrap="nowrap">标题</th>
 		  <th nowrap="nowrap">操作人</th>
 		  <th nowrap="nowrap">意见</th>
 		  <th nowrap="nowrap">操作类型</th>
@@ -48,6 +49,11 @@
 	               <h:param name='useTlimit' iterateId='applyData' property='useTlimit'/>
 	            </w:rowRadio>
 			  </td> --%>
+			  <td nowrap="nowrap">
+			    <div style="padding:0px;overflow:hidden" nowrap>
+			    	<b:write iterateId="opinion" property="title"/>
+			    </div>
+			  </td>
 			  <td nowrap="nowrap">
 			    <div style="padding:0px;overflow:hidden" nowrap>
 			    	<b:write iterateId="opinion" property="empname"/>

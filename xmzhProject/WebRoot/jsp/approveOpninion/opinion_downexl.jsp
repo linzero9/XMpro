@@ -14,6 +14,7 @@
 %>
 <table width="98%" border="1" cellspacing="1" cellpadding="1">
 		<tr height="34">
+		  <th height="34" width="77" align="center" class="form_label">标题</th>
 		  <th height="34" width="77" align="center" class="form_label">操作人</th>
 		  <th height="34" width="300" align="center" class="form_label">意见</th>
 		  <th height="34" width="77" align="center" class="form_label">操作类型</th>
@@ -24,6 +25,9 @@
 		</tr>
 			<l:iterate property="data" id="opinion">
 			<tr class="<l:output evenOutput='EOS_table_row' />" id="opinion">
+			   <td style="vnd.ms-excel.numberformat:@">
+			    	<b:write iterateId="opinion" property="title"/>
+			  </td>
 			  <td style="vnd.ms-excel.numberformat:@">
 			    	<b:write iterateId="opinion" property="empname"/>
 			  </td>

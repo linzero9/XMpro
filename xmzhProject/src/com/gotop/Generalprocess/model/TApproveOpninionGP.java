@@ -94,8 +94,20 @@ public class TApproveOpninionGP implements Serializable {
      * 20140902
      */
     private String nextorgname;
+    
+    private String title; //标题
+    
+    
 
-    /**
+    public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	/**
      * 意见编号 .
      * @abatorgenerated
      */

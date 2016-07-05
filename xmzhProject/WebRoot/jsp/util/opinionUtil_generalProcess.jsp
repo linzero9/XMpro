@@ -1,11 +1,14 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
-     <div style="width:90%;">
+     <div style="width:100%;">
 		<a href="#" onclick="showDetailopinionForGP('<b:write property='taskAssgineeDto.businessType'/>','<b:write property='taskAssgineeDto.executionId'/>');">查看详细流程列表</a>
     <r:datacell
 		 id="planning20" xpath="TApproveOpninionGP" width="2" width="100%" height="150" pageSize="50"
 		 queryAction="/messagePublish/tMessagePublishAction_queryOpninionsGP.action"
 		 entityType="com.gotop.Generalprocess.model.TApproveOpninionGP"
 		 initParamFunc="initPlanCell20">
+			<r:field fieldName="title" label="标题" allowModify="false" width="130" onRefreshFunc="showAll"  align="center" >
+				<h:text readonly="true"/>
+			</r:field>
 			<r:field fieldName="empname" label="操作人员" allowModify="false" width="80" onRefreshFunc="showAll">
 				<h:text readonly="true"/>
 			</r:field>
