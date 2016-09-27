@@ -20,6 +20,8 @@
 		<th height="34" width="100" align="center" class="form_label">放款金额</th>
 		<th height="34" width="100" align="center" class="form_label">合作机构</th>
 		<th height="34" width="100" align="center" class="form_label">受理支行(一级支行)</th>
+		<th height="34" width="100" align="center" class="form_label">一级分类</th>
+		<th height="34" width="100" align="center" class="form_label">贷种分类</th>
 	</tr>
 	<l:iterate property="cooperateInstitutionDtos" id="id1">
 			<tr class="<l:output evenOutput='EOS_table_row' />" id="id1">
@@ -41,6 +43,13 @@
 			    <td style="vnd.ms-excel.numberformat:@">
 			  <b:write iterateId="id1" property="orgNameOne" />
 			</td>
+			
+			<td style="vnd.ms-excel.numberformat:@">
+			   <b:write iterateId="id1" property="oneCategory" />
+				</td>
+				<td style="vnd.ms-excel.numberformat:@">
+			   <b:write iterateId="id1" property="loanCategory" />
+				</td>
 			  
 			</tr>
 			</l:iterate>

@@ -10,6 +10,8 @@
     	<result column="CUST_NAME" property="cust_Name" jdbcType="VARCHAR" />
     	<result column="APPLY_BAL" property="apply_bal" jdbcType="VARCHAR" />
 		<result column="COORGANIZATION" property="coOrganization" jdbcType="VARCHAR" />
+		<result column="ONECATEGORY" property="oneCategory" jdbcType="VARCHAR" />
+		<result column="LOANCATEGORY" property="loanCategory" jdbcType="VARCHAR" />
 		
     
 	</resultMap>
@@ -23,7 +25,10 @@
     t.COORGANIZATION,  
     t.CUST_NAME, 
     j.END_  ,
-    O.ORGNAME AS ORGNAMEONE 
+    O.ORGNAME AS ORGNAMEONE , 
+    t.ONECATEGORY,
+    t.LOANCATEGORY
+    
     from T_GENERALPROCESS_MODELONE  t,     
     JBPM4_HIST_ACTINST  j ,
     OM_ORGANIZATION O   

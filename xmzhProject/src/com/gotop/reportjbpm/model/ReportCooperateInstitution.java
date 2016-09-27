@@ -48,6 +48,31 @@ public class ReportCooperateInstitution implements Serializable{
 
 	@GeneralprocessField(name="合作机构",type="text")
 	private String   coOrganization;
+	
+	
+	@GeneralprocessField(name="一级分类",type="text")
+	private String   oneCategory;
+	
+	@GeneralprocessField(name="贷种分类",type="text")
+	private String   loanCategory;
+	
+	public String getOneCategory() {
+		return oneCategory;
+	}
+
+	public void setOneCategory(String oneCategory) {
+		this.oneCategory = oneCategory;
+	}
+
+	
+	
+	public String getLoanCategory() {
+		return loanCategory;
+	}
+
+	public void setLoanCategory(String loanCategory) {
+		this.loanCategory = loanCategory;
+	}
 
 	public Long getNumber() {
 		return number;

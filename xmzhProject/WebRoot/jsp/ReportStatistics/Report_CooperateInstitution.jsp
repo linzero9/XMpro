@@ -79,6 +79,12 @@
 					       <th nowrap="nowrap">
 								受理支行（一级支行）
 							</th>
+							<th nowrap="nowrap">
+								一级分类
+					       </th>
+					       <th nowrap="nowrap">
+								贷种分类
+					       </th>
                                                   
 						</tr>
 						<w:radioGroup id="group1">
@@ -111,6 +117,12 @@
 								</td>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1" property="orgNameOne" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="oneCategory" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="loanCategory" />
 								</td>
 							</tr>
 						</l:iterate>
