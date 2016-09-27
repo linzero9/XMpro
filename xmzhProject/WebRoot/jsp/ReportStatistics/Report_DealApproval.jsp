@@ -327,7 +327,7 @@
 									<b:write iterateId="id1" property="replyTime" />
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="" />
+									<b:write iterateId="id1" property="remark" />
 								</td>
 								
 							</tr>

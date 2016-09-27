@@ -50,353 +50,412 @@
     <result column="REPORTEDTIME" property="reportedTime" jdbcType="VARCHAR" />
     <result column="YXRYJG" property="yxryjg" jdbcType="VARCHAR" />
     <result column="TITLE" property="title" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
   </resultMap>
   
   
   
   	<!-- 查询受理审批台账 -->
 	<select id="queryApprovalList" parameterClass="java.util.HashMap" resultMap="approval">
-select  max(NOK.UPTIME) AS UPTIME,
-                       max(NOK.LOOKTIME) AS LOOKTIME,
-                       max(NOK.REPORTTIME) AS REPORTTIME,
-                       max(NOK.ISURGENT) AS ISURGENT,
-                       max(NOK.CUST_NAME) AS CUST_NAME,
-                       max(NOK.OLD_CUST) AS OLD_CUST,
-                       max(NOK.ONECATEGORY) AS ONECATEGORY,
-                       max(NOK.LOANCATEGORY) AS LOANCATEGORY,
-                       max(NOK.CURRENCY) AS CURRENCY,
-                       max(NOK.APPLY_BAL) AS APPLY_BAL,
-                       max(NOK.ORGNAMEONE) AS ORGNAMEONE,
-                       max(NOK.YXRY) AS YXRY,
-                       max(NOK.YXRYJG) AS YXRYJG,
-                       max(NOK.NEXT_OPR_NAME) AS NEXT_OPR_NAME,
-                       max(NOK.FDXDY) AS FDXDY,
-                       max(NOK.APP_WAY) AS APP_WAY,
-                       max(NOK.SURVEY_TIME) AS SURVEY_TIME,
-                       max(NOK.POL_NO) AS POL_NO,
-                       max(NOK.MEETING_COUNT) AS MEETING_COUNT,
-                       max(NOK.VOTE_NO) AS VOTE_NO,
-                       max(NOK.APP_TIME) AS APP_TIME,
-                       max(NOK.CON_MATTER) AS CON_MATTER,
-                       max(NOK.DS_MS_ONE) AS DS_MS_ONE,
-                       max(NOK.DS_MS_TWO) AS DS_MS_TWO,
-                       max(NOK.DY_APP) AS DY_APP,
-                       max(NOK.DE_APP) AS DE_APP,
-                       max(NOK.title) AS TITLE,
-                       max(NOK.HY_ZR_NAME) AS HY_ZR_NAME,
-                       max(NOK.HY_WY_ONE) AS HY_WY_ONE,
-                       max(NOK.SH_ADDR) AS SH_ADDR,
-                       max(NOK.FX_TYPE) AS FX_TYPE,
-                       max(NOK.SP_TYPE) AS SP_TYPE,
-                       max(NOK.YBJ_NUM) AS YBJ_NUM,
-                       max(NOK.HY_SY_JL) AS HY_SY_JL,
-                       max(NOK.PJ_JL) AS PJ_JL,
-                       max(NOK.FX_ED) AS FX_ED,
-                       max(NOK.SX_ED) AS SX_ED,
-                       max(NOK.YW_ED) AS YW_ED,
-                       max(NOK.NEXTORGNAME) AS NEXTORGNAME,
-                       max(NOK.ORGNAMETWO) AS ORGNAMETWO,
-                       max(NOK.APPROVALTIME) AS APPROVALTIME,
-                       max(NOK.CHECKTIME) AS CHECKTIME,
-                       max(NOK.REPLYTIME) AS REPLYTIME,
-                       max(NOK.CHECKONE) AS CHECKONE,
-                       max(NOK.CHECKTWO) AS CHECKTWO,
-                       max(NOK.RECEIVETIME) AS RECEIVETIME,
-                       max(NOK.RETURNTIME) AS RETURNTIME,
-                       max(NOK.REPORTEDTIME) AS REPORTEDTIME
-	from (
-
-	SELECT
-	A7.UPTIME,
-	A8.LOOKTIME,
-	Z.REPORTTIME,
-	Z.ISURGENT,
-	Z.CUST_NAME,
-	Z.OLD_CUST,
-	Z.ONECATEGORY,
-	Z.LOANCATEGORY,
-	Z.CURRENCY,
-	Z.APPLY_BAL,
-	Z.ORGNAMEONE,
-	Z.FLOW_ID,
-	Z.YXRY,
-	Z.YXRYJG,
-	Z.NEXT_OPR_NAME,
-	Z.FDXDY,
-	Z.APP_WAY,
-	Z.SURVEY_TIME,
-	Z.POL_NO,
-	Z.MEETING_COUNT,
-	Z.VOTE_NO,
-	to_char(
-	to_date( Z.APP_TIME,'YYYY-mm-DD'),'YYYY-mm-DD') as APP_TIME,
-	Z.CON_MATTER,
-	Z.DS_MS_ONE,
-	Z.DS_MS_TWO,
-	(case when Z.DY_APP is null then D1.dyApp1 else Z.DY_APP end) as DY_APP,
-	(case when Z.DE_APP is null then D2.deApp1 else Z.DE_APP end) as
-	DE_APP,
-	d3.business_title as title,
-	Z.HY_ZR_NAME,
-	Z.HY_WY_ONE,
-	Z.SH_ADDR,
-	Z.FX_TYPE,
-	Z.SP_TYPE,
-	Z.YBJ_NUM,
-	Z.HY_SY_JL,
-	Z.PJ_JL,
-	Z.FX_ED,
-	Z.SX_ED,
-	Z.YW_ED,
-
-	Z.NEXTORGNAME,
-	O1.ORGNAMETWO,
-	A1.APPROVALTIME,
-	A2.CHECKTIME,
-	A3.REPLYTIME,
-	A4.CHECKONE,
-	A5.CHECKTWO,
-	A6.RECEIVETIME,
-	A9.RETURNTIME,
-	A10.REPORTEDTIME,
-	b.begin_orgid,
-	b.begin_empid
-	FROM (
-
-	select REPORTTIME,
-	ISURGENT,
-	CUST_NAME,
-	OLD_CUST,
-	ONECATEGORY,
-	LOANCATEGORY,
-	CURRENCY,
-	APPLY_BAL,
-	ORGNAMEONE,
-	EXECUTION_ID as flow_id,
-	YXRY,
-	YXRYJG,
-	NEXT_OPR_NAME,
-	FDXDY,
-	SURVEY_TIME,
-	APP_WAY,
-	POL_NO,
-	MEETING_COUNT,
-	VOTE_NO,
-	APP_TIME,
-	CON_MATTER,
-	DS_MS_ONE,
-	DS_MS_TWO,
-	DY_APP,
-	DE_APP,
-	HY_ZR_NAME,
-	HY_WY_ONE,
-	SH_ADDR,
-	FX_TYPE,
-	SP_TYPE,
-	YBJ_NUM,
-	HY_SY_JL,
-	PJ_JL,
-	FX_ED,
-	SX_ED,
-	YW_ED,
-	NEXTORGNAME
-	from (
-
-	select ll.*, jj.EXECUTION_ID
-	from (
-
-	select t1.execution_id from T_PROCESS_CONFIG t,t_process_business t1,
-	JBPM4_HIST_PROCINST t2
-	where t.definition_id=t2.procdefid_ and t2.id_=t1.execution_id and
-	t1.business_type='88'and t.state='01') jj
-	left join (
-
-	select T.REPORTTIME,
-	T.ISURGENT,
-	O.CUST_NAME,
-	O.OLD_CUST,
-	O.ONECATEGORY,
-	O.LOANCATEGORY,
-	O.CURRENCY,
-	TRUNC (O.APPLY_BAL/10000,2) as APPLY_BAL ,
-	N.ORGNAME AS ORGNAMEONE,
-	O.FLOW_ID,
-	O.YXRY,
-	O.YXRYJG,
-	P.EMPNAME AS NEXT_OPR_NAME,
-	O.FDXDY,
-	O.SURVEY_TIME,
-	I.APP_WAY,
-	I.POL_NO,
-	I.MEETING_COUNT,
-	I.VOTE_NO,
-	I.APP_TIME,
-	I.CON_MATTER,
-	I.DS_MS_ONE,
-	I.DS_MS_TWO,
-	I.DY_APP,
-	I.DE_APP,
-	I.HY_ZR_NAME,
-	I.HY_WY_ONE,
-	I.SH_ADDR,
-	I.FX_TYPE,
-	I.SP_TYPE,
-	I.YBJ_NUM,
-	I.HY_SY_JL,
-	I.PJ_JL,
-	I.FX_ED,
-	I.SX_ED,
-	I.YW_ED,
-	O2.NEXTORGNAME
-	from T_GENERALPROCESS_MODELONE O
-	left join T_GENERALPROCESS_MODELTHREE T
-	on O.FLOW_ID = T.FLOW_ID
-	left join T_GENERALPROCESS_MODELFIVE I
-	on O.FLOW_ID = I.FLOW_ID
-	left join OM_EMPLOYEE P
-	on O.CREATOR = P.EMPID
-	left join OM_ORGANIZATION N
-	on N.ORGCODE = O.ORGCODEONE
-	left join (SELECT O.ORGNAME AS NEXTORGNAME,
-	T.FLOW_ID
-	FROM T_GENERALPROCESS_MODELONE T,
-	OM_ORGANIZATION O
-	WHERE O.ORGCODE = T.ORGCODEONE) O2
-	on O2.FLOW_ID = O.FLOW_ID） ll on
-	jj.EXECUTION_ID = ll.FLOW_ID)
-
-	) Z
-	LEFT JOIN (SELECT O.ORGNAME AS ORGNAMETWO,T.FLOW_ID FROM
-	T_GENERALPROCESS_MODELONE T ,OM_ORGANIZATION O WHERE
-	O.ORGCODE=T.ORGCODETWO)O1
-	ON O1.FLOW_ID=Z.FLOW_ID
-	LEFT JOIN (select q.execution_,to_char(max(q.end_),'yyyy-mm-dd hh24:mi:ss
-	') as APPROVALTIME from jbpm4_hist_actinst q where
-	q.activity_name_='发起合同预审' group by q.execution_)A1
-	ON A1.EXECUTION_=Z.FLOW_ID
-	LEFT JOIN (select t1.execution_,
-	(case
-	when T1.CHECKTIME1 IS NULL THEN
-	t2.CHECKTIME2
-	else
-	t1.CHECKTIME1
-	end) as CHECKTIME
-	from (select t.execution_, to_char(max(t.end_), 'yyyy-mm-dd hh24:mi:ss') as
-	CHECKTIME1
-	from (select *
-	from JBPM4_HIST_TASK k
-	where k.outcome_ = '提交审批一'
-	order by k.execution_) T
-	group by t.execution_) T1
-	full outer join (select t.execution_,
-	to_char(max(t.end_), 'yyyy-mm-dd hh24:mi:ss') as CHECKTIME2
-	from (select *
-	from JBPM4_HIST_TASK k
-	where k.outcome_ = '提交审批安排'
-	order by k.execution_) T
-	group by t.execution_) T2
-	on t1.execution_ = t2.execution_
-	)A2
-	ON A2.EXECUTION_=Z.FLOW_ID
-	LEFT JOIN (
-	select (case
-	when aa.flow_id is not null then
-	aa.flow_id
-	else
-	bb.execution_
-	end) EXECUTION_,
-
-	(case
-	when aa.yq_app_time is not null then
-	aa.yq_app_time
-	else
-	bb.replytime
-	end) replytime
-
-	from (
-
-	select flow_id, yq_app_time from t_generalprocess_modelfive t
-
-	) aa
-	full outer join (
-
-	select execution_, max(REPLYTIME) as replytime
-	from (
-
-	select t.outcome_,
-	to_char(t.end_, 'yyyy-mm-dd hh24:mi:ss ') as REPLYTIME,
-	t.execution_
-	from JBPM4_HIST_TASK t
-	where t.outcome_ = '提交发起合同预审')
-	group by execution_) bb
-
-	on aa.flow_id = bb.execution_)A3
-	ON A3.EXECUTION_=Z.FLOW_ID
-	LEFT JOIN （select min(q.start_),t.execution_, o.operatorname as CHECKONE
-	from jbpm4_hist_actinst q, JBPM4_HIST_TASK t, ac_operator o WHERE
-	q.activity_name_ = '审查一' and q.htask_ = t.dbid_ and t.assignee_
-	=o.operatorid group by t.execution_, o.operatorname )A4
-	ON A4.EXECUTION_=Z.FLOW_ID
-	LEFT JOIN (select min(q.start_), t.execution_, o.operatorname as CHECKTWO
-	from jbpm4_hist_actinst q, JBPM4_HIST_TASK t, ac_operator o WHERE
-	q.activity_name_ = '审查二' and q.htask_ = t.dbid_ and t.assignee_
-	=o.operatorid group by t.execution_, o.operatorname)A5
-	ON A5.EXECUTION_=Z.FLOW_ID
-	LEFT JOIN (select A.execution_, max(r) AS RECEIVETIME
-	from (select t.execution_,
-	wm_concat(to_char(t.end_, 'yyyy-mm-dd hh24:mi:ss')) over(partition by t.execution_ order by
-	T.END_) r
-	from (select *
-	from JBPM4_HIST_TASK k
-	where k.outcome_ = '提交审查一'
-	order by K.EXECUTION_, k.end_ ASC) T)A
-	group by A.execution_)A6
-	ON A6.EXECUTION_=Z.FLOW_ID
-	LEFT JOIN(
-	SELECT execution_ ,TO_CHAR (MIN (T .start_),'yyyy-mm-dd') uptime FROM
-	JBPM4_HIST_ACTINST t WHERE t.activity_name_='收单派单' GROUP BY
-	t.execution_
-	) A7 on A7.EXECUTION_=Z.FLOW_ID
-	LEFT JOIN(
-	SELECT execution_ ,TO_CHAR (MIN (T .start_),'yyyy-mm-dd') looktime FROM
-	JBPM4_HIST_ACTINST t WHERE t.activity_name_='发起合同预审' GROUP BY
-	t.execution_
-	) A8 on A8.EXECUTION_=Z.FLOW_ID
-	LEFT JOIN (select A.execution_, max(r) AS returnTime
-	from (select t.execution_,
-	wm_concat(to_char(t.end_, 'yyyy-mm-dd hh24:mi:ss')) over(partition by t.execution_ order by
-	T.END_) r
-	from (select *
-	from JBPM4_HIST_TASK k
-	where k.outcome_ = '退回收单派单'
-	order by K.EXECUTION_, k.end_ ASC) T)A
-	group by A.execution_) A9
-	ON A9.EXECUTION_=Z.FLOW_ID
-	LEFT JOIN ( select A.execution_, max(r) AS reportedTime
-	from (select t.execution_,
-	wm_concat(to_char(t.end_, 'yyyy-mm-dd hh24:mi:ss')) over(partition by t.execution_ order by
-	T.END_) r
-	from (select *
-	from JBPM4_HIST_TASK k
-	where k.outcome_ = '提交收单派单'
-	order by K.EXECUTION_, k.end_ ASC) T)A
-	group by A.execution_) A10
-	ON A10.EXECUTION_=Z.FLOW_ID
-	left join T_GENERALPROCESS_MAIN b
-	on Z.FLOW_ID=b.business_id
-	left join (select min(q.start_), t.execution_, o.operatorname as dyApp1
-	from jbpm4_hist_actinst q, JBPM4_HIST_TASK t, ac_operator o WHERE
-	q.activity_name_ = '审批一' and q.htask_ = t.dbid_ and t.assignee_
-	=o.operatorid group by t.execution_, o.operatorname )D1
-	on D1.EXECUTION_=Z.FLOW_ID
-	left join (select min(q.start_), t.execution_, o.operatorname as deApp1
-	from jbpm4_hist_actinst q, JBPM4_HIST_TASK t, ac_operator o WHERE
-	q.activity_name_ = '审批二' and q.htask_ = t.dbid_ and t.assignee_
-	=o.operatorid group by t.execution_, o.operatorname )D2
-	on D2.EXECUTION_=Z.FLOW_ID
-	LEFT JOIN T_PROCESS_BUSINESS D3
-	on d3.execution_id=Z.FLOW_ID
-	where 1=1
+select max(NOK.UPTIME) AS UPTIME,
+       max(NOK.LOOKTIME) AS LOOKTIME,
+       max(NOK.REPORTTIME) AS REPORTTIME,
+       max(NOK.ISURGENT) AS ISURGENT,
+       max(NOK.CUST_NAME) AS CUST_NAME,
+       max(NOK.OLD_CUST) AS OLD_CUST,
+       max(NOK.ONECATEGORY) AS ONECATEGORY,
+       max(NOK.LOANCATEGORY) AS LOANCATEGORY,
+       max(NOK.CURRENCY) AS CURRENCY,
+       max(NOK.APPLY_BAL) AS APPLY_BAL,
+       max(NOK.ORGNAMEONE) AS ORGNAMEONE,
+       max(NOK.YXRY) AS YXRY,
+       max(NOK.YXRYJG) AS YXRYJG,
+       max(NOK.NEXT_OPR_NAME) AS NEXT_OPR_NAME,
+       max(NOK.FDXDY) AS FDXDY,
+       max(NOK.APP_WAY) AS APP_WAY,
+       max(NOK.SURVEY_TIME) AS SURVEY_TIME,
+       max(NOK.POL_NO) AS POL_NO,
+       max(NOK.MEETING_COUNT) AS MEETING_COUNT,
+       max(NOK.VOTE_NO) AS VOTE_NO,
+       max(NOK.APP_TIME) AS APP_TIME,
+       max(NOK.CON_MATTER) AS CON_MATTER,
+       max(NOK.DS_MS_ONE) AS DS_MS_ONE,
+       max(NOK.DS_MS_TWO) AS DS_MS_TWO,
+       max(NOK.DY_APP) AS DY_APP,
+       max(NOK.DE_APP) AS DE_APP,
+       max(NOK.title) AS TITLE,
+       max(NOK.REMARK) AS REMARK,
+       max(NOK.HY_ZR_NAME) AS HY_ZR_NAME,
+       max(NOK.HY_WY_ONE) AS HY_WY_ONE,
+       max(NOK.SH_ADDR) AS SH_ADDR,
+       max(NOK.FX_TYPE) AS FX_TYPE,
+       max(NOK.SP_TYPE) AS SP_TYPE,   
+       max(NOK.YBJ_NUM) AS YBJ_NUM,
+       max(NOK.HY_SY_JL) AS HY_SY_JL,
+       max(NOK.PJ_JL) AS PJ_JL,
+       max(NOK.FX_ED) AS FX_ED,
+       max(NOK.SX_ED) AS SX_ED,
+       max(NOK.YW_ED) AS YW_ED,
+       max(NOK.NEXTORGNAME) AS NEXTORGNAME,
+       max(NOK.ORGNAMETWO) AS ORGNAMETWO,
+       max(NOK.APPROVALTIME) AS APPROVALTIME,
+       max(NOK.CHECKTIME) AS CHECKTIME,
+       max(NOK.REPLYTIME) AS REPLYTIME,
+       max(NOK.CHECKONE) AS CHECKONE,
+       max(NOK.CHECKTWO) AS CHECKTWO,
+       max(NOK.RECEIVETIME) AS RECEIVETIME,
+       max(NOK.RETURNTIME) AS RETURNTIME,
+       max(NOK.REPORTEDTIME) AS REPORTEDTIME
+  from (
+        SELECT A7.UPTIME,
+                A8.LOOKTIME,
+                Z.REPORTTIME,
+                Z.ISURGENT,
+                Z.CUST_NAME,
+                Z.OLD_CUST,
+                Z.ONECATEGORY,
+                Z.LOANCATEGORY,
+                Z.CURRENCY,
+                Z.APPLY_BAL,
+                Z.ORGNAMEONE,
+                Z.FLOW_ID,
+                Z.YXRY,
+                Z.YXRYJG,
+                Z.NEXT_OPR_NAME,
+                Z.FDXDY,
+                Z.APP_WAY,
+                Z.SURVEY_TIME,
+                Z.POL_NO,
+                Z.MEETING_COUNT,
+                Z.VOTE_NO,
+                to_char(to_date(Z.APP_TIME, 'YYYY-mm-DD'), 'YYYY-mm-DD') as APP_TIME,
+                Z.CON_MATTER,
+                Z.DS_MS_ONE,
+                Z.DS_MS_TWO,
+                (case
+                  when Z.DY_APP is null then
+                   D1.dyApp1
+                  else
+                   Z.DY_APP
+                end) as DY_APP,
+                (case
+                  when Z.DE_APP is null then
+                   D2.deApp1
+                  else
+                   Z.DE_APP
+                end) as DE_APP,
+                 (case
+                  when  D4.F_ID is null then
+                   ''
+                  else
+                   '拒贷'
+                end) as REMARK, 
+                d3.business_title as title,
+                Z.HY_ZR_NAME,
+                Z.HY_WY_ONE,
+                Z.SH_ADDR,
+                Z.FX_TYPE,
+                Z.SP_TYPE,
+                Z.YBJ_NUM,
+                Z.HY_SY_JL,
+                Z.PJ_JL,
+                Z.FX_ED,
+                Z.SX_ED,
+                Z.YW_ED,
+                Z.NEXTORGNAME,
+                O1.ORGNAMETWO,
+                A1.APPROVALTIME,
+                A2.CHECKTIME,
+                A3.REPLYTIME,
+                A4.CHECKONE,
+                A5.CHECKTWO,
+                A6.RECEIVETIME,
+                A9.RETURNTIME,
+                A10.REPORTEDTIME,
+                b.begin_orgid,
+                b.begin_empid
+          FROM (
+                 
+                 select REPORTTIME,
+                         ISURGENT,
+                         CUST_NAME,
+                         OLD_CUST,
+                         ONECATEGORY,
+                         LOANCATEGORY,
+                         CURRENCY,
+                         APPLY_BAL,
+                         ORGNAMEONE,
+                         EXECUTION_ID as flow_id,
+                         YXRY,
+                         YXRYJG,
+                         NEXT_OPR_NAME,
+                         FDXDY,
+                         SURVEY_TIME,
+                         APP_WAY,
+                         POL_NO,
+                         MEETING_COUNT,
+                         VOTE_NO,
+                         APP_TIME,
+                         CON_MATTER,
+                         DS_MS_ONE,
+                         DS_MS_TWO,
+                         DY_APP,
+                         DE_APP,
+                         HY_ZR_NAME,
+                         HY_WY_ONE,
+                         SH_ADDR,
+                         FX_TYPE,
+                         SP_TYPE,
+                         YBJ_NUM,
+                         HY_SY_JL,
+                         PJ_JL,
+                         FX_ED,
+                         SX_ED,
+                         YW_ED,
+                         NEXTORGNAME
+                   from (
+                          
+                          select ll.*, jj.EXECUTION_ID
+                            from (
+                                   
+                                   select t1.execution_id
+                                     from T_PROCESS_CONFIG    t,
+                                           t_process_business  t1,
+                                           JBPM4_HIST_PROCINST t2
+                                    where t.definition_id = t2.procdefid_
+                                      and t2.id_ = t1.execution_id
+                                      and t1.business_type = '88'
+                                      and t.state = '01') jj
+                            left join (
+                                       
+                                       select T.REPORTTIME,
+                                               T.ISURGENT,
+                                               O.CUST_NAME,
+                                               O.OLD_CUST,
+                                               O.ONECATEGORY,
+                                               O.LOANCATEGORY,
+                                               O.CURRENCY,
+                                               TRUNC(O.APPLY_BAL / 10000, 2) as APPLY_BAL,
+                                               N.ORGNAME AS ORGNAMEONE,
+                                               O.FLOW_ID,
+                                               O.YXRY,
+                                               O.YXRYJG,
+                                               P.EMPNAME AS NEXT_OPR_NAME,
+                                               O.FDXDY,
+                                               O.SURVEY_TIME,
+                                               I.APP_WAY,
+                                               I.POL_NO,
+                                               I.MEETING_COUNT,
+                                               I.VOTE_NO,
+                                               I.APP_TIME,
+                                               I.CON_MATTER,
+                                               I.DS_MS_ONE,
+                                               I.DS_MS_TWO,
+                                               I.DY_APP,
+                                               I.DE_APP,
+                                               I.HY_ZR_NAME,
+                                               I.HY_WY_ONE,
+                                               I.SH_ADDR,
+                                               I.FX_TYPE,
+                                               I.SP_TYPE,
+                                               I.YBJ_NUM,
+                                               I.HY_SY_JL,
+                                               I.PJ_JL,
+                                               I.FX_ED,
+                                               I.SX_ED,
+                                               I.YW_ED,
+                                               O2.NEXTORGNAME
+                                         from T_GENERALPROCESS_MODELONE O
+                                         left join T_GENERALPROCESS_MODELTHREE T
+                                           on O.FLOW_ID = T.FLOW_ID
+                                         left join T_GENERALPROCESS_MODELFIVE I
+                                           on O.FLOW_ID = I.FLOW_ID
+                                         left join OM_EMPLOYEE P
+                                           on O.CREATOR = P.EMPID
+                                         left join OM_ORGANIZATION N
+                                           on N.ORGCODE = O.ORGCODEONE
+                                         left join (SELECT O.ORGNAME AS NEXTORGNAME,
+                                                           T.FLOW_ID
+                                                      FROM T_GENERALPROCESS_MODELONE T,
+                                                           OM_ORGANIZATION           O
+                                                     WHERE O.ORGCODE = T.ORGCODEONE) O2
+                                           on O2.FLOW_ID = O.FLOW_ID） ll on
+                                        jj.EXECUTION_ID = ll.FLOW_ID)
+                          
+                          ) Z
+                   LEFT JOIN (SELECT O.ORGNAME AS ORGNAMETWO, T.FLOW_ID
+                                FROM T_GENERALPROCESS_MODELONE T,
+                                     OM_ORGANIZATION           O
+                               WHERE O.ORGCODE = T.ORGCODETWO) O1
+                     ON O1.FLOW_ID = Z.FLOW_ID
+                   LEFT JOIN (select q.execution_,
+                                     to_char(max(q.end_),
+                                             'yyyy-mm-dd hh24:mi:ss
+  ') as APPROVALTIME
+                                from jbpm4_hist_actinst q
+                               where q.activity_name_ = '发起合同预审'
+                               group by q.execution_) A1
+                     ON A1.EXECUTION_ = Z.FLOW_ID
+                   LEFT JOIN (select t1.execution_,
+                                     (case
+                                       when T1.CHECKTIME1 IS NULL THEN
+                                        t2.CHECKTIME2
+                                       else
+                                        t1.CHECKTIME1
+                                     end) as CHECKTIME
+                                from (select t.execution_,
+                                             to_char(max(t.end_),
+                                                     'yyyy-mm-dd hh24:mi:ss') as CHECKTIME1
+                                        from (select *
+                                                from JBPM4_HIST_TASK k
+                                               where k.outcome_ = '提交审批一'
+                                               order by k.execution_) T
+                                       group by t.execution_) T1
+                                full outer join (select t.execution_,
+                                                       to_char(max(t.end_),
+                                                               'yyyy-mm-dd hh24:mi:ss') as CHECKTIME2
+                                                  from (select *
+                                                          from JBPM4_HIST_TASK k
+                                                         where k.outcome_ =
+                                                               '提交审批安排'
+                                                         order by k.execution_) T
+                                                 group by t.execution_) T2
+                                  on t1.execution_ = t2.execution_) A2
+                     ON A2.EXECUTION_ = Z.FLOW_ID
+                   LEFT JOIN (select (case
+                                       when aa.flow_id is not null then
+                                        aa.flow_id
+                                       else
+                                        bb.execution_
+                                     end) EXECUTION_,
+                                     
+                                     (case
+                                       when aa.yq_app_time is not null then
+                                        aa.yq_app_time
+                                       else
+                                        bb.replytime
+                                     end) replytime
+                              
+                                from (
+                                      
+                                      select flow_id, yq_app_time
+                                        from t_generalprocess_modelfive t
+                                      
+                                      ) aa
+                                full outer join (
+                                                
+                                                select execution_,
+                                                        max(REPLYTIME) as replytime
+                                                  from (
+                                                         
+                                                         select t.outcome_,
+                                                                 to_char(t.end_,
+                                                                         'yyyy-mm-dd hh24:mi:ss ') as REPLYTIME,
+                                                                 t.execution_
+                                                           from JBPM4_HIST_TASK t
+                                                          where t.outcome_ =
+                                                                '提交发起合同预审')
+                                                 group by execution_) bb
+                              
+                                  on aa.flow_id = bb.execution_) A3
+                     ON A3.EXECUTION_ = Z.FLOW_ID
+                   LEFT JOIN （select min(q.start_), t.execution_, o.operatorname as CHECKONE
+                   from jbpm4_hist_actinst q, JBPM4_HIST_TASK t, ac_operator o
+                  WHERE q.activity_name_ = '审查一'
+                    and q.htask_ = t.dbid_
+                    and t.assignee_ = o.operatorid
+                  group by t.execution_, o.operatorname) A4
+            ON A4.EXECUTION_ = Z.FLOW_ID
+          LEFT JOIN (select min(q.start_),
+                            t.execution_,
+                            o.operatorname as CHECKTWO
+                       from jbpm4_hist_actinst q,
+                            JBPM4_HIST_TASK    t,
+                            ac_operator        o
+                      WHERE q.activity_name_ = '审查二'
+                        and q.htask_ = t.dbid_
+                        and t.assignee_ = o.operatorid
+                      group by t.execution_, o.operatorname) A5
+            ON A5.EXECUTION_ = Z.FLOW_ID
+          LEFT JOIN (select A.execution_, max(r) AS RECEIVETIME
+                       from (select t.execution_,
+                                    wm_concat(to_char(t.end_,
+                                                      'yyyy-mm-dd hh24:mi:ss')) over(partition by t.execution_ order by T.END_) r
+                               from (select *
+                                       from JBPM4_HIST_TASK k
+                                      where k.outcome_ = '提交审查一'
+                                      order by K.EXECUTION_, k.end_ ASC) T) A
+                      group by A.execution_) A6
+            ON A6.EXECUTION_ = Z.FLOW_ID
+          LEFT JOIN (SELECT execution_,
+                            TO_CHAR(MIN(T.start_), 'yyyy-mm-dd') uptime
+                       FROM JBPM4_HIST_ACTINST t
+                      WHERE t.activity_name_ = '收单派单'
+                      GROUP BY t.execution_) A7
+            on A7.EXECUTION_ = Z.FLOW_ID
+          LEFT JOIN (SELECT execution_,
+                            TO_CHAR(MIN(T.start_), 'yyyy-mm-dd') looktime
+                       FROM JBPM4_HIST_ACTINST t
+                      WHERE t.activity_name_ = '发起合同预审'
+                      GROUP BY t.execution_) A8
+            on A8.EXECUTION_ = Z.FLOW_ID
+          LEFT JOIN (select A.execution_, max(r) AS returnTime
+                       from (select t.execution_,
+                                    wm_concat(to_char(t.end_,
+                                                      'yyyy-mm-dd hh24:mi:ss')) over(partition by t.execution_ order by T.END_) r
+                               from (select *
+                                       from JBPM4_HIST_TASK k
+                                      where k.outcome_ = '退回收单派单'
+                                      order by K.EXECUTION_, k.end_ ASC) T) A
+                      group by A.execution_) A9
+            ON A9.EXECUTION_ = Z.FLOW_ID
+          LEFT JOIN (select A.execution_, max(r) AS reportedTime
+                       from (select t.execution_,
+                                    wm_concat(to_char(t.end_,
+                                                      'yyyy-mm-dd hh24:mi:ss')) over(partition by t.execution_ order by T.END_) r
+                               from (select *
+                                       from JBPM4_HIST_TASK k
+                                      where k.outcome_ = '提交收单派单'
+                                      order by K.EXECUTION_, k.end_ ASC) T) A
+                      group by A.execution_) A10
+            ON A10.EXECUTION_ = Z.FLOW_ID
+          left join T_GENERALPROCESS_MAIN b
+            on Z.FLOW_ID = b.business_id
+          left join (select min(q.start_),
+                            t.execution_,
+                            o.operatorname as dyApp1
+                       from jbpm4_hist_actinst q,
+                            JBPM4_HIST_TASK    t,
+                            ac_operator        o
+                      WHERE q.activity_name_ = '审批一'
+                        and q.htask_ = t.dbid_
+                        and t.assignee_ = o.operatorid
+                      group by t.execution_, o.operatorname) D1
+            on D1.EXECUTION_ = Z.FLOW_ID
+          left join (select min(q.start_),
+                            t.execution_,
+                            o.operatorname as deApp1
+                       from jbpm4_hist_actinst q,
+                            JBPM4_HIST_TASK    t,
+                            ac_operator        o
+                      WHERE q.activity_name_ = '审批二'
+                        and q.htask_ = t.dbid_
+                        and t.assignee_ = o.operatorid
+                      group by t.execution_, o.operatorname) D2
+            on D2.EXECUTION_ = Z.FLOW_ID
+          LEFT JOIN T_PROCESS_BUSINESS D3
+            on d3.execution_id = Z.FLOW_ID
+          LEFT JOIN
+           (SELECT A.EXECUTION_ID F_ID
+  FROM T_PROCESS_TASK_ASSIGNEE A
+ WHERE A.BUSINESS_TYPE = '88'
+   AND A.NEXT_ACTIVITY_NAME = '结束'
+   AND A.EXECUTION_ID NOT IN
+       (SELECT B.EXECUTION_ID
+          FROM T_PROCESS_TASK_ASSIGNEE B
+         WHERE B.NEXT_ACTIVITY_NAME = '发起合同预审')）D4
+       on D4.F_ID= Z.FLOW_ID
+         where 1 = 1
 	<isNotNull prepend="and" property="oneCategory">
 		Z.ONECATEGORY in ($oneCategory$)
 	</isNotNull>

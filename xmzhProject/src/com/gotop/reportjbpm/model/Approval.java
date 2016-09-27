@@ -95,6 +95,13 @@ public class Approval implements Serializable {
 	//五次上报
 	private String reportedFive;
 	private String title;
+	private String remark;
+	public String getRemark() {
+		return remark;
+	}
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
 	public String getTitle() {
 		return title;
 	}
