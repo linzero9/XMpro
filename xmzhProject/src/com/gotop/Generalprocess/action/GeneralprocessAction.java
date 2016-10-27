@@ -455,7 +455,30 @@ public class GeneralprocessAction extends BaseAction {
 
 			List<List<GeneralprocessFieldBean>> beans = GeneralprocessUtil
 					.returnAllObj(map);
-
+			
+			
+			
+			//将换行符\r\n 替换成 <br> ，因为\r\n在json字符串转成json格式会报错，无法转换
+			for(int i = 0;  i<beans.size();  i++){
+				
+				List<GeneralprocessFieldBean> list = beans.get(i);
+				
+				for(int j = 0;  j<list.size();  j++){
+					
+					String name = list.get(j).getName();
+					if("超限说明".equals(name) || "处理意见".equals(name)){
+						
+						String val = (String) list.get(j).getValue();
+						if(val != null && val.indexOf("\r\n") != -1){
+							val = val.replace("\r\n", "<br>");
+							list.get(j).setValue(val);
+						}
+						
+					}
+				}
+			}
+			
+			
 			String fxJson = JSONArray.fromObject(beans).toString();
 			taskAssgineeDto.setFxJson(fxJson);
 
@@ -561,6 +584,29 @@ public class GeneralprocessAction extends BaseAction {
 		List<List<GeneralprocessFieldBean>> beans = GeneralprocessUtil
 				.returnAllObj(map);
 
+		
+		//将换行符\r\n 替换成 <br> ，因为\r\n在json字符串转成json格式会报错，无法转换
+		for(int i = 0;  i<beans.size();  i++){
+			
+			List<GeneralprocessFieldBean> list = beans.get(i);
+			
+			for(int j = 0;  j<list.size();  j++){
+				
+				String name = list.get(j).getName();
+				if("超限说明".equals(name) || "处理意见".equals(name)){
+					
+					String val = (String) list.get(j).getValue();
+					if(val != null && val.indexOf("\r\n") != -1){
+						val = val.replace("\r\n", "<br>");
+						list.get(j).setValue(val);
+					}
+					
+				}
+			}
+		}
+		
+		
+		
 		String fxJson = JSONArray.fromObject(beans).toString();
 		taskAssgineeDto.setFxJson(fxJson);
 		queryDefault();
