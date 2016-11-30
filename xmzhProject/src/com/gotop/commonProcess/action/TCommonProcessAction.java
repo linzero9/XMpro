@@ -36,7 +36,7 @@ public class TCommonProcessAction extends BaseAction {
      * @abatorgenerated
      */
     protected ITCommonProcessService tCommonProcessService;
-
+  
     /**
      * 通过spring注入Service的set类.
      * @abatorgenerated
