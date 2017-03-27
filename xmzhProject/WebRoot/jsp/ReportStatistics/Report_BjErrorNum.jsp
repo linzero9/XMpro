@@ -70,7 +70,7 @@
 		</w:panel>
 	</h:form>
 	<DIV class="divList">
-			<w:panel id="panel" width="100%" title="通过率统计列表">
+			<w:panel id="panel" width="100%" title="笔均差错数统计列表">
 				<viewlist id="e2c61865-3b56-470d-bd42-fff792fb9493">
 				<h:form name="page_form"
 					action="/reportjbpm/bjErrorNumReportAction_bjErrorNumReportList.action" method="post">
