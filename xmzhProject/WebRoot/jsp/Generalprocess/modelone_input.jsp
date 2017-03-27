@@ -194,6 +194,40 @@
          <font style="color: red">*</font>	
         </td>
       </tr>
+      
+       <tr>
+        <td class="form_label" align="right" style="width:120px;">
+                                                 客户评级：
+        </td>
+        <td colspan="1">
+        <h:text property="modelOne.custGrade" id="custGrade"  style="width:130px;" />	
+        </td>
+        <td class="form_label" align="right" style="width:120px;">
+                                                   基准利率浮动：
+        </td>
+        <td colspan="1">
+         <select    id="basisRateFloats"  >
+        <option value="">请选择</option>
+         <option value="1">上浮</option>
+         <option value="2">下浮</option>
+         <option value="3">不变</option>
+         </select> 
+         <h:hidden property="modelOne.basisRateFloat"  id="basisRateFloat" />
+        </td>
+      </tr>
+       <tr>
+        <td class="form_label" align="right" style="width:120px;">
+                                                 利率浮动比例：
+        </td>
+        <td colspan="1">
+           <h:text property="modelOne.rateFloatScale" id="rateFloatScale" style="width:130px;" />	
+        </td>
+        <td class="form_label" align="right" style="width:120px;">
+                                                 
+        </td>
+        <td colspan="1">
+        </td>
+      </tr>
             <tr id="row1">
       <td class="form_label" align="right">附件下载：</td>
       <td colspan="3">

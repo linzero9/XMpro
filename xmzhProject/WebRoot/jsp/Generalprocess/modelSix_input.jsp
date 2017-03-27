@@ -208,6 +208,39 @@
         	<h:text id="supportMoney" property="modelSix.supportMoney"   validateAttr="type=float"/>元
         </td>
       </tr>
+		 <tr>
+		 <td class="form_label" align="right" style="width:20%;">
+                                                 客户评级：
+        </td>
+        <td colspan="1" style="width:30%">
+        <h:text property="modelSix.custGrade" id="custGrade"  style="width:130px;" />	
+        </td>
+        <td class="form_label" align="right" style="width:20%;">
+                                                   基准利率浮动：
+        </td>
+        <td colspan="1" style="width:30%">
+         <select    id="basisRateFloats"  >
+        <option value="">请选择</option>
+         <option value="1">上浮</option>
+         <option value="2">下浮</option>
+         <option value="3">不变</option>
+         </select> 
+         <h:hidden property="modelSix.basisRateFloat"  id="basisRateFloat" />
+        </td>
+      </tr>
+       <tr>
+        <td class="form_label" align="right" style="width:20%;">
+                                                 利率浮动比例：
+        </td>
+        <td colspan="1"  style="width:30%">
+           <h:text property="modelSix.rateFloatScale" id="rateFloatScale"  style="width:130px;" />	
+        </td>
+        <td class="form_label" align="right" style="width:20%;">
+                                                 
+        </td>
+        <td colspan="1"  style="width:30%">
+        </td>
+      </tr> 
 				
       <tr id="row1">
         <td class="form_label" align="right">附件下载：</td>
