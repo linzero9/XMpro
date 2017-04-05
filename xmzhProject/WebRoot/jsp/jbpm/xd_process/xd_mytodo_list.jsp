@@ -99,7 +99,24 @@
 						</tr>
 						<w:radioGroup id="group1">
                            <l:iterate property="xdProcessTaskAssignees" id="id1">
-							<tr class="<l:output evenOutput='EOS_table_row' oddOutput='EOS_table_row_o'  />">
+							  <l:equal iterateId="id1"  property="isurgent"  targetValue="0" >
+								  <tr class="<l:output evenOutput='EOS_table_row' oddOutput='EOS_table_row_o'  />"    style="background-color: red;">
+							  </l:equal>
+							
+							<l:notEqual iterateId="id1"  property="isurgent"  targetValue="0" >
+								    <l:greaterThan iterateId="id1"  property="lcTimeLen"  targetValue="2" >
+								          <tr class="<l:output evenOutput='EOS_table_row' oddOutput='EOS_table_row_o'  />"    style="background-color: orange;">
+								    </l:greaterThan>
+								    
+								    <l:lessEqual iterateId="id1"  property="lcTimeLen"  targetValue="2" >
+								          <tr class="<l:output evenOutput='EOS_table_row' oddOutput='EOS_table_row_o'  />"   >
+								    </l:lessEqual>
+								    
+								     <l:empty iterateId="id1"  property="lcTimeLen"  >
+								          <tr class="<l:output evenOutput='EOS_table_row' oddOutput='EOS_table_row_o'  />"   >
+								    </l:empty>
+								   </l:notEqual>
+								   
 								<td align="center" nowrap="nowrap">
 									<w:rowRadio>
 										<h:param name='id' iterateId='id1' property='id' />
@@ -121,7 +138,7 @@
 									</w:rowRadio>
 								</td>
 								<td nowrap="nowrap"> 
-								
+								<%-- 
 								  <l:equal iterateId="id1"  property="isurgent"  targetValue="0" >
 								          <div style="color: red;"><b:write iterateId="id1"    property="processName"  /></div>
 								   </l:equal>
@@ -139,7 +156,8 @@
 								          <b:write iterateId="id1"    property="processName"  />
 								    </l:empty>
 								   </l:notEqual>
-								   
+								    --%>
+								     <b:write iterateId="id1"    property="processName"  />
 								</td>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1" property="custName" />

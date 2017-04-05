@@ -189,7 +189,7 @@
        to_char(A8.end_, 'yyyy/mm/dd hh24:mi:ss') as end_time,
        to_char(sysdate, 'yyyy/mm/dd hh24:mi:ss') as curr_time,
        case
-         when A8.PRE_TASK_NAME = '模式一-受理调查' and A8.NEXT_TASK_NAME = '审查一' then
+         when A8.PRE_TASK_NAME = '受理调查' and A8.NEXT_TASK_NAME = '审查一' then
           round(to_date(to_char(A8.end_, 'yyyy/mm/dd hh24:mi:ss'),
                         'yyyy/mm/dd hh24:mi:ss') -
                 to_date(to_char(A8.start_, 'yyyy/mm/dd hh24:mi:ss'),
@@ -197,7 +197,7 @@
                 2)
        end as time_Diff1,
        case
-         when A8.PRE_TASK_NAME = '模式一-受理调查' then
+         when A8.PRE_TASK_NAME = '受理调查' then
           round(sysdate - to_date(to_char(A8.start_, 'yyyy/mm/dd hh24:mi:ss'),
                                   'yyyy/mm/dd hh24:mi:ss'),
                 2)
@@ -226,7 +226,7 @@
                                                t.*
                                           from JBPM4_HIST_ACTINST t
                                          where t.execution_ =  '$executionId$'
-                                           and activity_name_ = '模式三-收单派单') A
+                                           and activity_name_ = '收单派单') A
                                  where RNO = 1) A1
                           left join T_PROCESS_TASK_ASSIGNEE A2
                             on A1.execution_ = A2.execution_id
