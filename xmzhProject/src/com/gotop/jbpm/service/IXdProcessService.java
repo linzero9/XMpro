@@ -1,5 +1,6 @@
 package com.gotop.jbpm.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.gotop.jbpm.dao.IXdProcessDAO;
@@ -59,5 +60,7 @@ public interface IXdProcessService {
 	void updateWorkTime(WorkTimeBean workTimeBean);
 
 	void updateTitle(XdProcessTaskAssignee xdProcessTaskAssignee);
-	
+
+	HashMap queryTimeDiff(String executionId);
+
 }

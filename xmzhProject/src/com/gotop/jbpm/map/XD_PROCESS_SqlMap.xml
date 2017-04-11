@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
 <sqlMap namespace="XD_PROCESS_SqlMap" >
- <resultMap id="abatorgenerated_XdProcess_HashMapResult" class="java.util.HashMap" >
+ <resultMap id="abatorgenerated_XdProcess_Result" class="com.gotop.jbpm.model.XdProcessTaskAssignee" >
     <!--HashMap方式返回全表-->
     <result column="ID" property="id" jdbcType="DECIMAL" />
     <result column="EXECUTION_ID" property="executionId" jdbcType="VARCHAR" />
@@ -27,7 +27,7 @@
      <result column="LOANCATEGORY" property="loanCategory" jdbcType="VARCHAR" />
      <result column="REPORTCNT" property="reportcnt" jdbcType="VARCHAR" />
      <result column="REPORTTIME" property="reportTime" jdbcType="VARCHAR" />
-          
+      <result column="ISURGENT" property="isurgent" jdbcType="VARCHAR" />    
   </resultMap>
   
  <resultMap id="abatorgenerated_XdProcess_HashMapResult2" class="java.util.HashMap" >
@@ -98,9 +98,9 @@
   </resultMap>
   
   <!--查询信贷流程 待办事项列表-->
-  <select id="queryXdMyTodoList" resultMap="abatorgenerated_XdProcess_HashMapResult" parameterClass="java.util.HashMap" >
+  <select id="queryXdMyTodoList" resultMap="abatorgenerated_XdProcess_Result" parameterClass="java.util.HashMap" >
   select T13.* from
-   (select T11.*, to_number(nvl(T12.REPORTCNT,'0')) as REPORTCNT, T12.REPORTTIME
+   (select T11.*, to_number(nvl(T12.REPORTCNT,'0')) as REPORTCNT, T12.REPORTTIME, T12.ISURGENT
   from (select T9.*, T10.CUST_NAME, T10.ONECATEGORY, T10.LOANCATEGORY
           from (SELECT T1.ID,
                        T7.EXECUTION_ID_ as EXECUTION_ID,
@@ -165,7 +165,7 @@
            	 and dic.dictid in($loanCategoryId$))
       		</isNotNull>
       		</dynamic>
-      		order by T13.REPORTCNT DESC,T13.PRE_TASK_TIME ASC
+      		order by T13.ISURGENT ASC, T13.REPORTTIME ASC, T13.REPORTCNT DESC
   </select>
   
    <select id="queryXdProcessList" resultMap="abatorgenerated_XdProcess_HashMapResult2" parameterClass="java.util.HashMap" >
@@ -182,6 +182,66 @@
  </isNotNull>
   order by t.ORDER_NO ASC
    </select>
+   
+    <select id="queryTimeDiff" resultClass="java.util.HashMap" parameterClass="java.lang.String" >
+   select A8.execution_,
+       to_char(A8.start_, 'yyyy/mm/dd hh24:mi:ss') as start_time,
+       to_char(A8.end_, 'yyyy/mm/dd hh24:mi:ss') as end_time,
+       to_char(sysdate, 'yyyy/mm/dd hh24:mi:ss') as curr_time,
+       case
+         when A8.PRE_TASK_NAME = '模式一-受理调查' and A8.NEXT_TASK_NAME = '审查一' then
+          round(to_date(to_char(A8.end_, 'yyyy/mm/dd hh24:mi:ss'),
+                        'yyyy/mm/dd hh24:mi:ss') -
+                to_date(to_char(A8.start_, 'yyyy/mm/dd hh24:mi:ss'),
+                        'yyyy/mm/dd hh24:mi:ss'),
+                2)
+       end as time_Diff1,
+       case
+         when A8.PRE_TASK_NAME = '模式一-受理调查' then
+          round(sysdate - to_date(to_char(A8.start_, 'yyyy/mm/dd hh24:mi:ss'),
+                                  'yyyy/mm/dd hh24:mi:ss'),
+                2)
+       end as time_Diff2,
+       round(to_date(to_char(A8.start_, 'yyyy/mm/dd'),
+                        'yyyy/mm/dd hh24:mi:ss')+1 -
+                to_date(to_char(A8.start_, 'yyyy/mm/dd hh24:mi:ss'),
+                        'yyyy/mm/dd hh24:mi:ss'),
+                2) as startD_diff,
+        round(to_date(to_char(A8.end_, 'yyyy/mm/dd hh24:mi:ss'),
+                        'yyyy/mm/dd hh24:mi:ss') - 
+                to_date(to_char(A8.end_, 'yyyy/mm/dd'),
+                        'yyyy/mm/dd hh24:mi:ss'),
+                2) as endD_diff,
+         round(sysdate - 
+                to_date(to_char(sysdate, 'yyyy/mm/dd'),
+                        'yyyy/mm/dd hh24:mi:ss'),
+                2) as currD_diff
+  from (select A5.*,
+               A6.activity_name_ as PRE_TASK_NAME,
+               A7.activity_name_ as NEXT_TASK_NAME
+          from (select A3.*, A4.NEXT_TASK_ID
+                  from (select A1.*, A2.Pre_Task_Id
+                          from (select A.*
+                                  from (select ROW_NUMBER() OVER(ORDER BY t.start_) RNO,
+                                               t.*
+                                          from JBPM4_HIST_ACTINST t
+                                         where t.execution_ =  '$executionId$'
+                                           and activity_name_ = '模式三-收单派单') A
+                                 where RNO = 1) A1
+                          left join T_PROCESS_TASK_ASSIGNEE A2
+                            on A1.execution_ = A2.execution_id
+                           and A1.HTASK_ = A2.NEXT_TASK_ID) A3
+                  left join T_PROCESS_TASK_ASSIGNEE A4
+                    on A3.execution_ = A4.execution_id
+                   and A3.HTASK_ = A4.PRE_TASK_ID) A5,
+               JBPM4_HIST_ACTINST A6,
+               JBPM4_HIST_ACTINST A7
+         where A5.execution_ = A6.execution_
+           and A5.PRE_TASK_ID = A6.HTASK_
+           and A5.execution_ = A7.execution_
+           and A5.NEXT_TASK_ID = A7.HTASK_) A8
+   </select>
+   
    
    <select id="queryOneCategoryList" resultMap="abatorgenerated_XdProcess_HashMapResult3" parameterClass="java.util.HashMap" >
     select distinct (first_class) as ONECATEGORY  from T_GENERALPROCESS_CDTYPE t 
@@ -452,4 +512,5 @@ FROM
 	) T11
 	where EXECUTION_ID=#executionId:VARCHAR#
   </select>
+  
 </sqlMap>

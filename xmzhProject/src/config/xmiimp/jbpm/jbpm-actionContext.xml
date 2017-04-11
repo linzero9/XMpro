@@ -61,6 +61,7 @@
   
   <bean class="com.gotop.jbpm.action.XdProcessAction" id="xdProcessAction" name="xdProcessAction" singleton="false">
     <property name="xdProcessService" ref="xdProcessService" />
+    <property name="tModelTimedayService" ref="tModelTimedayService" />
   </bean>
   
   <bean class="com.gotop.jbpm.action.TimeLimitManageAction" id="timeLimitManageAction" name="timeLimitManageAction" singleton="false">

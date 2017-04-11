@@ -76,9 +76,15 @@
 							</th>
 							<th nowrap="nowrap">
 								贷种分类
-					</th>
+							</th>
 							<th nowrap="nowrap">
 								上报次数
+							</th>
+							<th nowrap="nowrap">
+								派单时长<br>(单位：工作日)
+							</th>
+							<th nowrap="nowrap">
+								流程时长<br>(单位：工作日)
 							</th>
 							<th nowrap="nowrap">
 								提交人姓名
@@ -115,7 +121,25 @@
 									</w:rowRadio>
 								</td>
 								<td nowrap="nowrap"> 
-									<b:write iterateId="id1"    property="processName" />
+								
+								  <l:equal iterateId="id1"  property="isurgent"  targetValue="0" >
+								          <div style="color: red;"><b:write iterateId="id1"    property="processName"  /></div>
+								   </l:equal>
+								   
+								   <l:notEqual iterateId="id1"  property="isurgent"  targetValue="0" >
+								    <l:greaterThan iterateId="id1"  property="lcTimeLen"  targetValue="2" >
+								          <div style="color: orange;"><b:write iterateId="id1"    property="processName"  /></div>
+								    </l:greaterThan>
+								    
+								    <l:lessEqual iterateId="id1"  property="lcTimeLen"  targetValue="2" >
+								          <b:write iterateId="id1"    property="processName"  />
+								    </l:lessEqual>
+								    
+								     <l:empty iterateId="id1"  property="lcTimeLen"  >
+								          <b:write iterateId="id1"    property="processName"  />
+								    </l:empty>
+								   </l:notEqual>
+								   
 								</td>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1" property="custName" />
@@ -128,6 +152,12 @@
 								</td>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1" property="reportcnt" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="pdTimeLen" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="lcTimeLen" />
 								</td>
 									<td nowrap="nowrap">
 									<b:write iterateId="id1" property="preTaskAssingeeName" />
@@ -143,6 +173,7 @@
 						</w:radioGroup>
 							<tr>
               <td colspan="23" class="command_sort_area">
+              	<div style="color:blue;font-size: 10px;">注：<span style="color:red">红色</span>表示加急单子；<span style="color:orange">橘色</span>表示上报的单子超过两天。</div>
               	<div class="h3"> 
               	<l:greaterThan property="page.count" targetValue="0" compareType="number" >
 								&nbsp; &nbsp;

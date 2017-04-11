@@ -141,6 +141,21 @@ public class XdProcessTaskAssignee implements Serializable {
      */
     private String reportcnt;
     
+    /**
+     * 派单时长
+     */
+    private Double pdTimeLen;
+    
+    /**
+     * 流程时长
+     */
+    private Double lcTimeLen;
+    
+    /**
+     * 加急标志，是否加急（0：是，1：否）
+     */
+    private String isurgent;
+    
     /*
      * 流程标题 
      */
@@ -392,6 +407,31 @@ public class XdProcessTaskAssignee implements Serializable {
 	public void setReportTime(String reportTime) {
 		this.reportTime = reportTime;
 	}
-    
+
+	public Double getPdTimeLen() {
+		return pdTimeLen;
+	}
+
+	public void setPdTimeLen(Double pdTimeLen) {
+		this.pdTimeLen = pdTimeLen;
+	}
+
+	public Double getLcTimeLen() {
+		return lcTimeLen;
+	}
+
+	public void setLcTimeLen(Double lcTimeLen) {
+		this.lcTimeLen = lcTimeLen;
+	}
+
+	public String getIsurgent() {
+		return isurgent;
+	}
+
+	public void setIsurgent(String isurgent) {
+		this.isurgent = isurgent;
+	}
+
+	
     
 }

@@ -244,8 +244,12 @@ public class XdProcessService implements IXdProcessService {
 		XdProcessTaskAssignee isfirst=xdProcessDAO.getxdProcessTaskAssigneeById(xdProcessTaskAssignee);
 		return isfirst;
 	}
-	
-	
+	@Override
+	public HashMap queryTimeDiff(String executionId) {
+		
+		HashMap map = this.xdProcessDAO.queryTimeDiff(executionId);
+		return map;
+	}
 
 	
 }

@@ -1,7 +1,15 @@
 package com.gotop.jbpm.action;
 
+import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+
+import org.apache.derby.tools.sysinfo;
 
 import com.gotop.Generalprocess.util.SpringPropertyResourceReader;
 import com.gotop.crm.util.BaseAction;
@@ -11,6 +19,8 @@ import com.gotop.jbpm.model.XdCdtypeBean;
 import com.gotop.jbpm.model.XdProcessBean;
 import com.gotop.jbpm.model.XdProcessTaskAssignee;
 import com.gotop.jbpm.service.IXdProcessService;
+import com.gotop.timeMachine.model.TModelTimeday;
+import com.gotop.timeMachine.service.ITModelTimedayService;
 import com.gotop.util.Struts2Utils;
 import com.gotop.util.string.Obj2StrUtils;
 import com.primeton.utils.Page;
@@ -45,6 +55,8 @@ public class XdProcessAction   extends BaseAction {
 	private List<XdCdtypeBean> xdCdtypeBeans2;
 	
 	protected IXdProcessService xdProcessService;
+	
+	protected ITModelTimedayService tModelTimedayService;
 	
     private  String cdtypeJson;
     
@@ -125,6 +137,12 @@ public class XdProcessAction   extends BaseAction {
 		this.xdProcessService = xdProcessService;
 	}
 	
+	public ITModelTimedayService gettModelTimedayService() {
+		return tModelTimedayService;
+	}
+	public void settModelTimedayService(ITModelTimedayService tModelTimedayService) {
+		this.tModelTimedayService = tModelTimedayService;
+	}
 	public XdProcessBean getXdProcessBean() {
 		return xdProcessBean;
 	}
@@ -213,11 +231,167 @@ public class XdProcessAction   extends BaseAction {
     	if(positionIds!=null&&!"".equals(positionIds))
     		relationids+="," + positionIds;
     	
+    	//查询待办列表
 		List<XdProcessTaskAssignee> xdProcessTaskAssignees = this.xdProcessService.queryXdMyToDoList(relationids,xdProcessTaskAssignee,this.getPage());
+		
+		//循环分页的10条记录，每条查出其派单时长和流程时长
+		for (XdProcessTaskAssignee xdProcessTaskAssignee : xdProcessTaskAssignees) {
+			String executionId = xdProcessTaskAssignee.getExecutionId();
+			 HashMap map =  this.xdProcessService.queryTimeDiff(executionId);  
+			 if(map != null){
+				 
+				 //计算派单时长
+				 if((BigDecimal) map.get("TIME_DIFF1") != null){
+					 double time_Diff1 = ((BigDecimal) map.get("TIME_DIFF1")).doubleValue();  //派单时间差timeDiff1 = 派单时间(收单派单的end_) - 报单时间(收单派单的start_)
+					 double startD_diff = ((BigDecimal) map.get("STARTD_DIFF")).doubleValue();  //开始时间 那天的时间所占多少天
+					 double endD_diff = ((BigDecimal) map.get("ENDD_DIFF")).doubleValue();  //结束时间 那天的时间所占多少天
+					 String start_time =  (String) map.get("START_TIME") ; 
+					 String end_time =  (String) map.get("END_TIME") ; 
+					 
+					//派单时长（单位：工作日）=（派单时间-报单时间）（单位：天） – 周末 – 节假日 + 特殊工作日
+					 double pdTimeLen = getTimeLen(start_time, end_time, time_Diff1, startD_diff, endD_diff);
+					 xdProcessTaskAssignee.setPdTimeLen(pdTimeLen);
+				 }
+				 
+				 //计算流程时长
+				 if((BigDecimal) map.get("TIME_DIFF2") != null){
+					 double time_Diff2 = ((BigDecimal) map.get("TIME_DIFF2")).doubleValue();  //流程时间差timeDiff2 = 当前时间 - 报单时间(收单派单的start_)
+					 double startD_diff = ((BigDecimal) map.get("STARTD_DIFF")).doubleValue();  //开始时间 那天的时间所占多少天
+					 double currD_diff = ((BigDecimal) map.get("CURRD_DIFF")).doubleValue();  //当前时间 当天天的时间所占多少天
+					 String start_time =  (String) map.get("START_TIME") ; 
+					 String curr_time = (String) map.get("CURR_TIME") ; 
+					 
+					//流程时长（单位：工作日）=（当前时间-报单时间）（单位：天） – 周末 – 节假日 + 特殊工作日
+					 double lcTimeLen = getTimeLen(start_time, curr_time, time_Diff2, startD_diff, currD_diff);
+					 xdProcessTaskAssignee.setLcTimeLen(lcTimeLen);
+				 }
+				 
+			 }
+		}
+		
+		
 		this.setXdProcessTaskAssignees(xdProcessTaskAssignees);
 
 		return "xd_mytodo_list";
 	}
+	
+	/**
+	 * 计算两个时间范围内的 时长（除去周末、节假日，加上了特殊工作日）
+	 * @param start_time 开始时间
+	 * @param end_time  结束时间
+	 * @param time_Diff  结束时间-开始时间 的时间差（单位：天）
+	 * @param startD_diff 开始时间那天所占的时间差（单位：天）
+	 * @param endD_diff 结束时间那天所占的时间差（单位：天）
+	 * @return
+	 * @throws ParseException
+	 */
+	public double  getTimeLen(String start_time, String end_time, double time_Diff, double startD_diff, double endD_diff) throws ParseException{
+		
+		SimpleDateFormat sd = new SimpleDateFormat("yyyy/MM/dd");
+		Date startD = sd.parse(start_time);  //开始日期（不含时间）
+		Date endD = sd.parse(end_time);  //结束日期（不含时间）
+		String startDstr = sd.format(startD);
+    	String endDstr = sd.format(endD);
+		
+		//将startD的时间赋给startD2，不能用等号直接赋值，否则当startD2值变了，startD也会跟着累加变化
+		 Date startD2 = sd.parse(start_time); //用于日期累加
+		 Date startD3; //用于存放在datelist里
+		 double timediff = time_Diff;
+		 
+		 List<Date> datelist = new ArrayList<Date>(); //用于存放传入的开始~结束时间里遇到的 周六或周日的日期
+		 while (startD2.compareTo(endD) <= 0) {
+				
+				if (startD2.getDay() == 6 || startD2.getDay() == 0){  //getDay()=6代表周六， getDay()=0代表周日
+					startD3 = new Date();
+					//将startD2的时间赋给startD3，不能用等号直接赋值，否则当startD3值变了，startD2也会跟着累加变化
+					startD3 = sd.parse(sd.format(startD2));   
+					datelist.add(startD3);
+					
+					if(startD3.compareTo(startD) != 0  && startD3.compareTo(endD) != 0 ){//说明当前这个周末日期不是开始日期，也不是结束日期，说明是除开始和结束日期外之间的天数，要扣一个工作日
+						timediff = (double)Math.round((timediff - 1)*100)/100; //保留两位小数，四舍五入的方法：(double)Math.round(d*100)/100;
+					}else if(startD3.compareTo(startD) == 0  && startD3.compareTo(endD) != 0 ){//说明当前这个周末日期是开始日期，并且开始日期与结束日期不是同一天
+						timediff =  (double)Math.round((timediff - startD_diff)*100)/100;
+					}else if(startD3.compareTo(startD) != 0  && startD3.compareTo(endD) == 0 ){//说明当前这个周末日期是结束日期，并且开始日期与结束日期不是同一天
+						timediff =  (double)Math.round((timediff - endD_diff)*100)/100;
+					}else{//说明开始和结束日期是同一天，并且是属于周末
+						timediff = 0;
+					}
+				}
+		
+				startD2.setDate(startD2.getDate() + 1);  
+			}  
+		 
+		 
+		//查找配置的日期在 传入的日期范围之间 的节假日、工作日
+		    HashMap<String , Object> map = new HashMap<String , Object>();
+		    map.put("startD",startDstr );
+		    map.put("endD", endDstr);
+			List<TModelTimeday> list = this.tModelTimedayService.queryWorkDayList(map);
+			
+			for (TModelTimeday tModelTimeday : list) { //循环节假日、工作日
+				Date timedate =  sd.parse(tModelTimeday.getTime());
+				boolean weekend_flag = false; //该标志用于判断节假日是否与周末是同一天，默认不是
+				
+				for (Date date : datelist) {//循环周末日期
+					
+					if(timedate.compareTo(date) == 0){//节假日与周末是同一天
+						weekend_flag = true;
+						break;
+					}
+					//节假日与周末不是同一天，则继续判断下一条
+				}
+				
+				//当遇到配置类型为“节假日”，要扣掉
+				if( "1".equals(tModelTimeday.getType()) ){
+					//节假日是开始日期，且节假日周末不重叠
+					if( timedate.compareTo(startD) == 0 && weekend_flag == false ){
+						timediff =  (double)Math.round((timediff - startD_diff)*100)/100;
+					}
+					
+					//节假日是结束日期，且节假日周末不重叠
+					if(timedate.compareTo(endD) == 0 && weekend_flag == false){
+						timediff =  (double)Math.round((timediff - endD_diff)*100)/100;
+					}
+					
+					//节假日不是开始日期也不是结束日期，且节假日周末不重叠
+					if(timedate.compareTo(startD) != 0 && timedate.compareTo(endD) != 0 && weekend_flag == false){
+						timediff =  (double)Math.round((timediff - 1)*100)/100;
+					}
+					
+					//节假日既是开始日期也是结束日期，说明开始和结束是同一天，且节假日周末不重叠
+					if(timedate.compareTo(startD) == 0 && timedate.compareTo(endD) == 0 && weekend_flag == false){
+						timediff = 0;
+					}
+				}
+				
+				//当遇到配置类型为“工作日”，要加上
+				if( "2".equals(tModelTimeday.getType()) ){
+					//特殊维护的工作日是开始日期，且周末设为工作日
+					if(timedate.compareTo(startD) == 0 && weekend_flag == true){
+						timediff =  (double)Math.round((timediff + startD_diff)*100)/100;
+					}
+					
+					//特殊维护的工作日是结束日期，且周末设为工作日
+					if(timedate.compareTo(endD) == 0 && weekend_flag == true){
+						timediff =  (double)Math.round((timediff + endD_diff)*100)/100;
+					}
+					
+					//特殊维护的工作日不是开始日期也不是结束日期，且周末设为工作日
+					if(timedate.compareTo(startD) != 0 && timedate.compareTo(endD) != 0 && weekend_flag == true){
+						timediff =  (double)Math.round((timediff + 1)*100)/100;
+					}
+					
+					//特殊维护的工作日既是开始日期也是结束日期，说明开始和结束是同一天，且周末设为工作日
+					if(timedate.compareTo(startD) == 0 && timedate.compareTo(endD) == 0 && weekend_flag == true){
+						timediff = time_Diff;
+					}
+				}
+				
+			}
+			
+			return timediff;
+	}
+	
 	
 	/**
 	 * 查询 所有发布的信贷流程

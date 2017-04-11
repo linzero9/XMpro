@@ -1,5 +1,6 @@
 package com.gotop.jbpm.dao.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -150,6 +151,12 @@ public class XdProcessDAO  extends SqlMapClientDao  implements IXdProcessDAO{
 	public XdProcessTaskAssignee getxdProcessTaskAssigneeById(
 			XdProcessTaskAssignee xdProcessTaskAssignee) {
 		return (XdProcessTaskAssignee) this.getSqlMapClientTemplate().queryForObject("XD_PROCESS_SqlMap.query22", xdProcessTaskAssignee);
+	}
+
+	@Override
+	public HashMap queryTimeDiff(String executionId) {
+		HashMap map = (HashMap) queryForObject("XD_PROCESS_SqlMap.queryTimeDiff", executionId);
+		return map;
 	}
 
 
