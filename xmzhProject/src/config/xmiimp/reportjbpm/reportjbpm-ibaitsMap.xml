@@ -19,4 +19,10 @@
  	<sqlMap resource="com/gotop/reportjbpm/map/T_APPROVAL_SqlMap.xml" />
 
     <sqlMap resource="com/gotop/reportjbpm/map/T_JOBWORKLOAD_SqlMap.xml" />
+    
+    <sqlMap resource="com/gotop/reportjbpm/map/T_PROCESSUSEDTIMEREPORT_SqlMap.xml" />
+    
+    <sqlMap resource="com/gotop/reportjbpm/map/T_TIMELIMITCONDITIONREPORT_SqlMap.xml" />
+    
+    <sqlMap resource="com/gotop/reportjbpm/map/T_SXAPPROVALREPORT_SqlMap.xml" />
 </sqlMapConfig>

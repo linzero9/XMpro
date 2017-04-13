@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="T_TIMELIMITCONDITIONREPORT_SqlMap">
+ <resultMap id="timeLimitConditionReport" class="com.gotop.reportjbpm.model.TimeLimitConditionReport" >
+    <!--Bean方式返回全表-->
+    <result column="ORGNAMEONE" property="orgNameOne" jdbcType="VARCHAR" />
+    <result column="ORGNAMETWO" property="orgNameTwo" jdbcType="VARCHAR" />
+    <result column="ONECATEGORY" property="oneCategory" jdbcType="VARCHAR" />
+    <result column="LOANCATEGORY" property="loanCategory" jdbcType="VARCHAR" />
+    <result column="ZDCUSTMANAGER" property="zdCustManager" jdbcType="VARCHAR" />
+    <result column="ZHGPDTIME" property="zhgpdTime" jdbcType="VARCHAR" />
+    <result column="REVIEWAPPROVALONETIME" property="reviewApprovalOneTime" jdbcType="VARCHAR" />
+    <result column="REVIEWAPPROVALTHREEORMORETIME" property="reviewApprovalThreeOrMoreTime" jdbcType="VARCHAR" />
+    <result column="ALLPROCESSTIMEONE" property="allProcessTimeOne" jdbcType="VARCHAR" />
+    <result column="ALLPROCESSTIMETWO" property="allProcessTimeTwo" jdbcType="VARCHAR" />
+    <result column="ZLWZHAPPROVALTIME" property="zlwzhApprovalTime" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  
+  
+  	<!-- 查询时限情况统计报表 -->
+	<select id="queryTimeLimitConditionReportList" parameterClass="java.util.HashMap" resultMap="timeLimitConditionReport">
+	SELECT ORGNAMEONE,
+       ORGCODETWO,
+       ORGNAMETWO,
+       ONECATEGORY,
+       LOANCATEGORY,
+       '天' as ZDCUSTMANAGER,
+       '天' as ZHGPDTIME,
+       '天' as REVIEWAPPROVALONETIME,
+       '天' as REVIEWAPPROVALTHREEORMORETIME,
+       '天' as ALLPROCESSTIMEONE,
+       '天' as ALLPROCESSTIMETWO,
+       '天' as ZLWZHAPPROVALTIME
+  FROM (SELECT O1.ORGNAME AS ORGNAMEONE,
+               T.ORGCODETWO,
+               O2.ORGNAME AS ORGNAMETWO,
+               T.ONECATEGORY,
+               T.LOANCATEGORY,
+               CEIL(TO_DATE(P1.PRE_TASK_TIME, 'yyyy-mm-dd hh24:mi:ss') -
+                    TO_DATE(T.CREATE_TIME, 'yyyy-mm-dd hh24:mi:ss')) TMP_TIME
+          FROM T_GENERALPROCESS_MODELONE T,
+               OM_ORGANIZATION           O1,
+               OM_ORGANIZATION           O2,
+               OM_EMPLOYEE               E1,
+               T_PROCESS_TASK_ASSIGNEE   P1
+         WHERE T.ORGCODEONE = O1.ORGCODE
+           AND T.ORGCODETWO = O2.ORGCODE(+)
+           AND T.CREATOR = E1.EMPID
+           AND T.FLOW_ID = P1.EXECUTION_ID
+           AND P1.NEXT_ACTIVITY_NAME = '结束')
+ GROUP BY ORGNAMEONE, ORGCODETWO, ORGNAMETWO, ONECATEGORY, LOANCATEGORY
+	
+	</select>
+      
+     
+	 
+
+</sqlMap>

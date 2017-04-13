@@ -41,7 +41,6 @@ public class SessionIterceptor extends AbstractInterceptor {
 	public String intercept(ActionInvocation actionInvocation) throws Exception {
 //		ConfigDebugInterceptor cdir = new ConfigDebugInterceptor();
 //		cdir.intercept(actionInvocation);
-		
 		//登录action不拦截
 		String actionName = actionInvocation.getProxy().getActionName();
         if ("login_login".equals(actionName) || "queryLoginUserOrg_login".equals(actionName)|| "isLoginFun_login".equals(actionName)) {

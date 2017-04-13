@@ -164,6 +164,7 @@ public class LoginActionTyjg extends BaseAction {
 			MessageDigest md5 = MessageDigest.getInstance("MD5");
 			sun.misc.BASE64Encoder baseEncoder = new sun.misc.BASE64Encoder();
 			Encryption= baseEncoder.encode(md5.digest(passw.getBytes("utf-8")));
+			sun.misc.BASE64Decoder basedecoder = new sun.misc.BASE64Decoder();
 		}else{
 			Encryption = passw;
 		}

@@ -125,7 +125,7 @@
 								资料完整后审批时间
 							</th>
 						</tr>
-                           <l:iterate property="errorStatisticList" id="id1">
+                           <l:iterate property="timeLimitConditionReportList" id="id1">
 							<tr class="<l:output evenOutput='EOS_table_row' oddOutput='EOS_table_row_o'  />">
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1" property="orgNameOne" />

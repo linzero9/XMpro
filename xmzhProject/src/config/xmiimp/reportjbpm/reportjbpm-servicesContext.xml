@@ -33,4 +33,16 @@
     <property name="jobWorkloadDao" ref="jobWorkloadDao" />
   </bean>
   
+  <bean id="processUsedTimeReportService" class="com.gotop.reportjbpm.service.impl.ProcessUsedTimeReportService" >
+    <property name="processUsedTimeReportDao" ref="processUsedTimeReportDao" />
+  </bean>
+  
+  <bean id="timeLimitConditionReportService" class="com.gotop.reportjbpm.service.impl.TimeLimitConditionReportService" >
+    <property name="timeLimitConditionReportDao" ref="timeLimitConditionReportDao" />
+  </bean>
+  
+  
+  <bean id="sxApprovalReportService" class="com.gotop.reportjbpm.service.impl.SxApprovalReportService" >
+    <property name="sxApprovalReportDao" ref="sxApprovalReportDao" />
+  </bean>
 </beans>

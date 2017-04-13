@@ -47,5 +47,24 @@
       <bean name="jobWorkloadAction" id="jobWorkloadAction" class="com.gotop.reportjbpm.action.JobWorkloadAction" singleton="false" >
          <property name="jobWorkloadService" ref="jobWorkloadService" />
      </bean>
-
+     
+ <bean name="processUsedTimeReport" id="processUsedTimeReport" class="com.gotop.reportjbpm.model.ProcessUsedTimeReport" singleton="false" ></bean> 
+  <bean name="processUsedTimeReportAction" id="processUsedTimeReportAction" class="com.gotop.reportjbpm.action.ProcessUsedTimeReportAction" singleton="false" >
+   <property name="processUsedTimeReportService" ref="processUsedTimeReportService" />
+    <property name="processUsedTimeReport" ref="processUsedTimeReport" />
+  </bean>
+  
+   <bean name="timeLimitConditionReport" id="timeLimitConditionReport" class="com.gotop.reportjbpm.model.TimeLimitConditionReport" singleton="false" ></bean> 
+   <bean name="timeLimitConditionReportAction" id="timeLimitConditionReportAction" class="com.gotop.reportjbpm.action.TimeLimitConditionReportAction" singleton="false" >
+     <property name="timeLimitConditionReportService" ref="timeLimitConditionReportService" />
+    <property name="timeLimitConditionReport" ref="timeLimitConditionReport" />
+  </bean>
+  
+  
+  
+   <bean name="sxApprovalReport" id="sxApprovalReport" class="com.gotop.reportjbpm.model.SxApprovalReport" singleton="false" ></bean>
+   <bean name="sxApprovalReportAction" id="sxApprovalReportAction" class="com.gotop.reportjbpm.action.SxApprovalReportAction" singleton="false" >
+    <property name="sxApprovalReportService" ref="sxApprovalReportService" />
+    <property name="sxApprovalReport" ref="sxApprovalReport" />
+  </bean>
 </beans>

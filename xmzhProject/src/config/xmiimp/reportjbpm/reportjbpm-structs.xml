@@ -103,7 +103,31 @@
 		
 		
 
+		<action name="processUsedTimeReportAction_*" class="processUsedTimeReportAction"
+			method="{1}">
+			<result name="processUsedTimeReportList">
+				/jsp/ReportStatistics/Report_ProcessUsedTime.jsp
+			</result>
 
+		</action>
+		
+		<action name="timeLimitConditionReportAction_*" class="timeLimitConditionReportAction"
+			method="{1}">
+			<result name="timeLimitConditionReportList">
+				/jsp/ReportStatistics/Report_TimeLimitCondition.jsp
+			</result>
+
+		</action>
+
+
+
+		<action name="sxApprovalReportAction_*" class="sxApprovalReportAction"
+			method="{1}">
+			<result name="sxApprovalReportList">
+				/jsp/ReportStatistics/Report_SxApproval.jsp
+			</result>
+
+		</action>
 	</package>
 
 </struts>

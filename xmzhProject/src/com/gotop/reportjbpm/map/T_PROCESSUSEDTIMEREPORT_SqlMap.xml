@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="T_PROCESSUSEDTIMEREPORT_SqlMap">
+ <resultMap id="processUsedTimeReport" class="com.gotop.reportjbpm.model.ProcessUsedTimeReport" >
+    <!--Bean方式返回全表-->
+    <result column="ORGNAMEONE" property="orgNameOne" jdbcType="VARCHAR" />
+    <result column="ORGNAMETWO" property="orgNameTwo" jdbcType="VARCHAR" />
+    <result column="ONECATEGORY" property="oneCategory" jdbcType="VARCHAR" />
+    <result column="LOANCATEGORY" property="loanCategory" jdbcType="VARCHAR" />
+    <result column="TIMELIMITTYPE" property="timeLimitType" jdbcType="VARCHAR" />
+    <result column="ONEDAYSDEALNUM" property="onedaysDealNum" jdbcType="VARCHAR" />
+    <result column="TWODAYSDEALNUM" property="twodaysDealNum" jdbcType="VARCHAR" />
+    <result column="THREEDAYSDEALNUM" property="threedaysDealNum" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  
+  
+  	<!-- 查询流程用时情况统计报表 -->
+	<select id="queryProcessUsedTimeReportList" parameterClass="java.util.HashMap" resultMap="processUsedTimeReport">
+	SELECT ORGNAMEONE,
+       ORGCODETWO,
+       ORGNAMETWO,
+       ONECATEGORY,
+       LOANCATEGORY,
+       '天' as TIMELIMITTYPE,
+       SUM(CASE
+             WHEN tmp_time = 1 THEN
+              1
+             ELSE
+              0
+           END) ONEDAYSDEALNUM,
+       SUM(CASE
+             WHEN tmp_time = 2 THEN
+              1
+             ELSE
+              0
+           END) TWODAYSDEALNUM,
+       SUM(CASE
+             WHEN tmp_time >= 3 THEN
+              1
+             ELSE
+              0
+           END) THREEDAYSDEALNUM
+  FROM (SELECT O1.ORGNAME AS ORGNAMEONE,
+               T.ORGCODETWO,
+               O2.ORGNAME AS ORGNAMETWO,
+               T.ONECATEGORY,
+               T.LOANCATEGORY,
+               CEIL(TO_DATE(P1.PRE_TASK_TIME, 'yyyy-mm-dd hh24:mi:ss') -
+                    TO_DATE(T.CREATE_TIME, 'yyyy-mm-dd hh24:mi:ss')) TMP_TIME
+          FROM T_GENERALPROCESS_MODELONE T,
+               OM_ORGANIZATION           O1,
+               OM_ORGANIZATION           O2,
+               OM_EMPLOYEE               E1,
+               T_PROCESS_TASK_ASSIGNEE   P1
+         WHERE T.ORGCODEONE = O1.ORGCODE
+           AND T.ORGCODETWO = O2.ORGCODE(+)
+           AND T.CREATOR = E1.EMPID
+           AND T.FLOW_ID = P1.EXECUTION_ID
+           AND P1.NEXT_ACTIVITY_NAME = '结束'
+           AND P1.business_type = '88')
+ GROUP BY ORGNAMEONE, ORGCODETWO, ORGNAMETWO, ONECATEGORY, LOANCATEGORY
+	
+	</select>
+      
+     
+	 
+
+</sqlMap>

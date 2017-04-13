@@ -40,7 +40,7 @@
 			</table>
 		</w:panel>
 	</h:form>
-	<DIV class="divList">
+	<DIV class="divList"    style="overflow-y:scroll;height: 70%"   >
 			<w:panel id="panel" width="100%" title="授信审批统计列表">
 				<viewlist id="e2c61865-3b56-470d-bd42-fff792fb9493">
 				<h:form name="page_form"
@@ -54,75 +54,93 @@
 		    
 					<table align="center" border="0" width="100%" class="EOS_table">
 		           <tr>
-							<th nowrap="nowrap"  rowspan="3">
+							<l:empty property="sxApprovalReportTitleList">
+							
+							<th nowrap="nowrap">
+								一级支行
+							</th>
+							<th nowrap="nowrap" >
+								二级支行
+							</th>
+							<th nowrap="nowrap">
+								列出所有一级分类
+							</th>
+							</l:empty>
+							<l:notEmpty property="sxApprovalReportTitleList">
+								<th nowrap="nowrap"  rowspan="3">
 								一级支行
 							</th>
 							<th nowrap="nowrap"  rowspan="3">
 								二级支行
 							</th>
-							<th nowrap="nowrap"  rowspan="1"   colspan="6">
+							<th nowrap="nowrap"  rowspan="1"   colspan='<b:write property="sxApprovalReportTitleList.size()*2" />' >
 								列出所有一级分类
 							</th>
 							</tr>
 							<tr>
+							
+                           <l:iterate property="sxApprovalReportTitleList" id="id1">
 							<th nowrap="nowrap" rowspan="1"   colspan="2">
-								个商
+							<b:write iterateId="id1" property="oneCategory" />
 							</th>
-							<th nowrap="nowrap" rowspan="1"   colspan="2">
-								公积金
-							</th>
-							<th nowrap="nowrap" rowspan="1"   colspan="2">
-								综合消费类
-					       </th>
+							
+						</l:iterate>
 					       </tr>
 					       <tr>
+					      <l:iterate property="sxApprovalReportTitleList" id="id2">
 							<th nowrap="nowrap">
 								笔数
 					       </th>
 					       <th nowrap="nowrap">
 								金额
 							</th>
-							<th nowrap="nowrap">
-								笔数
-					       </th>
-					       <th nowrap="nowrap">
-								金额
-							</th>
-							<th nowrap="nowrap">
-								笔数
-					       </th>
-					       <th nowrap="nowrap">
-								金额
-							</th>
+							</l:iterate>
+							
 						</tr>
-                           <l:iterate property="errorStatisticList" id="id1">
-							<tr class="<l:output evenOutput='EOS_table_row' oddOutput='EOS_table_row_o'  />">
-								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="orgNameOne" />
+							</l:notEmpty>
+							<b:write property="orgNameOne" />
+							<l:iterate property="sxApprovalReportOrgNameOneList" id="id3">
+							<tr  >
+							<!-- 一级支行 -->
+							<%if %>
+								<td nowrap="nowrap" rowspan='<b:write property="3" />'> 
+								<b:write iterateId="id3" property="orgNameOne" />
+							<!-- 二级支行 -->
+								<td nowrap="nowrap" > 
+								1111
 								</td>
-								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="orgNameTwo" />
+								<!-- 类型值 -->
+								<td nowrap="nowrap" > 
+								222
 								</td>
-								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="oneCategory" />
-								</td>
-								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="loanCategory" />
-								</td>
-								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="approvalTimeType" />
-								</td>
-								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="onedaysDealNum" />
-								</td>
-								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="twodaysDealNum" />
-								</td>
-								<td nowrap="nowrap"> 
-									<b:write iterateId="id1" property="threedaysDealNum" />
+								<td nowrap="nowrap" > 
+								2223
 								</td>
 							</tr>
-						</l:iterate>
+							<tr  >
+								<td nowrap="nowrap" > 
+								1111
+								</td>
+								<td nowrap="nowrap" > 
+								222
+								</td>
+								<td nowrap="nowrap" > 
+								2223
+								</td>
+							</tr>
+							<tr  >
+								<td nowrap="nowrap" > 
+								1111
+								</td>
+								<td nowrap="nowrap" > 
+								222
+								</td>
+								<td nowrap="nowrap" > 
+								2223
+								</td>
+							</tr>
+							</l:iterate>
+							
 							<tr>
               <td colspan="23" class="command_sort_area">
             

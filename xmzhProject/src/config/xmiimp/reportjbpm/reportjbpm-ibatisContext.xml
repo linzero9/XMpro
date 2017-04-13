@@ -33,4 +33,18 @@
          <bean id="jobWorkloadDao" class="com.gotop.reportjbpm.dao.impl.JobWorkloadDao" >
     <property name="sqlMapClient" ref="sqlMapClient" />
   </bean>
+  
+    <bean id="processUsedTimeReportDao" class="com.gotop.reportjbpm.dao.impl.ProcessUsedTimeReportDao" >
+    <property name="sqlMapClient" ref="sqlMapClient" />
+  </bean>
+  
+  
+    <bean id="timeLimitConditionReportDao" class="com.gotop.reportjbpm.dao.impl.TimeLimitConditionReportDao" >
+    <property name="sqlMapClient" ref="sqlMapClient" />
+  </bean>
+  
+  
+    <bean id="sxApprovalReportDao" class="com.gotop.reportjbpm.dao.impl.SxApprovalReportDao" >
+    <property name="sqlMapClient" ref="sqlMapClient" />
+  </bean>
 </beans>

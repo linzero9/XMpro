@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="T_SXAPPROVALREPORT_SqlMap">
+ <resultMap id="sxApprovalReport" class="com.gotop.reportjbpm.model.SxApprovalReport" >
+    <!--Bean方式返回全表-->
+    <result column="ONECATEGORY" property="oneCategory" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  
+  
+  	<!-- 查询时限情况统计报表标题头 -->
+	<select id="querySxApprovalReportTitleList" parameterClass="java.util.HashMap" resultMap="sxApprovalReport">
+	select distinct
+       T.ONECATEGORY
+  FROM T_GENERALPROCESS_MODELONE T,
+       OM_ORGANIZATION           O1,
+       OM_ORGANIZATION           O2,
+       OM_EMPLOYEE               E1,
+       T_PROCESS_TASK_ASSIGNEE   P1
+ WHERE T.ORGCODEONE = O1.ORGCODE
+   AND T.ORGCODETWO = O2.ORGCODE(+)
+   AND T.CREATOR = E1.EMPID
+   AND T.FLOW_ID = P1.EXECUTION_ID
+   AND P1.NEXT_ACTIVITY_NAME = '结束'
+   AND P1.BUSINESS_TYPE = '88'
+ORDER BY ONECATEGORY asc
+	
+	</select>
+      
+     
+	 
+	 
+	 <resultMap id="sxApprovalReport1" class="com.gotop.reportjbpm.model.SxApprovalReport" >
+    <!--Bean方式返回全表-->
+    <result column="ORGNAMEONE" property="orgNameOne" jdbcType="VARCHAR" />
+    <result column="ORGNAMETWO" property="orgNameTwo" jdbcType="VARCHAR" />
+    <result column="ONECATEGORYNUM" property="oneCategoryNum" jdbcType="VARCHAR" />
+    <result column="ONECATEGORYMONEY" property="oneCategoryMoney" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  
+  
+  	<!-- 查询时限情况统计报表 -->
+	<select id="querySxApprovalReportList" parameterClass="java.util.HashMap" resultMap="sxApprovalReport1">
+	select t.ORGNAMEONE,t.ORGNAMETWO,t.ONENUM ONECATEGORYNUM,t.ONEMONEY ONECATEGORYMONEY from lm_test t
+	
+	</select>
+
+
+
+ 
+	 
+	 <resultMap id="sxApprovalReport2" class="com.gotop.reportjbpm.model.SxApprovalReport" >
+    <!--Bean方式返回全表-->
+    <result column="ORGNAMEONE" property="orgNameOne" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  
+  
+  	<!-- 查询时限情况统计报表 -->
+	<select id="querySxApprovalReportOrgNameOneList" parameterClass="java.util.HashMap" resultMap="sxApprovalReport2">
+		SELECT distinct O1.ORGNAME AS ORGNAMEONE, O1.DISPLAYORDER, O1.ORGCODE
+	  FROM T_GENERALPROCESS_MODELONE T,
+	       OM_ORGANIZATION           O1,
+	       OM_ORGANIZATION           O2,
+	       OM_EMPLOYEE               E1,
+	       T_PROCESS_TASK_ASSIGNEE   P1
+	 WHERE T.ORGCODEONE = O1.ORGCODE
+	   AND T.ORGCODETWO = O2.ORGCODE(+)
+	   AND T.CREATOR = E1.EMPID
+	   AND T.FLOW_ID = P1.EXECUTION_ID
+	   AND P1.NEXT_ACTIVITY_NAME = '结束'
+	   AND P1.BUSINESS_TYPE = '88'
+	union
+	select '合计' as ORGNAMEONE, '' as DISPLAYORDER, '' as ORGCODE
+	  from dual
+	 ORDER BY DISPLAYORDER, ORGCODE
+	
+	</select>
+</sqlMap>
